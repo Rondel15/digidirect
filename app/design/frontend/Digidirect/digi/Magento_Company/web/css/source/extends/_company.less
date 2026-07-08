@@ -1,0 +1,476 @@
+/*
+    Created on : Oct 05, 2023
+    Author     : Jireh Capao
+*/
+
+& when (@media-common = true) {
+    
+    .login-container .block-new-company {
+        width: 420px !important;
+        margin-top: 50px;
+    }
+
+    .company-account-create .page-main>.page-title-wrapper .page-title {
+        display: none !important;
+    }
+
+    .company-account-create .page-title-wrapper {
+        padding-top: unset !important;
+    }
+
+    .company-account-create .columns .main .form-create-account {
+        width: 100% !important;
+    }
+
+    .form-create-account .fieldset, .form-create-account .actions-toolbar {
+        max-width: 800px !important;
+    }
+
+    
+    // jireh code
+    .b2bregbox {
+        max-width: 900px;
+        min-width: 420px;
+        margin: 0 auto;
+        border: 1px solid #aaaaaa;
+        padding: 50px 0;
+        margin-top: 35px !important;
+
+        label.label {
+            display: none !important;
+        }
+
+        .control {
+            // border-bottom: 1px solid  #727272;
+            border-bottom: 1px solid #b6b6b6;
+           
+        }
+
+        input[type="text"], input[type="password"], input[type="url"], input[type="tel"], input[type="search"], input[type="number"], input[type="datetime"], input[type="email"] {
+            border: none !important;
+            height: 20px !important;
+            padding-left: 0;
+        }
+
+        // input::placeholder {
+        //     // background: linear-gradient(to right, red 2.2em, blue 2.2em);
+        //     background: linear-gradient(to right, red 5em, blue 1em);
+        //     background-clip: text;
+        //     color: transparent;
+        // }
+
+        input#firstname::placeholder {
+            background: linear-gradient(to right, gray 5.3em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#lastname::placeholder {
+            background: linear-gradient(to right, gray 5.3em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#job_title::placeholder {
+            background: linear-gradient(to right, gray 4em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#email_address::placeholder {
+            background: linear-gradient(to right, gray 7em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#company_name::placeholder {
+            background: linear-gradient(to right, gray 8.5em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#legal_name::placeholder {
+            background: linear-gradient(to right, gray 11.2em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#company_email::placeholder {
+            background: linear-gradient(to right, gray 8em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#abn::placeholder {
+            background: linear-gradient(to right, gray 2em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         
+         input#street0::placeholder {
+            background: linear-gradient(to right, gray 7.2em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#city::placeholder {
+            background: linear-gradient(to right, gray 2em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#postcode::placeholder {
+            background: linear-gradient(to right, gray 7.9em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+
+         input#telephone::placeholder {
+            background: linear-gradient(to right, gray 7.4em, red 1em);
+             background-clip: text;
+             color: transparent;
+         }
+ 
+
+        
+        select {
+            // border: 2px solid #e1e1e1 !important;
+            border: none !important;
+            height: 20px !important;
+            padding: unset !important;
+            padding-left: 0;
+
+            option:first {
+                color: #727272;
+            }
+
+        }
+
+        input:focus, select:focus{
+            outline: none !important;
+        }
+
+        .title-text-orange {
+            color: #ff6600;
+        }
+
+        .redirection-login {
+            margin-left: 46px;
+            a {
+                color: #727272;
+                text-decoration: none;
+            }
+        }
+
+
+        * {
+            box-sizing: border-box;
+        }
+          
+          /* Create two equal columns that floats next to each other */
+        .b2b-column, .field-name-firstname, .field-name-lastname, .gender {
+            float: left;
+            width: 50% !important;
+            // padding-right: 10px;
+            // height: 300px; /* Should be removed. Only for demonstration */
+        }
+          
+        /* Clear floats after the columns */
+        .b2b-row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .p-r, .field-name-firstname {
+            padding-right: 10px;
+        }
+
+        .actions-toolbar > .primary, .actions-toolbar > .secondary {
+            text-align: left !important;
+            vertical-align: middle !important;
+        }
+
+        .actions-toolbar .primary {
+            float: unset !important;
+        }
+
+    }
+
+
+    // company account
+    .block-dashboard-company .box-actions button {
+        color: #000 !important;
+        background: 0 0 !important;
+    }
+    
+    .block-dashboard-company .box-actions button span {
+        color: #000 !important;
+        background: 0 0 !important;
+    }
+    
+    
+    .block-dashboard-company .box-actions button:hover {
+        color: #000 !important;
+    
+    }
+    
+    .block-dashboard-company .box-actions a {
+        color: #000 !important;
+    }
+
+    a.company-admin {
+        color: #000;
+    }
+
+    .block-dashboard-company .jstree .jstree-clicked {
+        background-color: #ff3c00;
+        color: #fff !important;
+    }
+
+    .form-create-purchase-order-rule {
+        input[type=checkbox]:checked+label:after {
+            top: 10px !important;
+            left: 4px;
+            width: 30px !important;
+            height: 18px !important;
+            border: 2px solid lightgray !important;
+            transform: unset;
+        }
+    }
+
+    // rule approval
+    input[type=checkbox]:checked+label:before {
+        border-color: lightgray !important;
+        background-color: #f5f5f5 !important;
+    }
+
+    .form-create-purchase-order-rule .field-condition-order-total>.control>.control {
+        max-width: 98% !important;
+        margin: 10px;
+
+    }
+
+    .form-create-purchase-order-rule .additional>.control>input {
+        max-width: unset !important;
+        // margin: 10px;
+        border: 1px solid #cfcfcf !important;
+
+    }
+
+    #condition_approvers input[type=checkbox]:checked+label:before {
+        font-family: 'Font Awesome 5 Free';
+        content: "\f00c";
+        font-weight: 900;
+    }
+
+    #condition_approvers input[type=checkbox]:checked+label:after {
+        display: none !important;
+    }
+
+    // #condition_approvers {
+    //     height: 50px;
+    //     font-size: 1.4rem;
+    //     border-color: #e1e1e1;
+    //     color: #222;
+    // }
+
+    #condition_approvers .admin__action-group-wrap .admin__action-multiselect-actions-wrap .action-secondary {
+        background: #ff6600 !important;
+        border: 1px solid #ff6600 !important;
+    }
+
+    #condition_approvers .admin__action-group-wrap .admin__action-multiselect-actions-wrap .action-secondary:hover {
+       opacity: 0.8 !important;
+    }
+
+    
+    // .admin__action-group-wrap .admin__action-multiselect-actions-wrap .action-secondary {
+    //     background: #ff6600 !important;
+    //     border: 1px solid #ff6600 !important;
+    // }
+
+
+    // Purchase order
+    .purchase-order-data-items {
+
+        .data-grid-multicheck-cell, .data-grid-checkbox-cell {
+            display: none;
+        }
+
+        .action-select-wrap {
+            display: none;
+        }
+
+    }
+
+
+
+    // requisition
+    .most-bottom-product-info {
+        display: block !important;
+
+        .block.block-requisition-list.social-button span {
+            color: #000 !important;
+            margin-left: 15px !important;
+        }
+
+        .requisition-list-action>.action.toggle {
+            padding: unset !important;
+        }
+
+        .requisition-list-action .action.toggle:after {
+                color: #ff3000 !important;
+                font-weight: 700 !important;
+                font-size: 19px !important;
+        }
+
+        .social-button .requisition-list-button:before {
+            color: #ff3000 !important;
+        }
+
+        .button {
+            width: unset !important;
+            // padding: unset !important;
+            background: transparent !important;
+            // background: #ff3000 !important;
+            padding: 15px !important;
+            border-radius: 5px;
+            border: 1px solid #ff3000;
+        }
+
+        button.action.requisition-list-button.toggle.change.active {
+            background: #ff3000 !important;
+            // padding: 15px !important;
+            border-radius: 5px;
+
+            span, ::after, ::before {
+                color: #fff !important;
+            }
+
+            
+        }
+
+        button.action.requisition-list-button.toggle.change {
+            span, ::after, ::before {
+                color: #ff3000 !important;
+            }
+
+            background: transparent !important;
+        }
+
+        .split.button.requisition-list-action.active {
+            background: #ff3000 !important;
+            
+            ::after, ::before {
+                color: #fff !important;
+            }
+
+        }
+
+      .requisition-list-action {
+        .list-items {
+            li {
+                color: #000 !important;
+            }
+        }
+      }
+
+    
+        // modal
+        aside.modal-popup.modal-slide.requisition-popup.add_to_requisition_popup._show {
+            .modal-content {
+                padding-left: 3rem !important;
+                padding-right: 3rem !important;
+                padding-top: 2rem !important;
+            }
+        }
+
+        button.action.secondary.cancel {
+            background: #ff3000 !important;
+            opacity: 0.8;
+            padding: 10px 15px !important;
+        }
+
+        .product-addto-links {
+            border: none !important;
+            // border: 1px solid #ff6600;
+            height: auto !important;
+        }
+
+        
+        .towishlist {
+            display: none !important;
+        }
+
+        .live-chat-additional {
+            display: none !important;
+        }
+    }
+    
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    
+}
+
+
+@media screen and (max-width: 780px) {
+    .b2bregbox {
+        max-width: unset !important;
+        min-width: unset !important;
+        margin: 0 auto;
+        // border: unset;
+        // padding: 50px 0;
+        padding: 15px !important;
+
+        .redirection-login {
+            margin-left: unset !important;
+            a {
+                color: #727272;
+                text-decoration: none;
+            }
+        }
+
+        .actions-toolbar {
+            margin-left: unset !important;
+        }
+
+        .b2b-column, .field-name-firstname, .field-name-lastname, .gender {
+            float: left;
+            width: 100% !important;
+            // padding-right: 10px;
+            // height: 300px; /* Should be removed. Only for demonstration */
+        }
+
+        .p-r, .field-name-lastname {
+            padding-right: unset !important;
+        }
+
+        select {
+            height: 40px !important;
+        }
+
+    }
+ 
+
+}
+    
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+    
+}

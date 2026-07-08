@@ -1,0 +1,67 @@
+//
+//  Single Checkout Button
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .single-actions {
+        & {
+            padding: 9px 0 25px;
+        }
+
+        > .button.action.primary {
+            .lib-font-size(14);
+            padding: 13px 15px 12px;
+            .lib-css(background, @color-2-1);
+            .lib-css(color, @color-white);
+            border: none;
+            .lib-hover-out();
+
+            span {
+                color: #fff !important;
+            }
+        }
+
+        > .button.action.primary:hover {
+            .lib-css(background, @color-2-6);
+            .lib-hover-out();
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .single-actions {
+        & {
+            padding: 0 0 20px;
+        }
+
+        > .button.action.primary {
+            .lib-font-size(16);
+            padding: 16px 15px 14px;
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .single-actions {
+        > .button.action.primary {
+            .lib-font-size(18);
+            padding: 24px 15px 22px;
+        }
+    }
+}

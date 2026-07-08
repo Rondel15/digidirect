@@ -1,0 +1,71 @@
+//
+//  Collect store locator:search
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@collect-locator-field__height: 50px;
+@collect-locator-gps-icon__size: 34px;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .locator-search.-collect {
+        & {
+            padding: 10px 0;
+            margin: 0 0 14px;
+        }
+        
+        .input-group {
+            display: block;
+            position: relative;
+        }
+        
+        .button.-loupe {
+            .lib-css(color, @primary__color);
+            .lib-css(width, @collect-locator-field__height - 10px);
+            .lib-css(height, @collect-locator-field__height - 4px);
+            .lib-css(background, @color-white);
+    
+            padding: 0;
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            text-align: center;
+        }
+    
+        .button.-loupe .svg-icon {
+            width: 50%;
+            height: 50%;
+        }
+        
+        .input-text {
+            .lib-css(height, @collect-locator-field__height);
+        }
+    
+        .control.-search {
+            .lib-css(padding-left, @collect-locator-gps-icon__size + 10px);
+            
+            position: relative;
+        }
+        
+        .control.-search > .label.-icon {
+            .lib-css(top, (@collect-locator-field__height - @collect-locator-gps-icon__size) / 2);
+            
+            position: absolute;
+            left: 0;
+            transition: color .3s ease;
+        }
+    
+        .label.-icon > .svg-icon {
+            .lib-css(width, @collect-locator-gps-icon__size);    
+            .lib-css(height, @collect-locator-gps-icon__size);
+        }
+    
+        .input-search:focus ~ .label.-icon {
+            .lib-css(color, @color-orange-red1);
+        }
+    }
+}

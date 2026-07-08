@@ -1,0 +1,796 @@
+
+<?php
+
+if(isset($_POST['button']) && isset($_FILES['attachment']))
+{
+	$recipient_email = 'digimarket@digidirect.com.au'; //recipient email address
+	// $recipient_email = 'jireh.c@digidirect.com.au'; //developer email
+	$businessname = $_POST["businessname"];
+	$legalname = $_POST["legalname"];
+	$businessEmail = $_POST["businessEmail"];
+	$abn = $_POST["abn"];
+	$jobtitle = $_POST["jobtitle"];
+	$title = $_POST["title"];
+	$firstname = $_POST["firstname"];
+	$lastname = $_POST["lastname"];
+	$adminEmail = $_POST["adminEmail"];
+	$purchasingEmail = $_POST["purchasingEmail"];
+	$emailcc = $_POST["emailcc"];
+	$phone = $_POST["phone"];
+	$remittancedetails = $_POST["remittancedetails"];
+	$categories = implode(", ", $_POST['categories']);
+	$category_other = $_POST["category_other"];
+	$website = $_POST["website"];
+	$brands = $_POST["brands"];
+	$sell = implode(", ", $_POST['sell']);
+	$sell_other = $_POST["sell_other"];
+	$preferedmethod = implode(", ", $_POST['preferedmethod']);
+	$platform = $_POST["platform"];
+	$productsIntend = $_POST["productsIntend"];
+	$annual_sales = $_POST["annual_sales"];
+	// $headoffice = $_POST["headoffice"];
+	// $warehouse = $_POST["warehouse"];
+	$headoffice = implode(", ", $_POST['headoffice']);
+	$warehouse = implode(", ", $_POST['warehouse']);
+
+	$from_email = $_POST["businessname"]; //from mail, sender email address
+
+	// $note = $_POST["message"]; //body of the email
+
+	$honeypot = $_POST['faxnumber'];
+	
+
+	//Get uploaded file data using $_FILES array
+	$tmp_name = $_FILES['attachment']['tmp_name']; // get the temporary file name of the file on the server
+	$name	 = $_FILES['attachment']['name']; // get the name of the file
+	$size	 = $_FILES['attachment']['size']; // get size of the file for size validation
+	$type	 = $_FILES['attachment']['type']; // get type of the file
+	// $error	 = $_FILES['attachment']['error']; // get the error (if any)
+
+	//Load POST data from HTML form
+	$companyAdmin = $firstname." ".$lastname; //sender name
+	$subject = "DigiMarket Seller Application Form"; //subject for the email
+	$message = "\n"."\n"
+	."Business Name : "."\t".$businessname."\n"     
+	."Legal Name : "."\t".$legalname."\n"
+	."Business Email : "."\t".$businessEmail."\n"
+	."ABN : "."\t".$abn."\n"
+	."Job Position : "."\t".$jobtitle."\n" 
+	."Title : "."\t".$title."\n"
+	."Admin Fullname :"."\t".$companyAdmin."\n"
+	."Admin Email :"."\t".$adminEmail."\n"
+	."Purchasing Email :"."\t".$purchasingEmail."\n"
+	."Email CC :"."\t".$emailcc."\n" 
+	."Contact Number :"."\t".$phone."\n"
+	."Remittance Details :"."\t".$remittancedetails."\n"
+	."Categories :"."\t".$categories."\n"
+	."Other Categories :"."\t".$category_other."\n"
+	."Website :"."\t".$website."\n"
+	."Brands :"."\t".$brands."\n"
+	."Currently sell on other Marketplaces :"."\t".$sell."\n"
+	."Other Sell :"."\t".$sell."\n"
+	."Prefered method of integration :"."\t".$preferedmethod."\n"
+	."POS and eCommerce Platforms currently used :"."\t".$platform."\n" 
+	."Products Intending :"."\t".$productsIntend."\n"
+	."Estimate Annual Sales (AUD) :"."\t".$annual_sales."\n"
+	."Head Office Location :"."\t".$headoffice."\n"
+	."Warehouse Location Shipping Product from :"."\t".$warehouse."\n"."\n";
+
+
+	if (empty($tmp_name)) {
+
+		$boundary = md5("random"); // define boundary with a md5 hashed value
+		
+		//header
+		$headers = "MIME-Version: 1.0\r\n"; // Defining the MIME version
+		$headers .= "From:".$from_email."\r\n"; // Sender Email
+		$headers.='Bcc: Jai <jireh.c@digidirect.com.au>';
+
+		$headers .= "Content-Type: multipart/mixed;"; // Defining Content-Type
+		$headers .= "boundary = $boundary\r\n"; //Defining the Boundary
+
+		//plain text
+		$body = "--$boundary\r\n";
+		$body .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
+		$body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode($message));
+	
+	}else {
+
+		//read from the uploaded file & base64_encode content
+		$handle = fopen($tmp_name, "r"); // set the file handle only for reading the file
+		$content = fread($handle, $size); // reading the file
+		fclose($handle);				 // close upon completion
+
+		$encoded_content = chunk_split(base64_encode($content));
+		$boundary = md5("random"); // define boundary with a md5 hashed value
+
+		//header
+		$headers = "MIME-Version: 1.0\r\n"; // Defining the MIME version
+		$headers .= "From:".$from_email."\r\n"; // Sender Email
+		$headers.='Bcc: Jai <jireh.c@digidirect.com.au>';
+
+		$headers .= "Content-Type: multipart/mixed;"; // Defining Content-Type
+		$headers .= "boundary = $boundary\r\n"; //Defining the Boundary
+			
+		//plain text
+		$body = "--$boundary\r\n";
+		$body .= "Content-Type: text/plain; charset=ISO-8859-1\r\n";
+		$body .= "Content-Transfer-Encoding: base64\r\n\r\n";
+		$body .= chunk_split(base64_encode($message));
+
+		//attachment
+		$body .= "--$boundary\r\n";
+		$body .="Content-Type: $type; name=".$name."\r\n";
+		$body .="Content-Disposition: attachment; filename=".$name."\r\n";
+		$body .="Content-Transfer-Encoding: base64\r\n";
+		$body .="X-Attachment-Id: ".rand(1000, 99999)."\r\n\r\n";
+		$body .= $encoded_content; // Attaching the encoded file with email
+
+
+	}
+
+	if( ! empty( $honeypot ) ){
+
+		echo '<script>window.location.href = "https://www.youtube.com/";</script>';
+
+	}else {
+
+		$sentMailResult = mail($recipient_email, $subject, $body, $headers);
+
+		if($sentMailResult ){
+			echo "<p class='successmessage'>Successfully Sent. Thank You"." ".$companyAdmin."!."."</p>";
+			// unlink($name); // delete the file after attachment sent.
+		}
+		else{
+			die("Sorry but the email could not be sent.
+						Please go back and try again!");
+		}
+
+	}
+
+}
+?>
+
+<div id="digimarketseler_form_application">
+    <div class="container" >
+          <header><span class="title-text-orange">digi</span>Direct Marketplace Seller Application Form</header>
+
+          <form enctype="multipart/form-data" method="POST" action="">
+
+				<div class="control input-placeholder">
+					<input type="text" id="businessname" name="businessname" required />
+					<div class="placeholder">Business Name<span>*</span></div>
+				</div>
+				
+				<div class="control input-placeholder">
+					<input type="text" id="legalname" name="legalname" required />
+					<div class="placeholder">Legal Trading Business Name<span>*</span></div>
+				</div>
+				
+                  
+				<div class="inline-row">
+                      <div class="row1">
+							<div class="control input-placeholder">
+								<input type="email" id="businessEmail" name="businessEmail" required />
+								<div class="placeholder">Business Email<span>*</span></div>
+							</div>
+                      </div>
+                      <div class="row1 input-placeholder">
+							<div class="control">
+								<input type="text" id="abn" name="abn" required/>
+								<div class="placeholder">ABN<span>*</span></div>
+							</div>
+                      </div>
+                </div>
+				
+				<div class="inline-row">
+                      <div class="row1">
+							<div class="control input-placeholder">
+								<input type="text" id="jobtitle" name="jobtitle" required />
+								<div class="placeholder">Job Role or Position in the Company<span>*</span></div>
+							</div>
+                      </div>
+                      <div class="row1">
+							<div class="control input-placeholder select-title">
+								<select name="title" id="title" style='color:gray; font-weight:400;' oninput='style.color="#323232"' required>
+									<option value="" disabled selected></option>
+									<option value="Dr.">Dr.</option>
+									<option value="Mrs.">Mrs.</option>
+									<option value="Ms.">Ms.</option>
+									<option value="Mr.">Mr.</option>
+									<option value="Other">Other</option>
+								</select>
+								<div class="placeholder title-label">Title<span>*</span></div>
+							</div>
+                      </div>
+                </div>
+
+                <div class="inline-row">
+                      <div class="row1">
+							<div class="control input-placeholder">
+								<input type="text" id="firstname" name="firstname" required/>
+								<div class="placeholder">First Name<span>*</span></div>
+							</div>
+                      </div>
+                      <div class="row1 input-placeholder">
+							<div class="control">
+								<input type="text" id="lastname" name="lastname" required/>
+								<div class="placeholder">Last Name<span>*</span></div>
+							</div>
+                      </div>
+                </div>
+
+				<div class="inline-row">
+                      <div class="row1 margin-top-extra">
+							<span>(This is the main person's email address and phone number who will be logging into the digiMarket portal. We will send things like password resets here.)</span>
+							<div class="control input-placeholder">
+								<input type="email" id="adminEmail" name="adminEmail" required />
+								<div class="placeholder">Admin Email<span>*</span></div>
+							</div>
+                      </div>
+                      <div class="row1 margin-top-extra">
+							<span>(This is the business email address of the retailer, to which we will send notifications about orders being placed and other notifications.)</span>
+							<div class="control input-placeholder">
+								<input type="email" id="purchasingEmail" name="purchasingEmail" required />
+								<div class="placeholder">Purchasing Email<span>*</span></div>
+							</div>
+                      </div>
+                </div>
+
+				<div class="inline-row">
+						<div class="row1">
+							<div class="control input-placeholder">
+								<input type="number" id="phone" name="phone" required/>
+								<div class="placeholder">Contact Number<span>*</span></div>
+							</div>
+						</div>
+
+						<div class="row1">
+							<div class="control input-placeholder">
+								<input type="email" id="emailcc" name="emailcc" placeholder="Email CC (optional)" />
+							</div>
+						</div>
+                </div>
+
+				<div class="remittance-row margin-top-extra">
+					<div class="label-title">Please also send through a bank slip and/or Company letter-head with Bank details<span>*</span></div>
+					<div class="control">
+						<textarea name="remittancedetails" id="remittancedetails" cols="10" rows="4" 
+						placeholder="Remittance Details*&#10;Account Name:&#10;BSB:&#10;Account Number:" required></textarea>
+					</div>
+				</div>
+
+				<div class="checklist-row categories margin-top-extra">
+
+					<div class="label-title">Which of the digiDirect product categories do you intend to list?<span>*</span></div>
+
+					<ul>
+						<li>
+							<label><input type="checkbox" value="Audio & Visual" name="categories[]" /> Audio & Visual</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Cameras" name="categories[]" /> Cameras</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Computers & Mobile" name="categories[]" /> Computers & Mobile</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Fitness & WellBeing" name="categories[]" /> Fitness & WellBeing</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Home Office" name="categories[]" /> Home Office</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="In-Car" name="categories[]" /> In-Car</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Instruments (Digital)" name="categories[]" /> Instruments (Digital)</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Lenses" name="categories[]" /> Lenses</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Lighting & Studio" name="categories[]" /> Lighting & Studio</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Optics (Binoculars, Telescopes etc)" name="categories[]" /> Optics (Binoculars, Telescopes etc)</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Pet Tech" name="categories[]" /> Pet Tech</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Photo Accessories" name="categories[]" /> Photo Accessories</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Pro Video" name="categories[]" /> Pro Video</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Electric Scooters, Bike, Boards" name="categories[]" /> Electric Scooters, Bike, Boards</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Seasonal (Digital, Electronic)" name="categories[]" /> Seasonal (Digital, Electronic)</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Small Appliances" name="categories[]" /> Small Appliances</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Smart Home Devices" name="categories[]" /> Smart Home Devices</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Toys (Digital, Remote, Electronic)" name="categories[]" /> Toys (Digital, Remote, Electronic)</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="" id="chkcat_other" name="categories[]" /> Other: enable a field to enter other categories</label>
+						</li>
+					</ul>
+					<div style=""><input id="category_other" name="category_other" class="category_other" size="120" type="text" value="" placeholder="Type other category here"/></div>
+				</div>
+
+				<div class="control input-placeholder">
+					<input type="url" id="website" name="website" required />
+					<div class="placeholder">Your Website<span>*</span></div>
+				</div>
+
+				<div class="control input-placeholder">
+					<input type="text" id="brands" name="brands" required />
+					<div class="placeholder">What Brands do you intend to list?<span>*</span></div>
+				</div>
+				
+				
+				<div class="checklist-row sell margin-top-extra">
+
+					<div class="label-title">Do you currently sell on other marketplaces (including abroad)? If Yes, which ones?<span>*</span></div>
+
+					<ul>
+						<li>
+							<label><input type="checkbox" value="Catch" name="sell[]" /> Catch</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Amazon" name="sell[]" /> Amazon</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="eBay" name="sell[]" /> eBay</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Bunnings" name="sell[]" /> Bunnings</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="My Deal" name="sell[]" /> My Deal</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="QANTAS" name="sell[]" /> QANTAS</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Kogan" name="sell[]" /> Kogan</label>
+						</li>
+						<!-- <li>
+							<label><input type="checkbox" value="Woolworths (including Big W)" name="sell[]" /> Woolworths (including Big W)</label>
+						</li> -->
+						<!-- <li>
+							<label><input type="checkbox" value="Coles (including K-Mart)" name="sell[]" /> Coles (including K-Mart)</label>
+						</li> -->
+						<li>
+							<label><input type="checkbox" value="JB HiFi" name="sell[]" /> JB HiFi</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="" id="chksell_other"/> Other: MP the applicant might list</label>
+						</li>
+					</ul>
+					<div style=""><input id="sell_other" name="sell_other" class="sell_other" size="120" type="text" value="" placeholder="Type other sell on marketplaces here"/></div>
+				</div>
+
+								
+				<div class="checklist-row method-integration margin-top-extra">
+
+					<div class="label-title">List your preferred shipping or carrier method with free field<span>*</span></div>
+
+					<ul>
+						<li>
+							<label><input type="checkbox" value="M-Connect (quickest if you have one of the qualified platforms, Magento, Shopify, Maropost etc)" name="preferedmethod[]" /> M-Connect (quickest if you have one of the qualified platforms,Shopify, WooComerrce, Magento, BigCommerce, Lightspeed, Maropost)</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Custom Built API connection" name="preferedmethod[]" /> Custom Built API connection</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="ChannelAdvisor integration" name="preferedmethod[]" /> ChannelAdvisor integration</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Intelligent Reach integration" name="preferedmethod[]" /> Intelligent Reach integration</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Omnivore integration" name="preferedmethod[]" /> Omnivore integration</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Comestri integration" name="preferedmethod[]" /> Comestri integration</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Other Channel Manager" name="preferedmethod[]" /> Other Channel Manager</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Manual CSV, Direct, XML Upload" name="preferedmethod[]" /> Manual CSV, Direct, XML Upload</label>
+						</li>
+						<li>
+							<label><input type="checkbox" value="Don't know yet" name="preferedmethod[]" /> Don't know yet</label>
+						</li>
+				</div>
+
+				<div class="control input-placeholder margin-top-extra">
+					<input type="text" id="platform" name="platform" required/>
+					<div class="placeholder">What POS and eCommerce platforms do you currently use?<span>*</span></div>
+				</div>
+
+				<div class="inline-row">
+                      <div class="row1 margin-top-extra">
+							<div class="control">
+								<div class="label-title">How many products are you intending to list on digiDirect?<span>*</span></div>
+								<select name="productsIntend" id="products_intend" style='color:gray; font-weight:400;' oninput='style.color="#323232"' required>
+									<option value="" disabled selected>Choose</option>
+									<option value="Under 50">Under 50</option>
+									<option value="51 - 499">51 - 499</option>
+									<option value="500 - 999">500 - 999</option>
+									<option value="1000 - 1999">1000 - 1999</option>
+									<option value="2000+">2000+</option>
+								</select>
+							</div>
+                      </div>
+                      <div class="row1 margin-top-extra">
+							<div class="control">
+								<div class="label-title">Estimate Annual Sales (AUD)<span>*</span></div>
+								<select name="annual_sales" id="annual_sales" style='color:gray; font-weight:400;' oninput='style.color="#323232"' required>
+									<option value="" disabled selected>Choose</option>
+                                    <option value="Under $20,000">Under $20,000</option>
+                                    <option value="$20,001 - $50,000">$20,001 - $50,000</option>
+                                    <option value="$50,001 - $100,000">$50,001 - $100,000</option>
+                                    <option value="$100,000 - $250,000">$100,000 - $250,000</option>
+                                    <option value="$250,001 - $500,000">$250,001 - $500,000</option>
+                                    <option value="$500,001 - $1,000,000">$500,001 - $1,000,000</option>
+                                    <option value="$1,000,001 - $5,000,000">$1,000,001 - $5,000,000</option>
+                                    <option value="$5,000,001 - $10,000,000">$5,000,001 - $10,000,000</option>
+                                    <option value="$10,000,001+">$10,000,001+</option>
+                                    <option value="Prefer not to say">Prefer not to say</option>
+								</select>
+							</div>
+
+                      </div>
+                </div>
+
+				<div class="multiselect control input-placeholder margin-top-extra">
+					<div class="label-title">Head Office Location<span>*</span></div>
+					<div class="selectBox" onclick="showCheckboxes1()">
+						<input type="text" id="headoffice" required />
+						<div class="placeholder">Choose Country<span>*</span></div>
+						<div class="overSelect"></div>
+					</div>
+					<div id="checkboxes1" class="checklist-row method-integration margin-top-extra">
+						<ul id="headoffice_country_list" >
+						</ul>
+					</div>
+				</div>
+
+				<div class="multiselect control input-placeholder margin-top-extra">
+					<div class="label-title">Warehouse Location Shipping Product from<span>*</span></div>
+					<div class="selectBox" onclick="showCheckboxes2()">
+						<input type="text" id="warehouse" required />
+						<div class="placeholder">Choose Country<span>*</span></div>
+						<div class="overSelect"></div>
+					</div>
+					<div id="checkboxes2" class="checklist-row method-integration margin-top-extra">
+						<ul id="warehouse_country_list" >
+						</ul>
+					</div>
+				</div>
+
+				<input type="text" id="faxnumber" name="faxnumber"/>
+
+				<br>
+
+				<div class="control margin-top-extra">
+					<label for="message">Attachement (optional)</label>
+					<div class="uploadfile drop-zone">
+						<span class="drop-zone__prompt1">Add file</span>
+						<span class="drop-zone__prompt2">or drop files here</span>
+						<input type="file" name="attachment" class="drop-zone__input">
+					</div>
+				</div>
+
+
+
+				<br>
+				<p>Hit submit and a digiDirect Marketplace specialist will contact you shortly.</p>
+
+				<br>
+
+				<input class="btn btn-primary" type="submit" name="button" value="Submit" />
+
+				<br><br>
+
+            </form>
+    </div>    
+
+</div>
+
+
+<script>
+var expanded = false;
+
+function showCheckboxes1() {
+  let checkboxes = document.getElementById("checkboxes1");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
+
+function showCheckboxes2() {
+  let checkboxes = document.getElementById("checkboxes2");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+</script>
+
+<script>
+document.querySelectorAll(".drop-zone__input").forEach((inputElement) => {
+const dropZoneElement = inputElement.closest(".drop-zone");
+
+  dropZoneElement.addEventListener("click", (e) => {
+    inputElement.click();
+  });
+
+  inputElement.addEventListener("change", (e) => {
+    if (inputElement.files.length) {
+      updateThumbnail(dropZoneElement, inputElement.files[0]);
+    }
+  });
+
+  dropZoneElement.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    dropZoneElement.classList.add("drop-zone--over");
+  });
+
+  ["dragleave", "dragend"].forEach((type) => {
+    dropZoneElement.addEventListener(type, (e) => {
+      dropZoneElement.classList.remove("drop-zone--over");
+    });
+  });
+
+  dropZoneElement.addEventListener("drop", (e) => {
+    e.preventDefault();
+
+    if (e.dataTransfer.files.length) {
+      inputElement.files = e.dataTransfer.files;
+      updateThumbnail(dropZoneElement, e.dataTransfer.files[0]);
+    }
+
+    dropZoneElement.classList.remove("drop-zone--over");
+  });
+});
+
+/**
+ * Updates the thumbnail on a drop zone element.
+ *
+ * @param {HTMLElement} dropZoneElement
+ * @param {File} file
+ */
+function updateThumbnail(dropZoneElement, file) {
+  let thumbnailElement = dropZoneElement.querySelector(".drop-zone__thumb");
+
+  // First time - remove the prompt
+  if (dropZoneElement.querySelector(".drop-zone__prompt")) {
+    dropZoneElement.querySelector(".drop-zone__prompt").remove();
+  }
+
+  // First time - there is no thumbnail element, so lets create it
+  if (!thumbnailElement) {
+    thumbnailElement = document.createElement("div");
+    thumbnailElement.classList.add("drop-zone__thumb");
+    dropZoneElement.appendChild(thumbnailElement);
+  }
+
+  thumbnailElement.dataset.label = file.name;
+
+  // Show thumbnail for image files
+  if (file.type.startsWith("image/")) {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      thumbnailElement.style.backgroundImage = `url('${reader.result}')`;
+    };
+  } else {
+    thumbnailElement.style.backgroundImage = null;
+  }
+}
+</script>
+
+<script>
+	function dynInputCat(cbox) {
+      if (cbox.checked) {
+        var input = document.createElement("input");
+        input.type = "text";
+        var div = document.createElement("div");
+        div.id = cbox.name;
+        // div.innerHTML = "Text to display for " + cbox.name;
+		input.name = "othercat"
+        div.appendChild(input);
+        document.getElementById("insertinputcat").appendChild(div);
+
+      } else {
+        document.getElementById(cbox.name).remove();
+      }
+    }
+
+</script>
+
+
+
+<script>
+	var arr = [
+	"Afghanistan","Åland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo, The Democratic Republic of The","Cook Islands","Costa Rica","Cote D'ivoire","Croatia","Cuba","Curaçao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-bissau","Guyana","Haiti","Heard Island and Mcdonald Islands","Holy See (Vatican City State)","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Korea, Democratic People's Republic of","Korea, Republic of","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libyan Arab Jamahiriya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia, The Former Yugoslav Republic of","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Moldova, Republic of","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestinian Territory, Occupied","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Pierre and Miquelon","Saint Vincent and The Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and The South Sandwich Islands","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Eswatini","Sweden","Switzerland","Syrian Arab Republic","Taiwan (ROC)","Tajikistan","Tanzania, United Republic of","Thailand","Timor-leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam","Virgin Islands, British","Virgin Islands, U.S.","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"
+	];
+		
+	var options="";
+	arr.map((op,i)=>{
+		options+=`<li><label><input type="checkbox" id="${i}" value="${op}" name="headoffice[]"/> ${op}</label></li>`
+	});
+
+	document.getElementById("headoffice_country_list").innerHTML=options;
+</script>
+
+<script>
+	var arr = [
+	"Afghanistan","Åland Islands","Albania","Algeria","American Samoa","Andorra","Angola","Anguilla","Antarctica","Antigua and Barbuda","Argentina","Armenia","Aruba","Australia","Austria","Azerbaijan","Bahamas","Bahrain","Bangladesh","Barbados","Belarus","Belgium","Belize","Benin","Bermuda","Bhutan","Bolivia","Bosnia and Herzegovina","Botswana","Bouvet Island","Brazil","British Indian Ocean Territory","Brunei Darussalam","Bulgaria","Burkina Faso","Burundi","Cambodia","Cameroon","Canada","Cape Verde","Cayman Islands","Central African Republic","Chad","Chile","China","Christmas Island","Cocos (Keeling) Islands","Colombia","Comoros","Congo","Congo, The Democratic Republic of The","Cook Islands","Costa Rica","Cote D'ivoire","Croatia","Cuba","Curaçao","Cyprus","Czech Republic","Denmark","Djibouti","Dominica","Dominican Republic","Ecuador","Egypt","El Salvador","Equatorial Guinea","Eritrea","Estonia","Ethiopia","Falkland Islands (Malvinas)","Faroe Islands","Fiji","Finland","France","French Guiana","French Polynesia","French Southern Territories","Gabon","Gambia","Georgia","Germany","Ghana","Gibraltar","Greece","Greenland","Grenada","Guadeloupe","Guam","Guatemala","Guernsey","Guinea","Guinea-bissau","Guyana","Haiti","Heard Island and Mcdonald Islands","Holy See (Vatican City State)","Honduras","Hong Kong","Hungary","Iceland","India","Indonesia","Iran, Islamic Republic of","Iraq","Ireland","Isle of Man","Israel","Italy","Jamaica","Japan","Jersey","Jordan","Kazakhstan","Kenya","Kiribati","Korea, Democratic People's Republic of","Korea, Republic of","Kuwait","Kyrgyzstan","Lao People's Democratic Republic","Latvia","Lebanon","Lesotho","Liberia","Libyan Arab Jamahiriya","Liechtenstein","Lithuania","Luxembourg","Macao","Macedonia, The Former Yugoslav Republic of","Madagascar","Malawi","Malaysia","Maldives","Mali","Malta","Marshall Islands","Martinique","Mauritania","Mauritius","Mayotte","Mexico","Micronesia, Federated States of","Moldova, Republic of","Monaco","Mongolia","Montenegro","Montserrat","Morocco","Mozambique","Myanmar","Namibia","Nauru","Nepal","Netherlands","New Caledonia","New Zealand","Nicaragua","Niger","Nigeria","Niue","Norfolk Island","Northern Mariana Islands","Norway","Oman","Pakistan","Palau","Palestinian Territory, Occupied","Panama","Papua New Guinea","Paraguay","Peru","Philippines","Pitcairn","Poland","Portugal","Puerto Rico","Qatar","Reunion","Romania","Russia","Rwanda","Saint Helena","Saint Kitts and Nevis","Saint Lucia","Saint Pierre and Miquelon","Saint Vincent and The Grenadines","Samoa","San Marino","Sao Tome and Principe","Saudi Arabia","Senegal","Serbia","Seychelles","Sierra Leone","Singapore","Slovakia","Slovenia","Solomon Islands","Somalia","South Africa","South Georgia and The South Sandwich Islands","Spain","Sri Lanka","Sudan","Suriname","Svalbard and Jan Mayen","Eswatini","Sweden","Switzerland","Syrian Arab Republic","Taiwan (ROC)","Tajikistan","Tanzania, United Republic of","Thailand","Timor-leste","Togo","Tokelau","Tonga","Trinidad and Tobago","Tunisia","Turkey","Turkmenistan","Turks and Caicos Islands","Tuvalu","Uganda","Ukraine","United Arab Emirates","United Kingdom","United States","United States Minor Outlying Islands","Uruguay","Uzbekistan","Vanuatu","Venezuela","Vietnam","Virgin Islands, British","Virgin Islands, U.S.","Wallis and Futuna","Western Sahara","Yemen","Zambia","Zimbabwe"
+	];
+		
+	var options="";
+	arr.map((op,i)=>{
+		options+=`<li><label><input type="checkbox" id="${i}" value="${op}" name="warehouse[]"/> ${op}</label></li>`
+	});
+
+	document.getElementById("warehouse_country_list").innerHTML=options;
+</script>
+
+<script>
+
+require(['jquery', 'jquery/ui'], function($){
+
+	jQuery(document).ready( function() {
+		$('#checkboxes1 input').change(function() {
+			var s = $('#checkboxes1 input:checked').map(function() {
+			return this.value;
+			}).get().join(', ');
+			$('#headoffice').val((s.length > 0 ? s : ""));
+		});
+
+		$('#checkboxes2 input').change(function() {
+			var s = $('#checkboxes2 input:checked').map(function() {
+			return this.value;
+			}).get().join(', ');
+			$('#warehouse').val((s.length > 0 ? s : ""));
+		});
+
+	});
+
+});
+
+</script>
+
+
+
+
+<script>
+
+require(['jquery', 'jquery/ui'], function($){
+
+	jQuery(document).ready( function() {
+		$('#category_other').hide();
+		$('#sell_other').hide();
+
+		//show it when the checkbox is clicked
+		$('#chkcat_other').on('click', function () {
+			// alert("success");
+			if ($(this).prop('checked')) {
+				$('#category_other').fadeIn();
+			} else {
+				$('#category_other').hide();
+			}
+		});
+
+		//show it when the checkbox is clicked
+		$('#chksell_other').on('click', function () {
+			// alert("success");
+			if ($(this).prop('checked')) {
+				$('#sell_other').fadeIn();
+			} else {
+				$('#sell_other').hide();
+			}
+		});
+
+	});
+
+});
+
+</script>
+
+
+<script>
+
+require(['jquery', 'jquery/ui'], function($){
+
+	jQuery(document).ready( function() {
+		$('input').keyup(function () {
+			if ($.trim($(this).val()).length) {
+				$(this).addClass('placeholder-remove');
+				} else {
+				$(this).removeClass('placeholder-remove');
+			}
+		});
+
+		var required = $('input,textarea,select').filter('[required]:visible');
+
+		$("input[type='submit']").click(function(){
+        // ID = $(this).parent().parent().attr('id');
+			// alert("button");
+			var allRequired = true;
+			required.each(function(){
+				if($(this).val() == ''){
+					allRequired = false;
+				}
+			});
+
+			if(!allRequired){
+				//DO SOMETHING HERE... POPUP AN ERROR MESSAGE, ALERT , ETC.
+				alert("Please Fill up the required fields*");
+			}
+
+			var url = document.getElementById('website');
+
+			if (!url.value || !url.checkValidity()) {
+				alert("Please enter valid URL");
+				url.focus()
+				return
+			}
+			
+
+			function ValidateEmail(email) {
+				var expr = /^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+				return expr.test(email);
+			};
+
+			if (!ValidateEmail($("#adminEmail").val())) {
+				alert("Please enter your valid admin email address");
+			}
+
+			
+			if (!ValidateEmail($("#purchasingEmail").val())) {
+				alert("Please enter your valid purchasing email address");
+			}
+
+			if (!ValidateEmail($("#businessEmail").val())) {
+				alert("Please enter your valid business email address");
+			}
+			
+
+		}); 
+		
+	});
+
+	// jQuery('.btn-primary"').on('click', function() {
+	// 	jQuery('input:invalid').css('background-color','red');
+	// 	jQuery('input:valid').css('background-color','green');
+	// });
+
+});
+
+</script>
+
+

@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <update handle="editor"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\ProductOverlay\Block\Adminhtml\Overlays\Edit" name="overlay_overlays_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Digidirect\ProductOverlay\Block\Adminhtml\Overlays\Edit\Tabs"
+                   name="digidirect_productoverlay_overlays_edit_tabs">
+                <block class="Digidirect\ProductOverlay\Block\Adminhtml\Overlays\Edit\Tab\Main"
+                       name="digidirect_productoverlay_overlays_edit_tab_main"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">main_section</argument>
+                    <argument name="block" xsi:type="string">digidirect_productoverlay_overlays_edit_tab_main</argument>
+                </action>
+                <block class="Digidirect\ProductOverlay\Block\Adminhtml\Overlays\Edit\Tab\Images"
+                       name="digidirect_productoverlay_overlays_edit_tab_images"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">images_section</argument>
+                    <argument name="block" xsi:type="string">digidirect_productoverlay_overlays_edit_tab_images</argument>
+                </action>
+                <block class="Digidirect\ProductOverlay\Block\Adminhtml\Overlays\Edit\Tab\Conditions"
+                       name="digidirect_productoverlay_overlays_edit_tab_conditions"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">conditions_section</argument>
+                    <argument name="block" xsi:type="string">digidirect_productoverlay_overlays_edit_tab_conditions</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

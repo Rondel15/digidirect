@@ -1,0 +1,8 @@
+<?php
+    $currentProduct = $block->getCurrentProduct();
+    $seller = $currentProduct->getAttributeText('marketplacer_seller');
+?>
+
+<?php if ($seller != "digiDirect" && $seller != ""): ?>
+    <div class="ribbon-online">Online only</div>
+<?php endif; ?>

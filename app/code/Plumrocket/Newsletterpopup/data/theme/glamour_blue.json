@@ -1,0 +1,24 @@
+{
+    "text_title": "Be the first to hear about new arrivals, exclusive savings & more",
+    "text_description": "<p>plus, sign up for our emails and get a warm welcome:<\/p>\r\n<div class=\"price-off\"><strong>25% off<\/strong> regular price styles<\/div>",
+    "text_success": "<div class=\"message-title\"><h2>ENJOY 25%OFF</h2><p>entire purchase</p></div><div class=\"coupon_wrp\"><div class=\"coupon-message\">Enter Coupon Code At Checkout:</div><div class=\"coupon-use\">{{coupon_code}}</div></div><div class=\"coupon-expiration\"><span>Hurry! This Offer Ends in 2 HOURS!</span></div>",
+    "text_submit": "Submit",
+    "text_cancel": "No, Thanks",
+    "animation": "fadeIn",
+    "signup_fields": {
+        "email": {
+            "name": "email",
+            "label": "Your Email Address",
+            "enable": "1",
+            "sort_order": "10",
+            "orig_label": "Email"
+        },
+        "confirm_email": {
+            "name": "confirm_email",
+            "label": "Confirm Your Email Address",
+            "enable": "1",
+            "sort_order": "20",
+            "orig_label": "Confirm Email"
+        }
+    }
+}

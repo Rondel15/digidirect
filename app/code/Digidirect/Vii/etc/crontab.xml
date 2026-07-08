@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="digidirect_ai">
+        <job name="digidirect_vii_cancel_order" instance="Digidirect\Vii\Cron\CancelOrder" method="execute">
+            <config_path>giftcard_service/vii/order_cron_expr</config_path>
+        </job>
+        <job name="digidirect_vii_quote_cleanup" instance="Digidirect\Vii\Cron\QuoteCleanup" method="execute">
+            <config_path>giftcard_service/vii/quote_cron_expr</config_path>
+        </job>
+        <job name="digidirect_vii_quote_visitor_cleanup" instance="Digidirect\Vii\Cron\QuoteVisitorCleanup" method="execute">
+            <config_path>giftcard_service/vii/quote_visitor_cron_expr</config_path>
+        </job>
+        <job name="digidirect_vii_send_undo" instance="Digidirect\Vii\Cron\SendUndo" method="execute">
+            <config_path>giftcard_service/vii/send_undo_cron_expr</config_path>
+        </job>
+    </group>
+</config>

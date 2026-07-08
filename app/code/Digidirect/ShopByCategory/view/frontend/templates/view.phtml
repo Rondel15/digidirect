@@ -1,0 +1,173 @@
+<?php
+    $brandData = $block->getData();
+    $brandId = $brandData['data']['brandId'];
+    $brandName = $block->getBrandName($brandId);
+?>
+
+<div id="shop-by-category-carousel" class="shop-by-category product-carousel owl-carousel owl-theme widget-product-grid owl-loaded owl-drag">
+    <div class="owl-stage-outer">
+         <div id="shop-by-category-container" class="owl-stage shop-by-category-container" style="transform: translate3d(-2185px, 0px, 0px); transition: all 0s ease 0s; width: 8470px;">
+             <?php if ($block->getProductCollectionCountWithBrand(17, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/cameras?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-cameras.jpg" loading="lazy"/>
+                             <div class="product-count" id="cameras-count">Cameras</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(18, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/lenses?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-lens.jpg" loading="lazy"/>
+                             <div class="product-count"  id="lenses-count">Lenses</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(21, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/drones?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-drones.jpg" loading="lazy"/>
+                             <div class="product-count"  id="drones-count">Drones</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(19, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/lighting-and-studio?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-lights-and-studio.jpg" loading="lazy"/>
+                             <div class="product-count"  id="lighting-and-studio-count">Lighting & Studio</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(71, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/photo-accessories?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-photo-accessories.jpg" loading="lazy"/>
+                             <div class="product-count"  id="photo-accessories-count">Photo Accessories</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(22, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/optics?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-optics.jpg" loading="lazy"/>
+                             <div class="product-count"  id="optics-count">Optics</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(73, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/audio-visual?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-audio-and-visual.jpg" loading="lazy"/>
+                             <div class="product-count"  id="audio-and-visual-count">Audio & Visual</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(77, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/pro-video?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-provideo.jpg" loading="lazy"/>
+                             <div class="product-count"  id="pro-video-count">Pro Video</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(75, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/smart-home?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-smarthome.jpg" loading="lazy"/>
+                             <div class="product-count"  id="smart-home-count">Smart Home</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+             <?php if ($block->getProductCollectionCountWithBrand(999, $brandId)) :?>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/computers-mobile?_aa=222&_option=" . $brandId)?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-computers.jpg" loading="lazy"/>
+                             <div class="product-count"  id="computers-mobile-count">Computers & Mobile</div>
+                         </a>
+                     </div>
+                 </div>
+             <?php endif; ?>
+         </div>
+    </div>
+</div>
+
+<script>
+    require(['jquery', 'owl_carousel'],
+        function ($) {
+            $(document).ready(function() {
+               $('.shop-by-category').owlCarousel({
+                    loop: false,
+                    nav: true,
+                    responsive: {
+                        0: {
+                            items:2,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: true,
+                            autoplayTimeout:3000
+                        },
+                        600: {
+                            items: 3,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: false
+                        },
+                        992: {
+                            items: 3,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: false
+                        },
+                        1024: {
+                            items: 6,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: false
+                        },
+                        1440: {
+                            items: 6,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: false
+                        },
+                        1680: {
+                            items: 6,
+                            margin: 15,
+                            nav:true,
+                            loop:false,
+                            autoplay: false
+                        }
+                    },
+                    dots: false,
+                    autoplay: false,
+                    autoplayTimeout: 3000
+                })
+            });
+        }
+    );
+</script>

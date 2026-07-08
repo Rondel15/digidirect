@@ -1,0 +1,137 @@
+//
+//  Product Overlays
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@product-overlay__position: absolute;
+@product-overlay__top: 0;
+@product-overlay__right: 0;
+@product-overlay__bottom: 0;
+@product-overlay__left: 0;
+@product-overlay__z-index: 1;
+@product-overlay__display: none;
+@product-overlay__max-width: 100%;
+@product-overlay__margin: auto;
+@product-overlay__padding: false;
+@product-overlay__overflow: hidden;
+@product-overlay__text-align: center;
+
+@product-overlay-image__width: 100%;
+
+@product-overlay-text__position: absolute;
+@product-overlay-text__top: 50%;
+@product-overlay-text__right: false;
+@product-overlay-text__left: false;
+@product-overlay-text__width: 100%;
+@product-overlay-text__margin: auto;
+@product-overlay-text__padding: 0 3px;
+@product-overlay-text__font: 10px/1 @font-family-name__base;
+@product-overlay-text__text-align: center;
+@product-overlay-text__white-space: false;
+@product-overlay-text__color: @color-white;
+@product-overlay-text__background: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .product-overlay {
+        & {
+            //.lib-css(position, @product-overlay__position);
+            .lib-css(z-index, @product-overlay__z-index);
+            .lib-css(display, @product-overlay__display);
+            .lib-css(max-width, @product-overlay__max-width);
+            //.lib-css(margin, @product-overlay__margin);
+            .lib-css(padding, @product-overlay__padding);
+            .lib-css(overflow, @product-overlay__overflow);
+            line-height: normal;
+            .lib-css(text-align, @product-overlay__text-align);
+        }
+        //  Overlay positions
+        //  Center
+        &.-top-center,
+        &.-middle-center,
+        &.-bottom-center {
+            right: 0;
+            left: 0;
+        }
+        //  Middle
+        &.-middle-right,
+        &.-middle-center,
+        &.-middle-left {
+            top: 50%;
+            .lib-css(transform, translateY(-50%), 1);
+        }
+        //  Top
+        &.-top-right {
+            .lib-css(top, @product-overlay__top);
+            .lib-css(right, @product-overlay__right);
+        }
+        &.-top-center {
+            .lib-css(top, @product-overlay__top);
+        }
+        &.-top-left {
+            .lib-css(top, @product-overlay__top);
+            .lib-css(left, @product-overlay__left);
+        }
+        //  Middle
+        &.-middle-right {
+            .lib-css(right, @product-overlay__right);
+        }
+        &.-middle-left {
+            .lib-css(left, @product-overlay__left);
+        }
+        //  Bottom
+        &.-bottom-right {
+            .lib-css(right, @product-overlay__right);
+            .lib-css(bottom, @product-overlay__bottom);
+        }
+        &.-bottom-center {
+            .lib-css(bottom, @product-overlay__bottom);
+        }
+        &.-bottom-left {
+            .lib-css(bottom, @product-overlay__bottom);
+            .lib-css(left, @product-overlay__left);
+        }
+
+        &.-ready {
+            display: block;
+        }
+
+        &.-hide {
+            display: none;
+        }
+
+        &.-has-size{
+            > .img {
+                .lib-css(width, @product-overlay-image__width);
+            }
+        }
+
+        > .text {
+            .lib-css(position, @product-overlay-text__position);
+            .lib-css(top, @product-overlay-text__top);
+            .lib-css(right, @product-overlay-text__right);
+            .lib-css(left, @product-overlay-text__left);
+            .lib-css(width, @product-overlay-text__width);
+            .lib-css(margin, @product-overlay-text__margin);
+            .lib-css(padding, @product-overlay-text__padding);
+            .lib-css(font, @product-overlay-text__font);
+            .lib-css(text-align, @product-overlay-text__text-align);
+            .lib-css(white-space, @product-overlay-text__white-space);
+            .lib-css(color, @product-overlay-text__color);
+            .lib-css(background, @product-overlay-text__background);
+            .lib-css(transform, translateY(-50%), 1);
+        }
+    }
+    
+    .product-carousel{
+        .product-overlay.-has-size > .img {
+            max-width: 50px !important;
+        }
+    }
+}

@@ -1,0 +1,24 @@
+<!-- ko if: locationsList().length -->
+    <div class="count">
+        <!-- ko text: locations.items().length --><!-- /ko -->
+        <!-- ko i18n: 'Store(s)' --><!-- /ko -->
+    </div>
+    <div class="locator-items items" data-bind="foreach: { data: locationsList(), as: 'item' }, afterRender: onRenderList">
+        <!-- ko foreach: $parent.getRegion('locator_items') -->
+            <!-- ko template: {name: getTemplate(), data: item} --><!-- /ko -->
+        <!--/ko-->
+    </div>
+<!-- /ko -->
+<!-- ko ifnot: locationsList().length -->
+    <div class="message info empty"><span data-bind="i18n: 'Nothing was found on your request. Please, check your address.'"></span></div>
+<!-- /ko -->
+
+<!-- ko if: isPaginationEnable && pager().length && pager().length > 1 -->
+    <!-- ko foreach: getRegion('locator_pagination') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('locator_after') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->

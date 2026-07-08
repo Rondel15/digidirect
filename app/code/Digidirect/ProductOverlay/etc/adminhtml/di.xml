@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\ProductOverlay\Controller\Adminhtml\Overlays\Save">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="invalidate_cache_types" xsi:type="array">
+                    <item name="0" xsi:type="string">block_html</item>
+                    <item name="1" xsi:type="string">full_page</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Magento\Catalog\Ui\DataProvider\Product\Form\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="attributeGroup" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ProductOverlay\Ui\DataProvider\Product\Form\Modifier\AttributeGroup</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

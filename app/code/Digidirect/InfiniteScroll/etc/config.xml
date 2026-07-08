@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_infinitescroll_config>
+            <general>
+                <enabled>1</enabled>
+                <limit>15</limit>
+            </general>
+            <catalog>
+                <enabled>1</enabled>
+                <action>click</action>
+            </catalog>
+            <search>
+                <enabled>1</enabled>
+                <action>click</action>
+            </search>
+        </digidirect_infinitescroll_config>
+    </default>
+</config>

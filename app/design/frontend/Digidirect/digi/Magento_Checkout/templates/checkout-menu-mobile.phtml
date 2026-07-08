@@ -1,0 +1,35 @@
+<?php
+/**
+ *
+ */
+?>
+<div class="checkout-menu">
+    <div class="order-sum">
+        <span class="title"><?= /* @escapeNotVerified */
+            __('Order Summary'); ?></span>
+        <span class="value"></span>
+    </div>
+    <div class="action link showcart" id="checkoutOffCanvas">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -cart">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-cart"></use>
+        </svg>
+        <span class="counter qty empty">
+            <span class="counter-number" id="checkoutOffCanvasItems"></span>
+        </span>
+    </div>
+    <div class="offcanvas-content" id="checkoutOffCanvasBar">
+        <div class="title">
+            <span class="text"><?= /* @escapeNotVerified */ __('Order Summary'); ?></span>
+            <div class="menu-close" id="barClose" type="button"></div>
+        </div>
+        <div class="main" id="checkoutOffCanvasBarContent"></div>
+    </div>
+    <div class="left-block" id="leftBlock"></div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Checkout/js/offcanvas-summary": {}
+        }
+    }
+</script>

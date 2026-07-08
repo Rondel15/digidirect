@@ -1,0 +1,280 @@
+<?php
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$currentPage = $this->getRequest()->getFullActionName();
+?>
+
+<?php
+$categoryName = "";
+if ($currentPage != "catalogsearch_result_index") {
+    $catalogHelperData = $this->helper('Magento\Catalog\Helper\Data');
+    $categoryObject = $catalogHelperData->getCategory();
+    $categoryId = $categoryObject->getId();
+    $categoryName = $categoryObject->getName();
+}
+?>
+
+<?php if ($currentPage != "catalogsearch_result_index"): ?>
+    <?php if ($categoryName == "digiSeconds" ||
+        $categoryName == "REFURB" ||
+        $categoryName == "OPENBOX" ||
+        $categoryName == "PRELOVED") : ?>
+        
+            <!--digi-seconds modal-->
+            <div class="digi-seconds-modal" style="margin-right: 0;margin-left: auto;padding-left: 50px;margin-bottom: 10px; display: none;">
+                <a href="#" id="digisecondsForm_trigger">
+                    <img class="digisecondsForm_triggerImg" src="https://mcstaging2.digidirect.com.au/media/wysiwyg/digiseconds/digi-seconds-trigger-button.png" style="width: 229px;">
+                    <!-- <//?php if (in_array($categoryId, $allChildrenCategoryIdsDigiSeconds)) : ?>
+                        <img src="<//?php echo $block->getUrl("media/wysiwyg/digiseconds")?>digi-seconds-trigger-button.png"/>
+                    <//?php endif; ?> -->
+                </a>
+
+                <div id="digisecondsForm" style="display: none;">
+                    <div id="digiSecondFormTitle">
+                        <h2>Sell Your Used Gear and Gadgets</h2>
+                        <p>Fill out the information form and our representative will contact you for the next steps</p>
+                    </div>
+
+                    <form id="digiSecondFormSell" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl("digisecondsform/index/index")?>">
+                        <div class="formContentBgWhite">
+                            <div class="grid-column">
+                                <input name="firstname" type="text" placeholder="First Name">
+                                <input name="lastname" type="text" placeholder="Last Name">
+                                <input name="phone" type="number" placeholder="Contact Number" maxlength="20">
+                                <input name="email" type="text" placeholder="Email Addres">
+                            </div>
+                            <div class="sell-text">
+                                <p>WHAT YOU LIKE TO SELL?</p>
+                            </div>
+
+                            <div class="grid-column">
+                                <input name="brands" type="text" placeholder="Brand">
+                                <input name="productName" type="text" placeholder="Product Name / Model">
+                                <input name="purchaseYear" type="text" placeholder="Year of Purchase">
+                            </div>
+
+                            <br>
+                            <div class="notes">
+                                <p>Note (Add all accessories you want to include)</p>
+                                <textarea  name="notes"></textarea>
+                            </div>
+                            <div class="grid-column">
+                                <input name="askingPrice" type="number" placeholder="Asking Price">
+                            </div>
+                            <br>
+                        </div>
+
+                        <?=$block->getChildHtml('form.additional.info') ?>
+
+                        <div class="digiSecondFormBtn primary">
+                            <input type="hidden" name="hideit" id="hideit" value="" />
+                            <button type="submit" id="add" title="" class="action submit primary">
+                                <span><?= $block->escapeHtml(__('Submit')) ?></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    
+//    digi-seconds modal form
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: '',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }],
+                opened: function($Event) {
+                    
+                    // $(".modal-footer").hide();
+                    $(".modal-header").css("background-color","transparent");
+                    $(".modal-footer").hide();
+                    // $(".modal-header button.action-close:before").css("color","#cacaca");
+                    // $(".modal-inner-wrap").css("width","50% !important");
+
+                    var handleMatchMedia = function(md) {
+                        if (md.matches) {
+                            // alert("matched");
+                            $('.modal-popup._show .modal-inner-wrap').attr('style', 'background: #f5f5f5 !important; width: 80% !important; top: 50px;');
+                        } else {
+                            // alert("not matched");
+                            $('.modal-popup._show .modal-inner-wrap').attr('style', 'background: #f5f5f5 !important; width: 50% !important;');
+                        }
+                    }
+
+                    var mq = window.matchMedia("(max-width: 768px)");
+
+                    // call function
+                    handleMatchMedia(mq);
+
+                    //call addListener function  
+                    mq.addListener(handleMatchMedia);
+
+                }
+            };  
+
+            var popup = modal(options, $('#digisecondsForm'));
+            $("#digisecondsForm_trigger").on('click',function(){ 
+                $("#digisecondsForm").modal("openModal");
+            });
+            // $( "#digisecondsForm_trigger" ).prepend( "<b>Hello </b>" );
+            
+            window.setTimeout(function () {
+                $("#digisecondsForm").attr('style', 'display: block;');
+            }, 3000);
+
+        }
+    );
+</script>
+
+<script>
+require(['jquery'],function($){
+    $(document).ready(function(){
+        $("#add").click(function(){
+        var customurl = "<?php echo $this->getUrl("digisecondsform/index/index") ?>";
+        $.ajax({
+            url: customurl,
+            type: "POST",
+            data: $(this).closest('form').serialize(),
+            dataType: "json",
+            success: function(result){
+                console.log(result);
+            }
+        });
+        $('#digiSecondFormSell')[0].reset(); 
+        return false;
+        });
+    });
+}); 
+</script>
+
+
+<style>
+    #digiSecondFormSell, #digiSecondFormTitle {
+        margin: 15px;
+    }
+
+    #digiSecondFormTitle {
+        margin: 35px;
+    }
+    
+    #digiSecondFormTitle h2 {
+        color: black;
+        font-weight: 500;	
+    }
+    
+    #digiSecondFormTitle p {
+        color: #727272;
+        font-weight: 400;
+    }
+
+    #digiSecondFormSell .grid-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        margin: 0 15px;
+    }
+    
+    #digiSecondFormSell input {
+        height: 35px;
+        border: none;
+        border-bottom: 1px solid #000000;
+        font-size: 15px;
+        outline: none !important;
+        padding: 0px !important;
+    }
+
+    #digiSecondFormSell input:focus, #digiSecondFormSell textarea:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    #digiSecondFormSell input::placeholder {
+        color: #727272;
+    }
+
+    #digiSecondFormSell input:-ms-input-placeholder {
+        color: #727272;
+    }
+
+    #digiSecondFormSell input::-ms-input-placeholder {
+        color: #727272;
+    }
+
+    #digiSecondFormSell textarea {
+        height: 100px;
+        width: 100% !important;
+        font-size: 15px;
+        outline: none;
+        border: 1px solid #cacaca;
+    }
+    
+    #digiSecondFormSell .sell-text {
+        margin-top: 35px;
+        margin-left: 15px;
+        font-weight: 600;
+
+    }
+
+    #digiSecondFormSell .notes {
+        color: #727272;
+        margin-top: 35px;
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
+
+    .formContentBgGrey {
+        background: lightgrey;
+    }
+
+    .formContentBgWhite {
+        background: white;
+        padding: 25px 15px;
+        /* margin: 25px; */
+    }
+
+    .digiSecondFormBtn input {
+        background: #ff3c00;
+        border: none !important;
+        /* margin: 0 25px; */
+        color: white;
+        width: 100px;
+        height: 150px;
+        margin-top: 25px;
+    }
+    
+    .action.submit.primary:hover {
+        background: #ff3c00;
+        opacity: 0.8;
+    }
+
+    @media only screen and (max-width: 780px) {
+        #digiSecondFormSell .grid-column {
+            display: block !important;
+        }
+
+        #digiSecondFormSell, #digiSecondFormTitle {
+            margin: 0px;
+        }
+        
+    }
+</style>

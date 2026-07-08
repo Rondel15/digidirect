@@ -1,0 +1,162 @@
+<?php
+$rules = $block->getRules();
+$imageHelper = $block->getImageHelper();
+?>
+<?php echo $block->getChildHtml('html_calendar'); ?>
+<div class="freegift-overlay" data-role="freegift-overlay">
+    <div class="freegift-items">
+        <form method="post"
+              action="<?php echo $block->escapeUrl($block->getFormActionUrl()); ?>"
+              class="freegift_items_form"
+              id="freegift_items_form">
+            <input type="hidden" name="uenc" value="<?php echo $this->escapeHtml($this->getCurrentBase64Url()); ?>">
+
+            <div class="close" data-role="freegift-popup-hide">
+                <?php echo $block->escapeHtml('x'); ?>
+            </div>
+
+            <h2>
+                <?php echo $block->escapeHtml(__('Free Items')); ?>
+            </h2>
+
+            <?php
+                $totalCount = 0;
+                foreach ($rules as $ruleId => $rule) {
+                    $products = $rule->getProducts();
+                    $discountQty = count($products);
+                    if ($rule->getFreeGift()->getType() == \Digidirect\FreeGift\Api\Data\RuleInterface::RULE_TYPE_ONE) {
+                        $totalCount += 1;
+                    } else {
+                        $totalCount += $discountQty;
+                    }
+                }
+            ?>
+
+            <div class="totalcount">
+                <span data-free-gift-by-rules="total-count" data-count="0" class="counter">0</span>
+                <span class="of">
+                    <?php echo $block->escapeHtml(__('of')); ?>
+                </span>
+                <span class="max">
+                    <?php echo $block->escapeHtml($totalCount); ?>
+                </span>
+                <span class="text">
+                    <?php echo $block->escapeHtml(__('free gift(s) selected')); ?>
+                </span>
+            </div>
+
+            <div class="wrapper">
+                <?php foreach ($rules as $ruleId => $rule): ?>
+                    <?php
+                        $products = $rule->getProducts();
+                        $discountQty = count($products);
+                        if ($rule->getFreeGift()->getType() == \Digidirect\FreeGift\Api\Data\RuleInterface::RULE_TYPE_ONE) {
+                            $discountQty = 1;
+                        }
+                    ?>
+                    <div class="freegift-rule"
+                         data-free-gift-by-rules="rule-wrapper"
+                         data-type="<?php echo (int)$rule->getFreeGift()->getType() ?>">
+
+                        <div class="title">
+                            <?php echo $block->escapeHtml($rule->getSalesRule()->getName()) ?>
+                        </div>
+
+                        <div class="rulecount"
+                             data-mage-init='{"freeGiftByRules": {
+                                                "ruleId": "<?php echo (int)$ruleId ?>",
+                                                "ruleDiscountQty": "<?php echo (int)$discountQty ?>"
+                                             }}'>
+                            <span data-free-gift-by-rules="count" class="counter">0</span>
+                            <span class="of">
+                                <?php echo $block->escapeHtml(__('of')); ?>
+                            </span>
+                            <span class="max">
+                                <?php echo (int)$discountQty ?>
+                            </span>
+                            <span class="text">
+                                <?php echo $block->escapeHtml(__('free gift(s) selected')); ?>
+                            </span>
+                        </div>
+
+                        <div class="freegift-gallery" data-count="<?php echo (int)count($rules) ?>">
+                        <?php foreach ($products as $product): ?>
+                            <div id="freegift_items_form-<?php echo (int)$ruleId ?>-<?php echo (int)$product->getId() ?>"
+                                 class="freegift-item"
+                                 data-free-gift-by-rules-checked="off"
+                                 data-product-id="<?php echo (int)$product->getId()?>"
+                                 data-product-sku="<?php echo $block->escapeHtml($product->getSku()); ?>">
+
+                                <div class="overlay"></div>
+
+                                <input type="checkbox"
+                                       data-free-gift-by-rules="checkbox"
+                                       data-free-gift-by-rules-rule-id="<?php echo (int)$ruleId ?>"
+                                       name="rule_id[<?php echo (int)$ruleId ?>][<?php echo (int)$product->getId() ?>]"
+                                       id="rule_id[<?php echo (int)$ruleId ?>][<?php echo (int)$product->getId() ?>]"
+                                       value="<?php echo (int)$product->getId() ?>" />
+                                <label for="rule_id[<?php echo (int)$ruleId ?>][<?php echo (int)$product->getId() ?>]"></label>
+
+                                <div class="freegift-item-title">
+                                    <?php if ($product->getVisibility() != \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE): ?>
+                                        <h4>
+                                            <a href="<?php echo $block->escapeHtml($product->getProductUrl()); ?>">
+                                                <?php echo $block->escapeHtml($product->getName()); ?>
+                                            </a>
+                                        </h4>
+                                    <?php else: ?>
+                                        <h4>
+                                            <?php echo $block->escapeHtml($product->getName()); ?>
+                                        </h4>
+                                    <?php endif?>
+                                </div>
+
+                                <?php $imageHelper->init($product, 'free_gift_cart_image')
+                                    ->keepFrame(false)
+                                    ->constrainOnly(true);
+                                ?>
+
+                                <div data-role="freegift-gallery">
+                                    <div class="item">
+                                        <img src="<?php echo $block->escapeUrl($imageHelper->getUrl()); ?>"
+                                             class="freegift-item-image"
+                                             alt="<?php echo $block->escapeHtml($product->getName(), null, true); ?>"/>
+                                    </div>
+                                </div>
+
+                                <div class="product-options-wrapper" id="product-options-wrapper">
+                                    <fieldset class="fieldset" tabindex="0">
+                                    <?php if ($optionsBlock = $block->getChildBlock($product->getTypeId() . '_prototype')): ?>
+                                        <?php echo $optionsBlock->setProduct($product)->setRuleId($ruleId)->toHtml(); ?>
+                                    <?php endif ?>
+                                    <?php echo $block->getChildBlock('options_prototype')->setProduct($product)->toHtml(); ?>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        <?php endforeach ?>
+                        </div>
+                    </div>
+                <?php endforeach ?>
+            </div>
+
+            <div class="freegift-item-buttons">
+                <button class="action tocart primary"
+                        type="submit"
+                        title="<?php echo $block->escapeHtml(__('Add to cart')); ?>"
+                        data-free-gift-by-rules="submit">
+                    <?php echo $block->escapeHtml(__('Add to cart')); ?>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Magento_Catalog/product/view/validation'
+    ], function ($) {
+        'use strict';
+        $('.freegift_items_form').mage('validation');
+    });
+</script>

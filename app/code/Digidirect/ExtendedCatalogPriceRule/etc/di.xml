@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <preference for="Digidirect\ExtendedCatalogPriceRule\Api\Data\ExtendedCatalogRuleInterface"
+                type="Digidirect\ExtendedCatalogPriceRule\Model\ExtendedCatalogRule"/>
+
+    <preference for="Digidirect\ExtendedCatalogPriceRule\Api\Data\RuleDisplayMessageInterface"
+                type="Digidirect\ExtendedCatalogPriceRule\Model\ExtendedCatalogRule"/>
+
+    <preference for="Digidirect\ExtendedCatalogPriceRule\Api\ExtendedCatalogRuleRepositoryInterface"
+                type="Digidirect\ExtendedCatalogPriceRule\Model\ExtendedCatalogRuleRepository"/>
+
+    <preference for="Digidirect\ExtendedCatalogPriceRule\Api\ExtendedCatalogRuleManagementInterface"
+                type="Digidirect\ExtendedCatalogPriceRule\Model\ExtendedCatalogRuleManagement"/>
+
+    <!-- Add a new action to 'Action' dropdown on Catalog Price Rule page. -->
+    <type name="Magento\CatalogRule\Model\Rule\Action\SimpleActionOptionsProvider">
+        <plugin name="Digidirect_ExtendedCatalogPriceRule::SimpleActionOptionsProviderPlugin"
+                type="Digidirect\ExtendedCatalogPriceRule\Plugin\Magento\CatalogRule\Model\Rule\Action\SimpleActionOptionsProviderPlugin"/>
+    </type>
+
+    <!-- Validation of a custom Extended Rule. -->
+    <type name="Magento\CatalogRule\Model\Rule">
+        <plugin name="Digidirect_ExtendedCatalogPriceRule::Rule"
+                type="Digidirect\ExtendedCatalogPriceRule\Plugin\Magento\CatalogRule\Model\RulePlugin"/>
+    </type>
+
+    <!-- Change the re-calculation of a price for our custom Extended Rule.  -->
+    <type name="Magento\CatalogRule\Model\Indexer\ProductPriceCalculator">
+        <plugin name="Digidirect_ExtendedCatalogPriceRule::ProductPriceCalculator"
+                type="Digidirect\ExtendedCatalogPriceRule\Plugin\Magento\CatalogRule\Model\Indexer\ProductPriceCalculatorPlugin"/>
+    </type>
+    <type name="Magento\CatalogRule\Helper\Data">
+        <plugin name="Digidirect_ExtendedCatalogPriceRule::CatalogRuleData"
+                type="Digidirect\ExtendedCatalogPriceRule\Plugin\Magento\CatalogRule\Helper\DataPlugin"/>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\Operation\AttributePool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="extendedCatalogRule" xsi:type="array">
+                    <item name="Magento\CatalogRule\Api\Data\RuleInterface" xsi:type="array">
+                        <item name="read" xsi:type="string">Digidirect\ExtendedCatalogPriceRule\Model\ResourceModel\ExtendedCatalogRule\ReadHandler</item>
+                        <item name="create" xsi:type="string">Digidirect\ExtendedCatalogPriceRule\Model\ResourceModel\ExtendedCatalogRule\SaveHandler</item>
+                        <item name="update" xsi:type="string">Digidirect\ExtendedCatalogPriceRule\Model\ResourceModel\ExtendedCatalogRule\SaveHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Magento\Catalog\Pricing\Price\Pool">
+        <arguments>
+            <argument name="prices" xsi:type="array">
+                <item name="catalog_rule_price" xsi:type="string">Digidirect\ExtendedCatalogPriceRule\Pricing\Price\CatalogRulePrice</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

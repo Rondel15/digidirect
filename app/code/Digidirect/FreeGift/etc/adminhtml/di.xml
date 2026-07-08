@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\SalesRule\Model\Rule\Metadata\ValueProvider">
+        <plugin name="Digidirect_FreeGift::ValueProvider" type="Digidirect\FreeGift\Plugin\Rule\Metadata\ValueProvider"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule">
+        <plugin name="Digidirect_FreeGift::SalesRule" type="Digidirect\FreeGift\Plugin\SalesRule"/>
+    </type>
+    <type name="Digidirect\FreeGift\Plugin\Rule\Metadata\ValueProvider">
+        <arguments>
+            <argument name="freeGiftActions" xsi:type="array">
+                <item name="1" xsi:type="array">
+                    <item name="value" xsi:type="string">freegift_items</item>
+                    <item name="label" xsi:type="string" translate="true">Free promo items with products</item>
+                </item>
+                <item name="2" xsi:type="array">
+                    <item name="value" xsi:type="string">freegift_cart</item>
+                    <item name="label" xsi:type="string" translate="true">Free promo items for the whole cart</item>
+                </item>
+                <item name="3" xsi:type="array">
+                    <item name="value" xsi:type="string">freegift_product</item>
+                    <item name="label" xsi:type="string" translate="true">The same free product</item>
+                </item>
+                <item name="4" xsi:type="array">
+                    <item name="value" xsi:type="string">freegift_spent</item>
+                    <item name="label" xsi:type="string" translate="true">Free promo items for every $X</item>
+                </item>
+            </argument>
+            <argument name="freeGiftRuleTypeOptions" xsi:type="array">
+                <item name="1" xsi:type="array">
+                    <item name="value" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string" translate="true">All SKUs below</item>
+                </item>
+                <item name="2" xsi:type="array">
+                    <item name="value" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string" translate="true">One of the SKUs below</item>
+                </item>
+            </argument>
+            <argument name="metaDataValuesConfig" xsi:type="array">
+                <item name="type" xsi:type="string">type</item>
+                <item name="sku" xsi:type="string">sku</item>
+                <item name="enable_on_pdp" xsi:type="string">enable_on_pdp</item>
+                <item name="description_label" xsi:type="string">description_label</item>
+                <item name="show_desc_on_pdp" xsi:type="string">show_desc_on_pdp</item>
+                <item name="is_hidden_for_customer" xsi:type="string">is_hidden_for_customer</item>
+                <item name="cart_message" xsi:type="string">cart_message</item>
+                <item name="prefix" xsi:type="string">prefix</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\FreeGift\Model\Config\Source\Template">
+        <arguments>
+            <argument name="optionsConfig" xsi:type="array">
+                <item name="default" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Default</item>
+                </item>
+                <item name="bulk_add_to_cart" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Bulk Add to Cart</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\DataProvider">
+        <plugin name="add_switcher_config" type="Digidirect\FreeGift\Plugin\Magento\SalesRule\Model\Rule\DataProvider"/>
+    </type>
+    <type name="Digidirect\FreeGift\Plugin\Magento\SalesRule\Model\Rule\DataProvider">
+        <arguments>
+            <argument name="fieldsToActions" xsi:type="array">
+                <!-- default magento fields -->
+                <item name="simple_free_shipping" xsi:type="array"/>
+                <item name="apply_to_shipping" xsi:type="array"/>
+                <item name="discount_qty" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                    <item name="freegift_product" xsi:type="string">freegift_product</item>
+                    <item name="freegift_spent" xsi:type="string">freegift_spent</item>
+                </item>
+                <item name="discount_step" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                    <item name="freegift_product" xsi:type="string">freegift_product</item>
+                    <item name="freegift_spent" xsi:type="string">freegift_spent</item>
+                </item>
+                <!-- new fields fields -->
+                <item name="freegiftrule[sku]" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                    <item name="freegift_cart" xsi:type="string">freegift_cart</item>
+                    <item name="freegift_spent" xsi:type="string">freegift_spent</item>
+                </item>
+                <item name="freegiftrule[type]" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                    <item name="freegift_cart" xsi:type="string">freegift_cart</item>
+                    <item name="freegift_spent" xsi:type="string">freegift_spent</item>
+                </item>
+                <item name="freegiftrule[enable_on_pdp]" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                </item>
+                <item name="freegiftrule[show_desc_on_pdp]" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                </item>
+                <item name="freegiftrule[description_label]" xsi:type="array">
+                    <item name="freegift_items" xsi:type="string">freegift_items</item>
+                </item>
+                <item name="freegiftrule[is_hidden_for_customer]" xsi:type="array">
+                    <item name="freegift_cart" xsi:type="string">freegift_cart</item>
+                </item>
+                <item name="freegiftrule[cart_message]" xsi:type="array">
+                    <item name="freegift_cart" xsi:type="string">freegift_cart</item>
+                </item>
+                <item name="freegiftrule[prefix]" xsi:type="array">
+                    <item name="freegift_cart" xsi:type="string">freegift_cart</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\FreeGift\Model\Config\Source\MessageType">
+        <arguments>
+            <argument name="messageType" xsi:type="array">
+                <item name="notice" xsi:type="string">Notice</item>
+                <item name="success" xsi:type="string">Success</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

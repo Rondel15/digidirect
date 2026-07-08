@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- START: Card Status Mapping (Card Status Id - Status Label) -->
+    <virtualType name="Digidirect\Vii\Block\Adminhtml\Config\CardStatusMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="card_status_id" xsi:type="array">
+                    <item name="label" xsi:type="string">Card Status Id</item>
+                </item>
+                <item name="card_status" xsi:type="array">
+                    <item name="label" xsi:type="string">Card Status</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END: Card Status Mapping (Card Status Id - Status Label) -->
+
+    <!-- START: Not Responding Message Mapping ( RequestType - Message) -->
+    <virtualType name="Digidirect\Vii\Block\Adminhtml\Config\NotRespondingMessageMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="request_type" xsi:type="array">
+                    <item name="label" xsi:type="string">Request Type</item>
+                </item>
+                <item name="message" xsi:type="array">
+                    <item name="label" xsi:type="string">Message</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <!-- END: Not Responding Message Mapping ( RequestType - Message) -->
+
+    <type name="Digidirect\Vii\Service\Command\ServiceCommand">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\Vii\Model\ServiceTransactionManagement">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Backend\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\DB\Transaction">
+        <plugin name="Digidirect_Vii::sales_order_transaction_after_save"
+                type="Digidirect\Vii\Plugin\Magento\Framework\DB\TransactionPlugin"
+                sortOrder="999"/>
+    </type>
+</config>

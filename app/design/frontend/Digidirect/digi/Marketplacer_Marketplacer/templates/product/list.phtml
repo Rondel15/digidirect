@@ -1,0 +1,482 @@
+<?php
+use Magento\Framework\App\Action\Action;
+?>
+
+<?php
+/**
+ * Product list template
+ *
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ * @var $_helper \Magento\Catalog\Helper\Output
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$showWishlist = true;
+
+?>
+<?= $block->getToolbarHtml() ?>
+<?= $block->getAdditionalHtml() ?>
+<?php
+$currentPage = $this->getRequest()->getFullActionName();
+?>
+
+<?php
+$categoryName = "";
+if ($currentPage != "catalogsearch_result_index") {
+    $catalogHelperData = $this->helper('Magento\Catalog\Helper\Data');
+    $categoryObject = $catalogHelperData->getCategory();
+    $categoryId = $categoryObject->getId();
+    $categoryName = $categoryObject->getName();
+}
+?>
+
+<?php if (!$_productCollection->count()): ?>
+    <div class="message info empty"><div><?= /* @escapeNotVerified */ __('We can\'t find products matching the selection.') ?></div></div>
+<?php else: ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $image = 'category_page_grid';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+    } else {
+        $viewMode = 'list';
+        $image = 'category_page_list';
+        $showDescription = false;
+        $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::FULL_VIEW;
+    }
+    /**
+     * Position for actions regarding image size changing in vde if needed
+     */
+    $pos = $block->getPositioned();
+    ?>
+    <div class="products wrapper products-widget product-category-listing <?= $block->escapeHtml($viewMode); ?> products-<?= $block->escapeHtml($viewMode); ?> product-count-<?= $_productCollection->count(); ?>">
+        <?php $iterator = 1; ?>
+        <ol class="products items product-items -<?= $block->escapeHtml($viewMode); ?>"
+            data-mage-init='{
+                "truncateCollection": {
+                    "addOn": "js/dist/widgets/truncate-collection/addons/catalog/index"
+                }
+            }'>
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product): ?>
+
+                <?php
+                $blockMode = $block->getMode();
+                $productId = $_product->getId();
+                $productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                $qff_base = $_helper->productAttribute($_product, $_product->getQffBase(), 'qff_base');
+                $qff_bonus = $_helper->productAttribute($_product, $_product->getQffBonusPoints(), 'qff_bonus_points');
+                $stock = $_helper->productAttribute($_product, $_product->getPrice(), 'price');
+
+                $brandNewProductPrice = "";
+                $brandNewProductUrl = "";
+                $secondsSavings = "";
+
+                $finalProductPrice = $_product->getFinalPrice();
+                $originalPrice = $_product->getPrice();
+                $marketplacesPrice = $_product->getMarketplacesPrice();
+                $wiserPrice = $_product->getData('wiser_price');
+                
+                $hasDiscountClass = "";
+                $discountPrice = round($originalPrice - $finalProductPrice, 2);
+                $discountWiserPrice = 0;
+                if (!is_null($wiserPrice)) {
+                    $discountWiserPrice = round($originalPrice - $wiserPrice, 2);
+                }
+                
+                $marketPlacePrice = number_format((float)$_product->getData('marketplaces_price'), 2, '.', '');
+                $qff_bonus_points = 0;
+
+                $d2BrandNewProductSKU = $_product->getData('d2newsku');
+                $d2ItemCondition = $_product->getData('item_condition');
+                $d2ItemDescription = $_product->getData('d2desc');
+                $d2ItemRating = $_product->getData('item_rating');
+                $d2PackageInclusion = $_product->getData('whats_in_the_box');
+
+                $objectManagerProduct = \Magento\Framework\App\ObjectManager::getInstance();
+                $brandNewProduct = $objectManagerProduct->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $d2BrandNewProductSKU);
+
+                $categoryIds = $_product->getCategoryIds();
+                $digiSecondsIds = array(2564,2567,2570,2573);
+                $isDigiSeconds = count(array_intersect($categoryIds, $digiSecondsIds));
+
+                $seller = $_product->getAttributeText('marketplacer_seller');
+                // digiprint
+                $is_digiPrint = ($_product->getData('is_digiprint') ? $_product->getData('is_digiprint') : '');
+                $digiprintCustomLinkProductSKU = ($_product->getData('digiprint_customlink') ? $_product->getData('digiprint_customlink') : '');
+
+                if ($brandNewProduct) {
+                    $brandNewProductPrice = $brandNewProduct->getPrice();
+                    $brandNewProductUrl = $brandNewProduct->getProductUrl();
+                    $secondsSavings = round(100 - (($finalProductPrice/$brandNewProductPrice)*100));
+                }
+
+                ?>
+
+                <?php if (!empty($qff_base) && !empty($qff_bonus)) {
+
+                    $bonusPlusBase = $qff_base + $qff_bonus;
+
+                    $points = number_format($finalProductPrice * $bonusPlusBase);
+                }else {
+                    if(!empty($qff_bonus)){
+
+                        $points = number_format($finalProductPrice * $qff_bonus);
+                    } else {
+                        $points = number_format($finalProductPrice * 1);
+                    }
+                }
+
+                $finalQffPoints = $_product->getPoints();
+
+                $productUrl = $_product->getProductUrl();
+                
+                /*if ($currentPage == "eaa_attribute_option_index") {
+                    $explode1 = explode("/catalog/product/view/id", $productUrl);
+                    $baseUrl = $explode1[0];
+                    $explode2 = explode("/s/", $productUrl);
+                    $initUrl = $explode2[1];
+                    $explode3 = explode("/category/2", $explode2[1]);
+                    $seoUrl = $explode3[0];
+                    $productUrl = $baseUrl . "/" . $seoUrl;
+                }*/
+
+                ?>
+
+                <?php if ($is_digiPrint == 1): ?>
+                    <?= /* @escapeNotVerified */ '<li class="item product product-item digiprint-product">' ?>
+                <?php else: ?>
+                    <?= /* @escapeNotVerified */ '<li class="item product product-item">' ?>
+                <?php endif; ?>
+
+                <div class="product-item-info -<?= $block->escapeHtml($viewMode); ?>"
+                     data-container="product-grid"
+                     data-qff-points="<?= $block->escapeHtml($qff_bonus_points); ?>"
+                     data-parent-product-id="<?= $block->escapeHtml($productId); ?>">
+                    <?php
+                    $productImage = $block->getImage($_product, $image);
+                    if ($pos != null) {
+                        $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                            . 'top:' . $productImage->getHeight() . 'px;"';
+                    }
+                    ?>
+
+                    <?php ?>
+                    <a href="<?= $block->escapeUrl($productUrl); ?>"
+                       title="<?= $block->escapeHtml($productName); ?>"
+                       class="product photo product-item-photo discountPrice <?= $discountPrice; ?>"
+                       tabindex="-1">
+                        
+                        <?php if ($seller != "digiDirect" && $seller != ""): ?>
+                            <div class="ribbon-online">Online only</div>
+                        <?php else: ?>
+                            <?php if ($is_digiPrint == 1): ?>
+                                <?php if ($discountPrice > 0 || $marketplacesPrice > $finalProductPrice): ?>
+                                    <?php 
+                                        $hasDiscountClass = "has-discount";
+                                    ?>
+                                    <div class="ribbon-digideals">digiDeals</div>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php if ($discountPrice > 0 || ($discountWiserPrice >= 10 && $wiserPrice != 0) || $marketplacesPrice > $finalProductPrice): ?>
+                                    <?php 
+                                        $hasDiscountClass = "has-discount";
+                                    ?>
+                                    <?php if ($isDigiSeconds == 0): ?>
+                                        <div class="ribbon-digideals">digiDeals</div>
+                                    <?php endif; ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                        
+                        <?php if ($isDigiSeconds > 0): ?>
+                            <?php if ($d2ItemCondition): ?>
+                                <div class="digiseconds-overlay <?= $hasDiscountClass; ?>">
+                                    <?php if ($d2ItemCondition == "PRELOVED"): ?>
+                                        <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-pre-loved.png"/>
+                                    <?php elseif ($d2ItemCondition == "OPENBOX"): ?>
+                                        <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-demo.png"/>
+                                    <?php elseif ($d2ItemCondition == "REFURB"): ?>
+                                        <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-refurbished.png"/>
+                                    <?php endif; ?>
+                                    <div class="digiseconds-rating">
+                                        <?php if ($d2ItemRating == 5): ?>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                        <?php elseif ($d2ItemRating == 4): ?>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        <?php elseif ($d2ItemRating == 3): ?>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        <?php elseif ($d2ItemRating == 2): ?>
+                                            <i class="fas fa-star"></i>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        <?php elseif ($d2ItemRating == 1): ?>
+                                            <i class="fas fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        <?php elseif ($d2ItemRating == 0): ?>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                            <i class="far fa-star"></i>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                        <?php endif; ?>
+                        <?= $productImage->toHtml(); ?>
+                        <div class="overlay-container"></div>
+                    </a>
+
+                    <?php
+                    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+                    ?>
+
+                    <?php
+                    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                    $reviewFactory = $objectManager->create('Magento\Review\Model\Review');
+                    $product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+                    $storeManager  = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+                    $storeId = $storeManager->getStore()->getStoreId();
+                    $reviewFactory->getEntitySummary($product, $storeId);
+
+                    $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+                    $reviewCount = $product->getRatingSummary()->getReviewsCount();
+                    ?>
+
+                    <?php if ($reviewCount > 0) : ?>
+                        <div><?php echo $block->getReviewsSummaryHtml($_product, $templateType, true) ?></div>
+                    <?php else: ?>
+                        <div class="product-reviews-summary short">
+                            <div class="rating-summary">
+                                <span class="label"><span>Rating:</span></span>
+                                <div class="rating-result blank-star-rating" title="100%">
+                                    <span style="width: 100%;"><span>100%</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if ($currentPage != "catalogsearch_result_index"): ?>
+                        <?php if ($categoryName == "digiSeconds" ||
+                            $categoryName == "REFURB" ||
+                            $categoryName == "OPENBOX" ||
+                            $categoryName == "PRELOVED") : ?>
+                            <strong class="product name product-item-name -grid digiseconds-savings">
+                                <a href="<?= $block->escapeUrl($productUrl); ?>"
+                                   class="product-item-link">
+                                    <?php if ($brandNewProductPrice != "" || $brandNewProductPrice): ?>
+                                        Seconds Savings: <?= $secondsSavings; ?>%
+                                    <?php endif; ?>
+                                </a>
+                            </strong>
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+                    <?php if($blockMode === 'grid'):?>
+                        <strong class="product name product-item-name -grid default-product-name">
+                            <a href="<?= $block->escapeUrl($productUrl); ?>"
+                               title="<?= $block->escapeHtml($productName); ?>"
+                               class="product-item-link">
+                                <?= $block->escapeHtml($productName); ?>
+                            </a>
+                        </strong>
+                    <?php endif;?>
+                    <div class="product details product-item-details marketplacer-product">
+                        <div class="no-display">
+                            <?php
+                            // Must be called for Preorder plugin
+                            echo $block->getReviewsSummaryHtml($_product);
+                            ?>
+                        </div>
+                        <?= $this->getLayout()
+                            ->createBlock('Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule')
+                            ->setTemplate('Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml')
+                            ->setProduct($_product)
+                            ->toHtml();
+                        ?>
+                        <?php if($blockMode === 'grid'):?>
+                            <?php if ($afterProductPriceBlock = $block->getChildBlock('after.product.price.container')): ?>
+                                <?= /* @escapeNotVerified */ $afterProductPriceBlock->setProduct($_product)->getChildHtml(); ?>
+                            <?php endif; ?>
+                            <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                        <?php endif;?>
+                        <?php if($blockMode === 'list'):?>
+                            <strong class="product name product-item-name -list">
+                                <a href="<?= $block->escapeUrl($productUrl) ?>"
+                                   title="<?php  echo $block->escapeHtml($productName); ?>"
+                                   class="product-item-link">
+                                    <?= $block->escapeHtml($productName); ?>
+                                </a>
+                            </strong>
+                            <?php if ($afterProductPriceBlock = $block->getChildBlock('after.product.price.container')): ?>
+                                <?= /* @escapeNotVerified */ $afterProductPriceBlock->setProduct($_product)->getChildHtml(); ?>
+                            <?php endif; ?>
+                            <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                        <?php endif;?>
+                        
+                        <div class="product-item-inner digiprint-right">
+                            <?= $block->getProductDetailsHtml($_product); ?>
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+
+                                    <?php if ($is_digiPrint == 1): ?>
+                                        <div class="s19-rental-price-target">
+                                            <p style="font-size: 13px; font-weight: 500;">Get creative with</p>
+                                            <p>
+                                                <img width="75" src="<?php echo $block->getUrl("media/wysiwyg/landing-pages/services/digiprint/")?>digiPrint__k__x48.png"/>
+                                            </p>
+                                        </div>
+                                        <a class="ordernow-link" href="<?php echo $digiprintCustomLinkProductSKU;?> target="_blank">
+                                            <button type="button"
+                                                title="<?= /* @escapeNotVerified */ __('Order Now'); ?>"
+                                                class="action btn-ordernow primary">
+                                                Order Now <i class="fas fa-cart-plus" style="float: right;"></i>
+                                            </button>
+                                        </a>
+                                    <?php else: ?>
+                                        <div class="s19-rental-price-target">
+                                            <p style="font-size: 13px; font-weight: 500;">Buy now pay later</p>
+                                            <p style="font-size: 13px; font-weight: 500;">Options Available</p>
+                                        </div>
+                                    <form data-role="tocart-form"
+                                          data-product-sku="<?=  /* @NoEscape */ $_product->getSku(); ?>"
+                                          data-mage-init='{"validation": {"ignore": ".super-attribute-select"}}'
+                                          action="<?= /* @escapeNotVerified */ $postParams['action']; ?>" method="post"
+                                    >
+                                        <input type="hidden"
+                                               name="product"
+                                               value="<?= /* @escapeNotVerified */ $postParams['data']['product']; ?>"/>
+                                        <input type="hidden"
+                                               name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED; ?>"
+                                               value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>"/>
+                                        <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey'); ?>
+                                        <?php if ($toCartFormBlock = $block->getChildBlock('tocart_form')): ?>
+                                            <?= /* @escapeNotVerified */ $toCartFormBlock->setProduct($_product)->getChildHtml(); ?>
+                                        <?php endif; ?>
+                                        <button type="submit"
+                                                title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
+                                                class="action tocart primary">
+                                            <span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>
+                                        </button>
+                                    </form>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <?php if ($showDescription):?>
+                                <div class="product description product-item-description">
+                                    <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description'); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php if ($currentPage != "catalogsearch_result_index"): ?>
+                        <?php if ($categoryName == "digiSeconds" ||
+                            $categoryName == "REFURB" ||
+                            $categoryName == "OPENBOX" ||
+                            $categoryName == "PRELOVED"): ?>
+                            <div class="digiseconds-product-details">
+                                <div class="digiseconds-product-name">
+                                    <a href="<?= $block->escapeUrl($productUrl); ?>">
+                                        <span><?= $block->escapeHtml($productName); ?></span>
+                                    </a>
+                                </div>
+                                <?php if ($d2ItemDescription): ?>
+                                    <div class="item-note-wrapper-plp">
+                                        <span class="item-note-label">
+                                            Item Note:
+                                        </span>
+                                        <span class="item-note" style="padding-left: 15px;">
+                                            <?= /* @escapeNotVerified */ $d2ItemDescription ?>
+                                        </span>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($d2PackageInclusion): ?>
+                                    <div class="package-inclusion-wrapper">
+                                        <div>
+                                            What's in the box?
+                                        </div>
+                                        <div class="whats-in-the-box-wrapper">
+                                            <?= /* @escapeNotVerified */ $d2PackageInclusion ?>
+                                        </div>
+                                        <div class="digiseconds-show-more">
+                                            <a href="<?= $block->escapeUrl($productUrl); ?>" title="<?= $block->escapeHtml($productName); ?>">
+                                                <i class="fas fa-chevron-circle-down"></i> See more
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                                <?php if ($brandNewProductPrice && $brandNewProductPrice != ""): ?>
+                                    <div class="other-options-wrapper">
+                                        <div>
+                                            OTHER BUYING OPTIONS
+                                        </div>
+                                        <div class="other-options-new">
+                                            New: <a href="<?= $block->escapeUrl($brandNewProductUrl); ?>" title="View Brand New">$<?= /* @escapeNotVerified */ number_format($brandNewProductPrice, 2) ?>
+                                            </a>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                    
+                </div>
+                <?= /* @escapeNotVerified */ '</li>'?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $block->getChildBlock('toolbar')->setIsBottom(true)->toHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) : ?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                   "bindSubmit": true
+                }
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>
+
+<script>
+    /*require([
+            'jquery'
+        ],
+        function ($) {
+
+            $('.product-category-listing li .product-item-info .product-item-photo').each(function(){
+                if ($(this).find('.product-overlay').length) {
+                    $(this).find('.overlay-container').append($(this).find('.product-overlay'));
+                }
+                if ($(this).find('.digiseconds-overlay').length) {
+                    $(this).find('.overlay-container').attr("style", "top: 65px;");
+                }
+            });
+
+    });*/
+</script>

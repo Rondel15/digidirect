@@ -1,0 +1,12 @@
+{
+  "name": "digidirect/extendedcatalogpricerule",
+  "type": "magento2-module",
+  "description": "Digidirect Extended Catalog Price Rule",
+  "version": "1.2.0.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\ExtendedCatalogPriceRule\\": ""
+    }
+  }
+}

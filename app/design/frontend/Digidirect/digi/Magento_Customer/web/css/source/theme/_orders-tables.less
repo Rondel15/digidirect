@@ -1,0 +1,211 @@
+//
+//  Account: Recent Orders Table && History Orders Table
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .orders-recent,
+    .orders-history,
+    .returns {
+        tr {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+
+            &:nth-child(even) {
+                .lib-css(background-color, @color-3-4);
+            }
+        }
+
+        .col {
+            word-break: break-all;
+        }
+    }
+
+    .orders-recent,
+    .orders-history {
+        .action.view:not(:only-child) {
+            .lib-css(border-right, 1px solid @color-3-2);
+            padding-right: 16px;
+            margin-right: 16px;
+        }
+    }
+
+    .table-wrapper.orders-history,
+    .table-wrapper.returns {
+        margin-bottom: 30px;
+    }
+}
+
+//
+//  Tablet -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .orders-recent,
+    .orders-history,
+    .returns {
+        .table {
+            .lib-table-responsive();
+        }
+
+        tbody > tr {
+            > td:first-child {
+                .lib-css(padding-top, @table-wrapper-table-type1-tbody-tr-td__first-child__padding-top__s-only);
+            }
+
+            > td:last-child {
+                .lib-css(padding-bottom, @table-wrapper-table-type1-tbody-tr-td__last-child__padding-bottom__s-only);
+            }
+        }
+
+        td {
+            &[data-th]::before {
+                display: block !important;
+                content: attr(data-th) !important;
+                margin-bottom: 4px;
+            }
+
+            &.col.actions {
+                .lib-css(font-weight, @font-weight__heavier);
+                padding-top: 15px!important;
+                &::before {
+                    display: none !important;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .orders-recent,
+    .orders-history {
+        .col.actions {
+            width: 23%;
+            text-align: right;
+        }
+
+        .col.shipping {
+            width: 18%;
+        }
+
+        .col.id,
+        .col.date,
+        .col.total,
+        .col.status {
+            width: 13%;
+        }
+    }
+
+    .orders-recent,
+    .orders-history,
+    .returns {
+        thead .col {
+            padding: 14px 10px;
+        }
+
+        tbody .col {
+            padding: 22px 10px 21px;
+        }
+
+        td.col.actions {
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+    }
+
+    .returns {
+        tbody .col {
+            width: 21%;
+        }
+
+        tbody .col:last-child {
+            width: 16%;
+            text-align: right;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .orders-recent,
+    .orders-history {
+        tbody td.col.actions {
+            padding-left: 0;
+            word-break: normal;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .orders-recent,
+    .orders-history {
+        .col.id,
+        .col.date,
+        .col.total,
+        .col.status {
+            width: 15%;
+        }
+
+        .col.actions {
+            width: 22%;
+        }
+    }
+
+    .orders-recent,
+    .orders-history,
+    .returns {
+        thead .col {
+            padding: 14px 19px;
+        }
+
+        tbody .col {
+            padding: 22px 19px 21px;
+        }
+    }
+}
+
+//
+//  Desktop ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .orders-recent,
+    .orders-history {
+        .col.id,
+        .col.date,
+        .col.total,
+        .col.status {
+            width: 16%;
+        }
+
+        .col.actions {
+            width: 18%;
+        }
+    }
+
+    .returns {
+        tbody .col {
+            width: 22%;
+        }
+
+        tbody .col:last-child {
+            width: 12%;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="before.body.end">
+            <block class="Magento\Framework\View\Element\Template" name="quickview.init" template="Digidirect_QuickView::product/list/quickview/quickview.phtml" after="-" ifconfig="digidirect_quickview/general/quickview_enabled">
+                <arguments>
+                    <argument name="use_for_mobile" xsi:type="boolean">true</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="catalogsearch.product.addto">
+            <block class="Digidirect\QuickView\Block\Product\ListProduct\QuickView\Button" name="quickview.button" template="Digidirect_QuickView::product/list/quickview/button.phtml" after="-" ifconfig="digidirect_quickview/general/quickview_enabled">
+                <arguments>
+                    <argument name="button_label" xsi:type="string">Quick View</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

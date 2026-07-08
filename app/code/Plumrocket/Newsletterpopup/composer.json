@@ -1,0 +1,20 @@
+{
+    "name": "plumrocket/module-prnewsletterpopup",
+    "description": "Plumrocket Newsletter Popup Extension for Magento 2",
+    "require": {
+        "php": ">=7.1",
+        "plumrocket/module-plumbase": ">=2.10.1",
+        "plumrocket/module-extended-admin-ui": ">=1.0"
+    },
+    "type": "magento2-module",
+    "version": "4.7.0",
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Plumrocket\\Newsletterpopup\\": ""
+        }
+    },
+    "suggest": {
+        "hyva-themes/magento2-plumrocket-newsletterpopup": "*"
+    }
+}

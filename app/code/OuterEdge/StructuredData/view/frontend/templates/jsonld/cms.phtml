@@ -1,0 +1,13 @@
+,"name": "<?= /* @escapeNotVerified */  $block->escapeQuote($block->stripTags($block->getTitle())); ?>",
+"mainContentOfPage": {
+    "text": "<?= /* @escapeNotVerified */  $block->escapeQuote($block->stripTags($block->getContent())); ?>"
+}
+<?php if ($block->getMetaDescription()): ?>
+    ,"description": "<?= $block->escapeQuote(preg_replace('/\s+/', ' ', trim($block->stripTags($block->getMetaDescription())))); ?>"
+<?php endif; ?>
+<?php if ($block->getImage()): ?>
+    ,"primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "<?= $block->escapeQuote($block->getImage()); ?>"
+    }
+<?php endif; ?>

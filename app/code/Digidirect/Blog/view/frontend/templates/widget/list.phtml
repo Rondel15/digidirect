@@ -1,0 +1,50 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Latest $block
+ * @var \Digidirect\Blog\Model\Post $post
+ */
+?>
+
+<?php $latestPosts = $block->getCollection(); ?>
+<div class="blog-latest blog-widget widget">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Latest Posts'); ?></h3>
+
+    <div class="blog-list">
+        <?php foreach ($latestPosts as $post): ?>
+
+            <?php $postTitle = $block->escapeHtml($post->getTitle()); ?>
+            <?php $mainImage = $post->getMainImage(); ?>
+
+            <article class="post-card item">
+                <?php if ($block->isCategoriesInclude()): ?>
+                    <?php $categoriesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                    <?php $categoriesTitlesCount = count($categoriesArray); ?>
+                    <?php if ($categoriesTitlesCount) : ?>
+                        <ul class="categories">
+                            <?php foreach ($categoriesArray as $key => $category): ?>
+                                <?php $categoryName = $block->escapeHtml($category->getName()); ?>
+                                <li>
+                                    <a href="<?php echo $block->escapeUrl($category->getViewUrl())?>" class="link"
+                                       title="<?php /* @escapeNotVerified */ echo $categoryName; ?>"><?php /* @escapeNotVerified */ echo $categoryName; ?></a>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php if (!empty($mainImage)): ?>
+                    <img class="image" src="<?php echo $block->escapeHtml($mainImage); ?>" alt="<?php /* @escapeNotVerified */ echo $postTitle; ?>" />
+                <?php endif; ?>
+
+                <h3><?php /* @escapeNotVerified */ echo $postTitle; ?></h3>
+                <p><?php /* @escapeNotVerified */ echo $post->getShortContent(); ?></p>
+                <p>
+                    <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php /* @escapeNotVerified */ echo $postTitle; ?>">
+                        <?php /* @escapeNotVerified */ echo __('Read Full Article'); ?>
+                    </a>
+                </p>
+            </article>
+
+        <?php endforeach; ?>
+    </div>
+</div>

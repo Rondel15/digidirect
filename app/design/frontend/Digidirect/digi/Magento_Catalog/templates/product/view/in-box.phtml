@@ -1,0 +1,8 @@
+<?php if ($product = $block->getProduct()->getData('whats_in_the_box')): ?>
+    <div class="new-block">
+        <div class="title"><?php echo $block->escapeHtml(__('What’s In The Box')); ?></div>
+        <div class="list">
+            <?php echo $product; ?>
+        </div>
+    </div>
+<?php endif; ?>

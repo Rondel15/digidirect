@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="eaa_attribute_options_list" class="Digidirect\AbstractAttributes\Block\Widget\AttributeOptionsList">
+        <label translate="true">Attribute Options List</label>
+        <description>Widget shows the list of abstract attribute options</description>
+        <parameters>
+            <parameter name="attribute_id" xsi:type="select" visible="true" required="true" sort_order="10"
+                       source_model="Digidirect\AbstractAttributes\Model\Widget\Options\Attributes">
+                <label translate="true">Product Attribute</label>
+            </parameter>
+            <parameter name="option_count" xsi:type="text" visible="true" sort_order="20">
+                <label translate="true">Number of Attribute Options to Display</label>
+            </parameter>
+            <parameter name="title" xsi:type="text" visible="true" sort_order="30">
+                <label translate="true">Block Title</label>
+            </parameter>
+            <parameter xsi:type="select" name="widget_template" visible="true" sort_order="40" source_model="Digidirect\AbstractAttributes\Model\Widget\Options\Template" required="true">
+                <label translate="true">Select Template</label>
+            </parameter>
+            <parameter xsi:type="text" name="custom_template" visible="true" sort_order="50" required="true">
+                <label translate="true">Custom Template</label>
+                <description>Digidirect_AbstractAttributes::widget/attribute_options/{{custom_template}}.phtml</description>
+                <depends>
+                    <parameter name="widget_template" value="custom" />
+                </depends>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

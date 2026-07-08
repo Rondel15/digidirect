@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var $block Digidirect\CheckoutFields\Block\Adminhtml\Order\Create\Form\AdditionalFields
+ */
+?>
+<section id="order-addition-info" class="admin__page-section order-addition-info">
+    <div class="admin__page-section-title <?php echo $block->escapeHtml($block->getHeaderCssClass()) ?>">
+        <span class="title"><?php echo $block->escapeHtml($block->getHeaderText()) ?></span>
+        <div class="actions"></div>
+    </div>
+    <div id="checkout_additional_fields" class="admin__page-section-content">
+        <?php echo $block->getForm()->getHtml() ?>
+    </div>
+</section>

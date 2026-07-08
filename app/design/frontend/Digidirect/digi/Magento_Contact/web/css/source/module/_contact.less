@@ -1,0 +1,74 @@
+//
+//  Variables
+//  ---------------------------------------------
+
+@contact-left-column__width: 50%;
+@contact-right-column__width: 50%;
+@contact-column__gutter: 60px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .contact-page {
+        & {
+            .lib-css(background-color, @color-white);
+            padding: 40px 20px;
+        }
+
+        > .left-column {
+            margin-bottom: 20px;
+        }
+
+        &.-cms-page {
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .contact-page {
+        &.-cms-page {
+            margin-bottom: 40px;
+        }
+
+        .contact-form {
+            width: 100% !important; // rewrite over-nesting styles of Magento_Contact module
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .contact-page {
+        & {
+            .lib-vendor-prefix-display(flex);
+            padding: 50px 60px;
+        }
+
+        > .left-column {
+            .lib-css(width, @contact-left-column__width);
+            .lib-css(padding-right, @contact-column__gutter/2);
+            margin-bottom: 0;
+        }
+
+        > .right-column {
+            .lib-css(width, @contact-right-column__width);
+            .lib-css(padding-left, @contact-column__gutter/2);
+        }
+
+        &.-cms-page {
+            margin-top: 0;
+            margin-bottom: 60px;
+        }
+    }
+}

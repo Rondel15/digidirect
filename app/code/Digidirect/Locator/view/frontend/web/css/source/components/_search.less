@@ -1,0 +1,21 @@
+//
+//  Locator:search
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@locator-search__margin: 0 0 20px;
+@locator-search__padding: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .locator-search {
+        .lib-css(margin, @locator-search__margin);
+        .lib-css(padding, @locator-search__padding);
+    }
+}

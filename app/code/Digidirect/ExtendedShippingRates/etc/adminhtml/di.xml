@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Carriers -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Carrier\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Carrier\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="methods" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Carrier\Form\Modifier\Methods</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Carrier\Form\CarrierDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\ExtendedShippingRates\Ui\DataProvider\Carrier\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <!-- Methods -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Method\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Method\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="rates" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Method\Form\Modifier\Rates</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Method\Form\MethodDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\ExtendedShippingRates\Ui\DataProvider\Method\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <!-- Rates -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Rate\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Rate\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Rate\Form\RateDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\ExtendedShippingRates\Ui\DataProvider\Rate\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <!-- Zones -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Zone\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Zone\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Zone\Form\ZoneDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\ExtendedShippingRates\Ui\DataProvider\Zone\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <!-- Rules -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Quote\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="general" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\ExtendedShippingRates\Ui\DataProvider\Quote\Form\Modifier\General</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Ui\DataProvider\Quote\Form\QuoteDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\ExtendedShippingRates\Ui\DataProvider\Quote\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <!-- Get Shipping Methods -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\GetAvailableShippingMethod"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Digidirect\ExtendedShippingRates\Model\Config\Source\Shipping\Methods</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Get Shipping Methods -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\GetHiddenShippingMethod"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+            <argument name="isMultiple" xsi:type="boolean">true</argument>
+            <argument name="attributeList" xsi:type="object">Digidirect\ExtendedShippingRates\Model\Config\Source\Shipping\Methods</argument>
+            <argument name="data" xsi:type="array">
+                <item name="extra_params" xsi:type="string">size="10" multiple="multiple"</item>
+                <item name="class" xsi:type="string">select multiselect admin__control-multiselect</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Hide Shipping Method Configuration -->
+    <virtualType name="Digidirect\ExtendedShippingRates\Block\Adminhtml\Config\HideShippingMethodMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="country" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\ExtendedShippingRates\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\GetAvailableShippingMethod</item>
+                    <item name="label" xsi:type="string">Available Shipping Method</item>
+                </item>
+                <item name="state" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\ExtendedShippingRates\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\GetHiddenShippingMethod</item>
+                    <item name="label" xsi:type="string">Hide Shipping Method(s)</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

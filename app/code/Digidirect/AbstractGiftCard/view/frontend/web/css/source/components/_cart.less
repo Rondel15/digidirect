@@ -1,0 +1,21 @@
+//
+//  Abstract Gift Card: Cart
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@abstract-gift-cards-cart-check__margin: @indent__base 0 0;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .abstract-giftcardcart {
+        .action.-check {
+            .lib-button-s();
+            &:extend(.abs-action-button-as-link all);
+            .lib-css(margin, @abstract-gift-cards-cart-check__margin);
+        }
+    }
+}

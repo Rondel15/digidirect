@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="digidirect_invoice_email_template" label="Invoice Email" file="invoice.html" type="html" module="Digidirect_InvoiceEmail" area="frontend"/>
+</config>

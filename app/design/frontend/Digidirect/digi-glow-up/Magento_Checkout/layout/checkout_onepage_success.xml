@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <link src="Magento_Checkout::js/confetti.browser.min.js"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title" remove="true" />
+        <referenceBlock name="cms.helpfullinfo.slider.block" remove="true"/>
+        <referenceBlock name="digidirect.menu.footer.bottom" remove="true"/>
+        <referenceBlock name="footer-social-links" remove="true"/>
+
+        <referenceBlock name="header.container" remove="true" />
+        <referenceBlock name="footer.container" remove="true" />
+        <referenceContainer name="header-wrapper">
+            <referenceBlock name="navigation.sections" remove="true" />
+        </referenceContainer>
+        <referenceContainer name="header.panel" remove="true"/>
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="minicart" remove="true" />
+
+        <referenceBlock name="global.newsletter" remove="true" />
+        <referenceBlock name="footer-links-wrapper" remove="true" />
+        <referenceBlock name="footer-black-gradient" remove="true" />
+        <referenceBlock name="copyright" remove="true" />
+        <referenceBlock name="footer-container" remove="true" />
+
+        <block class="Magento\Framework\View\Element\Template" name="checkout.cart.header" template="Magento_Checkout::header/header-content.phtml" />
+
+        <block class="Magento\Framework\View\Element\Template" name="checkout.cart.footer" template="Magento_Checkout::footer/footer-content.phtml" />
+
+        <referenceBlock name="authentication" remove="true" />
+
+<!--        <move element="page.main.title" destination="content" before="-" />-->
+        <move element="checkout.cart.menu" destination="content" before="page.main.title" />
+        <move element="checkout.cart.header" destination="page.wrapper" before="-" />
+        <move element="checkout.cart.footer" destination="page.wrapper" after="-" />
+
+        <referenceContainer name="content">
+            <block class="Magestat\SplitOrder\Block\Checkout\Success" name="checkout.success" template="Magestat_SplitOrder::success.phtml" cacheable="false">
+                <container name="order.success.additional.info" label="Order Success Additional Info"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

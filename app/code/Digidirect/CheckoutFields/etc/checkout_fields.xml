@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_OrderManagement:etc/checkout_fields.xsd">
+        <!-- ABSTRACT EXAMPLE: -->
+        <!--
+        <code>
+            <frontend_name>Frontend Name</frontend_name>
+            <frontend_input>radio|text|textarea|date|select|checkbox|multiselect</frontend_input>
+            <sort_order>0</sort_order>
+            <validation>
+                USE STANDARD MAGENTO VALIDATION HERE
+                <required-entry>1</required-entry>
+                <less-than-equals-to>20</less-than-equals-to>
+                <validate-number>1</validate-number>
+                <validate-digits>1</validate-digits>
+                <validate-zero-or-greater>1</validate-zero-or-greater>
+
+                min_text_length
+                max_text_length
+                max-words
+                min-words
+                range-words
+                letters-with-basic-punc
+                alphanumeric
+                letters-only
+                no-whitespace
+                zip-range
+                integer
+                vinUS
+                dateITA
+                dateNL
+                time
+                time12h
+                phoneUS
+                phoneUK
+                mobileUK
+                stripped-min-length
+                email2
+                url2
+                credit-card-types
+                ipv4
+                ipv6
+                pattern
+                validate-no-html-tags
+                validate-select
+                validate-no-empty
+                validate-alphanum-with-spaces
+                validate-data
+                validate-street
+                validate-phoneStrict
+                validate-phoneLax
+                validate-fax
+                validate-email
+                validate-emailSender
+                validate-password
+                validate-admin-password
+                validate-url
+                validate-clean-url
+                validate-xml-identifier
+                validate-ssn
+                validate-zip-us
+                validate-date-au
+                validate-currency-dollar
+                validate-not-negative-number
+                validate-zero-or-greater
+                validate-greater-than-zero
+                validate-css-length
+                validate-number
+                validate-number-range
+                validate-digits
+                validate-digits-range
+                validate-range
+                validate-alpha
+                validate-code
+                validate-alphanum
+                validate-date
+                validate-identifier
+                validate-zip-international
+                validate-state
+                less-than-equals-to
+                greater-than-equals-to
+                validate-emails
+                validate-cc-number
+                validate-cc-ukss
+                required-entry
+                checked
+                not-negative-amount
+                validate-per-page-value-list
+                validate-new-password
+                validate-item-quantity
+                equalTo
+            </validation>
+            <area>
+                <checkout_step>billing-step</checkout_step>
+                <custom_scope>payment</custom_scope>
+                <fieldset>beforeMethods|afterMethods</fieldset>
+                OR
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>before-fields|address-list-additional-addresses|before-shipping-method-form|shipping-address-fieldset</fieldset>
+            </area>
+
+            OPTIONAL
+            <options>
+                <option value="0" label="Please Select" />
+                <option value="1" label="First Option" />
+            </options>
+        </code>
+        -->
+
+        <!-- EXAMPLE NUMBER: -->
+<!--
+        <field id="delivery_number">
+            <frontend_name>Delivery Number</frontend_name>
+            <frontend_input>textarea</frontend_input>
+            <sort_order>10000</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+                <rule name="less-than-equals-to">20</rule>
+                <rule name="validate-number">1</rule>
+                <rule name="validate-digits">1</rule>
+                <rule name="validate-zero-or-greater">1</rule>
+            </validation>
+            <area>
+                <checkout_step>billing-step</checkout_step>
+                <custom_scope>payment</custom_scope>
+                <fieldset>beforeMethods</fieldset>
+            </area>
+        </field>
+        -->
+
+
+        <!-- EXAMPLE TEXT: -->
+<!--
+        <field id="delivery_text">
+            <frontend_name>Delivery Email</frontend_name>
+            <frontend_input>select</frontend_input>
+            <sort_order>0</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>address-list-additional-addresses</fieldset>
+            </area>
+            <options>
+                <option value="1" label="Test Label 1" />
+                <option value="2" label="Test Label 2" />
+                <option value="3" label="30" />
+            </options>
+        </field>
+    -->
+
+<!--
+        <field id="delivery_date">
+            <frontend_name>Delivery Date</frontend_name>
+            <frontend_input>date</frontend_input>
+        -->
+        <!-- Example of date format: http://php.net/manual/en/datetime.createfromformat.php -->
+        <!--
+            <frontend_format>d/m/Y</frontend_format>
+            <sort_order>260</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>address-list-additional-addresses</fieldset>
+            </area>
+        </field>
+    -->
+
+        <!-- EXAMPLE SELECT: -->
+    <!--
+        <field id="delivery_select">
+            <frontend_name>Delivery Drop Down</frontend_name>
+            <frontend_input>select</frontend_input>
+            <sort_order>270</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>shipping-address-fieldset</fieldset>
+            </area>
+            <options>
+                <option value="0" label="please select" />
+                <option value="2" label="Second option" />
+            </options>
+        </field>
+
+    -->
+
+        <!-- EXAMPLE CHECKBOX: -->
+    <!--
+        <field id ="delivery_checkbox">
+            <frontend_name>Delivery Checkbox</frontend_name>
+            <frontend_input>checkbox</frontend_input>
+            <sort_order>280</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>shipping-address-fieldset</fieldset>
+            </area>
+        </field>
+    -->
+
+        <!-- EXAMPLE MULTISELECT: -->
+    <!--
+        <field id="delivery_multiselect">
+            <frontend_name>Delivery Multiselect</frontend_name>
+            <frontend_input>multiselect</frontend_input>
+            <sort_order>290</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>shipping-address-fieldset</fieldset>
+            </area>
+            <options>
+                <option value="0" label="First option" />
+                <option value="56" label="Twenty five option" />
+                <option value="23" label="Second option" />
+            </options>
+        </field>
+    -->
+
+        <!-- EXAMPLE RADIO: -->
+    <!--
+        <field id="delivery_radio">
+            <frontend_name>Delivery Radio</frontend_name>
+            <frontend_input>radio</frontend_input>
+            <sort_order>300</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>shipping-address-fieldset</fieldset>
+            </area>
+            <options>
+                <option value="6" label="Sixth Option" />
+                <option value="68" label="Sixty Eighth Option" />
+            </options>
+        </field>
+    -->
+
+        <!-- EXAMPLE TEXTAREA: -->
+    <!--
+        <field id="delivery_textarea">
+            <frontend_name>Delivery Textarea</frontend_name>
+            <frontend_input>textarea</frontend_input>
+            <sort_order>310</sort_order>
+            <validation>
+                <rule name="required-entry">1</rule>
+                <rule name="min_text_length">20</rule>
+                <rule name="max_text_length">30</rule>
+            </validation>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>shipping-address-fieldset</fieldset>
+            </area>
+        </field>
+    -->
+
+        <!-- EXAMPLE <DEPENDS> TAG: -->
+    <!--
+        <field id="textarea_field">
+            <frontend_name>Textarea field</frontend_name>
+            <frontend_input>textarea</frontend_input>
+            <sort_order>100</sort_order>
+            <depends>
+                <field_id>parent_field_id</field_id>
+                <action>clear_quote_values_by_depends_on_date</action>
+            </depends>
+            <area>
+                <checkout_step>shipping-step</checkout_step>
+                <custom_scope>shippingAddress</custom_scope>
+                <fieldset>address-list-additional-addresses</fieldset>
+            </area>
+        </field>
+    -->
+
+</config>

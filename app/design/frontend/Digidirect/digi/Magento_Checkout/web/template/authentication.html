@@ -1,0 +1,92 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="authentication-wrapper" data-block="authentication" data-bind="visible: isActive()">
+    <button
+        type="button"
+        class="action action-auth-toggle"
+        data-trigger="authentication"
+        data-bind="attr: { title: $t('Login') }">
+        <svg class="svg-icon icon-login" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <g>
+                <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+            </g>
+            <g>
+                <path fill="#ffffff" id="login_account_enter_door" d="m27,3l0,26a1,1 0 0 1 -1,1l-20,0a1,1 0 0 1 -1,-1l0,-2l2,0l0,1l18,0l0,-24l-18,0l0,3l-2,0l0,-4a1,1 0 0 1 1,-1l20,0a1,1 0 0 1 1,1zm-14.71,17.29l1.42,1.42l5,-5a1,1 0 0 0 0,-1.42l-5,-5l-1.42,1.42l3.3,3.29l-10.59,0l0,2l10.59,0l-3.3,3.29z"/>
+            </g>
+        </svg>
+    </button>
+    <div class="block-authentication"
+         style="display: none"
+         data-bind="mageInit: {
+            'Magento_Ui/js/modal/modal':{
+                'type': 'custom',
+                'title': $t('Login'),
+                'modalClass': 'authentication-dropdown',
+                'trigger': '[data-trigger=authentication]',
+                'wrapperClass': 'authentication-wrapper',
+                'parentModalClass': '_has-modal-custom _has-auth-shown',
+                'responsive': true,
+                'responsiveClass': 'custom-slide',
+                'overlayClass': 'dropdown-overlay modal-custom-overlay',
+                'buttons': []
+            }}">
+        <!-- ko foreach: getRegion('before') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!-- /ko -->
+        <div class="block block-customer-login"
+             data-bind="attr: {'data-label': $t('or')}">
+            <!-- ko foreach: getRegion('messages') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+            <div class="block-content" aria-labelledby="block-customer-login-heading">
+                <form data-role="login"
+                      data-bind="submit:login"
+                      method="post">
+                    <div class="fieldset">
+                        <div class="field field-email required">
+                            <label class="label" for="login-email"><span data-bind="i18n: 'Email Address'"></span></label>
+                            <div class="control">
+                                <input type="email"
+                                       class="input-text"
+                                       id="login-email"
+                                       name="username"
+                                       data-bind="attr: {autocomplete: autocomplete}"
+                                       data-validate="{required:true, 'validate-email':true}" />
+                            </div>
+                        </div>
+                        <div class="field field-password required">
+                            <label for="login-password" class="label"><span data-bind="i18n: 'Password'"></span></label>
+                            <div class="control">
+                                <input type="password"
+                                       class="input-text"
+                                       id="login-password"
+                                       name="password"
+                                       data-bind="attr: {autocomplete: autocomplete}"
+                                       data-validate="{required:true}"
+                                       autocomplete="off"/>
+                            </div>
+                        </div>
+                        <!-- ko foreach: getRegion('additional-login-form-fields') -->
+                        <!-- ko template: getTemplate() --><!-- /ko -->
+                        <!-- /ko -->
+                    </div>
+                    <div class="actions-toolbar">
+                        <input name="context" type="hidden" value="checkout" />
+                        <div class="primary">
+                            <button type="submit" class="action action-login secondary" data-bind="attr: {title:  $t('Login')}"><span data-bind="i18n: 'Login'"></span></button>
+                        </div>
+                        <div class="secondary">
+                            <a class="action action-remind" data-bind="attr: { href: forgotPasswordUrl, title:  $t('Forgot Your Password?')}">
+                                <span data-bind="i18n: 'Forgot Your Password?'"></span>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

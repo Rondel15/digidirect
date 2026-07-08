@@ -1,0 +1,23 @@
+//
+//  Click & Collect: Locator
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@collect-locator__position: relative;
+@collect-locator__min-height: 150px;
+@collect-locator__margin: 20px 0 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .collect-locator {
+        .lib-css(position, @collect-locator__position);
+        .lib-css(min-height, @collect-locator__min-height);
+        .lib-css(margin, @collect-locator__margin);
+    }
+}

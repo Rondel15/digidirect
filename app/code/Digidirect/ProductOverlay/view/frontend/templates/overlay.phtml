@@ -1,0 +1,48 @@
+<?php
+/** @var $block \Digidirect\ProductOverlay\Block\Overlay */
+?>
+
+<?php
+/** @var \Digidirect\ProductOverlay\Model\Overlays $overlay */
+$overlay = $this->getOverlay();
+$product = $block->getProduct();
+$key = (int)$overlay->getId() . '-' . (int)$product->getId();
+$text = $overlay->getText();
+if(empty($text))
+{
+    $nativeText = '';
+}
+else 
+{
+    $nativeText = strip_tags($text);
+}
+
+$containerPath = $block->getContainerPath();
+$hasImageSize = $overlay->getImageSize() ? ' -has-size' : '';
+?>
+<?php if ($containerPath): ?>
+    <div data-testid="productOverlay-overlayBlock" class="product-overlay-<?php echo $block->escapeHtml($key); ?> product-overlay -<?php echo $block->escapeHtml($overlay->getCssClass()) ?><?php /* @escapeNotVerified */ echo $hasImageSize; ?>"<?php if ($overlay->getUseForParent()): ?> data-role="use-for-parent"<?php endif; ?> data-overlay-id="<?php echo $block->escapeHtml((int)$overlay->getId()); ?>" style="<?php echo $block->escapeHtml($overlay->getValue('block_style')); ?>">
+        <img class="img"
+             src="<?php echo $block->escapeUrl($block->getImageScr()) ?>"
+             title="<?php echo $block->escapeHtml($nativeText) ?>"
+             alt="<?php echo $block->escapeHtml($nativeText) ?>"
+        >
+        <div class="text" style="<?php echo $block->escapeHtml($overlay->getValue('text_style')); ?>">
+            <?php /* @escapeNotVerified */ echo $text; ?>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+            ".product-overlay-<?= $block->escapeHtml($key); ?>": {
+                "productOverlay": {
+                    "size": <?= /* @escapeNotVerified */ $overlay->getImageSize() ?>,
+                    "path": "<?= $block->escapeHtml($containerPath) ?>",
+                    "mode": "<?= $block->escapeHtml($overlay->getMode()) ?>",
+                    "hideForConfigurable": "<?= /* @escapeNotVerified */ $overlay->getHideInConfigurable(); ?>",
+                    "overlaySelector": ".product-overlay-<?php echo $block->escapeHtml($key); ?>"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

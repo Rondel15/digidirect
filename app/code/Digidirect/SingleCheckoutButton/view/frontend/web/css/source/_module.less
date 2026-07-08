@@ -1,0 +1,34 @@
+//
+//  Single Checkout Button
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@single-checkout-button-shipping-actions-toolbar__display: none;
+@single-checkout-button-payment-actions-toolbar__display: none;
+@single-checkout-button-button__width: 100%;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .checkout-shipping-method {
+        .actions-toolbar {
+            .lib-css(display, @single-checkout-button-shipping-actions-toolbar__display);
+        }
+    }
+
+    .payment-method-content {
+        & > .actions-toolbar {
+            .lib-css(display, @single-checkout-button-payment-actions-toolbar__display);
+        }
+    }
+
+    .single-actions {
+        > .button {
+            .lib-css(width, @single-checkout-button-button__width);
+        }
+    }
+}

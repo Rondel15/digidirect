@@ -1,0 +1,33 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Latest $block
+ * @var \Digidirect\Blog\Model\Post $post
+ */
+?>
+<?php $latestPosts = $block->getCollection(); ?>
+<div class="blog-latest blog-widget widget">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Latest Posts'); ?></h3>
+    <ul class="list">
+        <?php foreach ($latestPosts as $post): ?>
+            <?php if ($block->isCategoriesInclude()): ?>
+                <?php $categoriesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                <?php $categoriesTitlesCount = count($categoriesArray); ?>
+                <?php if ($categoriesTitlesCount) : ?>
+                    <div class="categories">
+                        <?php $i=1; foreach ($categoriesArray as $key => $category): ?>
+                            <?php $categoryName = $block->escapeHtml($category->getName()); ?>
+                            <a href="<?php echo $block->escapeUrl($category->getViewUrl())?>" class="link"
+                               title="<?php /* @escapeNotVerified */ echo $categoryName; ?>"><?php /* @escapeNotVerified */ echo $categoryName; ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                            <?php $i++; ?>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            <?php endif; ?>
+            <li class="item">
+                <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                    <?php echo $block->escapeHtml($post->getTitle()) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

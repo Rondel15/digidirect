@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">country_address_attributes_form.country_address_attributes_form_data_source</item>
+            <item name="deps" xsi:type="string">country_address_attributes_form.country_address_attributes_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Edit Item</item>
+
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">country_address_attributes_form</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="array">
+                <item name="name" xsi:type="string">back</item>
+                <item name="label" xsi:type="string" translate="true">Back</item>
+                <item name="class" xsi:type="string">back</item>
+                <item name="url" xsi:type="string">*/*/</item>
+            </item>
+            <item name="reset" xsi:type="string">Digidirect\AddressVerification\Block\Adminhtml\CountryAddress\Edit\ResetButton</item>
+            <item name="save" xsi:type="string">Digidirect\AddressVerification\Block\Adminhtml\CountryAddress\Edit\SaveButton</item>
+            <item name="save_and_continue" xsi:type="string">Digidirect\AddressVerification\Block\Adminhtml\CountryAddress\Edit\SaveAndContinueButton</item>
+            <item name="delete" xsi:type="string">Digidirect\AddressVerification\Block\Adminhtml\CountryAddress\Edit\DeleteButton</item>
+        </item>
+    </argument>
+    <dataSource name="country_address_attributes_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Digidirect\AddressVerification\Ui\DataProvider\CountryAddress\Form\DataProvider</argument>
+            <argument name="name" xsi:type="string">country_address_attributes_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">entity_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="submit_url" xsi:type="url" path="digidirect_addressverification/countryaddress/save"/>
+                </item>
+            </argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">General</item>
+            </item>
+        </argument>
+        <field name="entity_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="dataScope" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </field>
+        <field name="country_code">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Country</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="dataScope" xsi:type="string">country_code</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+                <item name="options" xsi:type="object">Magento\Directory\Model\Config\Source\Country</item>
+            </argument>
+        </field>
+        <field name="attributes">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Digidirect\AddressVerification\Model\CountryAddress\Source\Attribute</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Address Attributes</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">page</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="dataScope" xsi:type="string">attributes</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                    <item name="notice" xsi:type="string" translate="true">Postcode and City attributes are not allowed for unselecting in the current revision of extension</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\Collect\Api\Data\PostCodeInterface" type="Digidirect\Collect\Model\PostCode" />
+    <preference for="Digidirect\Collect\Api\DeliveryAddToCartValidationInterface"
+                type="Digidirect\Collect\Model\DeliveryAddToCartValidation" />
+    <preference for="Digidirect\Collect\Api\CollectAddToCartValidationInterface"
+                type="Digidirect\Collect\Model\CollectAddToCartValidation" />
+
+    <preference for="Digidirect\Collect\Api\ApplyDeliveryInterface" type="Digidirect\Collect\Model\ApplyDelivery" />
+    <preference for="Digidirect\Collect\Api\ApplyCollectPlaceInterface" type="Digidirect\Collect\Model\ApplyCollectPlace" />
+
+    <type name="Digidirect\Collect\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Digidirect\Collect\Model\Config\Reader</argument>
+            <argument name="cacheId" xsi:type="string">digidirect_collectplaces</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Collect\Model\Config\Reader">
+        <arguments>
+            <argument name="converter" xsi:type="object">Digidirect\Collect\Model\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Digidirect\Collect\Model\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">digidirect_collectplaces.xml</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\Model\GuestShippingInformationManagement">
+        <plugin name="digidirect_collect_order_plugin" type="Digidirect\Collect\Model\Plugin\Checkout\GuestShippingInformationManagement" sortOrder="100" disabled="false"/>
+    </type>
+
+    <type name="\Magento\Quote\Model\QuoteManagement">
+        <plugin name="digidirect_collect_quote_management" type="Digidirect\Collect\Model\Plugin\Quote\QuoteManagement"/>
+    </type>
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="digidirect_collect_quote_management" type="Digidirect\Collect\Block\Plugin\Adminhtml\Order\View\Info"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\Compare">
+        <plugin name="Digidirect_Collect::QuoteItemCompare" type="Digidirect\Collect\Plugin\Model\Quote\Item\Compare"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="Digidirect_Collect::QuoteModelQuote" type="Digidirect\Collect\Plugin\Quote\Model\Quote"/>
+    </type>
+</config>

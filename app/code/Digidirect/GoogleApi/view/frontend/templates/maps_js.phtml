@@ -1,0 +1,9 @@
+<?php if ($googleApiKey = $this->helper('Digidirect\GoogleApi\Helper\Config')->getGoogleApiKey()) : ?>
+    <?php $googleMapsLibraries = '' ?>
+    <?php if ($libraries = $block->getLibraries()) : ?>
+        <?php $googleMapsLibraries = '&libraries=' . $libraries ?>
+    <?php endif ?>
+    <script>
+        window.digidirectGoogleMapsUrl = '<?php /* @escapeNotVerified */ echo $block->getMapsUrl() . '?key=' . $googleApiKey . $googleMapsLibraries ?>';
+    </script>
+<?php endif ?>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_abstractentity" translate="label" sortOrder="20"
+                 showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Abstract Entities</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_AbstractEntity::abstractentity_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Indexation</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Index Tables</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="entities" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Entities</label>
+                    <source_model>Digidirect\AbstractEntity\Model\Config\Source\AttributeSet</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="fulltext_search_pattern" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Fulltext Search Pattern</label>
+                    <source_model>Digidirect\AbstractEntity\Model\Config\Source\FulltextSearchPattern</source_model>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

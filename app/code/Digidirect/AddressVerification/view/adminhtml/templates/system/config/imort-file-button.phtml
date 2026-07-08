@@ -1,0 +1,56 @@
+<?php
+/**
+ * @var Digidirect\AddressVerification\Block\Adminhtml\System\Config\ImportFile $block
+ */
+?>
+<script>
+    require(['prototype'], function(){
+
+//<![CDATA[
+        function importAddressDataFile() {
+            var validationMessage = $('import_result');
+            new Ajax.Request('<?php /* @escapeNotVerified */ echo $block->getImportUrl() ?>', {
+                parameters: {country_code: $('digidirect_address_suggestion_general_country_code').value},
+                onSuccess: function(response) {
+                    var result = '<?php /* @escapeNotVerified */ echo __('Error during import data.') ?>';
+                    try {
+                        if (response.responseText.isJSON()) {
+                            response = response.responseText.evalJSON();
+                            result = response.message;
+                        }
+                        if (response.exported == 1 && response.last_import_time) {
+                            validationMessage.removeClassName('hidden').addClassName('success');
+                            $('last-import-time').update(response.last_import_time);
+                            $('last-import-updated').removeClassName('hidden');
+                            $('last-import-empty').addClassName('hidden');
+                            $('digidirect_address_suggestion_general_address_data_file').next().remove();
+                            $('<?php echo $block->getHtmlId() ?>').disabled = true;
+                        } else {
+                            validationMessage.removeClassName('hidden').addClassName('error')
+                        }
+                    } catch (e) {
+                        validationMessage.removeClassName('hidden').addClassName('error')
+                    }
+                    validationMessage.update(result);
+                }
+            });
+        }
+        window.importAddressDataFile = importAddressDataFile;
+//]]>
+
+    });
+</script>
+<div class="actions actions-validate-vat">
+    <button onclick="javascript:importAddressDataFile(); return false;"
+            class="action-validate-vat" type="button" id="<?php echo $block->getHtmlId() ?>" <?php if($block->getDisabled()): ?>disabled="disabled"<?php endif; ?>>
+        <span><?php echo $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+
+        <span id="last-import-updated" <?php if(!$block->getLastImportTime()): ?> class="hidden" <?php endif; ?>>
+            <?php echo /* @escapeNotVerified */ __('Last import time:'); ?> <span id="last-import-time"><?php echo $block->escapeHtml($block->getLastImportTime()); ?></span>
+        </span>
+        <span id="last-import-empty" <?php if($block->getLastImportTime()): ?> class="hidden" <?php endif; ?>>
+            <?php echo /* @escapeNotVerified */ __('The file has not been imported yet'); ?>
+        </span>
+    <div id="import_result" class="message-validation hidden"></div>
+</div>

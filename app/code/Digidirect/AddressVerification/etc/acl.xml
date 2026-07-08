@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Digidirect_AddressVerification::config_addressverification" title="Digidirect Address Autocomplete" translate="title" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Digidirect_Utilities::Digidirect" sortOrder="100">
+                    <resource id="Digidirect_AddressVerification::address_verification" title="Digidirect Address Autocomplete" sortOrder="10">
+                        <resource id="Digidirect_AddressVerification::import_file" title="Digidirect Address Autocomplete Import File" sortOrder="10" />
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

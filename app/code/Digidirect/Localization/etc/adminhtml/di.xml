@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <!-- Countries -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Country"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+            <argument name="attributeList" xsi:type="object">Magento\Directory\Model\Config\Source\Country</argument>
+            <argument name="data" xsi:type="array">
+                <item name="extra_params" xsi:type="string">class="localization_country"</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\Localization\Model\Import\ParserTypeFactory">
+        <arguments>
+            <argument name="types" xsi:type="array">
+                <item name="csv" xsi:type="string">Digidirect\Localization\Model\Import\Parser\Csv</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Regions -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\State"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Magento\Directory\Model\Config\Source\Allregion</argument>
+            <argument name="data" xsi:type="array">
+                <item name="empty_option_label" xsi:type="string">--ALL--</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Timezone -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Timezone"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Magento\Config\Model\Config\Source\Locale\Timezone</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Get Holidays -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\GetHolidays"
+                 type="Magento\Framework\View\Element\Html\Link">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="label" xsi:type="string">Get Holidays</item>
+                <item name="class" xsi:type="string">download-holidays</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Timezone Matrix Configuration -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\TimeZoneMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="country" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Country</item>
+                    <item name="label" xsi:type="string">Country</item>
+                </item>
+                <item name="state" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\State</item>
+                    <item name="label" xsi:type="string">State</item>
+                </item>
+                <item name="timezone" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Timezone</item>
+                    <item name="label" xsi:type="string">Timezone</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Holiday Configuration -->
+    <virtualType name="Digidirect\Localization\Block\Adminhtml\Config\HolidayMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="country" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Country</item>
+                    <item name="label" xsi:type="string">Country</item>
+                </item>
+                <item name="state" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\State</item>
+                    <item name="label" xsi:type="string">State</item>
+                </item>
+                <item name="holiday" xsi:type="array">
+                    <item name="label" xsi:type="string">Holidays</item>
+                </item>
+                <item name="load" xsi:type="array">
+                    <item name="label" xsi:type="string"> </item>
+                    <item name="class" xsi:type="object">Digidirect\Localization\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\GetHolidays</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

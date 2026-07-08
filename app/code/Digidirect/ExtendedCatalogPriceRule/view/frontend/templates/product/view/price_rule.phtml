@@ -1,0 +1,24 @@
+<?php
+use \Digidirect\ExtendedCatalogPriceRule\Api\Data\RuleDisplayMessageInterface;
+
+/** @var \Digidirect\ExtendedCatalogPriceRule\Block\Pdp\DisplayMessage $block */
+?>
+<?php $rules = $block->getDisplayMessageRules(); ?>
+<?php if ($rules) : ?>
+    <?php foreach ($rules as $rule) : ?>
+        <div class="block-extendedrule -pdp">
+            <?php if (!empty($rule['action_amount'])) : ?>
+                <div class="amount"><?= /* @noEscape */ $block->formatDiscountAmount($rule['action_amount']); ?></div>
+            <?php endif; ?>
+            <?php if (!empty($rule[RuleDisplayMessageInterface::PDP_DESCRIPTION])) : ?>
+                <div class="description"><?= /* @noEscape */ $block->prepareDescription($rule[RuleDisplayMessageInterface::PDP_DESCRIPTION]); ?></div>
+            <?php endif; ?>
+            <?php if(!empty($rule[RuleDisplayMessageInterface::URL_PROMOTION])): ?>
+                <a class="link" href="<?= $block->escapeUrl($rule[RuleDisplayMessageInterface::URL_PROMOTION]); ?>"
+                   title="<?= /* @noEscape */ __('Promotion URL'); ?>">
+                    <?= /* @noEscape */ __('Promotion URL'); ?>
+                </a>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

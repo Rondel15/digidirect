@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\FreeGift\Api\RuleRepositoryInterface" type="Digidirect\FreeGift\Model\RuleRepository"/>
+    <preference for="Digidirect\FreeGift\Api\Data\RuleInterface" type="Digidirect\FreeGift\Model\Rule"/>
+
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="Digidirect_FreeGift::QuoteItem" type="Digidirect\FreeGift\Plugin\Quote\Item"/>
+    </type>
+    <type name="Magento\OfflineShipping\Model\SalesRule\Calculator">
+        <plugin name="Digidirect_FreeGift::Magento\OfflineShipping\Model\SalesRule\Calculator"
+                type="Digidirect\FreeGift\Plugin\Magento\OfflineShipping\Model\SalesRule\Calculator"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\Total\Subtotal">
+        <plugin name="Digidirect_FreeGift::Magento\Quote\Model\Quote\Address\Total\Subtotal"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Quote\Address\Total\Subtotal"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Item">
+        <plugin name="Digidirect_FreeGift::Magento\Sales\Model\Order\Item"
+                type="Digidirect\FreeGift\Plugin\Magento\Sales\Model\Order\Item"/>
+    </type>
+    <type name="Magento\Sales\Model\Order\Email\SenderBuilder">
+        <plugin name="Digidirect_FreeGift::Magento\Sales\Model\Order\Email\SenderBuilder"
+                type="Digidirect\FreeGift\Plugin\Magento\Sales\Model\Order\Email\SenderBuilder"/>
+    </type>
+    <type name="Magento\GiftCard\Model\Catalog\Product\Type\Giftcard">
+        <plugin name="Digidirect_FreeGift::Magento\GiftCard\Model\Catalog\Product\Type\Giftcard"
+                type="Digidirect\FreeGift\Plugin\Magento\GiftCard\Model\Catalog\Product\Type\Giftcard"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="Digidirect_FreeGift::Magento\Quote\Model\Quote\Item\ToOrderItem"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Quote\Item\ToOrderItem"/>
+    </type>
+
+
+
+    <!-- Replace with existing classes (Magento\GiftCard\Observer\GenerateGiftCardAccounts does not exist in 2.2 ) -->
+    <type name="Magento\GiftCard\Observer\GenerateGiftCardAccountsOrder">
+        <plugin name="Digidirect_FreeGift::Magento\GiftCard\Observer\GenerateGiftCardAccountsOrder"
+                type="Digidirect\FreeGift\Plugin\Magento\GiftCard\Observer\GenerateGiftCardAccountsOrder"/>
+    </type>
+    <type name="Magento\GiftCard\Observer\GenerateGiftCardAccountsInvoice">
+        <plugin name="Digidirect_FreeGift::Magento\GiftCard\Observer\GenerateGiftCardAccountsInvoice"
+                type="Digidirect\FreeGift\Plugin\Magento\GiftCard\Observer\GenerateGiftCardAccountsInvoice"/>
+    </type>
+    <!-- EOF -->
+
+
+
+    <type name="Magento\Catalog\Helper\Product\Configuration">
+        <plugin name="Digidirect_FreeGift::Magento\Catalog\Helper\Product\Configuration"
+                type="Digidirect\FreeGift\Plugin\Magento\Catalog\Helper\Product\Configuration"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\Cart">
+        <plugin name="Digidirect_FreeGift::Magento\Checkout\CustomerData\Cart"
+                type="Digidirect\FreeGift\Plugin\Magento\Checkout\CustomerData\Cart"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Action\Discount\CalculatorFactory">
+        <arguments>
+            <argument name="discountRules" xsi:type="array">
+                <item name="freegift_product" xsi:type="string">Digidirect\FreeGift\Model\Rule\Action\Discount\SameProduct</item>
+                <item name="freegift_items" xsi:type="string">Digidirect\FreeGift\Model\Rule\Action\Discount\Product</item>
+                <item name="freegift_cart" xsi:type="string">Digidirect\FreeGift\Model\Rule\Action\Discount\Cart</item>
+                <item name="freegift_spent" xsi:type="string">Digidirect\FreeGift\Model\Rule\Action\Discount\Spent</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

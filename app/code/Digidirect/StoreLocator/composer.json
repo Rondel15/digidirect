@@ -1,0 +1,21 @@
+{
+  "name": "digidirect/storelocator",
+  "description": "Store Locator",
+  "type": "magento2-module",
+  "version": "1.12.0.0",
+  "suggest": {
+    "digidirect/utilities": "Digidirect StoreLocator may use digidirect/utilities (version >= 1.16.5) methods",
+    "digidirect/locator": "Digidirect StoreLocator does use digidirect/locator methods. If you use version >=1.4.0 you must install digidirect/locator version >= 1.2.0",
+    "digidirect/abstractentity": "Digidirect StoreLocator is useless without digidirect/abstractentity extension. If your version >=1.4.0 you must use digidirect/abstractentity version >= 2.9.1",
+    "digidirect/store": "digidirect/store will create Store abstract entity for you",
+    "digidirect/localization": "digidirect/storelocator extension uses Digidirect_Localization extension"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\StoreLocator\\": ""
+    }
+  }
+}

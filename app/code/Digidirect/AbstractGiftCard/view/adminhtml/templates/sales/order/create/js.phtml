@@ -1,0 +1,22 @@
+<script>
+require(['prototype'], function(){
+
+//<![CDATA[
+    $$('.abstract-gift-card-container .giftcard_service').each(function(form){
+        var button = $(form).select('button.action-default').first();
+
+        if(button != null){
+          button.observe('click', function(){
+                formData = {};
+                form.select('input').each(function(formField){
+                  formData[$(formField).getAttribute('name')] = $(formField).getValue();
+                });
+
+                order.loadArea(['totals', 'billing_method', 'items'], true, {'abstract_gift_card_data' : JSON.stringify(formData)});
+          });
+        }
+    });
+//]]>
+
+});
+</script>

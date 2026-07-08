@@ -1,0 +1,46 @@
+<?php
+/** @var \Magento\Store\Block\Switcher $block */
+$_storeViewCounter = count($block->getStores());
+?>
+<?php if ($_storeViewCounter > 2): ?>
+    <link rel="stylesheet" href="<?php echo $block->escapeUrl($block->getViewFileUrl($block->getStyleUrl())); ?>">
+    <?php $id = $block->getIdModifier() ? '-' . $block->getIdModifier() : '' ?>
+
+    <div class="theme-switcher" data-ui-id="theme-switcher" id="switcher-theme<?= $block->escapeHtmlAttr($id) ?>">
+        <div class="theme-options">
+            <div class="action toggle switcher-trigger"
+                 id="switcher-theme-trigger<?= $block->escapeHtmlAttr($id) ?>"
+                 data-mage-init='{"dropdown":{}}'
+                 data-toggle="dropdown-theme"
+                 data-trigger-keypress-button="true">
+                <?php /* @escapeNotVerified */  echo __('Switch Theme'); ?>
+            </div>
+            <ul class="dropdown switcher-dropdown"
+                data-target="dropdown-theme">
+                <?php foreach ($block->getStores() as $_lang): ?>
+                    <?php if ($_lang->getId() != $block->getCurrentStoreId()): ?>
+                        <li class="view-<?= $block->escapeHtml($_lang->getCode()) ?> switcher-option">
+                            <a href="#" title="<?= $block->escapeHtml($_lang->getName()) ?>" data-post='<?= /* @noEscape */ $block->getTargetStorePostData($_lang) ?>'>
+                                <?= $block->escapeHtml($_lang->getName()) ?>
+                            </a>
+                        </li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ($_storeViewCounter === 2): ?>
+    <link rel="stylesheet" href="<?php echo $block->escapeUrl($block->getViewFileUrl($block->getStyleUrl())); ?>">
+    <div class="theme-switcher">
+        <?php /* @escapeNotVerified */  echo __('Switch Theme:'); ?>
+        <?php foreach ($block->getStores() as $_lang): ?>
+            <?php if ($_lang->getId() != $block->getCurrentStoreId()): ?>
+                <a href="#" title="<?= $block->escapeHtml($_lang->getName()) ?>" data-post='<?= /* @noEscape */ $block->getTargetStorePostData($_lang) ?>'>
+                    <?= $block->escapeHtml($_lang->getName()) ?>
+                </a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

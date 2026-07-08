@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var \Digidirect\AbstractGiftCard\Block\Form\Container $block
+ * @see \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount
+ */
+?>
+<?php if ($giftCards = $block->getChildHtml()) :?>
+    <div class="giftcard-account abstract-giftcards">
+        <?php /* @escapeNotVerified */ echo $giftCards; ?>
+    </div>
+<?php endif; ?>

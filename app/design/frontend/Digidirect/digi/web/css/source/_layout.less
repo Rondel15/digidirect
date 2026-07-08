@@ -1,0 +1,175 @@
+//
+//  Layout variables
+//  _____________________________________________
+
+//  Widths
+@layout__width: 1440px; // for the fixed width layout
+@layout__max-width: 1440px;
+@layout-indent__width: 0;
+@layout__width-xs-indent: 20px;
+
+//  Classnames defining different layouts
+//@layout-class-1column: page-layout-1column;
+@layout-class-2columns__left: page-layout-2columns-left;
+//@layout-class-2columns__right: page-layout-2columns-right;
+//@layout-class-3columns: page-layout-3columns;
+
+//  Variables used for layout grid
+//@total-columns: 12;
+//@gutter-width: 0;
+
+//  Variables for layout columns
+//@layout-column__width: @total-columns;
+@layout-column__sidebar-width: 3;
+//@layout-column__left-width: @layout-column__sidebar-width;
+//@layout-column__right-width: @layout-column__sidebar-width;
+
+//  Variables for layout columns depending on layout used
+//@layout-column-main__width-1: 100%;
+//@layout-column-main__width-2-left: @layout-column__width - @layout-column__left-width;
+//@layout-column-main__width-2-right: @layout-column__width - @layout-column__right-width;
+//@layout-column-main__width-3: @layout-column__width - @layout-column__left-width - @layout-column__right-width;
+
+//  Checkout columns width
+//@layout-column-checkout__width-left: 3;
+//@layout-column-checkout__width-main: @layout-column__width - @layout-column-checkout__width-left;
+
+//
+//  Layout
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@layout__is-enabled: true; // Enable/disable styles
+
+@layout-selectors: ~'.navigation, .breadcrumbs, .page-header .header.panel, .header.content, .footer.content, .page-main, .page-wrapper > .widget, .page-wrapper > .page-bottom, .block.category.event, .top-container';
+@layout-selectors__m: @layout-selectors;
+
+@layout-elements__padding-right: @layout__width-xs-indent;
+@layout-elements__padding-left: @layout__width-xs-indent;
+@layout-elements__width__m: auto;
+@layout-elements__max-width__m: @layout__max-width;
+@layout-elements__margin-right__m: auto;
+@layout-elements__margin-left__m: auto;
+@layout-elements__padding-right__m: @layout-indent__width;
+@layout-elements__padding-left__m: @layout-indent__width;
+
+//  Page Main
+@layout-page-main__width__m: 100%;
+
+//  Columns
+@layout-columns__display__m: block;
+
+//  Column Main
+@layout-column-main__width: 100%;
+@layout-column-main__padding-bottom: @indent__xl;
+@layout-column-main__min-height__m: 300px;
+
+//  Sidebar Main
+@layout-sidebar-main-offset: 2%;
+@layout-sidebar-main__padding-right: @layout-sidebar-main-offset;
+@layout-2columns-right-sidebar-main__padding-right__m: 0;
+@layout-2columns-right-sidebar-main__padding-left__m: @layout-sidebar-main-offset;
+
+//  Sidebar Additional
+@layout-additional-sidebar-offset: @layout-sidebar-main-offset;
+@layout-sidebar-additional__clear__m: right;
+@layout-sidebar-additional__padding-left__m: @layout-additional-sidebar-offset;
+@layout-2columns-right-sidebar-additional__float__m: left;
+@layout-2columns-right-sidebar-additional__clear__m: left;
+@layout-2columns-right-sidebar-additional__padding-right__m: @layout-additional-sidebar-offset;
+@layout-2columns-right-sidebar-additional__padding-left__m: 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@layout__is-enabled = true) {
+        .columns {
+            #lib-layout-columns();
+
+            .column.main {
+                .lib-css(width, @layout-column-main__width);
+                .lib-css(padding-bottom, @layout-column-main__padding-bottom);
+                .lib-vendor-prefix-flex-basis(100%);
+                .lib-vendor-prefix-flex-grow(1);
+                .lib-vendor-prefix-order(1);
+            }
+
+            .sidebar-main {
+                .lib-vendor-prefix-flex-grow(1);
+                .lib-vendor-prefix-flex-basis(100%);
+                .lib-vendor-prefix-order(1);
+            }
+
+            .sidebar-additional {
+                .lib-vendor-prefix-flex-grow(1);
+                .lib-vendor-prefix-flex-basis(100%);
+                .lib-vendor-prefix-order(2);
+            }
+        }
+
+        @{layout-selectors} {
+            .lib-css(padding-right, @layout-elements__padding-right);
+            .lib-css(padding-left, @layout-elements__padding-left);
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@layout__is-enabled = true) {
+        @{layout-selectors__m} {
+            .lib-css(width, @layout-elements__width__m);
+            .lib-css(max-width, @layout-elements__max-width__m);
+            .lib-css(margin-right, @layout-elements__margin-right__m);
+            .lib-css(margin-left, @layout-elements__margin-left__m);
+            .lib-css(padding-right, @layout-elements__padding-right__m);
+            .lib-css(padding-left, @layout-elements__padding-left__m);
+        }
+
+        .page-main {
+            .lib-css(width, @layout-page-main__width__m);
+        }
+
+        .columns {
+            .lib-css(display, @layout-columns__display__m);
+        }
+
+        .column.main {
+            #lib-layout-columns > .main();
+            .lib-css(min-height, @layout-column-main__min-height__m);
+        }
+
+        .sidebar-main {
+            #lib-layout-columns > .left();
+            .lib-css(padding-right, @layout-sidebar-main__padding-right);
+        }
+
+        .page-layout-2columns-right .sidebar-main {
+            .lib-css(padding-right, @layout-2columns-right-sidebar-main__padding-right__m);
+            .lib-css(padding-left, @layout-2columns-right-sidebar-main__padding-left__m);
+        }
+
+        .sidebar-additional {
+            #lib-layout-columns > .right();
+            .lib-css(clear, @layout-sidebar-additional__clear__m);
+            .lib-css(padding-left, @layout-sidebar-additional__padding-left__m);
+        }
+
+        .page-layout-2columns-left {
+            .sidebar-additional {
+                .lib-css(float, @layout-2columns-right-sidebar-additional__float__m);
+                .lib-css(clear, @layout-2columns-right-sidebar-additional__clear__m);
+                .lib-css(padding-right, @layout-2columns-right-sidebar-additional__padding-right__m);
+                .lib-css(padding-left, @layout-2columns-right-sidebar-additional__padding-left__m);
+            }
+        }
+    }
+}

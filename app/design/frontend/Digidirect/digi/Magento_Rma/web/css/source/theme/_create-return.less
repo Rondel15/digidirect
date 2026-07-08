@@ -1,0 +1,105 @@
+//
+//  My Account: Create New Return
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form-create-return {
+        .field .note {
+            margin-top: 5px;
+        }
+
+        .intermediate {
+            margin: 20px 0 30px;
+        }
+
+        .actions-toolbar > .secondary .remove {
+            margin: 20px 0;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form-create-return {
+        .actions-toolbar .secondary,
+        .actions-toolbar .primary {
+            float: none;
+        }
+
+        .actions-toolbar .action {
+            width: 100%;
+        }
+    }
+}
+
+//
+//  XM +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm) {
+    .form-create-return {
+        .fieldset {
+            .lib-clearfix();
+        }
+
+        .field:not(.comment):not(.contact):not(.reason_other) {
+            float: left;
+        }
+
+        .field.id,
+        .field.name,
+        .field.email:not(.contact) {
+            width: 30%;
+            padding-right: 20px;
+        }
+
+        .field.reason_other {
+            clear: both;
+        }
+
+        .field.contact {
+            width: 420px;
+            clear: both;
+        }
+
+        .field.item {
+            width: calc(~'80% - 35px');
+            margin-bottom: 50px;
+            margin-right: 35px;
+        }
+
+        .field.qty {
+            width: 20%;
+        }
+
+        .field.resolution,
+        .field.condition,
+        .field.reason {
+            width: calc(~'(100% - 70px)/3');
+            margin-right: 35px;
+        }
+
+        .field.reason {
+            margin-right: 0;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form-create-return.form {
+        .actions-toolbar .action {
+            width: 180px;
+        }
+    }
+}

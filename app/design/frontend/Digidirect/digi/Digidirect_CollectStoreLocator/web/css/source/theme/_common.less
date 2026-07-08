@@ -1,0 +1,262 @@
+//
+//  Collect store locator:common
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+//@collect-locator__position: relative;
+//@collect-locator__min-height: 150px;
+@collect-locator__margin: false;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .collect-preselect.collect-block {
+        & {
+            margin: 0;
+            padding: 0 0 17px;
+        }
+        
+        .wrapper-title {
+            padding-left: 8px;
+        }
+        
+        .wrapper-title .title {
+           font-size: 22px;
+            display: inline-block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+    
+        .wrapper-title .name {
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+            display: inline-block;
+        }
+    }
+    
+    .collect-locator {
+        .item.-hours {
+            clear: left;
+            margin: -10px 0 12px;
+        }
+    
+        .item .available {
+            .lib-css(color, @color-1-2);
+        }
+    
+        .item .unavailable {
+            .lib-css(color, @color-4-8);
+        }
+        
+        .item.-hours > .icon {
+            margin-top: 7px;
+        }
+        
+        .item.-available .icon {
+            margin-top: -2px;
+        }
+    
+        .item.-available a {
+            .lib-css(color, @primary__color);
+    
+            font-weight: 500;
+            margin-right: 2px;
+        }
+    
+        .open-hours table td:first-child {
+            padding-left: 0;
+        }
+        
+        .open-hours table td:last-child {
+            .lib-css(color, @color-4-8);
+            font-weight: bold;
+            text-align: right;
+            text-transform: lowercase;
+        }
+        
+        .locator-list .locator-item.item {
+            .lib-css(border, 2px solid @form-element-input__border-color);
+            padding: 20px;
+        }
+    
+        .locator-item + .locator-item {
+            margin-top: 20px;
+        }
+        
+        .locator-item .address {
+            margin-bottom: 0;
+            min-height: 0;
+        }
+
+        .action.-select {
+            .lib-font-size(16);
+            min-width: 150px;
+            padding: 7px 15px;
+            font-weight: 400;
+        }
+        
+        .locator-item .name.-available,
+        .locator-item .icon.-available {
+            color: #222;
+            font-size: 20px;
+        }
+    }
+    
+    .store-section .locator-item {
+        padding: 0 !important;
+    }
+    
+    .description-cc {
+        margin-bottom: 30px;
+    }
+    
+    .pickup-cms {
+        display: none;
+    }
+
+    .collect-block .wrap-block {
+        //display: none !important;
+    }
+    
+    .item.-available {
+        display: none;
+    }
+
+    .item.-hours {
+        display: none;
+    }
+    
+    .title-cc {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+}
+
+//
+//  M -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xm) {
+    .collect-locator {
+        .locator-map {
+            display: none; //Hide map according markup
+        }
+        
+        .locator-list {
+            margin: 0;
+        }
+    }
+}
+
+//
+//  T +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .collect-locator {
+        .grid-row > .column.-left {
+            overflow: auto;
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+    #collect-block-modal-checkout {
+        margin-top: -5px;
+    }
+    
+    .collect-locator {
+        .store-locator {
+            margin-bottom: 0;
+        }
+    
+        .locator-list .collectlocator-wrapper {
+            max-height: 55vh;
+        }
+    
+        .store-locator .locator-search {
+            margin-bottom: 10px;
+        }
+    
+        .locator-map {
+            min-height: 45vh;
+        }
+    
+        .locator-list .locator-item {
+            margin-left: 0;
+            position: relative;
+        }
+    
+        .locator-details .name,
+        .locator-details .item.-address {
+            padding-right: 120px;
+        }
+    
+        .locator-list .locator-item.locator-details {
+            padding: 28px 40px 8px;
+        }
+        
+        .locator-item .name {
+            margin-bottom: 15px;
+        }
+        
+        .locator-item.locator-details > .action.-select {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #000;
+            color: #fff;
+            font-size: 12px;
+        }
+    
+        .locator-list .address {
+            .lib-font-size(14);
+    
+            line-height: 1.2;
+        }
+    
+        .store-locator .grid-row > .column.-left {
+            flex-basis: 56.5%;
+        }
+    
+        .store-locator .grid-row > .column.-main {
+            flex-basis: 43.5%;
+        }
+        
+        .locator-search.-collect {
+            display: flex;
+            width: 100%;
+        }
+    
+        .locator-search.-collect > .form {
+            flex-basis: 56.5%;
+            padding-right: 29px;
+        }
+    
+        .mCSB_container {
+            transform: translate3d(0, 0, 0); //Activate gpu
+        }
+    
+        .locator-list .mCSB_scrollTools {
+            right: 0;
+        }
+    
+        .mCSB_inside > .mCSB_container {
+            margin-right: 0;
+        }
+    
+        .locator-list .mCustomScrollBox {
+            padding-right: 28px;
+        }
+    }
+}

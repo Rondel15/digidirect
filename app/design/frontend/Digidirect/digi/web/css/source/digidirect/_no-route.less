@@ -1,0 +1,143 @@
+//
+// Variables
+// ---------------------------------------------
+
+@contact-link__hover: @color-orange-red1;
+
+
+//
+// Common
+// ---------------------------------------------
+
+& when (@media-common = true) {
+
+    .cms-no-route .page-main {
+        max-width: none;
+    }
+
+    .noroute-content {
+
+        & {
+            min-height: 430px;
+            display: flex;
+            align-items: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: bottom center;
+            vertical-align: middle;
+            .lib-css(color, @color-white);
+        }
+
+        > .content-wrapper {
+            margin: 0 20px;
+        }
+
+        .content-wrapper {
+
+            > .head {
+                .lib-font-size(30);
+                font-weight: bold;
+            }
+
+            > .tohome {
+                text-decoration: none;
+                padding: 10px 50px;
+                margin: 0;
+                margin-bottom: 20px;
+                text-decoration: none;
+                background-image: none;
+                background: #e65300;
+                border: 2px solid transparent;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 700;
+                padding: 10px 15px;
+                font-size: 1.3rem;
+                line-height: 1.6rem;
+                box-sizing: border-box;
+                vertical-align: middle;
+                margin-bottom: 20px;
+            }
+
+            > .main {
+                margin-bottom: 37px;
+                line-height: 1.36;
+                .lib-font-size(22);
+                font-weight: bold;
+            }
+
+            > .main > .contact-us {
+                padding-bottom: 0.15vw;
+                color: inherit;
+                .lib-css(border-bottom, 1px solid @color-white);
+                text-decoration: none;
+                transition: border .2s;
+
+                &:hover{
+                    color: @contact-link__hover;
+                    .lib-css(border-bottom, 1px solid @contact-link__hover);
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+    .noroute-content {
+        min-height: 450px;
+    }
+
+    .noroute-content > .content-wrapper {
+
+        & {
+            width: 100%;
+            text-align: center;
+        }
+
+        > .head {
+            margin-bottom: 35px;
+            font-size: 36px;
+        }
+
+        > .main {
+            margin-bottom: 46px;
+            font-size: 24px;
+        }
+
+        > .tohome{
+            padding: 13px 50px;
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+
+    .noroute-content {
+        min-height: 600px;
+    }
+
+    .noroute-content >.content-wrapper {
+        & {
+            margin: 0;
+        }
+
+        > .head {
+            margin-bottom: 46px;
+            font-size: 40px;
+        }
+
+        > .main {
+            margin-bottom: 59px;
+            font-size: 28px;
+        }
+
+        > .tohome{
+            font-size: 18px;
+            padding: 23px 73px;
+        }
+
+    }
+}

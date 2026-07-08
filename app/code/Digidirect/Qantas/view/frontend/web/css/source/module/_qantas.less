@@ -1,0 +1,229 @@
+& when(@media-common = true){
+    .qantas-pts-wrapper-minicart{
+        .qantas-logo {
+            height: 26px;
+            vertical-align: middle;
+
+            span{
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+
+    .qantas-pts-wrapper-minicart-subtotal {
+        text-align:right;
+        .qantas-logo {
+            height: 26px;
+            vertical-align: middle;
+
+            span{
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+
+    .cart {
+        .qantas-pts-wrapper {
+            img {
+                width: 32px;
+                height: 32px;
+                vertical-align: middle;
+            }
+
+            span{
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+    .qantas-pts-wrapper-cart-summary{
+        text-align:right;
+        .qantas-logo {
+            height: 26px;
+            vertical-align: middle;
+
+            span{
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+
+    .product-item-details{
+        .qantas-pts-wrapper{
+            height: 26px;
+            vertical-align: middle;
+
+            span{
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+
+    .product-item-info {
+        .qantas-pts-wrapper {
+            .qantas-logo  {
+                height: 26px;
+                vertical-align: middle;
+            }
+
+            span {
+                width: 100%;
+                font-size: 14px;
+                font-weight: 600;
+                color: #222;
+            }
+        }
+    }
+    
+    // qantas-checkout form
+    .qff-content {
+        .qantas-logo {
+            margin-bottom: 15px;
+        }
+
+        .form-title {
+            font-size: 2.8rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            display: block;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            text-align: left;
+        }
+    }
+
+    .qantas-promo-box {
+        padding-bottom: 20px;
+        display: flex;
+
+        span {
+            display: inline-block;
+            max-width: 350px;
+            text-align: initial;
+
+        }
+    }
+
+    .qff-trigger{
+        padding-bottom: 20px;
+        button {
+            height:50px;
+        }
+    }
+    
+    .qantas-promo-box {  
+        .qantas-logo {
+            height:50px!important;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) 
+{
+    .qff-trigger{
+        width: auto;
+
+        #qff-trigger{
+            width: 100%;
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .qantas-promo-box { 
+        padding-left: 20px;
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .qff-content {
+        .qantas-logo {
+            min-width: 100px;
+            max-height: 100px;
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .qantas-promo-box {
+            span {
+                padding-inline: 10px;
+                font-size: 12px;
+            }
+        }
+
+        .qff-trigger{
+            width: auto;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+    .qff-content { 
+        text-align: center;
+
+        .qantas-promo-box {
+            max-width: fit-content;
+
+
+            .qff-logo-container {
+                width: 100px;
+            }
+
+            span {
+                font-size: 10px;
+            }
+
+            .qantas-logo {
+                min-width: 100px;
+                vertical-align: top;
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xs) { 
+    .qantas-promo-box {
+        .qantas-logo {
+            min-width: 100px;
+            min-width: 100px;
+            vertical-align: top;
+
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .qantas-promo-box { 
+        float: right;
+        .qantas-logo { 
+            height: 35px!important;
+        }
+
+    }
+}
+
+
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+}

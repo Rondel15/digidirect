@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="bundle.product.view.options.notice" remove="true" />
+
+        <move element="customize.button" destination="product.info.main" before="product.info.extrahint" />
+        <move element="product.price.render.bundle.customization" destination="bundle.summary" before="-" />
+        <move element="bundle.options.container" destination="content" before="-" />
+
+        <referenceContainer name="bundle.options.container" htmlClass="bundle-options-container full-width-background"/>
+
+        <referenceBlock name="product.info.options.wrapper" template="Magento_Bundle::product/view/options/wrapper.phtml" />
+    </body>
+</page>

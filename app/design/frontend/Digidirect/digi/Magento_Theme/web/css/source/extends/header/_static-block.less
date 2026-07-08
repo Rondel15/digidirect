@@ -1,0 +1,79 @@
+//
+//  Navigation: CMS block (ID: cms-helpful-info)
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .menu-cmsitem {
+        display: none;
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .helpful-links {
+        &{
+            padding: 25px 0;
+            background: #f5f5f5;
+        }
+
+        .helpful-info {
+            align-items: center;
+        }
+        .helpful-info .block {
+            padding: 15px;
+            border: 0;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        .helpful-info .alink {
+            display: inline-block;
+            position: relative;
+            height: auto;
+            padding: 0 70px;
+            border: 0;
+            font-size: inherit;
+            text-align: left;
+        }
+        
+        .helpful-info .alink:hover {
+            text-decoration: none;
+        }
+
+        .helpful-info .alink .svg-icon {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 60px;
+            height: 36px;
+            transform: translateY(-50%);
+        }
+
+        .helpful-info .alink .svg-icon.-free {
+            height: 30px;
+        }
+
+        .helpful-info .text {
+            display: inline;
+            color: #000;
+            font-weight: 500;
+        }
+
+        .helpful-info .small {
+            font-size: inherit;
+            color: inherit;
+        }
+
+        .helpful-info ._hide-menu-large {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,71 @@
+<?php
+/** @var $block \Digidirect\AbstractAttributes\Block\Attribute\View */
+/** @var $option \Digidirect\AbstractAttributes\Api\Data\OptionInterface */
+$commonLetter = '#';
+$optionGroups = $block->getAlphabeticalGroups($commonLetter);
+$alphabetical = range('A', 'Z');
+$optionsDivider = 40;
+?>
+<?php if (!empty($optionGroups)): ?>
+    <div class="alphabetical-list" data-mage-init='{"attributeAlphabetical": {}}'>
+        <h2 class="title"><?php echo $block->escapeHtml(__('Browse Alphabetically')); ?></h2>
+        <?php foreach ($alphabetical as $letter): ?>
+            <?php if (!isset($optionGroups[$letter])) : ?>
+                <span class="letter -disabled" title="<?php echo $block->escapeHtml($letter); ?>">
+                    <?php echo $block->escapeHtml($letter); ?>
+                </span>
+            <?php else: ?>
+                <a class="letter" data-role="alphabetical-letter"
+                   href="#letter-<?php echo $block->escapeHtml($letter);?>"
+                   title="<?php echo $block->escapeHtml(__('Go to letter %1', $letter)); ?>">
+                    <?php echo $block->escapeHtml($letter); ?>
+                </a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if (!isset($optionGroups[$commonLetter])) : ?>
+            <span class="letter -disabled" title="<?php echo $block->escapeHtml($commonLetter); ?>">
+                <?php echo $block->escapeHtml($commonLetter); ?>
+            </span>
+        <?php else: ?>
+            <a class="letter" data-role="alphabetical-letter"
+               href="#letter"
+               title="<?php echo $block->escapeHtml(__('Go to letter %1', $commonLetter)); ?>">
+                <?php echo $block->escapeHtml($commonLetter); ?>
+            </a>
+        <?php endif; ?>
+    </div>
+    <div class="alphabetical-content">
+        <?php foreach ($optionGroups as $letter => $group): ?>
+            <?php $optionsCount = count($group); ?>
+            <section id="letter<?php if ($letter != $commonLetter): ?>-<?php echo $block->escapeHtml($letter); ?><?php endif ?>" class="alphabetical-section">
+                <div class="letter"><?php echo $block->escapeHtml($letter); ?></div>
+                <?php if (!empty($group)): ?>
+                    <div class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 list">
+                        <?php $_i = 0; foreach ($group as $option): ?>
+                            <?php if ($_i == $optionsDivider && $optionsCount > $optionsDivider): ?>
+                    </div>
+                    <div class="small-block-grid-2 medium-block-grid-3 large-block-grid-4 list -hide" aria-hidden="true">
+                            <?php endif; ?>
+                            <div class="item">
+                                <a class="link" href="<?php echo $block->escapeUrl($option->getUrl()); ?>"
+                                   title="<?php echo $block->escapeHtml($option->getLabel()); ?>">
+                                    <?php echo $block->escapeHtml($option->getLabel()); ?>
+                                </a>
+                            </div>
+                        <?php $_i++; endforeach; ?>
+                    </div>
+                    <?php if ($_i == $optionsCount && $optionsCount > $optionsDivider): ?>
+                        <button class="alphabetical-more button" data-role="alphabetical-more"
+                                title="<?php echo $this->escapeHtml(__('View All')); ?>">
+                            <?php echo $this->escapeHtml(__('View All')); ?>
+                        </button>
+                    <?php endif; ?>
+                <?php endif ?>
+            </section>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div class="message info empty">
+        <span><?php echo $block->escapeHtml(__('There are no options available.')); ?></span>
+    </div>
+<?php endif ?>

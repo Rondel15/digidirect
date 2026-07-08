@@ -1,0 +1,43 @@
+<?php
+/**
+ * Digidirect
+ *
+ * @var $block \Digidirect\Digi\Block\Adminhtml\Order\View\Tab\MigratedOrderInfo
+ */
+$additionalData = $block->getAdditionalInformation()
+?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Migration Order additional information') ?></span>
+    </div>
+<div class="admin__page-section-item-content">
+    <div class="admin__field">
+        <label for="billing-notice" class="admin__field-label"><?php echo __('Billing Notice') ?></label>
+        <div class="admin__field-control">
+             <textarea id="billing-notice" rows="3" cols="5" class="admin__control-textarea">
+            <?php $block->escapeHtml($block->getDeliveryNotice()) ?>
+        </textarea>
+        </div>
+    </div>
+    <div class="admin__field">
+        <label for="billing-notice" class="admin__field-label"><?php echo __('Delivery Notice') ?></label>
+        <div class="admin__field-control">
+             <textarea id="billing-notice" rows="3" cols="5" class="admin__control-textarea">
+            <?php $block->escapeHtml($block->getDeliveryNotice()) ?>
+        </textarea>
+        </div>
+    </div>
+
+    <?php foreach ($additionalData as $key => $value): ?>
+    <div class="admin__field">
+        <label for="billing-notice" class="admin__field-label"><?php echo $key ?></label>
+        <div class="admin__field-control">
+             <p id="test_notice"  class="admin__control-text">
+                    <?php echo $value; ?>
+             </p>
+        </div>
+    </div>
+    <?php endforeach; ?>
+
+</div>
+</section>

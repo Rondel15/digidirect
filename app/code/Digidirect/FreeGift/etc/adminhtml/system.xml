@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_freegift" translate="label" type="text" sortOrder="161809" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <resource>Digidirect_FreeGift::config_gift</resource>
+            <class>separator-top</class>
+            <label>Free Gift</label>
+            <tab>digidirect</tab>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>General</label>
+                <field id="auto_add" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Add Simple Products Automatically, Without Confirmation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="redirect_to_cart" translate="label comment" type="select" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Redirect User To The Cart Page</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="is_hide_free_item_price" translate="label comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Hide Free Item Price</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="show_free_item_attributes" translate="label comment" type="multiselect" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Free Item Attributes</label>
+                    <source_model>Digidirect\FreeGift\Model\Config\Source\Attribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+            </group>
+            <group id="messages" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Messages And Notifications Settings</label>
+                <field id="cart_message" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                       showInStore="1">
+                    <label>Message For The Free Item In The Cart</label>
+                </field>
+                <field id="prefix" translate="label comment" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Prefix For The Free Item Name In The Order</label>
+                </field>
+                <field id="message_type" translate="label" type="select" sortOrder="21" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Message Type For the Free Item In The Cart</label>
+                    <source_model>Digidirect\FreeGift\Model\Config\Source\MessageType</source_model>
+                </field>
+                <field id="add_message" translate="label comment" type="textarea" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Add Free Gift Message</label>
+                </field>
+                <field id="auto_open_popup" translate="label comment" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Open Popup Automatically</label>
+                    <comment>Always open free gift popup on cart page if any free gift is available</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="popup_template" translate="label comment" type="select" sortOrder="50" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Popup template</label>
+                    <source_model>Digidirect\FreeGift\Model\Config\Source\Template</source_model>
+                </field>
+                <field id="display_popup_once" translate="label comment" type="select" sortOrder="60" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Display popup only once</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="auto_open_popup">1</field>
+                    </depends>
+                </field>
+                <field id="display_error_messages" translate="label comment" type="select" sortOrder="70"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Error Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="display_success_messages" translate="label" type="select" sortOrder="100" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Display Success Messages</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="message_hidden_free_item_price" translate="label comment" type="text" sortOrder="110"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message For Hidden Free Item Price</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

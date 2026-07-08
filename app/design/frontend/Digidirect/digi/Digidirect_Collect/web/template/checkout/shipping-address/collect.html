@@ -1,0 +1,30 @@
+<!-- ko ifnot: isSingleCartCollectVariation -->
+    <!-- ko if: collectPlaces().length > 0 -->
+    <tr class="row row-collect-customization">
+        <td class="col col-collect-info" colspan="4">
+            <ul class="items" data-bind="foreach: { data: collectPlaces, as: 'item'}">
+                <li class="item">
+                    <b data-bind="text: item.item_name"></b>
+                    <span class="separator">:</span>
+                    <span data-bind="text: item.collect_place_name + ' (' + item.collect_place_address + ')'"></span>
+                    <!-- ko if: $parent.isCollectEnableOnCheckout -->
+                    <div class="collect-actions">
+                        <!-- ko if: $parent.getDeliveryPlace(item) -->
+                        <a class="link -change" href="#collect-modal-checkout" data-bind="click: $parent.showFormPopUp.bind($parent, item), i18n: 'Change collect place'"></a>
+                        <!-- /ko -->
+                        <!-- ko ifnot: $parent.getDeliveryPlace(item) -->
+                        <a class="link -collect" href="#collect-modal-checkout" data-bind="click: $parent.showFormPopUp.bind($parent, item), i18n: 'Collect in Collect place'"></a>
+                        <!-- /ko -->
+                    </div>
+                    <!-- /ko -->
+                </li>
+            </ul>
+            <!-- ko if: isCollectEnableOnCheckout -->
+            <div id="collect-modal-checkout" data-bind="visible: isFormPopUpVisible(), attr: {'data-action': changePlaceUrl}">
+                <!-- ko template: collectFormTemplate --><!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </td>
+    </tr>
+    <!-- /ko -->
+<!-- /ko -->

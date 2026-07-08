@@ -1,0 +1,35 @@
+//
+//  Theme: Breadcrumbs
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .breadcrumbs {
+        .item.home {
+            display: initial;
+        }
+        
+        .items{
+            & > li{
+                //color: #fff;
+            }
+
+            a{
+                //color: #fff;
+            }
+        }   
+    }
+}
+
+//
+//  XM -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xm) {
+    .breadcrumbs {
+        display: block;
+    }
+}

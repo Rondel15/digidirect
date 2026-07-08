@@ -1,0 +1,68 @@
+//
+//  Checkout: Agreements
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-agreements__is-enabled: true; // Enable/disable style
+
+@checkout-agreements__margin-bottom: @indent__base;
+@checkout-agreements-action-show__use-action-button-as-link: true;
+@checkout-agreements-action-show__vertical-align: baseline;
+
+//  Items
+@checkout-agreements-items__use-reset-list: true;
+@checkout-agreements-items__padding-bottom: @indent__l;
+
+//  Item
+@checkout-agreements-item__margin-bottom: @indent__base;
+@checkout-agreements-item-title__use-checkout-title: true;
+@checkout-agreements-item-title__border-bottom: 0;
+@checkout-agreements-item-content__overflow: auto;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-agreements__is-enabled = true) {
+        .checkout-agreements-block {
+            .checkout-agreements {
+                .lib-css(margin-bottom, @checkout-agreements__margin-bottom);
+            }
+
+            .action-show {
+                & when (@checkout-agreements-action-show__use-action-button-as-link = true) {
+                    &:extend(.abs-action-button-as-link all);
+                }
+                .lib-css(vertical-align, @checkout-agreements-action-show__vertical-align);
+            }
+        }
+
+        //  Checkout Agreements in popup
+        .checkout-agreements-items {
+            & when (@checkout-agreements-items__use-reset-list = true) {
+                &:extend(.abs-reset-list all);
+            }
+            .lib-css(padding-bottom, @checkout-agreements-items__padding-bottom);
+
+            .checkout-agreements-item {
+                .lib-css(margin-bottom, @checkout-agreements-item__margin-bottom);
+            }
+
+            .checkout-agreements-item-title {
+                & when (@checkout-agreements-item-title__use-checkout-title = true) {
+                    &:extend(.abs-checkout-title all);
+                }
+                .lib-css(border-bottom, @checkout-agreements-item-title__border-bottom);
+            }
+        }
+
+        //  Checkout Agreements
+        .checkout-agreement-item-content {
+            .lib-css(overflow, @checkout-agreements-item-content__overflow);
+        }
+    }
+}

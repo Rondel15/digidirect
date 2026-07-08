@@ -1,0 +1,17 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div>
+    <!-- ko if: isFormVisible -->
+    <p class="reg-title" data-bind="i18n: 'You can track your order status by creating an account.'"></p>
+    <form method="get" data-bind="attr: { action: getUrl() }">
+        <input type="submit" class="button -primary" data-bind="value: $t('Create an Account')" />
+    </form>
+    <!--/ko-->
+</div>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- Validate selected collect place for availability  -->
+    <event name="digidirect_collect_before_apply_collect_place_to_items">
+        <observer name="digidirect_collect_add_availability_to_collect_place"
+                  instance="Digidirect\CollectAbstractEntityMsi\Observer\Collect\ValidateCollectPlaceMsiSource" />
+    </event>
+
+</config>

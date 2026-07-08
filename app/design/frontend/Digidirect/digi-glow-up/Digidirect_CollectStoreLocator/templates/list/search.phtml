@@ -1,0 +1,40 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\ListStore\SearchBox $block */
+$locatorName = $block->getData('locatorName');
+$default = $block->getDefaultRadius();
+$items = $block->getRadiusOptions();
+$metric = $block->getMetric();
+$showLocator = true;
+?>
+
+<script type="text/javascript">
+    window.unavalabilityUrl = "<?php echo $block->escapeUrl($block->getUrl('contact')); ?>";
+</script>
+
+<?php if ($showLocator) : ?>
+<div class="locator-search -collect">
+    <form action="<?php echo $block->escapeUrl($block->getSearchUrl()); ?>" class="form" data-locator="<?php /* @escapeNotVerified */ echo $locatorName ?>" data-mage-init='{"validation": {}}'>
+        <div class="input-group">
+            <div class="control -search">
+                <input type="text"
+                       name="<?php echo $block->escapeHtmlAttr(\Digidirect\StoreLocator\Model\Store\Processor::SEARCH_TERM_PARAM) ?>"
+                       class="input-text input-search"
+                       placeholder=""
+                       data-validate="{required:true, minlength:<?php echo $block->escapeHtmlAttr((int)$block->getSearchMinLength()) ?>}"
+                       value=""
+                       id="collectSearchField"
+                />
+                <label for="collectSearchField" class="label -icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-gps"></use>
+                    </svg>
+                </label>
+            </div>
+            <button type="submit" id="btn-search" class="button action -loupe" title="<?php /* @escapeNotVerified */
+            echo __('Search')?>">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -search"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-search" fill="white"></use></svg>
+            </button>
+        </div>
+    </form>
+</div>
+<?php endif; ?>

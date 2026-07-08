@@ -1,0 +1,102 @@
+//
+//  Variables
+//  ---------------------------------------------
+
+@contact-form-field-column__gutter: 20px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .contact-form {
+        .legend {
+            .lib-font-size(16);
+            .lib-css(font-weight, @font-weight__bold);
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        > .fieldset {
+            margin-bottom: 0;
+        }
+
+        .comment-input {
+            height: 110px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .contact-form {
+        .legend {
+            .lib-font-size(18);
+        }
+
+        .fields.-row {
+            & {
+                .lib-vendor-prefix-display(flex);
+                .lib-vendor-box-align(flex-start);
+                .lib-css(margin-left, -@contact-form-field-column__gutter/2);
+                .lib-css(margin-right, -@contact-form-field-column__gutter/2);
+            }
+
+            > .field {
+                .lib-vendor-prefix-flex-grow(1);
+                .lib-css(padding-left, @contact-form-field-column__gutter/2);
+                .lib-css(padding-right, @contact-form-field-column__gutter/2);
+            }
+        }
+
+        .comment-input {
+            height: 135px;
+        }
+
+        .primary,
+        .secondary {
+            display: block;
+            float: none;
+        }
+    }
+}
+
+//
+//  Desktop 
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .contact-form {
+        .legend {
+            .lib-font-size(20);
+            margin-bottom: 40px;
+        }
+
+        > .fieldset {
+            margin-bottom: 20px;
+        }
+
+        .comment-input {
+            height: 225px;
+        }
+
+        .primary {
+            width: 200px;
+        }
+
+        .submit {
+            padding: 11px;
+            line-height: 2.4rem;
+        }
+
+        .actions-toolbar {
+            float: left;
+        }
+    }
+}

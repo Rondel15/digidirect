@@ -1,0 +1,742 @@
+<?php
+/**
+ * @var \Magestat\SplitOrder\Block\Checkout\Success $block
+ */
+
+$orderArray = $block->getOrderArray();
+
+// @codingStandardsIgnoreFile
+?>
+
+<script>
+
+    require(['jquery'], function ($) {
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        var customerId = getCookie('pa_customer_id');
+        var sessionId = getCookie('pa_session_id');
+
+        if (!sessionId || sessionId === undefined) {
+            $.ajax({
+                async: false,
+                url: "https://www.digidirect.com.au/particularaudienceapi/index/getconfig",
+                type: "POST",
+                data: {
+                    customerId: customerId
+                },
+                success: function(data){
+                    console.log(data);
+                    customerId = data.payload.customerId;
+                    sessionId = data.payload.session.id
+                },
+                error: function(){
+                    console.log('AJAX Get Config Fail!');
+                }
+            });
+        }
+
+    });
+
+</script>
+<div class="checkout-success">
+    <div class="thank-you-wrapper">
+        <h1 class="thank-you-title"><?= /* @escapeNotVerified */__('Thank you!') ?></h1>
+        <p class="thank-you-message"><?= /* @escapeNotVerified */__('Your payment has been successfully processed, and your order.') ?></p>
+        <p class="thank-you-message"><?= /* @escapeNotVerified */__('is now being prepared for shipment.') ?></p>
+
+        <h1 class="order-status-title"><?= /* @escapeNotVerified */__('Order Status') ?></h1>
+
+        <h1 class="successful-title"><?= /* @escapeNotVerified */__('Successfully Placed') ?></h1>
+
+        <div class="order-status-tracker">
+            <img src="<?php echo $block->getUrl("media/wysiwyg/") ?>checkout/checkout-status-bar.png" alt="Digidirect order status"/>
+        </div>
+
+        <div class="order-date">
+            <?php
+                $today = new \DateTime();
+                $formattedDate = $block->formatDate(
+                    $today,
+                    \IntlDateFormatter::FULL,
+                    false
+                );
+            ?>
+            <?= /* @escapeNotVerified */__('Placed on '.$formattedDate) ?>
+        </div>
+
+        <?php if ($block->getOrderId()):?>
+            <?php if ($orderArray):?>
+                <?php
+                    $orderString = "";
+                    $lastElement = end($orderArray);
+                ?>
+                <?php foreach ($orderArray as $order => $incremental): ?>
+
+                    <?php
+                        $order = $block->getOrderByIncrementId($incremental);
+                        $items = $order->getAllItems();
+
+                        $orderString = $orderString . $incremental . ", ";
+                        //$orderString = substr($orderString, 0, -2);
+                    ?>
+                <script>
+
+                    require(['jquery'], function ($) {
+
+                        function getCookie(name) {
+                            const value = `; ${document.cookie}`;
+                            const parts = value.split(`; ${name}=`);
+                            if (parts.length === 2) return parts.pop().split(';').shift();
+                        }
+
+                        var customerId = getCookie('pa_customer_id');
+                        var sessionId = getCookie('pa_session_id');
+
+                        var configCustomerId;
+                        var configSessionId;
+
+                        configCustomerId = customerId;
+                        configSessionId = sessionId;
+
+                        var date = new Date();
+                        var productsCheckout = [];
+                        var productsPurchase = [];
+
+                        var currentUrl = window.location.href;
+
+                        <?php
+
+                            foreach ($items as $item) { ?>
+
+                                <?php
+
+                                    $widgetId = "";
+                                    $routeId = "";
+                                    $recommenderId = "";
+                                    $campaignId = "";
+                                    $tacticId = "";
+                                    $retailBoostCollectionCampaignId = "";
+                                    $adSetId = "";
+                                    $adSetVersion = "";
+                                    $costPerClick = "";
+                                    $timeStamp = "";
+                                    $hmacSalt = "";
+                                    $hmac = "";
+                                    $keywordId = "";
+
+                                    $options = $item->getProductOptions();
+
+                                    if(!empty($options["info_buyRequest"])) {
+                                        if(!empty($options["info_buyRequest"]["widget_id"]) && $options["info_buyRequest"]["widget_id"] != "undefined") {
+                                            $widgetId = $options["info_buyRequest"]["widget_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["route_id"]) && $options["info_buyRequest"]["route_id"] != "undefined") {
+                                            $routeId = $options["info_buyRequest"]["route_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["recommender_id"]) && $options["info_buyRequest"]["recommender_id"] != "undefined") {
+                                            $recommenderId = $options["info_buyRequest"]["recommender_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["campaign_id"]) && $options["info_buyRequest"]["campaign_id"] != "undefined") {
+                                            $campaignId = $options["info_buyRequest"]["campaign_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["tactic_id"]) && $options["info_buyRequest"]["tactic_id"] != "undefined") {
+                                            $tacticId = $options["info_buyRequest"]["tactic_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["retail_boost_collection_campaign_id"]) && $options["info_buyRequest"]["retail_boost_collection_campaign_id"] != "undefined") {
+                                            $retailBoostCollectionCampaignId = $options["info_buyRequest"]["retail_boost_collection_campaign_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["adset_id"]) && $options["info_buyRequest"]["adset_id"] != "undefined") {
+                                            $adSetId = $options["info_buyRequest"]["adset_id"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["adset_version"]) && $options["info_buyRequest"]["adset_version"] != "undefined") {
+                                            $adSetVersion = $options["info_buyRequest"]["adset_version"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["cost_per_click"]) && $options["info_buyRequest"]["cost_per_click"] != "undefined") {
+                                            $costPerClick = $options["info_buyRequest"]["cost_per_click"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["timestamp"]) && $options["info_buyRequest"]["timestamp"] != "undefined") {
+                                            $timeStamp = $options["info_buyRequest"]["timestamp"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["hmac_salt"]) && $options["info_buyRequest"]["hmac_salt"] != "undefined") {
+                                            $hmacSalt = $options["info_buyRequest"]["hmac_salt"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["hmac"]) && $options["info_buyRequest"]["hmac"] != "undefined") {
+                                            $hmac = $options["info_buyRequest"]["hmac"];
+                                        }
+                                        if(!empty($options["info_buyRequest"]["keyword_id"]) && $options["info_buyRequest"]["keyword_id"] != "undefined") {
+                                            $keywordId = $options["info_buyRequest"]["keyword_id"];
+                                        }
+                                    }
+                                ?>
+
+                                var refId = "<?= $item->getProductId(); ?>";
+                                var quantity = <?= $item->getQtyOrdered(); ?>;
+
+                                var productItemCheckout = {"refId": refId, "quantity": quantity};
+
+                                var price = <?= $item->getPrice(); ?>;
+                                var productItemPurchase = {"refId": refId, "quantity": quantity, "price": price};
+
+                                var widgetId = "<?= $widgetId; ?>";
+                                var routeId = "<?= $routeId; ?>";
+                                var recommenderId = "<?= $recommenderId; ?>";
+                                var campaignId = "<?= $campaignId; ?>";
+                                var tacticId = "<?= $tacticId; ?>";
+                                var retailBoostCollectionCampaignId = "<?= $retailBoostCollectionCampaignId; ?>";
+                                var adSetId = "<?= $adSetId; ?>";
+                                var adSetVersion = "<?= $adSetVersion; ?>";
+                                var costPerClick = "<?= $costPerClick; ?>";
+                                var timeStamp = "<?= $timeStamp; ?>";
+                                var hmacSalt = "<?= $hmacSalt; ?>";
+                                var hmac = "<?= $hmac; ?>";
+                                var keywordId = "<?= $keywordId; ?>";
+
+                                if (widgetId) {
+                                    productItemCheckout.widgetId = widgetId;
+                                    productItemPurchase.widgetId = widgetId;
+                                }
+                                if (routeId) {
+                                    productItemCheckout.routeId = routeId;
+                                    productItemPurchase.routeId = routeId;
+                                }
+                                if (recommenderId) {
+                                    productItemCheckout.recommenderId = recommenderId;
+                                    productItemPurchase.recommenderId = recommenderId;
+                                }
+                                if (campaignId) {
+                                    productItemCheckout.campaignId = campaignId;
+                                    productItemPurchase.campaignId = campaignId;
+                                }
+                                if (tacticId) {
+                                    productItemCheckout.tacticId = tacticId;
+                                    productItemPurchase.tacticId = tacticId;
+                                }
+                                if (retailBoostCollectionCampaignId) {
+                                    productItemCheckout.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                                    productItemPurchase.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                                }
+                                if (adSetId) {
+                                    productItemCheckout.adSetId = adSetId;
+                                    productItemPurchase.adSetId = adSetId;
+                                }
+                                if (adSetVersion) {
+                                    productItemCheckout.adSetVersion = adSetVersion;
+                                    productItemPurchase.adSetVersion = adSetVersion;
+                                }
+                                if (costPerClick) {
+                                    productItemCheckout.costPerClick = costPerClick;
+                                    productItemPurchase.costPerClick = costPerClick;
+                                }
+                                if (timeStamp) {
+                                    productItemCheckout.timeStamp = timeStamp;
+                                    productItemPurchase.timeStamp = timeStamp;
+                                }
+                                if (hmacSalt) {
+                                    productItemCheckout.hmacSalt = hmacSalt;
+                                    productItemPurchase.hmacSalt = hmacSalt;
+                                }
+                                if (hmac) {
+                                    productItemCheckout.hmac = hmac;
+                                    productItemPurchase.hmac = hmac;
+                                }
+                                if (keywordId) {
+                                    productItemCheckout.keywordId = keywordId;
+                                    productItemPurchase.keywordId = keywordId;
+                                }
+
+                                productsCheckout.push(productItemCheckout);
+                                productsPurchase.push(productItemPurchase);
+
+                        <?php
+                            }
+                        ?>
+
+                        //Prepare data for checkout event
+                        var subTotal = <?= $order->getSubtotal(); ?>;
+                        var discount = <?= abs($order->getDiscountAmount()); ?>;
+                        if (!discount) {
+                            discount = 0;
+                        }
+                        var totalPrice = <?= $order->getGrandTotal(); ?>;
+                        var deliveryFee = <?= $order->getShippingAmount(); ?>;
+
+                        const checkoutData = {
+                            customerId: configCustomerId,
+                            sessionId: configSessionId,
+                            events: [
+                                {
+                                    currentUrl: currentUrl,
+                                    eventTime: date.toISOString(),
+                                    products: productsCheckout,
+                                    subTotal: subTotal,
+                                    discount: discount,
+                                    totalPrice: totalPrice,
+                                    currencyCode: "AUD",
+                                    deliveryFee: deliveryFee
+                                }
+                            ]
+                        };
+                        console.log("checkoutData", JSON.stringify(checkoutData));
+                        $.ajax({
+                            async: false,
+                            url: "https://www.digidirect.com.au/particularaudienceapi/events/checkout",
+                            type: "POST",
+                            data: {
+                                eventData: checkoutData
+                            },
+                            success: function(data){
+                                console.log(data);
+                            },
+                            error: function(){
+                                console.log('AJAX Fail!');
+                            }
+                        });
+
+                        //Prepare data for purchase event
+                        var orderId = "<?= $order->getIncrementId(); ?>";
+                        var paymentMethod = "<?= $order->getPayment()->getMethod(); ?>";
+
+                        const purchaseData = {
+                            customerId: configCustomerId,
+                            sessionId: configSessionId,
+                            events: [
+                                {
+                                    currentUrl: currentUrl,
+                                    eventTime: date.toISOString(),
+                                    products: productsPurchase,
+                                    orderId: orderId,
+                                    paymentMethod: paymentMethod,
+                                    currencyCode: "AUD"
+                                }
+                            ]
+                        };
+                        console.log("purchaseData", JSON.stringify(purchaseData));
+                        $.ajax({
+                            async: false,
+                            url: "https://www.digidirect.com.au/particularaudienceapi/events/purchase",
+                            type: "POST",
+                            data: {
+                                eventData: purchaseData
+                            },
+                            success: function(data){
+                                console.log(data);
+                            },
+                            error: function(){
+                                console.log('AJAX Fail!');
+                            }
+                        });
+
+                    });
+
+                </script>
+
+
+                <?php endforeach; ?>
+
+<!--                <span class="header">--><?php //= /* @escapeNotVerified */__('Your order has been received') ?><!--</span>-->
+<!--                <span class="title">--><?php //= /* @escapeNotVerified */__('Thank you for your purchase') ?><!--</span>-->
+                <span class="title -addition"><?= __('Orders: ' . substr($orderString, 0, -2) . '.') ?></span>
+
+<!--                <p class="content">--><?php //= /* @escapeNotVerified */__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?><!--</p>-->
+
+
+            <?php else: ?>
+                <?php
+                    $lastOrder = $block->getRealOrderDetail();
+                    $items = $lastOrder->getAllItems();
+                ?>
+                <?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+
+                <script>
+
+                    require(['jquery'], function ($) {
+
+                        function getCookie(name) {
+                            const value = `; ${document.cookie}`;
+                            const parts = value.split(`; ${name}=`);
+                            if (parts.length === 2) return parts.pop().split(';').shift();
+                        }
+
+                        var customerId = getCookie('pa_customer_id');
+                        var sessionId = getCookie('pa_session_id');
+
+                        var configCustomerId;
+                        var configSessionId;
+
+                        configCustomerId = customerId;
+                        configSessionId = sessionId;
+
+                        var date = new Date();
+                        var productsCheckout = [];
+                        var productsPurchase = [];
+
+                        var currentUrl = window.location.href;
+
+                        <?php
+
+                        foreach ($items as $item) { ?>
+
+                        <?php
+
+                        $widgetId = "";
+                        $routeId = "";
+                        $recommenderId = "";
+                        $campaignId = "";
+                        $tacticId = "";
+                        $retailBoostCollectionCampaignId = "";
+                        $adSetId = "";
+                        $adSetVersion = "";
+                        $costPerClick = "";
+                        $timeStamp = "";
+                        $hmacSalt = "";
+                        $hmac = "";
+                        $keywordId = "";
+
+                        $options = $item->getProductOptions();
+
+                        if(!empty($options["info_buyRequest"])) {
+                            if(!empty($options["info_buyRequest"]["widget_id"]) && $options["info_buyRequest"]["widget_id"] != "undefined") {
+                                $widgetId = $options["info_buyRequest"]["widget_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["route_id"]) && $options["info_buyRequest"]["route_id"] != "undefined") {
+                                $routeId = $options["info_buyRequest"]["route_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["recommender_id"]) && $options["info_buyRequest"]["recommender_id"] != "undefined") {
+                                $recommenderId = $options["info_buyRequest"]["recommender_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["campaign_id"]) && $options["info_buyRequest"]["campaign_id"] != "undefined") {
+                                $campaignId = $options["info_buyRequest"]["campaign_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["tactic_id"]) && $options["info_buyRequest"]["tactic_id"] != "undefined") {
+                                $tacticId = $options["info_buyRequest"]["tactic_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["retail_boost_collection_campaign_id"]) && $options["info_buyRequest"]["retail_boost_collection_campaign_id"] != "undefined") {
+                                $retailBoostCollectionCampaignId = $options["info_buyRequest"]["retail_boost_collection_campaign_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["adset_id"]) && $options["info_buyRequest"]["adset_id"] != "undefined") {
+                                $adSetId = $options["info_buyRequest"]["adset_id"];
+                            }
+                            if(!empty($options["info_buyRequest"]["adset_version"]) && $options["info_buyRequest"]["adset_version"] != "undefined") {
+                                $adSetVersion = $options["info_buyRequest"]["adset_version"];
+                            }
+                            if(!empty($options["info_buyRequest"]["cost_per_click"]) && $options["info_buyRequest"]["cost_per_click"] != "undefined") {
+                                $costPerClick = $options["info_buyRequest"]["cost_per_click"];
+                            }
+                            if(!empty($options["info_buyRequest"]["timestamp"]) && $options["info_buyRequest"]["timestamp"] != "undefined") {
+                                $timeStamp = $options["info_buyRequest"]["timestamp"];
+                            }
+                            if(!empty($options["info_buyRequest"]["hmac_salt"]) && $options["info_buyRequest"]["hmac_salt"] != "undefined") {
+                                $hmacSalt = $options["info_buyRequest"]["hmac_salt"];
+                            }
+                            if(!empty($options["info_buyRequest"]["hmac"]) && $options["info_buyRequest"]["hmac"] != "undefined") {
+                                $hmac = $options["info_buyRequest"]["hmac"];
+                            }
+                            if(!empty($options["info_buyRequest"]["keyword_id"]) && $options["info_buyRequest"]["keyword_id"] != "undefined") {
+                                $keywordId = $options["info_buyRequest"]["keyword_id"];
+                            }
+                        }
+                        ?>
+
+                        var refId = "<?= $item->getProductId(); ?>";
+                        var quantity = <?= $item->getQtyOrdered(); ?>;
+
+                        var productItemCheckout = {"refId": refId, "quantity": quantity};
+
+                        var price = <?= $item->getPrice(); ?>;
+                        var productItemPurchase = {"refId": refId, "quantity": quantity, "price": price};
+
+                        var widgetId = "<?= $widgetId; ?>";
+                        var routeId = "<?= $routeId; ?>";
+                        var recommenderId = "<?= $recommenderId; ?>";
+                        var campaignId = "<?= $campaignId; ?>";
+                        var tacticId = "<?= $tacticId; ?>";
+                        var retailBoostCollectionCampaignId = "<?= $retailBoostCollectionCampaignId; ?>";
+                        var adSetId = "<?= $adSetId; ?>";
+                        var adSetVersion = "<?= $adSetVersion; ?>";
+                        var costPerClick = "<?= $costPerClick; ?>";
+                        var timeStamp = "<?= $timeStamp; ?>";
+                        var hmacSalt = "<?= $hmacSalt; ?>";
+                        var hmac = "<?= $hmac; ?>";
+                        var keywordId = "<?= $keywordId; ?>";
+
+                        if (widgetId) {
+                            productItemCheckout.widgetId = widgetId;
+                            productItemPurchase.widgetId = widgetId;
+                        }
+                        if (routeId) {
+                            productItemCheckout.routeId = routeId;
+                            productItemPurchase.routeId = routeId;
+                        }
+                        if (recommenderId) {
+                            productItemCheckout.recommenderId = recommenderId;
+                            productItemPurchase.recommenderId = recommenderId;
+                        }
+                        if (campaignId) {
+                            productItemCheckout.campaignId = campaignId;
+                            productItemPurchase.campaignId = campaignId;
+                        }
+                        if (tacticId) {
+                            productItemCheckout.tacticId = tacticId;
+                            productItemPurchase.tacticId = tacticId;
+                        }
+                        if (retailBoostCollectionCampaignId) {
+                            productItemCheckout.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                            productItemPurchase.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                        }
+                        if (adSetId) {
+                            productItemCheckout.adSetId = adSetId;
+                            productItemPurchase.adSetId = adSetId;
+                        }
+                        if (adSetVersion) {
+                            productItemCheckout.adSetVersion = adSetVersion;
+                            productItemPurchase.adSetVersion = adSetVersion;
+                        }
+                        if (costPerClick) {
+                            productItemCheckout.costPerClick = costPerClick;
+                            productItemPurchase.costPerClick = costPerClick;
+                        }
+                        if (timeStamp) {
+                            productItemCheckout.timeStamp = timeStamp;
+                            productItemPurchase.timeStamp = timeStamp;
+                        }
+                        if (hmacSalt) {
+                            productItemCheckout.hmacSalt = hmacSalt;
+                            productItemPurchase.hmacSalt = hmacSalt;
+                        }
+                        if (hmac) {
+                            productItemCheckout.hmac = hmac;
+                            productItemPurchase.hmac = hmac;
+                        }
+                        if (keywordId) {
+                            productItemCheckout.keywordId = keywordId;
+                            productItemPurchase.keywordId = keywordId;
+                        }
+
+                        productsCheckout.push(productItemCheckout);
+                        productsPurchase.push(productItemPurchase);
+
+                        <?php
+                        }
+                        ?>
+
+                        //Prepare data for checkout event
+                        var subTotal = <?= $lastOrder->getSubtotal(); ?>;
+                        var discount = <?= abs($lastOrder->getDiscountAmount()); ?>;
+                        if (!discount) {
+                            discount = 0;
+                        }
+                        var totalPrice = <?= $lastOrder->getGrandTotal(); ?>;
+                        var deliveryFee = <?= $lastOrder->getShippingAmount(); ?>;
+
+                        const checkoutData = {
+                            customerId: configCustomerId,
+                            sessionId: configSessionId,
+                            events: [
+                                {
+                                    currentUrl: currentUrl,
+                                    eventTime: date.toISOString(),
+                                    products: productsCheckout,
+                                    subTotal: subTotal,
+                                    discount: discount,
+                                    totalPrice: totalPrice,
+                                    currencyCode: "AUD",
+                                    deliveryFee: deliveryFee
+                                }
+                            ]
+                        };
+                        console.log("checkoutData", JSON.stringify(checkoutData));
+                        $.ajax({
+                            async: false,
+                            url: "https://www.digidirect.com.au/particularaudienceapi/events/checkout",
+                            type: "POST",
+                            data: {
+                                eventData: checkoutData
+                            },
+                            success: function(data){
+                                console.log(data);
+                            },
+                            error: function(){
+                                console.log('AJAX Fail!');
+                            }
+                        });
+
+                        //Prepare data for purchase event
+                        var orderId = "<?= $lastOrder->getIncrementId(); ?>";
+                        var paymentMethod = "<?= $lastOrder->getPayment()->getMethod(); ?>";
+
+                        const purchaseData = {
+                            customerId: configCustomerId,
+                            sessionId: configSessionId,
+                            events: [
+                                {
+                                    currentUrl: currentUrl,
+                                    eventTime: date.toISOString(),
+                                    products: productsPurchase,
+                                    orderId: orderId,
+                                    paymentMethod: paymentMethod,
+                                    currencyCode: "AUD"
+                                }
+                            ]
+                        };
+                        console.log("purchaseData", JSON.stringify(purchaseData));
+                        $.ajax({
+                            async: false,
+                            url: "https://www.digidirect.com.au/particularaudienceapi/events/purchase",
+                            type: "POST",
+                            data: {
+                                eventData: purchaseData
+                            },
+                            success: function(data){
+                                console.log(data);
+                            },
+                            error: function(){
+                                console.log('AJAX Fail!');
+                            }
+                        });
+
+                    });
+
+                </script>
+
+                <?php if ($block->getOrderId()): ?>
+                    <?php if ($block->getCanViewOrder()) : ?>
+                        <span class="title -addition"><?= __('Order # %1', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></span>
+                    <?php else : ?>
+                        <span class="title -addition"><?= __('Order # <span>%1</span>', $block->escapeHtml($block->getOrderId())) ?></span>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+            <?php endif; ?>
+        <?php endif;?>
+
+        <?= $block->getAdditionalInfoHtml() ?>
+    </div>
+</div>
+<script>
+    const pageWrapper = document.querySelector('.page-wrapper');
+
+    if (pageWrapper) {
+        const partyCanvas = document.createElement('canvas');
+        partyCanvas.id = 'party-canvas'; // Set the ID so you can target it
+        partyCanvas.style.position = 'absolute';
+        partyCanvas.style.top = '0';
+        partyCanvas.style.left = '0';
+        partyCanvas.style.width = '100%';
+        partyCanvas.style.height = '100%';
+        partyCanvas.style.pointerEvents = 'none';
+        partyCanvas.style.zIndex = '9999';
+
+        pageWrapper.parentNode.insertBefore(partyCanvas, pageWrapper.nextSibling);
+    }
+
+
+    let animationFrameId;
+    const canvas = document.getElementById("party-canvas");
+    const ctx = canvas.getContext("2d");
+    const particles = [];
+
+    const gradientPairs = [
+        ["#00A1FF", "#422FD4"],
+        ["#FF003C", "#FF455E"],
+        ["#C20094", "#9C00C2"],
+        ["#D1D100", "#93D100"],
+        ["#FFA600", "#FFD100"]
+    ];
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+
+    resizeCanvas();
+    window.addEventListener("resize", resizeCanvas);
+
+    function createParticle() {
+        const gradient = gradientPairs[Math.floor(Math.random() * gradientPairs.length)];
+        const width = Math.random() * 30 + 5;
+        const height = Math.random() * 45 + 20;
+
+        particles.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height - canvas.height,
+            width: width,
+            height: height,
+            speedX: (Math.random() - 0.5) * 4,
+            speedY: Math.random() * 4 + 5,
+            rotation: (Math.random() - 0.5) * 3,
+            gradient: gradient,
+            stopped: false
+        });
+    }
+
+    function updateParticle(particle) {
+        if (particle.stopped) return;
+
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+        particle.x += Math.sin(particle.y * 0.1) * Math.random() * 0.5;
+
+        if (particle.y >= canvas.height - particle.height) {
+            particle.y = canvas.height - particle.height;
+            particle.speedX = 0;
+            particle.speedY = 0;
+            particle.rotation = 0;
+            particle.stopped = true;
+
+            setTimeout(() => {
+                const idx = particles.indexOf(particle);
+                if (idx > -1) {
+                    particles.splice(idx, 1);
+                }
+            }, 0);
+        }
+
+    }
+
+    function drawParticle(particle) {
+        ctx.save();
+        ctx.translate(particle.x, particle.y);
+        ctx.rotate(particle.rotation);
+
+        // Gradient direction from top-left to bottom-right of the confetti piece
+        const gradient = ctx.createLinearGradient(0, 0, particle.width, particle.height);
+        gradient.addColorStop(0, particle.gradient[0]);
+        gradient.addColorStop(1, particle.gradient[1]);
+
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, particle.width, particle.height);
+
+        ctx.restore();
+    }
+
+    for (let i = 0; i < 200; i++) {
+        createParticle();
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach((particle) => {
+            updateParticle(particle);
+            drawParticle(particle);
+        });
+
+        const allStopped = particles.every(p => p.stopped);
+        if (!allStopped) {
+            animationFrameId = requestAnimationFrame(animate);
+        } else {
+            console.log("All confetti landed 🎉");
+            cancelAnimationFrame(animationFrameId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display = 'none';
+        }
+    }
+
+    animate();
+
+</script>
+

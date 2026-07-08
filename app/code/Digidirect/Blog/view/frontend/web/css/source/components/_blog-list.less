@@ -1,0 +1,99 @@
+//
+//  Blog List
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-post-card__margin: 0 0 20px;
+@blog-post-card__padding: 10px 16px;
+@blog-post-card__overflow: hidden;
+@blog-post-card__border: false;
+@blog-post-card__background: @color-white-smoke;
+@blog-post-card-categories__margin: 0 0 12px;
+@blog-post-card-categories__padding: false;
+@blog-post-card-categories__font: false;
+@blog-post-card-title__margin: 0 0 20px;
+@blog-post-card-title__padding: false;
+@blog-post-card-title__font: false;
+@blog-post-card-title-link__text-decoration: false;
+@blog-post-card-title-link__color: inherit;
+@blog-post-card-title-link__hover__text-decoration: false;
+@blog-post-card-title-link__hover__color: @color-blue1;
+@blog-post-card-thumb__float: left;
+@blog-post-card-thumb__margin: 0 20px 10px 0;
+@blog-post-card-description__margin: 0 0 10px;
+
+//  Grid
+@blog-post-grid-card__margin: 0 0 20px;
+@blog-post-grid-card__padding: 0 10px;
+@blog-post-grid-card__background: none;
+@blog-post-grid-card-thumb__float: none;
+@blog-post-grid-card-thumb__margin: 0 0 10px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .post-card {
+        & {
+            .lib-css(margin, @blog-post-card__margin);
+            .lib-css(padding, @blog-post-card__padding);
+            .lib-css(overflow, @blog-post-card__overflow);
+            .lib-css(border, @blog-post-card__border);
+            .lib-css(background, @blog-post-card__background);
+        }
+
+        > .categories {
+            .lib-css(margin, @blog-post-card-categories__margin);
+            .lib-css(padding, @blog-post-card-categories__padding);
+            .lib-css(font, @blog-post-card-categories__font);
+        }
+
+        > .title {
+            .lib-css(margin, @blog-post-card-title__margin);
+            .lib-css(padding, @blog-post-card-title__padding);
+            .lib-css(font, @blog-post-card-title__font);
+        }
+        > .title > .link {
+            .lib-css(text-decoration, @blog-post-card-title-link__text-decoration);
+            .lib-css(color, @blog-post-card-title-link__color);
+
+            &:hover {
+                .lib-css(text-decoration, @blog-post-card-title-link__hover__text-decoration);
+                .lib-css(color, @blog-post-card-title-link__hover__color);
+            }
+        }
+        > .thumb {
+            .lib-css(float, @blog-post-card-thumb__float);
+            .lib-css(margin, @blog-post-card-thumb__margin);
+        }
+        > .description {
+            .lib-css(margin, @blog-post-card-description__margin);
+        }
+
+        // Grid
+        &.-grid {
+            .lib-css(margin, @blog-post-grid-card__margin);
+            .lib-css(padding, @blog-post-grid-card__padding);
+            .lib-css(background, @blog-post-grid-card__background);
+        }
+        &.-grid > .thumb {
+            .lib-css(float, @blog-post-grid-card-thumb__float);
+            .lib-css(margin, @blog-post-grid-card-thumb__margin);
+        }
+    }
+    
+    .post-view{
+        .custom-block .content{
+            margin: auto 0 auto 0;
+        }
+    }
+    
+    .blog-commentform .fieldset>.legend,
+    .blog-commentform .actions-toolbar{
+        margin-left: 0 !important;
+    }
+}

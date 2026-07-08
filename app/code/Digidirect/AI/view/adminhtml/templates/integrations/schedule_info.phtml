@@ -1,0 +1,29 @@
+<div class="schedule-info">
+    <?php $schedule = $block->getScheduleObj() ?>
+    <?php if ($schedule): ?>
+        <h4><?php echo $this->escapeHtml(__('Next Process Launch is already scheduled.')) ?></h4>
+        <table class="schedule-info-table">
+            <tr>
+                <td>
+                    <strong><?php echo $this->escapeHtml(__('Task created at')) ?></strong><br/>
+                    <?php echo $this->escapeHtml($schedule->getCreated()) ?>
+                </td>
+                <?php if ($opt = $schedule->getRunOptions()): ?>
+                    <td>
+                        <strong><?php echo $this->escapeHtml(__('Run Options ')) ?></strong><br/>
+                        <table class="run-options">
+                            <?php foreach ($opt as $k => $v): ?>
+                                <tr>
+                                    <td class="run-options-key"><?php echo $this->escapeHtml($k) ?>: </td>
+                                    <td class="run-options-value">
+                                        <?php /* @escapeNotVerified */ echo (is_object($v) ? '[object: ' . get_class($v) . ']' : var_export($v, true)) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    </td>
+                <?php endif; ?>
+            </tr>
+        </table>
+    <?php endif; ?>
+</div>

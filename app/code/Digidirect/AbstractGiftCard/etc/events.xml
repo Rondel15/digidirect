@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_order_place_before">
+        <observer name="digidirect_abstractgiftcard_order_place_before" instance="Digidirect\AbstractGiftCard\Observer\OrderPlaceBefore" />
+    </event>
+    <event name="sales_model_service_quote_submit_success">
+        <observer name="digidirect_abstractgiftcard_quote_submit_success" instance="Digidirect\AbstractGiftCard\Observer\QuoteSubmitSuccess" />
+    </event>
+    <event name="sales_model_service_quote_submit_failure">
+        <observer name="digidirect_abstractgiftcard_quote_submit_failure" instance="Digidirect\AbstractGiftCard\Observer\QuoteSubmitFailure" />
+    </event>
+</config>

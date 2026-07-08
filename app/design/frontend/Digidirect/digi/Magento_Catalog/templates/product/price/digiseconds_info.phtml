@@ -1,0 +1,74 @@
+<?php
+    $productBlock = \Magento\Framework\App\ObjectManager::getInstance()->get('Digidirect\Catalog\Block\ProductInfoBlock');
+    $currentProduct = $productBlock->getCurrentProduct();
+
+    $d2ItemCondition = ($currentProduct->getItemCondition() ? $currentProduct->getItemCondition() : '');
+    $d2ItemDescription = ($currentProduct->getData('d2desc') ? $currentProduct->getData('d2desc') : '');
+    $d2ItemRating = ($currentProduct->getItemRating() ? $currentProduct->getItemRating() : '');
+    
+    if (is_null($currentProduct->getData('d2newsku')) || $currentProduct->getData('d2newsku') == " ") {
+        $d2BrandNewProductSKU = false;
+    } else {
+        $d2BrandNewProductSKU = $currentProduct->getData('d2newsku');
+    }
+    
+    if ($d2BrandNewProductSKU) {
+        $brandNewProduct = $productBlock->getProductBySku($d2BrandNewProductSKU);
+        if ($brandNewProduct) {
+            $brandNewProductPrice = $brandNewProduct->getPrice();
+        } else {
+            $brandNewProductPrice = false;
+        }
+    } else {
+        $brandNewProductPrice = false;
+    }  
+    
+    $categoryIds = $currentProduct->getCategoryIds();
+    $digiSecondsIds = array(2564,2567,2570,2573);
+
+?>
+<?php if (count(array_intersect($categoryIds, $digiSecondsIds)) > 0): ?>
+    <?php if ($d2ItemCondition): ?>
+        <div class="digiseconds-info-wrapper">
+            <?php if ($brandNewProductPrice): ?>
+                <div class="brand-new-price-wrapper old-price-wrapper">
+                    <span class="brand-new-label">
+                        Brand New Price
+                    </span>
+                    <span class="brand-new-price old-price">
+                        $<?= /* @escapeNotVerified */ number_format($brandNewProductPrice, 2) ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+
+            <div class="refurb-price-wrapper old-price-wrapper" style="display: none !important;">
+                <span class="refurb-label">
+                    Refurbished Price
+                </span>
+                <span class="refurb-price old-price">
+                    $2,500
+                </span>
+            </div>
+            <?php if ($d2ItemDescription): ?>
+                <div class="item-note-wrapper">
+                    <span class="item-note-label">
+                        Item Note:
+                    </span>
+                    <span class="item-note">
+                        <?= /* @escapeNotVerified */ $d2ItemDescription ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+
+            <div class="warranty-wrapper old-price-wrapper" style="display: none !important;">
+                <span class="warranty-label">
+                    WARRANTY
+                </span>
+                <span class="warranty-description">
+                    7 days replacement and 6 months service
+                </span>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+

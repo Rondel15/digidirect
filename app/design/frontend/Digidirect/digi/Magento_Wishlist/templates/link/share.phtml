@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Button $block */
+?>
+<?php if ($block->getWishlist()->getItemsCount() && $block->getWishlist()->getShared() < $block->getConfig()->getSharingEmailLimit()): ?>
+    <a data-mage-init='{"eventTransporter":{"customerEventSelector":"#wishlist-view-form .action.share"}}'
+       href="javascript:void(0);"
+       name="save_and_share"
+       title="<?= $block->escapeHtmlAttr(__('Share wishlist')); ?>"
+       class="link -share">
+        <span><?= $block->escapeHtml(__('Share wishlist')); ?></span>
+    </a>
+<?php endif;?>

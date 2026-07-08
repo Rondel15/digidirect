@@ -1,0 +1,42 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Newsletterpopup\Block\Popup $block */
+$popup = $block->getPopup();
+?>
+
+<div class="newspopup-message-success" style="display: none;">
+    <div class="success-head-wrp" style="display: none;">
+        <span class="newspopup-message-icon"></span>
+    </div>
+    <div class="success-body-wrp">
+        <div class="newspopup-message-content"><?= /* @noEscape */ $popup->getData('text_success') ?></div>
+        <button class="newspopup-message-close"><?= $block->escapeHtml(__('Ok')) ?></button>
+    </div>
+</div>
+
+<div class="newspopup-animated-form newspopup-up-form cf <?= $block->escapeHtml($block->getAnimation()) ?> newspopup-theme">
+
+    <div class="newspopup-messages-holder">
+        <div class="newspopup-messages-holder-tr"></div>
+    </div>
+
+    <div class="hld-pop newspopup_clear">
+        <?= /* @noEscape */ $block->getPopupTemplate() ?>
+    </div>
+</div>
+
+<style>
+    <?= /* @noEscape */ $block->getPopupStyle() ?>
+</style>
+<?php if ($block->hasPsloginCall()): ?>
+    <script>
+        requirejs(['pslogin']);
+    </script>
+<?php endif; ?>

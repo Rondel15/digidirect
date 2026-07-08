@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\InfiniteScroll\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Digidirect\InfiniteScroll\Model\Config\Reader</argument>
+            <argument name="cacheId" xsi:type="string">infinitescroll</argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\InfiniteScroll\Model\Config\Reader">
+        <arguments>
+            <argument name="converter" xsi:type="object">Digidirect\InfiniteScroll\Model\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Digidirect\InfiniteScroll\Model\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">infinitescroll.xml</argument>
+        </arguments>
+    </type>
+</config>
+

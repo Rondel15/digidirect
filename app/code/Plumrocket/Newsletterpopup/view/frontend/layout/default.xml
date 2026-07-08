@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Plumrocket_Newsletterpopup::css/prnewsletterpopup-animation.css" />
+        <css src="Plumrocket_Newsletterpopup::css/prnewsletterpopup-custom.css" />
+        <css src="Plumrocket_Newsletterpopup::css/prnewsletterpopup.css" />
+    </head>
+
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Plumrocket\Newsletterpopup\Block\Js" template="Plumrocket_Newsletterpopup::js.phtml" name="newsletter.popup" />
+        </referenceContainer>
+    </body>
+</page>

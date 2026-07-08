@@ -1,0 +1,29 @@
+<?php
+    /** @var \Magento\Framework\View\Element\Template $block */
+    $rules = $block->getRules();
+    $overlay = $block->getOverlay();
+?>
+<?php if (!empty($rules)): ?>
+    <div class="<?php echo $block->escapeHtml($block->getCssClass()); ?>">
+        <?php /* @escapeNotVerified */ echo __('Notice: Conditions would not work for the overlay because it has been assigned for the following Catalog Price Rules:') ?>
+        <ol>
+            <?php foreach ($rules as $rule): ?>
+                <li>
+                    <a href="<?php echo $block->escapeUrl($block->getUrl('catalog_rule/promo_catalog/edit', ['id' => $rule['rule_id']])) ?>">
+                        <?php echo $block->escapeHtml($rule['name']) ?>
+                    </a>
+                    <?php if (!empty($rule['start_time'])): ?>
+                        <?php /* @escapeNotVerified */ echo __('<b>From:</b> %1', $block->formatDate($rule['start_time'], \IntlDateFormatter::MEDIUM, true)); ?>
+                    <?php endif; ?>
+                    <?php if (!empty($rule['end_time'])): ?>
+                        <?php /* @escapeNotVerified */ echo __('<b>To:</b> %1', $block->formatDate($rule['end_time'], \IntlDateFormatter::MEDIUM, true)); ?>
+                    <?php endif; ?>
+                    <a href="<?php echo $block->escapeUrl($block->getUrl('digidirect_productoverlay/overlays/deleteCatalogPriceRule', ['row_id' => $rule['row_id'], 'overlay_id' => $overlay->getId()])) ?>"
+                       class="rule-param-remove" title="<?php echo $block->escapeHtmlAttr(__('Remove Catalog Price Rule Relation')) ?>" onclick="return confirm('<?php echo $block->escapeJs(__('Are you sure?')) ?>');">
+                        <img src="<?php echo $block->escapeUrl($block->getRemoveLinkImage()) ?>" alt="" class="v-middle">
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+<?php endif; ?>

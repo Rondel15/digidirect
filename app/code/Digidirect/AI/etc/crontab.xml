@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="default">
+        <job name="ai_logs_backup" instance="Digidirect\AI\Cron\LogBackup" method="execute">
+            <config_path>digidirect_ai/logs/cron_expr</config_path>
+        </job>
+        <job name="ai_logs_db_cleanup" instance="Digidirect\AI\Cron\CleanupDbLogs" method="execute">
+            <config_path>digidirect_ai/logs/remove_logs_cron_expr</config_path>
+        </job>
+    </group>
+    <group id="digidirect_ai">
+        <job name="ai_run_by_schedule" instance="Digidirect\AI\Cron\RunProcessBySchedule" method="execute">
+            <schedule>* * * * *</schedule>
+        </job>
+        <job name="ai_run_queue" instance="Digidirect\AI\Cron\Queue" method="execute">
+            <config_path>digidirect_ai/queue/cron_expr</config_path>
+        </job>
+    </group>
+</config>

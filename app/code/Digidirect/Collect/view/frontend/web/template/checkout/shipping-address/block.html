@@ -1,0 +1,38 @@
+<!-- ko if: isCollectEnableOnCheckout && isSingleCartCollectVariation -->
+    <div class="collect-type">
+        <input type="radio" id="collect_type_delivery" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}" />
+        <label for="collect_type_delivery" data-bind="i18n: 'Delivery'"></label>
+        <input type="radio" id="collect_type_collect" name="delivery_type" value="collect" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}}, attr:{'checked': collectPlaces().length > 0 ? 'checked' : false}" />
+        <label for="collect_type_collect" data-bind="i18n: 'Collect'"></label>
+    </div>
+
+    <div data-bind="css: collectPlaces().length > 0 ? 'collect-block -visible' : 'collect-block'" data-role="collect-block" data-collect-type="collect">
+        <!-- ko if: collectPlaces().length > 0 -->
+            <span data-bind="text: collectPlaces()[0].collect_place_name + ' (' + collectPlaces()[0].collect_place_address + ')'"></span>
+
+            <!-- ko if: getDeliveryPlace(collectPlaces()[0]) -->
+                <a class="link -change"
+                   href="#collect-block-modal-checkout"
+                   data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Change collect place'"></a>
+            <!-- /ko -->
+            <!-- ko ifnot: getDeliveryPlace(collectPlaces()[0]) -->
+                <a class="link -collect"
+                   href="#collect-block-modal-checkout"
+                   data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Collect in Collect place'"></a>
+            <!-- /ko -->
+        <!-- /ko -->
+        <!-- ko ifnot: collectPlaces().length > 0 -->
+            <!-- ko ifnot: getDeliveryPlace(collectPlaces()[0]) -->
+                <div data-bind="i18n: 'No selected'"></div>
+                <a class="link -collect"
+                   href="#collect-block-modal-checkout"
+                   data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Collect in Collect place'"></a>
+            <!-- /ko -->
+        <!-- /ko -->
+    </div>
+
+    <div id="collect-block-modal-checkout" data-bind="visible: isSingleCartFormPopUpVisible()">
+        <!-- ko template: collectFormTemplate --><!-- /ko -->
+    </div>
+<!-- /ko -->

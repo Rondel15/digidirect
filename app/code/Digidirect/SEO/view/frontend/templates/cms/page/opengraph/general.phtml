@@ -1,0 +1,16 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var $block \Digidirect\SEO\Block\Cms\Page\Opengraph */
+$page = $block->getCurrentPage();
+
+if ($page):
+    $description = $page->getMetaDescription() ? $page->getMetaDescription() : $page->getTitle();
+?>
+    <meta name="twitter:card" content="summary_large_image" >
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="<?php echo $block->escapeHtml($page->getTitle()); ?>" />
+    <meta property="og:description" content="<?php echo $block->escapeHtml($description); ?>" />
+    <meta property="twitter:description" content="<?php echo $block->escapeHtml($description); ?>" />
+    <meta property="og:url" content="<?php echo $block->escapeUrl($block->getPageHelper()->getPageUrl($page->getId())); ?>" />
+<?php endif; ?>

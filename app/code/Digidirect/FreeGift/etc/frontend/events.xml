@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_collect_totals_before">
+        <observer name="digidirect_gift_collect_totals_before" instance="Digidirect\FreeGift\Observer\FixWholeCartRuleObserver"/>
+    </event>
+    <event name="sales_quote_collect_totals_after">
+        <observer name="digidirect_gift_collect_totals_after" instance="Digidirect\FreeGift\Observer\CollectTotalsAfterObserver"/>
+    </event>
+    <event name="sales_quote_remove_item">
+        <observer name="digidirect_gift_quote_remove_item" instance="Digidirect\FreeGift\Observer\QuoteRemoveItemObserver"/>
+    </event>
+    <event name="layout_load_before">
+        <observer name="digidirect_gift_layout_load_before" instance="Digidirect\FreeGift\Observer\Frontend\LoadLayoutBefore"/>
+    </event>
+    <event name="controller_action_predispatch_sales_order_reorder">
+        <observer name="digidirect_gift_controller_action_predispatch_sales_order_reorder"
+                  instance="Digidirect\FreeGift\Observer\Frontend\ControllerActionPredispatchSalesOrderReorder"/>
+    </event>
+    <event name="controller_action_predispatch_checkout_index_index">
+        <observer name="digidirect_gift_controller_action_predispatch_checkout_index_index"
+                  instance="Digidirect\FreeGift\Observer\Frontend\ControllerActionPredispatchCheckoutIndexIndex"/>
+    </event>
+    <event name="checkout_cart_product_add_after">
+        <observer name="digidirect_gift_checkout_cart_product_add_after"
+                  instance="Digidirect\FreeGift\Observer\Frontend\CheckoutCartProductAddAfter"/>
+    </event>
+</config>

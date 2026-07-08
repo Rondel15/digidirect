@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <collect>
+                <active>0</active>
+                <active_on_pdp>1</active_on_pdp>
+                <active_on_cart>1</active_on_cart>
+                <active_on_checkout>0</active_on_checkout>
+                <title>Click and Collect</title>
+                <enable_single_store_in_cart_restriction>0</enable_single_store_in_cart_restriction>
+                <name>Free</name>
+                <sallowspecific>0</sallowspecific>
+                <specificerrmsg>This shipping method is currently unavailable.</specificerrmsg>
+                <model>Digidirect\Collect\Model\Carrier\Collectcarrier</model>
+                <default_distance_range>25,50,100,250,1000</default_distance_range>
+                <variation>full</variation>
+                <default_address_template> ({{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}})</default_address_template>
+                <geo_location_method>google_api</geo_location_method>
+                <message_product_is_available_in_previously_store>An item you are going to add to the cart is available in {STORE_NAME}.</message_product_is_available_in_previously_store>
+                <message_product_is_not_available_in_previously_store>An item you are going to add to the cart is not available in {STORE_NAME} as item(s) previously added to the cart.</message_product_is_not_available_in_previously_store>
+            </collect>
+        </carriers>
+    </default>
+</config>

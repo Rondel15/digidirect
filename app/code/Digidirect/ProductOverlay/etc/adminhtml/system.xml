@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_productoverlay" translate="label" type="text" sortOrder="161812" showInDefault="1"
+                 showInWebsite="1"
+                 showInStore="1">
+            <label>Product Overlays</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_ProductOverlay::config</resource>
+            <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>MIME Types</label>
+                <field id="image_type" translate="label comment" type="text" sortOrder="5" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Image Type</label>
+                    <comment>Values are separated by a comma</comment>
+                </field>
+                <field id="image_mime_type" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Image MIME Type</label>
+                    <comment>Values are separated by a comma</comment>
+                </field>
+            </group>
+            <group id="display" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Display Settings</label>
+                <field id="product" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product Page Overlay Container</label>
+                    <comment>Values are separated by a comma DOM-selectors for Container</comment>
+                </field>
+                <field id="category" translate="label comment" type="text" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Category Page Overlay Container</label>
+                    <comment>Values are separated by a comma DOM-selectors for Container</comment>
+                </field>
+            </group>
+            <group id="on_sale" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>`On Sale` Condition</label>
+                <field id="sale_min" translate="label comment" type="text" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Minimal discount amount</label>
+                </field>
+                <field id="sale_min_percent" translate="label comment" type="text" sortOrder="15" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <validate>validate-number validate-zero-or-greater</validate>
+                    <label>Minimal discount percentage</label>
+                </field>
+                <field id="rounding" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Rounding of discount percentage</label>
+                    <source_model>Digidirect\ProductOverlay\Model\Source\Rounding</source_model>
+                </field>
+            </group>
+            <group id="new" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>`Is New` Condition</label>
+                <field id="is_new" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use `New from Date` and `New to Date`</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+                <field id="creation_date" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Use `Creation Date`</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        It will not be used if previous setting set to `Yes` and product have `New from Date` or `New to Date` attributes.
+                    </comment>
+                </field>
+                <field id="days" translate="label comment" type="text" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
+                    <label>Product is new threshold</label>
+                    <comment>In days</comment>
+                    <validate>validate-number validate-zero-or-greater required-entry</validate>
+                    <depends>
+                        <field id="creation_date">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="overlay_management" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Overlay Management</label>
+                <field id="enable_management" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Manage Overlays per Product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="smart_cache" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0"
+                   showInStore="0">
+                <label>Smart Cache Cleaner</label>
+                <field id="enable_cache_cleaner" translate="label" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Enable Smart Cache Cleaner</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to "Yes" system will flush cash for products with changed Overlays (comparing with the previous check).</comment>
+                </field>
+                <field id="cache_cleaner_cron_expr" translate="label" type="text" sortOrder="20" showInDefault="1"
+                       showInWebsite="0" showInStore="0">
+                    <label>Smart Cache Cleaner Cron Expression</label>
+                    <comment>Cron schedule for Smart Cache Cleaner.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

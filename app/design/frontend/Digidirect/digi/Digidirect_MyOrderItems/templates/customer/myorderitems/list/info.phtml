@@ -1,0 +1,133 @@
+<?php
+/** @var \Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Info $block
+ *  @var \Digidirect\ProductAttachment\Helper\Data $helperAttach
+ */
+$salesItem = $block->getSaleItem();
+$productId = $salesItem->getProduct() ? $salesItem->getProduct()->getId() : null;
+$itemInfoArray = $block->getItemInfo();
+$formatProductAttribute = ['brand'=> '', 'name'=> '', 'sku'=> '', 'date_of_purchase'=> ''];
+$brand = 'brand';
+$blockPager = $block->getLayout()->getBlock('my_order_item_pager');
+if ($blockPager) {
+    $page = $blockPager->getCollection()->getCurPage();
+} else {
+    $page = null;
+}
+
+$helperAttach = $this->helper(\Digidirect\ProductAttachment\Helper\Data::class);
+$attachCollection = $helperAttach->getAttachmentsByProductId($productId);
+?>
+<?php if (!empty($itemInfoArray)): ?>
+    <?php /** @var \Magento\Sales\Model\Order\Item $salesItem */ ?>
+    <div class="item-information -order" id="item-information">
+            <a class="close item" name="close" id="close-inf" title="Close"
+               href="<?=  $block->escapeUrl($block->getUrl('myorderitems/myorderitems/index') . '?p=' . $page) ?>"></a>
+        <div class="image"><img
+                    src="<?php echo $block->escapeUrl($block->getDataHelper()->getImageFilePath($salesItem,'shelf__order_items__product_info')) ?>"
+                    alt="<?php echo $block->escapeHtml($salesItem->getName()); ?>">
+        </div>
+        <div class="wrapper">
+            <div class="content">
+                <dl class="item-options">
+                    <?php
+                    $newArray = [];
+                    if (!empty($itemInfoArray)) {
+
+                        foreach ($formatProductAttribute as $keyValue => $value) {
+                            if (isset($itemInfoArray[$keyValue])) {
+                                $newArray[$keyValue] = $itemInfoArray[$keyValue];
+                                unset($itemInfoArray[$keyValue]);
+                            }
+                        }
+                        $newArray = array_merge($newArray, $itemInfoArray);
+                    }
+                    ?>
+
+                    <?php foreach ($newArray as $key => $itemInfo): ?>
+                        <?php
+                        if (!empty($itemInfo[\Digidirect\MyOrderItems\Helper\Data::LABEL])
+                            && $key == 'name'
+                            && $itemInfo[\Digidirect\MyOrderItems\Helper\Data::LABEL] == 'Product Name'){
+                            $itemInfo[\Digidirect\MyOrderItems\Helper\Data::LABEL] = 'Name';
+                        }
+                  
+                        if (!empty($itemInfo[\Digidirect\MyOrderItems\Helper\Data::VALUE])
+                            && $key == 'date_of_purchase'){
+                            $itemInfo[\Digidirect\MyOrderItems\Helper\Data::VALUE] =
+                                date('d M Y',
+                                    strtotime(
+                                        empty($itemInfo[\Digidirect\MyOrderItems\Helper\Data::VALUE])
+                                            ? ' 00:00:00' : $itemInfo[\Digidirect\MyOrderItems\Helper\Data::VALUE]));
+                        }
+                        ?>
+                        <?php if (!empty($itemInfo['value']) && !is_array($itemInfo['value'])): ?>
+                            <div class="wrapper">
+                                <dt><?= $block->escapeHtml($itemInfo[\Digidirect\MyOrderItems\Helper\Data::LABEL]) ?>:</dt>
+                                <dd><?= $block->escapeHtml($itemInfo[\Digidirect\MyOrderItems\Helper\Data::VALUE]) ?></dd>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </dl>
+            </div>
+            <div class="content-attachments">
+                <?php if (!is_array($attachCollection) && !empty($attachCollection->getAllIds())): ?>
+                    <span class="shelf-title"><?php echo $block->escapeHtml(__('Downloads')) ?></span>
+                <?php endif; ?>
+                <div class="attach-wrapper">
+                    <?php foreach ($attachCollection as $attachment): ?>
+                        <?php if($attachment->getData('status') != '0'): ?>
+                        <?php $attachmentName = $attachment->getName() ?>
+                        <div class="product-attachment">
+                            <span class="attachment-title title"><?php echo $block->escapeHtml(__('Downloads')); ?></span>
+                            <a class="attachment-container" href="<?php echo $block->escapeUrl($block->getUrl('product-attachment/download/index', ['id' => $attachment->getId()])); ?>"  title="<?php echo $block->escapeHtml(__($attachmentName)); ?>">
+                                <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-book"></use></svg></div>
+                                <div class="name"><?php echo $block->escapeHtml($attachmentName); ?></div>
+                                <span class="download">
+                                <div class="name">
+                                    <?php echo $block->escapeHtml($helperAttach->formatFileExt($attachment->getFileFormat())); ?>
+                                    <?php echo $block->escapeHtml($helperAttach->toByteString($attachment->getFileSize())); ?>
+                                </div>
+                            </span>
+                            </a>
+                        </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+        <?php if ($productId): ?>
+            <?= $block->getChildHtml($block->getRelatedProductsBlockName()); ?>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<script>
+    require(
+        [
+            'jquery',
+            'mage/translate'
+        ],
+        function ($, $t) {
+
+            $("#close-inf").click(function () {
+                $("#item-information").css("display", 'none');
+            });
+
+            var closeBtn = $('.items-groups-container .item-information > .close')[0],
+                closedArea = $('.items-groups-container .item-information')[0];
+
+            $(closeBtn).click(function () {
+                $(closedArea).css("display", 'none');
+            });
+
+            var listItems = $('.items-block.my-shelf.full');
+            var itemSelector = "<?php echo $salesItem->getData('item_id'); ?>";
+            var item = listItems.find("div[data-item-id='" + itemSelector + "']");
+
+            if (item) {
+                item.append('<div class="figure-up"></div>');
+            }
+        }
+    );
+</script>
+

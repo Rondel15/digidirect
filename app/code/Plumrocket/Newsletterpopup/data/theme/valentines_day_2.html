@@ -1,0 +1,51 @@
+<link href="https://fonts.googleapis.com/css?family=Raleway:300|Work+Sans:400,900" rel="stylesheet">
+<div class="valentine first_popup">
+    <div class="valentine__container">
+        <button class="valentine__close close cross"><span>{{text_cancel}}</span></button>
+        <div class="valentine__wrapper">
+            <div class="valentine__content">
+                <div class="valentine__text">
+                    <h1 class="valentine__title">
+                        {{text_title}}
+                    </h1>
+                    <div class="valentine__descr">
+                        {{text_description}}
+                    </div>
+                </div>
+                <button type="button" class="valentine__btn show_secondary_popup">
+                    {{text_submit}}
+                </button>
+            </div>
+            <div class="valentine__hearts">
+                <img
+                    class="left"
+                    src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme29_valentine_left.png'}}"
+                    alt=""
+                    draggable="false"
+                />
+                <img
+                    class="right"
+                    src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme29_valentine_right.png'}}"
+                    alt=""
+                    draggable="false"
+                />
+            </div>
+            <img
+                class="valentine__many-hearts"
+                src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme29_many-hearts.png'}}"
+                alt="Many hearts"
+                draggable="false"
+            />
+        </div>
+    </div>
+
+</div>
+<div class="valentine__form-wrap secondary_popup hidden">
+    <form action="" method="post" class="valentine__form">
+        <button class="valentine__close close cross"><span>{{text_cancel}}</span></button>
+        {{form_fields}}
+        <button class="valentine__btn" type="submit">
+            {{text_submit}}
+        </button>
+    </form>
+</div>

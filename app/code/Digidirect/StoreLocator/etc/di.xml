@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\Utilities\Model\Sitemap">
+        <plugin name="storeLocatorAddSiteMapItems" type="Digidirect\StoreLocator\Plugin\Sitemap\Model\Sitemap"/>
+    </type>
+    <type name="Digidirect\StoreLocator\Model\Store\Processor">
+        <arguments>
+            <argument name="urlBuilder" xsi:type="object">Magento\Framework\Url</argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\StoreLocator\Model\Config\Source\Api">
+        <arguments>
+            <argument name="apiPool" xsi:type="array">
+                <item name="google" xsi:type="string">Google API</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\StoreLocator\Model\CoordinatesProviderFactory">
+        <arguments>
+            <argument name="coordinatesApiConfiguration" xsi:type="array">
+                <item name="google" xsi:type="object">Digidirect\Locator\Model\Coordinates</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\StoreLocator\Helper\ApiKey">
+        <arguments>
+            <argument name="apiKeyConfiguration" xsi:type="array">
+                <item name="google" xsi:type="string">Digidirect\GoogleApi\Helper\Config::XML_PATH_GOOGLE_API_KEY</item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <virtualType name="Digidirect\StoreLocator\Block\Adminhtml\Config\LayoutMatrix" type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="entity" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\StoreLocator\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Entity</item>
+                    <item name="label" xsi:type="string">Entity</item>
+                </item>
+                <item name="additional_layout" xsi:type="array">
+                    <item name="label" xsi:type="string">Layout</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Digidirect\StoreLocator\Block\Adminhtml\Config\Matrix\Field\Attribute\Renderer\Entity"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+            <argument name="attributeList" xsi:type="object">Digidirect\AbstractEntity\Model\Config\Source\AttributeSet</argument>
+        </arguments>
+    </virtualType>'
+    <preference type="Digidirect\StoreLocator\Controller\Index\View" for="Digidirect\AbstractEntity\Controller\AbstractEntity\View" />
+    <!--
+    <type name="Digidirect\AbstractEntity\Controller\AbstractEntity\View">
+        <plugin name="storeLocatorAddStore" type="Digidirect\StoreLocator\Plugin\AbstractEntity\Controller\Entity\View"/>
+    </type>
+    -->
+
+</config>

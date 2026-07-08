@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\CheckoutFields\Model\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Digidirect\CheckoutFields\Model\Config\Reader</argument>
+            <argument name="cacheId" xsi:type="string">checkout_fields</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\CheckoutFields\Model\Config\Reader">
+        <arguments>
+            <argument name="converter" xsi:type="object">Digidirect\CheckoutFields\Model\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Digidirect\CheckoutFields\Model\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">checkout_fields.xml</argument>
+        </arguments>
+    </type>
+    <preference for="Digidirect\CheckoutFields\Api\PdpFieldValueInterface"
+                type="Digidirect\CheckoutFields\Model\PdpFieldValue"/>
+    <preference for="Digidirect\CheckoutFields\Api\PdpFieldValueRepositoryInterface"
+                type="Digidirect\CheckoutFields\Model\PdpFieldValueRepository"/>
+    <preference for="Digidirect\CheckoutFields\Api\Data\QuoteFieldValueInterface"
+                type="Digidirect\CheckoutFields\Model\QuoteFieldValue"/>
+    <preference for="Digidirect\CheckoutFields\Api\QuoteFieldValueRepositoryInterface"
+                type="Digidirect\CheckoutFields\Model\QuoteFieldValueRepository"/>
+    <preference for="Digidirect\CheckoutFields\Api\OrderFieldValueRepositoryInterface"
+                type="Digidirect\CheckoutFields\Model\OrderFieldValueRepository"/>
+    <preference for="Digidirect\CheckoutFields\Api\QuoteFieldValueManagementInterface"
+                type="Digidirect\CheckoutFields\Model\QuoteFieldValueManagement"/>
+
+    <type name="Magento\Quote\Model\QuoteRepository\LoadHandler">
+        <plugin name="Digidirect_CheckoutFields::PluginMagentoQuoteModelQuoteRepositoryLoadHandlerPlugin" type="Digidirect\CheckoutFields\Plugin\Magento\Quote\Model\QuoteRepository\LoadHandlerPlugin"/>
+    </type>
+    <type name="Magento\Quote\Api\PaymentMethodManagementInterface">
+        <plugin name="Digidirect_CheckoutFields::PluginMagentoQuoteApiPaymentMethodManagementInterface" type="Digidirect\CheckoutFields\Plugin\Magento\Quote\Model\PaymentMethodManagementPlugin"/>
+    </type>
+
+
+    <preference for="Digidirect\CheckoutFields\Api\CustomFieldsInterface"
+                type="Digidirect\CheckoutFields\Model\Service\CustomFields"/>
+
+    <type name="Digidirect\CheckoutFields\Helper\Xml\Fields\Parser">
+        <arguments>
+            <argument name="validationRuleMapping" xsi:type="array">
+                <item name="min_text_length" xsi:type="string">minlength</item>
+                <item name="max_text_length" xsi:type="string">maxlength</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="updateCheckoutFieldsByDate" xsi:type="object">Digidirect\CheckoutFields\Console\Command\UpdateCheckoutFieldsByString</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Sales\Api\OrderRepositoryInterface">
+        <plugin name="OrderCheckoutFieldsPlugin" type="Digidirect\CheckoutFields\Plugin\Model\Order\RepositoryPlugin"/>
+    </type>
+</config>

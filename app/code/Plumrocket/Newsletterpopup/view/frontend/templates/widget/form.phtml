@@ -1,0 +1,20 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var Plumrocket\Newsletterpopup\Block\Widget\Form $block */
+?>
+<div id="newspopup_up_bg_<?= $block->escapeHtmlAttr($block->getPopup()->getId()) ?>"
+     class="<?= \Plumrocket\Newsletterpopup\Block\Widget\Form::CSS_CLASS_NAME ?> pr-newsletter-popup__wrp"
+     data-mage-init='{"prnewsletterpopup":{}}'
+>
+    <?= $block->getPopupBlock() ? $block->getPopupBlock()->toHtml() : '' ?>
+</div>
+<script type="text/javascript">
+  requirejs(['prnewsletterpopup'], function() {
+    window.prnewsletterPopup.updateSettings(<?= /* @noEscape */ $block->getJsonConfig() ?>);
+  });
+</script>

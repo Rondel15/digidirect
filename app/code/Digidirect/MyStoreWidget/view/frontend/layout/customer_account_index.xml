@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\MyStoreWidget\Block\MyStore" name="myaccount_mystore_widget" as="mystorewidget_myaccount"
+                   template="Digidirect_MyStoreWidget::customer/account/dashboard/mystore.phtml" after="address"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,83 @@
+//
+//  Account: Share Wishlist
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form.wishlist.share {
+        .legend {
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .textarea {
+            padding: 6px;
+        }
+
+        .fieldset {
+            margin-bottom: 20px;
+        }
+
+        .field {
+            margin: 0 0 16px;
+        }
+
+        .field:last-child {
+            margin-bottom: 0;
+        }
+
+        .primary .action {
+            .lib-font-size(14);
+            padding: 13px 26px 12px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form.wishlist.share {
+        .primary .action {
+            width: auto;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form.wishlist.share {
+        .legend {
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .fieldset {
+            margin-bottom: 30px;
+        }
+
+        .field {
+            margin: 0 0 26px;
+        }
+
+        .primary .action {
+            .lib-css(width, @account-button__width__l);
+            .lib-font-size(16);
+            padding-left: 10px;
+            padding-right: 10px;
+            margin-bottom: 90px;
+        }
+
+        .textarea + .mage-error {
+            .lib-font-size(13);
+        }
+    }
+}

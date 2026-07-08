@@ -1,0 +1,203 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Webhook
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\Webhook\Helper\Data;
+use Magento\Eav\Model\Entity\Attribute;
+use Mageplaza\WebHook\Block\Adminhtml\Hook\Edit\Tab\Renderer\Body;
+
+/* @var $block Body */
+$element            = $block->getElement();
+$note               = $element->getNote() ? '<div class="note">' . $element->getNote() . '</div>' : '';
+$elementBeforeLabel = $element->getExtType() == 'checkbox' || $element->getExtType() == 'radio';
+$addOn              = $element->getBeforeElementHtml() || $element->getAfterElementHtml();
+$fieldId            = ($element->getHtmlContainerId()) ? ' id="' . $element->getHtmlContainerId() . '"' : '';
+$fieldClass         = "admin__field field field-{$element->getId()} {$element->getCssClass()}";
+$fieldClass         .= ($elementBeforeLabel) ? ' choice' : '';
+$fieldClass         .= ($addOn) ? ' with-addon' : '';
+$fieldClass         .= ($element->getRequired()) ? ' _required' : '';
+$fieldClass         .= ($note) ? ' with-note' : '';
+$fieldAttributes    = $fieldId . ' class="' . $fieldClass . '" ' . $block->getUiId('form-field', $element->getId());
+$modifiersData      = $block->getModifier() ? Data::jsonEncode($block->getModifier()) : '{}';
+?>
+
+<?php if (!$element->getNoDisplay()) : ?>
+    <?php if ($element->getType() == 'hidden') : ?>
+        <?= $element->getElementHtml() ?>
+    <?php else : ?>
+        <div <?= /** @noEscape */ $fieldAttributes ?>>
+            <?php if ($elementBeforeLabel) : ?>
+                <?= $element->getElementHtml() ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <?= $note ?>
+            <?php else : ?>
+                <?= $element->getLabelHtml('', $element->getScopeLabel()) ?>
+                <div class="admin__field-control control">
+                    <div id="grid_tab" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+                        <ul class="tabs-horiz ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all"
+                            role="tablist">
+                            <li class="ui-state-default ui-corner-top ui-tabs-active ui-state-active" role="tab"
+                                tabindex="0" aria-controls="grid_tab_body_content" aria-labelledby="grid_tab_body"
+                                aria-selected="true">
+                                <a href="#grid_tab_body_content" id="grid_tab_body" title="Body" class="ui-tabs-anchor"
+                                   data-tab-type="" role="presentation" tabindex="-1">
+                                    <span><?= $block->escapeHtml(__('Body')) ?></span>
+                                </a>
+                            </li>
+                            <li class="ui-state-default ui-corner-top" role="tab" tabindex="-1"
+                                aria-controls="grid_tab_preview_content" aria-labelledby="grid_tab_preview"
+                                aria-selected="false">
+                                <a href="#grid_tab_preview_content" id="grid_tab_preview" title="Preview"
+                                   class="ui-tabs-anchor" data-tab-type="" role="presentation" tabindex="-1">
+                                    <span><?= $block->escapeHtml(__('Preview')) ?></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <div id="grid_tab_content" class="dashboard-store-stats-content">
+                            <div id="grid_tab_body_content" style="border-top: 1px solid #adadad;"
+                                 aria-labelledby="grid_tab_body" class="ui-widget-content ui-corner-bottom"
+                                 role="tabpanel" aria-expanded="true" aria-hidden="false">
+                                <a id="insert-variable" style="float: right;margin-top: -53px;margin-right: -20px;"
+                                   class="btn"><?= $block->escapeHtml(__('Insert Variables')) ?></a>
+                                <?= $addOn ? '<div class="addon">' . $element->getElementHtml()
+                                    . '</div>' : $element->getElementHtml(); ?>
+                                <?= $block->getHintHtml() ?>
+                                <?= $note ?>
+                            </div>
+                            <div id="grid_tab_preview_content" style="border-top: 1px solid #adadad;"
+                                 aria-labelledby="grid_tab_body" class="ui-widget-content ui-corner-bottom"
+                                 role="tabpanel" aria-expanded="true" aria-hidden="false">
+                                <textarea style="width: 100%" name="hook[preview]" title="preview" id="hook_preview">
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+<script>
+    require([
+        'jquery',
+        'tabs'], function ($) {
+        $("#grid_tab").tabs();
+    });
+</script>
+<div id="insert-variable-popup" class="admin__scope-old">
+    <?php $attrCollection = $block->getHookAttrCollection() ?: []; ?>
+    <div class="section-config">
+        <div class="entry-edit-head admin__collapsible-block">
+            <span id="ox_variable_item-link" class="entry-edit-head-link"></span>
+            <a id="ox_variable_item-head" href="#ox_variable_item-link"
+               onclick="Fieldset.toggleCollapse('ox_variable_item'); return false;">
+                <?= $block->escapeHtml(__('Item Attribute')) ?>
+            </a>
+        </div>
+        <input id="ox_variable_item-state" value="1" type="hidden">
+
+        <fieldset class="config admin__collapsible-block admin__scope-old" id="ox_variable_item">
+            <?php foreach ($attrCollection as $attr) : ?>
+                <?php /** @var Attribute $attr */ ?>
+                <div class="attr-code" id="<?= $block->escapeHtmlAttr($attr->getName()) ?>" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>">
+                    <div class="row">
+                        <label class="attr-code-label"><?= $block->escapeHtml($attr->getTitle() . " ({$attr->getName()})") ?></label>
+                        <button class="insert"><?= $block->escapeHtml(__('Add')) ?></button>
+                        <button class="add-modifier"><?= $block->escapeHtml(__('Add Filter')) ?></button>
+                        <label class="liquid-variable">{{ <?= 'item.' . $block->escapeHtml($attr->getName()) ?> }}</label>
+                    </div>
+                    <div class="row-modifier data-table">
+                        <div class="modifier-group" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>"></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+    </div>
+    <div class="section-config">
+        <div class="entry-edit-head admin__collapsible-block">
+            <span id="ox_variable_shipping_address-link" class="entry-edit-head-link"></span>
+            <a id="ox_variable_shipping_address-head" href="#ox_variable_shipping_address-link"
+               onclick="Fieldset.toggleCollapse('ox_variable_shipping_address'); return false;">
+                <?= $block->escapeHtml(__('Shipping Address Attribute')) ?>
+            </a>
+        </div>
+        <input id="ox_variable_shipping-state" value="1" type="hidden">
+
+        <fieldset class="config admin__collapsible-block admin__scope-old" id="ox_variable_shipping_address">
+            <?php foreach ($block->getShippingAddressAttrCollection() as $attr) : ?>
+                <?php /** @var Attribute $attr */ ?>
+                <div class="attr-code" id="<?= $block->escapeHtmlAttr($attr->getName()) ?>" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>">
+                    <div class="row">
+                        <label class="attr-code-label"><?= $block->escapeHtml($attr->getTitle() . " ({$attr->getName()})") ?></label>
+                        <button class="insert"><?= $block->escapeHtml(__('Add')) ?></button>
+                        <button class="add-modifier"><?= $block->escapeHtml(__('Add Filter')) ?></button>
+                        <label class="liquid-variable">{{ <?= 'item.shippingAddress.' . $block->escapeHtml($attr->getName()) ?> }}</label>
+                    </div>
+                    <div class="row-modifier data-table">
+                        <div class="modifier-group" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>"></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+    </div>
+    <div class="section-config">
+        <div class="entry-edit-head admin__collapsible-block">
+            <span id="ox_variable_billing_address-link" class="entry-edit-head-link"></span>
+            <a id="ox_variable_billing_address-head" href="#ox_variable_billing_address-link"
+               onclick="Fieldset.toggleCollapse('ox_variable_billing_address'); return false;">
+                <?= $block->escapeHtml(__('Billing Address Attribute')) ?>
+            </a>
+        </div>
+        <input id="ox_variable_billing-state" value="1" type="hidden">
+
+        <fieldset class="config admin__collapsible-block admin__scope-old" id="ox_variable_shipping_address">
+            <?php foreach ($block->getShippingAddressAttrCollection() as $attr) : ?>
+                <?php /** @var Attribute $attr */ ?>
+                <div class="attr-code" id="<?= $block->escapeHtmlAttr($attr->getName()) ?>" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>">
+                    <div class="row">
+                        <label class="attr-code-label"><?= $block->escapeHtml($attr->getTitle() . " ({$attr->getName()})") ?></label>
+                        <button class="insert"><?= $block->escapeHtml(__('Add')) ?></button>
+                        <button class="add-modifier"><?= $block->escapeHtml(__('Add Filter')) ?></button>
+                        <label class="liquid-variable">{{ <?= 'item.billingAddress.' . $block->escapeHtml($attr->getName()) ?> }}</label>
+                    </div>
+                    <div class="row-modifier data-table">
+                        <div class="modifier-group" code="<?= $block->escapeHtmlAttr($attr->getName()) ?>"></div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </fieldset>
+    </div>
+    <script type="text/javascript">//<![CDATA[
+        require(['prototype'], function () {
+            Fieldset.applyCollapse('ox_variable_item');
+            Fieldset.applyCollapse('ox_variable_shipping_address');
+        });
+        //]]>
+    </script>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Mageplaza_Webhook/js/hook/initActionsTab":{
+                "modifiersData": <?= /** @noEscape */ $modifiersData ?>
+            }
+        }
+    }
+</script>

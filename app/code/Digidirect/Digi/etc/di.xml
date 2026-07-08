@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Wishlist\CustomerData\Wishlist" type="Digidirect\Digi\Rewrite\Wishlist\CustomerData\Wishlist" />
+    <preference for="Digidirect\MyStoreWidget\Model\ResourceModel\MyStoreIndex" type="Digidirect\Digi\Rewrite\Digidirect\MyStoreWidget\Model\MyStoreIndexRewrite"/>
+    <preference for="Digidirect\Digi\Api\Rest\CheckSsdAvailabilityInterface"
+                type="Digidirect\Digi\Model\Rest\SsdAvailabilityCheck"/>
+    <preference for="Digidirect\Digi\Api\Rest\CheckVsmAvailabilityInterface"
+                type="Digidirect\Digi\Model\Rest\VsmAvailabilityCheck"/>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="ResizeImageWithParamsCommand" xsi:type="object">Digidirect\Digi\Console\Command\ImagesResizeCommand</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\Router\NoRouteHandlerList">
+        <arguments>
+            <argument name="handlerClassesList" xsi:type="array">
+                <item name="Digidirect_brand_filter" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Digi\Controller\Router\NoRouteBrandHandler</item>
+                    <item name="sortOrder" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\LayeredNavigation\Helper\Meta">
+        <plugin name="layarednavigation.meta.after.plugin"
+                type="Digidirect\Digi\Plugin\Digidirect\LayeredNavigation\Helper\Meta"
+                sortOrder="1"
+                disabled="false" />
+    </type>
+
+    <type name="Digidirect\Digi\Model\ShippingCheck\VsmCheckerService">
+        <arguments>
+            <argument name="checkoutSession" xsi:type="object">Magento\Checkout\Model\Session\Proxy</argument>
+        </arguments>
+    </type>
+</config>

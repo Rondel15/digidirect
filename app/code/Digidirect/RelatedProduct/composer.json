@@ -1,0 +1,12 @@
+{
+  "name": "digidirect/relatedproduct",
+  "type": "magento2-module",
+  "description": "Digidirect Related Product",
+  "version": "2.4.0.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\RelatedProduct\\": ""
+    }
+  }
+}

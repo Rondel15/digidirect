@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="salesrule_rule_save_before">
+        <observer name="Digidirect_ExtendedCartPriceRules::salesrule_rule_save_before" instance="Digidirect\ExtendedCartPriceRules\Observer\Admin\SalesRuleSaveBefore"/>
+    </event>
+    <event name="magento_salesrule_api_data_ruleinterface_save_after">
+        <observer name="Digidirect_ExtendedCartPriceRules::SalesruleRuleSaveAfter"
+                  instance="Digidirect\ExtendedCartPriceRules\Observer\SalesRuleSaveAfter"/>
+    </event>
+    <event name="magento_salesrule_api_data_ruleinterface_save_before">
+        <observer name="Digidirect_ExtendedCartPriceRules::SalesRuleSaveBefore"
+                  instance="Digidirect\ExtendedCartPriceRules\Observer\SalesRuleSaveBefore"/>
+    </event>
+    <event name="magento_salesrule_api_data_ruleinterface_load_after">
+        <observer name="Digidirect_ExtendedCartPriceRules::SalesruleRuleLoadAfter"
+                  instance="Digidirect\ExtendedCartPriceRules\Observer\SalesRuleLoadAfter"/>
+    </event>
+</config>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<extensions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_Base:etc/pr_extensions.xsd">
+    <extension name="Newsletterpopup"
+               title="Newsletter Popup"
+               config_section="prnewsletterpopup"
+               is_enabled_path="prnewsletterpopup/general/enable"
+               documentation="https://plumrocket.com/docs/magento-newsletter-popup/v3"
+               url="https://plumrocket.com/magento-newsletter-popup"
+               marketplace_url="https://marketplace.magento.com/plumrocket-module-prnewsletterpopup.html"
+    >
+        <customer key="532416486b540ea2a1e50c4070b671611b44f52718"/>
+    </extension>
+</extensions>

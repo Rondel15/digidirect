@@ -1,0 +1,32 @@
+//
+//  Utilities
+//  _____________________________________________
+
+.digi-lib-box-align (
+    @_value: center
+) {
+    -webkit-box-pack: @_value;
+    -moz-box-pack: @_value;
+    -ms-flex-pack: @_value;
+    -webkit-justify-content: @_value;
+    justify-content: @_value;
+}
+
+// Center element
+.digi-lib-center(@horizontal:true, @vertical:true) {
+    position: absolute;
+
+    & when (@horizontal) and not (@vertical) {
+        left: 50%;
+        .lib-css(transform, translate(-50%, 0), 1);
+    }
+    & when (@vertical) and not (@horizontal) {
+        top: 50%;
+        .lib-css(transform, translate(0, -50%), 1);
+    }
+    & when (@vertical) and (@horizontal) {
+        top: 50%;
+        left: 50%;
+        .lib-css(transform, translate(-50%, -50%), 1);
+    }
+}

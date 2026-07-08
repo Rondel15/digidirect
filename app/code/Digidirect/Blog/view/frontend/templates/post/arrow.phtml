@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Arrow $block
+ */
+?>
+<div class="blog-prevnext">
+    <?php if($block->hasPreviousPost()): ?>
+        <a class="button action primary prev" href="<?php echo $block->escapeUrl($block->getPreviousPostLink()); ?>" title="<?php /* @escapeNotVerified */ echo __('Previous'); ?>">
+            <?php /* @escapeNotVerified */ echo __('Previous'); ?>
+        </a>
+    <?php endif; ?>
+
+    <?php if($block->hasNextPost()): ?>
+        <a class="button action primary next" href="<?php echo $block->escapeUrl($block->getNextPostLink()); ?>" title="<?php /* @escapeNotVerified */ echo __('Next'); ?>">
+            <?php /* @escapeNotVerified */ echo __('Next'); ?>
+        </a>
+    <?php endif; ?>
+</div>

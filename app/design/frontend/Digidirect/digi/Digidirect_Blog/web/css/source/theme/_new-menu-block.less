@@ -1,0 +1,283 @@
+//
+//  Blog menu
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-categories {
+        
+        &{
+            margin-top: 0 !important;
+        }
+        
+        > .list > .item {
+            display: flex;
+                
+            &:hover{
+                border-color: #fff !important;
+            }
+            
+            .link{
+                padding: 10px 0;
+            }
+        }
+
+        > .list {
+            padding-left: 0;
+            display: none;
+            margin-bottom: 0;
+        }
+
+        .logo {
+            .lib-css(color, @color-white);
+            text-align: left;
+            padding: 0;
+            font-weight: 700;
+            font-size: 1.4rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .logo .svgi-blog-widget {
+            display: none;
+        }
+
+        .count {
+            display: none;
+        }
+
+        .link {
+            color: #222;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        .logo .arrow > .svgi-action {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .logo .arrow {
+            transform: rotate(-90deg);
+            position: absolute;
+            right: 30px;
+            top: 14px;
+        }
+
+        .logo.active .arrow {
+            transform: rotate(90deg);
+        }
+    }
+
+    .blog-view-index,
+    .blog-category-index,
+    .blog-tag-index,
+    .blog-index-index {
+        .columns {
+            flex-direction: column;
+        }
+
+        .blog-tags {
+            display: none;
+        }
+
+        .sidebar-main {
+            padding: 0;
+        }
+    }
+
+    .blog-view-index,
+    .blog-tag-index {
+        .blog-search {
+            padding-top: 35px;
+        }
+    }
+    
+    .more-title{
+        color: #000;
+    }
+}
+
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .faq-categories.secondary-nav.blog-categories{
+        &{
+            margin: 0 -30px;
+        }
+        
+        > .logo {
+            min-height: 0;
+            padding: 15px 30px;
+            margin: 0;
+            max-width: 100%;
+        }
+    } 
+    
+    .blog-search{
+        padding: 0;
+        
+        form .input-group {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: flex-start;
+            -ms-align-items: flex-start;
+            align-items: flex-start;
+        }
+        
+        .control{
+            width: 100%;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .blog-category-index,
+    .blog-tag-index,
+    .blog-view-index,
+    .blog-index-index {
+        .sidebar.sidebar-main {
+            padding-left: 0;
+            padding-right: 20px;
+        }
+
+        .blog-tags {
+            display: flex;
+        }
+    }
+
+    .blog-category-index,
+    .blog-index-index {
+        .sidebar.sidebar-main {
+            padding-top: 100px;
+        }
+    }
+
+    .blog-view-index,
+    .blog-tag-index {
+        .sidebar.sidebar-main {
+            padding-top: 35px;
+        }
+
+        .blog-search {
+            padding-top: 0;
+        }
+    }
+
+    .blog-categories {
+        & {
+            position: relative;
+            padding-top: 100px;
+        }
+
+        > .list {
+            padding: 0;
+            display: block;
+        }
+
+        .logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 91px;
+            padding: 0;
+            cursor: default;
+            z-index: 1;
+        }
+
+        .logo .arrow {
+            display: none;
+        }
+
+        .logo.active .logo-title {
+            display: none;
+        }
+
+        .logo .svgi-blog-widget {
+            display: block;
+            cursor: default;
+        }
+
+        .svgi-blog-widget {
+            width: 91px;
+            height: 91px;
+        }
+
+        > .list > .item {
+            padding-left: 0;
+            
+            &::hover{
+                border-color: #fff;
+            }
+        }
+
+        .count {
+            display: none;
+        }
+
+        .link {
+            color: #222;
+            text-decoration: none;
+            padding: 15px;
+        }
+
+        .link.-active:after {
+            content: '';
+            display: block;
+            width: 5px;
+            height: 54px;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            .lib-css(background, @color-2-1);
+            right: -30px;
+        }
+
+        .link.-active {
+            font-weight: 700;
+        }
+    }
+    
+    .faq-categories.secondary-nav.blog-categories{
+        > .logo {
+            min-height: 52px;
+        }
+    } 
+}
+
+    //
+    //  Desktop
+    //  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .blog-category-index,
+    .blog-tag-index,
+    .blog-view-index,
+    .blog-index-index {
+        .sidebar.sidebar-main {
+            padding-right: 50px;
+        }
+    }
+    
+    .blog-search{
+        padding: 0;
+        
+        .control{
+            width: 100%;
+        }
+    }
+}

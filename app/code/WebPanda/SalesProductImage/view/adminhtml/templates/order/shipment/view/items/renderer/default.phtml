@@ -1,0 +1,9 @@
+<?php $_item = $block->getItem() ?>
+<?php $helper = $this->helper('\WebPanda\SalesProductImage\Helper\Data') ?>
+<tr class="border">
+    <td class="col-image"><?php echo $helper->renderImage($_item, 'admin') ?></td>
+    <td class="col-product">
+        <?= $block->getColumnHtml($_item, 'name') ?>
+    </td>
+    <td class="col-qty last"><?= /* @noEscape */ $_item->getQty()*1 ?></td>
+</tr>

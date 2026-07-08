@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var $block \Digidirect\SocialSharing\Block\Sharing
+ * @var $sharingHelper \Digidirect\SocialSharing\Helper\Config\Pinterest
+ */
+?>
+<?php
+$sharingHelper = $this->helper('Digidirect\SocialSharing\Helper\Config\Pinterest');
+?>
+<div class="button-social -pinit" data-mage-init='{"Digidirect_SocialSharing/js/pinterest-init": {}}'>
+    <a href="//www.pinterest.com/pin/create/button/?url=<?php echo $this->escapeUrl($block->getSharingUrl()); ?>&description=<?php echo $this->escapeUrl($block->getSharingUrl()); ?>"
+       data-pin-do="buttonPin" data-pin-color="red" data-pin-height="20"
+       <?php if ($sharingHelper->isPinDisplayCountSettings()): ?> data-pin-count="beside"<?php endif; ?> data-role="pinterest-button" data-pin-build="parsePinBtns">pinit</a>
+</div>

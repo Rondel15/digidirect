@@ -1,0 +1,19 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+$addToCartUrl =  $listBlock->getAddToCartUrl($_product);
+?>
+
+<div class="sticky-addtocart">
+    <form action="<?php echo $addToCartUrl; ?>" method="post" id="product_addtocart_form" novalidate="novalidate">
+        <?php echo $block->getBlockHtml('formkey')?>
+        <button type="submit"
+            class="action tocart btn_cart tocart-pdp-btn"
+            id="product-addtocart-button"
+            data-action="add-to-cart-action"
+            >
+            ADD TO CART
+        </button>
+    </form>
+</div>

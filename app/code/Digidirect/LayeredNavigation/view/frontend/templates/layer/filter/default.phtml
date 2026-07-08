@@ -1,0 +1,92 @@
+<?php
+/**
+ * @var $helper \Digidirect\LayeredNavigation\Helper\Data
+ * @var $filterSetting \Digidirect\LayeredNavigation\Api\Data\FilterSettingInterface
+ * @var $filterItems \Digidirect\LayeredNavigation\Model\Layer\Filter\Item[]
+ */
+$helper = $this->helper('Digidirect\LayeredNavigation\Helper\Data');
+$optionsData = $helper->getOptionsSeoData();
+$_filterItemsCount = count($filterItems);
+$_filterItemsDivider = $_filterItemsCount;
+if ($filterSetting->isShowMoreEnabled()) {
+    $_filterItemsDivider = $filterSetting->getShowMoreCount();
+}
+?>
+<ol class="items">
+    <?php $_i = 0; foreach ($filterItems as $filterItem): ?>
+        <?php
+        $seoPart = null;
+        $isAttribute = $filterItem->getFilter()->getData('attribute_model');
+        $value = $isAttribute ? $filterItem->getValueString() : $filterItem->getValue();
+        $keyValue = str_replace([','], '_', $value);
+        ?>
+        <?php $attributeCode = $isAttribute ? $filterItem->getFilter()->getAttributeModel()->getAttributeCode() : $filterItem->getFilter()->getRequestVar();
+        if (isset($optionsData[$filterItem->getValue()]) && $attributeCode !== \Digidirect\LayeredNavigation\Helper\Data::CATEGORY_REQUEST_VAR) {
+            $seoPart = $optionsData[$filterItem->getValue()]['alias'];
+        }
+        ?>
+        <?php if ($_i == $_filterItemsDivider && $_filterItemsCount > $_filterItemsDivider): ?>
+            </ol><ol class="items -hide" data-role="more-less-block">
+        <?php endif; ?>
+        <li class="item">
+            <?php if ($filterItem->getCount() > 0): ?>
+                <?php $checked = $this->checkedFilter($filterItem) ? ' checked' : ''; ?>
+                <a data-seo="<?php echo $this->escapeHtml($seoPart); ?>"
+                   data-testid="sln-filter-option"
+                   data-multiselect="<?php echo (int)$filterSetting->isMultiselect() ?>"
+                   data-code="<?php echo $this->escapeHtml($attributeCode); ?>"
+                   data-value="<?php echo $this->escapeHtml($value); ?>"
+                   href="<?php echo $block->escapeUrl($filterItem->getUrl()) ?>"
+                   class="filter-link digidirect_layerednavigation_filter_item_<?php echo $this->escapeHtml($keyValue);
+                   ?><?php if ($checked): ?> selected<?php endif; ?>">
+                    <input type="checkbox"
+                           class="checkbox digidirect_layerednavigation_checkbox_<?php echo $this->escapeHtml($keyValue); ?>"<?php echo $this->escapeHtml($checked); ?> />
+                    <label class="label"
+                           for="digidirect_layerednavigation_checkbox_<?php echo $this->escapeHtml($keyValue); ?>">
+                        <?php echo $this->escapeHtml($block->stripTags($filterItem->getLabel())); ?>
+                        <?php if ($this->helper('Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer() && !$helper->isApplyButtonEnabled()): ?>
+                            <span class="count"><?php echo (int)$filterItem->getCount() ?></span>
+                            <span class="filter-count-label">
+                                <?php if ($filterItem->getCount() == 1): ?>
+                                    <?php echo $this->escapeHtml(__('item')); ?>
+                                <?php else: ?>
+                                    <?php echo $this->escapeHtml(__('items')); ?>
+                                <?php endif; ?>
+                            </span>
+                        <?php endif; ?>
+                    </label>
+                </a>
+            <?php else: ?>
+                <?php echo $this->escapeHtml($filterItem->getLabel()); ?>
+                <?php if ($this->helper('Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer()): ?>
+                    <span class="count"><?php echo (int)$filterItem->getCount() ?></span>
+                    <span class="filter-count-label">
+                        <?php if ($filterItem->getCount() == 1): ?>
+                            <?php echo $this->escapeHtml(__('item')); ?>
+                        <?php else: ?>
+                            <?php echo $this->escapeHtml(__('items')); ?>
+                        <?php endif; ?>
+                    </span>
+                <?php endif; ?>
+            <?php endif; ?>
+            <script type="text/x-magento-init">
+            {
+                ".digidirect_layerednavigation_filter_item_<?php echo $this->escapeHtml($keyValue); ?>": {
+                    "layeredNavigationFilterItemDefault": {
+                        "multipleSelect": "<?php echo (int)$filterSetting->isMultiselect(); ?>",
+                        "attribute": "<?php echo $this->escapeHtml($attributeCode); ?>",
+                        "value": "<?php echo $this->escapeHtml($filterItem->getValue()); ?>"
+                    }
+                }
+            }
+            </script>
+        </li>
+    <?php $_i++; endforeach ?>
+</ol>
+<?php if ($_i == $_filterItemsCount && $_filterItemsCount > $_filterItemsDivider): ?>
+    <span class="more-less alink" title="<?php echo $this->escapeHtml(__('Show more'));
+    ?>" data-text-more="<?php echo $this->escapeHtml(__('Show more')); ?>" data-text-less="<?php echo $this->escapeHtml
+    (__('Show less')); ?>" data-mage-init='{"layeredNavigationMoreLess": {}}'>
+        <?php echo $this->escapeHtml(__('Show more')); ?>
+    </span>
+<?php endif; ?>

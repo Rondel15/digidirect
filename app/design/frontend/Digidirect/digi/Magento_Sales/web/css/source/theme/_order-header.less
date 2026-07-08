@@ -1,0 +1,167 @@
+//
+//  Customer: Account order details header
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .order-header {
+        & {
+            position: relative;
+        }
+
+        > .number {
+            .lib-font-size(28);
+            display: block;
+            padding-bottom: 10px;
+            text-align: center;
+        }
+
+        .order-date {
+            padding-bottom: 9px;
+            text-align: center;
+        }
+
+        .order-date .label {
+            display: none;
+        }
+
+        .order-status {
+            .lib-css( border, solid 1px @color-3-2);
+            .lib-css(font-weight, @font-weight__bold);
+            .lib-css(color, @color-4-8);
+            width: 80px;
+            padding: 4px 10px 3px;
+            margin-bottom: 20px;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        .print {
+            display: none;
+        }
+
+        .action.order {
+            .lib-css(background, @color-2-1);
+            .lib-css(color, @color-white);
+            .lib-hover-out();
+            display: block;
+            margin: 0;
+            padding: 11px 15px 12px;
+            border: none;
+            text-align: center;
+        }
+
+        .action.order:hover {
+            .lib-css(background, @color-2-6);
+            .lib-hover-out();
+        }
+
+        .action.return {
+            .lib-css(font-weight, @font-weight__heavier);
+            position: absolute;
+            right: 0;
+            bottom: 63px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .order-header {
+        & {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .lib-vendor-prefix-flex-wrap(wrap);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
+        }
+
+        > .number {
+            .lib-font-size(30);
+            padding-bottom: 0;
+        }
+
+        .order-date {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .order-status {
+            .lib-font-size(15);
+            width: 100px;
+            padding: 4px 10px;
+            margin-bottom: 0;
+            margin-left: 7px;
+        }
+
+        .order-actions-toolbar {
+            margin: 0 0 0 auto;
+        }
+
+        .order-actions-toolbar .action.primary {
+            float: none;
+            display: inline-block;
+            width: 120px;
+            margin-left: 8px;
+            padding: 13px 15px;
+        }
+
+        .action.return {
+            position: static;
+        }
+
+        .action.return span {
+            .lib-font-size(13);
+        }
+    }
+}
+
+//
+//  Desktop ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .order-header {
+        & {
+            padding-bottom: 35px;
+        }
+
+        > .number {
+            .lib-font-size(34);
+        }
+
+        .order-status {
+            .lib-font-size(16);
+            width: 120px;
+            padding: 8px 10px 9px;
+            margin-left: 11px;
+        }
+
+        .print {
+            .lib-font-size(14);
+            .lib-css(font-weight, @font-weight__heavier);
+            display: inline-block;
+            padding-right: 18px;
+        }
+
+        .action.return span {
+            .lib-font-size(14);
+        }
+
+        .order-actions-toolbar .action.primary {
+            padding: 12px 15px;
+            margin-left: 23px;
+        }
+    }
+}

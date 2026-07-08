@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content.aside">
+            <block class="Digidirect\FreeGift\Block\Product\View" name="digidirect.catalog.product.promo" template="Digidirect_FreeGift::product/list/items.phtml">
+                <arguments>
+                    <argument name="title" xsi:type="string">Free Promo Items</argument>
+                    <argument name="mode" xsi:type="string">grid</argument>
+                    <argument name="type" xsi:type="string">widget-product-grid</argument>
+                    <argument name="image_type" xsi:type="string">new_products_content_widget_grid</argument>
+                    <argument name="show_cart" xsi:type="boolean">false</argument>
+                    <argument name="show_wishlist" xsi:type="boolean">false</argument>
+                    <argument name="show_compare" xsi:type="boolean">false</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="product.info.price">
+            <block class="Digidirect\FreeGift\Block\Product\View" name="free_gift_rule_description" as="free_gift_rule_description" template="Digidirect_FreeGift::product/view/rule.phtml" after="-" />
+        </referenceContainer>
+    </body>
+</page>

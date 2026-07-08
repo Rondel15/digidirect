@@ -1,0 +1,213 @@
+//
+//  Tutorial Popup
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .init {
+        .step-label,
+        .step-description {
+            display: none;
+            width: 100%;
+            align-content: center;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .step-label {
+            .lib-font-size(20);
+            font-weight: 700;
+        }
+
+        .step-description {
+            .lib-font-size(16);
+            padding: 10px 0;
+        }
+
+        .step-description > .title {
+            margin: 15px 0;
+        }
+
+        .-active {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .shelf-navigation {
+        & {
+            width: 100%;
+            display: flex;
+            padding: 10px 0;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button {
+            width: 150px;
+        }
+
+        .svg-back {
+            margin-right: 10px;
+        }
+
+        .prev.back {
+            .lib-font-size(14px);
+            cursor: pointer;
+        }
+
+        .button.next {
+            display: flex;
+            justify-content: center;
+        }
+
+        .next-title {
+            margin: auto;
+            text-transform: capitalize;
+        }
+    }
+
+    .nav-wrapper {
+        & {
+            display: flex;
+            justify-content: center;
+        }
+
+        > .nav-step {
+            .lib-css(background, @color-white);
+            .lib-css(color, @color-3-3);
+            .lib-font-size(15);
+            border-radius: 50%;
+            min-width: 30px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            margin: 0 10px;
+            cursor: pointer;
+            .lib-css(border, 1px solid @color-3-2);
+        }
+
+        > .nav-step.-active {
+            .lib-css(background, @color-2-1);
+            .lib-css(border-color, @color-2-1);
+            .lib-css(color, @color-white);
+        }
+
+        > .nav-step.-grayed {
+            .lib-css(background, @color-3-7);
+            .lib-css(color, @color-white);
+        }
+
+        > .nav-step > .num {
+            margin: auto;
+            display: flex;
+        }
+    }
+
+    .nav-wrapper:after {
+        content: '';
+        width: 600px;
+        height: 1px;
+        .lib-css(background-color, @color-3-2);
+        margin-top: 15px;
+    }
+
+    .nav-wrapper:before {
+        content: '';
+        width: 600px;
+        height: 1px;
+        .lib-css(background-color, @color-3-2);
+        margin-top: 15px;
+    }
+
+    .modal-tutorial.skip {
+        & {
+            margin-top: 15px;
+            text-align: right;
+            margin-bottom: 0;
+            text-decoration: underline;
+            .lib-css(color, @color-3-3);
+        }
+
+        .title {
+            .lib-font-size(14px);
+            font-weight: 400;
+            text-transform: capitalize;
+            cursor: pointer;
+        }
+    }
+
+    .shelf-popup .modal-header,
+    .tutorial-modal .modal-header {
+        display: none;
+    }
+
+    .modal-init.init {
+        display: none;
+    }
+
+    .shelf-popup._show .modal-init.init,
+    .tutorial-modal._show .modal-init.init {
+        display: block;
+    }
+
+    .tutorial-modal .modal-init.init {
+        max-width: 1120px;
+        margin: auto;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .init {
+        .step-label,
+        .step-description {
+            padding: 20px 20px 0;
+        }
+
+        .step-label {
+            .lib-font-size(34);
+        }
+
+        .step-description {
+            .lib-font-size(14);
+            padding: 5px 0 20px;
+        }
+    }
+
+    .shelf-navigation {
+        & {
+            padding: 20px 0;
+        }
+    }
+
+    .modal-tutorial.skip {
+        margin-top: 50px;
+        margin-bottom: -60px;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .modal-init.init {
+        & {
+            padding: 0 50px;
+        }
+
+        .step-description > .title {
+            padding: 10px;
+            .lib-font-size(14);
+        }
+    }
+}

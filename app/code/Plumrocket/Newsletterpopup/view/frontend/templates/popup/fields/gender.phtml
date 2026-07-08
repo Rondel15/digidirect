@@ -1,0 +1,18 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+ ?>
+
+<div class="field pr-gender-field">
+    <label for="<?php echo $block->getFieldId() ?>"<?php if ($block->isRequired()) echo ' class="required"' ?>><?php if ($block->isRequired()) echo '<em>*</em>' ?><?php echo $block->getLabel() ?></label>
+    <div class="input-box">
+        <?php $options = $block->getGenderOptions() ?>
+        <input type="radio" name="<?php echo $block->getFieldName() ?>" title="<?php echo $block->getLabel() ?>" id="<?php echo $block->getFieldId() ?>-female" value="<?php echo $options[1]['value'] ?>" style="vertical-align:middle;" />
+        <label class="pr-gender-female" for="<?php echo $block->getFieldId() ?>-female"><?php echo __('Female') ?></label>
+        <input type="radio" name="<?php echo $block->getFieldName() ?>" title="<?php echo $block->getLabel() ?>" id="<?php echo $block->getFieldId() ?>-male" value="<?php echo $options[0]['value'] ?>" style="vertical-align:middle;" />
+        <label class="pr-gender-male" for="<?php echo $block->getFieldId() ?>-male"><?php echo __('Male') ?></label>
+    </div>
+</div>

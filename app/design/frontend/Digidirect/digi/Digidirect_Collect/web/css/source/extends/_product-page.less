@@ -1,0 +1,237 @@
+//
+//  Collect: PDP
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .collect-block {
+        & {
+            position: relative;
+            margin-top: 30px;
+            padding-bottom: 20px;
+        }
+
+        .link {
+            .lib-css(font-weight, @font-weight__heavier);
+            display: block;
+            margin-top: 22px;
+            left: 0;
+        }
+
+        .link.action.primary {
+            text-align: center;
+            width: 100%;
+            font-weight: 700;
+        }
+
+        .wrapper-title {
+            .lib-font-size(12);
+            display: inline-block;
+            width: ~'calc(100% - 50px)';
+            padding-left: 20px;
+            text-transform: capitalize;
+        }
+
+        .wrapper-title > .title {
+            margin-bottom: 7px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .svgi-pin {
+            position: absolute;
+            color: #e65401;
+            width: 30px !important;
+            height: 30px !important;
+            top: -3px;
+            left: 0;
+        }
+    }
+
+    .collect_place_class {
+        margin-bottom: 19px;
+        clear: both;
+    }
+
+    .collect-type {
+        & {
+            .lib-css(border-top, 1px solid @color-3-5);
+            display: flex;
+        }
+
+        > label {
+            width: 50%;
+            margin: 0;
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__bold);
+            text-align: center;
+            .lib-css(color, @color-gray40);
+            cursor: pointer;
+        }
+
+        > input + label:hover,
+        > input:checked + label {
+            .lib-css(color, @color-black);
+        }
+
+        > input:checked + label {
+            .lib-css(border-bottom, 2px solid @color-black);
+        }
+    }
+
+    .product-info-main {
+        .collect-type > input[type='radio'] + label {
+            padding: 18px 10px 17px;
+            line-height: 14px;
+
+            &::before,
+            &::after {
+                content: none;
+            }
+        }
+
+        .collect-type > input[type='radio']:checked + label {
+            padding-bottom: 16px;
+        }
+    }
+
+    .collect-block > .text {
+        .lib-font-size(12);
+        .lib-css(color, @color-4-7);
+        margin-top: 22px;
+    }
+    
+    .product-section {
+        background: #f1f1f1;
+        padding: 10px 0;
+    }
+}
+
+//
+//  M -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .collect-type {
+        .lib-css(margin-left, -@layout__width-xs-indent);
+        .lib-css(margin-right, -@layout__width-xs-indent);
+    }
+    
+    .catalog-product-view{
+        .column.main{
+            padding: 15px 0;
+        }
+        
+        .braintree-paypal-logo.oneclick-container{
+            max-height: 40px;
+            margin-bottom: 15px;
+        }
+    }
+    
+    .product-info-main {
+        .product-addto-links {
+            .action.towishlist{
+                font-size: 14px;
+            }
+        }
+        
+        .box-tocart .secure-pay{
+            &{
+                background: #fff;
+            }
+            
+            .svg-icon {
+                width: 25px;
+                height: 25px;
+            }
+        } 
+    }
+}
+
+@media (min-width:768px) and (max-width:1280px) {
+    .product-section {
+        padding: 30px !important;
+    }
+}
+
+@media (min-width:1366px) and (max-width:1680px) {
+    .catalog-product-view .section-center {
+        margin-left: 170px !important;
+        margin-right: 170px !important;
+        padding: 0 !important;
+    }
+}
+
+@media (min-width:1440px) and (max-width:1680px) {
+    .product-section {
+        padding: 10px 0 !important;
+    }
+}
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product-info-main {
+        .collect-type > input[type='radio'] + label {
+            padding-top: 23px;
+            padding-bottom: 22px;
+        }
+
+        .collect-type > input[type='radio']:checked + label {
+            padding-bottom: 21px;
+        }
+
+        .checkout-container .collect-type {
+            input[type='radio'] + label {
+                padding-left: 30px;
+            }
+
+            label {
+                .lib-font-size(18);
+                padding-top: 7px;
+                padding-bottom: 1px;
+            }
+
+            .svg-icon {
+                width: 40px;
+                height: 40px;
+                margin-right: 18px;
+            }
+        }
+    }
+
+    .collect-block  .wrap-block {
+        .lib-vendor-prefix-display(flex);
+        .lib-vendor-box-align(flex-end);
+    }
+    
+    .product-add-form{
+        .braintree-paypal-logo.oneclick-container {
+            max-height: 50px;
+            //margin-bottom: 10px;
+            margin-bottom: -13.5px;
+        }
+    }
+    
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .collect-type {
+        > label {
+            .lib-font-size(14);
+        }
+    }
+
+    .collect-block .wrap-block {
+        display: block;
+        .lib-vendor-box-align(false);
+    }
+}

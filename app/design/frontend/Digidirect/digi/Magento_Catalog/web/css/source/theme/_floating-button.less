@@ -1,0 +1,119 @@
+//
+//  Theme: PDP Floating add to cart button - Mobile
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .btn-wrapper-pdp {
+        width: 100%;
+        height: 50px;
+        background: white;
+        position: fixed;
+        top: 0;
+        left: 0;
+        display: none;
+        z-index: 999999;
+        justify-content: space-between;
+        .lib-css(border-bottom, 1px solid @color-3-1);
+    }
+
+    .btn-wrapper-pdp > .price {
+        width: 100%;
+    }
+
+    .btn-wrapper-pdp > .price {
+        & {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        > .before {
+            padding-left: 10px;
+        }
+
+        > .after {
+            padding-right: 10px;
+            text-align: right;
+        }
+
+        > .before .price-wrapper .price,
+        > .after .price-wrapper .price {
+            font-weight: 700;
+            .lib-font-size(14);
+        }
+
+        > .price-full {
+            padding: 0 10px;
+            text-align: right;
+            font-weight: 700;
+            .lib-font-size(25);
+            margin-left: auto;
+        }
+
+        > .price-full.old-price {
+            font-weight: 500;
+            .lib-font-size(12);
+            margin-top: auto;
+            margin-left: 0;
+        }
+
+        > .price-promotional {
+            padding-right: 10px;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        > .price-promotional .price-wrapper .price {
+            font-weight: 700;
+            .lib-font-size(14);
+            .lib-css(color, @color-black);
+        }
+
+        .price-label {
+            .lib-font-size(8);
+        }
+
+        .before-cashback > .price-wrapper > .price {
+            .lib-font-size(10);
+            font-weight: 700;
+        }
+
+        .price-wrapper {
+            font-weight: 700;
+        }
+    }
+
+    .btn-wrapper-pdp > .btn {
+        height: 50px;
+    }
+
+    .btn-wrapper-pdp > .btn .action.tocart {
+        width: 125px;
+        height: 50px;
+        font-size: 16px;
+    }
+
+    .-move-top {
+        //display: flex;
+        display: none;
+    }
+
+    #add-cart-btn #product-addtocart-button:not(:first-child) {
+        display: none;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .btn-wrapper-pdp,
+    .btn-wrapper-pdp.-move-top {
+        display: none;
+    }
+}

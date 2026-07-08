@@ -1,0 +1,20 @@
+<script>
+    if (typeof window.fotoramaDefaults === 'undefined') {
+        window.fotoramaDefaults = {};
+        window.fotoramaDefaults.thumbmargin = 10;
+        window.fotoramaDefaults.navwidth = "530px";
+    } else {
+        window.fotoramaDefaults.thumbmargin = 10;
+        window.fotoramaDefaults.navwidth = "530px";
+    }
+    
+    require(['jquery', 'jquery/ui'],function(){
+        jQuery(window).load(function() {
+            jQuery(".fotorama__thumb__arr.fotorama__thumb__arr--left").hide();
+            jQuery(".fotorama__thumb__arr.fotorama__thumb__arr--right").hide();
+            
+            jQuery(".fotorama__thumb__arr.fotorama__thumb__arr--left").clone(true).removeAttr('disabled').removeClass('fotorama__arr--disabled').show().prependTo('.fotorama__nav-wrap.fotorama__nav-wrap--horizontal');
+            jQuery(".fotorama__thumb__arr.fotorama__thumb__arr--right").clone(true).show().appendTo('.fotorama__nav-wrap.fotorama__nav-wrap--horizontal');
+        });
+    });
+</script>

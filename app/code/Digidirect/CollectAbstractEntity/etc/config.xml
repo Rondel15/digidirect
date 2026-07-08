@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <enable_tracking_number_adding_notification>0</enable_tracking_number_adding_notification>
+        <store_email_attribute></store_email_attribute>
+        <tracking_number_adding_notification_template>carriers_collect_tracking_number_adding_notification_template</tracking_number_adding_notification_template>
+    </default>
+</config>

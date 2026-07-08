@@ -1,0 +1,14 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Comments\Google $block
+ */
+?>
+<script src="https://apis.google.com/js/plusone.js"></script>
+<div id="google_comments" data-width="100%"></div>
+<script>
+    gapi.comments.render('google_comments', {
+        href: '<?php echo $block->escapeUrl($block->getPost()->getViewUrl()) ?>',
+        first_party_property: '<?php echo $block->escapeHtml($block->getFirstPartProperty()); ?>',
+        view_type: '<?php echo $block->escapeHtml($block->getViewType()); ?>'
+    });
+</script>

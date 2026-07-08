@@ -1,0 +1,81 @@
+<?php
+/**
+ * @var $block \Digidirect\ShippingAvailabilityCheck\Block\AvailabilityCheck\Form
+ */
+?>
+<script>
+    if (!window.checkoutConfig) {
+        window.checkoutConfig = {};
+    }
+    window.checkoutConfig['storeCode'] = "<?php /* @escapeNotVerified */ echo $block->getStoreCode() ?>";
+</script>
+<div class="shipping-availability" data-role="shipping-availability-check" data-mage-init='{"shippingAvailability": {"productId": <?= (int)$block->getProductId() ?>, "customerId": <?= (int)$block->getCustomerId()?>, "productType": "<?= /* @escapeNotVerified */ $block->getProductType();?>", "isInputsNeeded": "<?= $block->escapeHtml($block->getIsInputsNeeded()); ?>"}}'>
+    <div class="field region">
+        <label class="label" for="region_id">
+            <span><?= $block->escapeHtml(__('State/Province')) ?></span>
+        </label>
+        <div class="control">
+            <select id="region_id" name="region_id"
+                    data-role="region_id"
+                    title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                    class="no-validate" <?= /* @noEscape */ !$block->getConfig('general/region/display_all') ? ' disabled="disabled"' : '' ?>>
+                <option value=""><?= $block->escapeHtml(__('Please select a region, state or province.')) ?></option>
+            </select>
+            <input type="text"
+                   id="region"
+                   name="region"
+                   value=""
+                   title="<?= $block->escapeHtmlAttr(__('State/Province')) ?>"
+                   class="input-text <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('region')) ?>"<?= !$block->getConfig('general/region/display_all') ? ' disabled="disabled"' : '' ?>/>
+        </div>
+    </div>
+    <div class="field zip">
+        <label class="label" for="zip">
+            <span><?= $block->escapeHtml(__('Zip/Postal Code')) ?></span>
+        </label>
+        <div class="control">
+            <input type="text"
+                   name="postcode"
+                   data-role="postcode"
+                   value=""
+                   title="<?= $block->escapeHtmlAttr(__('Zip/Postal Code')) ?>"
+                   id="zip"
+                   class="input-text validate-zip-code <?= $block->escapeHtmlAttr($this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('postcode')) ?>">
+        </div>
+    </div>
+    <div class="field country">
+        <label class="label" for="country"><span><?= $block->escapeHtml(__('Country')) ?></span></label>
+        <div class="control">
+            <?= $block->getCountryHtmlSelect() ?>
+        </div>
+    </div>
+
+    <div class="availability-button">
+        <button type="button"
+                class="action primary check"
+                data-role="check-shipping-methods"
+                title="<?= $block->escapeHtmlAttr(__('Check')) ?>">
+            <span><?= $block->escapeHtml(__('Check')) ?></span>
+        </button>
+    </div>
+</div>
+<div class="shipping-methods" data-role="shipping-methods" daata-mage-init='{"loader": { "icon": "<?php /* @escapeNotVerified */ echo $block->escapeUrl($this->helper('Digidirect\Utilities\Helper\Animation')->getImage()); ?>"<?php if($_loaderText = $this->helper('Digidirect\Utilities\Helper\Animation')->getText()): ?>, "texts" : {"loaderText" : "<?php /* @escapeNotVerified */ echo $_loaderText; ?>"} <?php endif; ?>}'></div>
+
+<script type="text/x-magento-init">
+    {
+        "#country": {
+            "shippingRegionUpdater": {
+                "optionalRegionAllowed": <?= /* @noEscape */ $block->getConfig('general/region/display_all') ? 'true' : 'false' ?>,
+                "regionListId": "#region_id",
+                "regionInputId": "#region",
+                "postcodeId": "#zip",
+                "regionJson": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getRegionJson() ?>,
+                "defaultRegion": "",
+                "countriesWithOptionalZip": <?= /* @noEscape */ $this->helper(\Magento\Directory\Helper\Data::class)->getCountriesWithOptionalZip(true) ?>,
+                "isRegionRequired": false,
+                "isZipRequired": false,
+                "isCountryRequired": false
+            }
+        }
+    }
+</script>

@@ -1,0 +1,36 @@
+<button  class="generate-file">Generate File</button>
+
+
+<script>
+    require(['jquery'],function($){
+        // Update
+             
+            console.log('register');
+        
+
+            //delete
+            $('.generate-file').on('click',function (e){
+                e.preventDefault();
+                    var url = "<?php echo $block->getBaseUrl().'qantas/index/generate'?>";
+                   
+                    $.ajax({
+                        url: url,
+                        type: "POST",
+                        success: function(response){
+                       
+                            console.log(response);
+                            alert( "Your File Has been generated at var folder! " );
+//                            location.reload()
+                        },
+                        error: function(XMLHttpRequest, textStatus, errorThrown) {
+                            console.log("some error"+ XMLHttpRequest, textStatus, errorThrown);
+                        }
+                       
+                    });
+             
+            });
+
+         
+      });
+  
+</script>

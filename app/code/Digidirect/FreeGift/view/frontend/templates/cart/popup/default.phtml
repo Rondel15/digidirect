@@ -1,0 +1,63 @@
+<?php
+$products = $block->getItems();
+$imageHelper = $block->getImageHelper();
+?>
+<?php echo $block->getChildHtml('html_calendar'); ?>
+<div class="freegift-overlay" data-role="freegift-overlay">
+    <div class="freegift-items">
+        <div class="close" data-role="freegift-popup-hide">x</div>
+        <h2><?php echo $block->escapeHtml(__('Free Items')); ?></h2>
+        <div class="wrapper">
+            <div class="freegift-gallery" data-count="<?php echo (int)count($products) ?>">
+            <?php foreach ($products as $product): ?>
+                <div class="freegift-item" data-product-id="<?php echo (int)$product->getId()?>" data-product-sku="<?php echo $block->escapeHtml($product->getSku()); ?>">
+                    <form method="POST" action="<?php echo $block->escapeUrl($block->getFormActionUrl()); ?>" class="freegift_items_form" id="freegift_items_form-0-<?php echo (int)$product->getId(); ?>">
+                        <input type="hidden" name="uenc" value="<?php echo $this->escapeHtml($this->getCurrentBase64Url()); ?>">
+                        <div class="freegift-item-title">
+                            <?php if ($product->getVisibility() != \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE): ?>
+                                <h4><a href="<?php echo $block->escapeHtml($product->getProductUrl()); ?>"><?php echo $block->escapeHtml($product->getName()); ?></a></h4>
+                            <?php else: ?>
+                                <h4><?php echo $block->escapeHtml($product->getName()); ?></h4>
+                            <?php endif?>
+                        </div>
+                        <?php $imageHelper->init($product, 'free_gift_cart_image')
+                            ->keepFrame(false)
+                            ->constrainOnly(true)
+                        ;
+                        ?>
+                        <div data-role="freegift-gallery">
+                            <div class="item">
+                                <img src="<?php echo $block->escapeUrl($imageHelper->getUrl()); ?>"
+                                     class="freegift-item-image"
+                                     alt="<?php echo $block->escapeHtml($product->getName(), null, true); ?>"/>
+                            </div>
+                        </div>
+                        <input type="hidden" value="<?php echo (int)$product->getId() ?>" name="rule_id[0][<?php echo (int)$product->getId() ?>]" />
+                        <div class="product-options-wrapper" id="product-options-wrapper">
+                            <fieldset class="fieldset" tabindex="0">
+                            <?php if ($optionsBlock = $block->getChildBlock($product->getTypeId() . '_prototype')): ?>
+                                <?php echo $optionsBlock->setProduct($product)->toHtml(); ?>
+                            <?php endif ?>
+                            <?php echo $block->getChildBlock('options_prototype')->setProduct($product)->toHtml(); ?>
+                            </fieldset>
+                        </div>
+                        <div class="freegift-item-buttons">
+                            <button class="action tocart primary" type="submit" title="<?php echo $block->escapeUrl(__('Add to cart')); ?>"><span><?php echo $block->escapeUrl(__('Add to cart')); ?></span></button>
+                        </div>
+                    </form>
+                </div>
+            <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Magento_Catalog/product/view/validation'
+    ], function ($) {
+        'use strict';
+        $('.freegift_items_form').mage('validation');
+    });
+</script>

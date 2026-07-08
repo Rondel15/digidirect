@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/digidirectProductOverlay/:overlayId" method="GET">
+        <service class="Digidirect\ProductOverlay\Api\OverlayRepositoryInterface" method="getById"/>
+        <resources>
+            <resource ref="Digidirect_ProductOverlay::overlays"/>
+        </resources>
+    </route>
+    <route url="/V1/digidirectProductOverlay/search" method="GET">
+        <service class="Digidirect\ProductOverlay\Api\OverlayRepositoryInterface" method="getList"/>
+        <resources>
+            <resource ref="Digidirect_ProductOverlay::overlays"/>
+        </resources>
+    </route>
+    <route url="/V1/digidirectProductOverlay" method="POST">
+        <service class="Digidirect\ProductOverlay\Api\OverlayRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Digidirect_ProductOverlay::overlays"/>
+        </resources>
+    </route>
+    <route url="/V1/digidirectProductOverlay/:id" method="PUT">
+        <service class="Digidirect\ProductOverlay\Api\OverlayRepositoryInterface" method="save"/>
+        <resources>
+            <resource ref="Digidirect_ProductOverlay::overlays"/>
+        </resources>
+    </route>
+    <route url="/V1/digidirectProductOverlay/:overlayId" method="DELETE">
+        <service class="Digidirect\ProductOverlay\Api\OverlayRepositoryInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Digidirect_ProductOverlay::overlays"/>
+        </resources>
+    </route>
+</routes>

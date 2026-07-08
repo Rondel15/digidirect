@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="./../../../../../../../vendor/magento/framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\AI\Block\Adminhtml\Logs\LogInit" name="admin.digidirect.ai.log.info"/>
+            <uiComponent name="digidirect_ai_logs_listing"/>
+        </referenceContainer>
+    </body>
+</page>

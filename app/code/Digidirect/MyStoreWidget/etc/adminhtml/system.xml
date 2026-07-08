@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_mystorewidget" translate="label" sortOrder="20"
+                 showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>My Store</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_MyStoreWidget::mystorewidget_config</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>My Store</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable "My Store" widget</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="entities" translate="label" type="multiselect" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>My Store Entities</label>
+                    <source_model>Digidirect\AbstractEntity\Model\Config\Source\AttributeSet</source_model>
+                </field>
+                <field id="search_attributes" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Search Attributes</label>
+                    <source_model>Digidirect\MyStoreWidget\Model\Config\Source\Attributes</source_model>
+                </field>
+                <field id="response_attributes" translate="label" type="multiselect" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Response Attributes</label>
+                    <source_model>Digidirect\AbstractEntity\Model\Config\Source\Attributes</source_model>
+                </field>
+                <field id="search_type" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Search Type</label>
+                    <source_model>Digidirect\MyStoreWidget\Model\Config\Source\SearchType</source_model>
+                </field>
+                <field id="search_min_length" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Search Term Minimum Length</label>
+                    <validate>validate-not-negative-number integer required-entry</validate>
+                </field>
+                <field id="remember_store_cookie_lifetime" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Remember My Store (cookie lifetime in seconds)</label>
+                    <validate>validate-not-negative-number integer required-entry</validate>
+                </field>
+                <field id="show_widget_on_checkout" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Show Widget On Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="shipping_address" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>My Store From Shipping Address</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Set Up Entity From Default Shipping Address</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="fields_info" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Shipping Address Fields to Set Up Store</label>
+                    <frontend_model>Digidirect\MyStoreWidget\Block\Adminhtml\Config\Form\Field\ShippingAddressInfo</frontend_model>
+                    <backend_model>Digidirect\MyStoreWidget\Model\System\Config\Backend\ShippingAddressInfo</backend_model>
+                </field>
+                <field id="verify_on_checkout" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Verify Shipping Address With Set Up Store On Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="google_auto_suggest" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google Auto-suggest</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Google Auto-suggest</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Google API Key</label>
+                </field>
+            </group>
+            <group id="geo_location" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Geo Location</label>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Geo Location Suggestion</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="behavior" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Geo Location Behavior</label>
+                    <source_model>Digidirect\MyStoreWidget\Model\Config\Source\GeoLocationBehavior</source_model>
+                </field>
+                <field id="disable_autocomplite_mobile_divice" translate="lable comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disable Geo Location Auto-complete for Mobile Devices</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Select 'Yes' to disable Geo Location Auto-complete for mobile devices</comment>
+                    <depends>
+                        <field id="enable_geo_location_autocomplite">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

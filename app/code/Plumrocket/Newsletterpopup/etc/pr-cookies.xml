@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<cookies xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="urn:magento:module:Plumrocket_CookieConsent:etc/pr-cookies.xsd">
+    <cookie name="prnewsletterpopup_disable_popup_*" category="necessary">
+        <duration xsi:type="number">2592000</duration>
+        <description>Stores closed newsletter popups.</description>
+    </cookie>
+</cookies>

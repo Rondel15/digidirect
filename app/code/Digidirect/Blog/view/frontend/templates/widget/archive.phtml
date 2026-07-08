@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Archive $block
+ */
+$monthList = $block->monthList();
+?>
+<?php if (!empty($monthList)) : ?>
+    <div class="blog-archive blog-widget widget">
+        <h3 class="title"><?php /* @escapeNotVerified */ echo __('Archive'); ?></h3>
+        <ul class="list">
+            <?php foreach ($monthList as $time): ?>
+                <?php
+                $archiveTitle = $block->getMonth($time) . ' ' . $block->getYear($time);
+                $archiveTitle = $block->escapeHtml($archiveTitle, null, true);
+                ?>
+                <li class="item">
+                    <a class="link" title="<?php echo $block->escapeHtml($archiveTitle) ?>"
+                       href="<?php echo $block->escapeUrl($block->getArchiveUrl($time)) ?>">
+                        <?php echo $block->escapeHtml($archiveTitle) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>

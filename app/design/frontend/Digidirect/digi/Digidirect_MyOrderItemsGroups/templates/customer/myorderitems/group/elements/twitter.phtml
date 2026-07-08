@@ -1,0 +1,14 @@
+<?php
+$sharingHelper = $this->helper('Digidirect\SocialSharing\Helper\Config\Twitter');
+?>
+<div class="button-social -twitter">
+    <li class="item">
+        <a class="link"
+           target="_blank"
+           href="http://twitter.com/share?url=<?php echo $block->escapeUrl($block->getSharingUrl()); ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -twitter">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-twitter"></use>
+            </svg>
+        </a>
+    </li>
+</div>

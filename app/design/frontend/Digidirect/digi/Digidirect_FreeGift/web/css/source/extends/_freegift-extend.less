@@ -1,0 +1,206 @@
+//
+//  FreeGift Styles
+//  _____________________________________________
+
+@freegift-slider-transition-duration: 1ms;
+
+@freegift-item__border: none;
+@freegift-items__margin: auto;
+
+@freegift-gallery-item__padding__l: 0 50px;
+@freegift-gallery__margin__l: 0;
+//
+//  Common Styles
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .freegift-overlay {
+        & {
+            display: flex;
+            overflow: hidden;
+            height: 0;
+        }
+
+        &.-open {
+            height: 100%;
+        }
+
+        &.-open .freegift-items {
+            height: auto;
+        }
+    }
+    .freegift-slider {
+        & {
+            padding: 0;
+            width: 90%;
+            .lib-transition(height, @freegift-slider-transition-duration); //IE fix
+        }
+
+        .freegift-rule > .title {
+            .lib-font-size(22);
+            font-weight: 700;
+        }
+
+        .freegift_items_form {
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        .list {
+            padding: 0;
+            position: static;
+        }
+
+        .slick-list {
+            position: static;
+        }
+
+        .freegift-item-buttons > .action {
+            .lib-css(background, @color-2-1);
+            .lib-css(color, @color-white);
+            border: none;
+        }
+
+        .wrapper {
+            padding-top: 20px;
+            max-height: 73vh;
+        }
+
+        .slick-slider {
+            position: static;
+        }
+    }
+
+    .freegift-slider .freegift-item-title {
+        display: flex;
+    }
+
+    .freegift-slider .freegift-item-title > a {
+        margin: auto;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 500;
+    }
+
+    .freegift-slider .slick-dots {
+        & {
+            left: 50%;
+            transform: translate(-50%);
+        }
+
+        > li {
+            .lib-css(background, @color-4-6);
+            border-radius: 50%;
+        }
+
+        > li.slick-active {
+            .lib-css(background, @color-black);
+        }
+    }
+
+    .freegift-slider .header {
+        & {
+            padding: 23px 18px;
+            .lib-css(border-bottom, 1px solid @color-3-9);
+        }
+
+        > .close {
+            height: 19px;
+            width: 19px;
+            top: 25px;
+            right: 25px;
+            background-repeat: no-repeat;
+            background-size: contain;
+            .lib-css(background-image, @base64-icon__close);
+        }
+
+        > .title {
+            .lib-font-size(18);
+            font-weight: 500;
+        }
+    }
+
+    .freegift-slider .content > .text {
+        .lib-css(color, @color-4-6);
+        padding-top: 20px;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .freegift-slider {
+        & {
+            max-width: 728px;
+        }
+
+        .header > .title {
+            .lib-font-size(20);
+        }
+
+        .freegift-rule > .title {
+            .lib-font-size(24);
+        }
+
+        .freegift-item-title > a {
+            font-size: 12px;
+        }
+
+        .wrapper {
+            max-height: 73vh;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .freegift-slider {
+        & {
+            max-width: 1020px;
+        }
+
+        .header > .title {
+            .lib-font-size(24);
+        }
+
+        .freegift-rule > .title {
+            .lib-font-size(28);
+        }
+
+        .freegift-item-title > a {
+            font-size: 16px;
+        }
+
+        .header {
+            padding: 32px 45px;
+        }
+
+        .wrapper {
+            padding-top: 40px;
+            padding-left: 24px;
+            padding-right: 24px;
+            max-height: 73vh;
+        }
+
+        .header > .close {
+            height: 22px;
+            width: 22px;
+            top: 38px;
+            right: 38px;
+        }
+        .freegift-gallery {
+            .lib-css(margin, @freegift-gallery__margin__l);
+        }
+
+        .freegift-gallery .item {
+            .lib-css(padding, @freegift-gallery-item__padding__l);
+            height: 250px;
+            max-height: 250px;
+        }
+    }
+}

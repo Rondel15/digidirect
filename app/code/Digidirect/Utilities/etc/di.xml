@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 Digidirect.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Sitemap\Model\Sitemap" type="Digidirect\Utilities\Model\Sitemap"/>
+    <preference for="Magento\Framework\Mail\Template\TransportBuilder" type="Digidirect\Utilities\Preference\Magento\Framework\Mail\Template\TransportBuilder"/>
+    <preference for="Magento\Catalog\Model\Attribute\Config\Reader" type="Digidirect\Utilities\Model\Catalog\Attribute\Config\Reader"/>
+    <preference for="Digidirect\Utilities\Model\Media\ConfigInterface" type="Digidirect\Utilities\Model\Media\Config"/>
+
+    <type name="Magento\Config\Model\Config\Backend\Image">
+        <plugin name="bafore-save-image-loading-animation" type="Digidirect\Utilities\Plugin\Magento\Config\Model\Config\Backend\Image"/>
+    </type>
+    <type name="Magento\Catalog\Helper\Image">
+        <plugin name="Digidirect_Utilities::CatalogHelperImage" type="Digidirect\Utilities\Plugin\Catalog\Helper\Image" sortOrder="1"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="digidirect_utilities_configurable_product_block_type_configurable"
+                type="Digidirect\Utilities\Plugin\ConfigurableProduct\Block\Product\View\Type\Configurable" sortOrder="1"/>
+    </type>
+    <type name="Magento\CatalogInventory\Model\StockStateProvider">
+        <plugin name="digidirect_utilities_stock_state_provider_after_check_quote_item_qty"
+                type="Digidirect\Utilities\Plugin\Magento\CatalogInventory\Model\StockStateProvider" sortOrder="1"/>
+    </type>
+
+    <type name="Digidirect\Utilities\Model\Config\Reader">
+        <arguments>
+            <argument name="fileResolver" xsi:type="object">Digidirect\Utilities\Model\Config\FileResolver</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\Message\Renderer\RenderersPool">
+        <arguments>
+            <argument name="renderers" xsi:type="array">
+                <item name="escape_renderer" xsi:type="object">Magento\Framework\View\Element\Message\Renderer\EscapeRenderer</item>
+                <item name="block_renderer" xsi:type="object">Magento\Framework\View\Element\Message\Renderer\BlockRenderer</item>
+                <item name="extended_renderer" xsi:type="object">Digidirect\Utilities\Block\View\Element\Message\Renderer\ExtendedRenderer</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Config\Dom\UrnResolver">
+        <plugin name="Digidirect_Utilities::SchemaOverride" type="Digidirect\Utilities\Plugin\Magento\Framework\Config\Dom\UrnResolver" sortOrder="1"/>
+    </type>
+    <type name="Digidirect\Utilities\Plugin\Magento\Framework\Config\Dom\UrnResolver">
+        <arguments>
+            <argument name="overwrittenSchemas" xsi:type="array">
+                <item name="urn:magento:framework:Config/etc/view.xsd" xsi:type="string">urn:digidirect:module:Digidirect_Utilities:etc/view.xsd</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Cms\Model\Wysiwyg\Images\Storage">
+        <arguments>
+            <argument name="extensions" xsi:type="array">
+                <item name="allowed" xsi:type="array">
+                    <item name="svg" xsi:type="string">image/svg+xml</item>
+                </item>
+                <item name="image_allowed" xsi:type="array">
+                    <item name="svg" xsi:type="string">image/svg+xml</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

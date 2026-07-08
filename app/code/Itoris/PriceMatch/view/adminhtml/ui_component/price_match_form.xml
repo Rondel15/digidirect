@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * ITORIS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the ITORIS's Magento Extensions License Agreement
+ * which is available through the world-wide-web at this URL:
+ * http://www.itoris.com/magento-extensions-license.html
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sales@itoris.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extensions to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to the license agreement or contact sales@itoris.com for more information.
+ *
+ * @category   ITORIS
+ * @package    ITORIS_M2_ITORIS_PRICE_MATCH
+ * @copyright  Copyright (c) 2018 ITORIS INC. (http://www.itoris.com)
+ * @license    http://www.itoris.com/magento-extensions-license.html  Commercial License
+ */
+-->
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">price_match_form.price_match_form_data_source</item>
+            <item name="deps" xsi:type="string">price_match_form.price_match_form_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Price Match Request</item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">price_match_form</item>
+        </item>
+        <item name="buttons" xsi:type="array">
+            <item name="back" xsi:type="string">Itoris\PriceMatch\Block\Adminhtml\Renderer\Element\Back</item>
+            <item name="delete" xsi:type="string">Itoris\PriceMatch\Block\Adminhtml\Renderer\Element\Delete</item>
+            <item name="reject" xsi:type="string">Itoris\PriceMatch\Block\Adminhtml\Renderer\Element\Reject</item>
+        </item>
+    </argument>
+    <dataSource name="category_form_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Itoris\PriceMatch\Ui\DataProvider\Admin\Edit\DataProvider</argument>
+            <argument name="name" xsi:type="string">price_match_form_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">item_id</argument>
+            <argument name="requestFieldName" xsi:type="string">id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/provider</item>
+            </item>
+            <item name="config" xsi:type="array">
+                <item name="submit_url" xsi:type="url" path="itorispm/action/applyform"/>
+            </item>
+        </argument>
+    </dataSource>
+    <fieldset name="general">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">General</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="item_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Request ID:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                </item>
+            </argument>
+        </field>
+        <field name="date_created">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Created:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="status">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Status:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Customer Name:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="customer_email">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Customer Email:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_name">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Product:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="product_sku">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">SKU:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="final_price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Subject Price:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="match_price">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Matching Price:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="match_url">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Matching URL:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="comment">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string">Comment:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label-comment</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="response_admin" class="Itoris\PriceMatch\Ui\Component\Form\Fieldset\Response">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Resolution</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="response">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Response:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label-comment</item>
+                </item>
+            </argument>
+        </field>
+        <field name="method">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Method:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label</item>
+                </item>
+            </argument>
+        </field>
+        <field name="date_response">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="label" xsi:type="string">Date:</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="elementTmpl" xsi:type="string">Itoris_PriceMatch/form/element/itoris-label-comment</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+    <fieldset name="send_admin" class="Itoris\PriceMatch\Ui\Component\Form\Fieldset\Send">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Resolution</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+            </item>
+        </argument>
+        <field name="send_response">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="label" xsi:type="string">Response</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                </item>
+            </argument>
+        </field>
+        <field name="send_method">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Itoris\PriceMatch\Model\Source\Form\Method</item>
+                <item name="config" xsi:type="array">
+                    <item name="formElement" xsi:type="string">radioset</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="label" xsi:type="string" translate="true">Method</item>
+                    <item name="value" xsi:type="string">coupon</item>
+                    <item name="source" xsi:type="string">price_match</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <container name="itoris_catalog_permissions_container">
+            <htmlContent name="html_content" class="Magento\Ui\Component\HtmlContent">
+                <argument name="block"  xsi:type="object">Itoris\PriceMatch\Block\Adminhtml\Template</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

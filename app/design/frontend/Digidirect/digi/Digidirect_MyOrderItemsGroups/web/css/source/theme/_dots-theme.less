@@ -1,0 +1,132 @@
+//
+//  My Order Items Group: Shelf
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .myorderitems-myorderitems-index {
+        .moving-groups {
+            position: absolute;
+            top: 0;
+            left: 3px;
+            cursor: pointer;
+        }
+
+        .moving-groups > .list::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            .lib-css(background-image, @base64-icon__close);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            speak: none;
+            background-size: 70% auto;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            cursor: pointer;
+        }
+
+        .moving-groups .active > .list {
+            .lib-css(border, 1px solid @color-3-7);
+        }
+
+        .moving-groups > .list {
+            position: absolute;
+            top: 0;
+            left: -3px;
+            display: block;
+            transition: max-height 0.4s ease-in-out;
+            min-width: 175px;
+            max-height: 0;
+            z-index: 10;
+            padding: 0;
+            border: none;
+            .lib-font-size(14);
+        }
+
+        .moving-groups.-little > .list {
+            overflow: hidden;
+        }
+
+        .title-dropdown {
+            margin: 15px 10px;
+            cursor: default;
+            display: block;
+            .lib-font-size(14);
+            font-weight: 700;
+        }
+
+        .moving-groups .item {
+            padding: 10px;
+            cursor: pointer;
+            .lib-css(border-top, 1px solid @color-3-7);
+            text-decoration: none;
+        }
+
+        .moving-groups .item:hover {
+            .lib-background-hover();
+        }
+
+        .dots-active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 20px;
+            margin: auto;
+        }
+
+        .dot {
+            width: 3px;
+            height: 3px;
+            .lib-css(background, @color-black);
+            border-radius: 50%;
+            margin: 2px;
+        }
+
+        .icon-move {
+            display: none;
+        }
+
+        .moving-groups.-little.active > .list {
+            max-height: 1000px;
+            .lib-css(border, 1px solid @color-3-7);
+        }
+    }
+}
+
+//
+//
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .myorderitems-myorderitems-index.account {
+        .page-main {
+            background-attachment: fixed;
+        }
+
+        .shelf-wrapper {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .moving-groups .dots-active {
+            display: none;
+        }
+
+        .moving-groups .icon-move {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 19px;
+            height: 19px;
+            margin: 3px 0 0 3px;
+        }
+    }
+}

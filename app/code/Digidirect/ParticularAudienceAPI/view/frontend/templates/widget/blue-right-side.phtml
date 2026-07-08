@@ -1,0 +1,47 @@
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    //console.log('PAC: ' + getCookie('pa_customer_id'));
+</script>
+<?php
+    use Magento\Framework\App\Action\Action;
+    
+    $recommendedProducts = $block->getRecommendedProducts();
+    $productCount = 0;
+?>
+<?php if ($recommendedProducts): ?>
+    <div id="pa-blue-right-side-widget-wrapper">
+        <div id="pa-blue-right-side-widget">
+            <div class="product-widget-header">
+                <h3 class="title">Welcome Back! Continue Shopping!</h3>
+            </div>
+            <div class="pa-product-widget-container">
+                <?php foreach ($recommendedProducts as $_product): ?>
+                    <?php $productCount++; ?>
+                    <?php if ($productCount < 4): ?>
+                        <div class="product-item-info product-item">
+                            <a href="<?= $_product->getProductUrl(); ?>" class="product photo product-item-photo" tabindex="-1">
+                                <span class="product-image-container" style="width: 240px;">
+                                    <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                                        <img class="product-image-photo" src="<?= 'https://www.digidirect.com.au/media/catalog/product' . $_product->getData('thumbnail'); ?>" loading="lazy" width="240" height="300" alt="Product Image">
+                                    </span>
+                                </span> 
+                            </a> 
+                            <div class="product details product-item-details">
+                                <strong class="product-item-name">
+                                    <a title="<?= $_product->getName(); ?>" href="<?= $_product->getProductUrl(); ?>" class="product-item-link">
+                                        <?= $_product->getName(); ?>
+                                    </a>
+                                </strong>
+                                <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

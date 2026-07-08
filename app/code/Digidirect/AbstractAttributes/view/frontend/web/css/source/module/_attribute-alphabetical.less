@@ -1,0 +1,168 @@
+//
+//  Abstract Attribute Alphabetical
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+// Alphabetical list
+@attribute-alphabetical-list__margin: false;
+@attribute-alphabetical-list__padding: false;
+@attribute-alphabetical-list__text-align: center;
+
+@attribute-alphabetical-list-title__margin: false;
+@attribute-alphabetical-list-title__padding: false;
+@attribute-alphabetical-list-title__font: false;
+@attribute-alphabetical-list-title__text-align: center;
+
+@attribute-alphabetical-list-letter__display: inline-block;
+@attribute-alphabetical-list-letter__min-width: 50px;
+@attribute-alphabetical-list-letter__margin: 0 5px 10px;
+@attribute-alphabetical-list-letter__padding: 13px 10px;
+@attribute-alphabetical-list-letter__border: 1px solid @color-blue1;
+@attribute-alphabetical-list-letter__font: ~'20px/1' @font-family-name__base;
+@attribute-alphabetical-list-letter__vertical-align: top;
+@attribute-alphabetical-list-letter__text-align: center;
+@attribute-alphabetical-list-letter__text-decoration: none;
+@attribute-alphabetical-list-letter__color: false;
+@attribute-alphabetical-list-letter__background: false;
+
+@attribute-alphabetical-list-letter__hover__border: false;
+@attribute-alphabetical-list-letter__hover__text-decoration: @attribute-alphabetical-list-letter__text-decoration;
+@attribute-alphabetical-list-letter__hover__color: @color-white;
+@attribute-alphabetical-list-letter__hover__background: @color-blue1;
+
+@attribute-alphabetical-list-letter__disabled__border: false;
+@attribute-alphabetical-list-letter__disabled__text-decoration: none;
+@attribute-alphabetical-list-letter__disabled__color: @color-white;
+@attribute-alphabetical-list-letter__disabled__background: #ccc;
+
+// Alphabetical content
+@attribute-alphabetical-content__margin: false;
+@attribute-alphabetical-content__padding: false;
+
+// Alphabetical section
+@attribute-alphabetical-section__margin: 0 0 10px;
+@attribute-alphabetical-section__padding: false;
+@attribute-alphabetical-section__border: false;
+
+@attribute-alphabetical-section-letter__display: false;
+@attribute-alphabetical-section-letter__margin: 0 0 10px;
+@attribute-alphabetical-section-letter__padding: false;
+@attribute-alphabetical-section-letter__border: false;
+@attribute-alphabetical-section-letter__font: ~'20px/1' @font-family-name__base;
+@attribute-alphabetical-section-letter__vertical-align: false;
+@attribute-alphabetical-section-letter__text-align: false;
+@attribute-alphabetical-section-letter__color: @color-brownie1;
+@attribute-alphabetical-section-letter__background: false;
+
+@attribute-alphabetical-section-item-text-ellipsis__use: true;
+
+// Alphabetical show more
+@attribute-alphabetical-section-more__margin: 10px 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .alphabetical-list {
+        & {
+            .lib-css(margin, @attribute-alphabetical-list__margin);
+            .lib-css(padding, @attribute-alphabetical-list__padding);
+            .lib-css(text-align, @attribute-alphabetical-list__text-align);
+        }
+
+        > .title {
+            .lib-css(margin, @attribute-alphabetical-list-title__margin);
+            .lib-css(padding, @attribute-alphabetical-list-title__padding);
+            .lib-css(font, @attribute-alphabetical-list-title__font);
+            .lib-css(text-align, @attribute-alphabetical-list-title__text-align);
+        }
+
+        > .letter {
+            .lib-css(display, @attribute-alphabetical-list-letter__display);
+            .lib-css(min-width, @attribute-alphabetical-list-letter__min-width);
+            .lib-css(margin, @attribute-alphabetical-list-letter__margin);
+            .lib-css(padding, @attribute-alphabetical-list-letter__padding);
+            .lib-css(border, @attribute-alphabetical-list-letter__border);
+            .lib-css(font, @attribute-alphabetical-list-letter__font);
+            .lib-css(vertical-align, @attribute-alphabetical-list-letter__vertical-align);
+            .lib-css(text-align, @attribute-alphabetical-list-letter__text-align);
+            .lib-css(text-decoration, @attribute-alphabetical-list-letter__text-decoration);
+            .lib-css(color, @attribute-alphabetical-list-letter__color);
+            .lib-css(background, @attribute-alphabetical-list-letter__background);
+        }
+
+        > .letter.-disabled {
+            .lib-css(border, @attribute-alphabetical-list-letter__disabled__border);
+            .lib-css(text-decoration, @attribute-alphabetical-list-letter__disabled__text-decoration);
+            .lib-css(color, @attribute-alphabetical-list-letter__disabled__color);
+            .lib-css(background, @attribute-alphabetical-list-letter__disabled__background);
+        }
+    }
+
+    .alphabetical-content {
+        .lib-css(margin, @attribute-alphabetical-content__margin);
+        .lib-css(padding, @attribute-alphabetical-content__padding);
+    }
+
+    .alphabetical-section {
+        & {
+            .lib-css(margin, @attribute-alphabetical-section__margin);
+            .lib-css(padding, @attribute-alphabetical-section__padding);
+            .lib-css(border, @attribute-alphabetical-section__border);
+        }
+
+        > .letter {
+            .lib-css(display, @attribute-alphabetical-section-letter__display);
+            .lib-css(margin, @attribute-alphabetical-section-letter__margin);
+            .lib-css(padding, @attribute-alphabetical-section-letter__padding);
+            .lib-css(border, @attribute-alphabetical-section-letter__border);
+            .lib-css(font, @attribute-alphabetical-section-letter__font);
+            .lib-css(vertical-align, @attribute-alphabetical-section-letter__vertical-align);
+            .lib-css(text-align, @attribute-alphabetical-section-letter__text-align);
+            .lib-css(color, @attribute-alphabetical-section-letter__color);
+            .lib-css(background, @attribute-alphabetical-section-letter__background);
+        }
+
+        .list.-hide {
+            display: none;
+        }
+
+        .item {
+            & when (@attribute-alphabetical-section-item-text-ellipsis__use = true) {
+                .lib-text-overflow();
+            }
+        }
+    }
+
+    // Load More
+    .alphabetical-more {
+        & {
+            .lib-css(margin, @attribute-alphabetical-section-more__margin);
+        }
+
+        &.-hide {
+            display: none;
+        }
+    }
+}
+
+//
+//  Desktop above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .alphabetical-list {
+        > .letter:not(.-disabled) {
+            &:hover {
+                .lib-css(border, @attribute-alphabetical-list-letter__hover__border);
+                .lib-css(text-decoration, @attribute-alphabetical-list-letter__hover__text-decoration);
+                .lib-css(color, @attribute-alphabetical-list-letter__hover__color);
+                .lib-css(background, @attribute-alphabetical-list-letter__hover__background);
+            }
+        }
+    }
+}

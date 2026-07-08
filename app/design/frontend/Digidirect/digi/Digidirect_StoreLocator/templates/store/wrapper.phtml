@@ -1,0 +1,9 @@
+<?php
+/** @var $block \Digidirect\AbstractEntity\Block\AbstractEntity */
+$abstractEntity = $block->getCurrentAbstractEntity();
+?>
+<?php if ($abstractEntity): ?>
+    <div class="store-locator">
+        <?php echo $block->getChildHtml('storelocator.view'); ?>
+    </div>
+<?php endif; ?>

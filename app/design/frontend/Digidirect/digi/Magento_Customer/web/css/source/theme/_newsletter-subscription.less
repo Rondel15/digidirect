@@ -1,0 +1,42 @@
+//
+//  Customer: Newsletter Subscription
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form-newsletter-manage {
+        .fieldset {
+            margin-bottom: 20px;
+        }
+
+        .choice {
+            margin-top: 8px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form-newsletter-manage {
+        button.-responsive {
+            line-height: 1.6rem;
+        }
+    }
+}
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form-newsletter-manage {
+        & {
+            height: 100%;
+        }
+    }
+}

@@ -1,0 +1,338 @@
+//
+//  FAQs
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@faq-search__is-show: true;
+@faq-search__max-width: 300px;
+@faq-search__margin: 0 auto 20px;
+
+@faq-categories__margin: 0;
+@faq-categories__padding: 0;
+@faq-categories__border: false;
+@faq-categories__list-style: false;
+@faq-categories-item__position: false;
+@faq-categories-item__display: block;
+@faq-categories-item__margin: 0;
+@faq-categories-item__padding: 10px 40px 10px 10px;
+@faq-categories-item__border-width: 0 0 1px;
+@faq-categories-item__border-width__last: 0;
+@faq-categories-item__border-style: solid;
+@faq-categories-item__border-color: #ccc;
+@faq-categories-item__font: @font-size__base @font-family-name__base;
+@faq-categories-item__text-decoration: none;
+@faq-categories-item__color: @color-black;
+@faq-categories-item__background: false;
+@faq-categories-item__hover-active__text-decoration: none;
+@faq-categories-item__hover-active__color: @color-white;
+@faq-categories-item__hover-active__background: @color-blue1;
+
+@faq-item__margin: 0 0 20px;
+@faq-item__padding: false;
+
+@faq-question__position: false;
+@faq-question__margin: false;
+@faq-question__padding: false;
+@faq-question__font: @font-size__base @font-family-name__base;
+@faq-question__text-decoration: false;
+@faq-question__color: @color-black;
+@faq-question__hover__text-decoration: false;
+
+@faq-answer__position: false;
+@faq-answer__margin: 10px 0 0;
+@faq-answer__padding: 0 0 0 40px;
+@faq-answer__font: 12px @font-family-name__base;
+
+@faq-back__display: block;
+@faq-back__margin: 0 0 10px;
+@faq-back__padding: 5px;
+@faq-back__font: @font-size__base @font-family-name__base;
+@faq-back__text-align: center;
+@faq-back__color: @color-black;
+@faq-back__background: #ccc;
+
+@faq-tags__is-show: true;
+@faq-tags__margin: 0 0 20px;
+@faq-tags__padding: false;
+@faq-tags__text-align: center;
+@faq-tags-title__margin: 0 5px 5px;
+@faq-tags-title__padding: 0 5px 5px;
+@faq-tags-title__text-align: center;
+@faq-tags-title__font: @font-weight__semibold 20px @font-family-name__base;
+@faq-tags-title__color: @color-black;
+@faq-tag__display: inline-block;
+@faq-tag__margin: 0 2px 5px;
+@faq-tag__padding: 2px 5px;
+@faq-tag__border: @border-width__base solid @border-color__base;
+@faq-tag__color: @color-black;
+@faq-tag__background: false;
+@faq-tag__hover-active__border: @border-width__base solid @color-blue1;
+@faq-tag__hover-active__color: @color-blue1;
+@faq-tag__hover-active__background: @faq-tag__background;
+@faq-tag-all__text-decoration: false;
+@faq-tag-all__color: @color-blue1;
+@faq-tag-all__hover__text-decoration: @faq-tag-all__text-decoration;
+@faq-tag-all__hover__color: @color-black;
+
+@faq-toolbar__margin: false;
+@faq-toolbar__padding: 10px 0 0;
+@faq-toolbar__border: false;
+@faq-toolbar-amount__display: none;
+@faq-toolbar-pages__margin: false;
+@faq-toolbar-pages__padding: false;
+@faq-toolbar-pages__text-align: center;
+@faq-toolbar-limiter__display: none;
+
+@faq-compact-mode__is-enabled: true;
+
+@faq-questions__active__display: block;
+@faq-questions-form__display: none;
+@faq-questions-button__display: none;
+@faq-questions__margin: 30px 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    //  Search
+    & when (@faq-search__is-show = true) {
+        .faq-search {
+            .lib-css(max-width, @faq-search__max-width);
+            .lib-css(margin, @faq-search__margin);
+        }
+    }
+
+    //  Categories
+    .faq-categories {
+        & {
+            .lib-css(margin, @faq-categories__margin);
+            .lib-css(padding, @faq-categories__padding);
+            .lib-css(border, @faq-categories__border);
+            .lib-css(list-style, @faq-categories__list-style);
+        }
+
+        > .item {
+            .lib-css(position, @faq-categories-item__position);
+            .lib-css(display, @faq-categories-item__display);
+            .lib-css(margin, @faq-categories-item__margin);
+            .lib-css(padding, @faq-categories-item__padding);
+            .lib-css(border-width, @faq-categories-item__border-width);
+            .lib-css(border-style, @faq-categories-item__border-style);
+            .lib-css(border-color, @faq-categories-item__border-color);
+            .lib-css(text-decoration, @faq-categories-item__text-decoration);
+            .lib-css(color, @faq-categories-item__color);
+            .lib-css(background, @faq-categories-item__background);
+            cursor: pointer;
+
+            &:last-child {
+                .lib-css(border-width, @faq-categories-item__border-width__last);
+            }
+        }
+        > .item:hover,
+        > .item.-active {
+            .lib-css(text-decoration, @faq-categories-item__hover-active__text-decoration);
+            .lib-css(color, @faq-categories-item__hover-active__color);
+            .lib-css(background, @faq-categories-item__hover-active__background);
+        }
+    }
+
+    //  Item
+    .faq-item {
+        & {
+            .lib-css(margin, @faq-item__margin);
+            .lib-css(padding, @faq-item__padding);
+        }
+
+        &.-active .faq-answer {
+            display: block;
+        }
+    }
+
+    //  Question
+    .faq-question {
+        & {
+            .lib-css(position, @faq-question__position);
+            .lib-css(margin, @faq-question__margin);
+            .lib-css(padding, @faq-question__padding);
+            .lib-css(text-decoration, @faq-question__text-decoration);
+            color: #222 !important;
+            font-weight: 700;
+        }
+
+        &:hover {
+            text-decoration: none;
+            color: #e65300 !important;
+        }
+    }
+
+    //  Answer
+    .faq-answer {
+        display: none;
+        .lib-css(position, @faq-answer__position);
+        .lib-css(margin, @faq-answer__margin);
+        .lib-css(padding, @faq-answer__padding);
+    }
+
+    //  Back
+    .faq-back {
+        .lib-css(display, @faq-back__display);
+        .lib-css(margin, @faq-back__margin);
+        .lib-css(padding, @faq-back__padding);
+        .lib-css(font, @faq-back__font);
+        .lib-css(text-align, @faq-back__text-align);
+        .lib-css(color, @faq-back__color);
+        .lib-css(background, @faq-back__background);
+        cursor: pointer;
+    }
+
+    //  Tags
+    & when (@faq-tags__is-show = true) {
+        .faq-tags {
+            & {
+                .lib-css(margin, @faq-tags__margin);
+                .lib-css(padding, @faq-tags__padding);
+                .lib-css(text-align, @faq-tags__text-align);
+            }
+
+            > .title {
+                .lib-css(margin, @faq-tags-title__margin);
+                .lib-css(padding, @faq-tags-title__padding);
+                .lib-css(font, @faq-tags-title__font);
+                .lib-css(text-align, @faq-tags-title__text-align);
+                .lib-css(color, @faq-tags-title__color);
+            }
+
+            > .tag {
+                .lib-css(display, @faq-tag__display);
+                .lib-css(margin, @faq-tag__margin);
+                .lib-css(padding, @faq-tag__padding);
+                .lib-css(border, @faq-tag__border);
+                .lib-css(color, @faq-tag__color);
+                .lib-css(background, @faq-tag__background);
+                cursor: pointer;
+            }
+            > .tag:hover,
+            > .tag.-active {
+                .lib-css(border, @faq-tag__hover-active__border);
+                .lib-css(color, @faq-tag__hover-active__color);
+                .lib-css(background, @faq-tag__hover-active__background);
+            }
+
+            > .tag.-extra:not(.-show) {
+                display: none;
+            }
+        }
+
+        .tags-toggle {
+            & {
+                .lib-css(text-decoration, @faq-tag-all__text-decoration);
+                .lib-css(color, @faq-tag-all__color);
+                cursor: pointer;
+
+                &:hover {
+                    .lib-css(text-decoration, @faq-tag-all__hover__text-decoration);
+                    .lib-css(color, @faq-tag-all__hover__color);
+                }
+            }
+
+            &.-hide {
+                display: none;
+            }
+        }
+    }
+
+    //  Toolbar
+    .faq-toolbar {
+        & {
+            .lib-css(margin, @faq-toolbar__margin);
+            .lib-css(padding, @faq-toolbar__padding);
+            .lib-css(border, @faq-toolbar__border);
+        }
+
+        .toolbar-amount {
+            .lib-css(display, @faq-toolbar-amount__display);
+        }
+
+        .pages {
+            .lib-css(margin, @faq-toolbar-pages__margin);
+            .lib-css(padding, @faq-toolbar-pages__padding);
+            .lib-css(text-align, @faq-toolbar-pages__text-align);
+        }
+
+        .limiter {
+            .lib-css(display, @faq-toolbar-limiter__display);
+        }
+    }
+
+    //  Question form
+    .faq-questions {
+        & {
+            .lib-css(margin, @faq-questions__margin);
+        }
+
+        > .form-box {
+            .lib-css(display, @faq-questions-form__display);
+        }
+
+        &.-active {
+            > .form-box {
+                .lib-css(display, @faq-questions__active__display);
+            }
+
+            > .button {
+                .lib-css(display, @faq-questions-button__display);
+            }
+        }
+    }
+}
+
+//
+//  Tablet below
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    //  Compact Mode
+    & when (@faq-compact-mode__is-enabled = true) {
+        .faq-container {
+            & {
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            > .categories,
+            > .listing {
+                width: 100%;
+                float: none;
+                display: inline-block;
+                vertical-align: top;
+                white-space: normal;
+            }
+
+            > .categories {
+                .lib-css(transition, margin-left .3s, 1);
+            }
+
+            > .listing.column {
+                float: none;
+            }
+
+            &.-active > .categories {
+                margin-left: -100%;
+            }
+        }
+    }
+}
+
+//
+//  Tablet above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .faq-back {
+        display: none;
+    }
+}

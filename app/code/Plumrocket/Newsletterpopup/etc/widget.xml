@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+ -->
+
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="pr_newsletterpopup_form" class="Plumrocket\Newsletterpopup\Block\Widget\Form">
+        <label>Newsletter Popup Form</label>
+        <description>Plumrocket Newsletter Popup will be used as static newsletter subscription form</description>
+        <parameters>
+            <parameter name="popup_id" xsi:type="select" visible="true" sort_order="10" required="true"
+                       source_model="Plumrocket\Newsletterpopup\Model\Source\Widget\Forms">
+                <label>Widget Template</label>
+                <description>Newsletter popups with the type "Widget Template" will be displayed in this list. You can add a new Template by navigating to Marketing -> Newsletter Popup -> Manage Popups and creating a new popup with the type "Widget Template".</description>
+            </parameter>
+            <parameter name="template" xsi:type="select" visible="false" sort_order="20">
+                <options>
+                    <option name="default_template" value="widget/form.phtml">
+                        <label>Default Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

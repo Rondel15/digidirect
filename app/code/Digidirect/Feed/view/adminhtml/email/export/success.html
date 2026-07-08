@@ -1,0 +1,26 @@
+<!--@subject Feed "{{var feed.name}}" exported successfully @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1>{{var feed.name}}</h1>
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0">
+    <tr>
+        <th align="left">{{trans "Feed Access Url"}}</th>
+        <td><a href="{{var url}}">{{var url}}</a></td>
+    </tr>
+    <tr>
+        <th align="left">{{trans "Exported At"}}</th>
+        <td>{{var exported_at}}</td>
+    </tr>
+    <tr>
+        <th align="left">{{trans "Exporting Time"}}</th>
+        <td>{{var export_time}}</td>
+    </tr>
+    <tr>
+        <th align="left">{{trans "Count Products"}}</th>
+        <td>{{var export_count}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

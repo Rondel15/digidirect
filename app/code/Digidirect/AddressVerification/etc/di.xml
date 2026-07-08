@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\AddressVerification\Api\LocationRepositoryInterface" type="Digidirect\AddressVerification\Model\LocationRepository" />
+    <preference for="Digidirect\AddressVerification\Api\ImportReportRepositoryInterface" type="Digidirect\AddressVerification\Model\ImportReportRepository" />
+    <preference for="Digidirect\AddressVerification\Api\CountryAddressAttributeRepositoryInterface" type="Digidirect\AddressVerification\Model\CountryAddressAttributeRepository" />
+    <preference for="Digidirect\AddressVerification\Api\Data\CountryAddressAttributeInterface" type="Digidirect\AddressVerification\Model\CountryAddressAttribute" />
+    <type name="Digidirect\AddressVerification\Model\Config\Source\PostcodeRange">
+        <arguments>
+            <argument name="list" xsi:type="array">
+                <item name="nsw" xsi:type="array">
+                    <item name="state" xsi:type="string">New South Wales</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">1000-1999</item>
+                        <item name="1" xsi:type="string">2000-2599</item>
+                        <item name="2" xsi:type="string">2619-2898</item>
+                        <item name="3" xsi:type="string">2921-2999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">0</item>
+                </item>
+                <item name="act" xsi:type="array">
+                    <item name="state" xsi:type="string">Australian Capital Territory</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">0200-0299</item>
+                        <item name="1" xsi:type="string">2600-2618</item>
+                        <item name="2" xsi:type="string">2900-2920</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">0</item>
+                </item>
+                <item name="vic" xsi:type="array">
+                    <item name="state" xsi:type="string">Victoria</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">3000-3999</item>
+                        <item name="1" xsi:type="string">8000-8999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+                <item name="qld" xsi:type="array">
+                    <item name="state" xsi:type="string">Queensland</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">4000-4999</item>
+                        <item name="1" xsi:type="string">9000-9999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+                <item name="sa" xsi:type="array">
+                    <item name="state" xsi:type="string">South Australia</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">5000-5799</item>
+                        <item name="1" xsi:type="string">5800-5999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+                <item name="wa" xsi:type="array">
+                    <item name="state" xsi:type="string">Western Australia</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">6000-6797</item>
+                        <item name="1" xsi:type="string">6800-6999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+                <item name="tas" xsi:type="array">
+                    <item name="state" xsi:type="string">Tasmania</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">7000-7799</item>
+                        <item name="1" xsi:type="string">7800-7999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+                <item name="nt" xsi:type="array">
+                    <item name="state" xsi:type="string">Northern Territory</item>
+                    <item name="postcode_range" xsi:type="array">
+                        <item name="0" xsi:type="string">0800-0899</item>
+                        <item name="1" xsi:type="string">0900-0999</item>
+                    </item>
+                    <item name="is_po_box" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Checkout\Api\ShippingInformationManagementInterface">
+        <plugin name="validate_shipping_address_au_post" type="Digidirect\AddressVerification\Plugin\Magento\Checkout\Model\ShippingInformationManagement" sortOrder="50" />
+    </type>
+    <type name="Digidirect\AddressVerification\Model\ResourceModel\CountryAddressAttribute\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_addressverification_country_address_attribute</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_addressverification_country_address_attribute_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">digidirect_addressverification_country_address_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\AddressVerification\Model\ResourceModel\CountryAddressAttribute</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="country_address_attributes_grid_data_source" xsi:type="string">Digidirect\AddressVerification\Model\ResourceModel\CountryAddressAttribute\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AddressVerification\Model\CountryAddress\Source\Attribute">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">Digidirect\AddressVerification\Model\CountryAddress\Source\Provider\AttributeProvider</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

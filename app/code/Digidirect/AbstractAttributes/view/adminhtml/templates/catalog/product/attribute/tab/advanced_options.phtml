@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var \Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Tab\AdvancedOptionsProperties $block
+ */
+?>
+<div class="page-main-actions row">
+    <?php echo $block->getChildHtml('store_switcher'); ?>
+</div>
+<?php echo $block->getChildHtml('eaa_advanced_options_tab'); ?>
+<?php if (!$block->isNew()): ?>
+    <?php echo $block->getChildHtml('eaa_product_attribute_advanced_options_grid'); ?>
+<?php endif; ?>

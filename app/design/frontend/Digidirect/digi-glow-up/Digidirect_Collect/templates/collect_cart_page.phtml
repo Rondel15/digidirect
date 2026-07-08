@@ -1,0 +1,23 @@
+<?php /** @var $block \Digidirect\Collect\Block\CollectInfo*/?>
+<div class="collect-item" data-role="collect-item_<?php echo (int)$block->getItem()->getProductId()?>" data-mage-init='{"collectCart":{
+                                                "dataAction": "<?php echo $block->escapeUrl($block->getChangePlaceUrl());?>",
+                                                "collectPlaceId": "<?php echo $block->escapeHtml($block->getItem()->getCollectPlaceId())?>",
+                                                "productId": "<?php echo (int)$block->getItem()->getProductId()?>",
+                                                "quoteItemId": "<?php echo (int)$block->getItem()->getId()?>",
+                                                "deliveryInstead": "<?php echo $block->escapeUrl($block->getDeliverInsteadUrl())?>"
+                                                }
+                                            }'>
+    <?php if ($block->isItemCollect()): ?>
+        <div class="collect_place_info"><?php echo $block->escapeHtml(__('Collect in collect place. Your selected place:'));?> <span data-role="collect-store"><?php echo $block->escapeHtml($block->getCollectPlaceName($block->getItem()));?></span></div> <br />
+        <a id="collect_modal_open" class="collect_modal_open" href="#" title="<?php echo $block->escapeHtml(__('Change collect place'))?>" data-role="collect-trigger">
+            <?php echo $block->escapeHtml(__('Change collect place'))?>
+        </a>
+        <br />
+        <a class="collect_modal_open" href="#" title="<?php echo $block->escapeHtml(__('Deliver instead'))?>" data-role="delivery-trigger">
+            <?php echo $block->escapeHtml(__('Deliver instead'))?>
+        </a>
+        <br />
+    <?php else: ?>
+        <a id="collect_modal_open" class="collect_modal_open" href="#"  title="<?php echo $block->escapeHtml(__('Collect in Collect place'))?>" data-role="collect-trigger"><?php echo $block->escapeHtml(__('Collect in Collect place'))?></a>
+    <?php endif;?>
+</div>

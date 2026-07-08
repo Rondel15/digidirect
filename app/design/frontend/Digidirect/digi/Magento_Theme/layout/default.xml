@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <body>
+        <referenceBlock name="header" remove="true"/>
+        <referenceBlock name="logo" remove="true"/>
+        <referenceBlock name="top.links" remove="true"/>
+        <referenceBlock name="skip_to_content" remove="true"/>
+        <referenceContainer name="report.bugs" remove="true"/>
+        <referenceBlock name="advanced-search-link" remove="true"/>
+        <referenceBlock name="svgi.js" remove="true" />
+              
+        <move element="top.search" destination="main-header-wrapper" after="header-logo"/>
+        <move element="minicart" destination="main-header-wrapper" after="header.content.links"/>
+        <!--    <move element="form.subscribe" destination="footer" />
+        <move element="digi.footer.partners" destination="form.subscribe" />-->
+        
+        <referenceContainer name="header.panel.wrapper" remove="true" />
+        <referenceContainer name="header.panel" remove="true" />
+        
+        <referenceContainer name="header-wrapper">
+            <block class="Magento\Cms\Block\Block" name="site.takeover">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">site-takeover</argument>
+                </arguments>
+            </block>
+            <container name="top-header-wrapper" htmlTag="div" htmlClass="top-header-wrapper" after="header.content"> 
+                <block class="Magento\Framework\View\Element\Template" name="top-header" template="Magento_Theme::header/top-header.phtml"/>  
+            </container> 
+            
+            <container name="main-header-wrapper" htmlTag="div" htmlClass="main-header-wrapper" htmlId="main-header-wrapper">
+                <block class="Magento\Framework\View\Element\Template" name="header-logo" template="Magento_Theme::header/header-content.phtml"/>   
+                
+                <container name="header.wrapper.links" htmlTag="div" htmlClass="wrap-links" after="top.search">
+                </container>           
+            </container>
+            
+        </referenceContainer>
+        
+        <move element="authorization-link" destination="header.wrapper.links"/>
+        <move element="my-account-link" destination="authorization-link"/>
+        
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Cms\Block\Block" name="side.banner.ads">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">side-banner-ads</argument>
+                </arguments>
+            </block>
+            <container name="brand.banner.block" before="main.content">
+                <block class="Magento\Framework\View\Element\Template" template="Magento_Theme::header/brand-banner.phtml" name="brand-banner"/>
+            </container>
+        </referenceContainer>
+        
+         <referenceBlock name="store.menu">
+            <block class="Magento\Framework\View\Element\Template" name="new.navigation.menu" template="Magento_Theme::new-navigation-menu.phtml"/>  
+        </referenceBlock>
+        
+        <referenceContainer name="after.body.start">
+            <!-- SVG -->
+            <block class="Magento\Framework\View\Element\Template" name="svg_sprite" template="Magento_Theme::js/svg-sprite.phtml" before="-">
+                <arguments>
+                    <argument name="svg_active" xsi:type="boolean">true</argument><!-- Enable/disable SVG logic -->
+                    <argument name="svg_is_inline" xsi:type="boolean">false</argument><!-- Enable/disable inline version of script -->
+                    <argument name="svg_url" xsi:type="string">svg/sprite.svg</argument>
+                    <argument name="svg_revision" xsi:type="string">1.0.0</argument><!-- Developer revision for update localStorage -->
+                    <argument name="svg_script_url" xsi:type="string">js/components/svg-sprite.js</argument>
+                    <argument name="svg_class_name" xsi:type="string">svg-sprite</argument>
+                </arguments>
+                <block class="Magento\Framework\View\Element\Template" name="svg_sprite_inline" as="svg.sprite.inline" template="Magento_Theme::js/svg-sprite-inline.phtml"/>
+            </block>
+        </referenceContainer>
+
+        <!-- FOOTER -->
+        
+        <referenceBlock name="footer_links" remove="true"/>
+        <move element="form.subscribe" destination="footer" before="footer-links-wrapper"/>
+        <referenceContainer name="footer">
+            <container name="footer-links-wrapper" htmlTag="div" htmlClass="footer-content-block" after="footer_links">
+                <block class="Magento\Framework\View\Element\Template" name="footer-links" template="Magento_Theme::footer/footer-links.phtml"/>  
+                <!--<block class="Magento\Framework\View\Element\Template" name="footer-partner" template="Magento_Theme::footer/footer-partners.phtml"/>-->  
+            </container>
+            
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="Magento_Theme::footer/footer-copyright.phtml" />
+        </referenceContainer>
+    </body>
+</page>

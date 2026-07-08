@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2022 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="salesrule_coupon">
+        <column xsi:type="datetime" name="np_expiration_date" nullable="true" comment="Expiration Date By Newsletterpopup"/>
+    </table>
+    <table name="newsletter_subscriber" resource="default" engine="innodb" comment="Newsletter Subscriber">
+        <column xsi:type="varchar" name="subscriber_firstname" nullable="true" length="150"
+                comment="Subscriber Firstname"/>
+        <column xsi:type="varchar" name="subscriber_middlename" nullable="true" length="150"
+                comment="Subscriber Middlename"/>
+        <column xsi:type="varchar" name="subscriber_lastname" nullable="true" length="150"
+                comment="Subscriber Lastname"/>
+        <column xsi:type="varchar" name="subscriber_suffix" nullable="true" length="32" comment="Subscriber Suffix"/>
+        <column xsi:type="date" name="subscriber_dob" nullable="true" comment="Subscriber Dob"/>
+        <column xsi:type="int" name="subscriber_gender" padding="11" unsigned="false" nullable="true" identity="false"
+                comment="Subscriber Gender"/>
+        <column xsi:type="varchar" name="subscriber_taxvat" nullable="true" length="128" comment="Subscriber Taxvat"/>
+        <column xsi:type="varchar" name="subscriber_prefix" nullable="true" length="150" comment="Subscriber Prefix"/>
+        <column xsi:type="varchar" name="subscriber_telephone" nullable="true" length="150"
+                comment="Subscriber Telephone"/>
+        <column xsi:type="varchar" name="subscriber_fax" nullable="true" length="150" comment="Subscriber Fax"/>
+        <column xsi:type="varchar" name="subscriber_company" nullable="true" length="150" comment="Subscriber Company"/>
+        <column xsi:type="varchar" name="subscriber_street" nullable="true" length="150" comment="Subscriber Street"/>
+        <column xsi:type="varchar" name="subscriber_city" nullable="true" length="150" comment="Subscriber City"/>
+        <column xsi:type="varchar" name="subscriber_country_id" nullable="true" length="150"
+                comment="Subscriber Country ID"/>
+        <column xsi:type="varchar" name="subscriber_region" nullable="true" length="150" comment="Subscriber Region"/>
+        <column xsi:type="varchar" name="subscriber_postcode" nullable="true" length="150"
+                comment="Subscriber Postcode"/>
+    </table>
+    <table name="plumrocket_newsletterpopup_history_action" resource="default" engine="innodb"
+           comment="Newsletterpopup History Action">
+        <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Id"/>
+        <column xsi:type="varchar" name="text" nullable="false" length="200" comment="Text"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="id"/>
+        </constraint>
+        <constraint xsi:type="unique" referenceId="PLUMROCKET_NEWSLETTERPOPUP_HISTORY_ACTION">
+            <column name="text"/>
+        </constraint>
+    </table>
+    <table name="plumrocket_newsletterpopup_templates" resource="default" engine="innodb"
+           comment="Newsletterpopup Templates">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="text" name="identifier" comment="Unique identifier for build in theme"/>
+        <column xsi:type="int" name="base_template_id" nullable="false" identity="false"
+                comment="Base Template Id"/>
+        <column xsi:type="varchar" name="name" length="64" nullable="false" comment="Name"/>
+        <column xsi:type="text" name="code" nullable="false" comment="Code"/>
+        <column xsi:type="text" name="style" nullable="false" comment="Style"/>
+        <column xsi:type="datetime" name="created_at" nullable="true" on_update="false" comment="Created At"/>
+        <column xsi:type="datetime" name="updated_at" nullable="true" on_update="false" comment="Updated At"/>
+        <column xsi:type="text" name="default_values" nullable="false" comment="Default Values"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+    <table name="plumrocket_newsletterpopup_hold" resource="default" engine="innodb" comment="Newsletterpopup Hold">
+        <column xsi:type="varchar" name="email" nullable="false" length="255" comment="Email"/>
+        <column xsi:type="int" name="popup_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Popup id"/>
+        <column xsi:type="text" name="lists" nullable="false" comment="Lists"/>
+        <column xsi:type="text" name="integration_lists" comment="Integration lists JSON data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="email"/>
+        </constraint>
+    </table>
+    <table name="plumrocket_newsletterpopup_form_fields" resource="default" engine="innodb"
+           comment="Newsletterpopup Form Fields">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="popup_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Popup id"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="32" comment="Name"/>
+        <column xsi:type="text" name="label" comment="Label"/>
+        <column xsi:type="boolean" name="enable" default="0" nullable="false" comment="Enable"/>
+        <column xsi:type="int" name="sort_order" unsigned="false" nullable="false" identity="false"
+                comment="Sort Order"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="PLUMROCKET_NEWSLETTERPOPUP_FORM_FIELDS" indexType="btree">
+            <column name="popup_id"/>
+        </index>
+    </table>
+    <table name="plumrocket_newsletterpopup_mailchimp_list" resource="default" engine="innodb"
+           comment="Newsletterpopup Mailchimp List">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="popup_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Popup id"/>
+        <column xsi:type="varchar" name="integration_id" nullable="true" length="32" comment="Integration identifier"/>
+        <column xsi:type="varchar" name="name" length="64" comment="Name"/>
+        <column xsi:type="varchar" name="label" nullable="false" length="255" comment="Label"/>
+        <column xsi:type="boolean" name="enable" nullable="false" default="0" comment="Enable"/>
+        <column xsi:type="int" name="sort_order" unsigned="false" nullable="false" identity="false"
+                comment="Sort Order"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="PLUMROCKET_NEWSLETTERPOPUP_MAILCHIMP_LIST" indexType="btree">
+            <column name="popup_id"/>
+        </index>
+    </table>
+    <table name="plumrocket_newsletterpopup_history" resource="default" engine="innodb"
+           comment="Newsletterpopup History">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="popup_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Popup id"/>
+        <column xsi:type="int" name="customer_id" nullable="false" identity="false"
+                comment="Customer Id"/>
+        <column xsi:type="int" name="customer_group" nullable="false" identity="false"
+                comment="Customer Group"/>
+        <column xsi:type="varchar" name="customer_ip" nullable="false" length="16" comment="Customer Ip"/>
+        <column xsi:type="varchar" name="customer_email" nullable="false" length="128" comment="Customer Email"/>
+        <column xsi:type="varchar" name="coupon_code" nullable="false" length="64" comment="Coupon Code"/>
+        <column xsi:type="varchar" name="landing_page" nullable="false" length="255" comment="Landing Page"/>
+        <column xsi:type="int" name="store_id" unsigned="false" nullable="false" identity="false" comment="Store Id"/>
+        <column xsi:type="varchar" name="action" nullable="false" length="20" default="cancel" comment="Action"/>
+        <column xsi:type="int" name="action_id" padding="10" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Action Id"/>
+        <column xsi:type="datetime" name="date_created" nullable="false" on_update="false" comment="Date Created"/>
+        <column xsi:type="int" name="increment_id" unsigned="false" nullable="false" identity="false"
+                comment="Increment Id"/>
+        <column xsi:type="int" name="order_id" unsigned="false" nullable="false" identity="false" comment="Order Id"/>
+        <column xsi:type="decimal" name="grand_total" scale="4" precision="12" unsigned="false" nullable="false" comment="Grand Total"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+        <index referenceId="PLUMROCKET_NEWSLETTERPOPUP_HISTORY" indexType="btree">
+            <column name="popup_id"/>
+        </index>
+    </table>
+    <table name="plumrocket_newsletterpopup_popups" resource="default" engine="innodb" comment="Newsletterpopup Popups">
+        <column xsi:type="int" name="entity_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+        <column xsi:type="int" name="template_id" padding="10" unsigned="true" nullable="false" identity="false" default="0"
+                comment="Template Id"/>
+        <column xsi:type="varchar" name="type" nullable="false" length="255" default="modal" comment="Use product from product page"/>
+        <column xsi:type="varchar" name="name" nullable="false" length="64" comment="Name"/>
+        <column xsi:type="boolean" name="status" nullable="false" default="0" comment="Status"/>
+        <column xsi:type="int" name="coupon_code" unsigned="false" default="0" nullable="false" identity="false"
+                comment="Coupon Code"/>
+        <column xsi:type="datetime" name="start_date" nullable="true" comment="Start Date"/>
+        <column xsi:type="datetime" name="end_date" nullable="true" comment="End Date"/>
+        <column xsi:type="varchar" name="coupon_expiration_time" nullable="true" length="32"
+                comment="Coupon Expiration Time"/>
+        <column xsi:type="varchar" name="success_page" nullable="true" length="255" comment="Success Page"/>
+        <column xsi:type="varchar" name="custom_success_page" nullable="false" length="128" comment="Custom Success Page"/>
+        <column xsi:type="boolean" name="send_email" nullable="false" default="true" comment="Send Email"/>
+        <column xsi:type="varchar" name="email_template" nullable="false" length="64"
+                default="prnewsletterpopup_general_email_template" comment="Email Template"/>
+        <column xsi:type="varchar" name="signup_method" nullable="false" length="20" default="signup_only"
+                comment="Signup Method"/>
+        <column xsi:type="varchar" name="subscription_mode" nullable="false" length="20" default="all"
+                comment="Subscription Mode"/>
+        <column xsi:type="varchar" name="display_popup" nullable="false" length="30" default="after_time_delay"
+                comment="Display Popup"/>
+        <column xsi:type="int" name="delay_time" unsigned="false" nullable="false" identity="false" default="5"
+                comment="Delay Time"/>
+        <column xsi:type="int" name="mobile_leave_delay_time" unsigned="false" nullable="false" identity="false" default="5"
+                comment="Mobile Leave Delay Time"/>
+        <column xsi:type="int" name="page_scroll" unsigned="false" nullable="false" identity="false" default="30"
+                comment="Page Scroll"/>
+        <column xsi:type="varchar" name="css_selector" nullable="false" length="100" comment="CSS Selector"/>
+        <column xsi:type="varchar" name="cookie_time_frame" nullable="true" length="32" default="30,0,0,0"
+                comment="Cookie Time Frame"/>
+        <column xsi:type="varchar" name="animation" nullable="false" length="32" default="fadeInDownBig"
+                comment="Animation"/>
+        <column xsi:type="varchar" name="store_id" nullable="false" length="32" default="0" comment="Store Id"/>
+        <column xsi:type="text" name="default_product" comment="Product for popup"/>
+        <column xsi:type="smallint" padding="6" name="use_current_product" nullable="false" default="0"
+                comment="Use product from product page"/>
+        <column xsi:type="text" name="conditions_serialized" nullable="false" comment="Conditions Serialized"/>
+        <column xsi:type="varchar" name="text_title" nullable="false" length="250" comment="Text Title"/>
+        <column xsi:type="text" name="text_description" comment="Text Description"/>
+        <column xsi:type="text" name="text_success" comment="Text Success"/>
+        <column xsi:type="varchar" name="text_submit" nullable="false" length="64" comment="Text Submit"/>
+        <column xsi:type="varchar" name="text_cancel" nullable="false" length="64" comment="Text Cancel"/>
+        <column xsi:type="int" name="code_length" unsigned="false" nullable="false" identity="false" default="12"
+                comment="Code Length"/>
+        <column xsi:type="varchar" name="code_format" nullable="false" length="20" default="alphanum"
+                comment="Code Format"/>
+        <column xsi:type="varchar" name="code_prefix" nullable="false" length="16" comment="Code Prefix"/>
+        <column xsi:type="varchar" name="code_suffix" nullable="false" length="16" comment="Code Suffix"/>
+        <column xsi:type="int" name="code_dash" nullable="false" identity="false" default="0" comment="Code Dash"/>
+        <column xsi:type="int" name="views_count" unsigned="false" nullable="false" identity="false"
+                comment="Views Count"/>
+        <column xsi:type="int" name="subscribers_count" unsigned="false" nullable="false" identity="false"
+                comment="Subscribers Count"/>
+        <column xsi:type="int" name="orders_count" unsigned="false" nullable="false" identity="false"
+                comment="Orders Count"/>
+        <column xsi:type="decimal" name="total_revenue" scale="4" precision="12" unsigned="false" nullable="false"
+                comment="Total Revenue"/>
+        <column xsi:type="varchar" name="integration_enable" nullable="true" length="255"
+                comment="Integration status JSON data"/>
+        <column xsi:type="varchar" name="integration_mode" nullable="true" length="255"
+                comment="Integration mode JSON data"/>
+        <constraint xsi:type="primary" referenceId="PRIMARY">
+            <column name="entity_id"/>
+        </constraint>
+    </table>
+</schema>

@@ -1,0 +1,30 @@
+<?php
+/** @var \Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups $block */
+$groupList = $block->getGroups();
+$filterParams = $block->collectFilterParams([$block->getPageParameter()]);
+$defaultNameGroup =  $this->getConfigHelper()->getDefaultGroupName();
+?>
+
+<div class="moving-groups -little">
+    <div class="dots-active" data-toggle="dropdown" data-mage-init='{"dropdown": {}}'>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+    </div>
+    <h2>
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon icon-move">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-shelf-cross"></use>
+        </svg>
+    </h2>
+    <div class="list" data-target="dropdown">
+        <span class="title-dropdown"><?php echo $block->escapeHtml(__('Move to:')) ?></span>
+        <?php if (!$block->isEmptyGroup()): ?>
+            <?php foreach ($groupList as $groupId => $group): ?>
+                <?php $filterParams['group_id'] = $groupId ?>
+                <a class="item" data-role="add-to-group" title="<?= $block->escapeHtml($group) ?>" href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/index',  $filterParams)) ?>" data-group-id="<?= (int)$groupId ?>"><?= $block->escapeHtml($group) ?></a>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <a class="item" data-role="add-to-group" title="<?php echo $block->escapeHtml(__('New Item Group')) ?>" href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/index')) ?>"><?= $block->escapeHtml($defaultNameGroup) ?></a>
+        <?php endif; ?>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+//
+//  Checkout: Sidebar
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-sidebar__is-enabled: true; // Enable/disable style
+
+@checkout-sidebar__float__m: right;
+@checkout-sidebar__width__m: 34%;
+@checkout-sidebar__margin__m: 46px 0 @indent__base;
+@checkout-sidebar__padding__m: false;
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@checkout-sidebar__is-enabled = true) {
+        .opc-sidebar {
+            .lib-css(float, @checkout-sidebar__float__m);
+            .lib-css(width, @checkout-sidebar__width__m);
+            .lib-css(margin, @checkout-sidebar__margin__m);
+            .lib-css(padding, @checkout-sidebar__padding__m);
+        }
+    }
+}

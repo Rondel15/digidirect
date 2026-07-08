@@ -1,0 +1,15 @@
+<!-- ko ifnot: isSingleCollectVariation -->
+    <!-- ko ifnot: isSingleCartCollectVariation -->
+        <!-- ko if: !getIsVirtual($parents[1]) -->
+            <div class="product-collect-container">
+                <!-- ko if: getDeliveryPlace($parents[1]) -->
+                    <span class="label" data-bind="i18n: 'Collect in store:'"></span>
+                    <span class="values" data-bind="i18n: getDeliveryPlace($parents[1])"></span>
+                <!-- /ko -->
+                <!-- ko ifnot: getDeliveryPlace($parents[1]) -->
+                    <span class="label" data-bind="i18n: 'Delivery'"></span>
+                <!-- /ko -->
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

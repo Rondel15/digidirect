@@ -1,0 +1,16 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+$lists = $block->getLists();
+if (sizeof($lists) > 0 ) echo '<h3>' . __('Mailing List(s)') . '</h3>';
+?>
+
+<select name="mailchimp_list">
+    <?php foreach ($lists as $key => $item): ?>
+        <option value="<?php echo $key ?>"><?php echo $item->getLabel() ?></option>
+    <?php endforeach; ?>
+</select>

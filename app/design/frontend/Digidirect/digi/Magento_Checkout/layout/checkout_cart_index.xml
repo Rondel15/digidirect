@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="checkout.cart.methods.multishipping" remove="true"/>
+
+        <move element="checkout.cart.giftcardaccount" destination="checkout.cart.coupon"/>
+        <move element="checkout.cart.totals.container" destination="cart.summary" after="checkout.cart.coupon"/>
+        <move element="collect_places_cart_single"  destination="cart.summary" after="checkout.cart.summary.title"/>
+
+        <referenceContainer name="checkout.cart.noitems">
+            <block class="Magento\Cms\Block\Block" name="empty.cart.products">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">cart-new-arrivals</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="checkout.cart.container">
+            <block class="Magento\Framework\View\Element\Template" name="checkout.cart.page.title" before="-" template="Magento_Theme::text.phtml">
+                <arguments>
+                    <argument translate="true" name="text" xsi:type="string">Shopping Cart</argument>
+                    <argument name="tag" xsi:type="string">strong</argument>
+                    <argument name="css_class" xsi:type="string">page-title</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="checkout.cart.totals">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="block-totals" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="grand-total" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="title" xsi:type="string" translate="true">Grand Total (Incl. GST)</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+        <referenceContainer name="cart.summary">
+            <block class="Magento\Cms\Block\Block" name="cart.klarna.widget">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">klarna-widget</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Cms\Block\Block" name="cart.secure.pay">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">secure-pay</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="checkout.cart.crosssell">
+            <block class="Magento\Cms\Block\Block" name="product.tile.rent">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">product-tile-rent</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <move element="checkout.cart.form" destination="checkout.cart.container" after="checkout.cart.page.title"/>
+    </body>
+</page>

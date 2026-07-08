@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <!-- Add abstract entity info to collect places -->
+    <event name="digidirect_collect_checkout_config_collect_place_information">
+        <observer name="DigidirectCollectAbstractEntity::digidirect_collect_checkout_config_collect_place_information"
+                  instance="CheckoutConfigCollectPlaceInformationObserver" />
+    </event>
+    <event name="digidirect_collect_apply_collect_place_to_all_items_result">
+        <observer name="DigidirectCollectAbstractEntity::digidirect_collect_apply_collect_place_to_all_items_result"
+                  instance="ApplyCollectPlaceToAllItemsResultObserver" />
+    </event>
+    <event name="sales_order_shipment_track_process_relation">
+        <observer name="digidirect_collect_send_tracking_number_email_notification" instance="Digidirect\CollectAbstractEntity\Observer\SendTrackingNumberEmailNotification" />
+    </event>
+</config>

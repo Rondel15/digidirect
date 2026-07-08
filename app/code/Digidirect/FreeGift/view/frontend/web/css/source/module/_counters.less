@@ -1,0 +1,31 @@
+//
+//  Counters
+//  _____________________________________________
+
+//
+//  Common Styles
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .freegift-items {
+        .totalcount {
+            .lib-css(margin, @freegift-total-count__margin);
+            .lib-css(padding, @freegift-total-count__padding);
+            .lib-css(text-align, @freegift-total-count__text-align);
+        }
+
+        .rulecount {
+            .lib-css(margin, @freegift-rule-count__margin);
+            .lib-css(padding, @freegift-rule-count__padding);
+            .lib-css(text-align, @freegift-rule-count__text-align);
+        }
+
+        .totalcount .counter,
+        .totalcount .max,
+        .rulecount .counter,
+        .rulecount .max {
+            .lib-css(font-weight, @freegift-totals-numbers__font-weight);
+        }
+
+    }
+}

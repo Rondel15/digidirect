@@ -1,0 +1,174 @@
+<?php
+/**
+ * Product list toolbar
+ *
+ * @var $block \Digidirect\InfiniteScroll\Block\Product\ProductList\Toolbar
+ */
+?>
+<?php $isShowAlways = true; ?>
+<?php if ($block->getCollection()->getSize() || $isShowAlways): ?>
+    <div class="toolbar toolbar-products" data-mage-init='<?php /* @escapeNotVerified */ echo $block->getWidgetOptionsJson(); ?>'>
+        <div class="desktop-row">
+            <div class="filter filter-trigger -mobile" data-container="#catalogSidebar" data-mage-init='{ "offcanvas": {"addOn":
+            "js/components/offcanvas/dist/addons/catalog/index"} }'>
+                <i class="fas fa-filter"></i>  Filter
+            </div>
+            <?php include ($block->getTemplateFile('Magento_Catalog::product/list/toolbar/amount.phtml')) ?>
+            <?php if ($block->isExpanded()): ?>
+                <?php include ($block->getTemplateFile('Digidirect_InfiniteScroll::product/list/sorter.phtml')) ?>
+                <div class="sorter -mobile custom-sort-by">
+                    <div class="sort-label-wrapper">
+                        <span class="sorter-trigger" data-container="#sorterOffcanvas" data-mage-init='{ "offcanvas": {"addOn":
+                        "js/components/offcanvas/dist/addons/catalog/index"} }'><?=  __('Sort By: ');?>
+                        </span>
+                        <div class="custom-sorter-mobile">
+                            <?php include ($block->getTemplateFile('Magento_Catalog::product/list/sorter.phtml')) ?>
+                        </div>
+                    </div>
+                    <div class="sorter-mobile-wrapper">
+                        <a title="<?= /* @escapeNotVerified */ __('Descending Direction') ?>"
+                           href="#"
+                           class="action sorter-action sort-desc <?php if ($block->getCurrentDirection() == 'desc'): ?>-active<?php else: ?>-passive<?php endif; ?>"
+                           data-role="direction-switcher"
+                           data-value="<?php if ($block->getCurrentDirection() == 'desc'): ?>asc<?php else: ?>desc<?php endif; ?>">
+                        </a>
+                        <a title="<?= /* @escapeNotVerified */ __('Ascending Direction') ?>"
+                           href="#"
+                           class="action sorter-action sort-asc <?php if ($block->getCurrentDirection() == 'asc'): ?>-active<?php else: ?>-passive<?php endif; ?>"
+                           data-role="direction-switcher"
+                           data-value="<?php if ($block->getCurrentDirection() == 'asc'): ?>desc<?php else: ?>asc<?php endif; ?>">
+                        </a>
+                    </div>
+                    <i class="fas fa-sort-amount-down"></i>  Sort By
+                </div>
+            <?php endif; ?>
+        </div>
+        
+    </div>
+<?php endif ?>
+
+<div id="custom-sorter-modal" style="display: none;">
+    <div class="modal-inner-content">
+        <div class="mobile-custom-sorter">
+            <div id="mobile-custom-most-viewed"><i class="fas fa-certificate"></i>  Most Viewed</div>
+            <div id="mobile-custom-new-products"><i class="fas fa-star-of-life"></i>  New Products</div>
+            <div id="mobile-custom-best-sellers"><i class="fas fa-star"></i>  Best Sellers</div>
+            <div id="mobile-custom-product-name-asc"><i class="fas fa-sort-alpha-up"></i>  Product Name (A-Z)</div>
+            <div id="mobile-custom-product-name-desc"><i class="fas fa-sort-alpha-up-alt"></i>  Product Name (Z-A)</div>
+            <div id="mobile-custom-price-asc"><i class="fas fa-sort-numeric-down"></i>  Price Low to High</div>
+            <div id="mobile-custom-price-desc"><i class="fas fa-sort-numeric-down-alt"></i>  Price High to Low</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function($, modal) {
+            var options = {
+                type: 'popup',
+                responsive: false,
+                innerScroll: false,
+                title: 'SORT BY'
+            };
+
+            modal(options, $('#custom-sorter-modal'));
+            $(".custom-sort-by").on('click',function(){
+                $("#custom-sorter-modal").modal("openModal");
+            });
+            
+            $("#mobile-custom-most-viewed").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('most_viewed').trigger('change');
+            });
+
+            $("#mobile-custom-new-products").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('latest').trigger('change');
+            });
+
+            $("#mobile-custom-best-sellers").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('best_sellers').trigger('change');
+            });
+
+            $("#mobile-custom-product-name-asc").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('product_name_asc').trigger('change');
+            });
+
+            $("#mobile-custom-product-name-desc").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('product_name_desc').trigger('change');
+            });
+
+            $("#mobile-custom-price-asc").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('price_lowest_first').trigger('change');
+            });
+
+            $("#mobile-custom-price-desc").click(function() {
+                $("#custom-sorter-modal").modal("closeModal");   
+                $('#sorter').val('price_highest_first').trigger('change');
+            });
+            
+        }
+    );
+</script>
+
+<style>
+    
+    .modal-popup .modal-header {
+        background: #ff3c00;
+        color: #fff;
+    }
+    
+    .modal-popup .modal-title {
+        border-bottom: none !important;
+        font-size: 19px;
+        font-weight: 600 !important;
+        padding-bottom: 0 !important;
+        margin-top: -15px !important;
+    }
+    
+    .modal-header button.action-close {
+        background: none !important;
+        padding: 0 !important;
+    }
+    
+    .modal-header button.action-close:before {
+        content: '\f00d' !important;
+        font-family: 'Font Awesome 5 Free' !important;
+        font-size: 15px !important;
+        font-weight: 600 !important;
+        color: #fff !important;
+        margin-right: 8px !important;
+    }
+    
+    .modal-footer button {
+        display: none;
+    }
+    
+    .mobile-custom-sorter {
+        margin-top: 15px;
+    }
+    
+    .mobile-custom-sorter div {
+        padding: 10px 0 !important;
+        color: #727272;
+    }
+    
+    .mobile-custom-sorter div:not(:last-child) {
+        border-bottom: 1px solid #cacaca;
+    }
+    
+    .modal-popup .modal-footer {
+        margin-top: auto;
+        padding-bottom: 15px;
+        padding-top: 0;
+    }
+    
+</style>

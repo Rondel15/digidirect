@@ -1,0 +1,340 @@
+<div class="competition-body">
+
+    <div class="competition-content">
+
+        <h2><span class="title-color-orange">digi</span>Club Competition</h2>
+
+        <img class="mainImg" src="<?php echo $block->getUrl("media/wysiwyg/landing-pages/digiclub-competition/")?>digiclub_competition_main_img2.png" width="350" height="250">
+        <p class="title-color-black">Login or Join digiClub and enter below for your chance</p>
+        <h2>to <span class="title-color-orange">Win </span>a</h2>
+        <h2>DJI Mini 4 Pro Drone</h2>
+        <h2>thanks to C.R.Kenndy Australia.</h2>
+
+        <div class="grid-container">
+          <div class="grid-item"> 
+          <img src="<?php echo $block->getUrl("media/wysiwyg/landing-pages/digiclub-competition/")?>competition-closes.png" alt="Competition Closes" width="50" height="50">
+              <p><b>Competition Closes</b><br><span>18 Aug 24</span></p>
+          </div>
+          <div class="grid-item">
+              <img src="<?php echo $block->getUrl("media/wysiwyg/landing-pages/digiclub-competition/")?>winner-aanounced.png" alt="Winner announced" width="50" height="50">
+              <p><b>Winner announced</b><br><span>23 Aug 24</span></p>
+          </div>
+        </div>
+
+        <div class="competition-button">
+            <?php if ($block->checkCustomerSession() && $block->checkCustomerGroup() == 10): ?>
+                <div class="competition-message">
+                    <form id="competitionForm" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl("competitions/index/send")?>">
+                       <p><b>In 25 words or less, what would you capture with your new DJI drone?</b></p>
+                       <textarea  name="message" placeholder="Enter your answer in 25 words or less"></textarea>
+                       <p style="margin-top: 15px; position: relative;">
+                         <input type="checkbox" id="agree" required/>
+                         <label for="agree">
+                           <span class="termscon">I have an Australian postal address and I agree to the competition Terms and Conditions and the digiDirect Privacy Policy.</span>
+                         </label>
+                       </p>
+                      <!-- <button type="submit" id="add" title="" class="action submit-btn primary">SUBMIT</button> -->
+
+                     <?=$block->getChildHtml('form.additional.info') ?>
+
+                     <div class="digiClubCompetitionForm primary">
+                       <input type="hidden" name="hideit" id="hideit" value="" />
+                       <button type="submit" id="add" title="" class="action submit-btn primary">
+                         <span><?= $block->escapeHtml(__('SUBMIT')) ?></span>
+                       </button>
+                     </div>
+                    </form>
+                 </div>
+            <?php elseif ($block->checkCustomerSession() && $block->checkCustomerGroup() != 10) : ?>
+                <div class="join-digiclub-btn">
+                   <a href="https://www.digidirect.com.au/digiclub" id="">Join digiClub Now</a>
+                </div>
+            <?php else: ?>
+                <div class="login-digiclub-btn">
+                   <a href="https://www.digidirect.com.au/digiclubmember/customer/index/digiclub?competition=true" id="">Login to digiClub</a>
+                </div>
+                <div class="join-digiclub-btn">
+                   <a href="https://www.digidirect.com.au/digiclub" id="">Join digiClub Now</a>
+                </div>
+            <?php endif; ?>
+        </div>
+
+         <div class="competition-terms">
+          <p>TERMS:<br>
+          For full terms and conditions, please visit <a href="/competition-terms-and-conditions">here</a>. Only digiClub members who are Australian residents may enter. The Promoter is Digital Imaging Express Pty Ltd (ABN 92 122 703 806) of 11 Burrows Road South, St Peters NSW 2044 (“Promoter”). Entrants must log in to their digiClub account (or alternatively join digiClub and log in). Entrants must remain a digiClub member until the date the competition is drawn. The competition commences on 23/07/24 at 12:00 AM and closes 18/08/24 at 11:59 PM. The winners will be randomly drawn from current members, at the Promoter’s Premises on 23/08/2024 at 11:00 AM. The total number of competition winners in this competition is one. The winners will be notified by email and their names will be published online on our winners page for 90 days from the date of verification of the winner. Only one entry per person will be permitted. Total prize value is up to $1,199 (including GST), as at 1/7/24.
+          </p>
+         </div>
+
+    </div>
+
+</div>
+
+<script>
+require(['jquery'],function($){
+    $(document).ready(function(){
+        $("#add").click(function(){
+        var customurl = "<?php echo $this->getUrl("competitions/index/send") ?>";
+        $.ajax({
+            url: customurl,
+            type: "POST",
+            data: $(this).closest('form').serialize(),
+            dataType: "json",
+            success: function(result){
+                console.log(result);
+            }
+        });
+        $('#competitionForm')[0].reset(); 
+        return false;
+        });
+    });
+
+}); 
+</script>
+
+<style>  
+.competitions-index-index .page-layout-2columns-left .column.main {
+  width: unset !important
+}
+  
+.competitions-index-index.page-layout-3columns .column.main {
+  width: unset !important;
+}
+
+.competitions-index-index.page-layout-3columns .page-title {
+  display: none !important;
+}
+
+.competition-body {
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 35px;
+  color: #262626 !important;
+}
+
+.competition-body h2 {
+    font-size: 25px;
+    font-weight: 700;
+    margin: auto;
+}
+
+.competition-body p {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.title-color-orange {
+    color: #ff6600;
+}
+
+.title-color-black {
+  color: #262626;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+}
+
+.competition-body {
+    border: 0.5px solid #cccccc;
+    background: #F6F6F6;
+}
+
+.competition-content {
+   text-align: center;
+   padding: 25px 85px;
+}
+
+.competition-content .grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin-top: 55px;
+  margin-bottom: 25px;
+}
+
+.grid-item > img, .grid-item > p {
+   display: inline-block !important;
+}
+
+.login-digiclub-btn a{
+  text-decoration: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.join-digiclub-btn a{
+  text-decoration: none;
+  color: #ff6600;
+  font-weight: 600;
+}
+
+
+.competition-button  {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.join-digiclub-btn {
+    padding: 7px 25px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: 2px solid #ff6600;
+}
+
+.login-digiclub-btn {
+    padding: 7px 25px;
+    font-size: 18px;
+    background: #ff6600;
+    border-radius: 50px;
+}
+
+.grid-item {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.grid-item img {
+    object-fit: contain;
+    height: 55px;
+}
+
+.grid-item p {
+    font-size: 22px;
+}
+
+#competitionForm input[type=checkbox]+label:before, input[type=checkbox]+label:after {
+    width: 15px;
+    height: 15px;
+}
+
+.competition-content img.mainImg {
+  margin: 35px 0;
+}
+
+input[type=checkbox]:checked+label:after {
+  width: 11px !important;
+  height: 6px !important;
+}
+
+
+.competition-terms {
+  text-align: left;
+  margin-top: 55px; 
+}
+
+.competition-terms a {
+  color: #ff6600;
+}
+
+.competition-terms a:hover {
+  color: #ff6600;
+  text-decoration: none;
+}
+
+
+
+.competition-message textarea {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100px;
+    font-size: 15px;
+    outline: none;
+    border: 1px solid #cacaca;
+}
+
+.competition-message {
+    text-align: left;
+}
+
+
+.competition-message .submit-btn {
+    background: #ff6600 !important;
+    text-align: center !important;
+    width: 200px !important;
+    margin-top: 25px !important;
+    padding: 10px 0px !important;
+    border-radius: 50px !important;
+    border: 2px solid transparent;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.competition-message .submit-btn:hover {
+    border: none !important;
+    opacity: 0.8;
+    background: #ff6600 !important;
+    text-align: center !important;
+    width: 200px !important;
+    margin-top: 25px !important;
+    padding: 10px 0px !important;
+    border-radius: 50px !important;
+    border: 2px solid transparent;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.agree-policy {
+    position: relative;
+    margin-top: 15px !important;
+}
+
+span.termscon {
+    margin-left: 35px;
+    line-height: 25px;
+}
+
+.agree-policy input[type=checkbox] + label:before, input[type=checkbox] + label:after {
+    position: absolute;
+    left: 0;
+    width: 15px !important;
+    height: 15px !important;
+    margin-top: -10px;
+    top: 10px;
+    content: '';
+}
+
+.agree-policy input[type=checkbox]:checked + label:after {
+    width: 11px !important;
+    height: 6px !important;
+}
+
+
+
+@media screen and (max-width: 780px) {
+    
+   body.competitions-index-index {
+       overflow-y: scroll;
+       overflow-x: hidden;
+   }
+    
+  .competition-body {
+    width: 90% !important;
+    margin: 0 auto;
+    margin-top: 35px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .competition-content {
+    text-align: center;
+    padding: 25px;
+  }
+  
+  .grid-item {
+    display: block !important;
+  }
+
+  .competition-button {
+    display: block;
+  }
+
+  .login-digiclub-btn {
+      margin-bottom: 15px !important;
+  }
+
+}
+
+
+
+
+</style>

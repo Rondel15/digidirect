@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- For AbstractEntity Model compatibility with CollectPlaceInterface-->
+    <type name="Digidirect\CollectAbstractEntity\Model\CollectPlaceRepository">
+        <arguments>
+            <argument name="abstractEntityRepository" xsi:type="object">AbstractEntityCollectRepository</argument>
+        </arguments>
+    </type>
+    <virtualType name="AbstractEntityCollectRepository" type="Digidirect\AbstractEntity\Model\AbstractEntityRepository">
+        <arguments>
+            <argument name="abstractEntityFactory"
+                      xsi:type="object">AbstractEntityCollectFactory</argument>
+            <argument name="abstractEntityCollectionFactory"
+                      xsi:type="object">AbstractEntityCollectCollectionFactory</argument>
+            <argument name="abstractEntityFlatCollectionFactory"
+                      xsi:type="object">AbstractEntityCollectCollectionFlatFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbstractEntityCollectFactory" type="Digidirect\AbstractEntity\Model\AbstractEntityFactory">
+        <arguments>
+            <argument name="instanceName"
+                      xsi:type="string">Digidirect\CollectAbstractEntity\Model\AbstractEntityCollectPlace</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbstractEntityCollectCollectionFactory"
+                 type="Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\CollectionFactory">
+        <arguments>
+            <argument name="instanceName"
+                      xsi:type="string">Digidirect\CollectAbstractEntity\Model\ResourceModel\AbstractEntity\Collect\Collection</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="AbstractEntityCollectCollectionFlatFactory"
+                 type="Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\FlatCollectionFactory">
+        <arguments>
+            <argument name="instanceName"
+                      xsi:type="string">Digidirect\CollectAbstractEntity\Model\ResourceModel\AbstractEntity\Collect\CollectionFlat</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Quote\Model\QuoteRepository">
+        <plugin name="Digidirect_CollectAbstractEntity::Magento\Quote\Model\QuoteRepository"
+                type="Digidirect\CollectAbstractEntity\Plugin\Magento\Quote\Model\QuoteRepository"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteManagement">
+        <plugin name="Digidirect_CollectAbstractEntity::Magento\Quote\Model\QuoteManagement"
+                type="Digidirect\CollectAbstractEntity\Plugin\Magento\Quote\Model\QuoteManagement"/>
+    </type>
+    <type name="Digidirect\Collect\Helper\Config\Address">
+        <plugin name="Digidirect_CollectAbstractEntity::Digidirect\Collect\Helper\Config\Address"
+                type="Digidirect\CollectAbstractEntity\Plugin\Digidirect\Collect\Helper\Config\Address" sortOrder="1000"/>
+    </type>
+
+    <virtualType name="CheckoutConfigCollectPlaceInformationObserver"
+                 type="Digidirect\CollectAbstractEntity\Observer\Collect\AddPrefillFields">
+        <arguments>
+            <argument name="injectToParam" xsi:type="string">info</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="ApplyCollectPlaceToAllItemsResultObserver"
+                 type="Digidirect\CollectAbstractEntity\Observer\Collect\AddPrefillFields">
+        <arguments>
+            <argument name="injectToParam" xsi:type="string">result</argument>
+        </arguments>
+    </virtualType>
+</config>

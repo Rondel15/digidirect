@@ -1,0 +1,21 @@
+<?php
+/** @var $block \Digidirect\StoreLocator\Block\ListStore\DetailPage */
+?>
+<div class="dscrptn" style="text-align:center;margin-left:20%;margin-right:20%;">
+    <?php echo $block->getChildHtml('storelocator.description'); ?>
+</div> 
+<div class="grid-row store-view test-class">
+    <div class="store-wrapper column -left">
+        <?php echo $block->getChildHtml('abstractentity_additional_info'); ?>
+        <?php echo $block->getChildHtml('storelocator.details'); ?>
+    </div>
+    <div class="google-map-wrapper column -main">
+        <?php echo $block->getChildHtml('storelocator.map'); ?>
+    </div>
+</div>
+
+<div class="grid-bottom">
+    <?php echo $block->getChildHtml('storelocator.directions'); ?>
+</div>
+
+<?php echo $block->getChildHtml('storelocator.view.after'); ?>

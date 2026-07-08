@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+  <table name="mageplaza_webhook_hook" resource="default" engine="innodb" comment="Hook Table">
+    <column xsi:type="int" name="hook_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Feed Id"/>
+    <column xsi:type="varchar" name="name" nullable="false" length="255" comment="Name"/>
+    <column xsi:type="int" name="status" padding="11" unsigned="false" nullable="false" identity="false" comment="Hook Status"/>
+    <column xsi:type="varchar" name="store_ids" nullable="false" length="64" comment="Stores"/>
+    <column xsi:type="varchar" name="hook_type" nullable="false" length="64" comment="Hook Type"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="true" identity="false" comment="Priority"/>
+    <column xsi:type="text" name="payload_url" nullable="false" comment="Payload URL"/>
+    <column xsi:type="varchar" name="method" nullable="true" length="64" comment="Method"/>
+    <column xsi:type="varchar" name="authentication" nullable="true" length="64" comment="Authentication"/>
+    <column xsi:type="varchar" name="username" nullable="true" length="255" comment="Username"/>
+    <column xsi:type="text" name="realm" nullable="true" comment="Realm"/>
+    <column xsi:type="varchar" name="password" nullable="true" length="255" comment="Password"/>
+    <column xsi:type="varchar" name="nonce" nullable="true" length="255" comment="Nonce"/>
+    <column xsi:type="varchar" name="algorithm" nullable="true" length="255" comment="Algorithm"/>
+    <column xsi:type="varchar" name="qop" nullable="true" length="255" comment="qop"/>
+    <column xsi:type="varchar" name="nonce_count" nullable="true" length="255" comment="Nonce Count"/>
+    <column xsi:type="varchar" name="client_nonce" nullable="true" length="255" comment="Client Nonce"/>
+    <column xsi:type="varchar" name="opaque" nullable="true" length="255" comment="Opaque"/>
+    <column xsi:type="mediumtext" name="headers" nullable="true" comment="Header"/>
+    <column xsi:type="varchar" name="content_type" nullable="true" length="64" comment="Content-type"/>
+    <column xsi:type="mediumtext" name="body" nullable="true" comment="Header"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Update At"/>
+    <column xsi:type="varchar" name="order_status" nullable="true" length="255" comment="Order Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="hook_id"/>
+    </constraint>
+  </table>
+  <table name="mageplaza_webhook_history" resource="default" engine="innodb" comment="Product Feed Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Log Id"/>
+    <column xsi:type="int" name="hook_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Hook Id"/>
+    <column xsi:type="varchar" name="hook_name" nullable="true" length="255" comment="Hook Name"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="64" comment="Log Status"/>
+    <column xsi:type="varchar" name="store_ids" nullable="false" length="64" comment="Stores"/>
+    <column xsi:type="varchar" name="hook_type" nullable="false" length="64" comment="Hook Type"/>
+    <column xsi:type="mediumtext" name="response" nullable="true" comment="Response"/>
+    <column xsi:type="int" name="priority" padding="11" unsigned="false" nullable="true" identity="false" comment="Priority"/>
+    <column xsi:type="text" name="payload_url" nullable="false" comment="Payload URL"/>
+    <column xsi:type="text" name="message" nullable="true" comment="Message"/>
+    <column xsi:type="mediumtext" name="body" nullable="true" comment="Body"/>
+    <column xsi:type="timestamp" name="created_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Created At"/>
+    <column xsi:type="timestamp" name="updated_at" on_update="false" nullable="true" default="CURRENT_TIMESTAMP" comment="Update At"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="foreign" referenceId="MAGEPLAZA_WEBHOOK_HISTORY_HOOK_ID_MAGEPLAZA_WEBHOOK_HOOK_HOOK_ID" table="mageplaza_webhook_history" column="hook_id" referenceTable="mageplaza_webhook_hook" referenceColumn="hook_id" onDelete="CASCADE"/>
+    <index referenceId="MAGEPLAZA_WEBHOOK_HISTORY_HOOK_ID" indexType="btree">
+      <column name="hook_id"/>
+    </index>
+  </table>
+  <table name="mageplaza_webhook_cron_schedule" resource="default" engine="innodb" comment="Cron Schedule Table">
+    <column xsi:type="int" name="id" padding="10" unsigned="true" nullable="false" identity="true" comment="Schedule ID"/>
+    <column xsi:type="varchar" name="hook_type" nullable="true" length="255" comment="Hook Type"/>
+    <column xsi:type="int" name="event_id" padding="10" unsigned="true" nullable="false" identity="false" comment="Event ID"/>
+    <column xsi:type="varchar" name="status" nullable="true" length="10" comment="Status"/>
+    <constraint xsi:type="primary" referenceId="PRIMARY">
+      <column name="id"/>
+    </constraint>
+    <constraint xsi:type="unique" referenceId="MAGEPLAZA_WEBHOOK_CRON_SCHEDULE_ID">
+      <column name="id"/>
+    </constraint>
+  </table>
+</schema>

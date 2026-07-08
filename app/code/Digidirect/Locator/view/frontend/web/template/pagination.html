@@ -1,0 +1,60 @@
+<div class="pages">
+    <ul class="items">
+        <!-- ko if: $parent.hasPrevPage() -->
+        <li class="item pages-item-previous">
+            <a class="action previous" data-bind="attr: {href: '#previous', title: $t('Previous')}, click: $parent.prevItem.bind($parent)">
+                <span data-bind="text: $t('Previous')"></span>
+            </a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko if: $parent.canShowFirst() -->
+        <li class="item" data-bind="attr: {title: '1'}">
+            <a class="page" data-bind="text: '1', attr: {href: '#page' + '1'}, click: function(){$parent.goToPage(1)}"></a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko if: $parent.canShowPreviousJump() -->
+        <li class="item">
+            <a class="page jump" data-bind="attr: {href: '#page' + $parent.getPreviousJumpPage(), title: '...'}, click: function(){$parent.goToPage($parent.getPreviousJumpPage())}">
+                <span data-bind="text: '...'"></span>
+            </a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko foreach: { data: $parent.pager(), as: 'item' } -->
+            <!-- ko if: $parents[1].isCurrentPage(item) -->
+            <li class="item" data-bind="attr: {title: item}">
+                <strong class="page" data-bind="text: item"></strong>
+            </li>
+            <!-- /ko -->
+            <!-- ko ifnot: $parents[1].isCurrentPage(item) -->
+            <li class="item current" data-bind="attr: {title: item}">
+                <a class="page" data-bind="text: item, attr: {href: '#page' + item}, click: function(){$parents[1].goToPage(item)}"></a>
+            </li>
+            <!-- /ko -->
+        <!-- /ko -->
+
+        <!-- ko if: $parent.canShowNextJump() -->
+        <li class="item">
+            <a class="page jump" data-bind="attr: {href: '#page' + $parent.getNextJumpPage(), title: '...'}, click: function(){$parent.goToPage($parent.getNextJumpPage())}">
+                <span data-bind="text: '...'"></span>
+            </a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko if: $parent.canShowLast() -->
+        <li class="item" data-bind="attr: {title: $parent.lastPage()}">
+            <a class="page" data-bind="text: $parent.lastPage(), attr: {href: '#page' + $parent.lastPage()}, click: function(){$parent.goToPage($parent.lastPage())}"></a>
+        </li>
+        <!-- /ko -->
+
+        <!-- ko if: $parent.hasNextPage() -->
+        <li class="item pages-item-next">
+            <a class="action next" data-bind="attr: {href: '#next', title: $t('Next')}, click: $parent.nextItem.bind($parent)">
+                <span data-bind="text: $t('Next')"></span>
+            </a>
+        </li>
+        <!-- /ko -->
+    </ul>
+</div>

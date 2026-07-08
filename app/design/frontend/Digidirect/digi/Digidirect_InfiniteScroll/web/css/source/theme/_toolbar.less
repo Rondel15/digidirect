@@ -1,0 +1,170 @@
+//
+//  Toolbar-sorter
+//  _____________________________________________
+
+//  ____________________________________________
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .desktop-row .toolbar-sorter,
+    .toolbar-products .desktop-row .sorter.-mobile {
+        .sorter-action {
+            margin: 0;
+        }
+
+        .sorter-action.-active {
+            pointer-events: none;
+        }
+
+        .sorter-action.sort-desc.-active::before {
+            content: '';
+            .lib-css(background-image, @base64-icon__sort-decr-black);
+        }
+
+        .sorter-action.sort-desc.-passive::before {
+            content: '';
+            .lib-css(background-image, @base64-icon__sort-decr-gray);
+        }
+
+        .sorter-action.sort-asc.-active::before {
+            content: '';
+            .lib-css(background-image, @base64-icon__sort-incr-black);
+        }
+
+        .sorter-action.sort-asc.-passive::before {
+            content: '';
+            .lib-css(background-image, @base64-icon__sort-incr-gray);
+        }
+    }
+    
+    //Rondel Changes
+    
+    .sorter-action {
+        margin: 0 !important;
+    }
+    
+    .sorter-action.sort-desc.-active::before {
+        content: '';
+        .lib-css(background-image, @base64-icon__sort-decr-black);
+    }
+
+    .sorter-action.sort-desc.-passive::before {
+        content: '';
+        .lib-css(background-image, @base64-icon__sort-decr-gray);
+    }
+
+    .sorter-action.sort-asc.-active::before {
+        content: '';
+        .lib-css(background-image, @base64-icon__sort-incr-black);
+    }
+
+    .sorter-action.sort-asc.-passive::before {
+        content: '';
+        .lib-css(background-image, @base64-icon__sort-incr-gray);
+    }
+
+    .toolbar-products .desktop-row .sorter.-mobile {
+        & {
+            //flex-wrap: wrap;
+            flex-wrap: initial;
+            justify-content: flex-start;
+        }
+
+        .sort-label-wrapper {
+            display: block;
+            flex-basis: 100%;
+            .lib-css(border-right, 0px solid @color-4-3);
+            min-width: 80px;
+            display: none !important;
+        }
+
+        .sorter-trigger {
+            display: block;
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .sorter-mobile-wrapper {
+            flex-basis: 50%;
+            min-width: 100px;
+            display: none;
+        }
+
+        .sort-label-mobile {
+            display: block;
+            text-align: left;
+            //padding-left: 20px;
+            padding-left: 10px;
+        }
+
+        .sort-label-mobile span {
+            display: none;
+        }
+
+        .sort-label-mobile span.selected {
+            display: block;
+            //font-size: 8px;
+            //font-weight: bold;
+            .lib-css(color, @color-2-1);
+            font-size: 15px;
+            font-weight: 500;
+        }
+    }
+}
+
+//Mobile 
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    
+    .selectric-wrapper {
+        margin-left: -10px;
+    }
+    
+    .custom-sorter-mobile {
+        width: 120px;
+    }
+    
+    .selectric-wrapper .selectric {
+        padding-right: 0 !important;
+        padding-left: 10px !important;
+        border-top: 0 !important;
+        border-right: 0 !important;
+        border-left: 0 !important;
+        border-bottom: 1px solid #cfcfcf;
+    }
+    
+    .selectric-wrapper .selectric .button {
+        top: 0 !important;
+        width: 20px;
+        height: 20px;
+        right: -5px !important;
+    }
+    
+    .selectric-wrapper .selectric {
+        background: none !important;
+        border-width: 1px !important;
+    }
+    
+    .selectric-wrapper .selectric .label {
+        line-height: 20px;
+        height: 20px;
+        text-transform: capitalize;
+        font-weight: 500;
+        font-size: 14px;
+        padding: 0 !important;
+    }
+    
+    .selectric-wrapper .selectric-items li {
+        font-size: 13px !important;
+        font-weight: 500 !important;
+        text-transform: capitalize !important;
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .sorter-mobile-wrapper {
+        flex-basis: 50%;
+        min-width: none;
+    }
+}

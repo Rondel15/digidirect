@@ -1,0 +1,60 @@
+//
+//  Theme: Gallery
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .gallery-placeholder {
+        & {
+            max-width: 335px;
+            margin: 0 auto;
+        }
+
+        .loading-mask .loader {
+            position: absolute;
+            z-index: -1;
+        }
+        .loading-mask .loader img {
+            position: static;
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .gallery-placeholder {
+        max-width: 320px;
+    }
+
+    .fotorama__nav__shaft {
+        //margin-top: 11px;
+    }
+}
+
+//
+//  Desktop large
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .gallery-placeholder {
+        max-width: 550px;
+        margin-top: 60px;
+    }
+
+    .fotorama__nav__shaft {
+        margin-top: 0;
+    }
+
+    .fotorama__nav-wrap--horizontal {
+        position: relative;
+        //top: -10px;
+        //margin-bottom: -20px;
+        //margin-top: -85px;
+    }
+}

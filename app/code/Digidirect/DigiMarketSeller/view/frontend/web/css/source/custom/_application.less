@@ -1,0 +1,423 @@
+
+* #digimarketseler_form_application {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+}
+
+#digimarketseler_form_application {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  // background: #333;
+  margin-bottom: 55px;
+
+  .container {
+      width: 70%;
+      background: #fff;
+      // text-align: center;
+      border-radius: 5px;
+      padding: 65px 35px 10px 35px;
+      color: #323232;
+      // margin-top: -55px;
+      border: 1px solid #aaa;
+      // padding: 50px 35px;
+      margin-top: 35px !important;
+  }
+
+  header {
+      font-size: 28px;
+      font-weight: 600;
+      margin: 0 0 50px 0;
+      // color: #ff6600;
+      text-align: center;
+  }
+
+  .title-text-orange {
+    color: #ff6600;
+  }
+
+  .checklist-row {
+    margin-top: 15px;
+
+    ul {
+      columns: 4;
+      -webkit-columns: 4;
+      -moz-columns: 4;
+      list-style: none;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: unset !important;
+    }
+
+    input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      position: relative !important;
+      margin: unset !important;
+    }
+    
+  }
+
+  .margin-top-extra {
+    margin-top: 25px;
+  }
+
+  #seller_country_select, #seller_country_select2, #products_intend, #annual_sales {
+    margin: 10px 0;
+  }
+
+  select {
+    border:none;
+    border-bottom: 1px solid #b6b6b6;
+    border-radius: 0 !important;
+    outline:none;
+    padding: unset !important;
+
+    option {
+      color: #323232;
+    }
+
+    option[value=""][disabled] {
+      display: none;
+    }
+    
+  }
+
+// // multi-select
+// .select2-results__options[aria-multiselectable="true"] li {
+//   padding-left: 30px;
+//   position: relative
+// }
+
+// .select2-results__options[aria-multiselectable="true"] li:before {
+//   position: absolute;
+//   left: 8px;
+//   opacity: .6;
+//   top: 6px;
+//   font-family: "FontAwesome";
+//   content: "\f0c8";
+// }
+
+// .select2-results__options[aria-multiselectable="true"] li[aria-selected="true"]:before {
+//   content: "\f14a";
+// }
+
+// // end multi-select
+
+  .input-placeholder {
+    position: relative;
+  }
+
+  .input-placeholder input {
+    padding: 2px;
+  }
+
+  .input-placeholder input:valid + .placeholder {
+      display: none;
+  }
+
+
+  .placeholder-remove + .placeholder{
+    display: none !important;
+  }
+
+  .select-title>select:valid ~ .title-label {
+      display: none;
+  }
+
+  .placeholder {
+    position: absolute;
+    pointer-events: none;
+    // top: 2px;
+    bottom: 20px;
+    left: 6px;
+    margin: auto;
+    color: gray;
+  }
+
+  .placeholder span {
+    color: red;
+  }
+
+  .label-title {
+    span {
+      color: red;
+    }
+  }
+
+  #faxnumber {
+    display: none;
+  }
+
+  .error {color: #FF0000;}
+
+}
+
+#digimarketseler_form_application input, #digimarketseler_form_application textarea {
+  
+  border: none;
+  border-bottom: 1px solid #b6b6b6;
+  border-radius: 0 !important;
+  outline:none;
+  font-family: 'Poppins',sans-serif;
+  margin: 5px 0px;
+
+}
+
+#digimarketseler_form_application .inline-row {
+  display: block;
+
+  .row1 {
+      display: inline-block;
+      width: 49.9%;
+  }
+
+  .row1:first-child {
+      padding-right: 5px;
+  }
+
+  .row1:nth-child(2) {
+      padding-left: 5px;
+  }
+
+}
+
+#digimarketseler_form_application input[type=file] {
+  display:none;
+}
+
+.uploadfile {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  color: #cccccc;
+  border: 1px solid #b6b6b6;
+  margin: 15px 0;
+}
+
+.drop-zone--over {
+  border-style: solid;
+}
+
+.drop-zone__input {
+  display: none;
+}
+
+.drop-zone__prompt1 {
+  color: #ff6600;
+  margin-right: 5px;
+}
+
+.drop-zone__prompt2 {
+  color: #737373;
+}
+
+.drop-zone__thumb {
+  width: 50%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: transparent;
+  background-size: cover;
+  position: relative;
+  background-image: unset !important;
+}
+
+.drop-zone__thumb::after {
+  content: attr(data-label);
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+  background: rgba(0, 0, 0, 0.75);
+  font-size: 14px;
+  text-align: center;
+}
+
+
+#digimarketseler_form_application input[type=submit] {
+  background: #ff6600;
+  border-radius: 25px;
+  border-radius: 25px;
+  padding: 10px 28px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.successmessage {
+  background: #e5efe5;
+  color: #006400;
+  padding: 15px 14px;
+  margin-top: 25px !important;
+}
+
+
+@media screen and (max-width: 668px) {
+ 
+  #digimarketseler_form_application {
+      width: 100%;
+      // width: 400px;
+      display: block;
+
+      .container {
+          margin-top: unset;
+          padding: 15px;
+      }
+
+      .checklist-row {
+        margin-top: 15px;
+    
+        ul {
+          columns: 2;
+          -webkit-columns: 2;
+          -moz-columns: 2;
+          list-style: none;
+          margin-top: 10px;
+          margin-bottom: 15px;
+        }
+    
+        li {
+          margin-bottom: unset !important;
+        }
+    
+        input[type="checkbox"] {
+          width: 15px;
+          height: 15px;
+          position: relative !important;
+          margin: unset !important;
+        }
+        
+      }
+
+  }
+  
+
+}
+
+@media screen and (max-width: 490px) {
+  #digimarketseler_form_application {
+      width: 100%;
+      display: block;
+
+      .container {
+          box-sizing: border-box;
+          border-radius: 0;
+          padding: 15px;
+          width: 100%;
+      }
+  }
+
+  .container header {
+      font-size: 22px !important;
+      margin: 0 0 50px 0;
+  }
+
+  .checklist-row {
+    margin-top: 15px;
+
+    ul {
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+      list-style: none;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: unset !important;
+    }
+
+    input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      position: relative !important;
+      margin: unset !important;
+    }
+    
+  }
+
+
+}
+
+@media screen and (max-width: 780px) {
+#digimarketseler_form_application .inline-row {
+  display: block;
+
+  .row1 {
+      display: block;
+      width: 100%;
+  }
+
+  .row1:first-child {
+      padding-right: unset;
+  }
+
+  .row1:nth-child(2) {
+      padding-left: unset;
+  }
+
+  .margin-top-extra {
+    margin-top: 15px !important;
+  }
+
+  select {
+    height: 40px;
+  }
+
+  .select-title .placeholder {
+    bottom: 10px !important;
+  }
+
+  #seller_country_select, #seller_country_select2, #products_intend, #annual_sales {
+    margin: unset;
+  }
+
+
+  .checklist-row {
+    margin-top: 15px;
+
+    ul {
+      columns: 2;
+      -webkit-columns: 2;
+      -moz-columns: 2;
+      list-style: none;
+      margin-top: 10px;
+      margin-bottom: 15px;
+    }
+
+    li {
+      margin-bottom: unset !important;
+    }
+
+    input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      position: relative !important;
+      margin: unset !important;
+    }
+    
+  }
+
+}
+
+
+}
+
+
+
+
+

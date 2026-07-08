@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_seo>
+            <general>
+                <enable_trailing_slash>1</enable_trailing_slash>
+                <enable_contextual_redirects>0</enable_contextual_redirects>
+            </general>
+        </digidirect_seo>
+    </default>
+</config>

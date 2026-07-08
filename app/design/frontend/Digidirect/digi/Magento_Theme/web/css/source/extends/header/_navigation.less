@@ -1,0 +1,4031 @@
+
+/*
+   Created on : Feb 8, 2021, 11:34:14 AM
+   Author     : Johnry Valeriano
+   Co Author  : Rondel Dalumpines
+*/
+//
+//  Variables
+//  _____________________________________________
+
+@active-nav-indent: 54px;
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .nav-sections-item-content>.navigation {
+        display: none !important;
+    }
+
+    .ninjamenus1-drilldown-container{
+        width: 100%;
+    }
+
+    .panel.header {
+        .links,
+        .switcher {
+            display: none;
+        }
+    }
+
+    .nav-toggle {
+        .lib-icon-font(
+            @icon-menu,
+            @_icon-font-size: 28px,
+            @_icon-font-color: @header-icons-color,
+            @_icon-font-color-hover: @header-icons-color-hover
+        );
+        .lib-icon-text-hide();
+        cursor: pointer;
+        display: block;
+        font-size: 0;
+        left: 15px;
+        position: absolute;
+        top: 15px;
+        z-index: 1;
+    }
+
+    .nav-toggle {
+        width: auto;
+        padding-top: 15px;
+        padding-right: 15px;
+        box-sizing: content-box;
+        color: #000 !important;
+        display: unset !important;
+    }
+
+    .shop-by-brands-menu-new img {
+        width: 150px !important;
+        padding: 10px;
+    }
+    .shop-by-brands-menu-new img:hover {
+        -ms-transform: scale(1.1); /* IE 9 */
+        -webkit-transform: scale(1.1); /* Safari 3-8 */
+        transform: scale(1.1);
+
+    }
+
+    .shop-by-brands-menu-new .full_width_row {
+        height: 500px;
+        overflow-y: scroll;
+    }
+
+    .cameras-tab .block-brand-feature .brand-image,
+    .lenses-tab .block-brand-feature .brand-image,
+    .drones-tab .block-brand-feature .brand-image,
+    .lenses-tab .block-brand-feature .brand-image,
+    .lightstudio-tab .block-brand-feature .brand-image,
+    .photoacce-tab .block-brand-feature .brand-image,
+    .optics-tab .block-brand-feature .brand-image,
+    .audiovisual-tab .block-brand-feature .brand-image,
+    .provideo-tab .block-brand-feature .brand-image,
+    .smarthome-tab .block-brand-feature .brand-image,
+    .computers-tab .block-brand-feature .brand-image {
+        padding: 5px;
+    }
+
+    .whitebg:hover {
+        background-color: #FF3C00 !important;
+        span.title{
+            color: #fff !important;
+        }
+    }
+
+    img#digi-white-logo {
+        padding: 40px 0 0 30px;
+        width: 200px;
+    }
+
+    .mobile-menu-main-exit {
+        display: block;
+        color: #727272;
+        font-size: 23px;
+        padding: 25px 0 0 15px;
+    }
+
+    #mobile-menu-only-header {
+        //margin-bottom: 20px;
+        background: #fff !important;
+        display: flex;
+    }
+
+    #menu-mobile-span-signin {
+        display: flex;
+        position: absolute;
+        right: 15px;
+        padding: 26px 0 0 0;
+    }
+
+    .mobile-menu-signin i, .mobile-menu-minicart i {
+        font-size: 18px;
+        color: #000;
+    }
+
+    #mobile-menu-only-header .whitebg, #mobile-menu-only-header .orangebg {
+        display: none !important;
+    }
+
+    .mobile-menu-signin {
+        //margin-right: 25px;
+        font-size: 14px;
+    }
+
+    #mobile-menu-only-header > span > a {
+        color: #727272;
+        text-align: right;
+        margin-top: -10px !important;
+        display: block;
+        padding-top: 10px;
+        padding-right: 0;
+        padding-bottom: 10px;
+        padding-left: 15px;
+    }
+
+    .ninjamenus-mobile .drilldown-opener {
+        font-size: 12px !important;
+        margin-right: 16px;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/camera.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/lens.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/drone.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/electronic-toy.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/home.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/collectibles.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/fitness.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/seasonal-tech.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/musical-instrument.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/lightingandstudio.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/optics-lens.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title a:before {
+        content: "";
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.photography-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/photography.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.computersmonitors-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/computersandmonitors.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.mobilephonestablets-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/mobilephonesandtablets.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/audiovisual.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.educationbusiness-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/educationandbusiness.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.entertainment-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/entertainment.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.gamingstreaming-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/gamingandstreaming.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.homeoffice-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/homeoffice.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.memorystorage-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/memoryandstorage.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.outdooradventure-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/outdoorandadventure.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/provideo.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/smarthome.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.toysmerchandise-tab-menu a:before {
+        background-image: url(/media/wysiwyg/main-menu/icons/toysandmerchandise.png) !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:before {
+        content: "";
+        //background-image: url(/media/wysiwyg/main-menu/icons/provideo.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:before {
+        content: "";
+        //background-image: url(/media/wysiwyg/main-menu/icons/smarthome.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/mobiletablets.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .digiservices-listing-mobile a:hover {
+        text-decoration: none !important;
+    }
+
+    /* Style the tab */
+    .tab {
+        float: left;
+        width: 100%;
+        margin-left: 40px;
+        margin-bottom: 40px;
+    }
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 20px 0;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+        font-weight: 500;
+        border-bottom: 1px dashed #cacaca;
+        font-family: 'Poppins';
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        color: #ff3c00 !important;
+    }
+
+    /* Create an active/current "tab button" class */
+    .tab button.active {
+        color: #ff3c00 !important;
+        background-color: #fff !important;
+    }
+
+    .tab button:hover {
+        color: #ff3c00 !important;
+        background: none !important;
+        border: none !important;
+        border-bottom: 1px solid #cacaca !important;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        width: 100%;
+        //height: 300px;
+        display: none;
+    }
+
+    .menu-raw-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 650px !important;
+        z-index: 99;
+    }
+
+    .menu-second-level {
+        margin: 40px 0 0 40px;
+        display: inline-block;
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .menu-second-level > h3, .menu-third-level h3  {
+        font-size: 16px;
+        font-weight: 500;
+        color: #ff3c00;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        margin-top: 0;
+    }
+
+    .menu-third-level {
+        padding: 30px;
+        width: 100%;
+        border-left: 1px solid #cacaca;
+    }
+
+    .menu-third-level h3 {
+        margin-top: 10px;
+    }
+
+    .menu-third-level-links {
+        margin-left: 40px;
+        width: 190px;
+    }
+
+    .menu-third-level-links a {
+        display: block;
+        background-color: inherit;
+        color: black;
+        padding: 20px 0;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 14px;
+        font-weight: 500;
+        border-bottom: 1px solid #cacaca;
+        margin-left: 40px 40px 0 40px;
+        text-decoration: none !important;
+    }
+
+    .menu-third-level-links a:hover {
+        color: #ff3c00;
+        transition: .5s;
+    }
+
+    #sbc-giftcards, #collectibles-tab-menu {
+        position: relative;
+    }
+
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .nav-sections{
+        background: #fff;
+
+        .nav-sections-item-title{
+            display: none;
+        }
+    }
+
+    .navigation {
+        &{
+            background: #fff !important;
+        }
+
+        padding: 0;
+
+        .parent {
+            .level-top {
+                position: relative;
+                .lib-icon-font(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-size: 42px,
+                    @_icon-font-position: after,
+                    @_icon-font-display: block
+                );
+
+                &:after {
+                    position: absolute;
+                    right: 7px;
+                    top: -8px;
+                }
+
+                &.ui-state-active {
+                    .lib-icon-font-symbol(
+                        @_icon-font-content: @icon-up,
+                        @_icon-font-position: after
+                    );
+                }
+            }
+        }
+    }
+
+    .nav-sections {
+        -webkit-overflow-scrolling: touch;
+        .lib-css(transition, left .3s, 1);
+        height: 100%;
+        left: -80%;
+        left: calc(~'-1 * (100%)');
+        overflow: auto;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+
+        .switcher {
+            border-top: 1px solid @color-gray82;
+            font-size: 1.6rem;
+            font-weight: @font-weight__bold;
+            margin: 0;
+            padding: .8rem 3.5rem .8rem 2rem;
+
+            .label {
+                display: block;
+                margin-bottom: @indent__xs;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid @color-gray82;
+            }
+        }
+
+        .switcher-trigger {
+            strong {
+                position: relative;
+                .lib-icon-font(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-size: 42px,
+                    @_icon-font-position: after,
+                    @_icon-font-display: block
+                );
+
+                &:after {
+                    position: absolute;
+                    right: -40px;
+                    top: -16px;
+                }
+            }
+
+            &.active strong {
+                .lib-icon-font-symbol(
+                    @_icon-font-content: @icon-up,
+                    @_icon-font-position: after
+                );
+            }
+        }
+
+        .switcher-dropdown {
+            .lib-list-reset-styles();
+            display: none;
+            padding: @indent__s 0;
+        }
+
+        .switcher-options {
+            &.active {
+                .switcher-dropdown {
+                    display: block;
+                }
+            }
+        }
+        .header.links {
+            .lib-list-reset-styles();
+            border-bottom: 1px solid @color-gray82;
+
+            li {
+                font-size: 1.6rem;
+                margin: 0;
+
+                &.greet.welcome {
+                    border-top: 1px solid @color-gray82;
+                    font-weight: @font-weight__bold;
+                    padding: .8rem @submenu__padding-left;
+                }
+
+                > a {
+                    border-top: 1px solid @color-gray82;
+                }
+            }
+
+            a,
+            a:hover {
+                .lib-css(color, @navigation-level0-item__color);
+                .lib-css(text-decoration, @navigation-level0-item__text-decoration);
+                display: block;
+                font-weight: @font-weight__bold;
+                padding: .8rem @submenu__padding-left;
+            }
+
+            .header.links {
+                border: 0;
+            }
+        }
+    }
+
+    .nav-before-open {
+        height: 100%;
+        overflow-x: hidden;
+        width: 100%;
+
+        .page-wrapper {
+            .lib-css(transition, left .3s, 1);
+            height: 100%;
+            left: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body {
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+    }
+
+    .nav-open {
+        .nav-sections {
+            @_shadow: 0 0 5px 0 rgba(50, 50, 50, .75);
+
+            .lib-css(box-shadow, @_shadow, 1);
+            left: 0;
+            z-index: 99;
+            //min-width: 445px;
+            max-width: 445px;
+        }
+
+        .nav-toggle {
+            &:after {
+                background: rgba(0, 0, 0, @overlay__opacity);
+                content: '';
+                display: block;
+                height: 100%;
+                position: fixed;
+                right: 0;
+                top: 0;
+                width: 100%;
+                z-index: 1;
+            }
+        }
+    }
+
+    .nav-sections-items {
+        .lib-clearfix();
+        position: relative;
+        z-index: 1;
+    }
+
+    .nav-sections-item-title {
+        background: darken(@navigation__background, 5%);
+        border: solid darken(@navigation__background, 10%);
+        border-width: 0 0 1px 1px;
+        box-sizing: border-box;
+        float: left;
+        height: 71px;
+        padding-top: 24px;
+        text-align: center;
+        width: 33.33%;
+
+        &.active {
+            background: transparent;
+            border-bottom: 0;
+        }
+
+        .nav-sections-item-switch {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .nav-sections-item-content {
+        .lib-clearfix();
+        box-sizing: border-box;
+        float: right;
+        margin-left: -100%;
+        margin-top: 0;
+        width: 100%;
+        background: none !important;
+
+        &.active {
+            display: block;
+        }
+
+        padding: 0;
+    }
+
+    .lib-main-navigation();
+
+    .ninjamenus-top-triggered {
+
+        &{
+            position: static !important;
+            width: auto;
+            padding-top: 15px;
+            padding-right: 15px;
+            box-sizing: content-box;
+            display: block !important;
+            background: none !important;
+        }
+
+        &::before{
+            display: none !important;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item > a
+    {
+        .title{
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 15px;
+        }
+    }
+
+    .left-hand-category-wrapper{
+        &{
+            background: #fff;
+        }
+
+        .mgz-element-inner{
+            padding: 0 !important;
+        }
+
+        .nav-item > a{
+            padding: 0 15px;
+        }
+    }
+
+    .ninjamenus-drilldown-back{
+        .drilldown-back{
+            &::before{
+                color: #fff;
+            }
+        }
+    }
+
+    .ninjamenus-current-link{
+        background: #FF3C00 !important;
+        color: #fff;
+    }
+
+    .more-brand-wrapper,
+    .also-category-header,
+    .helpful-links{
+        display: none;
+    }
+
+    //clint mobile
+    .navigation .level0 {
+        border: none !important;
+    }
+    .ninjamenus.ninjamenus-mobile .nav-item > a {
+        padding: 0 30px;
+    }
+    .ninjamenus.ninjamenus-mobile .nav-item > a .title {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 13px;
+
+    }
+
+    .ninjamenus .drilldown-opener {
+        position: absolute;
+        right: 15px;
+        top: 0px;
+        cursor: pointer;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 700;
+    }
+
+    .mgz-tabs-nav .mgz-tabs-tab-title {
+        display: block;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/camera.svg') !important;
+
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lens.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lightingandstudio.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/optics-lens.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/audiovisual.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a  {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/provideo.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/smarthome.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        border: none;
+        border-radius: 0;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/mobiletablets.svg') !important;
+        i {
+            position: absolute;
+            right: 20px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a span{
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.retract {
+        //width: 100px !important;
+        width: 95px !important;
+    }
+
+    .mgz-tabs-content {
+        position: absolute;
+        top: 0px;
+        left: 110px;
+        background: #ffffff;
+    }
+
+    .cameras-tab,
+    .lenses-tab,
+    .drones-tab,
+    .lenses-tab,
+    .lightstudio-tab,
+    .photoacce-tab,
+    .optics-tab,
+    .audiovisual-tab,
+    .provideo-tab,
+    .smarthome-tab,
+    .computers-tab {
+        background: #ffffff;
+    }
+
+    .cameras-sub-tab .mgz-element-heading-text,
+    .lenses-sub-tab .mgz-element-heading-text,
+    .drones-sub-tab .mgz-element-heading-text,
+    .lightstudio-sub-tab .mgz-element-heading-text,
+    .photoacce-sub-tab .mgz-element-heading-text,
+    .optics-sub-tab .mgz-element-heading-text,
+    .audiovisual-sub-tab .mgz-element-heading-text,
+    .provideo-sub-tab .mgz-element-heading-text,
+    .smarthome-sub-tab .mgz-element-heading-text,
+    .computers-sub-tab .mgz-element-heading-text {
+        font-size: 13px;
+    }
+
+    .cameras-sub-tab .nav-item a ,
+    .lenses-sub-tab .nav-item a ,
+    .drones-sub-tab .nav-item a ,
+    .lightstudio-sub-tab .nav-item a ,
+    .photoacce-sub-tab .nav-item a ,
+    .optics-sub-tab .nav-item a ,
+    .audiovisual-sub-tab .nav-item a ,
+    .provideo-sub-tab .nav-item a ,
+    .smarthome-sub-tab .nav-item a ,
+    .computers-sub-tab .nav-item a  {
+        line-height: 20px !important;
+        padding: 0 5px !important;
+    }
+    .cameras-sub-tab .nav-item a span,
+    .lenses-sub-tab .nav-item a span,
+    .drones-sub-tab .nav-item a span,
+    .lightstudio-sub-tab .nav-item a span,
+    .photoacce-sub-tab .nav-item a span,
+    .optics-sub-tab .nav-item a span,
+    .audiovisual-sub-tab .nav-item a span,
+    .provideo-sub-tab .nav-item a span,
+    .smarthome-sub-tab .nav-item a span,
+    .computers-sub-tab .nav-item a span {
+        font-size: 12px !important;
+    }
+
+    .digitextmenu {
+        background: #FF3C00;
+        height: 80px;
+
+        a {
+            padding-top: 15px !important;
+        }
+
+        span {
+            text-transform: none !important;
+            font-size: 20px !important;
+            color: #FFFFFF !important;
+        }
+
+        .ninjamenus .ninjamenus-drilldown-back > .drilldown-opener:before {
+            content: '\e617 Main Menu' !important;
+        }
+    }
+
+    .hot-deals-menu a {
+        color: #ff3c00 !important;
+    }
+
+    .gift-cards-menu a {
+        color: #e40301 !important;
+    }
+
+    .category-tabs .mgz-fa-angle-right {
+        margin-top: 3.5px;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.mgz-active a:before {
+        filter: invert(38%) sepia(73%) saturate(6564%) hue-rotate(5deg) brightness(106%) contrast(103%) !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.mgz-active a i {
+        color: #ff3c00 !important;
+    }
+
+    .category-tabs .mgz-tabs-content {
+        left: 95px !important;
+        margin-top: -8px;
+    }
+
+    .shop-by-category-menu > div {
+        //margin: 0 10px !important;
+    }
+
+    .category-tabs .mgz-tabs-nav {
+        //padding-top: 10px;
+    }
+
+    .category-tabs .mgz-tabs-tab-content {
+        border-right: none !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content > div {
+        //padding-top: 19px;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-heading-text {
+        font-size: 17px !important;
+        margin-bottom: 10px;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-row.full_width_row {
+        margin-left: -10px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-separator {
+        padding-top: 5px;
+        margin-left: -10px;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-separator .mgz-element-separator-line {
+        //width: 150px;
+    }
+
+    .category-top-nav .drilldown-root > div {
+        border: 0px !important;
+    }
+
+    .mobile-menu-tabs-brands {
+        background: none !important;
+        padding-top: 5px !important;
+    }
+
+    .mobile-menu-tabs-brands .mgz-element-heading-text {
+        text-align: left !important;
+    }
+
+    .mobile-menu-tabs-brands .mgz-element-heading-text {
+        text-align: left !important;
+        margin-top: 10px !important;
+    }
+
+    .mobile-menu-tabs-brands .block-content {
+        display: grid;
+        grid-template-columns: 90px 90px;
+        //grid-column-gap: 6px;
+        margin-left: -10px !important;
+        //grid-auto-rows: 60px;
+        margin-top: -10px;
+    }
+
+    .brand-image.ninjamenus-lazy-loaded {
+        border: 1px solid #cacaca;
+    }
+
+    .img-responsive.brand-image {
+        border: 1px solid #cacaca;
+        height: 28px !important;
+        width: 60px;
+        bottom: 0;
+        display: block;
+        left: 0;
+        margin: auto;
+        max-width: 100%;
+        right: 0;
+        top: 0;
+        background-size: 70px 35px !important;
+    }
+
+    .category-top-nav .ninjamenus-drilldown-back > .drilldown-opener:before {
+        content: '\f060' !important;
+        font-family: 'Font Awesome 5 Free' !important;
+        font-size: 20px !important;
+        font-weight: 900;
+        color: #cacaca;
+    }
+
+    .category-top-nav .ninjamenus-current-link {
+        visibility: hidden;
+    }
+
+    .category-top-nav .ninjamenus-current-link:before {
+        content: 'Main Menu';
+        text-transform: capitalize;
+        visibility: visible;
+        color: #cacaca;
+        right: unset;
+        position: inherit;
+        margin-left: 50px;
+        float: left;
+    }
+
+    .category-top-nav .ninjamenus-drilldown-back {
+        background: #fff !important;
+        padding: 10px 0;
+    }
+
+    .category-top-nav .drilldown-back {
+        margin-top: 10px;
+    }
+
+    .category-top-nav .drilldown-opener:hover {
+        background: none !important;
+    }
+
+    span.mobile-menu-title-header {
+        font-size: 18px;
+        display: block;
+        padding: 20px 25px;
+        margin: 0 -10px;
+        background: #ff3c00;
+        color: #fff;
+    }
+
+    .category-top-nav .ninjamenus-current-link:after {
+        content: '\f00d' !important;
+        font-family: 'Font Awesome 5 Free' !important;
+        font-size: 15px !important;
+        font-weight: 900;
+        color: #cacaca;
+        visibility: hidden;
+        position: absolute;
+        margin-left: 30px;
+        margin-top: -10px;
+    }
+
+    .brand-list-content {
+        width: 100% !important;
+        height: 750px !important;
+    }
+
+    .block-brand-search {
+        padding: 10px 0 0 0 !important;
+    }
+
+    #brand-menu-grid-mobile::-webkit-scrollbar {
+        display: none;
+    }
+
+    #brand-menu-grid-mobile {
+        display: grid !important;
+        grid-template-columns: repeat(2,50%) !important;
+        grid-column-gap: 12px;
+        padding: 0 !important;
+        margin-left: -4px;
+        padding-top: 15px !important;
+        grid-auto-rows: 100px;
+        padding-right: 23px !important;
+    }
+
+    .brand-list-content li {
+        width: 100% !important;
+    }
+
+    .shop-by-category-menu > a {
+        border-left: 0 !important;
+        color: unset !important;
+    }
+
+    .brand-list-content span.product-image-wrapper {
+        padding-bottom: 75px !important;
+    }
+
+    .category-tabs .nav-item>a .title {
+        text-transform: capitalize !important;
+    }
+
+    .navigation .level0:not(:first-child) {
+        padding: 10px 0;
+        background: #f5f5f5;
+        border-bottom: 2px solid #fff !important;
+    }
+
+    .navigation .level0:not(:first-child) > a span {
+        font-size: 17px !important;
+        /* font-weight: 500 !important; */
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item>.opener {
+        height: 100% !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item>.opener:before {
+        left: 90%;
+        font-family: 'Font Awesome 5 Free' !important;
+        content: '\f105';
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .ninjamenus .ninjamenus-toggle-active>.opener:before {
+        content: '\f107' !important;
+    }
+
+    .navigation .ninjamenus-toggle-active {
+        background: #ff3c00 !important;
+        color: #fff !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu {
+        background: #fff !important;
+        margin: 10px 0 -10px 0 !important;
+        padding: 0 0 10px 0 !important;
+        border: none !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title a {
+        height: 60px !important;
+    }
+
+    .navigation .ninjamenus-toggle-active span.title {
+        color: #fff !important;
+    }
+
+    .menu-second-level {
+        margin: 15px 0 0 15px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-nav {
+        height: 615px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-tab-content {
+        //height: 635px !important;
+        background: #fff;
+        border-bottom: none !important;
+    }
+
+    .menu-second-level {
+        margin-left: 0 !important;
+        max-width: 155px !important;
+    }
+
+    .menu-second-level .tab {
+        margin-left: 15px !important;
+    }
+
+    .tab .tablinks {
+        font-size: 13px !important;
+        padding: 10px 0 !important;
+    }
+
+    .menu-third-level {
+        padding: 0 !important;
+        max-width: 180px;
+        border: none !important;
+    }
+
+    .menu-third-level .tabcontent span a {
+        display: none;
+    }
+
+    .menu-third-level-links {
+        margin-left: 0 !important;
+    }
+
+    .menu-third-level-links a {
+        font-size: 13px !important;
+        padding: 10px 0 !important;
+    }
+
+    .digiseconds-listing {
+        grid-auto-rows: auto !important;
+    }
+
+    .digiseconds-menu-description {
+        font-size: 12px !important;
+    }
+
+    .digiservices-listing-mobile span {
+        font-size: 12px !important;
+    }
+
+    .return-to-second-layer {
+        display: inline-block !important;
+    }
+
+    .return-to-second-layer .fa-angle-left {
+        margin-top: 9px !important;
+        position: absolute;
+    }
+
+    .return-to-second-layer h3 {
+        font-size: 14px !important;
+        text-transform: none !important;
+        color: #000 !important;
+        margin: 5px 0 0 20px;
+        float: right;
+    }
+
+    //New changes on Mobile Menu Top Brands
+    .cameras-tab-brands,
+    .lenses-brand-tab,
+    .drones-brand-tab,
+    .lenses-brand-tab,
+    .lightstudio-brand-tab,
+    .photoacce-brand-tab,
+    .optics-brand-tab,
+    .audiovisual-brand-tab,
+    .provideo-brand-tab,
+    .smarthome-brand-tab,
+    .computers-brand-tab {
+        width: 220px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-heading-text {
+        text-align: left;
+    }
+
+    .category-tabs .mgz-element-single_image {
+        display: block !important;
+    }
+
+    .mobile-menu-tabs-brands {
+        display: grid;
+        grid-template-columns: 40% 40%;
+        grid-template-rows: repeat(5,55px);
+        justify-content: unset;
+        grid-column-gap: 15px;
+    }
+
+    .mobile-menu-tabs-brands:before {
+        display: none !important;
+    }
+
+    .mobile-menu-tabs-brands a img {
+        border: 1px solid #cacaca;
+    }
+
+    .shop-by-category-menu .expand {
+        height: 980px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-tab-content {
+        height: 970px !important;
+        border-radius: 0 !important;
+    }
+
+
+} //end mobile
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .category-tabs .mgz-tabs-tab-content .mgz-element-separator .mgz-element-separator-line {
+        //border: 1px solid rgba(202, 202, 202, .2) !important;
+        display: none;
+    }
+
+    .shop-by-category-menu .mgz-element-separator {
+        padding-left: 0 !important;
+        margin-left: 5px !important;
+        border-top: 1px solid #cacaca !important;
+        margin-top: 7px !important;
+    }
+
+    .mobile-menu-main-exit {
+        left: 96%;
+    }
+
+    .return-to-second-layer {
+        display: none !important;
+    }
+
+}
+
+//
+//Tablet
+//
+
+//.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+@media screen and (min-width: @screen__m) and (max-width: @screen__l){
+    .nav-sections{
+        background: #fff;
+
+        .nav-sections-item-title{
+            display: none;
+        }
+    }
+
+    .navigation {
+
+        &{
+            background: #fff !important;
+        }
+
+        padding: 0;
+
+        .parent {
+            .level-top {
+                position: relative;
+                .lib-icon-font(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-size: 42px,
+                    @_icon-font-position: after,
+                    @_icon-font-display: block
+                );
+
+                &:after {
+                    position: absolute;
+                    right: 7px;
+                    top: -8px;
+                }
+
+                &.ui-state-active {
+                    .lib-icon-font-symbol(
+                        @_icon-font-content: @icon-up,
+                        @_icon-font-position: after
+                    );
+                }
+            }
+        }
+    }
+
+    .nav-sections {
+        -webkit-overflow-scrolling: touch;
+        .lib-css(transition, left .3s, 1);
+        height: 100%;
+        left: -80%;
+        left: calc(~'-1 * (100%)');
+        overflow: auto;
+        position: fixed;
+        //top: 44px;
+        width: 100%;
+        //max-width: 350px !important;
+
+        .switcher {
+            border-top: 1px solid @color-gray82;
+            font-size: 1.6rem;
+            font-weight: @font-weight__bold;
+            margin: 0;
+            padding: .8rem 3.5rem .8rem 2rem;
+
+            .label {
+                display: block;
+                margin-bottom: @indent__xs;
+            }
+
+            &:last-child {
+                border-bottom: 1px solid @color-gray82;
+            }
+        }
+
+        .switcher-trigger {
+            strong {
+                position: relative;
+                .lib-icon-font(
+                    @_icon-font-content: @icon-down,
+                    @_icon-font-size: 42px,
+                    @_icon-font-position: after,
+                    @_icon-font-display: block
+                );
+
+                &:after {
+                    position: absolute;
+                    right: -40px;
+                    top: -16px;
+                }
+            }
+
+            &.active strong {
+                .lib-icon-font-symbol(
+                    @_icon-font-content: @icon-up,
+                    @_icon-font-position: after
+                );
+            }
+        }
+        .switcher-dropdown {
+            .lib-list-reset-styles();
+            display: none;
+            padding: @indent__s 0;
+        }
+        .switcher-options {
+            &.active {
+                .switcher-dropdown {
+                    display: block;
+                }
+            }
+        }
+        .header.links {
+            .lib-list-reset-styles();
+            border-bottom: 1px solid @color-gray82;
+
+            li {
+                font-size: 1.6rem;
+                margin: 0;
+
+                &.greet.welcome {
+                    border-top: 1px solid @color-gray82;
+                    font-weight: @font-weight__bold;
+                    padding: .8rem @submenu__padding-left;
+                }
+
+                > a {
+                    border-top: 1px solid @color-gray82;
+                }
+            }
+
+            a,
+            a:hover {
+                .lib-css(color, @navigation-level0-item__color);
+                .lib-css(text-decoration, @navigation-level0-item__text-decoration);
+                display: block;
+                font-weight: @font-weight__bold;
+                padding: .8rem @submenu__padding-left;
+            }
+
+            .header.links {
+                border: 0;
+            }
+        }
+    }
+
+    .nav-before-open {
+        height: 100%;
+        overflow-x: hidden;
+        width: 100%;
+
+        .page-wrapper {
+            .lib-css(transition, left .3s, 1);
+            height: 100%;
+            left: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        body {
+            height: 100%;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+    }
+
+    .nav-open {
+        .nav-sections {
+            @_shadow: 0 0 5px 0 rgba(50, 50, 50, .75);
+
+            .lib-css(box-shadow, @_shadow, 1);
+            left: 0;
+            z-index: 99;
+            min-width: 455px;
+            max-width: 455px;
+        }
+
+        .nav-toggle {
+            &:after {
+                background: rgba(0, 0, 0, @overlay__opacity);
+                content: '';
+                display: block;
+                height: 100%;
+                position: fixed;
+                right: 0;
+                top: 0;
+                width: 100%;
+                z-index: 1;
+            }
+        }
+    }
+
+    .nav-sections-items {
+        width: 100%;
+        max-width: 1920px;
+        margin: 0 auto;
+        .lib-clearfix();
+        position: relative;
+        z-index: 1;
+    }
+
+    .nav-sections-item-title {
+        background: darken(@navigation__background, 5%);
+        border: solid darken(@navigation__background, 10%);
+        border-width: 0 0 1px 1px;
+        box-sizing: border-box;
+        float: left;
+        height: 71px;
+        padding-top: 24px;
+        text-align: center;
+        width: 33.33%;
+
+        &.active {
+            background: transparent;
+            border-bottom: 0;
+        }
+
+        .nav-sections-item-switch {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+
+    .nav-sections-item-content {
+        .lib-clearfix();
+        box-sizing: border-box;
+        float: right;
+        margin-left: -100%;
+        margin-top: 0;
+        width: 100%;
+
+        &.active {
+            display: block;
+        }
+
+        padding: 0;
+    }
+
+    //.lib-main-navigation();
+
+    .ninjamenus-top-triggered {
+
+        &{
+            position: static !important;
+            width: auto;
+            padding-top: 15px;
+            padding-right: 15px;
+            box-sizing: content-box;
+            display: block !important;
+        }
+
+        &::before{
+            display: none !important;
+        }
+
+        .svg-icon {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item > a
+    {
+        .title{
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 15px;
+        }
+    }
+
+    .left-hand-category-wrapper{
+        &{
+            background: #fff;
+            width: 100%;
+        }
+
+        .mgz-element-inner{
+            padding: 0 !important;
+        }
+
+        .nav-item > a{
+            padding: 0 15px;
+        }
+
+        .mgz-element {
+            width: 100%;
+        }
+    }
+
+    .ninjamenus-drilldown-back{
+        .drilldown-back{
+            &::before{
+                color: #fff;
+            }
+        }
+    }
+
+    .ninjamenus-current-link{
+        background: #000;
+        color: #fff;
+    }
+
+    .more-brand-wrapper,
+    .also-category-header,
+    .helpful-links{
+        display: none;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item > a {
+        padding: 0 30px;
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item > a .title {
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 13px;
+
+    }
+
+    .category-top-nav .ninjamenus-drilldown-back > .drilldown-opener:before {
+        content: '\f060' !important;
+        font-family: 'Font Awesome 5 Free' !important;
+        font-size: 20px !important;
+        font-weight: 900;
+        color: #cacaca;
+    }
+
+    .category-top-nav .ninjamenus-current-link {
+        visibility: hidden;
+    }
+
+    .category-top-nav .ninjamenus-current-link:before {
+        content: 'Main Menu';
+        text-transform: capitalize;
+        visibility: visible;
+        color: #cacaca;
+        right: unset;
+        position: inherit;
+        margin-left: 50px;
+        float: left;
+    }
+
+    .category-top-nav .ninjamenus-drilldown-back {
+        background: #fff !important;
+        padding: 10px 0;
+    }
+
+    .category-top-nav .drilldown-back {
+        margin-top: 10px;
+    }
+
+    .category-top-nav .drilldown-opener:hover {
+        background: none !important;
+    }
+
+    span.mobile-menu-title-header {
+        font-size: 18px;
+        display: block;
+        padding: 20px 25px;
+        margin: 0 -10px;
+        background: #ff3c00;
+        color: #fff;
+    }
+
+    .category-top-nav .ninjamenus-current-link:after {
+        content: '\f00d' !important;
+        font-family: 'Font Awesome 5 Free' !important;
+        font-size: 15px !important;
+        font-weight: 900;
+        color: #cacaca;
+        visibility: hidden;
+        position: absolute;
+        margin-left: 30px;
+        margin-top: -10px;
+    }
+
+    .shop-by-category-menu > .mgz-element-inner {
+        margin-top: 0 !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/camera.svg') !important;
+
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lens.svg') !important;
+
+        i {
+            position: absolute;
+            right: -45px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lightingandstudio.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/optics-lens.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/audiovisual.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a  {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/provideo.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/smarthome.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a {
+        height: 30px;
+        background-size: 30px 30px !important;
+        background-repeat: no-repeat !important;
+        background-position: 15px 7px !important;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/mobiletablets.svg') !important;
+        i {
+            position: absolute;
+            right: -45px;
+        }
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a span {
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a span{
+        padding-left: 40px;
+        font-weight: 500;
+    }
+
+    .category-tabs .mgz-fa-angle-right {
+        margin-top: 3.5px;
+    }
+
+    .mgz-element-tab-position-left.mgz-tabs > .mgz-tabs-content {
+        margin-left: 75px;
+        margin-top: -15px;
+        margin-right: -10px;
+        border-radius: 0 !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-heading-text {
+        font-size: 17px !important;
+        margin-bottom: 10px;
+    }
+
+    .cameras-sub-tab .nav-item a, .lenses-sub-tab .nav-item a, .drones-sub-tab .nav-item a, .lightstudio-sub-tab .nav-item a, .photoacce-sub-tab .nav-item a, .optics-sub-tab .nav-item a, .audiovisual-sub-tab .nav-item a, .provideo-sub-tab .nav-item a, .smarthome-sub-tab .nav-item a, .computers-sub-tab .nav-item a {
+        line-height: 20px !important;
+        padding: 0 5px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.mgz-active a:before {
+        filter: invert(38%) sepia(73%) saturate(6564%) hue-rotate(5deg) brightness(106%) contrast(103%) !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.mgz-active a i {
+        color: #ff3c00 !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content > div {
+        padding-top: 19px;
+    }
+
+    .mobile-menu-tabs-brands {
+        margin-top: -5px !important;
+    }
+
+    .mobile-menu-tabs-brands .block-content {
+        display: block;
+        margin-left: 0 !important;
+    }
+
+    .img-responsive.brand-image {
+        bottom: 0;
+        display: block;
+        height: auto;
+        left: 0;
+        margin: auto;
+        max-width: 100%;
+        right: 0;
+        top: 0;
+        margin-bottom: 5px;
+        height: 40px;
+        width: auto;
+        background-position: center;
+    }
+
+    .left-side-options {
+        width: 35%;
+    }
+
+    .right-side-brands {
+        width: 55%;
+    }
+
+    .menu-services-mobile {
+        grid-auto-rows: 210px !important;
+        margin-top: 10px !important;
+    }
+
+    .services-mobile-menu-img {
+        height: 170px !important;
+    }
+
+    span.services-mobile-menu-description {
+        font-size: 13px !important;
+        height: auto !important;
+        width: unset;
+    }
+
+    .mobile-menu-tabs-brands {
+        margin-left: 0 !important;
+    }
+
+    .category-tabs .nav-item>a .title {
+        text-transform: capitalize !important;
+    }
+
+    .brand-list-content {
+        width: 100% !important;
+    }
+
+    .block-brand-search {
+        padding-left: 0 !important;;
+        padding-right: 0 !important;
+    }
+
+    .brand-list-content .products {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .mobile-menu-main-exit {
+        left: 94%;
+    }
+
+    .digiservices-listing-mobile {
+        grid-auto-rows: 150px !important;
+        margin-top: 15px !important;
+        margin-left: 15px !important;
+    }
+
+    .services-mobile-menu-div {
+        grid-column-gap: 10px;
+        grid-template-columns: 30% 70% !important;
+    }
+
+    span.services-mobile-menu-description-wrapper {
+        margin-right: 15px;
+        margin-left: 30px;
+    }
+
+    .category-tabs .mgz-tabs-tab-title a i {
+        position: absolute !important;
+        right: -85% !important;
+    }
+
+}
+
+@media only screen and (min-width: @screen__m) and (max-width: 1280px) {
+
+    .navigation .level0:not(:first-child) {
+        padding: 10px 0;
+        background: #f5f5f5;
+        border-bottom: 2px solid #fff !important;
+    }
+
+    .navigation .level0:not(:first-child) > a span {
+        font-size: 17px !important;
+        /* font-weight: 500 !important; */
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item>.opener {
+        height: 100% !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .nav-item>.opener:before {
+        left: 90%;
+        font-family: 'Font Awesome 5 Free' !important;
+        content: '\f105';
+        font-weight: 600;
+        font-size: 17px;
+    }
+
+    .ninjamenus .ninjamenus-toggle-active>.opener:before {
+        content: '\f107' !important;
+    }
+
+    .navigation .ninjamenus-toggle-active {
+        background: #ff3c00 !important;
+        color: #fff !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu {
+        background: #fff !important;
+        margin: 10px 0 -10px 0 !important;
+        padding: 0 0 10px 0 !important;
+        border: none !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title a {
+        height: 60px !important;
+    }
+
+    .navigation .ninjamenus-toggle-active span.title {
+        color: #fff !important;
+    }
+
+    .menu-second-level {
+        margin: 15px 0 0 15px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-nav {
+        height: 615px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-tab-content {
+        //height: 635px !important;
+        background: #fff;
+        border-bottom: none !important;
+    }
+
+    .menu-second-level {
+        margin-left: 0 !important;
+        max-width: 155px !important;
+    }
+
+    .menu-second-level .tab {
+        margin-left: 15px !important;
+    }
+
+    .tab .tablinks {
+        font-size: 13px !important;
+        padding: 10px 0 !important;
+    }
+
+    .menu-third-level {
+        padding: 0 !important;
+        max-width: 180px;
+        border: none !important;
+    }
+
+    .menu-third-level .tabcontent span a {
+        display: none;
+    }
+
+    .menu-third-level-links {
+        margin-left: 0 !important;
+    }
+
+    .menu-third-level-links a {
+        font-size: 13px !important;
+        padding: 10px 0 !important;
+    }
+
+    .digiseconds-listing {
+        grid-auto-rows: auto !important;
+    }
+
+    .digiseconds-menu-description {
+        font-size: 12px !important;
+    }
+
+    .digiservices-listing-mobile span {
+        font-size: 12px !important;
+    }
+
+    .return-to-second-layer {
+        display: inline-block !important;
+    }
+
+    .return-to-second-layer .fa-angle-left {
+        margin-top: 5px !important;
+        position: absolute;
+    }
+
+    .return-to-second-layer h3 {
+        font-size: 14px !important;
+        text-transform: none !important;
+        color: #000 !important;
+        margin: 5px 0 0 20px;
+        float: right;
+    }
+
+    .category-tabs .mgz-tabs-content {
+        margin-top: -10px !important;
+    }
+
+    //New changes on Mobile Menu Top Brands
+    .cameras-tab-brands,
+    .lenses-brand-tab,
+    .drones-brand-tab,
+    .lenses-brand-tab,
+    .lightstudio-brand-tab,
+    .photoacce-brand-tab,
+    .optics-brand-tab,
+    .audiovisual-brand-tab,
+    .provideo-brand-tab,
+    .smarthome-brand-tab,
+    .computers-brand-tab {
+        width: 220px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-content .mgz-element-heading-text {
+        text-align: left;
+    }
+
+    .category-tabs .mgz-element-single_image {
+        display: block !important;
+    }
+
+    .mobile-menu-tabs-brands {
+        display: grid;
+        grid-template-columns: 40% 40%;
+        grid-template-rows: repeat(5,55px);
+        justify-content: unset;
+        grid-column-gap: 15px;
+    }
+
+    .mobile-menu-tabs-brands:before {
+        display: none !important;
+    }
+
+    .mobile-menu-tabs-brands a img {
+        border: 1px solid #cacaca;
+    }
+
+    .shop-by-category-menu .expand {
+        height: 980px !important;
+    }
+
+    .ninjamenus.ninjamenus-mobile .item-submenu.expand .mgz-tabs-tab-content {
+        height: 970px !important;
+        border-radius: 0 !important;
+    }
+
+    .nav-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    [data-action=toggle-nav] {
+        display: inline-block !important;
+        position: static !important;
+        margin-right: 10px !important;
+    }
+
+    .nav-toggle:before {
+        display: none;
+    }
+
+    #nav-sections-id {
+        z-index: 4 !important;
+    }
+
+}
+
+@media only screen and (min-width: 1281px) {
+    [data-action=toggle-nav] {
+        display: none !important;
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+
+    /*    .ninjamenus1-drilldown-container{
+            display: none;
+        }*/
+    .nav-toggle {
+        display: none;
+    }
+
+    #store.menu {
+        border-top: 1px solid #cacaca;
+        border-bottom: 1px solid #cacaca;
+    }
+
+
+    .ninjamenus-top-triggered {
+
+        &{
+            display: none !important;
+        }
+
+    }
+
+    .ninjamenus{
+        &{
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            max-width: 100%;
+            background: #fff;
+            width: 100%;
+            margin: 0 !important;
+        }
+
+        .magezon-builder{
+            justify-content: center;
+            align-items: stretch;
+            max-width: 100%;
+            width: 100%;
+            margin: 0 !important;
+        }
+
+        .mega.nav-item{
+            flex: 1;
+        }
+        .mega.nav-item .caret {
+            padding-left: 15px;
+        }
+    }
+
+    .nav-sections {
+        background: #fff;
+        margin: 0 0 0 0 !important;
+        display: inline-block !important;
+        //width: 100%;
+    }
+
+    .mega.nav-item > a{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        padding: 15px;
+        line-height: 17px !important;
+        text-align: center;
+        font-size: 14px  !important;
+        font-weight: 500  !important;
+        text-transform: uppercase;
+        font-weight: bold !important;
+
+
+        span.title{
+            display: inline-block;
+            color: #222;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        &:hover{
+            background-color: #FF3C00;
+
+            span.title{
+                color: #fff;
+            }
+        }
+        .whitebg:hover {
+            background-color: #FF3C00 !important;
+            span.title{
+                color: #fff !important;
+            }
+        }
+    }
+
+    .nav-sections {
+        .lib-vendor-prefix-flex-shrink(0);
+        .lib-vendor-prefix-flex-basis(auto);
+        margin-bottom: @indent__m;
+    }
+
+    .nav-sections-item-title {
+        display: none;
+    }
+
+    .nav-sections-item-content {
+        display: block !important;
+        //border-top: 1px solid #CACACA;
+    }
+
+    #store\.menu {
+        border-top: 1px solid #cacaca;
+        border-bottom: 1px solid #cacaca;
+    }
+
+    .orangebg {
+        background-color: #FF3C00 !important;
+        color: #ffffff !important;
+    }
+
+    .level0 .orangebg:hover {
+        background-color: #ffffff !important;
+        color: #000 !important;
+    }
+
+    .whitetextimpt {
+        color: #ffffff !important;
+    }
+
+    .level0 .orangebg .whitetextimpt:hover {
+        color: #000 !important;
+    }
+    .level0 .orangebg .caret:hover {
+        color: #000 !important;
+    }
+    .nav-sections-item-content > * {
+        display: none;
+    }
+
+    .nav-sections-item-content {
+        > .navigation {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            max-width: 100%;
+            background: #000;
+        }
+    }
+
+    .lib-main-navigation-desktop();
+
+    .panel.header {
+        .links,
+        .switcher {
+            display: inline-block;
+        }
+    }
+
+    .item-hovered > a{
+
+        background-color: #fff !important;
+
+        span.title{
+            color: #000 !important;
+        }
+    }
+
+    .inner-content{
+        &{
+            width: 100% !important;
+        }
+        .mega.nav-item > a{
+            padding: 10px 5px;
+            font-weight: 500 !important;
+            text-align: left;
+            display: block;
+            text-transform: unset;
+        }
+        //
+        //.new-menu-cameras > a span.title {
+        //    content: "";
+        //    display:inline-block;
+        //    height: 30px;
+        //    background-size: 30px 30px;
+        //    background-image: url('http://lateststaging2.dev.ph/media/wysiwyg/main-menu/icons/camera.svg');
+        //    background-repeat: no-repeat;
+        //    padding-left: 40px;
+        //    vertical-align: middle;
+        //}
+
+        .mega.nav-item > a span.title{
+            color: #101010 !important;
+        }
+
+        .mega.nav-item > a:hover span.title{
+            color: #fff !important;
+        }
+
+        .catetegoy-thumbanail-wrapper{
+            &{
+                position: relative;
+            }
+
+            .mega.nav-item > a {
+                text-align: center;
+            }
+        }
+
+        .nav-item .mgz-fa-angle-right {
+            float: right;
+        }
+
+        .item-hovered > a:hover span.title{
+            color: #FF3C00 !important;
+        }
+
+
+        .category-thumbnail-wrapper
+        {
+            border: 3px solid #ffffff;
+            transition: all .4s ease-in-out;
+
+            &:hover{
+                border: 3px solid #fff;
+
+                .category-thumbnail-link > a span.title{
+                    color: #fff !important;
+                }
+            }
+
+            .mgz-element-inner{
+                position: relative;
+                padding-bottom: 15px;
+            }
+
+            .category-thumbnail-link{
+                position: absolute;
+                top: 0;
+                height: 100%;
+                width: 100%;
+
+                a{
+                    position: absolute;
+                    bottom: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: transparent !important;
+
+                    span.title{
+                        padding-top: 120px;
+                    }
+                }
+            }
+        }
+
+        .category-thumbnail-link > a{
+            line-height: 1.5;
+            text-align: center !important;
+        }
+
+        .brands-heading .mgz-element-heading-text span,
+        .also-category-header .mgz-element-heading-text span{
+            font--weight: 800 !important;
+            font-family: 'Poppins', sans-serif !important;
+        }
+    }
+
+    .mgz-element-column > .mgz-element-inner{
+        padding: 0;
+    }
+
+    .mgz-element-inner{
+        .image-menu-title h2{
+            font-size: 14px;
+            font-weight: 500;
+        }
+    }
+
+    .category-images-wrapper{
+        padding: 15px;
+
+        .mgz-element-inner{
+            text-align: center;
+        }
+    }
+
+    .more-category-wrapper{
+        &{
+            margin: 30px;
+        }
+
+        h2{
+            margin: 0 0 24px;
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 500;
+            text-align: center;
+            color: #222;
+        }
+    }
+
+    .more-brand-wrapper{
+        &{
+            margin: 30px;
+        }
+
+        h2{
+            margin: 0 0 24px;
+            font-size: 20px;
+            line-height: 24px;
+            font-weight: 500;
+            text-align: left;
+            color: #222;
+        }
+    }
+
+    .left-hand-category-wrapper{
+        &{
+            border-right: 1px solid #eaeaea;
+        }
+    }
+
+    .category-promo-wrapper{
+        padding: 15px;
+    }
+
+    .item-submenu{
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .helpful-links{
+        background: #f5f5f5;
+    }
+
+    // new menu
+    .mgz-row-gap-margin > .mgz-element-inner {
+        margin: 0px !important;
+    }
+    .shop-by-category-menu .item-submenu {
+        width: 300px !important;
+    }
+
+    .shop-by-category-menu .item-submenu.expand {
+        width: 525px !important;
+        overflow: hidden;
+        transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .category-tabs > .mgz-element-inner {
+        margin-bottom: 0px !important;
+    }
+    .category-tabs .mgz-tabs-tab-title {
+        width: 375px !important;
+        border: none !important;
+    }
+    .category-tabs .mgz-tabs-tab-title span {
+        font-weight: 500;
+        color: #101010 !important;
+    }
+
+    .category-tabs .mgz-fa-angle-right{
+        float: right !important;
+        vertical-align: middle;
+        padding-top: 5px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title a {
+        border: none !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/camera.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/camera.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.cameras-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/camera.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    //Rondel Changes (On Hover Category Menu Item)
+    .category-tabs .mgz-tabs-tab-title a:hover {
+        color: #fff !important;
+        border-radius: unset !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lens.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lens.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lenses-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/lens.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/drone.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.drones-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/drone.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.electronic-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/electronic-toy.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.home-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/home.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.collectibles-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/collectibles.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.fitness-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/fitness.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.seasonal-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/seasonal-tech.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.music-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/musical-instrument.png) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lightingandstudio.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/lightingandstudio.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.lightstudio-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/lightingandstudio.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.photoacce-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/photoaccessories-cleaningbrush.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/optics-lens.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/optics-lens.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.optics-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/optics-lens.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/audiovisual.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/audiovisual.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.audiovisual-tab-menu a:before {
+        content: "";
+        //background-image: url(/media/wysiwyg/main-menu/icons/audiovisual.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a  {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/provideo.svg');
+
+    }
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/provideo.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.provideo-tab-menu a:before {
+        content: "";
+        //background-image: url(/media/wysiwyg/main-menu/icons/provideo.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/smarthome.svg');
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-repeat: no-repeat;
+        background-position: 15px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/smarthome.svg');
+
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.smarthome-tab-menu a:before {
+        content: "";
+        //background-image: url(/media/wysiwyg/main-menu/icons/smarthome.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a span{
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a {
+        height: 50px;
+        background-size: 30px 30px;
+        //background-image: url('/media/wysiwyg/main-menu/icons/mobiletablets.svg');
+        background-repeat: no-repeat;
+        background-position: 15px;
+        //border: none !important;
+        background-color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a:hover {
+        height: 50px;
+        background-size: 30px 30px;
+        background-color: #ff3c00 !important;
+        //background-image: url('/media/wysiwyg/main-menu/icons/mobiletablets.svg');
+        background-repeat: no-repeat;
+        background-position: 15px;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a:hover:before {
+        filter: invert(1);
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a:hover span {
+        color: #fff !important;
+    }
+
+    .category-tabs .mgz-tabs-tab-title.computersmobile-tab-menu a:before {
+        content: "";
+        background-image: url(/media/wysiwyg/main-menu/icons/mobiletablets.svg) !important;
+        background-size: 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        top: 9px !important;
+        left: 17px !important;
+    }
+
+
+    .category-tabs .mgz-tabs-tab-title.retract {
+        width: 100px !important;
+    }
+    .mgz-tabs-tab-content {
+        background: #fff !important;
+    }
+    .cameras-tab, .lenses-tab, .drones-tab,
+    .lightstudio-tab, .photoacce-tab, .optics-tab,
+    .audiovisual-tab, .provideo-tab, .smarthome-tab ,
+    .computers-tab {
+        background: #fff !important;
+        border-left: 1px solid #CACACA;
+    }
+
+    .mgz-tabs:not(.mgz-tabs-no-fill-content) .mgz-tabs-tab-content {
+        border: none;
+        //border-left: 1px solid #cacaca !important;
+        margin-left: 0px !important;;
+    }
+    .cameras-tab > .mgz-element-inner,
+    .lenses-tab > .mgz-element-inner,
+    .drones-tab > .mgz-element-inner,
+    .lightstudio-tab > .mgz-element-inner,
+    .photoacce-tab > .mgz-element-inner,
+    .optics-tab > .mgz-element-inner,
+    .audiovisual-tab > .mgz-element-inner,
+    .provideo-tab > .mgz-element-inner,
+    .smarthome-tab > .mgz-element-inner,
+    .computers-tab > .mgz-element-inner
+    {
+        padding: 0px !important;
+    }
+
+    .cameras-tab-brands,
+    .lenses-brand-tab,
+    .drones-brand-tab,
+    .lenses-brand-tab,
+    .lightstudio-brand-tab,
+    .photoacce-brand-tab,
+    .optics-brand-tab,
+    .audiovisual-brand-tab,
+    .provideo-brand-tab,
+    .smarthome-brand-tab,
+    .computers-brand-tab {
+        width: 100px !important;
+        float: right;
+        height: 80vh;
+        overflow-y: scroll;
+        background: #f5f5f5;
+    }
+
+    .cameras-tab-brands > .mgz-element-inner,
+    .lenses-brand-tab > .mgz-element-inner,
+    .drones-brand-tab > .mgz-element-inner,
+    .lenses-brand-tab > .mgz-element-inner,
+    .lightstudio-brand-tab > .mgz-element-inner,
+    .photoacce-brand-tab > .mgz-element-inner,
+    .optics-brand-tab > .mgz-element-inner,
+    .audiovisual-brand-tab > .mgz-element-inner,
+    .provideo-brand-tab > .mgz-element-inner,
+    .smarthome-brand-tab > .mgz-element-inner,
+    .computers-brand-tab > .mgz-element-inner {
+        padding: 5px;
+    }
+    .lenses-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .cameras-tab-brands .mgz-element-single_image .mgz-element-inner,
+    .drones-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .lightstudio-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .photoacce-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .optics-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .audiovisual-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .provideo-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .smarthome-brand-tab .mgz-element-single_image .mgz-element-inner,
+    .computers-brand-tab .mgz-element-single_image .mgz-element-inner {
+        padding-top: 5px !important;
+        padding-bottom: 5px !important;
+        margin-bottom: 0px !important;
+    }
+
+    .cameras-sub-tab, .lenses-sub-tab,
+    .drones-sub-tab, .lightstudio-sub-tab,
+    .photoacce-sub-tab, .optics-sub-tab,
+    .audiovisual-sub-tab, .provideo-sub-tab,
+    .smarthome-sub-tab, .computers-sub-tab {
+        padding: 20px 0px 10px 30px !important;
+    }
+    .cameras-sub-tab .nav-item, .cameras-sub-tab .mgz-element-separator,
+    .lenses-sub-tab .nav-item, .lenses-sub-tab .mgz-element-separator,
+    .drones-sub-tab .nav-item, .drones-sub-tab .mgz-element-separator,
+    .lightstudio-sub-tab .nav-item, .lightstudio-sub-tab .mgz-element-separator,
+    .photoacce-sub-tab .nav-item, .photoacce-sub-tab .mgz-element-separator,
+    .optics-sub-tab .nav-item, .optics-sub-tab .mgz-element-separator,
+    .audiovisual-sub-tab .nav-item, .audiovisual-sub-tab .mgz-element-separator,
+    .provideo-sub-tab .nav-item, .provideo-sub-tab .mgz-element-separator,
+    .smarthome-sub-tab .nav-item, .smarthome-sub-tab .mgz-element-separator,
+    .computers-sub-tab .nav-item, .computers-sub-tab .mgz-element-separator {
+        padding-left: 20px;
+    }
+    ::-webkit-scrollbar {
+        width: 0;  /* Remove scrollbar space */
+        background: transparent;  /* Optional: just make scrollbar invisible */
+    }
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+        background: #FF0000;
+    }
+
+    //Rondel Changes digiServices
+
+    .digiservices-menu .mgz-element-tabs {
+        padding-top: 15px !important;
+    }
+
+    .digiservices-menu .mgz-tabs-nav {
+        min-width: 200px !important;
+    }
+
+    .digiservices-menu .mgz-fa-angle-right {
+        float: right;
+        padding-top: 3px !important;
+    }
+
+    .digiservices-menu .mgz-tabs .mgz-tabs-tab-title > a {
+        border: none !important;
+        font-weight: 500 !important;
+        border-radius: unset;
+    }
+
+    .digiservices-menu .mgz-tabs .mgz-tabs-tab-title > a:hover {
+        background: #ff301c !important;
+        color: #fff !important;
+        border-radius: unset;
+    }
+
+    .digiservices-menu .mgz-tabs .mgz-tabs-tab-title.mgz-active > a {
+        background: none !important;
+        color: #ff301c !important;
+    }
+
+    //Rondel Changes
+    .shop-by-category-menu a span:before {
+        content: "\f03a";
+        font-family: 'Font Awesome 5 Free';
+        padding-right: 10px !important;
+    }
+
+    .shop-by-category-menu .nav-item {
+        padding-left: 0 !important;
+        margin-left: -30px !important;
+    }
+
+    /*.shop-by-category-menu .mgz-element-separator {
+        padding-left: 0 !important;
+        margin-left: -10px;
+    }*/
+
+    .img-responsive.brand-image {
+        bottom: 0;
+        display: block;
+        height: auto;
+        left: 0;
+        margin: auto;
+        max-width: 100%;
+        right: 0;
+        top: 0;
+        margin-bottom: 5px;
+        height: 50px;
+        width: auto;
+    }
+
+    #sbc-giftcards, #collectibles-tab-menu {
+        position: relative;
+    }
+
+    #sbc-giftcards:hover {
+        background: #ff3c00 !important;
+    }
+
+    #sbc-giftcards img {
+        display: block !important;
+        margin-right: 10px;
+    }
+
+    #sbc-giftcards:hover img {
+        filter: brightness(0) invert(1);
+    }
+
+    #sbc-giftcards:hover span {
+        color: #fff !important;
+    }
+
+    #collectibles-tab-menu:hover {
+        background: #ff3c00 !important;
+    }
+
+    #collectibles-tab-menu img {
+        display: block !important;
+        margin-right: 10px;
+    }
+
+    #collectibles-tab-menu:hover img {
+        filter: brightness(0) invert(1);
+    }
+
+    #collectibles-tab-menu:hover span {
+        color: #fff !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title a span {
+        padding-left: 40px;
+        vertical-align: middle;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title a:hover {
+        background: #ff3c00 !important;
+        color: #fff !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title a:hover span {
+        color: #fff !important;
+    }
+    
+    .category-tabs .mgz-tabs-tab-title a:hover:before {
+        filter: invert(100%);
+    }
+    
+    .menu-second-level h6 {
+        margin-top: 10px !important;
+    }
+
+}
+
+//Extra Large Desktop
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xll) {
+
+    .mega.nav-item > a{
+        span.title{
+            font-size: 15px;
+        }
+    }
+
+    .category-tabs i .mgz-fa-angle-right{
+        float: right !important;
+    }
+}
+
+//Extra Large Desktop
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+
+    .mega.nav-item > a{
+        span.title{
+            font-size: 18px;
+        }
+    }
+}

@@ -1,0 +1,194 @@
+//
+//  Account: Edit Account Information
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@account-form-edit-field__width: calc(~'50% - 10px');
+@account-form-edit-fieldset__width__l: calc(~'50% - 40px');
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form-edit-account {
+        & {
+            margin-bottom: 30px;
+        }
+
+        .legend {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .field.choice .label,
+        .field.confirm.password,
+        .field.password.current {
+            margin-bottom: 0;
+        }
+
+        .field.new.password {
+            margin-bottom: 2px;
+            margin-top: 21px;
+        }
+
+        .password-info {
+            display: none;
+        }
+        
+        .qantas-promo-box{
+            float: unset;
+            margin-top: 0 !important;
+            padding-left: 45px;
+
+            span{
+                padding-left: 50px;
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form-edit-account {
+        .field {
+            .lib-css(width, @account-form-edit-field__width);
+        }
+
+        .field-name-firstname,
+        .field.new.password {
+            float: left;
+        }
+
+        .field-name-lastname,
+        .field.confirm.password {
+            float: right;
+        }
+
+        .field.confirm.password {
+            margin-top: 21px;
+        }
+
+        .fieldset.password {
+            padding-top: 20px;
+        }
+
+        .action.save {
+            .lib-css(width, @account-button__width);
+            .lib-font-size(14);
+            padding: 13px 15px 12px;
+        }
+    }
+
+    .account .form-edit-account {
+        margin-bottom: 40px;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form-edit-account {
+        & {
+            position: relative;
+        }
+
+        .field {
+            float: none;
+            width: 100%;
+        }
+
+        .fieldset {
+            
+            &{
+                .lib-css(width, @account-form-edit-fieldset__width__l);
+            }
+        }
+
+        .fieldset.password {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            padding-top: 0;
+        }
+
+        .action.save {
+            .lib-css(width, @account-button__width__l);
+            .lib-font-size(16);
+            padding: 16px 15px 14px;
+        }
+    }
+    
+    .form-edit-account{
+        .qff-fieldset {
+            width: 100%;
+            margin-bottom: 30px;
+            
+            .field{
+                max-width: 340px;
+            }
+        }
+
+        .qff-fieldset .no-margin-bottom {
+           margin-bottom: 0;
+        }
+
+        .qff-fieldset.hide {
+            display: none;
+        }
+
+        .qff-fieldset .qff-block{
+            margin-top: 15px;
+        }
+    }
+     
+    span.qff-details-error {
+        color: red;
+        font-weight: bold;
+        font-size: 12px;
+    }
+
+    .account .form-edit-account {
+        padding-bottom: 156px;
+        margin-bottom: 0;
+    }
+    
+    .push-left{
+        text-align: left;
+    }
+    
+    .qantas-promo-box{
+        &{
+            position: relative;
+            margin: 15px auto !important;
+        }
+
+        .qff-logo-container{
+            background: url(../images/qff-logo.svg);
+            background-size: contain;
+            height: 40px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            width: 80px;
+            padding: -15px;
+            position: absolute;
+            left: 0;
+            background-position: center center;
+        }
+
+        span{
+            display: inline-block;
+            max-width: 350px;
+            vertical-align: top;
+            padding-left: 90px;
+        }
+    }
+}

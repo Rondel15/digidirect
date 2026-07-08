@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Plumrocket_Newsletterpopup::base" title="Newsletter Popup" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Base::elements" sortOrder="8096099" resource="Plumrocket_Newsletterpopup::base" />
+        <add id="Plumrocket_Newsletterpopup::popups" title="Manage Popups" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::base" sortOrder="10" action="prnewsletterpopup/popups/" resource="Plumrocket_Newsletterpopup::popups" />
+        <add id="Plumrocket_Newsletterpopup::templates" title="Manage Themes" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::base" sortOrder="20" action="prnewsletterpopup/templates/" resource="Plumrocket_Newsletterpopup::templates" />
+        <add id="Plumrocket_Newsletterpopup::history" title="History" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::base" sortOrder="30" action="prnewsletterpopup/history/" resource="Plumrocket_Newsletterpopup::history" />
+        <add id="Plumrocket_Newsletterpopup::config" title="Configuration" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::base" sortOrder="40" action="adminhtml/system_config/edit/section/prnewsletterpopup" resource="Plumrocket_Newsletterpopup::config" />
+
+        <add id="Plumrocket_Newsletterpopup::pr_group_icon_marketing" title="Newsletter Popup" parent="Magento_Backend::marketing" resource="Plumrocket_Newsletterpopup::base" module="Plumrocket_Newsletterpopup" translate="title" sortOrder="31"/>
+        <add id="Plumrocket_Newsletterpopup::marketing__popups" title="Manage Popups" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::pr_group_icon_marketing" sortOrder="10" action="prnewsletterpopup/popups/" resource="Plumrocket_Newsletterpopup::popups" />
+        <add id="Plumrocket_Newsletterpopup::marketing__templates" title="Manage Themes" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::pr_group_icon_marketing" sortOrder="20" action="prnewsletterpopup/templates/" resource="Plumrocket_Newsletterpopup::templates" />
+        <add id="Plumrocket_Newsletterpopup::marketing__history" title="History" translate="title" module="Plumrocket_Newsletterpopup" parent="Plumrocket_Newsletterpopup::pr_group_icon_marketing" sortOrder="30" action="prnewsletterpopup/history/" resource="Plumrocket_Newsletterpopup::history" />
+    </menu>
+</config>

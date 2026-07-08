@@ -1,0 +1,61 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+ ?>
+
+<div class="field">
+    <div class="input-box agreement-hld pl-clearfix">
+        <input type="checkbox" class="data-agreement checkbox required-entry" name="<?= $this->getFieldName() ?>" id="<?= $this->getFieldId() ?>" value="1"/>
+        <label for="<?= $this->getFieldId() ?>" class="<?= $this->getFieldId() ?>_label data-agreement pr-consent-label" style="display: block;"><?= $this->getLabel() ?> </label>
+    </div>
+</div>
+
+<?php foreach ($this->getPageIdentifiers() as $identifier): ?>
+    <div id="<?= $this->getAgreementContentId($identifier) ?>" class="nl_agreement-content" style="display:none;">
+        <?= $this->getPageContent($identifier) ?>
+    </div>
+<?php endforeach ?>
+
+<script type="text/javascript">
+require([
+    'jquery',
+    'mage/translate',
+    'Magento_Ui/js/modal/modal',
+    'domReady!'
+], function ($, __, modal) {
+    'use strict';
+
+    var contentIdPrefix = '<?= $this->getAgreementContentId('') ?>';
+    var $links = $(".<?= $this->getFieldId(); ?>_label a");
+
+    $links.on('click', function() {
+        var href = $(this).attr('href');
+        if (0 === href.indexOf('#')) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: null,
+                modalClass: 'nl_agreement-modal',
+                buttons: [{
+                    text: __('Continue'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }]
+            };
+
+            var contentId = '#' + contentIdPrefix + href.replace('#', '');
+            modal(options, $(contentId));
+
+            $(contentId).modal('openModal');
+
+            return false;
+        }
+    });
+});
+</script>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\SalesRule\Block\Adminhtml\Promo\Quote\Edit\Tab\Conditions">
+        <arguments>
+            <argument name="rendererFieldset" xsi:type="object">Digidirect\ExtendedCartPriceRules\Block\Adminhtml\Widget\Form\Renderer\Fieldset</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\ExtendedCartPriceRules\Block\Adminhtml\Widget\Form\Renderer\Fieldset">
+        <arguments>
+            <argument name="rewriteTemplatesMap" xsi:type="array">
+                <item name="Magento_CatalogRule::promo/fieldset.phtml" xsi:type="string">Digidirect_ExtendedCartPriceRules::promo/fieldset.phtml</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

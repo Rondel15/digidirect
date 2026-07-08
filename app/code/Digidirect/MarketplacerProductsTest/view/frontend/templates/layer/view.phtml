@@ -1,0 +1,78 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+
+<?php 
+$wrapOptions = false;
+$filters = $block->getFilters();
+$active_filters_str = implode(' ', range(0, count($filters)-1)); 
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter" id="layered-filter-brands-block">
+        <div class="block-title filter-title">
+            <strong id="layered-shopby-brands"><?= $block->escapeHtml(__('Shop By Test!')) ?></strong>
+        </div>
+
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($filters as $filter) : ?>
+                <?php if ($filter->getItemsCount()): ?>
+                    <?php if (!$wrapOptions): ?>
+                        <div class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='{"accordion":{"openedState": "active", "collapsible": true, "active": false, "multipleCollapsible": true}}'>
+                    <?php  $wrapOptions = true; 
+                endif; ?>
+                        <?php if ($filter->getName() != 'Price' ): ?>
+                            <div data-role="collapsible" class="filter-options-item">
+                                <div data-role="title" class="filter-options-title"><?php /* @escapeNotVerified */ echo __($filter->getName()) ?></div>
+                                <div data-role="content" class="filter-options-content"><?php /* @escapeNotVerified */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>       
+            <?php endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script>
+    require([
+        'jquery'
+    ],
+    function ($) {
+  
+        $("#layered-shopby-brands").click(function() {
+            if ($("#layered-filter-brands-block").hasClass("active")) {
+                $("#layered-filter-brands-block").removeClass("active");
+            } else {
+                $("#layered-filter-brands-block").addClass("active");
+            }
+            
+            if ($("#html-body").hasClass("brands-page-filter-active")) {
+                $("#html-body").removeClass("brands-page-filter-active");
+            } else {
+                $("#html-body").addClass("brands-page-filter-active");
+            }
+        });
+        
+    });
+</script>

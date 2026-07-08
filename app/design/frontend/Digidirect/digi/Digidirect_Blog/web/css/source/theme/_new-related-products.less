@@ -1,0 +1,99 @@
+//
+//  Blog (Related Products)
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .block.related {
+        & {
+            .lib-css(background, @color-3-8);
+            padding: 30px 10px 0;
+            margin-bottom: 0;
+        }
+
+        .block-title {
+            .lib-font-size(22);
+            .lib-css(color, @color-black);
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .block-title strong {
+            font-weight: bold;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block.related{
+        background: #fff !important;
+        padding: 0 !important;
+        
+        
+        
+        .related-filters{
+            text-align: center;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .block.related {
+        & {
+            padding: 0;
+        }
+
+        .block-title {
+            .lib-font-size(28);
+            text-align: left;
+            padding-bottom: 20px;
+        }
+    }
+    
+    .block-related-products{
+        &{
+            width: 100%;
+            display: block;
+            margin-top: 30px !important;
+        }
+        
+        .block-content{
+            padding: 0 30px;
+        }
+        
+        .block-title.title{
+            
+            strong{
+                font-size: 28px !important;
+            }
+        }
+        
+        .product-carousel {
+            &{
+                padding: 0 !important;
+            }
+            
+            .product-item-info{
+                margin: 0 !important;
+            }
+        }
+    }
+    
+    .blog-view-index{
+        .block-content{
+            padding: 0;
+        }
+    }
+}

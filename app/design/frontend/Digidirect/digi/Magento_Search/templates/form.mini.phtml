@@ -1,0 +1,47 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/** @var $block \Magento\Framework\View\Element\Template */
+/** @var $helper \Magento\Search\Helper\Data */
+$helper = $this->helper(\Magento\Search\Helper\Data::class);
+?>
+<div class="block block-search">
+    <div class="block block-content">
+        <form class="form minisearch" id="search_mini_form" action="<?= /* @escapeNotVerified */ $helper->getResultUrl() ?>" method="get">
+            <div class="field search">
+                <label class="label" for="search" data-role="minisearch-label">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -search"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-search" fill="white"></use></svg>
+                    <span><?= /* @escapeNotVerified */ __('Search') ?></span>
+                </label>
+                <div class="control">
+                    <input id="search"
+                           data-mage-init='{"quickSearch":{
+                                "formSelector":"#search_mini_form",
+                                "url":"<?= /* @escapeNotVerified */ $helper->getSuggestUrl()?>",
+                                "destinationSelector":"#search_autocomplete"}
+                           }'
+                           type="text"
+                           name="<?= /* @escapeNotVerified */ $helper->getQueryParamName() ?>"
+                           value="<?= /* @escapeNotVerified */ $helper->getEscapedQueryText() ?>"
+                           placeholder="<?= /* @escapeNotVerified */ __('Get creative and search our endless aisle') ?>"
+                           class="input-text"
+                           maxlength="<?= /* @escapeNotVerified */ $helper->getMaxQueryLength() ?>"
+                           role="combobox"
+                           aria-haspopup="false"
+                           aria-autocomplete="both"
+                           autocomplete="off"/>
+<!--                    <div id="search_autocomplete" class="search-autocomplete"></div>-->
+                    <?= $block->getChildHtml() ?>
+                </div>
+            </div>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= $block->escapeHtml(__('Search')) ?>"
+                        class="action search">
+                    <i class="fas fa-search" style="font-size: 21px; color: #fff; padding: 5px 12px 0 0;"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_Collect:etc/placestorage.xsd">
+    <placestorage name="abstract_entity_collect_store">
+        <config handle="abstract_entity_store"
+                instance="Digidirect\CollectAbstractEntity\Model\CollectPlaceRepository"
+                source="Digidirect\CollectAbstractEntity\Model\CollectPlaceStock"/>
+    </placestorage>
+</config>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="digidirect_abstractentity_save_before">
+        <observer name="digidirect_storelocator_save_before" instance="Digidirect\StoreLocator\Observer\Adminhtml\StoreLocatorSaveBefore"/>
+    </event>
+    
+    <!-- Save mapping -->
+    <event name="eav_entity_attribute_set_save_before">
+        <observer name="digidirect_abstractentity_save_after" instance="Digidirect\StoreLocator\Observer\Adminhtml\AttributeSetSaveBefore"/>
+    </event>
+</config>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <container name="digidirect.wysiwyg.extend">
+            <block class="Digidirect\Utilities\Block\Wysiwyg" name="digidirect.utilities.wysiwyg" template="Digidirect_Utilities::wysiwyg_extend_config.phtml" after="-" />
+        </container>
+    </body>
+</page>

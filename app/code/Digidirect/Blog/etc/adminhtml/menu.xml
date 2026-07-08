@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_Blog::blog" title="Blog" module="Digidirect_Blog" sortOrder="10" parent="Digidirect_Utilities::Digidirect" resource="Digidirect_Blog::blog"/>
+
+        <add id="Digidirect_Blog::blogpost" title="Manage Posts" module="Digidirect_Blog" sortOrder="20" resource="Digidirect_Blog::blogpost" action="digidirect_blog/post" parent="Digidirect_Blog::blog"/>
+
+        <add id="Digidirect_Blog::blogcat" title="Manage Categories" module="Digidirect_Blog" sortOrder="30" resource="Digidirect_Blog::blogcat" action="digidirect_blog/category" parent="Digidirect_Blog::blog"/>
+
+        <add id="Digidirect_Blog::blogcomment" title="Manage Comments" module="Digidirect_Blog" sortOrder="30" resource="Digidirect_Blog::blogcomment" action="digidirect_blog/comment" parent="Digidirect_Blog::blog"/>
+    </menu>
+</config>

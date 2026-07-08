@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    
+    <!--<type name="Magento\Company\Plugin\Customer\Api\AccountManagement">
+        <plugin name="b2b_api_accountmanagement" type="Digidirect\Company\Plugin\Customer\Api\AccountManagement" />
+    </type>
+    
+    <type name="Magento\Company\Model\Email\Sender">
+        <plugin name="b2b_email_sender" type="Digidirect\Company\Model\Email\Sender" />
+    </type>
+    
+    <type name="Magento\Company\Model\Email\CustomerData">
+        <plugin name="b2b_email_customerdata" type="Digidirect\Company\Model\Email\CustomerData" />
+    </type>
+    
+    <type name="Magento\Company\Model\Email\Transporter">
+        <plugin name="b2b_email_transporter" type="Digidirect\Company\Model\Email\Transporter" />
+    </type>-->
+    
+    <!--<preference for="Magento\Company\Model\Email\Sender" type="Digidirect\Company\Model\Email\Sender" />-->
+    <preference for="Magento\Company\Model\Email\Sender" type="Digidirect\Company\Plugin\Model\Email\Sender" />
+    <preference for="Magento\Company\Plugin\Customer\Api\AccountManagement" type="Digidirect\Company\Plugin\Customer\Api\AccountManagement" />
+    <!--<<preference for="Magento\Company\Model\Email\CustomerData" type="Digidirect\Company\Model\Email\CustomerData" />-->
+    <!--<<preference for="Magento\Company\Model\Email\Transporter" type="Digidirect\Company\Model\Email\Transporter" />-->
+    <!--<preference for="Magento\Company\Plugin\Customer\Api\AccountManagement" type="Digidirect\Company\Plugin\Customer\Api\AccountManagement" />-->
+
+</config>

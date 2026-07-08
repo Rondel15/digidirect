@@ -1,0 +1,369 @@
+//
+//  Navigation: Sub Menu
+//  _____________________________________________
+
+@nav-sub-menu__is-enabled: true; // Enable/disable styles
+@nav-sub-menu-selector: ~'.sub-menu:not(.-clear)';
+
+@nav-sub-menu__position: absolute;
+@nav-sub-menu__top: 0;
+@nav-sub-menu__left: -9999px;
+@nav-sub-menu__z-index: false;
+@nav-sub-menu__display: block;
+@nav-sub-menu__display__m: flex;
+@nav-sub-menu__justify-content__m: space-between;
+@nav-sub-menu__max-width: @layout__max-width;
+@nav-sub-menu__margin: auto;
+@nav-sub-menu__padding: false;
+@nav-sub-menu__border-bottom: false;
+@nav-sub-menu__border-bottom__m: false;
+@nav-sub-menu__color: false;
+@nav-sub-menu__background-color: @color-white;
+@nav-sub-menu__open__position: static;
+@nav-sub-menu__open__top: false;
+@nav-sub-menu__open__left: 0;
+@nav-sub-menu__open__z-index: 101;
+
+@nav-sub-menu-children__display: false;
+
+@nav-sub-menu-item-link__display: false;
+@nav-sub-menu-item-link__padding: false;
+@nav-sub-menu-item-link__font-size: 13px;
+@nav-sub-menu-item-link__line-height: 1.2;
+@nav-sub-menu-item-link__text-decoration: false;
+@nav-sub-menu-item-link__text-transform: false;
+@nav-sub-menu-item-link__word-wrap: false;
+@nav-sub-menu-item-link__color: false;
+@nav-horizontal-sub-menu__open__position: absolute;
+@nav-horizontal-sub-menu__open__top: 100%;
+@nav-horizontal-sub-menu__open__width: 100%;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    @{nav-sub-menu-selector} {
+        & {
+            .lib-css(position, @nav-sub-menu__position);
+            .lib-css(top, @nav-sub-menu__top);
+            .lib-css(left, @nav-sub-menu__left);
+            .lib-css(z-index, @nav-sub-menu__z-index);
+            .lib-css(display, @nav-sub-menu__display);
+            .lib-css(max-width, @nav-sub-menu__max-width);
+            .lib-css(margin, @nav-sub-menu__margin);
+            .lib-css(padding, @nav-sub-menu__padding);
+            .lib-css(border-bottom, @nav-sub-menu__border-bottom);
+            .lib-css(color, @nav-sub-menu__color);
+            .lib-css(background-color, @nav-sub-menu__background-color);
+        }
+
+        &.-open,
+        .-onfocus-open > & {
+            .lib-css(position, @nav-sub-menu__open__position);
+            .lib-css(top, @nav-sub-menu__open__top);
+            .lib-css(left, @nav-sub-menu__open__left);
+            .lib-css(z-index, @nav-sub-menu__open__z-index);
+        }
+
+        > .cms,
+        > .menu,
+        > .extra {
+            .lib-css(display, @nav-sub-menu-children__display);
+        }
+
+        .item > .link {
+            .lib-css(display, @nav-sub-menu-item-link__display);
+            .lib-css(padding, @nav-sub-menu-item-link__padding);
+            .lib-css(font-size, @nav-sub-menu-item-link__font-size);
+            .lib-css(line-height, @nav-sub-menu-item-link__line-height);
+            .lib-css(text-decoration, @nav-sub-menu-item-link__text-decoration);
+            .lib-css(text-transform, @nav-sub-menu-item-link__text-transform);
+            .lib-css(word-wrap, @nav-sub-menu-item-link__word-wrap);
+            .lib-css(color, @nav-sub-menu-item-link__color);
+        }
+
+        @{nav-sub-menu-selector} {
+            position: static;
+            padding: 0;
+        }
+
+        &.-level2 .item > .link {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        &.-level2 .item > .link:hover {
+            .lib-underline-hover();
+        }
+
+        .extra {
+            padding: 14px 20px;
+        }
+
+        .block-static-block a {
+            text-decoration: none;
+        }
+    }
+}
+
+//
+//  L -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    @{nav-sub-menu-selector} {
+        .link {
+            .lib-css(color, @color-black);
+        }
+
+        &.-level1 > .menu > .item:not(.-added) > .link,
+        &.-level1 .item.-type-abstract_attribute,
+        .block-static-block .title,
+        .item.-added.-level2,
+        .item.-added.-level3 {
+            display: none;
+        }
+
+        &.-level2 .item > .link,
+        .block-static-block li a,
+        &.-level1 > .menu > .item.-added > .link,
+        &.-level1 > .cms > .item.-added > .link,
+        &.-level1 .item.-type-category .item.-added > .link {
+            display: block;
+            padding: 15px 20px;
+        }
+
+        &.-level2 .item + .item,
+        .block-static-block li + li,
+        .block-static-block + .block-static-block,
+        &.-level1 > .menu > .item.-added,
+        &.-level1 > .cms > .item.-added,
+        &.-level1 .item.-type-category .item.-added {
+            .lib-css(border-top, 1px solid @color-3-5);
+        }
+
+        .block-static-block,
+        .block-static-block ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .block-static-block li {
+            margin: 0;
+        }
+
+        .block-static-block li a,
+        &.-level1 > .menu > .item.-added > .link,
+        &.-level1 > .cms > .item.-added > .link,
+        &.-level1 .item.-type-category .item.-added > .link {
+            font-size: 14px;
+            line-height: 20px;
+        }
+
+        .block-static-block img {
+            display: none;
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    @{nav-sub-menu-selector} {
+        & {
+            .lib-css(display, @nav-sub-menu__display__m);
+            .lib-css(justify-content, @nav-sub-menu__justify-content__m);
+            .lib-css(border-bottom, @nav-sub-menu__border-bottom__m);
+        }
+
+        &.-level1 > .menu {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &.-level1 > .menu > .item > .link {
+            font-size: 20px;
+            line-height: 24px;
+            .lib-css(font-weight, @font-weight__heavier);
+            .lib-css(color, @text__color);
+            cursor: default;
+            pointer-events: none;
+        }
+
+        &.-level1 > .menu > .item {
+            padding: 30px 0 48px 40px;
+
+            &:first-child {
+                width: 63%;
+            }
+        }
+
+        &.-level1 > .menu > .item + .item {
+            flex-grow: 1;
+            .lib-css(border-left, 1px solid @color-3-2);
+        }
+
+        &.-level1 > .menu > .item.-added,
+        &.-level1 > .cms > .item.-added {
+            display: none;
+        }
+
+        &.-level1 > .menu > .item > .sub-menu {
+            padding-top: 14px;
+        }
+
+        &.-level1 > .cms {
+            min-width: 50%;
+        }
+
+        &.-level1 > .cms + .menu {
+            flex-grow: 1;
+            display: block;
+            width: auto;
+            .lib-css(border-left, 1px solid @color-3-2);
+            min-width: 1px; // IE 11 fix
+        }
+
+        &.-level1 > .cms + .menu > .item {
+            &:first-child {
+                width: auto;
+            }
+        }
+
+        @{nav-sub-menu-selector} {
+            position: relative;
+            left: auto;
+        }
+
+        &.-level2 > .menu {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        &.-level2 > .menu > .item {
+            width: 33.3333%;
+            max-width: 280px;
+        }
+
+        &.-level2 .menu .item {
+            margin-bottom: 12px;
+            padding-right: 10px;
+        }
+
+        &.-level2 .item.-added {
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            width: auto;
+            margin: 0;
+            padding: 0;
+            text-align: right;
+        }
+
+        &.-level2 .item.-added > .link {
+            line-height: 24px;
+        }
+
+        .item.-type-category .item.-added {
+            display: none;
+        }
+
+        .extra {
+            flex-shrink: 0;
+            padding: 20px 0 20px 20px;
+        }
+
+        .extra img {
+            max-width: 270px;
+            vertical-align: top;
+        }
+
+        .menu + .extra {
+            margin-left: 16px;
+        }
+    }
+
+    .menu-wrapper {
+        @{nav-sub-menu-selector}.-open,
+        .-onfocus-open > & {
+            .lib-css(position, @nav-horizontal-sub-menu__open__position);
+            .lib-css(top, @nav-horizontal-sub-menu__open__top);
+            .lib-css(width, @nav-horizontal-sub-menu__open__width);
+            padding-right: 20px;
+        }
+
+        .block-static-block {
+            margin: 0;
+            padding: 30px 40px;
+        }
+
+        .block-static-block ul {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            padding: 0;
+        }
+
+        .block-static-block li {
+            width: 25%;
+            margin: 0 0 18px;
+            padding: 0 10px;
+            font-size: 14px;
+            line-height: 20px;
+            text-align: center;
+            .lib-hover-out();
+        }
+
+        .block-static-block:first-child ul > li:hover {
+            .lib-sub-menu-hover();
+        }
+
+        .block-static-block:first-child ul > li:hover > a {
+            .lib-css(color, @color-black);
+        }
+
+        .block-static-block img {
+            display: block;
+            margin: 0 auto 2px;
+            vertical-align: top;
+        }
+
+        .block-static-block .title {
+            margin: 0 0 24px;
+            font-size: 20px;
+            line-height: 24px;
+            .lib-css(font-weight, @font-weight__heavier);
+            text-align: center;
+            .lib-css(color, @text__color);
+        }
+
+        .block-static-block + .block-static-block {
+            .lib-css(border-top, 1px solid @color-3-2);
+        }
+
+        .block-static-block + .block-static-block li {
+            width: 33.3333%;
+            max-width: 280px;
+            margin: 0 0 12px;
+            padding: 0 10px 0 0;
+            text-align: left;
+        }
+    }
+}
+
+//
+//  XL +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    @{nav-sub-menu-selector} {
+        .extra img {
+            max-width: 307px;
+        }
+    }
+}

@@ -1,0 +1,152 @@
+<?php
+/**
+ * @see \Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Js
+ * @var \Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Js $block
+ */
+?>
+<script type="text/javascript">
+    require([
+        "prototype"
+    ], function () {
+        var attrIdEl = $('attribute_id'),
+            attrLabel = $('attribute_label'),
+            inputType = $('frontend_input'),
+            aaStatus = $('aa_status'),
+            aaFields = $$('.abstract-attributes'),
+            aaTabLink = $('product_attribute_tabs_advanced_options_properties'),
+            optionsPanel = $('manage-options-panel'),
+            canChange = true,
+            aaTab, optionsFieldset, attrId,
+            reset = $('reset');
+
+        if (optionsPanel) {
+            optionsFieldset = optionsPanel.up('fieldset');
+        }
+
+        if (aaTabLink) {
+            aaTab = aaTabLink.up('li');
+        }
+
+        if (attrIdEl) {
+            attrId = attrIdEl.value;
+        }
+
+        function setRowVisibility(el, isVisible) {
+            if (el) {
+                var tr = el.parentNode.parentNode;
+
+                if (isVisible) {
+                    tr.show();
+                } else {
+                    tr.blur();
+                    tr.hide();
+                }
+            }
+        }
+
+        function toggleTabAndFields(isVisible) {
+            if (aaTab) {
+                if (isVisible) {
+                    aaTab.show();
+                } else {
+                    aaTab.hide();
+                }
+            }
+
+            if (aaFields) {
+                aaFields.each(function (el) {
+                    if (el.id == aaStatus.id) {
+                        return;
+                    }
+
+                    var row = el.up('.field');
+                    if (isVisible) {
+                        row.show();
+                        el.disabled = false;
+                    } else {
+                        el.blur();
+                        row.hide();
+                        el.disabled = true;
+                    }
+                });
+            }
+
+            if (optionsFieldset) {
+                if (isVisible) {
+                    optionsFieldset.hide();
+                    optionsFieldset.removeClassName('fieldset');
+                } else {
+                    optionsFieldset.show();
+                    optionsFieldset.addClassName('fieldset');
+                }
+
+                optionsFieldset.select('input', 'textarea', 'select').each(function (el) {
+                    if (isVisible) {
+                        el.hide();
+                        el.blur();
+                        el.disabled = false;
+                    } else {
+                        el.show();
+                        el.disabled = false;
+                    }
+                });
+            }
+        }
+
+        function changeAAUrlKey() {
+            var aaUrlKey = $$('[name="aa[url_key]"]').first();
+            if (!attrId && aaUrlKey && !aaUrlKey.disabled && canChange) {
+                aaUrlKey.value = filterUrlKey(attrLabel.value);
+            }
+        }
+
+        function checkAAUrlKey() {
+            var aaUrlKey = $$('[name="aa[url_key]"]').first();
+            if (canChange && aaUrlKey && aaUrlKey.value != filterUrlKey(attrLabel.value)) {
+                canChange = false;
+            }
+        }
+
+        function filterUrlKey(urlKey) {
+            return urlKey.toLowerCase().replace(/[^0-9a-z\-]/, '-');
+        }
+
+        function toggleInputTypeField() {
+            if (inputType && (inputType.value == 'select' || inputType.value == 'multiselect')) {
+                setRowVisibility(aaStatus, true);
+                toggleTabAndFields(aaStatus.value == "1");
+                changeAAUrlKey();
+            } else {
+                aaStatus.value = 0;
+                setRowVisibility(aaStatus, false);
+                toggleTabAndFields(false);
+            }
+        }
+
+        toggleInputTypeField();
+
+        if (inputType) {
+            Event.observe(inputType, 'change', toggleInputTypeField);
+        }
+
+        if (aaStatus) {
+            Event.observe(aaStatus, 'change', toggleInputTypeField);
+        }
+
+        if (attrLabel) {
+            Event.observe(attrLabel, 'change', changeAAUrlKey);
+        }
+
+        if (aaUrlKey = $$('[name="aa[url_key]"]').first()) {
+            Event.observe(aaUrlKey, 'change', checkAAUrlKey);
+        }
+
+        if (reset) {
+            Event.observe(reset, 'click', function () {
+                setLocation(window.location.href);
+            });
+        }
+
+        window.toggleInputTypeField = toggleInputTypeField;
+    });
+</script>

@@ -1,0 +1,43 @@
+//
+//  Additional banner on homepage
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .additional-banner {
+        display: none;
+        line-height: 0;
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .banners-wrapper {
+        .lib-vendor-prefix-display(flex);
+    }
+
+    .additional-banner {
+        & {
+            display: block;
+            position: relative;
+            min-width: 1px; // IE fix
+        }
+
+        .actions {
+            position: absolute;
+            bottom: 28px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .button {
+            .lib-button-l();
+            padding: 11px 71px;
+        }
+    }
+}

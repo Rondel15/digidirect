@@ -1,0 +1,34 @@
+<!--@subject A status update for your Price Match request @-->
+<!--@vars {
+"var check_method_coupon":"Check Method Coupon",
+"var check_method_lower":"Check Method Lower",
+"var customer_name":"Customer Name",
+"var product_name":"Product Name",
+"var difference":"Difference Price",
+"var coupon":"Coupon Code",
+"var requested_price":"Requested Price",
+"var link":"Product Link",
+"var link_name":"Link Name",
+"var admin_response":"Admin's Response",
+"var storeview":"Store Name",
+"var status":"Status"
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<div>
+    Dear {{var customer_name}},
+</div>
+
+<div>
+    {{if check_method_coupon}}
+         Please use the following coupon code to get <strong>{{var difference}} OFF</strong> for the product requested: <strong>{{var coupon}}</strong>.
+    {{/if}}
+    {{if check_method_lower}}
+        We reduced the product price to <strong>{{var requested_price}}</strong> per your request. You may order the product following: <a href="{{var link}}">{{var link_name}}
+    {{/if}}
+</div>
+<div style="margin: 10px 0">
+    <pre style="font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;display: inline;border:none;padding:0px;background:none;font-style:normal;font-weight: normal;line-height:1.42857143;font-size:14px;">{{var admin_response}}</pre>
+</div>
+
+{{template config_path="design/email/footer_template"}}

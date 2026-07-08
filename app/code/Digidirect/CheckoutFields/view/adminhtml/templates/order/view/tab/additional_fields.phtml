@@ -1,0 +1,74 @@
+<?php
+/**
+ * @var $block \Digidirect\CheckoutFields\Block\Adminhtml\Order\View\Tab\AdditionalFields
+ */
+$customFields = $block->getOrderCustomFields();
+?>
+<section class="admin__page-section order-view-account-information">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo $block->escapeHtml(__('Additional Information')) ?></span>
+    </div>
+    <?php if ($customFields): ?>
+        <div class="admin__page-section-item-content">
+            <table class="admin__table-secondary order-information-table">
+                <?php foreach ($customFields as $field): ?>
+                    <tr>
+                        <th><?php echo $block->escapeHtml(__($field->getCode())) ?></th>
+                        <td>
+                            <span data-checkout-field-value="<?= /* @escapeNotVerified */ $field->getFieldId() ?>"><?= $block->escapeHtml($block->getValue($field->getValue())) ?></span>
+                            <form style="display: none" data-checkout-field-form="<?= /* @escapeNotVerified */ $field->getFieldId() ?>"
+                                  data-mage-init='{"validation":{}}'
+                                  method="post" action="<?= /* @escapeNotVerified */ $block->getUrl('digidirect_checkoutfields/field/save') ?>">
+                                <input type="hidden" name="order_id" value="<?= /* @escapeNotVerified */ $block->getOrder()->getId() ?>">
+                                <input type="hidden" name="field_id" value="<?= /* @escapeNotVerified */ $field->getFieldId() ?>">
+                                <input class="admin__control-text <?= /* @escapeNotVerified */ $field->getHtmlClasses() ?>" type="text" name="field_value"
+                                       value="<?= $block->escapeHtml($block->getValue($field->getValue())) ?>">
+                                <button type="button">Save</button>
+                            </form>
+                        </td>
+                        <td>
+                            <?php if ($block->allowEdit($field->getFieldId())) { ?>
+                                <a href="#" data-checkout-field-edit="<?= /* @escapeNotVerified */ $field->getFieldId() ?>">(edit)</a>
+
+                            <?php } ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        </div>
+        <script>
+            require(['jquery', 'mage/validation/validation'], function ($) {
+
+                $('[data-checkout-field-form] button').on('click', function (event) {
+                    var $form = $(this).closest('form');
+                    var $tabError = $('#sales_order_view_tabs_additional_custom_fields').find('._error');
+                    $tabError.hide();
+
+                    if (!$form.validation('isValid')) {
+                        $tabError.show();
+                        return;
+                    }
+
+                    var currentFieldId = $form.attr('data-checkout-field-form');
+                    $.post($form.attr('action'), $form.serialize())
+                        .done(function (data) {
+                            $form.hide();
+                            $('[data-checkout-field-edit = ' + currentFieldId + ']').show();
+                            $('[data-checkout-field-value = ' + currentFieldId + ']').show().text(data['newValue']);
+                        });
+
+                    return false;
+                });
+
+                $('[data-checkout-field-edit]').on('click', function (event) {
+                    var $editButton = $(this);
+                    $editButton.hide();
+                    var currentFieldId = $editButton.attr('data-checkout-field-edit');
+                    $('[data-checkout-field-value = ' + currentFieldId + ']').hide();
+                    $('[data-checkout-field-form = ' + currentFieldId + ']').show();
+                });
+
+            });
+        </script>
+    <?php endif; ?>
+</section>

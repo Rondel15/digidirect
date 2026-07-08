@@ -1,0 +1,28 @@
+{
+  "name": "studio19/module-variants",
+  "description": "A Magento 2 module for the provision of variant information to the Studio19 rental portal.",
+  "type": "magento2-module",
+  "version": "1.0.5",
+  "license": [
+    "Commercial"
+  ],
+  "require": {
+    "magento/framework": "~100.0.4"
+  },
+  "authors": [
+    {
+      "name": "Andrew Polden",
+      "email": "apolden@datalive.com.au",
+      "homepage": "https://www.studio19.com.au/",
+      "role": "Developer"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Studio19\\Variants\\": ""
+    }
+  }
+}

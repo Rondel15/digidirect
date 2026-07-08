@@ -1,0 +1,21 @@
+//
+//  Newsletter: Checkout
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@checkout-newsletter__margin: 0 0 10px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .checkout-newsletter {
+        input[type='checkbox']:checked + label::after {
+            top: 13px;
+        }
+    }
+}

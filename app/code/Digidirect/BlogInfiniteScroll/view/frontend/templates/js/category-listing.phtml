@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var $block \Digidirect\InfiniteScroll\Block\Core
+ * @var $animationHelper \Digidirect\Utilities\Helper\Animation
+ */
+$animationHelper = $this->helper('Digidirect\Utilities\Helper\Animation');
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "infinitescroll": {
+                "itemsContainerSelector": ".blog-list",
+                "itemSelector": ".post-card",
+                "nextUrl": "<?php echo /* @escapeNotVerified */ $block->getNextPageUrl(); ?>",
+                "action": "<?php /* @escapeNotVerified */ echo $block->getActionType(); ?>",
+                "buttonArea": ".blog-infinite",
+                "scrollContainer": ".blog-list",
+                "scrollOffset": 10,
+                "viewCustom": "Digidirect_BlogInfiniteScroll/js/dist/views/blog-posts",
+                "loaderIcon": "<?php echo $block->escapeUrl($animationHelper->getImage()); ?>",
+                "loaderText": "<?php echo $block->escapeHtml($animationHelper->getText()); ?>"
+            }
+        }
+    }
+</script>

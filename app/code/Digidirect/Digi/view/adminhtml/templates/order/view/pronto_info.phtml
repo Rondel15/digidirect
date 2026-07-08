@@ -1,0 +1,24 @@
+<?php
+/**
+ * Digidirect
+ *
+ * @var $block Digidirect\Digi\Block\Adminhtml\Order\View\ProntoAdditionalInfo
+ */
+$prontoAdditionAttr = $block->getOrderData();
+?>
+<?php if (!empty($prontoAdditionAttr)) { ?>
+<section class="admin__page-section">
+    <div class="admin__page-section-title">
+        <span class="title"><?php echo __('Pronto Attributes') ?></span>
+    </div>
+    <div class="admin__page-section-item-content">
+        <?php foreach ($prontoAdditionAttr as $title => $value) :?>
+            <div class="admin__field">
+                <label for="billing-notice" class="admin__field-label">
+                    <?php echo sprintf('%s:  %s', $title, $value); ?>
+                </label>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php } ?>

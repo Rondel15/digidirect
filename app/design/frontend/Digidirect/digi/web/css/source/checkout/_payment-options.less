@@ -1,0 +1,128 @@
+//
+//  Checkout: Payment Options
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-payment-option__is-enabled: true; // Enable/disable style
+
+//  Title
+@checkout-payment-option-title__margin: 0;
+@checkout-payment-option-title__padding: @indent__base 0;
+@checkout-payment-option-title__border-top: @border-width__base solid @color-gray80;
+@checkout-payment-option-title__collapsible__cursor: pointer;
+
+//  Title: Action Toggle
+@checkout-payment-option-title-action-toggle__color: @link__color;
+@checkout-payment-option-title-action-toggle__use-base64: true;
+@checkout-payment-option-title-action-toggle-icon__width: 10px;
+@checkout-payment-option-title-action-toggle-icon__height: 6px;
+@checkout-payment-option-title-action-toggle-icon__margin: -2px 0 0 10px;
+@checkout-payment-option-title-action-toggle-icon__background-image: @base64-icon__down;
+@checkout-payment-option-title-action-toggle-icon__pseudo-type: after;
+@checkout-payment-option-title-action-toggle-icon__active__background-image: @base64-icon__up;
+
+//  Content
+@checkout-payment-option-content__padding: 0 0 @indent__base;
+@checkout-payment-option-content__collapsible__display: none;
+
+//  Inner Content
+@checkout-payment-option-inner__margin: 0 0 @indent__base;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-payment-option__is-enabled = true) {
+        .checkout-payment-method {
+            .payment-option-title {
+                .lib-css(margin, @checkout-payment-option-title__margin);
+                .lib-css(padding, @checkout-payment-option-title__padding);
+                .lib-css(border-top, @checkout-payment-option-title__border-top);
+            }
+            .payment-option-title .action-toggle {
+                .lib-css(color, #222);
+                & when (@checkout-payment-option-title-action-toggle__use-base64 = true) {
+                    .lib-base64(
+                        @_base64-width: @checkout-payment-option-title-action-toggle-icon__width,
+                        @_base64-height: @checkout-payment-option-title-action-toggle-icon__height,
+                        @_base64-margin: @checkout-payment-option-title-action-toggle-icon__margin,
+                        @_base64-background-image: @checkout-payment-option-title-action-toggle-icon__background-image,
+                        @_base64-pseudo-type: @checkout-payment-option-title-action-toggle-icon__pseudo-type
+                    );
+                }
+            }
+
+            .payment-option-content {
+                .lib-css(padding, @checkout-payment-option-content__padding);
+            }
+
+            //  Active
+            .payment-option._active .payment-option-title .action-toggle {
+                & when (@checkout-payment-option-title-action-toggle__use-base64 = true) {
+                    .lib-base64-symbol(
+                        @_base64-background-image: @checkout-payment-option-title-action-toggle-icon__active__background-image,
+                        @_base64-pseudo-type: @checkout-payment-option-title-action-toggle-icon__pseudo-type
+                    );
+                }
+            }
+            //  Collapsible
+            .payment-option._collapsible .payment-option-title {
+                .lib-css(cursor, @checkout-payment-option-title__collapsible__cursor);
+            }
+            .payment-option._collapsible .payment-option-content {
+                .lib-css(display, @checkout-payment-option-content__collapsible__display);
+            }
+
+            .payment-option-inner {
+                .lib-css(margin, @checkout-payment-option-inner__margin);
+            }
+
+            //Common Styling
+
+            .qff-logo-container{
+                width: 100%;
+                max-width: 100px;
+                margin-top: 7px;
+            }
+
+            .fieldset.apply .actions-toolbar > .primary > .action-add{
+                &{
+                    font-size: 15px !important;
+                    font-family: 'Poppins', sans-serif;
+                    height: unset !important;
+                    padding: 12px !important;
+                    line-height: unset !important;
+                    margin-top: 45px;
+                }
+
+                &:hover{
+                    background: #ea7543 !important;
+                    border: 2px solid #ea7543 !important;
+                }
+            }
+
+            .form-discount .actions-toolbar{
+                &{
+                    margin-left: 15px !important;
+                }
+
+               > .primary > .action-apply{
+                    font-size: 15px !important;
+                    font-family: 'Poppins', sans-serif;
+                    height: unset !important;
+                    padding: 12px !important;
+                    line-height: unset !important;
+
+                    &:hover{
+                        background: #ea7543 !important;
+                        border: 2px solid #ea7543 !important;
+                    }
+                }
+            }
+        }
+    }
+}

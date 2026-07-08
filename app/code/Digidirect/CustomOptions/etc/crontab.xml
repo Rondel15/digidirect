@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Cron:etc/crontab.xsd">
+    <group id="digidirect_customoptions">
+        <job name="customoptions_deleteoptions" instance="Digidirect\CustomOptions\Cron\DeleteOptions" method="execute">
+            <schedule>0 1 * * *</schedule>
+        </job>
+        <job name="customoptions_createoptions" instance="Digidirect\CustomOptions\Cron\CreateOptions" method="execute">
+            <schedule>20 1 * * *</schedule>
+        </job>
+    </group>
+</config>

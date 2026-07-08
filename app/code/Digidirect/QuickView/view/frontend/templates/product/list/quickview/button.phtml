@@ -1,0 +1,7 @@
+<?php
+/** @var \Digidirect\QuickView\Block\Product\ListProduct\QuickView\Button $block */
+$productUrl = $block->getProductUrl();
+?>
+<span role="button" data-role="quickview-button" data-url="<?php echo $block->escapeUrl($productUrl).'?quickview=1'; ?>" class="quickview-button button" title="<?php /* @escapeNotVerified */ echo $this->getButtonLabel() ?>">
+    <?php /* @escapeNotVerified */ echo $this->getButtonLabel() ?>
+</span>

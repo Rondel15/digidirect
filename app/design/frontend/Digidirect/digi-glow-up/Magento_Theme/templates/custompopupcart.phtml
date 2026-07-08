@@ -1,0 +1,49 @@
+<div style="display: none" id="popup-mpdal">
+    <div id="minicart-content-wrapper" data-bind="scope: 'minicart_content'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+</div>
+<script>
+    window.checkout = <?=  $block->getSerializedConfig() ?>;
+</script>
+<script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?=  $block->getJsLayout() ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?= $block->getViewFileUrl('images/loader-1.gif') ?>"
+        }
+    }
+    </script>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                focus: '#popup-mpdal',
+                buttons: [{
+                    text: $.mage.__('Continue'),
+                    click: function () {
+                        this.closeModal();
+                        $('#popup-mpdal').hide();
+                    }
+                }]
+            };
+            $('#minicart-trigger').on('click', function() {
+                $('#popup-mpdal').show();
+                var popup = modal(options, $('#popup-mpdal'));
+                $("#popup-mpdal").modal("openModal");
+            });
+        }
+    );
+</script>

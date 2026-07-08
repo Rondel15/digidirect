@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var \Digidirect\ProductOverlay\Block\Stock $block
+ */
+?>
+<div data-testid="productOverlay-stockLabel" data-role="label-overlay" class="label-overlay">
+    <?php foreach ($block->getStockLabels() as $label): ?>
+        <?php /* @escapeNotVerified */ echo $label; ?>
+    <?php endforeach; ?>
+</div>
+

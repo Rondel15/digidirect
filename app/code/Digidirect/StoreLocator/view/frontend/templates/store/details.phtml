@@ -1,0 +1,47 @@
+<?php
+/** @var $block Digidirect\StoreLocator\Block\ListStore\DetailPage */
+$abstractEntity = $block->getCurrentAbstractEntity();
+$exclusiveIcon = $block->getExclusiveIcon();
+?>
+
+<div class="locator-details">
+    <?php if ($abstractEntity->getImage()): ?>
+        <img class="image" src="<?php echo $block->escapeUrl($block->getImageHelper()->init($abstractEntity, 'image')->resize($block->getImageWidth(), $block->getImageHeight())->getUrl()); ?>" alt="<?php echo $block->escapeHtml($abstractEntity->getName()); ?>">
+    <?php endif; ?>
+
+    <?php if ($abstractEntity->getFeatured() && $exclusiveIcon): ?>
+        <img class="exclusive" src="<?php echo $block->escapeUrl($block->getExclusiveIcon()); ?>" alt="">
+    <?php endif; ?>
+
+    <?php if ($phone = $abstractEntity->getPhoneNumber()): ?>
+        <div class="phone">
+            <span class="label"><?php /* @escapeNotVerified */ echo __('Phone Number')?></span>
+            <?php echo $block->escapeHtml($phone); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($description = $abstractEntity->getDescription()): ?>
+        <div class="description"><?php /* @escapeNotVerified */ echo $description; ?></div>
+    <?php endif; ?>
+
+    <?php if ($hours = $abstractEntity->getOpeningHours()): ?>
+        <div class="hours">
+            <div class="label"><?php /* @escapeNotVerified */ echo __('Opening Hours')?></div>
+            <?php /* @escapeNotVerified */ echo $hours; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($address = $block->getFullAddress()): ?>
+        <div class="hours">
+            <div class="label"><?php /* @escapeNotVerified */ echo __('Address')?></div>
+            <?php /* @escapeNotVerified */ echo $address; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($hours = $abstractEntity->getDescription()): ?>
+        <div class="hours">
+            <div class="label"><?php /* @escapeNotVerified */ echo __('Description Hours')?></div>
+            <?php /* @escapeNotVerified */ echo $hours; ?>
+        </div>
+    <?php endif; ?>
+</div>

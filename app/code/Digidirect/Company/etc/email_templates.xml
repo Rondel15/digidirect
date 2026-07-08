@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="company_email_company_notify_admin_template" label="Company Registration Request" file="notify_admin.html" type="html" module="Digidirect_Company" area="frontend"/>
+</config>

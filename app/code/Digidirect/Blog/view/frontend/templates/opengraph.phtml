@@ -1,0 +1,24 @@
+<?php
+
+/**
+ *  @var $block Magento\Framework\View\Element\Template
+ *  @var $viewModel Digidirect\Blog\ViewModel\OpenGraphBlogCategory|\Digidirect\Blog\ViewModel\OpenGraphBlogPost
+ *  @var $alternativeLocalCodes array
+ */
+$viewModel = $block->getData('viewModel');
+$alternativeLocalCodes = $viewModel->getAlternativeLocaleCodes();
+?>
+
+<meta property="og:title" content="<?= $block->escapeHtmlAttr($block->stripTags($viewModel->getTitle())) ?>" />
+<meta property="og:image" content="<?= $block->escapeUrl($viewModel->getImage()) ?>" />
+<meta property="og:description" content="<?= $block->escapeHtmlAttr($block->stripTags($viewModel->getDescription())) ?>" />
+<meta property="og:type" content="<?= $block->escapeHtmlAttr($block->stripTags($viewModel->getType())) ?>" />
+<meta property="og:url" content="<?= $block->escapeUrl($viewModel->getCanonicalUrl()) ?>" />
+<meta property="og:locale" content="<?= $block->escapeHtmlAttr($viewModel->getLocalCode()) ?>"/>
+<?php if(!empty($alternativeLocalCodes)): ?>
+    <?php foreach ($alternativeLocalCodes as $altLocale): ?>
+    <meta property="og:locale:alternate" content="<?= $block->escapeHtmlAttr($block->stripTags($altLocale)) ?>" />
+    <?php endforeach; ?>
+<?php endif; ?>
+
+

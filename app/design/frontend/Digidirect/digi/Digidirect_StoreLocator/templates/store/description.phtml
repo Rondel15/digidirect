@@ -1,0 +1,7 @@
+<?php
+/** @var $block Digidirect\StoreLocator\Block\ListStore\DetailPage */
+$abstractEntity = $block->getCurrentAbstractEntity();
+?>
+<?php if ($description = $abstractEntity->getDescription()): ?>
+    <?php /* @escapeNotVerified */ echo $description; ?>
+<?php endif; ?>

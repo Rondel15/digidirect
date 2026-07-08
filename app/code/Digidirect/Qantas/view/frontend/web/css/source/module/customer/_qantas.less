@@ -1,0 +1,115 @@
+& when(@media-common = true){ 
+
+    .qff-content {
+        .qantas-logo {
+            justify-self: end;
+        }
+
+        .form-title {
+            font-size: 2.8rem;
+            font-weight: 500;
+            margin-bottom: 30px;
+            display: block;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 15px;
+            text-align: left;
+        }
+    }
+
+
+    .qff-trigger{
+        padding-bottom: 20px;
+        button {
+            height:50px;
+        }
+    }
+
+    .qantas-promo-box {
+        display: grid;
+        grid-template-columns: auto auto;
+        grid-gap: 10px;
+        margin: 30px 0 30px;
+        height: 100%;
+        
+        img {
+            height: 100%;
+            min-height: 30px;
+            max-height: 30px;
+        }
+    }
+    
+    .qantas-promo-box {
+        grid-area: test1;
+    }
+
+    .custom-text {
+        grid-area: test2;
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) 
+{ 
+    .qantas-promo-box { 
+        float: right;
+        
+        img {
+            max-height: 55px;
+        }
+    }
+    
+    
+}
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) 
+{
+    .qff-trigger{
+        width: auto;
+
+        #qff-trigger{
+            width: 100%;
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .qantas-promo-box { 
+        padding-left: 20px;
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+
+    .qff-content {
+        .qantas-promo-box {
+            display: inline-flex;
+            span {
+                padding-inline: 10px;
+                font-size: 12px;
+            }
+        }
+
+        .qff-trigger{
+            width: auto;
+        }
+
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+    .qff-content { 
+
+        .qantas-promo-box {
+            max-width: fit-content;
+
+
+            .qff-logo-container {
+                width: 100px;
+            }
+
+            span {
+                font-size: 10px;
+            }
+        }
+    }
+}

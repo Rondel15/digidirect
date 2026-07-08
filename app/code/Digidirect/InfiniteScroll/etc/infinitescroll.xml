@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_InfiniteScroll:etc/infinitescroll.xsd">
+    <scroll name="catalog">
+        <config handle="catalog_category_view" instance="Digidirect\InfiniteScroll\Model\Catalog\Processor" selector=".product-items"/>
+    </scroll>
+    <scroll name="search">
+        <config handle="catalogsearch_result_index" instance="Digidirect\InfiniteScroll\Model\CatalogSearch\Processor" selector=".product-items"/>
+    </scroll>
+</config>

@@ -1,0 +1,8 @@
+<?php /** @var $block \Magento\Framework\View\Element\Template*/?>
+
+<div id="collect_modal_cart" data-role="collect-modal" class="collect_modal_cart" data-mage-init='{"collectModal":{}}'>
+    <div id="change_collectplace_form">
+        <input type="hidden" id="quote_item_id" name="quote_item_id" data-role="quote-id" />
+        <?php  /* @escapeNotVerified */ echo $block->getChildHtml('collect_places_detail_cart'); ?>
+    </div>
+</div>

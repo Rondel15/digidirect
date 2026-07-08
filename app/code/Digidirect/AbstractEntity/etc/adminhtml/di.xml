@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Grid\Collection">
+        <arguments>
+            <argument name="gridColumns" xsi:type="array">
+                <item name="name" xsi:type="const">Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface::NAME</item>
+                <item name="status" xsi:type="const">Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface::STATUS</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="posData" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Data</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="attributes" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Attributes</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="images" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Images</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="parentList" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Additional</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="relation" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Relation</item>
+                    <item name="sortOrder" xsi:type="number">100</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AbstractEntity\Ui\DataProvider\Form\AbstractEntityDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\AbstractEntity\Ui\DataProvider\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="Digidirect\AbstractEntity\Model\ResourceModel\Eav\Attribute\CollectionFactory" type="Magento\Catalog\Model\ResourceModel\Product\Attribute\CollectionFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Digidirect\AbstractEntity\Model\ResourceModel\Eav\Attribute\Collection</argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\AbstractEntity\Block\Adminhtml\Set\Main">
+        <arguments>
+            <argument name="collectionFactory" xsi:type="object">Digidirect\AbstractEntity\Model\ResourceModel\Eav\Attribute\CollectionFactory</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Backend\Model\Menu\Config\Reader">
+        <plugin name="Digidirect_AbstractEntity::addMenuItems" type="Digidirect\AbstractEntity\Plugin\Backend\Model\Menu\Config\Reader" />
+    </type>
+
+    <type name="Digidirect\AbstractEntity\Controller\Adminhtml\Set\Save">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="invalidate_cache_types" xsi:type="array">
+                    <item name="config" xsi:type="string">config</item>
+                    <item name="block_html" xsi:type="string">block_html</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\AbstractEntity\Controller\Adminhtml\Set\Delete">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="invalidate_cache_types" xsi:type="array">
+                    <item name="config" xsi:type="string">config</item>
+                    <item name="block_html" xsi:type="string">block_html</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\AbstractEntity\Model\ResourceModel\Eav\Attribute">
+        <arguments>
+            <argument name="resource" xsi:type="object">Magento\Eav\Model\ResourceModel\Entity\Attribute</argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\AbstractEntity\Model\DataFilterPool">
+        <arguments>
+            <argument name="filters" xsi:type="array">
+                <item name="dateTimeFilter" xsi:type="object">Digidirect\AbstractEntity\Model\DataFilter\DateTimeFilter</item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

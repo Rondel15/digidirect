@@ -1,0 +1,145 @@
+//
+// All themes on demo page = http://manos.malihu.gr/repository/custom-scrollbar/demo/examples/scrollbar_themes_demo.html
+
+@custom-scrollbar__background-color_2: fade(@color-4-6, 20%);
+@custom-scrollbar__background-color_3: @color-4-6;
+@custom-scrollbar__background-color_4: fade(@color-4-6, 85%);
+@custom-scrollbar__background-color_5: fade(@color-4-6, 90%);
+@custom-scrollbar__background-color_6: @color-3-2;
+
+@custom-scrollbar__width: 6px;
+
+/* theme "light-3", "dark-3" */
+/* theme "dark-3" */
+/* ---------------------------------------- */
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .mCS-light-3.mCSB_scrollTools {
+        .mCSB_draggerRail {
+            .lib-css(width, @custom-scrollbar__width);
+            background-color: @custom-scrollbar__background-color_2;
+        }
+    }
+    .mCS-dark-3.mCSB_scrollTools {
+        .mCSB_draggerRail {
+            .lib-css(width, @custom-scrollbar__width);
+            background-color: @custom-scrollbar__background-color_6;
+            margin-left: 0;
+        }
+        .mCSB_dragger {
+            .mCSB_dragger_bar {
+                .lib-css(width, @custom-scrollbar__width);
+                background-color: @custom-scrollbar__background-color_3;
+                margin-left: 0;
+                border-radius: 16px;
+            }
+            &:hover {
+                .mCSB_dragger_bar {
+                    background-color: @custom-scrollbar__background-color_4;
+                }
+            }
+            &:active {
+                .mCSB_dragger_bar {
+                    background-color: @custom-scrollbar__background-color_5;
+                }
+            }
+        }
+        .mCSB_dragger.mCSB_dragger_onDrag {
+            .mCSB_dragger_bar {
+                background-color: @custom-scrollbar__background-color_5;
+            }
+        }
+    }
+    .mCS-light-3.mCSB_scrollTools_horizontal {
+        .mCSB_dragger {
+            .mCSB_dragger_bar {
+                width: 100%;
+                height: 6px;
+                margin: 5px 0;
+            }
+        }
+        .mCSB_draggerRail {
+            width: 100%;
+            height: 6px;
+            margin: 5px 0;
+        }
+    }
+    .mCS-dark-3.mCSB_scrollTools_horizontal {
+        .mCSB_dragger {
+            .mCSB_dragger_bar {
+                width: 100%;
+                height: 6px;
+                margin: 5px 0;
+            }
+        }
+        .mCSB_draggerRail {
+            width: 100%;
+            height: 6px;
+            margin: 5px 0;
+        }
+    }
+    .mCS-light-3.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand {
+        .mCSB_dragger.mCSB_dragger_onDrag_expanded {
+            & + .mCSB_draggerRail {
+                width: 12px;
+            }
+        }
+        .mCSB_draggerContainer {
+            &:hover {
+                .mCSB_draggerRail {
+                    width: 12px;
+                }
+            }
+        }
+    }
+    .mCS-dark-3.mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand {
+        .mCSB_dragger.mCSB_dragger_onDrag_expanded {
+            & + .mCSB_draggerRail {
+                width: 12px;
+            }
+        }
+        .mCSB_draggerContainer {
+            &:hover {
+                .mCSB_draggerRail {
+                    width: 12px;
+                }
+            }
+        }
+    }
+    .mCS-light-3.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand {
+        .mCSB_dragger.mCSB_dragger_onDrag_expanded {
+            & + .mCSB_draggerRail {
+                height: 12px;
+                margin: 2px 0;
+            }
+        }
+        .mCSB_draggerContainer {
+            &:hover {
+                .mCSB_draggerRail {
+                    height: 12px;
+                    margin: 2px 0;
+                }
+            }
+        }
+    }
+    .mCS-dark-3.mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand {
+        .mCSB_dragger.mCSB_dragger_onDrag_expanded {
+            & + .mCSB_draggerRail {
+                height: 12px;
+                margin: 2px 0;
+            }
+        }
+        .mCSB_draggerContainer {
+            &:hover {
+                .mCSB_draggerRail {
+                    height: 12px;
+                    margin: 2px 0;
+                }
+            }
+        }
+    }
+}

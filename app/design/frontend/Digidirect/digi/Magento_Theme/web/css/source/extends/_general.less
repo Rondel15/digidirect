@@ -1,0 +1,148 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 05 4, 24, 12:11:12 PM
+    Author     : rondel
+*/
+
+//
+//  Catalog: Listing
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    
+    .page-layout-1column .breadcrumbs {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 1440px !important;
+        padding: 0 50px;
+    }
+
+    li.item:has([title="digiDirect"]) {
+        display: none;
+    }
+
+    li.item:has([title="Sample Business"]) {
+        display: none;
+    }
+
+    .mrkt-seller-top-info {
+        padding: 0 50px;
+    }
+
+    .mrkt-seller-top-info .mrkt-seller-desc-list {
+        display: none;
+    }
+
+    .mrkt-seller-top-info .category-page-banner {
+        display: none !important;
+    }
+    
+    .marketplacer-seller-view .toolbar-amount {
+        display: none;
+    }
+    
+    .marketplacer-seller-view .toolbar-products {
+        display: none;
+    }
+    
+    .mrkt-sellers-item a {
+        float: left;
+        color: #222 !important;
+    }
+    
+    section.mrkt-sellers-list-wrapper {
+        margin: 0 0 50px;
+    }
+    
+    ul.mrkt-sellers-list {
+        display: grid !important;
+        grid-auto-flow: column;
+        grid-gap: 1px;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, auto);
+    }
+    
+    .mrkt-sellers-list>.item {
+        width: 100% !important;
+    }
+    
+    .zipmoney-strip-banner {
+        padding: 0 !important;
+    }
+    
+    .s19-rental-price-target {
+        height: 30px;
+    }
+}
+
+@media (max-width: 370px) {
+    .action.tocart.primary .fa-cart-plus {
+        display: none !important;
+    }
+}
+
+@media (min-width:1366px) and (max-width: 1680px) {
+    
+    .header-links.header-link-left {
+        margin-left: 0 !important;
+    }
+
+    .header-links.header-link-right {
+        margin-right: 0 !important;
+    }
+
+    .logo-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .minicart-wrapper {
+        margin-right: 0 !important;
+    }
+
+    .navbar {
+        margin-left: 170px !important;
+        margin-right: 170px !important;
+    }
+
+    .navbar-content {
+        margin: 0 0 0 -15px !important;
+    }
+
+    .header.content, .page-main {
+        margin-left: 170px !important;
+        margin-right: 170px !important;
+        width: auto !important;
+    }
+
+    .columns {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+}
+
+@media (max-width: 1680px) {
+    
+    .offcanvas-panel.device-only {
+        margin-left: 0;
+    }
+
+    #maincontent>.breadcrumbs {
+        //margin-left: 0 !important;
+    }
+}
+
+@media (min-width:768px) and (max-width: 1680px) {
+    #maincontent>.breadcrumbs {
+        margin-left: 15px !important;
+        padding-top: 15px;
+    }
+}

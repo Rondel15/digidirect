@@ -1,0 +1,10 @@
+<?php
+// @codingStandardsIgnoreFile
+/** @var $block \WeltPixel\GA4\Block\MetaPixel\Common */
+?>
+<?php if ($block->isMetaPixelTrackingEnabled()) : ?>
+    <?php echo str_replace(
+        ['<script>', '<script exclude-this-tag="text/x-magento-template">', '</script>'],
+        ['<script>  if (window.ga4AllowServices) { ','<script exclude-this-tag="text/x-magento-template">  if (window.ga4AllowServices) { ', '} </script>'],
+        $block->getMetaPixelTrackingCode()); ?>
+<?php endif; ?>

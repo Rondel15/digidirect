@@ -1,0 +1,14 @@
+{
+    "name": "digidirect/collect",
+    "description": "Digidirect Click and Collect Module",
+    "type": "magento2-module",
+    "version": "2.16.0.0",
+        "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Digidirect\\Collect\\": ""
+        }
+    }
+}

@@ -1,0 +1,72 @@
+<?php
+/** @var $block \Digidirect\Collect\Block\CollectPlaces*/
+
+$isSingleStoreEnabled = $block->isEnableSingleStoreInCartRestriction();
+$_product = $block->getProduct();
+$isQualifiesForFreeShipping = ($_product) ? $_product->getAttributeText('qualifies_for_free_shipping') : false;
+?>
+<div class="collect_place_class" data-mage-init='{"<?php echo $block->escapeHtml($block->getCollectBlockWidgetTitle()) ?>": {
+    "isSingleStore": "<?php /* @escapeNotVerified */ echo $isSingleStoreEnabled;?>",
+    "searchUrl": "<?php echo $block->escapeUrl($block->getPlacesUrl()) ?>",
+    "cartItemEdit": "<?php echo $block->escapeHtml((int)$block->getIsCartItemEditPage()) ?>",
+    "collectQty": <?php if ($block->getQuoteItem() && $block->getQuoteItem()->getQty()) : ?>"<?php echo $block->escapeHtml($block->getQuoteItem()->getQty())?>"<?php else:?>"1"<?php endif;?>}
+    }'>
+    <?php $presetCollectPlace = $block->getPresetCollectPlace();?>
+    <input type="hidden" value="" name="collect_place_storage_name" id="collect_place_storage_name"/>
+    <input type="hidden" value="" name="collect_quote_item_id" id="collect_quote_item_id"/>
+    <input type="hidden" value="" name="cart_collect_place_id" id="cart_collect_place_id"/>
+    <input type="hidden" value="" name="collect_product_id" id="collect_product_id"/>
+    <input type="hidden" value="" name="collect_simple_product_id" id="collect_simple_product_id"/>
+
+    <?php if ($isSingleStoreEnabled) : ?>
+        <div class="message info" style="display: none;" data-role="collect-delivery-message">
+            <span><?= $block->escapeHtml(__('Only delivery is available for the whole order')) ?></span>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($presetCollectPlace):?>
+        <b><?php echo $block->escapeHtml(__('You selected place: ')) . $block->escapeHtml($presetCollectPlace->getName());?></b> <br/>
+    <?php endif;?>
+
+    <?php if ($block->getIsAdditionalFieldsNeeded()): ?>
+        <div class="collect-type">
+            <input type="radio" id="collect_type_delivery" name="delivery_type" value="delivery" <?php echo (!$presetCollectPlace)? 'checked="checked"' : '' ?> data-role="trigger-collect"/>
+            <label for="collect_type_delivery"><?php echo $block->escapeHtml(__('Delivery'))?></label>
+
+            <input type="radio" id="collect_type_collect" name="delivery_type" value="collect" <?php echo ($presetCollectPlace)? 'checked="checked"' : '' ?> data-role="trigger-collect" />
+            <label for="collect_type_collect"><?php echo $block->escapeHtml($block->getCollectHelper()->getCollectMethodTitle())?></label>
+        </div>
+    <?php endif;?>
+    <div class="collect-block<?php echo (!$presetCollectPlace) ? ' -visible"' : '' ?>" data-role="collect-block" data-collect-type="delivery">
+        <?php if ($isQualifiesForFreeShipping == 'Yes'): ?>
+            <div class="text">
+                <?php echo /* @noEscape */ __('This item qualifies for free shipping'); ?>
+            </div>
+        <?php endif; ?>
+        <div class="message info" <?php echo ($presetCollectPlace)? '' : 'style="display: none;"' ?> data-role="collect-collect-message">
+            <span><?= $block->escapeHtml(__('Adding this product to cart for delivery will convert all cart items to delivery.')) ?></span>
+        </div>
+    </div>
+    <div class="collect-block<?php echo ($presetCollectPlace) ? ' -visible"' : '' ?>" data-role="collect-block" data-collect-type="collect">
+        <div class="fieldset">
+            <div class="field">
+                <label for="collect_distance" class="label"><?php echo $block->escapeHtml(__('Distance'))?></label>
+                <div class="control">
+                    <?php /* @escapeNotVerified */ echo $block->getDistanceList();?>
+                </div>
+            </div>
+            <?php if ($block->getIsAdditionalFieldsNeeded() && $block->getIsPostcodeFieldNeeded()): ?>
+                <div class="field">
+                    <label for="postcode" class="label"><?php echo $block->escapeHtml(__('Postcode'))?></label>
+                    <div class="control">
+                        <input type="text" name="postcode" id="postcode" data-role="postcode"/>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <button type="button" class="action primary" data-role="check-collect-place" title="<?php echo $block->escapeHtml(__('Search'))?>">
+                <?php echo $block->escapeHtml(__('Search'))?>
+            </button>
+            <div class="collect_place_div_table" style="display:none;"></div>
+        </div>
+    </div>
+</div>

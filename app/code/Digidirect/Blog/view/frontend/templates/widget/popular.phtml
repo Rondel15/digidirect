@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Popular $block
+ *  @var \Digidirect\Blog\Model\Post $post
+ */
+?>
+<?php $popularPosts = $block->getCollection(); ?>
+<div class="blog-popular blog-widget widget">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Popular Posts'); ?></h3>
+    <ul>
+        <?php foreach ($popularPosts as $post): ?>
+            <?php /* ?> IF YOU NEED TO GET CATEGORIES NAMES OF POST - uncomment
+            <?php $categoriesArray = $block->getCategoriesTitlesAsArray($post); ?>
+            <?php $categoriesTitlesCount = count($categoriesArray); ?>
+            <?php if ($categoriesTitlesCount) : ?>
+                <div class="categories">
+                    <?php $i=1; foreach ($categoriesArray as $key => $category): ?>
+                        <a href="<?php echo $block->escapeUrl($category->getViewUrl())?>" class="link" title="<?php echo  $category->getName(); ?>"><?php  echo $category->getName(); ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                        <?php $i++; ?>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <?php */?>
+
+            <li class="item">
+                <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                    <?php echo $block->escapeHtml($post->getTitle()) ?>
+                </a>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</div>

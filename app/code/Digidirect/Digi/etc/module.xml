@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Digidirect_Digi" setup_version="1.0.28">
+        <sequence>
+            <module name="Digidirect_Utilities"/>
+            <module name="Digidirect_Store"/>
+            <module name="Digidirect_MSI"/>
+            <module name="Digidirect_CollectAbstractEntity"/>
+            <module name="Magento_MediaStorage"/>
+            <!--<module name="Digidirect_ProntoDicompgi"/>-->
+            <module name="Digidirect_AbstractAttributes"/>
+            <module name="Digidirect_Collect"/>
+        </sequence>
+    </module>
+</config>

@@ -1,0 +1,94 @@
+//
+//  Abstract Attributes Options
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@attribute-options__margin: false;
+@attribute-options__padding: false;
+@attribute-options__text-align: center;
+
+@attribute-options-item__position: false;
+@attribute-options-item__display: inline-block;
+@attribute-options-item__width: 200px;
+@attribute-options-item__height: 200px;
+@attribute-options-item__margin: 10px;
+@attribute-options-item__padding: 5px;
+@attribute-options-item__border: @border-width__base solid @border-color__base;
+@attribute-options-item__text-align: false;
+@attribute-options-item__text-decoration: none;
+@attribute-options-item__text-transform: false;
+@attribute-options-item__vertical-align: top;
+@attribute-options-item__color: @color-black;
+@attribute-options-item__background: false;
+@attribute-options-item__hover__border: @border-width__base solid @color-blue1;
+@attribute-options-item__hover__color: @color-blue1;
+@attribute-options-item__hover__background: false;
+
+@attribute-options-image__max-height: 170px;
+@attribute-options-image__vertical-align: top;
+
+@attribute-options-name__is-show: true;
+@attribute-options-name__position: false;
+@attribute-options-name__display: block;
+@attribute-options-name__margin: 2px;
+@attribute-options-name__padding: false;
+@attribute-options-name__overflow: hidden;
+@attribute-options-name__text-overflow: ellipsis;
+@attribute-options-name__white-space: nowrap;
+@attribute-options-name__font: @font-size__base @font-family-name__base;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .attribute-options {
+        & {
+            .lib-css(margin, @attribute-options__margin);
+            .lib-css(padding, @attribute-options__padding);
+            .lib-css(text-align, @attribute-options__text-align);
+        }
+
+        > .item {
+            .lib-css(position, @attribute-options-item__position);
+            .lib-css(display, @attribute-options-item__display);
+            .lib-css(width, @attribute-options-item__width);
+            .lib-css(height, @attribute-options-item__height);
+            .lib-css(margin, @attribute-options-item__margin);
+            .lib-css(padding, @attribute-options-item__padding);
+            .lib-css(border, @attribute-options-item__border);
+            .lib-css(text-decoration, @attribute-options-item__text-decoration);
+            .lib-css(text-transform, @attribute-options-item__text-transform);
+            .lib-css(vertical-align, @attribute-options-item__vertical-align);
+            .lib-css(color, @attribute-options-item__color);
+            .lib-css(background, @attribute-options-item__background);
+
+            &:hover {
+                .lib-css(border, @attribute-options-item__hover__border);
+                .lib-css(color, @attribute-options-item__hover__color);
+                .lib-css(background, @attribute-options-item__hover__background);
+            }
+        }
+
+        > .item > .image {
+            .lib-css(max-height, @attribute-options-image__max-height);
+            .lib-css(vertical-align, @attribute-options-image__vertical-align);
+        }
+
+        & when (@attribute-options-name__is-show = true) {
+            > .item > .name {
+                .lib-css(position, @attribute-options-name__position);
+                .lib-css(display, @attribute-options-name__display);
+                .lib-css(margin, @attribute-options-name__margin);
+                .lib-css(padding, @attribute-options-name__padding);
+                .lib-css(overflow, @attribute-options-name__overflow);
+                .lib-css(text-overflow, @attribute-options-name__text-overflow);
+                .lib-css(white-space, @attribute-options-name__white-space);
+                .lib-css(font, @attribute-options-name__font);
+            }
+        }
+    }
+}

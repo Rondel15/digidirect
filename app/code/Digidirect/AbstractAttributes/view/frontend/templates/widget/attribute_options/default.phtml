@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var \Digidirect\AbstractAttributes\Block\Widget\AttributeOptionsList $block
+ */
+?>
+<?php $options = $block->getOptions() ?>
+<?php if ($options): ?>
+    <div class="widget-attribute widget" data-role="widget-attribute-carousel-<?php echo (int)$block->getAttributeId()
+    ?>">
+        <?php /** @var \Digidirect\AbstractAttributes\Model\Option $option */ ?>
+        <?php foreach ($options as $option): ?>
+            <?php $image = $block->getImage($option) ?>
+            <?php $title = $block->escapeHtml($option->getLabel()) ?>
+            <div class="attribute-item">
+                <a class="link" href="<?php echo $block->escapeUrl($option->getUrl()) ?>" title="<?php echo $block->escapeHtml($title); ?>">
+                    <?php if ($image): ?>
+                        <img class="image" src="<?php echo $block->escapeUrl($image->getSrc()) ?>" alt="<?php echo $block->escapeHtml($title); ?>"/>
+                    <?php else: ?>
+                        <?php echo $block->escapeHtml($title); ?>
+                    <?php endif ?>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif ?>

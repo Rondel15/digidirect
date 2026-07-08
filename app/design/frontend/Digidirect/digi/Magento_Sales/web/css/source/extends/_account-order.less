@@ -1,0 +1,105 @@
+//
+//  Sales: Account Order Page + Account Orders
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@sales-account-order__is-enabled: true; // Enable/disable styles
+//
+//@sales-account-order-status__use-status: true;
+//@sales-account-order-title-wrapper-order-date__margin: 0 0 @indent__base;
+//
+////  Order Actions Toolbar
+@sales-account-order-actions-toolbar__margin-bottom: 20px;
+@sales-account-order-actions-toolbar-action__margin-right: 0;
+//@sales-account-order-actions-toolbar-action-print__margin: 0;
+@sales-account-order-actions-toolbar-action-print__float__m: false;
+@sales-account-order-actions-toolbar-action-print__display__m: false;
+//
+////  Order Links
+@sales-account-order-links__margin-bottom: 0;
+@sales-account-order-links__border-bottom: false;
+//@sales-account-order-links-item__display: inline-block;
+//@sales-account-order-links-item__margin-right: 20px;
+//
+////  Details Items
+//@sales-account-order-details-items__margin-bottom: 20px;
+//@sales-account-order-details-items__padding-bottom: 10px;
+//@sales-account-order-details-items__border-bottom: @border-width__base solid @border-color__base;
+//@sales-account-order-details-items-order-title-strong__use-heading: true;
+//@sales-account-order-details-items-order-title-strong__heading: h3;
+//@sales-account-order-details-items-order-title-strong__display: inline-block;
+//@sales-account-order-details-items-items-qty__use-reset-list: true;
+//@sales-account-order-details-items-items-qty-item__white-space: nowrap;
+//@sales-account-order-details-items-items-qty-title__after__content: ': ';
+//@sales-account-order-details-items-table-order-items-product-item-name__margin-top: 0;
+//@sales-account-order-details-items-table-order-items-tbody-plus-tbody__border-top: @border-width__base solid @border-color__base;
+//@sales-account-order-details-items-table-order-items-elements__display__s-only: inline-block;
+//@sales-account-order-details-items-table-order-items-elements__vertical-align__s-only: top;
+//@sales-account-order-details-items-thead__display__s-only: block;
+//@sales-account-order-details-items-thead-row-td__display__s-only: block;
+//@sales-account-order-table-order-items-td-order-pager-wrapper__width__s-only: 100%;
+//@sales-account-order-table-order-items-subtotal-amount__text-align__m: right;
+//@sales-account-order-table-order-items-creditmemo-price-col__text-align__m: center;
+//@sales-account-order-table-order-items-creditmemo-total-col__text-align__m: right;
+//
+////  Details Items: Options
+//@sales-account-order-details-items-item-options__use-product-options-list: true;
+//@sales-account-order-details-items-item-options__use-add-clearfix: true;
+//@sales-account-order-details-items-item-options__margin: 0;
+//
+////  Order Pager Wrapper
+//@sales-account-order-pager-wrapper__text-align: center;
+//
+////  Block Order Details Comments
+//@sales-account-order-block-order-details-comments__margin: 0 0 40px;
+//@sales-account-order-block-order-details-comments-date__font-weight: @font-weight__semibold;
+//@sales-account-order-block-order-details-comments-content__margin: 0 0 20px;
+//@sales-account-order-block-order-details-comments-content__line-height: 1.6;
+//
+////  Block Order Details View
+//@sales-account-order-block-order-details-view-payment-method-title__font-weight: @font-weight__regular;
+//@sales-account-order-block-order-details-view-payment-method-content__margin: 0;
+//@sales-account-order-block-order-details-view-payment-method-content-strong__font-weight: @font-weight__regular;
+//@sales-account-order-block-order-details-view-payment-method-content-strong__after__content: ': ';
+
+& when (@media-common = true) {
+    .account-orders .order-details-items .pager {
+        & {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .digidirect-lib-box-align(space-between);
+        }
+
+        .limiter-label {
+            display: none;
+        }
+
+        .limiter-options {
+            .lib-font-size(14);
+            .lib-css(border, 1px solid @color-3-2);
+            padding-left: 10px;
+            padding-right: 30px;
+            background-size: 12px 20px;
+            background-position: right 8px center;
+        }
+    }
+
+    .order-details-items.rma .pager {
+        padding: 15px 0 3px;
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account-orders .order-details-items .pager {
+        .limiter-options {
+            .lib-font-size(15);
+        }
+    }
+}

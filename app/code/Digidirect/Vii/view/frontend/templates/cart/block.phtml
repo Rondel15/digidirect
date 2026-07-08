@@ -1,0 +1,76 @@
+<?php
+/**
+ * @var \Digidirect\Vii\Block\Form $block
+ * @see \Digidirect\Vii\Block\Form
+ */
+$cards = $block->getQuoteCards();
+?>
+<div class="abstract-giftcardcart">
+    <?php if (count($cards)) : ?>
+        <div class="cards-list">
+            <?php foreach ($cards as $card): ?>
+                <div class="fieldset">
+                    <div class="field">
+                        <label class="label" for="vii-giftcard-code-<?php echo $block->escapeHtml($card['c']); ?>">
+                            <?php echo $block->escapeHtml( __('Gift Card Number')); ?>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" type="text" readonly id="vii-giftcard-code-<?php echo $block->escapeHtml($card['c']); ?>" value="<?php echo $block->escapeHtml($card['c']); ?>">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label" for="vii-giftcard-pin-<?php echo $block->escapeHtml($card['c']); ?>">
+                            <?php echo $block->escapeHtml( __('Gift Card PIN')); ?>
+                        </label>
+                        <div class="control">
+                            <input class="input-text" type="password" readonly value="<?php echo $block->escapeHtml('****'); ?>" id="vii-giftcard-pin-<?php echo $block->escapeHtml($card['c']); ?>">
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <a class="action" href="<?php echo $block->escapeUrl($block->getRemoveUrl($card)); ?>" title="<?php echo $block->escapeHtml( __('Remove')); ?>">
+                            <?php echo $block->escapeHtml( __('Remove')); ?>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <form class="form giftcard add" id="vii-giftcard-form"
+          action="<?php echo $block->escapeUrl($block->getUrl('abstract_giftcard/cart/add')); ?>" method="post"
+          data-mage-init='{"validation": {},"abstractGiftCard": {
+            "serviceSelector": "#vii-giftcard-service-code",
+            "codeSelector": "#vii-giftcard-code",
+            "pinSelector": "#vii-giftcard-pin",
+            "checkStatus": "#vii-check",
+            "statusUrl": "<?php echo $block->escapeHtml($block->getUrl('abstract_giftcard/cart/quickCheck',  ['_secure' => true])); ?>",
+            "statusId": "#vii-giftcard-balance-lookup"
+          }}'>
+        <div class="fieldset">
+            <input type="hidden" id="vii-giftcard-service-code" name="giftcard_service[service_code]" value="vii"/>
+            <div class="field">
+                <label class="label" for="vii-giftcard-code">
+                    <span><?php echo $block->escapeHtml(__('Enter the gift card code')); ?></span>
+                </label>
+                <div class="control">
+                    <input class="input-text" type="text" id="vii-giftcard-code" name="giftcard_service[code]" data-validate="{'required-entry':true}" value="" placeholder="<?php echo $block->escapeHtml(__('Enter the gift card code'));?>" />
+                </div>
+            </div>
+            <div class="field">
+                <label class="label" for="vii-giftcard-pin">
+                    <span><?php echo $block->escapeHtml(__('Pin')); ?></span>
+                </label>
+                <div class="control">
+                    <input class="input-text" type="text" id="vii-giftcard-pin" name="giftcard_service[pin]" data-validate="{'required-entry':true}" value="" placeholder="<?php echo $block->escapeHtml(__('Pin'));?>" />
+                </div>
+            </div>
+            <div class="actions-toolbar">
+                <div class="primary">
+                    <button class="action add primary" type="submit" title="<?php echo $block->escapeHtml(__('Add Gift Card')); ?>">
+                        <span><?php echo $block->escapeHtml(__('Add Gift Card')); ?></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

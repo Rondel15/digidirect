@@ -1,0 +1,204 @@
+//
+//  Account: Reviews Table
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .review-customer-index .column.main {
+        .lib-css(background-color, @color-white);
+        margin-bottom: 30px;
+    }
+
+    .table-reviews {
+        & {
+            .lib-css(padding, 0 @layout-indent__width);
+        }
+        tr {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+
+            &:nth-child(even) {
+                .lib-css(background-color, @color-3-4);
+            }
+        }
+
+        .col {
+            word-break: break-all;
+        }
+
+        .product-name a {
+            .lib-css(font-weight, @font-weight__regular);
+            text-decoration: none;
+        }
+
+        .rating-summary .rating-result > span::before {
+            z-index: 1;
+        }
+
+        .col.actions {
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+    }
+
+    .products-reviews-toolbar.bottom .pager {
+        padding: 15px 20px 30px;
+    }
+}
+
+//
+//  Tablet -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .table-reviews {
+        & {
+            .lib-table-responsive();
+        }
+
+        tbody > tr {
+            & {
+                padding-top: 5px;
+            }
+
+            > td:first-child {
+                .lib-css(padding-top, @layout-indent__width);
+            }
+
+            > td:last-child {
+                .lib-css(padding-bottom, @table-wrapper-table-type1-tbody-tr-td__last-child__padding-bottom__s-only);
+            }
+        }
+
+        td {
+            &[data-th]::before {
+                display: block !important;
+                content: attr(data-th) !important;
+                margin-bottom: 4px;
+            }
+
+            &.col.actions {
+                padding-top: 15px!important;
+                &::before {
+                    display: none !important;
+                }
+            }
+        }
+
+        .rating-summary {
+            margin: 6px 0 0;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .review-customer-index .column.main {
+        margin-bottom: 0;
+    }
+
+    .table-wrapper.reviews {
+        .lib-css(padding, 0 @layout-indent__width);
+    }
+
+    .table-reviews {
+        .col.actions {
+            width: 24%;
+            text-align: right;
+        }
+
+        .col.item,
+        .col.description {
+            width: 23%;
+        }
+
+        .col.date,
+        .col.summary {
+            width: 15%;
+        }
+
+        thead .col {
+            padding: 20px 10px 12px;
+        }
+
+        tbody .col {
+            padding: 22px 10px 21px;
+        }
+
+        .product-name a,
+        .col.description .text {
+            display: block;
+            width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+//
+//  Tablet ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .review-customer-index .column.main {
+        min-height: 0;
+    }
+
+    .table-reviews {
+        .product-name a,
+        .col.description .text {
+            width: 210px;
+        }
+    }
+}
+
+//
+//  Desktop ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .table-wrapper.reviews {
+        padding: 0 30px;
+    }
+
+    .table-reviews {
+        thead .col {
+            padding: 29px 20px 17px;
+        }
+
+        tbody .col {
+            padding: 22px 20px 20px;
+        }
+
+        .product-name a,
+        .col.description .text {
+            width: 175px;
+        }
+    }
+
+    .products-reviews-toolbar.bottom .pager {
+        padding: 15px 30px 40px;
+    }
+}
+
+//
+//  Desktop +++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .table-reviews {
+        .product-name a,
+        .col.description .text {
+            width: 250px;
+        }
+    }
+}

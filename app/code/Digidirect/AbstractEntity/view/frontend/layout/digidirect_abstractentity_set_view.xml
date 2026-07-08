@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\AbstractEntity\Block\Set" name="abstractentity" template="Digidirect_AbstractEntity::set.phtml">
+                <arguments>
+                    <argument name="attributes" xsi:type="array">
+                        <item name="name" xsi:type="string">name</item>
+                        <item name="status" xsi:type="string">status</item>
+                        <item name="visible_on_frontend" xsi:type="string">visible_on_frontend</item>
+                        <item name="url_key" xsi:type="string">url_key</item>
+                    </argument>
+                </arguments>
+            </block>
+            <block class="Magento\Theme\Block\Html\Pager" name="set_list_toolbar"/>
+        </referenceContainer>
+    </body>
+</page>

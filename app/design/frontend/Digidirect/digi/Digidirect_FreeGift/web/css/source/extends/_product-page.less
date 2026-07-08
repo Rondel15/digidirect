@@ -1,0 +1,57 @@
+//
+//  Free Gift: PDP
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .freegift-note {
+        & {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            clear: both;
+            .lib-font-size(13);
+        }
+
+        > .label {
+            &{
+                margin-right: 9px;
+                padding: 0px 15px 0 36px;
+                border: 2px solid #e65401;
+                border-radius: 14px;
+                font-size: 1.4rem;
+                line-height: 24px;
+                color: #fff;
+                background-color: #e65401;
+                font-weight: 700;
+                position: relative;
+            }
+            
+            &::before{
+                content: " ";
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI0MDIiIHdpZHRoPSI1ODIiIHk9Ii0xIiB4PSItMSIvPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJzdmdfMSIgZD0ibTI0LDE2bDAsMTBjMCwwLjYgLTAuNCwxIC0xLDFsLTE2LDBjLTAuNiwwIC0xLC0wLjQgLTEsLTFsMCwtMTBsOCwwbDAsOWwyLDBsMCwtOWw4LDB6bS0xMCwtN2wtOSwwYy0wLjYsMCAtMSwwLjQgLTEsMWwwLDNjMCwwLjYgMC40LDEgMSwxbDksMGwwLC01em0xMSwwbC05LDBsMCw1bDksMGMwLjYsMCAxLC0wLjQgMSwtMWwwLC0zYzAsLTAuNiAtMC40LC0xIC0xLC0xem0tMi45LC0xLjFsMC4xLC0wLjRjMC40LC0xIDAuMywtMi4yIC0wLjMsLTMuMWMtMC42LC0wLjkgLTEuNywtMS40IC0yLjgsLTEuNGMtMS40LDAgLTIuNiwwLjggLTMuMSwyLjFsLTIsNC45bDUsMGMxLjMsMCAyLjYsLTAuOCAzLjEsLTIuMXptLTQuMiwtMi4xYzAuMiwtMC41IDAuNywtMC44IDEuMiwtMC44YzAuNCwwIDAuOCwwLjIgMS4xLDAuNmMwLjIsMC40IDAuMywwLjggMC4xLDEuMmwtMC4xLDAuNGMtMC4yLDAuNSAtMC43LDAuOCAtMS4yLDAuOGwtMiwwbDAuOSwtMi4yem0tMy45LC0wLjdjLTAuNSwtMS4zIC0xLjgsLTIuMSAtMy4xLC0yLjFjLTEuMSwwIC0yLjIsMC41IC0yLjgsMS41Yy0wLjYsMC45IC0wLjcsMiAtMC4zLDMuMWwwLjEsMC40YzAuNSwxLjIgMS44LDIgMy4xLDJsNC45LDBsLTEuOSwtNC45em0tMS45LDAuN2wwLjksMi4ybC0yLDBjLTAuNSwwIC0xLC0wLjMgLTEuMiwtMC44bC0wLjIsLTAuNGMtMC4xLC0wLjQgLTAuMSwtMC45IDAuMiwtMS4yYzAuMiwtMC40IDAuNiwtMC42IDEuMSwtMC42YzAuNSwwIDEsMC4zIDEuMiwwLjh6IiBjbGFzcz0ic3QwIi8+CiA8L2c+Cjwvc3ZnPg==');
+                background-size: 20px 20px;
+                height: 20px;
+                width: 20px;
+                position: absolute;
+                left: 10px;
+                top: 1px;
+            }
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .freegift-note {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        .lib-font-size(14);
+    }
+}

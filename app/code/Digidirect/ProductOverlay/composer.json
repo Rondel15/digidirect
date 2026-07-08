@@ -1,0 +1,17 @@
+{
+  "name": "digidirect/productoverlay",
+  "type": "magento2-module",
+  "description": "Product Overlays",
+  "version": "2.6.0.0",
+  "suggest": {
+    "digidirect/utilities": "Digidirect ProductOverlay may use digidirect/utilities methods"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\ProductOverlay\\": ""
+    }
+  }
+}

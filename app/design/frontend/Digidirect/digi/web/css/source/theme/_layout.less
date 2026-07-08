@@ -1,0 +1,228 @@
+//
+//  Layout
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@layout-columns__padding__l: 50px;
+@layout-columns__padding__xl: 0;
+@page-wrapper__min-width: 375px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .page-wrapper {
+        .lib-css(min-width, @page-wrapper__min-width);
+        //overflow: hidden;
+        min-height: unset !important;
+    }
+
+    .page-main {
+        min-height: 1px; // IE11 fix
+    }
+
+    .column.main {
+        & ~ .column-bottom {
+            order: 3;
+        }
+    }
+
+    body.cms-home,
+    .page-below {
+        .lib-css(background, @color-white);
+    }
+
+    .page-below {
+        > .content {
+            .lib-css(max-width, @layout__max-width);
+
+            margin: 0 auto;
+        }
+    }
+
+    .@{layout-class-1column} {
+        &.simple-structure .column.main,
+        &.simple-structure .page-title-wrapper {
+            &:extend(._simple-bg);
+        }
+
+        &.simple-structure .page-title-wrapper {
+            margin-top: 30px;
+            padding-bottom: 0;
+            text-align: center;
+        }
+
+        &.simple-structure .page-title {
+            display: block;
+            margin: 0;
+        }
+    }
+
+    .full-height {
+        height: 100%;
+        max-width: 100%; // iOs fix
+    }
+
+    .page-layout-1column-white {
+        .column.main,
+        .page-title-wrapper {
+            &:extend(._simple-bg);
+        }
+
+        .page-title-wrapper {
+            margin-top: 30px;
+            padding-bottom: 0;
+            text-align: center;
+        }
+
+        .page-title-wrapper .page-title {
+            display: block;
+            margin: 0;
+        }
+
+        .columns {
+            margin-bottom: 30px;
+        }
+    }
+
+    .@{layout-class-1column} {
+        .column.main {
+            min-width: 100%; // Firefox fix
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .section-center{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .product-basic{
+        margin-left: -20px;
+        margin-right: -20px;
+        padding-left: 5px;
+        padding-right: 5px;
+        -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        background: #F5F5F5 !important;
+    }
+
+    .page-title-wrapper {
+        margin-left: 15px;
+        margin-right: 0;
+        margin-bottom: 20px;
+        padding-top: 0;
+        padding-bottom: 20px;
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .@{layout-class-1column} {
+        &.simple-structure .page-title-wrapper {
+            padding-bottom: 12px;
+        }
+    }
+
+    .page-layout-1column-white {
+        .page-title-wrapper {
+            padding-bottom: 15px;
+        }
+
+        .columns {
+            margin-bottom: 40px;
+        }
+    }
+
+    .page-below {
+        > .content {
+            .lib-css(padding-left, @layout-indent__width);
+            .lib-css(padding-right, @layout-indent__width);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .columns {
+        .lib-css(padding-left, @layout-columns__padding__l);
+        .lib-css(padding-right, @layout-columns__padding__l);
+    }
+
+    .@{layout-class-1column} {
+        &.simple-structure .page-title-wrapper {
+            .lib-css(margin-left, @layout-columns__padding__l);
+            .lib-css(margin-right, @layout-columns__padding__l);
+            padding-top: 55px;
+        }
+    }
+
+    .section-center,
+    .footer.content,
+    .footer-bottom,
+    .page-below > .content {
+        .lib-css(padding-left, @layout-columns__padding__l + @layout-indent__width);
+        .lib-css(padding-right, @layout-columns__padding__l + @layout-indent__width);
+    }
+
+    .page-layout-1column-white {
+        .page-title-wrapper {
+            .lib-css(margin-left, @layout-columns__padding__l);
+            .lib-css(margin-right, @layout-columns__padding__l);
+
+            padding-top: 50px;
+        }
+
+        .columns {
+            margin-bottom: 60px;
+        }
+    }
+}
+
+//
+//  Desktop XL +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .columns {
+        .lib-css(padding-left, @layout-columns__padding__xl);
+        .lib-css(padding-right, @layout-columns__padding__xl);
+    }
+
+    .@{layout-class-1column} {
+        &.simple-structure .page-title-wrapper {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    .page-layout-1column-white {
+        .page-title-wrapper {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+
+    .section-center,
+    .footer.content,
+    .footer-bottom,
+    .page-below > .content {
+        .lib-css(padding-left, @layout-indent__width);
+        .lib-css(padding-right, @layout-indent__width);
+    }
+}

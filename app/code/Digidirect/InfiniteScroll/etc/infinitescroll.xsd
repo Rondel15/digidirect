@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="scroll" type="scrollDeclaration" minOccurs="1" maxOccurs="unbounded">
+                    <xs:unique name="uniqueHandleName">
+                        <xs:annotation>
+                            <xs:documentation>
+                                Handle name must be unique.
+                            </xs:documentation>
+                        </xs:annotation>
+                        <xs:selector xpath="config"/>
+                        <xs:field xpath="@handle"/>
+                    </xs:unique>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueScrollName">
+            <xs:annotation>
+                <xs:documentation>
+                    Infinite Scroll name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="scroll" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="scrollDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Infinite Scroll declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="config" type="configDeclaration" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name" type="scrollName" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="configDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Config declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="handle" type="xs:string" use="required" />
+        <xs:attribute name="instance" type="xs:string" use="required" />
+        <xs:attribute name="selector" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:simpleType name="scrollName">
+        <xs:annotation>
+            <xs:documentation>
+                Scroll name can contain only [a-zA-Z_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z_]+" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

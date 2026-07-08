@@ -1,0 +1,56 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+?>
+<div class="block newsletter">
+    <div class="newsletter-left">
+        <div style="color: #FE4C25; font-size: 36px; font-weight: 700; word-wrap: break-word">Join Our Newsletter</div>
+        <div style="color: #444446; font-size: 13px; font-weight: 400; word-wrap: break-word; max-width: 310px;">Subscribe for the latest news and offers shaping the future of tech, photography and creative life.</div>
+    </div>
+    <div class="title"><strong><?= $block->escapeHtml(__('Newsletter')) ?></strong></div>
+    <div class="content">
+        <form class="form subscribe"
+            novalidate
+            action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+            method="post"
+            data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+            id="newsletter-validate-detail">
+            <div class="field newsletter">
+                <div class="control">
+                    <label for="newsletter">
+                        <span class="label">
+                            <?= $block->escapeHtml(__('Sign Up for Our Newsletter:')) ?>
+                        </span>
+                        <input name="email" type="email" id="newsletter"
+                               placeholder="<?= $block->escapeHtml(__('Enter your email address')) ?>"
+                               data-mage-init='{"mage/trim-input":{}}'
+                               data-validate="{required:true, 'validate-email':true}"
+                        />
+                    </label>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="action subscribe primary"
+                        title="<?= $block->escapeHtmlAttr(__('Subscribe')) ?>"
+                        type="submit"
+                        aria-label="Subscribe">
+                    <span><?= $block->escapeHtml(__('Subscribe')) ?></span>
+                </button>
+            </div>
+        </form>
+        <div style="font-size: 11px; line-height: 19.65px; color: #AEAEB2; float: right; margin-top: 5px;">By clicking “Subscribe” you agree to our <a href="https://mcstaging2.digidirect.com.au/terms" style="color: #AEAEB2; text-decoration: underline;">TOS</a> and <a href="https://mcstaging2.digidirect.com.au/privacy" style="color: #AEAEB2; text-decoration: underline;">Privacy Policy</a>.</div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "newsletter-validate-detail"
+            }
+        }
+    }
+</script>

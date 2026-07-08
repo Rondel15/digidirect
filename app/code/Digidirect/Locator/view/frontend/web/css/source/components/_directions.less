@@ -1,0 +1,53 @@
+//
+//  Locator:directions
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@locator-directions__margin: 70px auto;
+@locator-directions__padding: false;
+@locator-directions__background-color: false;
+//  Field
+@locator-directions-field__margin: 0 0 @form-field__vertical-indent;
+//  Mode
+@locator-directions-mode__display: inline-block;
+@locator-directions-mode__margin: 10px 10px 0 0;
+@locator-directions-mode__padding: false;
+//  Panel
+@locator-directions-panel__max-height: 400px;
+@locator-directions-panel__margin: 10px 0 0;
+@locator-directions-panel__padding: false;
+@locator-directions-panel__overflow: auto;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .locator-directions {
+        & {
+            .lib-css(margin, @locator-directions__margin);
+            .lib-css(padding, @locator-directions__padding);
+            .lib-css(background-color, @locator-directions__background-color);
+        }
+
+        .field {
+            .lib-css(margin, @locator-directions-field__margin);
+        }
+    }
+
+    .direction-mode {
+        .lib-css(display, @locator-directions-mode__display);
+        .lib-css(margin, @locator-directions-mode__margin);
+        .lib-css(padding, @locator-directions-mode__padding)
+    }
+
+    .direction-panel {
+        .lib-css(max-height, @locator-directions-panel__max-height);
+        .lib-css(margin, @locator-directions-panel__margin);
+        .lib-css(padding, @locator-directions-panel__padding);
+        .lib-css(overflow, @locator-directions-panel__overflow);
+    }
+}

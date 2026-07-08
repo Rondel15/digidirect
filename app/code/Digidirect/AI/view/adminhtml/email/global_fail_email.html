@@ -1,0 +1,10 @@
+<!--@subject Integration FAIL. @-->
+<!--@vars {
+"var data.message":"Message"
+} @-->
+
+<div style="font-family: monospace;">
+    <strong><span style="color: red;">Integration FAIL.</span></strong>
+    <br><br>
+    <strong>{{trans "Message: %message" message=$data.message|raw}}</strong>
+</div>

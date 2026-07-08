@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<integrations xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_AI:etc/digidirect_integrations.xsd">
+    <integration name="digidirect_vii_not_paid_order_cancel">
+        <integration_name>AbstractGiftCard /orders:PreAuthCancellation</integration_name>
+        <processor_class>Digidirect\Vii\Model\Processor\Order\CancellationProcess</processor_class>
+        <can_admin_run>0</can_admin_run>
+        <multiple_run>1</multiple_run>
+    </integration>
+
+    <integration name="digidirect_vii_abandoned_cart_cleanup">
+        <integration_name>AbstractGiftCard /quotes:PreAuthCancellation</integration_name>
+        <processor_class>Digidirect\Vii\Model\Processor\Quote\CleanupProcess</processor_class>
+        <can_admin_run>0</can_admin_run>
+        <multiple_run>1</multiple_run>
+    </integration>
+
+    <integration name="digidirect_vii_quote_visitor_cleanup">
+        <integration_name>AbstractGiftCard /guest_quotes:PreAuthCancellation</integration_name>
+        <processor_class>Digidirect\Vii\Model\Processor\Quote\VisitorCleanupProcess</processor_class>
+        <can_admin_run>0</can_admin_run>
+        <multiple_run>1</multiple_run>
+    </integration>
+
+    <integration name="digidirect_vii_undo">
+        <integration_name>AbstractGiftCard Undo</integration_name>
+        <processor_class>Digidirect\Vii\Model\Processor\UndoProcess</processor_class>
+        <can_admin_run>0</can_admin_run>
+        <multiple_run>1</multiple_run>
+    </integration>
+</integrations>

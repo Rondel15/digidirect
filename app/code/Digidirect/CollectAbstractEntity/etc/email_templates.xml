@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="carriers_collect_tracking_number_adding_notification_template" label="New Tracking Number is added" file="tracking_number_notification.html" type="html" module="Digidirect_CollectAbstractEntity" area="adminhtml"/>
+</config>

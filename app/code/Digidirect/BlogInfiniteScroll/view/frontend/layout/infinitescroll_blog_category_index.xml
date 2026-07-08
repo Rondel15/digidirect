@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceContainer name="content">
+        <container name="blog.infinite" htmlTag="div" htmlClass="blog-infinite" />
+    </referenceContainer>
+    <move element="blog.category" destination="blog.infinite" />
+
+    <referenceBlock name="digidirect.infinitescroll.core" template="Digidirect_BlogInfiniteScroll::js/category-listing.phtml"/>
+    <referenceBlock name="post_list_pager" template="Digidirect_BlogInfiniteScroll::html/pager.phtml">
+        <arguments>
+            <argument name="type" xsi:type="string">category</argument>
+        </arguments>
+    </referenceBlock>
+</layout>

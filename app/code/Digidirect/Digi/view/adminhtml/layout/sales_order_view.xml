@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+<body>
+    <referenceBlock name="sales_order_tabs">
+        <block class="Digidirect\Digi\Block\Adminhtml\Order\View\Tab\MigratedOrderInfo" name="sales_order.migrate_order_additional_info"
+               template="Digidirect_Digi::order/view/tab/blocked_order_info.phtml"/>
+        <action method="addTabAfter">
+            <argument name="name" xsi:type="string">additional_mirated_orderd_information</argument>
+            <argument name="block" xsi:type="string">sales_order.migrate_order_additional_info</argument>
+            <argument name="after" xsi:type="string">order_history</argument>
+        </action>
+    </referenceBlock>
+</body>
+</page>

@@ -1,0 +1,35 @@
+<?php
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$finalProductPrice = $_product->getPriceInfo()->getPrice('final_price')->getAmount()->getValue();
+
+if ($_product->offsetExists("qff_bonus_points") && $_product->offsetExists("qff_base")) {
+    $qff_bonus_points = $_product->getQffBonusPoints();
+    $qff_base_points = $_product->getQffBase();
+    $bonusPlusBase = $qff_bonus_points + $qff_base_points;
+
+    $points = number_format($finalProductPrice * $bonusPlusBase);
+}else {
+    if($_product->offsetExists("qff_base")){
+        $qff_base_points = $_product->getQffBase();
+        $points = number_format($finalProductPrice * $qff_base_points);
+    } else {
+        $points = number_format($finalProductPrice * 2);
+    }
+}
+
+?>
+
+<?php if($points > 0):?>
+    <div class="qantas-pts-wrapper" id="main-product-qantas" style="display: none !important;">
+        <img src="https://www.digidirect.com.au/static/version1644407894/frontend/Digidirect/digi/en_AU/images/qff-logo-new.svg"
+             style="
+                width: 80px;
+                display: inline-block;
+                margin: 1.5px 0 0 2px;
+                padding-left: 10px;
+        ">
+        <span class="qantas-text">Earn <span style="color: #e40301;"><?= $points ?> Qantas Points until 30 September 2023</span></span>
+    </div>
+<?php endif; ?>

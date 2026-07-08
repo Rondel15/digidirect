@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<logging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Logging:etc/logging.xsd">
+    <groups>
+        <group name="eaa_options">
+            <label translate="true">Manage Attributes Options</label>
+            <expected_models>
+                <expected_model class="Digidirect\AbstractAttributes\Model\Option" />
+            </expected_models>
+            <events>
+                <event controller_action="eaa_option_edit" action_alias="view" />
+                <event controller_action="eaa_option_save" action_alias="save" />
+                <event controller_action="eaa_option_delete" action_alias="delete" />
+                <event controller_action="eaa_option_massDelete" action_alias="massDelete" />
+            </events>
+        </group>
+    </groups>
+</logging>

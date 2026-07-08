@@ -1,0 +1,10 @@
+<!--@subject {{trans "Test Sending Email para sa digiSeconds" }} @--> 
+ 
+{{template config_path="design/email/header_template"}}
+
+<p >{{trans "FirstName: <b>%ds_firstname</b>,"  ds_firstname=$ds_firstname|row}}</p>
+<p >{{trans "LastName: <b>%ds_lastname</b>,"  ds_lastname=$ds_lastname|row}}</p>
+<p >{{trans "Email: %ds_email,"  ds_email=$ds_email|row}}</p>
+
+<p >{{trans "Test: <b>%testme</b>,"  testme=$testme|row}}</p>
+

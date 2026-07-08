@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.price">
+            <block class="Digidirect\ExtendedCatalogPriceRule\Block\Pdp\DisplayMessage"
+                   name="digidirect.extended.catalog.price.rule.product.view"
+                   as="digidirect_extended_catalog_rule_pdp"
+                   template="Digidirect_ExtendedCatalogPriceRule::product/view/price_rule.phtml"
+                   after="product.price.final" />
+        </referenceContainer>
+        <referenceBlock name="product_details_before_price_related">
+            <block name="digidirect_extended_catalog_rule_pdp_related"
+                   class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+                   template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml"/>
+        </referenceBlock>
+        <referenceBlock name="product_details_before_price_upsell">
+            <block name="digidirect_extended_catalog_rule_pdp_upsell"
+                   class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+                   template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

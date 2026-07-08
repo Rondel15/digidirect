@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/collectplace/delivery" method="GET">
+        <service class="Digidirect\Collect\Api\DeliveryAddToCartValidationInterface" method="hasDeliveryItemInCart"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/collectplace/collect" method="GET">
+        <service class="Digidirect\Collect\Api\CollectAddToCartValidationInterface" method="hasCollectItemInCart"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/collectplace/delivery/all" method="POST">
+        <service class="Digidirect\Collect\Api\ApplyDeliveryInterface" method="applyDeliveryToAllItems"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/collectplace/apply/all" method="POST">
+        <service class="Digidirect\Collect\Api\ApplyCollectPlaceInterface" method="applyCollectPlaceToAllItems"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+    <route url="/V1/collectplace/collect/single/selected" method="GET">
+        <service class="Digidirect\Collect\Api\ApplyCollectPlaceInterface" method="getSelectedSingleCollectPlace"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+</routes>

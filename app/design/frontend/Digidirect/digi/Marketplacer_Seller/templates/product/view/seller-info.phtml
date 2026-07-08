@@ -1,0 +1,54 @@
+<?php
+/**
+ * @var $block View
+ * @var $sellerDataHelper Data
+ * @var $seller SellerInterface
+ * @var $escaper Escaper
+ */
+
+use Magento\Catalog\Block\Product\View;
+use Magento\Framework\Escaper;
+use Marketplacer\Seller\Api\Data\SellerInterface;
+use Marketplacer\Seller\Helper\Data;
+
+$product = $block->getProduct();
+$sellerDataHelper = $this->helper(Data::class);
+$seller = $sellerDataHelper->getSellerByProduct($product);
+
+if (!$seller instanceof SellerInterface || !$seller->isEnabled()) {
+    return;
+}
+
+$sellerName = $seller->getName();
+$sellerLogo = $seller->getLogo();
+$sellerPolicies = $seller->getPolicies();
+$sellerUrl = $sellerDataHelper->getSellerUrl($seller);
+$mpBrand = $product->getAttributeText('marketplacer_brand');
+$categoryIds = $product->getCategoryIds();
+$mpCategories = array(3147);
+$isShippingLonger = count(array_intersect($categoryIds, $mpCategories));
+?>
+
+<div class="mrkt-product-info-seller">
+    <strong class="name">
+        <?php if ($escaper->escapeHtml($sellerName) == "digiDirect"): ?>
+            Shipped by: <?= $escaper->escapeHtml($sellerName) ?>
+        <?php else :?>    
+            Shipped by: <?= $escaper->escapeHtml($sellerName) ?>
+            <i class="fas fa-info-circle" 
+               title="This item will be shipped from our trusted digiMarket Sellers." 
+               style="margin-left: 5px;color: #ff3c00;font-size: 13px;">
+            </i>
+        <?php endif ?>
+    </strong>
+    <strong class="name" style="display: block;" <?= $mpBrand;?> <?= $isShippingLonger;?>>
+        <?php if ($mpBrand == "Cameron Sino" && $isShippingLonger): ?>
+            Shipping may take a little longer than usual
+        <?php endif ?>
+    </strong>
+    <?php if ($sellerLogo): ?>
+        <span class="image" style="display: none;">
+            <img src="<?= $escaper->escapeUrl($sellerLogo) ?>" alt="<?= $escaper->escapeHtmlAttr($sellerName) ?>"/>
+        </span>
+    <?php endif ?>
+</div>

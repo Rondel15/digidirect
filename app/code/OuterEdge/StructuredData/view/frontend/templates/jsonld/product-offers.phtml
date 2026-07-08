@@ -1,0 +1,31 @@
+<?php
+    $product = $block->getProduct();
+    if ($product && $product->getEntityId()):
+?>
+<script async>
+    function fetchOffersSchema(ID) {
+        fetch(window.BASE_URL + 'rest/V1/structure_data/offers/' + ID)
+        .then(response => response.json())
+        .then((data) => {
+            if (!data.length && !data[0].offers) return;
+
+            const structuredData = document.getElementById('structured-data');
+            if (!structuredData) return;
+
+            const structuredDataJson = JSON.parse(structuredData.textContent);
+            structuredDataJson.mainEntity.offers = data[0].offers;
+            structuredData.textContent = JSON.stringify(structuredDataJson);
+        });
+    }
+
+    function waitForBaseUrl(callback) {
+        if (typeof window.BASE_URL !== 'undefined') {
+            callback();
+        } else {
+            setTimeout(() => waitForBaseUrl(callback), 100);
+        }
+    }
+
+    waitForBaseUrl(() => fetchOffersSchema('<?= $product->getEntityId() ?>'));
+</script>
+<?php endif; ?>

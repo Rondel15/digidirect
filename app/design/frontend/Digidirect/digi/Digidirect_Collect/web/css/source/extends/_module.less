@@ -1,0 +1,40 @@
+//
+//  Click & Collect
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@billing-address-float: left;
+@billing-address-padding-left: 5%;
+@shipping-display: none;
+
+@collect-block__display: none;
+@collect-block__visible__display: block;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .collect-container{
+        .collect-shipping{
+            .lib-css(display, @shipping-display);
+        }
+        .collect-billing{
+            .lib-css(float, @billing-address-float);
+            .lib-css(padding-left, @billing-address-padding-left);
+        }
+    }
+
+    .collect-block {
+        & {
+            .lib-css(display, @collect-block__display);
+        }
+
+        &.-visible {
+            .lib-css(display, @collect-block__visible__display);
+        }
+    }
+}

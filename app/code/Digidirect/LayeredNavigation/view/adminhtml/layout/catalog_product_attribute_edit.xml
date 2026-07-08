@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="attribute_edit_tabs">
+            <block class="Digidirect\LayeredNavigation\Block\Adminhtml\Product\Attribute\Edit\Tab\LayeredNavigation" name="digidirect.layered.navigation"/>
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">digidirect_layerednavigation</argument>
+                <argument name="block" xsi:type="string">digidirect.layered.navigation</argument>
+                <argument name="after" xsi:type="string">front</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,21 @@
+name: Amazon(price)
+type: xml
+xml:
+  schema: |+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+      <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>M_SELLER_354577</MerchantIdentifier>
+      </Header>
+      <MessageType>Price</MessageType>
+      {% for product in context.products %}
+      <Message>
+        <MessageID>{{ product.entity_id }}</MessageID>
+        <Price>
+          <SKU><![CDATA[{{ product.sku }}]]></SKU>
+          <StandardPrice currency="USD">{{ product.price }}</StandardPrice>
+        </Price>
+      </Message>
+      {% endfor %}
+    </AmazonEnvelope>

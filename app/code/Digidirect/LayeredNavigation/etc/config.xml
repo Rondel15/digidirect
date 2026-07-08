@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_layerednavigation>
+            <general>
+                <ajax_enabled>0</ajax_enabled>
+                <enable_apply_button>1</enable_apply_button>
+                <enable_mobile_apply_button>1</enable_mobile_apply_button>
+                <enable_filter_remember>0</enable_filter_remember>
+                <hide_options_after_select>1</hide_options_after_select>
+            </general>
+            <category>
+                <display_mode>0</display_mode>
+                <allow_multiselect>1</allow_multiselect>
+                <enable_show_more>0</enable_show_more>
+                <options_per_filter>10</options_per_filter>
+            </category>
+            <url>
+                <mode>1</mode>
+            </url>
+            <robots>
+                <control_robots>1</control_robots>
+            </robots>
+        </digidirect_layerednavigation>
+    </default>
+</config>

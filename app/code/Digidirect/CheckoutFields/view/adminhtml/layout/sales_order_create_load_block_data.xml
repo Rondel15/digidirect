@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="data">
+            <action method="setTemplate" ifconfig="checkout_fields/checkout_fields/enable_checkout_fields">
+                <argument name="template" xsi:type="string">Digidirect_CheckoutFields::order/create/data.phtml</argument>
+            </action>
+            <block class="Digidirect\CheckoutFields\Block\Adminhtml\Order\Create\Form\AdditionalFields" template="Digidirect_CheckoutFields::order/create/form/additionalfields.phtml" name="form_additional_fields" ifconfig="checkout_fields/checkout_fields/enable_checkout_fields"/>
+        </referenceBlock>
+    </body>
+</page>

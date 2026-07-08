@@ -1,0 +1,11 @@
+<!-- ko if: collectPlaces().length > 0 -->
+    <div class="collect-preselect">
+        <span class="title" data-bind="i18n: 'Your Click & Collect Store:'"></span>
+        <b class="name" data-bind="text: collectPlaces()[0].collect_place_name"></b>
+    </div>
+<!-- /ko -->
+<!-- ko ifnot: collectPlaces().length > 0 -->
+    <div class="collect-preselect -empty" data-bind="i18n: 'Not Selected'"></div>
+<!-- /ko -->
+
+<div class="collect-locator" data-role="collect-locator" data-bind="blockLoader: isLocatorLoading"></div>

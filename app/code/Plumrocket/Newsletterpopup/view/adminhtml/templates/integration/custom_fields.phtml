@@ -1,0 +1,18 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+<?php /** @var \Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\CustomFields\FieldsList $block */ ?>
+<div data-bind="scope: 'pr-integration-<?= /* @noEscape */ $block->getServiceId() ?>-custom-fields'" class="pr-integration-custom-fields-container">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": <?= $block->getJsLayout() ?>
+        }
+    }
+</script>

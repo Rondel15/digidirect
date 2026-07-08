@@ -1,0 +1,181 @@
+//
+//  My Account: block wishlist
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@account-sidebar-product-item-name__height: 40px;
+@account-sidebar-product-item-name__height__l: 44px;
+@account-wishlist-sidebar-item__width__m: calc(~'50% - 10px');
+@account-wishlist-sidebar-item__width__l: calc(~'50% - 20px');
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .account .block-wishlist {
+        .block-title {
+            margin-bottom: 0;
+        }
+
+        .counter {
+            position: relative;
+            top: -2px;
+            padding-left: 10px;
+        }
+
+        .product-item {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+        }
+
+        .action.details {
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+
+        .product-item-info {
+            .lib-vendor-prefix-flex-direction(row);
+            .digi-lib-box-align(space-between);
+            padding: 20px 0 5px;
+        }
+
+        .action-delete {
+            .lib-css(background-image, @base64-icon__close);
+            width: 14px;
+            height: 14px;
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .product-item-photo {
+            width: 27%;
+        }
+
+        .product-item-details {
+            width: 50%;
+        }
+
+        .link.action.tocart {
+            .lib-css(background-color, @color-2-1);
+            .lib-css(color, @color-white);
+            border-color: transparent;
+            text-align: center;
+
+            &:hover {
+                .lib-css(background-color, @color-2-6);
+            }
+        }
+
+        .product-image-photo {
+            height: auto !important;
+        }
+
+        .product-item-name {
+            .lib-css(height, @account-sidebar-product-item-name__height);
+            .lib-css(flex, 0 0 @account-sidebar-product-item-name__height);
+            margin: 0;
+            text-align: left;
+        }
+
+        .price-container {
+            .lib-vendor-box-align(flex-start);
+        }
+
+        .price-box {
+            margin-bottom: 4px;
+        }
+
+        .empty {
+            padding-top: 20px;
+        }
+
+        .product-item:hover > .product-item-info {
+            box-shadow: none;
+            transform: none;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account .block-wishlist {
+        .product-items {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-prefix-flex-wrap(wrap);
+            .digi-lib-box-align(space-between);
+        }
+
+        .product-item {
+            .lib-css(width, @account-wishlist-sidebar-item__width__m);
+            border-bottom: none;
+        }
+
+        .product-item-details {
+            height: auto;
+            margin-top: 0;
+        }
+
+        .price-wrapper {
+            margin-top: auto;
+        }
+
+        button.action.tocart {
+            padding: 13px 11px 12px;
+        }
+
+        .counter {
+            .lib-font-size(13);
+        }
+
+        .action.details {
+            .lib-font-size(13);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .account .block-wishlist {
+        .counter {
+            .lib-font-size(14);
+        }
+
+        .action.details {
+            .lib-font-size(14);
+        }
+
+        .product-item {
+            .lib-css(width, @account-wishlist-sidebar-item__width__l);
+        }
+
+        .product-item-info {
+            padding: 40px 0 5px;
+        }
+
+        .product-item-name {
+            .lib-css(height, @account-sidebar-product-item-name__height__l);
+            .lib-css(flex, 0 0 @account-sidebar-product-item-name__height__l);
+        }
+
+        .product-item-actions .action.tocart {
+            .lib-font-size(14);
+        }
+
+        .link.action.tocart {
+            padding: 13px 11px 12px;
+        }
+
+        .price-box {
+            margin-bottom: 10px;
+        }
+    }
+}

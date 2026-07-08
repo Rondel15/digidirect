@@ -1,0 +1,8 @@
+<script>
+    require([
+        "Digidirect_AI/js/grid/log/columns/log_init"
+    ], function (AiLogsInfo) {
+        window.AiLogsInfo = new AiLogsInfo();
+        window.AiLogsInfo.setInfo('<?php echo $block->escapeUrl($block->getRequestLogUrl()); ?>', '<?php echo $block->escapeUrl($block->getSendEmailLogUrl()) ?>');
+    });
+</script>

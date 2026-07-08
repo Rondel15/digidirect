@@ -1,0 +1,29 @@
+<?php
+
+namespace Digidirect\DigiClubMember\Controller\Customer;
+
+use Magento\Framework\App\Action\Action;
+use Magento\Framework\App\Action\Context;
+use Magento\Framework\View\Result\PageFactory;
+
+class ThankYou extends Action
+{
+    protected $_resultPageFactory;
+
+    public function __construct(
+        Context $context,
+        PageFactory $resultPageFactory,
+    ) {
+        $this->_resultPageFactory = $resultPageFactory;
+        parent::__construct(
+            $context
+        );
+    }
+    
+    public function execute()
+    {
+       $resultPage = $this->_resultPageFactory->create();
+       $resultPage->addHandle('digiclubmember_thankyou');
+       return $resultPage;
+    }
+}

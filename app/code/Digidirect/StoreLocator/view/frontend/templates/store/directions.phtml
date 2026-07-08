@@ -1,0 +1,47 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\ListStore\DetailPage $block */
+$address = $block->getFullAddress();
+?>
+<?php if($block->isEnableDirections()) : ?>
+<div class="locator-directions" data-mage-init='{"locatorDirections": {}}'>
+    <form action="https://www.google.com/maps/dir/" class="direction-search form" data-mage-init='{"validation": {}}'>
+        <div class="field">
+            <span class="direction-mode -driving">
+                <input type="radio" name="travelMode" id="mode_driving" class="radio" value="DRIVING" checked/>
+                <label for="mode_driving" class="label"><?php /* @escapeNotVerified */ echo __('Driving')?></label>
+            </span>
+            <span class="direction-mode -transit">
+                <input type="radio" name="travelMode" id="mode_transit" class="direction-mode radio" value="TRANSIT"/>
+                <label for="mode_transit" class="label"><?php /* @escapeNotVerified */ echo __('Transit')?></label>
+            </span>
+            <span class="direction-mode -walking">
+                <input type="radio" name="travelMode" id="mode_walking" class="direction-mode radio" value="WALKING"/>
+                <label for="mode_walking" class="label"><?php /* @escapeNotVerified */ echo __('Walking')?></label>
+            </span>
+            <span class="direction-mode -bicycling">
+                <input type="radio" name="travelMode" id="mode_bicycling" class="direction-mode radio" value="BICYCLING"/>
+                <label for="mode_bicycling" class="label"><?php /* @escapeNotVerified */ echo __('Bicycling')?></label>
+            </span>
+        </div>
+        <div class="field">
+            <label for="direction_from" class="label"><?php /* @escapeNotVerified */ echo __('From')?></label>
+            <div class="control">
+                <input type="text" class="input-text direction-from" data-validate="{required:true}" name="origin" id="direction_from" value=""/>
+            </div>
+        </div>
+        <div class="field">
+            <label for="direction_to" class="label"><?php /* @escapeNotVerified */ echo __('To')?></label>
+            <div class="control">
+                <input type="text" class="input-text direction-to" data-validate="{required:true}" name="destination" id="direction_to" value="<?php echo $block->escapeHtml($address) ?>"/>
+            </div>
+        </div>
+        <button type="submit" id="search-direction" class="button action primary" title="<?php /* @escapeNotVerified */ echo __('Get Direction')?>">
+            <span><?php /* @escapeNotVerified */ echo __('Get Direction')?></span>
+        </button>
+        <button type="button" class="reverse-directions button action" title="<?php /* @escapeNotVerified */ echo __('Reverse Directions')?>">
+            <span><?php /* @escapeNotVerified */ echo __('Reverse Directions')?></span>
+        </button>
+    </form>
+    <div id="direction-panel" class="direction-panel"></div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="digidirect_ai_logs_logs_email_template" label="AI Log Email" file="log_email.html" type="html"
+              module="Digidirect_AI" area="adminhtml"/>
+    <template id="digidirect_ai_exceptions_fail_run_email_template" label="AI Fail Process Run Email"
+              file="ai_run_fail_email.html" type="html" module="Digidirect_AI" area="adminhtml"/>
+    <template id="digidirect_ai_exceptions_global_fail_email_template" label="AI Global Fail Email"
+              file="global_fail_email.html" type="html" module="Digidirect_AI" area="adminhtml"/>
+    <template id="digidirect_ai_queue_fail_email_template" label="AI Queue Fail Email"
+              file="ai_queue_fail_email.html" type="html" module="Digidirect_AI" area="adminhtml"/>
+</config>

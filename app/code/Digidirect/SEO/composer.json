@@ -1,0 +1,17 @@
+{
+  "name": "digidirect/seo",
+  "description": "SEO",
+  "type": "magento2-module",
+  "suggest": {
+    "digidirect/utilities": "Digidirect Seo may use digidirect/utilities methods"
+  },
+  "version": "1.6.0.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\SEO\\": ""
+    }
+  }
+}

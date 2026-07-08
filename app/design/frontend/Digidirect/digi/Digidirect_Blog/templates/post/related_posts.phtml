@@ -1,0 +1,72 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\RelatedPosts $block
+ * @var \Digidirect\Blog\Model\Post $post
+ * @var \Digidirect\Digi\Helper\Blog $blogHelper
+ */
+$blogHelper = $this->helper('Digidirect\Digi\Helper\Blog');
+?>
+<?php if ($block->isDisplayPosts()) : ?>
+    <?php $collection = $block->getCollection(); ?>
+    <?php if ($collection->count()) : ?>
+        <div class="block blog-relatedposts">
+            <div class="block-title title">
+                <strong role="heading" aria-level="2">
+                    <?php /* @escapeNotVerified */ echo __('Related Articles') ?>
+                </strong>
+            </div>
+            <ul class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 list  blog-pg rel-post">
+                <?php foreach ($block->getCollection() as $post): ?>
+                    <?php $thumb = ""; ?>
+                    <div class="post-card item related-item">
+                        <?php $thumb = $post->getImageUrl(null, 150); ?>
+                        <?php if (!empty($thumb)): ?>
+                            <img src="<?php echo $block->escapeHtml($thumb); ?>" alt="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                        <?php endif; ?>
+                        <div class="container">
+                            <?php $categoriesTitlesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                            <?php $categoriesTitlesCount = count($categoriesTitlesArray); ?>
+                            <?php if ($categoriesTitlesCount) : ?>
+                                <div class="categories">
+                                    <?php $i=1; foreach ($categoriesTitlesArray as $key => $category): ?>
+                                        <a href="<?php echo $block->escapeUrl($category->getViewUrl()); ?>" class="link category-name" title="<?php echo $block->escapeHtml($category->getName()); ?>"><?php echo $block->escapeHtml($category->getName()); ?></a><?php if ($categoriesTitlesCount != $i) : ?> <?php endif; ?>
+                                        <?php $i++; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                            <h2 class="title-post">
+                                <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php echo $block->escapeHtml($post->getTitle()); ?>">
+                                    <?php echo $block->escapeHtml($post->getTitle()); ?>
+                                </a>
+                            </h2>
+
+                            <?php if (!$blogHelper->isPostRelatedToContributors($post)):?>
+                            <div class="date">
+                                <?php /* @escapeNotVerified */ echo __('Posted:') ?>
+                                <?php echo $block->escapeHtml($post->getCreatedDate()); ?>
+                            </div>
+                            <?php endif; ?>
+                            <a class="more" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php /* @escapeNotVerified */ echo __('Read More') ?>">
+                                <span class="more-title"><?php /* @escapeNotVerified */ echo __('Read More') ?></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-arrow">
+                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-arrow"></use>
+                                </svg>
+                            </a>
+                            <?php if($post->getTags()): ?>
+                                <div class="tags">
+                                    <span class="label"><?php /* @escapeNotVerified */ echo __('Tags: ') ?></span>
+                                    <?php foreach ($post->getTags() as $tag): ?>
+                                        <a class="link tag" href="<?php echo $block->escapeUrl($block->getTagUrl($tag)) ?>" title="<?php echo $block->escapeHtml($tag) ?>"><?php echo $block->escapeHtml($tag) ?></a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <a class="thumb" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>"></a>
+                    </div>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+

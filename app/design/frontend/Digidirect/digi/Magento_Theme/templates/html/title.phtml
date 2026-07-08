@@ -1,0 +1,50 @@
+<?php
+
+$category = $block->getCurrentCategory();
+$handles = $this->getLayout()->getUpdate()->getHandles();
+
+$cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
+$titleHtml = '';
+if (trim($block->getPageHeading())) {
+    $titleHtml = '<span class="base" data-ui-id="page-title-wrapper" '
+        . $block->getAddBaseAttribute()
+        . '>'
+        . $block->escapeHtml($block->getPageHeading())
+        . '</span>';
+}
+
+if (in_array('catalog_category_view', $handles)) {
+    $titleHtml = '<span class="base" data-ui-id="page-title-wrapper">'.$category->getName().'</span>';
+}
+
+?>
+<?php if ($category) : ?>
+    <div class="category-page-banner" style="margin-right: 0;margin-left: auto;">
+        <?php if ($titleHtml) : ?>
+            <div class="page-title-wrapper<?= $block->escapeHtmlAttr($cssClass) ?>">
+                <h1 class="page-title"
+                    <?php if ($block->getId()) : ?> id="<?= $block->escapeHtmlAttr($block->getId()) ?>" <?php endif; ?>
+                    <?php if ($block->getAddBaseAttributeAria()) : ?>
+                        aria-labelledby="<?= $block->escapeHtmlAttr($block->getAddBaseAttributeAria()) ?>"
+                    <?php endif; ?>>
+                    <?= /* @noEscape */ $titleHtml ?>
+                </h1>
+                <?= $block->getChildHtml() ?>
+            </div>
+        <?php endif; ?>
+    </div>
+<?php else : ?>
+    <?php if ($block->escapeHtml($block->getPageHeading()) == "Clearance") : ?>
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('clearance-banner')->toHtml();?>
+    <?php endif; ?>
+    <div class="page-title-wrapper<?= $block->escapeHtmlAttr($cssClass) ?>">
+        <h1 class="page-title"
+            <?php if ($block->getId()) : ?> id="<?= $block->escapeHtmlAttr($block->getId()) ?>" <?php endif; ?>
+            <?php if ($block->getAddBaseAttributeAria()) : ?>
+                aria-labelledby="<?= $block->escapeHtmlAttr($block->getAddBaseAttributeAria()) ?>"
+            <?php endif; ?>>
+            <?= /* @noEscape */ $titleHtml ?>
+        </h1>
+        <?= $block->getChildHtml() ?>
+    </div>
+<?php endif; ?>

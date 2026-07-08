@@ -1,0 +1,63 @@
+//
+//  Customer: Register
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form-create-account {
+        .fieldset.info > .legend,
+        .fieldset.account > .legend {
+            .lib-css(font-weight, @font-weight__bold);
+            .lib-font-size(22);
+        }
+
+        .fieldset.account {
+            margin-bottom: 20px;
+        }
+    }
+
+    #msp-recaptcha > div {
+        margin: 0 auto;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form-create-account {
+        .fieldset,
+        .actions-toolbar{
+            max-width: 420px;
+            min-width: 420px;
+            margin: 0 auto;
+        }
+        
+        .fieldset.info > .legend,
+        .fieldset.account > .legend {
+            .lib-font-size(24);
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form-create-account {
+        .fieldset.info {
+            margin-bottom: 50px;
+        }
+
+        .fieldset.info > .legend,
+        .fieldset.account > .legend {
+            .lib-font-size(28px);
+            float: none;
+        }
+    }
+}

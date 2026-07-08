@@ -1,0 +1,13 @@
+<script>
+    require([
+        "Digidirect_AI/js/grid/processes/columns/integrations_init"
+    ], function (AiIntegrationsInit) {
+        window.AiIntegrationsInit = new AiIntegrationsInit();
+        window.AiIntegrationsInit.setInfo(
+            '<?php echo $block->escapeUrl($block->getRunOptionsUrl()) ?>',
+            '<?php echo $block->escapeUrl($block->getRunUrl()) ?>',
+            '<?php echo $block->escapeUrl($block->getDeleteScheduleUrl()) ?>',
+            '<?php echo $block->escapeUrl($block->getLogDataUrl()) ?>'
+        );
+    });
+</script>

@@ -1,0 +1,83 @@
+//
+//  My Order Items: Group block
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .group-clear {
+        & {
+            width: 50%;
+            justify-content: flex-end;
+            align-items: center;
+            align-content: center;
+        }
+
+        .-apply .button {
+            text-decoration: underline;
+        }
+
+        .button {
+            .lib-css(color, @color-black);
+            background: transparent;
+        }
+
+        .choice {
+            margin: 0;
+            margin-right: 15px;
+        }
+
+        .choice .label {
+            margin-bottom: 0;
+            text-decoration: underline;
+            padding-left: 0;
+            padding-right: 30px;
+        }
+
+        .choice .label::after,
+        .choice .label::before {
+            right: 0;
+            left: auto;
+        }
+
+        .choice .label::after {
+            width: 17px;
+        }
+
+        .-cancel {
+            .lib-css(color, @color-3-4);
+        }
+
+        .-cancel .button {
+            .lib-css(color, @color-3-3);
+        }
+
+        .-apply .button::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            .lib-css(background-image, @base64-icon__close);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            speak: none;
+            background-size: 70% auto;
+            margin-left: 15px;
+        }
+    }
+
+    .group-rename {
+        .content {
+            align-items: center;
+        }
+
+        .actions > .action {
+            .lib-css(color, @color-black);
+            background: transparent;
+        }
+    }
+}
+

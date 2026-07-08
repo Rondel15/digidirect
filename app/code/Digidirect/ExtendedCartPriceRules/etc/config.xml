@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_extendedcartpricerules>
+            <general>
+                <order_statuses_for_orders_count>complete</order_statuses_for_orders_count>
+            </general>
+        </digidirect_extendedcartpricerules>
+    </default>
+</config>
+

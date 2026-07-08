@@ -1,0 +1,44 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @var $block \Magento\Framework\View\Element\Html\Links
+ */
+$_links = $block->getLinks();
+?>
+<?php if (!$block->getIsDisabled()): ?>
+    <div class="links-navigation">
+        <div class="title"  data-mage-init='{"toggleAdvanced": {"toggleContainers": ".order-links", "selectorsToggleClass": "active"}}'>
+            <?php foreach ($_links as $_title) : ?>
+                <?php if($_title->isCurrent()) : ?>
+                    <?php echo $this->renderLink($_title);?>
+                <?php endif;?>
+            <?php endforeach; ?>
+            <svg class="svg-icon svg-icon-arrow-down">
+                <use xlink:href="#svgi-left"
+                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+            </svg>
+        </div>
+        <div class="content">
+            <ul class="items order-links" >
+                <?php foreach ($_links as $_link) : ?>
+                    <li>
+                        <?php echo $this->renderLink($_link);?>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        ".links-navigation": {
+            "Magento_Sales/js/theme/nav-current": {}
+        }
+    }
+</script>

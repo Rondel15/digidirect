@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+
+    <referenceBlock name="product_details_before_price_crosssell">
+        <block name="digidirect_extended_catalog_rule_pdp_crosssell"
+               class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+               template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml"/>
+    </referenceBlock>
+</page>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!-- Check shipping methods for guest -->
+    <route url="/V1/shippingavailability/guest/getShippingMethodList" method="GET">
+        <service class="Digidirect\ShippingAvailabilityCheck\Api\CheckManagementInterface" method="getShippingMethodList"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <route url="/V1/shippingavailability/guest/getShippingMethodListForMultipleProducts" method="POST">
+        <service class="Digidirect\ShippingAvailabilityCheck\Api\CheckManagementInterface" method="getShippingMethodListForMultipleProducts"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+    <!-- Check shipping methods for logged in customers -->
+    <route url="/V1/shippingavailability/getShippingMethodList" method="GET">
+        <service class="Digidirect\ShippingAvailabilityCheck\Api\CheckManagementInterface" method="getShippingMethodList"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+
+    <route url="/V1/shippingavailability/getShippingMethodListForMultipleProducts" method="POST">
+        <service class="Digidirect\ShippingAvailabilityCheck\Api\CheckManagementInterface" method="getShippingMethodListForMultipleProducts"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+    </route>
+</routes>

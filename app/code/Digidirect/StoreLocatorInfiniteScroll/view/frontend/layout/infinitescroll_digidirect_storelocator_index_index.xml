@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="digidirect.infinitescroll.core" template="Digidirect_StoreLocatorInfiniteScroll::js.phtml"/>
+
+        <referenceBlock name="storelocator.list">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="locator_list" xsi:type="array">
+                            <item name="config" xsi:type="array">
+                                <item name="itemsContainerSelector" xsi:type="string">.locator-items</item>
+                                <item name="itemSelector" xsi:type="string">.locator-item</item>
+                                <item name="scrollContainer" xsi:type="string">.locator-items</item><!-- Use window keyword  to bind the event to the entire document -->
+                                <item name="scrollOffset" xsi:type="number">10</item>
+                                <item name="preFill" xsi:type="boolean">false</item>
+                                <item name="buttonState" xsi:type="string" translate="true">Load More</item>
+                            </item>
+                            <item name="children" xsi:type="array">
+                                <item name="locator_infinite" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiComponent</item>
+                                    <item name="displayArea" xsi:type="string">locator_after</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Digidirect_StoreLocatorInfiniteScroll/infinite</item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

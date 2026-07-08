@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Digidirect_ExtendedCartPriceRules" setup_version="1.0.3">
+        <sequence>
+            <module name="Digidirect_Utilities" />
+            <module name="Magento_SalesRule" />
+            <module name="Magento_Payment" />
+            <module name="Magento_Paypal" />
+        </sequence>
+    </module>
+</config>

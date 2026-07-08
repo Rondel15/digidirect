@@ -1,0 +1,300 @@
+//
+//  Locator:directions
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@locator-directions__margin: false;
+@locator-directions__padding: false;
+@locator-directions__background-color: false;
+//  Field
+@locator-directions-field__margin: false;
+//  Mode
+@locator-directions-mode__display: false;
+@locator-directions-mode__margin: false;
+@locator-directions-mode__padding: false;
+//  Panel
+@locator-directions-panel__max-height: false;
+@locator-directions-panel__margin: false;
+@locator-directions-panel__padding: false;
+@locator-directions-panel__overflow: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .locator-directions {
+        & {
+            padding: 0 25px 10px 0;
+            margin: 28px 0 0;
+        }
+    
+        .field.direction-route {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 30px;
+            padding-right: 12px;
+            max-width: 390px;
+            margin: 0 auto 24px;
+        }
+        
+        .field.-address {
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .field.-address .control > .label {
+            position: absolute;
+            left: -9px;
+            top: 15px;
+            cursor: pointer;
+            transition: color .3s linear;
+        }
+        
+        .field.-address .control > .label.-to {
+            top: 13px;
+            padding-bottom: 20px;
+            .lib-css(background-color, @color-white);
+        }
+        
+        .field.-address .input-text:focus ~ .label,
+        .field.-address .input-text:active + .label {
+            .lib-css(color, @color-orange-red1);
+        }
+        
+        .label.-from::after {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%,0);
+            content: '';
+            top: 92%;
+            height: 400%;
+            width: 13px;
+            background-image: -webkit-repeating-radial-gradient(circle at center center, @primary__color, @primary__color 2.5px, transparent 1px, transparent 100%);
+            background-image: repeating-radial-gradient(circle at center center, @primary__color, @primary__color 2.5px, transparent 1px, transparent 100%);
+            background-size: 13px 13px;
+        }
+        
+        .label .svg-icon {
+            width: 16px;
+            transform: translate3d(0, 0, 5px);
+        }
+        
+        .label.-from .svg-icon {
+            height: 16px;
+            margin-top: -5px;
+        }
+        
+        .label.-to .svg-icon {
+            height: 23px;
+        }
+        
+        .field {
+            margin-bottom: 15px;
+        }
+        
+        .bottom-action {
+            padding-left: 17px;
+        }
+        
+        .reverse-directions {
+            position: absolute;
+            top: 75%;
+            left: 100%;
+            margin-left: 6px;
+            transition: color .3s linear;
+        }
+    }
+    
+    .locator-map {
+        .lib-loading();
+    }
+    
+    .direction-mode {
+        .radio {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            visibility: hidden;
+            display: block;
+        }
+        
+        > .label {
+            .lib-css(color, @primary__color);
+            
+            cursor: pointer;
+            padding: 0;
+            transition: color .3s linear;
+
+            &:hover {
+                .lib-css(color, @color-orange-red1);
+            }
+        }
+        
+        > .label > .svg-icon {
+            height: 28px;
+            width: 28px;
+        }
+    
+        &.-bicycling .svg-icon {
+            width: 40px;
+        }
+        
+        .radio:checked + .label {
+            .lib-css(color, @color-orange-red1);
+        }
+    }
+    
+    .direction-route {
+        & {
+            text-align: center;
+        }
+    }
+    
+    .reverse-directions {
+        & {
+            .lib-css(color, @primary__color);
+            
+            cursor: pointer;
+            
+            &:hover {
+                .lib-css(color, @color-orange-red1);
+            }
+        }
+        
+        .svg-icon {
+            width: 32px;
+            height: 32px;
+        }
+    }
+
+    .direction-panel {
+        padding-left: 15px;
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .locator-directions {
+        .bottom-action .button {
+            width: 100%;
+            min-width: 0;
+        }
+
+        .field.-address .control > .mage-error + .label.-from {
+            top: 10px;
+        }
+
+        .mage-error + .label.-from::after {
+            height: 410%;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .locator-directions {
+        & {
+            margin: 70px auto;
+        }
+
+        > .item {
+            .lib-font-size(13);
+        }
+
+        .label.-from:after {
+            top: 110%;
+            background-size: 13px 15px;
+        }
+
+        .mage-error[style*="display: block"] ~ .label.-from:after {
+            top: 133%;
+        }
+
+        .field.-address .control > .label {
+            left: 0;
+            top: 16px;
+        }
+
+        .label.-to .svg-icon {
+            width: 20px;
+            height: 28px;
+        }
+
+        .input-text {
+            .lib-font-size(14);
+            height: 50px;
+        }
+
+        .field.-address {
+            padding-left: 40px;
+            margin-right: 30px;
+            margin-bottom: 19px;
+        }
+
+        .label.-from .svg-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .bottom-action .button {
+            width: 200px;
+            line-height: 1;
+        }
+
+        .reverse-directions {
+            margin-left: 16px;
+        }
+    }
+
+    .direction-mode {
+        > .label > .svg-icon {
+            height: 35px;
+            width: 35px;
+        }
+
+        &.-bicycling .svg-icon {
+            width: 50px;
+        }
+    }
+
+    .direction-panel {
+        padding-left: 40px;
+        padding-right: 30px;
+        margin-top: 15px;
+    }
+
+    .reverse-directions {
+        .svg-icon {
+            width: 40px;
+            height: 40px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .locator-directions {
+        margin: 50px auto 10px;
+        max-width: 960px;
+    }
+    
+    .direction-panel {
+        margin-top: 20px;
+    }
+}

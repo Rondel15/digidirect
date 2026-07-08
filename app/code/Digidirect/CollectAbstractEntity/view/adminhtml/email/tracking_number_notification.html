@@ -1,0 +1,10 @@
+<!--@subject {{trans "Shipped Order Email Notification"}}  @-->
+<!--@vars {
+"var customer_name":"Customer Name",
+"var order_number":"Order Number",
+"var tracking_number":"Tracking Number"
+} @-->
+
+<p>{{trans "Customer Name: %customer_name" customer_name=$customer_name}}</p>
+<p>{{trans "Order Number: #%order_number" order_number=$order_number}}</p>
+<p>{{trans "Tracking Number: %tracking_number" tracking_number=$tracking_number}}</p>

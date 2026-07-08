@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_CustomOptions::custom_options" title="Customizable Options" module="Digidirect_CustomOptions" sortOrder="50" resource="Digidirect_CustomOptions::custom_options" parent="Magento_Catalog::catalog"/>
+        <add id="Digidirect_CustomOptions::customoptions_interface" title="Custom Options Interface" module="Digidirect_CustomOptions" sortOrder="10" action="customoptions/interface/index" resource="Digidirect_CustomOptions::custom_options" parent="Digidirect_CustomOptions::custom_options"/>
+        
+    </menu>
+</config>

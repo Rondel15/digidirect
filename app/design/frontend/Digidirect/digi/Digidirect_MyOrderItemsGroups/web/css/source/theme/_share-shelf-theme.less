@@ -1,0 +1,353 @@
+//
+//  My Order Items Group: Shelf Share
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@account__background-image__l: url('@{baseDir}images/account-bg-l.jpg');
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .myorderitems-myorderitems-share {
+        .columns,
+        .column.main {
+            width: 100%;
+        }
+
+        .product-items.-grid {
+            flex-wrap: wrap;
+        }
+
+        .product-item-info {
+            width: calc(~'50% - 10px');
+            margin: 5px;
+        }
+
+        .product-item-info > .image img {
+            max-height: 257px;
+            flex-shrink: 0; // IE fix
+        }
+    }
+
+    .kit-wrapper {
+        & {
+            display: flex;
+            flex-direction: column;
+            padding: 10px 0;
+        }
+
+        > .title {
+            width: 100%;
+            text-align: center;
+            .lib-font-size(30);
+            font-weight: 700;
+        }
+
+        .action {
+            width: 170px;
+            font-size: 13px;
+            height: 40px;
+            text-align: center;
+            margin-top: 15px;
+            margin-left: auto;
+            margin-right: 5px;
+        }
+    }
+
+    .group-block {
+        .product-item-details {
+            min-height: 37px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .items-block .name,
+        .product-items .name {
+            display: inline-block;
+            overflow: hidden;
+            .lib-font-size(11);
+            font-weight: 500;
+            margin: auto;
+            text-decoration: none;
+        }
+
+        .add-to-cart-link {
+            min-height: 50px;
+            margin: 20px 0;
+            .lib-font-size(16);
+            padding: 16px;
+        }
+
+        .item.product-item-info {
+            min-height: 100%;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .item.product-item-info > .image {
+            display: flex;
+            height: 200px;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .item.product-item-info > .image > img {
+            margin: 0 auto;
+        }
+
+        .wishlist {
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+    }
+
+    .myorderitems-myorderitems-share .product-item-info {
+        .price-box.price-final_price {
+            min-height: 36px;
+            margin-left: auto;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .price-label {
+            text-transform: uppercase;
+            .lib-font-size(7);
+            text-align: right;
+        }
+
+        .price-final_price.tax.weee {
+            margin-left: auto;
+            display: flex;
+            align-items: flex-end;
+            flex-direction: column;
+        }
+
+        .price-wrapper {
+            display: inline-block;
+        }
+
+        .old-price {
+            .lib-font-size(10);
+            font-weight: 400;
+        }
+
+        .disabled-message {
+            width: 100%;
+            display: flex;
+            min-height: 51px;
+            margin: auto;
+            padding: 5px 15%;
+            text-decoration: none;
+            cursor: default;
+            margin-bottom: 38px;
+        }
+
+        .disabled-message > .wishlist {
+            text-decoration: none;
+            cursor: default;
+            .lib-css(color, @color-4-6);
+            display: block;
+            margin: auto;
+        }
+    }
+
+    .myorderitems-myorderitems-share .product-item-info.no-item-available {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .no-item-available .name {
+        pointer-events: none;
+    }
+
+    .items-groups-container .group-social {
+        .button-social {
+            height: auto;
+            margin: 0 15px;
+        }
+
+        .button-social > .item {
+            min-width: inherit;
+            list-style: none;
+        }
+
+        .svg-icon.-twitter {
+            width: 18px;
+            height: 18px;
+        }
+
+        .svg-icon.-pinterest {
+            width: 18px;
+            height: 18px;
+        }
+
+        .svg-icon.-facebook {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
+    .wrap-share.-grayeds .share-title,
+    .wrap-share-nav.-grayeds .share-title,
+    .wrap-share.-grayeds .svg-icon,
+    .wrap-share-nav.-grayeds .svg-icon {
+        .lib-css(color, @color-3-3);
+    }
+
+    .wrap-share.-grayeds .link,
+    .wrap-share-nav.-grayeds .link {
+        .lib-css(color, @color-3-3);
+        pointer-events: none;
+        .lib-css(background, @color-3-10);
+    }
+
+    .wrap-share.-grayeds > .group-social > .button-social,
+    .wrap-share-nav.-grayeds > .group-social > .button-social {
+        cursor: default;
+    }
+}
+
+//
+// Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .myorderitems-myorderitems-share {
+        .columns,
+        .column.main {
+            width: 100%;
+        }
+
+        .product-item-info {
+            width: calc(~'100% / 3 - 10px');
+        }
+
+        .item.product-item-info > .image {
+            display: flex;
+            height: 257px;
+        }
+    }
+}
+
+//
+// Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .myorderitems-myorderitems-share {
+        .page-main {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-prefix-flex-wrap();
+            .lib-css(background, @account__background-image__l no-repeat 0 0);
+            max-width: none;
+            padding-left: 80px;
+            padding-right: 80px;
+            background-size: 100% auto;
+        }
+
+        .columns,
+        .column.main {
+            width: 100%;
+        }
+
+        .product-item-info {
+            width: calc(~'100% / 4 - 20px');
+            margin: 10px;
+        }
+    }
+
+    .kit-wrapper {
+        & {
+            flex-direction: row;
+            .lib-css(color, @color-white);
+            padding: 35px 0 10px;
+        }
+
+        > .title {
+            padding-left: 210px;
+        }
+
+        > .action {
+            margin-right: 10px;
+            margin-top: 5px;
+        }
+    }
+
+    .group-block {
+        & {
+            margin-bottom: 20px;
+        }
+
+        .items-block .name,
+        .product-items .name {
+            .lib-font-size(16);
+            flex-grow: 1; // IE11 fix
+        }
+    }
+
+    .myorderitems-myorderitems-share .product-item-info {
+        .price-label {
+            .lib-font-size(9);
+            max-width: 90px; // IE fix
+            text-align: right; // IE fix
+            flex-grow: 1; // IE11 fix
+        }
+
+        .old-price {
+            .lib-font-size(11);
+            font-weight: 400;
+        }
+
+        .old-price > .price-final_price.tax.weee {
+            margin: 0;
+        }
+
+        .price-wrapper {
+            display: block;
+        }
+    }
+
+    .wrap-share.-grayeds .link,
+    .wrap-share-nav.-grayeds .link {
+        .lib-css(background, @color-white);
+    }
+}
+
+//
+// Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .myorderitems-myorderitems-share {
+        .product-item-info {
+            width: calc(~'100% / 5 - 40px');
+            margin: 20px;
+            padding: 20px;
+        }
+
+        .product-item-info > .image {
+            margin: auto;
+        }
+
+        .product-item-info.no-item-available > .image {
+            margin: 0 auto;
+        }
+        .columns,
+        .column.main {
+            width: 100%;
+        }
+    }
+}

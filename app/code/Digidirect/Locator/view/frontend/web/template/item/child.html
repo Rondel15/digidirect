@@ -1,0 +1,9 @@
+<!-- ko if: $parent.child_items -->
+    <div class="locator-children children">
+        <!-- ko foreach: { data: $parent.child_items, as: 'element' } -->
+            <!-- ko foreach: { data: Object.keys(element), as: 'key' } -->
+                <div class="child" data-bind="text: element[key].name"></div>
+            <!-- /ko -->
+        <!-- /ko -->
+    </div>
+<!-- /ko -->

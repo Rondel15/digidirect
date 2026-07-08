@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block name="freegift.add" class="Digidirect\FreeGift\Block\Add" after="-" template="cart/add.phtml" />
+        </referenceContainer>
+        <referenceContainer name="page.wrapper">
+            <block name="freegift.items" class="Digidirect\FreeGift\Block\Items" after="-" template="cart/popup/default.phtml">
+                <block class="Magento\Framework\View\Element\Html\Calendar" name="html_calendar" as="html_calendar" template="Magento_Theme::js/calendar.phtml"/>
+                <block class="Magento\Catalog\Block\Product\View\Options" name="freegift.options.prototype" as="options_prototype" template="product/view/options.phtml">
+                    <block class="Magento\Catalog\Block\Product\View\Options\Type\DefaultType" as="default" template="product/view/options/type/default.phtml"/>
+                    <block class="Magento\Catalog\Block\Product\View\Options\Type\Text" as="text" template="product/view/options/type/text.phtml"/>
+                    <block class="Magento\Catalog\Block\Product\View\Options\Type\File" as="file" template="product/view/options/type/file.phtml"/>
+                    <block class="Magento\Catalog\Block\Product\View\Options\Type\Select" as="select" template="product/view/options/type/select.phtml"/>
+                    <block class="Magento\Catalog\Block\Product\View\Options\Type\Date" as="date" template="product/view/options/type/date.phtml"/>
+                </block>
+                <block class="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable" name="freegift.configurable.prototype" as="configurable_prototype" template="Digidirect_FreeGift::product/view/type/options/configurable.phtml"/>
+            </block>
+        </referenceContainer>
+        <referenceBlock name="additional.product.info">
+            <block class="Digidirect\FreeGift\Block\Cart\Item\Message" name="freegift.item.message" after="-" template="cart/item/message.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

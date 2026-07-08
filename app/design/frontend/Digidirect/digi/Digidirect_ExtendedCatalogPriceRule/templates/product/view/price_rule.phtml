@@ -1,0 +1,21 @@
+<?php
+use \Digidirect\ExtendedCatalogPriceRule\Api\Data\RuleDisplayMessageInterface;
+
+/** @var \Digidirect\ExtendedCatalogPriceRule\Block\Pdp\DisplayMessage $block */
+?>
+<?php $rules = $block->getDisplayMessageRules(); ?>
+<?php if ($rules) : ?>
+    <?php foreach ($rules as $rule) : ?>
+        <div class="block-extendedrule -pdp">
+            <?php if (!empty($rule['action_amount'])) : ?>
+                <?php $afterCashbackPrice = $block->getActualAmount()->getValue() - $rule['action_amount']; ?>
+                <div class="price-box">
+                    <span class="price-container">
+                        <span class="price-label"><?= /* @escapeNotVerified */ __('After Cashback'); ?></span>
+                        <span class="price-wrapper" data-price-type="afterCashback" data-amount="<?= /* @noEscape */ $rule['action_amount'] ?>"><span class="price"><?= /* @noEscape */ $block->formatDiscountAmount($afterCashbackPrice); ?></span></span>
+                    </span>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

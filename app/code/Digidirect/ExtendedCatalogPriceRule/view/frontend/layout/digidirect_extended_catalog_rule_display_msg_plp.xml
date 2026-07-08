@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="after.product.price.container">
+            <block class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+                   name="digidirect.extended.catalog.price.rule.list.view"
+                   template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml" />
+        </referenceBlock>
+    </body>
+</page>

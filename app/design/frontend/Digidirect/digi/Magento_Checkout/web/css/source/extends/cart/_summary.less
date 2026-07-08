@@ -1,0 +1,584 @@
+//
+//  Cart: Summary Block
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@cart-summary__is-enabled: true; // Enable/disable style
+
+@cart-summary__margin-bottom: 27px;
+//@cart-summary__padding: 1px 15px @indent__m;
+@cart-summary__background: @color-white;
+//@cart-summary__use-adjustment-incl-excl-tax: true;
+//@cart-summary__position__m: relative;
+@cart-summary__float__m: false;
+@cart-summary__width__m: 100%;
+@cart-summary__width__l: 30%;
+//@cart-summary-title__use-heading: true;
+//@cart-summary-title-heading: h3;
+//@cart-summary-title__display: block;
+//@cart-summary-block__use-discount-block: true;
+//@cart-summary-block__margin-bottom: 0;
+//@cart-summary-item-options__margin-left: 0;
+@cart-summary-fieldset__margin: 20px 0 20px;
+//@cart-summary-fieldset-field__margin: 0 0 @indent__s;
+//@cart-summary-fieldset-field__margin__m: 0 0 @indent__s;
+//@cart-summary-fieldset-field-note__font-size: @font-size__s;
+//@cart-summary-fieldset-field-label__display: inline;
+//@cart-summary-fieldset-estimate-legend__use-no-display: true;
+//@cart-summary-actions-toolbar-primary-button__use-revert-secondary-color: true;
+
+//  Totals Block
+//@cart-totals__padding-top: @indent__s;
+//@cart-totals__border-top: 1px solid @border-color__base;
+//@cart-totals-table-wrapper__margin-bottom: 0;
+//@cart-totals-table-wrapper__overflow: inherit;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .cart-summary {
+        & {
+            position: unset !important;
+            margin-top: 30px;
+        }
+
+        > .title {
+            .lib-font-size(22);
+            .lib-css(font-weight, @font-weight__bold);
+            margin-top: 19px;
+            margin-bottom: 0;
+            padding-bottom: 18px;
+        }
+
+        .wrap-block{
+            position: relative;
+            padding-left: 20px;
+        }
+
+
+        .block.shipping {
+            display: none;
+        }
+
+        .action.checkout {
+            .lib-font-size(14);
+            width: 100%;
+            padding: 13px 15px 12px;
+        }
+
+        .checkout-methods-items {
+            margin-bottom: 20px;
+
+            .braintree-paypal-logo{
+                max-height: 50px;
+            }
+
+            .braintree-googlepay-button{
+                padding: 20px !important;
+            }
+
+            button span {
+                color: #ffffff !important;
+            }
+
+            .widget-product.zip-widget__wrapper.zip-widget__wrapper--display-popup.zip-widget__wrapper--type-productwidget {
+                margin-left: 0px !important;
+                //width: 327px !important;
+                //height: 27px !important;
+                //margin-top: 15px !important;
+                margin-top: -8px !important;
+            }
+        }
+
+        .klarna-widget{
+            a{
+                padding: 13px;
+            }
+        }
+
+        .svg-icon.-paypal-logo {
+            width: 80px;
+            height: 20px;
+            margin-left: 8px;
+        }
+
+        .paypal.checkout .action {
+            .lib-font-size(14);
+            padding: 9px 15px 8px;
+        }
+
+        .widget-product {
+            margin-top: 0;
+        }
+
+        .-collect.action.primary,
+        .giftcard .action.primary{
+            color: #000;
+            cursor: pointer;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            padding: 10px 15px;
+            font-size: 1.3rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+
+        .checkout{
+            button{
+                background-image: none;
+                background: #e65300;
+                border: 2px solid transparent;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                width: 100%;
+                font-weight: 700;
+                margin: 0;
+                padding: 10px 15px;
+                font-size: 1.3rem;
+                line-height: 1.6rem;
+                box-sizing: border-box;
+                vertical-align: middle;
+                font-family: 'Poppins', sans-serif;
+
+                &:hover{
+                    opacity: 0.8;
+                    background: #e65300;
+                    border: 2px solid #e65300;
+                }
+            }
+        }
+
+        .fieldset .action{
+            background: #e65300;
+            cursor: pointer !important;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            padding: 10px 15px;
+            font-size: 1.3rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+            margin-top: 15px;
+
+            span{
+                color: #fff !important;
+            }
+        }
+
+        strong{
+            font-weight: bold !important;
+        }
+    }
+
+    .braintree-paypal-logo {
+        margin-top: 10px;
+        position: relative;
+        z-index: 0;
+        max-height: 38px;
+        overflow: hidden;
+    }
+
+    .braintree-googlepay-button{
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        margin: 0px !important;
+        width: 100% !important;
+        padding: 0px !important;
+    }
+
+    .cart-summary .collect_place_class {
+        & {
+            margin-bottom: 0;
+        }
+
+        .collect-type {
+            .lib-css(border-top, 1px solid @color-3-5);
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 14px;
+            padding-top: 18px;
+        }
+
+        .collect-type > .label {
+            .lib-css(background-color, @color-3-4);
+            .lib-css(color, @color-black);
+            padding: 15px;
+
+
+            svg{
+                max-width: 30px;
+                height: 30px;
+            }
+
+            &::before,
+            &::after {
+                display: none;
+            }
+        }
+
+        .collect-type input:checked + .label {
+            background-color: #f5f5f5;
+            color: #e65200;
+            border: 2px solid #e65200;
+            border-radius: 5px;
+        }
+
+        .collect-block.-visible {
+            margin-top: 20px;
+            margin-bottom: 14px;
+        }
+
+        .link.-collect {
+            display: block;
+            margin-top: 20px;
+        }
+
+        .link.action.primary {
+            text-align: center;
+            width: 100%;
+            font-weight: 700;
+            background: #e65401;
+            color: #fff;
+            border: 1px solid;
+
+            &::hover{
+                border: 1px solid #e65504 !important;
+             }
+        }
+
+        .collect-block .wrapper-title {
+            & {
+                font-weight: bold;
+                font-size: 15px;
+                padding-left: 0;
+
+            }
+
+            > .title {
+                .lib-css(font-weight, @font-weight__heavier);
+                .lib-font-size(20);
+                display: none;
+            }
+
+            > span {
+                font-weight: 600;
+                color: #000;
+                font-size: 14px;
+            }
+        }
+
+        .pickup-available-wrapper {
+            margin-bottom: 16px;
+        }
+
+        .pickup-available-text {
+            & {
+                .lib-css(color, @message-success__color);
+                .lib-font-size(14);
+                line-height: 1.43;
+                padding-left: 18px;
+                position: relative;
+            }
+
+            &:before {
+                content: @base64-icon__ok;
+                position: absolute;
+                width: 14px;
+                height: 12px;
+                top: 0;
+                left: 0;
+            }
+        }
+    }
+
+    .secure-pay {
+        & {
+            text-align: center;
+        }
+
+        .title {
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__bold);
+            margin-bottom: 15px;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .svg-icon {
+            width: 35px;
+            height: 34px;
+            margin: 5px 3px;
+        }
+
+        .svg-icon.-amex {
+            .lib-css(fill, @color-5-3);
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .cart-summary {
+        .svg-icon{
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            fill: currentColor;
+            vertical-align: middle;
+        }
+    }
+
+    .cart-summary {
+        .block.discount .fieldset{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+
+            .field{
+                width: 100% !important;
+                display: block;
+
+                label{
+                    padding: 0 !important;
+                }
+            }
+
+            .giftcard-number,
+            .giftcard-pin{
+                margin-bottom: 5px;
+            }
+        }
+
+        .actions-toolbar {
+            padding-left: 0 !important;
+            width: 100% !important;
+            margin-bottom: 15px;
+        }
+    }
+
+    .braintree-paypal-logo {
+        margin-top: 10px;
+        position: relative;
+        z-index: 0;
+        max-height: 38px;
+        overflow: hidden;
+    }
+
+    .braintree-googlepay-button{
+        padding: 0px !important;
+    }
+
+    .braintree-googlepay-button{
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        margin: 0px !important;
+        width: 100% !important;
+        padding: 0px !important;
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cart-summary {
+        & {
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        > .title {
+            .lib-font-size(24);
+            margin-top: 30px;
+        }
+
+        .checkout-methods-items .item + .item {
+            margin-top: 20px;
+        }
+
+        .action.checkout {
+            .lib-font-size(16);
+            padding: 16px 15px 14px;
+        }
+
+        .svg-icon.-paypal-logo {
+            width: 100px;
+            height: 24px;
+            margin-left: 8px;
+        }
+
+        .paypal.checkout .action {
+            .lib-font-size(16);
+            padding: 11px 15px 10px;
+        }
+    }
+
+    .secure-pay {
+        .title {
+            .lib-font-size(13);
+        }
+    }
+
+    .cart-summary .collect_place_class {
+        .collect-type {
+            padding-top: 28px;
+        }
+
+        .collect-type > .label {
+            .lib-font-size(18);
+            padding: 15px;
+        }
+
+        .svg-icon {
+/*            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            margin-right: 18px;*/
+        }
+
+        .collect-block.-visible {
+            margin-top: 30px;
+            margin-bottom: 18px;
+        }
+
+    }
+
+    .braintree-paypal-logo{
+        max-height: 55px;
+    }
+
+    .braintree-paypal-logo{
+        margin-top: 15px;
+        position: relative;
+        z-index: 0;
+        max-height: 55px;
+        overflow: hidden;
+    }
+
+    .braintree-googlepay-button{
+        background-repeat: no-repeat !important;
+        background-position: center center !important;
+        margin: 0px !important;
+        width: 100% !important;
+        padding: 26px !important;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .cart-summary {
+        & {
+            .lib-css(width, @cart-summary__width__l);
+            float: right;
+            max-width: 570px;
+            padding: 0 30px 40px;
+            margin-top: 10px;
+            order: 2;
+        }
+
+        > .title {
+            .lib-font-size(28);
+        }
+
+        .collect_place_class {
+            .collect-type > .label {
+                .lib-font-size(14);
+                padding: 15px;
+            }
+
+            .svg-icon {
+                width: 100%;
+                max-width: 15px;
+                height: 15px;
+                margin-right: 0;
+                vertical-align: top;
+            }
+        }
+
+        .action.checkout,
+        .paypal.checkout .action {
+            line-height: 1;
+            border-radius: 4px;
+        }
+
+        .paypal.checkout .svg-icon {
+            margin: -5px 0 -5px 8px;
+        }
+    }
+
+    .secure-pay {
+        .title {
+            .lib-font-size(14);
+        }
+    }
+}
+
+//
+//  Desktop ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .cart-summary {
+        & {
+            margin-top: 20px;
+        }
+
+        .block.discount .fieldset{
+
+            &{
+                margin: 0;
+            }
+
+            .actions-toolbar{
+                padding-left: 0;
+            }
+
+            .giftcard-number,
+            .giftcard-pin{
+                margin-bottom: 5px;
+
+                .input-text {
+                    height: 50px;
+                    font-size: 1.4rem;
+                    border-color: #e1e1e1;
+                    color: #222;
+                }
+            }
+
+            .action.primary{
+                &{
+                    background: #e65202;
+                    border: 2px solid #fff;
+                    color: #fff;
+                }
+
+                &.remove-gift-card{
+                    color: #fff !important;
+                }
+
+                span{
+                    color: #fff !important;
+                }
+
+                &:hover{
+                    background: #ea7543;
+                }
+            }
+        }
+    }
+}

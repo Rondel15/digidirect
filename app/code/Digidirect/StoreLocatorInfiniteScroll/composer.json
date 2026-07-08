@@ -1,0 +1,16 @@
+{
+  "name": "digidirect/storelocatorinfinitescroll",
+  "type": "magento2-module",
+  "description": "Digidirect StoreLocatorInfiniteScroll Module",
+  "version": "1.0.1",
+  "suggest": {
+    "digidirect/storelocator": "Digidirect StoreLocatorInfiniteScroll may use digidirect/storelocator methods.",
+    "digidirect/infinitescroll": "Digidirect StoreLocatorInfiniteScroll does use digidirect/infinitescroll methods."
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\StoreLocatorInfiniteScroll\\": ""
+    }
+  }
+}

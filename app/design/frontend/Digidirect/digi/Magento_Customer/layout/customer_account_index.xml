@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <script src="Magento_Customer::js/login-ajax.js"/>
+        <link src="Magento_Customer::js/login-ajax.js"/>
+    </head>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Account</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\MultipleWishlist\Block\Customer\Sidebar" name="multiple-wishlist_sidebar_center" template="Magento_Wishlist::sidebar.phtml" after="-"/>
+            <block class="Magento\Theme\Block\Html\Pager" name="wishlist_item_pager"/>
+        </referenceContainer>
+    </body>
+</page>

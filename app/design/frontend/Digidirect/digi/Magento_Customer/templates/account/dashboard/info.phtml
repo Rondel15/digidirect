@@ -1,0 +1,81 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Customer\Block\Account\Dashboard\Info $block */
+?>
+
+<div class="block block-dashboard-info">
+    <div class="block-title"><strong><?= $block->escapeHtml(__('Account Information')) ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Contact Information')) ?></span>
+            </strong>
+            <div class="box-content">
+                <p>
+                    <?= $block->escapeHtml($block->getName()) ?><br>
+                    <?= $block->escapeHtml($block->getCustomer()->getEmail()) ?><br>
+                </p>
+                <?= $block->getChildHtml('customer.account.dashboard.info.extra'); ?>
+            </div>
+            <div class="box-actions">
+                <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>">
+                    <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                </a>
+                <a href="<?= $block->escapeUrl($block->getChangePasswordUrl()) ?>" class="action change-password">
+                    <?= $block->escapeHtml(__('Change Password')) ?>
+                </a>
+            </div>
+        </div>
+        
+        <div class="box box-information" style="display: none;">
+            <strong class="box-title">
+                <span><?= $block->escapeHtml(__('Qantas Frequent Flyer Details')) ?></span>
+            </strong>
+            <div class="box-content">
+                <?php if (!empty($block->getCustomer()->getQffNumber())): ?>
+                    <div class="qantas-pts-wrapper push-left">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-qantas"></use></svg> 
+                        <span>QFF Number: <?= $block->escapeHtml($block->getCustomer()->getQffNumber())?><br></span>
+                    </div>
+                
+                    <div class="box-actions qantas-wrapper-action">
+                        <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>?a=link">
+                            <span><?= $block->escapeHtml(__('Edit')) ?></span>
+                        </a>
+                    </div>
+                <?php else: ?>
+                    <div class="box-actions qantas-wrapper-action">
+                         <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('customer/account/edit')) ?>?a=link">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-qantas"></use></svg><?= $block->escapeHtml(__('Link your Qantas Frequent Flyer details')) ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if ($block->isNewsletterEnabled()): ?>
+            <div class="box box-newsletter">
+                <strong class="box-title">
+                    <span><?= $block->escapeHtml(__('Newsletters')) ?></span>
+                </strong>
+                <div class="box-content">
+                    <p>
+                        <?php if ($block->getIsSubscribed()): ?>
+                            <?= $block->escapeHtml(__('You are subscribed to our newsletter.')) ?>
+                        <?php else: ?>
+                            <?= $block->escapeHtml(__('You aren\'t subscribed to our newsletter.')) ?>
+                        <?php endif; ?>
+                    </p>
+                </div>
+                <div class="box-actions">
+                    <a class="action edit" href="<?= $block->escapeUrl($block->getUrl('newsletter/manage')) ?>"><span><?= $block->escapeHtml(__('Edit')) ?></span></a>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

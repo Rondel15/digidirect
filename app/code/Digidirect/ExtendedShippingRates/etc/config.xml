@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <carriers>
+            <shipping>
+                <active>0</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Digidirect\ExtendedShippingRates\Model\Carrier\Shipping</model>
+                <name>Digidirect Shipping</name>
+                <price>15.00</price>
+                <title>Example</title>
+                <type>I</type>
+                <specificerrmsg>This shipping method is not available. To use this shipping method, please contact us.</specificerrmsg>
+            </shipping>
+        </carriers>
+        <digidirect_extendedshippingrates>
+            <main>
+                <multiple_rates_price>0</multiple_rates_price>
+            </main>
+        </digidirect_extendedshippingrates>
+    </default>
+</config>

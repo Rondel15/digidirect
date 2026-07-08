@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="main.menu.off.canvas.section">
+            <block class="Magento\Customer\Block\Account\Link" name="your-account-link"
+                   template="Magento_Customer::link/your-account.phtml" before="-">
+            </block>
+            <block class="Magento\Customer\Block\Account\AuthorizationLink" name="sign-out-link"
+                   template="Magento_Customer::link/sign-out.phtml" after="-"/>
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional" remove="true"/>
+    </body>
+</page>

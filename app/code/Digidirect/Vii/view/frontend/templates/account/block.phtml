@@ -1,0 +1,51 @@
+<?php
+/**
+ * @var \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount $block
+ * @see \Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount
+ */
+?>
+<form class="account-abstractgiftcard form" id="vii-giftcard-form"
+      method="post"
+      data-mage-init='{"validation": {},"abstractGiftCard": {
+        "serviceSelector": "#vii-giftcard-service-code",
+        "codeSelector": "#vii-giftcard-code",
+        "pinSelector": "#vii-giftcard-pin",
+        "checkStatus": "#vii-check",
+        "statusUrl": "<?php echo $block->escapeHtml($block->getUrl('abstract_giftcard/cart/quickCheck',  ['_secure' => true])); ?>",
+        "statusId": "#vii-giftcard-balance-lookup"
+      }}'>
+    <div id="vii-giftcard-balance-lookup"></div>
+    <div class="fieldset">
+        <input type="hidden" id="vii-giftcard-service-code" name="giftcard_service[service_code]" value="vii"/>
+        <div class="field required">
+            <label class="label" for="vii-giftcard-code">
+                <span><?php echo $block->escapeHtml(__('Enter gift card code')); ?></span>
+            </label>
+            <div class="control">
+                <input class="input-text" type="text" id="vii-giftcard-code" name="giftcard_service[code]" data-validate="{'required':true}" value="" />
+            </div>
+        </div>
+        <div class="field required">
+            <label class="label" for="vii-giftcard-pin">
+                <span><?php echo $block->escapeHtml(__('Pin')); ?></span>
+            </label>
+            <div class="control">
+                <input class="input-text" type="text" id="vii-giftcard-pin" name="giftcard_service[pin]" data-validate="{'required':true}" value="" />
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <?php if ($block->canRedeem()) : ?>
+                <div class="primary">
+                    <button class="action redeem primary" type="submit" title="<?php echo $block->escapeHtml(__('Redeem Gift Card')); ?>">
+                        <span><?php echo $block->escapeHtml(__('Redeem Gift Card')); ?></span>
+                    </button>
+                </div>
+            <?php endif; ?>
+            <div class="secondary">
+                <button id="vii-check" class="giftcard-check action" type="button" title="<?php echo $block->escapeHtml(__('Check status and balance')); ?>">
+                    <span><?php echo $block->escapeHtml(__('Check status and balance')); ?></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

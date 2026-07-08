@@ -1,0 +1,68 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Comments\DefaultType $block
+ * @var \Digidirect\Blog\Model\Comment $comment
+ */
+?>
+<?php if ($block->isCommentFormAvailable()): ?>
+    <div class="blog-commentform">
+        <form id="comments-form" class="form" action="<?php echo $block->escapeUrl($block->getSaveUrl()) ?>" method="post"
+              data-hasrequired="<?php /* @escapeNotVerified */ echo __('* Required Fields') ?>" data-mage-init='{"validation":{}}'>
+            <fieldset class="fieldset">
+                <?php echo $block->getChildHtml('form_key'); ?>
+                <legend class="legend"><?php /* @escapeNotVerified */  echo __('Write a Comment') ?></legend><br>
+                <input type="hidden" value="<?php echo $block->escapeHtml($block->getPostId()) ?>" name="post_id">
+
+                <div class="field required name">
+                    <label for="post-sender" class="label"><?php /* @escapeNotVerified */ echo __('Name') ?></label>
+                    <div class="control"><input type="text" name="sender_name" id="post-sender" data-validate="{required:true}"/></div>
+                </div>
+                <div class="field required mail">
+                    <label for="post-email" class="label"><?php /* @escapeNotVerified */ echo __('E-mail') ?></label>
+                    <div class="control"><input type="text" name="sender_email" id="post-email" data-validate="{required:true, 'validate-email':true}"/></div>
+                </div>
+                <div class="field required">
+                    <label for="post-comment" class="label"><?php /* @escapeNotVerified */ echo __('Comment') ?></label>
+                    <div class="control"><textarea name="comment" id="post-comment" data-validate="{required:true}"></textarea></div>
+                </div>
+                <div class="actions-toolbar">
+                    <button type="submit" class="button action"><?php /* @escapeNotVerified */ echo __('Comment') ?></button>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+<?php endif; ?>
+<?php if ($block->isLoginRequire() && !$block->isCustomerLoggedIn()): ?>
+    <p><?php /* @escapeNotVerified */ echo __('Please Login to Comment.') ?></p>
+<?php endif; ?>
+
+<div id="comments" class="blog-commentlist">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Comments') ?></h3>
+    <?php if ($block->getCommentsCollection()->getSize()): ?>
+        <ol class="list">
+            <?php foreach ($block->getCommentsCollection() as $comment): ?>
+                <li class="post-comment">
+                    <div class="meta">
+                        <?php /* @escapeNotVerified */ echo __('Comment by ') ?>
+                        <span class="author"><?php echo $block->escapeHtml($comment->getSenderName()) ?></span>
+
+                        <?php $commentDate = $block->escapeHtml($comment->getCommentDate());
+                        $convertDate = (new \DateTime())->setTimestamp(strtotime($commentDate));
+                        $finalDate = $convertDate->format('d-m-Y');
+                        ?>
+                        
+                        <span class="date"><?php echo $block->escapeHtml($finalDate) ?></span>
+                    </div>
+                    <div class="info"><?php /* @escapeNotVerified */ echo $comment->getComment() ?></div>
+                </li>
+            <?php endforeach; ?>
+        </ol>
+    <?php else: ?>
+        <p><?php /* @escapeNotVerified */ echo __('No Comments yet. Be the first to comment.') ?></p>
+    <?php endif; ?>
+    <?php if ($toolbar = $block->getChildHtml('toolbar')) : ?>
+        <div class="toolbar blog-toolbar">
+            <?php /* @escapeNotVerified */ echo $toolbar ?>
+        </div>
+    <?php endif; ?>
+</div>

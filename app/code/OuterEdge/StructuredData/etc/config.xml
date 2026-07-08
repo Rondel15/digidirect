@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <structureddata>
+            <product>
+                <include_reviews>0</include_reviews>
+                <product_gtin_field>gtin</product_gtin_field>
+                <field_mpn>mpn</field_mpn>
+                <field_material>material</field_material>
+            </product>
+            <contact>
+                <type>Organization</type>
+            </contact>
+        </structureddata>
+    </default>
+</config>

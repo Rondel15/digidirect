@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\FreeGift\Helper\Messages">
+        <arguments>
+            <argument name="configHelper" xsi:type="object">Digidirect\FreeGift\Helper\WebApiConfig</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="Digidirect_FreeGift::QuoteModelCouponManagement"
+                type="Digidirect\FreeGift\Plugin\Quote\Model\CouponManagement"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="Digidirect_FreeGift::Magento\Quote\Model\Quote"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Quote"/>
+    </type>
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+        <plugin name="Digidirect_FreeGift::Digidirect\FreeGift\Plugin\Magento\Quote\Model\Cart\Totals\ItemConverter"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Cart\Totals\ItemConverter"/>
+    </type>
+</config>

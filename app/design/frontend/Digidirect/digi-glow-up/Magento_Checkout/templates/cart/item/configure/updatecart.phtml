@@ -1,0 +1,73 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Update Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart update">
+        <div class="fieldset qty-fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+            <div class="field qty">
+                <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                <div class="control qty-group-control" data-bind="scope: 'qty-change'">
+                    <input data-bind="value: qty()"
+                           type="number" 
+                           name="qty" 
+                           id="qty" 
+                           value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>" 
+                           title="<?= /* @escapeNotVerified */ __('Qty') ?>" 
+                           class="input-text qty qty-pdp" 
+                           data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>" readonly/> 
+                    
+                    <div class="qty-buttons">
+                        <div role="button" data-bind="click: increaseQty"><i class="fas fa-angle-up"></i></div>
+                        <div role="button" data-bind="click: decreaseQty"><i class="fas fa-angle-down"></i></div>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <div class="actions">
+                <button type="submit"
+                        title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                        class="action tocart btn_cart tocart-pdp-btn"
+                        id="product-updatecart-button">
+                    <span class="addcart_words"><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                    <i class="fa-solid fa-cart-plus" style=" font-family: 'Font Awesome 5 Free';font-style: unset;float: right;color: #fff;"></i>
+                </button>
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+    </div>
+    <script type="text/x-magento-init">
+        {
+            "#product_addtocart_form": {
+                "validation": {},
+                "addToCart": {
+                    "cartButtonId": "#product-updatecart-button",
+                    "cartForm": "#product_addtocart_form"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "qty-change": {
+                        "component": "Magento_Checkout/js/qty-change",
+                        "defaultQty": <?php echo $block->getProductDefaultQty() * 1 ?>
+                    }
+                 }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,188 @@
+//
+//  Icons
+//  _____________________________________________
+
+//
+//  Icons using base64
+//  ---------------------------------------------
+
+.lib-base64(
+    @_base64-display: @base64__display,
+    @_base64-position: @base64__position,
+    @_base64-top: @base64__top,
+    @_base64-right: @base64__right,
+    @_base64-bottom: @base64__bottom,
+    @_base64-left: @base64__left,
+    @_base64-width: @base64__width,
+    @_base64-height: @base64__height,
+    @_base64-margin: @base64__margin,
+    @_base64-padding: @base64__padding,
+    @_base64-vertical-align: @base64__vertical-align,
+    @_base64-background-image: @base64__background-image,
+    @_base64-background-position: @base64__background-position,
+    @_base64-background-repeat: @base64__background-repeat,
+    @_base64-background-size: @base64__background-size,
+    @_base64-hover_background-image: @base64__hover__background-image,
+    @_base64-active_background-image: @base64__active__background-image,
+    @_base64-text-hide: @base64__text-hide,
+    @_base64-pseudo-type: @base64__pseudo-type
+) when (@_base64-pseudo-type = before) {
+    ._lib-base64-text-hide(@_base64-text-hide);
+    text-decoration: none;
+
+    &::before {
+        ._lib-base64(
+            @_base64-display,
+            @_base64-position,
+            @_base64-top,
+            @_base64-right,
+            @_base64-bottom,
+            @_base64-left,
+            @_base64-width,
+            @_base64-height,
+            @_base64-margin,
+            @_base64-padding,
+            @_base64-vertical-align,
+            @_base64-background-image,
+            @_base64-background-position,
+            @_base64-background-repeat,
+            @_base64-background-size
+        );
+    }
+
+    &:hover {
+        &::before {
+            .lib-css(background-image, @_base64-hover_background-image);
+        }
+    }
+
+    &:active {
+        &::before {
+            .lib-css(background-image, @_base64-active_background-image);
+        }
+    }
+}
+
+.lib-base64(
+    @_base64-display: @base64__display,
+    @_base64-position: @base64__position,
+    @_base64-top: @base64__top,
+    @_base64-right: @base64__right,
+    @_base64-bottom: @base64__bottom,
+    @_base64-left: @base64__left,
+    @_base64-width: @base64__width,
+    @_base64-height: @base64__height,
+    @_base64-margin: @base64__margin,
+    @_base64-padding: @base64__padding,
+    @_base64-vertical-align: @base64__vertical-align,
+    @_base64-background-image: @base64__background-image,
+    @_base64-background-position: @base64__background-position,
+    @_base64-background-repeat: @base64__background-repeat,
+    @_base64-background-size: @base64__background-size,
+    @_base64-hover_background-image: @base64__hover__background-image,
+    @_base64-active_background-image: @base64__active__background-image,
+    @_base64-text-hide: @base64__text-hide,
+    @_base64-pseudo-type: @base64__pseudo-type
+) when (@_base64-pseudo-type = after) {
+    ._lib-base64-text-hide(@_base64-text-hide);
+
+    &::after {
+        ._lib-base64(
+            @_base64-display,
+            @_base64-position,
+            @_base64-top,
+            @_base64-right,
+            @_base64-bottom,
+            @_base64-left,
+            @_base64-width,
+            @_base64-height,
+            @_base64-margin,
+            @_base64-padding,
+            @_base64-vertical-align,
+            @_base64-background-image,
+            @_base64-background-position,
+            @_base64-background-repeat,
+            @_base64-background-size
+        );
+    }
+
+    &:hover {
+        &::after {
+            .lib-css(background-image, @_base64-hover_background-image);
+        }
+    }
+
+    &:active {
+        &::after {
+            .lib-css(background-image, @_base64-active_background-image);
+        }
+    }
+}
+
+.lib-base64-symbol(
+    @_base64-background-image,
+    @_base64-pseudo-type: @base64__pseudo-type
+) when (@_base64-pseudo-type = before) {
+    &::before {
+        .lib-css(background-image, @_base64-background-image);
+    }
+}
+
+.lib-base64-symbol(
+    @_base64-background-image,
+    @_base64-pseudo-type: @base64__pseudo-type
+) when (@_base64-pseudo-type = after) {
+    &::after {
+        .lib-css(background-image, @_base64-background-image);
+    }
+}
+
+.lib-base64-text-hide() {
+    > span {
+        .lib-visually-hidden();
+    }
+}
+
+//
+//  Internal use mixins
+//  ---------------------------------------------
+
+._lib-base64-text-hide(@_base64-icon-text-hide) when (@_base64-icon-text-hide = true) {
+    .lib-base64-text-hide();
+}
+
+._lib-base64(
+    @_base64-display,
+    @_base64-position,
+    @_base64-top,
+    @_base64-right,
+    @_base64-bottom,
+    @_base64-left,
+    @_base64-width,
+    @_base64-height,
+    @_base64-margin,
+    @_base64-padding,
+    @_base64-vertical-align,
+    @_base64-background-image,
+    @_base64-background-position,
+    @_base64-background-repeat,
+    @_base64-background-size
+) {
+    content: '';
+    .lib-css(display, @_base64-display);
+    .lib-css(position, @_base64-position);
+    .lib-css(top, @_base64-top);
+    .lib-css(right, @_base64-right);
+    .lib-css(bottom, @_base64-bottom);
+    .lib-css(left, @_base64-left);
+    .lib-css(width, @_base64-width);
+    .lib-css(height, @_base64-height);
+    .lib-css(margin, @_base64-margin);
+    .lib-css(padding, @_base64-padding);
+    .lib-css(vertical-align, @_base64-vertical-align);
+    .lib-css(background-image, @_base64-background-image);
+    .lib-css(background-position, @_base64-background-position);
+    .lib-css(background-repeat, @_base64-background-repeat);
+    .lib-css(background-size, @_base64-background-size);
+    speak: none;
+}

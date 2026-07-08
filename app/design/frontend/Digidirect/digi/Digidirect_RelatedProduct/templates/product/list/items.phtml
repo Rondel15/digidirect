@@ -1,0 +1,284 @@
+<?php
+/* @var $block \Digidirect\RelatedProduct\Block\ProductList\Related */
+
+use Digidirect\RelatedProduct\Block\ProductList\Related;
+use Magento\Framework\App\Action\Action;
+
+if ($exist = $block->getItems()->getSize()) {
+    $type = 'related';
+    $class = $type;
+
+    $image = 'related_products_list';
+    $title = __('Recommended Accessories');
+    $items = $block->getItems();
+
+    $categoryCollection = $block->getCategoriesAssignedRelatedProducts();
+    $helper = $this->helper('\Digidirect\RelatedProduct\Helper\Data');
+    $_quickViewHelper = $this->helper('Digidirect\QuickView\Helper\Data');
+
+    $initialFilter = '';
+    $isShowFilterContent = false;
+    $showQuickView = $_quickViewHelper->isModuleEnabled();
+    $quickViewUseForMobile = true;
+    $quickViewLabel = __('Quick View');
+}
+
+$showAddTo = true;
+$showCart = true;
+
+$showWishlist = true;
+$mode = "grid";
+?>
+
+<?php if ($exist):?>
+    <div class="product-upsell-listing block widget products-widget <?= $block->escapeHtml($class); ?>">
+        <div class="related-header">
+            <div class="title">
+                <strong id="block-<?php $block->escapeHtml($class); ?>-heading" role="heading" aria-level="2">
+                    <?= $block->escapeHtml($title); ?>
+                </strong>
+            </div>
+
+            <?php if ($helper->isFilterTabEnabled()) : ?>
+                <div class="related-filters" data-role="related-filters">
+                    <?php $i = 1; ?>
+                    <?php if ($block->getDisplayAllCategory()): ?>
+                        <?php $i++; $initialFilter = Related::ALL_CATEGORY_ID; ?>
+                        <a class="item -active" 
+                           role="button" 
+                           data-group="<?= $block->escapeHtml(Related::ALL_CATEGORY_ID); ?>"
+                           title="<?= $block->escapeHtml(__('All')); ?>"
+                           data-owl-filter="*">
+                            <?= $block->escapeHtml(__('All')); ?>
+                        </a>
+                    <?php endif; ?>
+                    <?php foreach ($categoryCollection as $category) : ?>
+                        <?php if ($i == 1): ?>
+                            <?php $initialFilter = $category->getId(); ?>
+                        <?php endif; ?>
+                        <a class="item"
+                            role="button" 
+                            data-owl-filter=".cat-<?= $block->escapeHtml($category->getId()); ?>"
+                            title="<?= $block->escapeHtml($category->getName()); ?>">
+                            
+                            <?= $block->escapeHtml($category->getName()); ?>
+                        </a>
+                    <?php $i++; endforeach; ?>
+                    <?php if ($isShowFilterContent): ?>
+                        <?php $i = 1; foreach ($categoryCollection as $category) : ?>
+                            <?php if ($category->getDescription()): ?>
+                                <div class="content<?php if ($i == 1): ?> -active<?php endif; ?>" data-category-id="<?= $block->escapeHtml($category->getId()); ?>"><?= /* @escapeNotVerified */ $category->getDescription(); ?></div>
+                            <?php endif; ?>
+                        <?php $i++; endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+
+        <div class="block-content product-grid" aria-labelledby="block-<?php $block->escapeHtml($class); ?>-heading">
+            <div class="products-<?= $block->escapeHtml($type); ?>">
+                <div id="related-grid"
+                     class="related-grid products list items product-items product-carousel owl-carousel owl-theme"
+                     data-mage-init='{
+                      "productTile": {
+                          <?php if($block->isRedirectToCartEnabled()): ?>
+                          "isRedirectToCartEnabled": true,
+                          <?php endif; ?>
+                          "type":"<?= /* @escapeNotVerified */ (count($items) > 2) ? 'slider' : 'default'; ?>"
+                      }
+                     }'>
+                    <?php /** @var $_item \Magento\Catalog\Model\Product */ ?>
+                    <?php foreach ($items as $_item): ?>
+                    <?php
+                        $productId = $_item->getId();
+                        $productName = $_item->getName();
+                        $productUrl = $_item->getProductUrl();
+                        $categoryID = $_item->getCategoryId();
+
+                        $finalProductPrice = $_item->getFinalPrice();
+                        $qff_bonus_points = 0;
+                        if ($_item->offsetExists("qff_bonus_points") && $_item->offsetExists("qff_base")) {
+                                $qff_bonus_points = $_item->getQffBonusPoints();
+                                $qff_base_points = $_item->getQffBase();
+                                $bonusPlusBase = $qff_bonus_points + $qff_base_points;
+
+                                $points = number_format($finalProductPrice * $bonusPlusBase);
+                            }else {
+                                if($_item->offsetExists("qff_base")){
+                                    $qff_base_points = $_item->getQffBase();
+                                    $points = number_format($finalProductPrice * $qff_base_points);
+                                } else {
+                                    $points = number_format($finalProductPrice * 2);
+                                }
+                            }
+
+                        $ruleMessage = $block->getChildBlock('product.related.extended.catalog.rule');
+                    ?>
+                        <div class="item product product-item <?= $block->getVisibleProductCategories($_item); ?>">
+                            <div class="product-item-info">
+                                <a href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                    class="product-item-photo">
+                                     <?= $block->getImage($_item, $image)->toHtml() ?>
+                                </a>
+
+                                <div class="product-item-details">
+                                    <div class="actions-secondary wish-list-wrapper" data-role="add-to-links">
+                                        <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                            <a href="#"
+                                            data-post='<?= /* @escapeNotVerified */ $block->getAddToWishlistParams($_item); ?>'
+                                            class="action towishlist" data-action="add-to-wishlist"
+                                            title="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>">
+                                            <i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>
+                                            </a>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <strong class="product-item-name">
+                                    <a title="<?= $block->escapeHtml($_item->getName()) ?>"
+                                       href="<?= $block->escapeUrl($block->getProductUrl($_item)) ?>"
+                                       class="product-item-link">
+                                        <?= $block->escapeHtml($_item->getName()) ?>
+                                    </a>
+                                </strong>
+                                
+                                <?php if ($ruleMessage): ?>
+                                    <?= $ruleMessage->setProduct($_item)->toHtml(); ?>
+                                <?php endif; ?>
+
+                                <?= /* @escapeNotVerified */ $block->getProductPrice($_item) ?>
+
+                                <div class="product-item-inner">
+                                    <div class="product actions product-item-actions">
+                                        <?php if ($showCart) :?>
+                                            <div class="actions-primary">
+                                                <?php $addToCartUrl = $block->getAddToCartUrl($_item); ?>
+
+                                                <form data-role="tocart-form"
+                                                        data-product-sku="<?=  /* @escapeNotVerified */ $_item->getSku(); ?>"
+                                                        data-mage-init='{"validation": {}}'
+                                                        action="<?= $block->escapeUrl($addToCartUrl); ?>"
+                                                        method="post">
+
+                                                        <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ (int)$_item->getEntityId(); ?>">
+                                                        <input type="hidden" name="<?php /* @escapeNotVerified */ echo Action::PARAM_NAME_URL_ENCODED; ?>" value="<?php /* @escapeNotVerified */ echo $this->helper('Magento\Framework\Url\Helper\Data')->getEncodedUrl($addToCartUrl); ?>">
+                                                        <?php echo $block->getBlockHtml('formkey')?>
+                                                                <?php if ($toCartFormBlock = $block->getChildBlock('tocart_form')): ?>
+                                                                    <?php /* @escapeNotVerified */ echo $toCartFormBlock->setProduct($_item)->getChildHtml(); ?>
+                                                                <?php endif; ?>
+                                                        <button class="action tocart primary"
+                                                                type="submit" title="<?php /* @escapeNotVerified */ echo __('Add to Cart') ?>">
+                                                            <span><?php /* @escapeNotVerified */ echo __('Add to Cart') ?></span>
+                                                        </button>
+                                                  </form>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+
+                                <div class="qantas-pts-wrapper">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-qantas"></use></svg>
+                                    <span>Earn <?= $points ?> Qantas Points</span>
+                                </div>
+
+                                <?php echo $this->getLayout()
+                                    ->createBlock('Magento\Cms\Block\Block')
+                                    ->setBlockId('product-tile-rent')
+                                    ->toHtml();
+                                ?>
+                            </div>
+                        </div>
+                    <?php $i++; endforeach ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif;?>
+
+<?php if (!$block->isRedirectToCartEnabled()) : ?>
+    <script type="text/x-magento-init">
+    {
+        "[data-role=tocart-form], .form.map.checkout": {
+            "catalogAddToCart": {
+                "bindSubmit": true
+            }
+        }
+    }
+    </script>
+<?php endif; ?>
+
+<script>
+    require(['jquery', 'owl_carousel'],
+        function ($) {
+            $(document).ready(function () {
+                
+                !function(o,e){"object"==typeof exports?module.exports=e(o.jQuery):o.owlcarousel2_filter=e(o.jQuery)}(window,function(o,e){"use strict";o.fn.owlcarousel2_filter=function(o,e){var t=this.data("owl.carousel").options;this.trigger("destroy.owl.carousel"),this.oc2_filter_clone||(this.oc2_filter_clone=this.clone());var l=this.oc2_filter_clone.children(o).clone();this.empty().append(l).owlCarousel(t)}});
+                
+                var owl = $('.product-carousel').owlCarousel({
+                    loop: true,
+                    nav: true,
+                    responsive: {
+                        0: {
+                            items:2,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: true,
+                            autoplayTimeout:3000
+                        },
+                        600: {
+                            items: 3,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: false
+                        },
+                        992: {
+                            items: 3,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: false
+                        },
+                        1024: {
+                            items: 5,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: false
+                        },
+                        1440: {
+                            items: 5,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: false
+                        },
+                        1680: {
+                            items: 5,
+                            margin: 15,
+                            nav:true,
+                            loop:true,
+                            autoplay: false
+                        }
+                    },
+                    dots: false,
+                    autoplay: false,
+                    autoplayTimeout: 3000
+                })
+                
+                $( '.related-filters' ).on('click', '.item', function() {
+                    
+                    $(".item").removeClass("-active");
+                    
+                    $(this).addClass("-active");
+                    var $item = $(this);
+                    var filter = $item.data('owl-filter');
+
+                    owl.owlcarousel2_filter(filter);
+
+                } )
+            });
+        }
+    );
+</script>

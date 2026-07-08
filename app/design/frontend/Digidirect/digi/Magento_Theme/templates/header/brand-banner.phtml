@@ -1,0 +1,134 @@
+<?php 
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+$urlInterface = $objectManager->get('Magento\Framework\UrlInterface');
+$currentUrl = $urlInterface->getCurrentUrl();
+
+$isStoreBrandSmallRig = str_contains($currentUrl, 'smallrig-store');
+$isBrandSmallRig = str_contains($currentUrl, 'brands/smallrig');
+//$isBrandSmallRig = str_contains($currentUrl, 'cameras/action-cameras');
+
+if ($isStoreBrandSmallRig || $isBrandSmallRig) { ?>
+    
+    <style style="display: none;">
+        .breadcrumbs {
+            visibility: hidden !important;
+            height: 0 !important;
+            margin: 0 !important;
+        }
+
+        .brand-banner-links a:hover {
+            text-decoration: none;
+            color: #ff3c00 !important;
+        }
+
+        .brand-banner-links:hover {
+            background: #fff !important;
+            border: 1px solid #ff3c00 !important;
+        }
+        
+        .brand-banner-links:hover {
+            background: #fff;
+            border: 1px solid #ff3c00;
+        }
+
+        .brand-banner-links:hover a {
+            color: #ff3c00 !important;
+        }
+
+        @media only screen and (max-width: 1279px) {
+            .brand-banner {
+                margin-top: 20px;
+            }
+        }
+
+        @media only screen and (max-width: 1089px) {
+            .brand-banner-mobile {
+                display: block;
+            }
+            .brand-banner {
+                display: none;
+            }
+        }
+
+        @media only screen and (min-width: 1090px) {
+            .brand-banner-mobile {
+                display: none;
+            }
+            .brand-banner {
+                display: block;
+            }
+        }
+
+        @media only screen and (min-width: 1200px) {
+            .brand-banner {
+                max-height: 320px;
+            }
+        }
+
+        @media only screen and (max-width: 1439px) {
+            .breadcrumbs {
+                height: 0 !important;
+                margin: 0 !important;
+            }
+        }
+    </style>
+    
+    <div class="brand-banner" style="max-height: 515px;margin-bottom: 20px;">
+        <img src="<?php echo $block->getUrl("media/wysiwyg/brands-store-page")?>smallrig-header.png"/>
+        <div class="brand-profile" style="width: 230px;position: relative;top: -125px;left: 15%;bottom: 0;background: #fff;height: 0;">
+            <div style="background: #ffff;border: 1px solid #e6e6e6;">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/brands-store-page")?>smallrig.jpg" style="width: 300px;position: relative;">
+                <i class="fas fa-check-circle" style=" position: absolute; color: #ff3c00; top: 0; right: 0; font-size: 20px; margin: 15px; "></i>
+                <div style=" text-align: center; font-size: 19px; font-weight: 700; margin-top: -35px; position: relative; ">@ <span style="color: #ff3c00;">digi</span>Direct</div>
+                <div class="brand-banner-links" style=" text-align: center; background: #ff3c00; margin: 10px; padding: 5px; position: relative; z-index:1; cursor: pointer;">
+                    <?php if ($isStoreBrandSmallRig) { ?>
+                        <a href="https://www.digidirect.com.au/brands/smallrig" style=" color: #fff; width: 100%; font-weight: 600; ">ALL PRODUCTS</a>
+                    <?php } elseif ($isBrandSmallRig) {?>
+                        <a href="https://www.digidirect.com.au/smallrig-store" style=" color: #fff; width: 100%; font-weight: 600; ">VIEW STORE</a>
+                    <?php }?>
+                </div>
+            </div>
+        </div>
+        <div class="brand-qantas" style="position: relative;top: -10px;left: 36%;display: none;">
+            <a href="https://www.digidirect.com.au/qantas" style="text-decoration: none;">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/brands-store-page")?>desktop-qantas.png">
+                <div style=" max-width: 529px; position: relative; top: -44px; text-align: center; color: #fff; font-size: 10px; left: 30px; cursor: pointer;">
+                    <div style=" ">Earn <span style=" font-weight: 700; ">1 Qantas Points per $1 spent</span></div>
+                    <div>when you add a valid Qantas Frequent Flyer number</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="brand-banner-mobile" style="max-height: 435px;margin-top: 30px;">
+        <img src="<?php echo $block->getUrl("media/wysiwyg/brands-store-page")?>smallrig-mobile-banner.png" style="max-height: 375px;width: 100%;">
+        <div class="brand-profile" style="width: 140px;position: relative;top: -35px;left: 3%;border: 1px solid #e6e6e6;bottom: 0;background: #fff;padding-bottom: 10px;">
+            <img src="<?php echo $block->getUrl("media/wysiwyg/brands-store-page")?>smallrig.jpg" style=" width: 300px; position: relative; ">
+            <i class="fas fa-check-circle" style="position: absolute;color: #ff3c00;top: 0;right: 0;font-size: 13px;/* z-index: 9999; */margin: 6px;"></i>
+            <div style="text-align: center;font-size: 15px;font-weight: 700;margin-top: -27px;position: relative;">@ <span style="color: #ff3c00;">digi</span>Direct</div>
+        </div>
+        <div class="brand-banner-links" style="text-align: center;background: #ff3c00;margin: 10px;padding: 5px;position: relative;width: 50%;top: -86px;left: 42%;">
+            <?php if ($isStoreBrandSmallRig) { ?>
+                <a href="https://www.digidirect.com.au/brands/smallrig" style=" color: #fff; width: 100%; font-weight: 600; ">ALL PRODUCTS</a>
+            <?php } elseif ($isBrandSmallRig) {?>
+                <a href="https://www.digidirect.com.au/smallrig-store" style=" color: #fff; width: 100%; font-weight: 600; ">VIEW STORE</a>
+            <?php }?>
+        </div>
+        <div class="brand-qantas" style="position: relative;top: -75px;padding: 5px;border: 1px solid #e40301;margin: 0 10px;display: none;">
+            <a href="https://www.digidirect.com.au/qantas">
+                <img src="https://www.digidirect.com.au/static/version1644407894/frontend/Digidirect/digi/en_AU/images/qff-logo-new.svg" style="width: 80px;display: inline-block;margin: 1.5px 0 0 2px;">
+                <div style="display: inline-block;color: #e40301;font-size: 9px;text-align: center;margin-left: 10px;width: 70%;">
+                    <div style="max-width: 529px;">Earn <span style=" font-weight: 700; ">1 Qantas Points per $1 spent</span></div>
+                    <div>when you add a valid Qantas Frequent Flyer number</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+<?php }
+
+?>

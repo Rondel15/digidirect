@@ -1,0 +1,41 @@
+<?php
+$helper = $this->helper('Digidirect\LayeredNavigation\Helper\Data');
+$optionsData = $helper->getOptionsSeoData();
+$seoPart = null;
+?>
+<ol class="items">
+    <li>
+        <select class="digidirect_layerednavigation_filter_<?php echo $this->escapeHtml($filterSetting->getFilterCode()); ?>">
+            <option value="<?php echo $block->escapeUrl($this->getClearUrl()) ?>">&nbsp;</option>
+            <?php foreach ($filterItems as $filterItem): ?>
+                <?php
+                $isAttribute = $filterItem->getFilter()->getData('attribute_model');
+                $attributeCode = $isAttribute ? $filterItem->getFilter()->getAttributeModel()->getAttributeCode() : $filterItem->getFilter()->getRequestVar();
+                $value = $isAttribute ? $filterItem->getValueString() : $filterItem->getValue();
+                $disabled = $filterItem->getCount() == 0 ? ' disabled' : "";
+                $selected = $this->checkedFilter($filterItem) ? ' class="swatch-option-link-layered selected" selected' : "";
+                if (isset($optionsData[$filterItem->getValue()])) {
+                    $seoPart = $optionsData[$filterItem->getValue()]['alias'];
+                }
+                ?>
+                <option
+                    data-seo="<?php echo $block->escapeHtml($seoPart); ?>"
+                    data-code="<?php echo $this->escapeHtml($attributeCode); ?>"
+                    data-value="<?php echo $this->escapeHtml($value); ?>"
+                    value="<?php echo $block->escapeUrl($filterItem->getUrl()); ?>" <?php /* @escapeNotVerified */ echo $disabled . $selected ?>>
+                    <?php echo $block->escapeHtml($block->stripTags($filterItem->getLabel())); ?>
+                    <?php if ($this->helper('\Magento\Catalog\Helper\Data')->shouldDisplayProductCountOnLayer() && !$helper->isApplyButtonEnabled()): ?>
+                        (<?php echo (int)$filterItem->getCount(); ?>)
+                    <?php endif; ?>
+                </option>
+            <?php endforeach ?>
+            <script type="text/x-magento-init">
+            {
+                ".digidirect_layerednavigation_filter_<?php echo $this->escapeHtml($filterSetting->getFilterCode()); ?>": {
+                    "layeredNavigationFilterDropdown": {"currentValue": 1}
+                }
+            }
+            </script>
+        </select>
+    </li>
+</ol>

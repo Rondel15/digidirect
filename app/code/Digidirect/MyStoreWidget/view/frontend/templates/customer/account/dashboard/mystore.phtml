@@ -1,0 +1,39 @@
+<?php
+/**
+ * @var $block Digidirect\MyStoreWidget\Block\MyStore
+ */
+?>
+<div class="block-mystore block block-dashboard-mystore">
+    <div class="block-title"><strong><?php /* @escapeNotVerified */ echo __('My Store') ?></strong></div>
+    <div class="block-content">
+        <div class="box box-information">
+            <div class="box-title">
+                <span><?php /* @escapeNotVerified */ echo __('Your Selected Location'); ?></span>
+            </div>
+            <div class="box-content">
+                <?php if (!$block->isStoreSelected()): ?>
+                    <p><?php /* @escapeNotVerified */ echo __('No Location Selected'); ?></p>
+                <?php else: ?>
+                    <p><?php echo $block->escapeHtml($block->getStoreName()); ?></p>
+                <?php endif; ?>
+            </div>
+            <?php if (!$block->isStoreSelected()): ?>
+                <div class="box-actions">
+                    <a class="action -set-store" data-action="focus-store" href="#block-mystorebar" title="<?php /* @escapeNotVerified */ echo __('Set My Store') ?>"><?php /* @escapeNotVerified */ echo __('Set My Store') ?></a>
+                </div>
+            <?php else: ?>
+                <div class="box-actions">
+                    <a class="action -change" data-action="change-store" data-container="#block-mystorebar" href="#block-mystorebar" title="<?php /* @escapeNotVerified */ echo __('Change') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Change') ?>
+                    </a>
+                    <a class="action remove" href="#" data-post='{"action":"<?php /* @escapeNotVerified */ echo $block->getRemoveUrl() ?>", "data":{}}' title="<?php /* @escapeNotVerified */ echo __('Remove') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Remove') ?>
+                    </a>
+                    <a href="<?php /* @escapeNotVerified */ echo $block->getUrl($block->getStore()->getUrlKey()) ?>" class="action -details" title="<?php /* @escapeNotVerified */ echo __('Store Details') ?>">
+                        <?php /* @escapeNotVerified */ echo __('Store Details') ?>
+                    </a>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

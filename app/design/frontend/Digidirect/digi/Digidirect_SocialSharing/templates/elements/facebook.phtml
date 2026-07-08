@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block \Digidirect\SocialSharing\Block\Sharing
+ * @var $sharingHelper \Digidirect\SocialSharing\Helper\Config\Facebook
+ */
+?>
+<?php
+    $product = $block->getProduct();
+?>
+<li class="item">
+    <a class="link"
+       title="Facebook link"
+       target="_blank"
+       href="https://www.facebook.com/sharer/sharer.php?u=<?php echo $block->escapeUrl($product->getProductUrl()); ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -facebook">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-facebook"></use>
+        </svg>
+    </a>
+</li>

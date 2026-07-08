@@ -1,0 +1,12 @@
+<div class="locator-infobox">
+    <span class="name"><%- data.name %></span>
+    <address class="address">
+        <%- data.street %>
+        <%- data.state %>
+        <%- data.postcode %>
+        <%- data.city %>
+    </address>
+    <% if(data.phone_number){ %>
+        <span class="phone"><%- data.phone_number %></span>
+    <% } %>
+</div>

@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="additional.product.info">
+            <block class="Digidirect\Collect\Block\CollectInfo"
+                   name="collect_places_cart"
+                   as="collect_places_cart"
+                   template="collect_cart_page.phtml"
+                   ifconfig="carriers/collect/active_on_cart"
+                   ttl="10" />
+        </referenceBlock>
+        <referenceContainer name="checkout.cart.items">
+            <block name="collect_cart_modal"
+                   class="Magento\Framework\View\Element\Template"
+                   template="Digidirect_Collect::collect_cart_modal.phtml"
+                   ifconfig="carriers/collect/active_on_cart">
+                <block class="Digidirect\Collect\Block\CollectPlaces" name="collect_places_detail_cart" as="collect_places_detail_cart" template="collect_detail_page.phtml" ttl="10">
+                    <arguments>
+                        <argument name="is_additional_fields_needed" xsi:type="boolean">true</argument>
+                        <argument name="is_postcode_field_needed" xsi:type="boolean">true</argument>
+                        <argument name="collect_block_widget_title" xsi:type="string">collectBlock</argument>
+                    </arguments>
+                </block>
+            </block>
+
+            <block class="Magento\Framework\View\Element\Template"
+                   name="collect_places_cart_single"
+                   as="collect_places_cart_single"
+                   template="Digidirect_Collect::collect_cart_page_single.phtml"
+                   ifconfig="carriers/collect/active_on_cart">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="components" xsi:type="array">
+                            <item name="collect-single-cart" xsi:type="array">
+                                <item name="component" xsi:type="string">Digidirect_Collect/js/view/block</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Digidirect_Collect/checkout/shipping-address/checkout-block</item>
+                                    <item name="popUpForm" xsi:type="array">
+                                        <item name="element" xsi:type="string">#collect-block-modal-checkout</item>
+                                        <item name="options" xsi:type="array">
+                                            <item name="type" xsi:type="string">popup</item>
+                                            <item name="responsive" xsi:type="boolean">true</item>
+                                            <item name="innerScroll" xsi:type="boolean">true</item>
+                                            <item name="title" xsi:type="string" translate="true">Find collect store place</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,9 @@
+<?php
+/** @var $block Magento\Framework\View\Element\Message\Renderer\BlockRenderer\Template; */
+
+$className = $block->getData('class_name');
+// Use data-message-classname attribute value to add class name for closest .message
+?>
+<div data-message-classname="<?php echo $block->escapeHtml($className) ?>">
+    <?php /* @escapeVerified */ echo $block->escapeHtml(__($block->getData('text'))); ?>
+</div>

@@ -1,0 +1,24 @@
+<!-- ko if: collectPlaces().length > 0 -->
+    <div class="collect-preselect collect-block -visible">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-pin">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+        </svg>
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store:'"></div>
+            <span class="name" data-bind="text: collectPlaces()[0].collect_place_name"></span>
+        </div>
+    </div>
+<!-- /ko -->
+<!-- ko ifnot: collectPlaces().length > 0 -->
+    <div class="collect-preselect collect-block -empty -visible">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-pin">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+        </svg>
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store:'"></div>
+            <span class="name" data-bind="i18n: 'No Store Selected'"></span>
+        </div>
+    </div>
+<!-- /ko -->
+
+<div class="collect-locator" data-role="collect-locator" data-bind="blockLoader: isLocatorLoading"></div>

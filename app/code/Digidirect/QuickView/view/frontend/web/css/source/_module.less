@@ -1,0 +1,126 @@
+//
+//  Quick View
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+// Quick View Button's Container
+@quikview-button-wrapper__position: relative;
+
+//  Quick View Button
+@quikview-button__position: absolute;
+@quikview-button__top: 50%;
+@quikview-button__z-index: 2;
+@quikview-button__transform: translate3d(-50%, -50%, 0);
+@quikview-button__display: block;
+@quikview-button__opacity: 0;
+@quikview-button__visible__opacity: 1;
+@quikview-button__transition: .3s all ease-out;
+@quikview-button__padding: 10px 20px;
+@quikview-button__color: #fff;
+@quikview-button__active__color: false;
+@quikview-button__background: #ccc;
+@quikview-button__active__background: #ddd;
+@quikview-button__border: false;
+@quikview-button__active__border: false;
+@quikview-button__cursor: pointer;
+@quikview-button__border-radius: 3px;
+@quikview-button__box-shadow: false;
+@quikview-list-button__right: 0;
+@quikview-grid-button__left: 50%;
+
+//  Quickview Content
+@quickview-content__height: 80vh;
+@quickview-content__overflow-y: auto;
+@quickview-content__overflow-scrolling: touch;
+
+//  Quickview Iframe
+@quickview-iframe__width: 100%;
+@quickview-iframe__height: 100%;
+@quickview-iframe__margin-bottom: -@modal-popup__padding;
+
+//  Quickview content
+@quick-view__margin: 0 -@modal-popup__padding;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .quickview-button {
+        & {
+            .lib-css(position, @quikview-button__position);
+            .lib-css(display, @quikview-button__display);
+            .lib-css(top, @quikview-button__top);
+            .lib-css(transform, @quikview-button__transform);
+            .lib-css(z-index, @quikview-button__z-index);
+            .lib-css(opacity, @quikview-button__opacity);
+            .lib-css(transition, @quikview-button__transition);
+            .lib-css(padding, @quikview-button__padding);
+            .lib-css(color, @quikview-button__color);
+            .lib-css(background, @quikview-button__background);
+            .lib-css(border, @quikview-button__border);
+            .lib-css(cursor, @quikview-button__cursor);
+            .lib-css(border-radius, @quikview-button__border-radius);
+            .lib-css(box-shadow, @quikview-button__box-shadow);
+        }
+
+        &:hover {
+            .lib-css(cusor, @quikview-button__active__color);
+            .lib-css(background, @quikview-button__active__background);
+            .lib-css(border, @quikview-button__active__border);
+        }
+    }
+
+    .products-grid {
+        .product-item-info {
+            .lib-css(position, @quikview-button-wrapper__position);
+        }
+
+        .quickview-button {
+            .lib-css(left, @quikview-grid-button__left);
+        }
+    }
+
+    .products-list {
+        .product-item-details {
+            .lib-css(position, @quikview-button-wrapper__position);
+        }
+
+        .quickview-button {
+            .lib-css(right, @quikview-list-button__right);
+        }
+    }
+
+    .product-item-info {
+        &:hover {
+            .quickview-button {
+                .lib-css(opacity, @quikview-button__visible__opacity);
+            }
+        }
+    }
+
+    .quickview-content {
+        & {
+            .lib-css(height, @quickview-content__height);
+            .lib-css(overflow-y, @quickview-content__overflow-y);
+            .lib-css(-webkit-overflow-scrolling, @quickview-content__overflow-scrolling);
+        }
+
+        & > .quickview-iframe {
+            .lib-css(width, @quickview-iframe__width);
+            .lib-css(height, @quickview-iframe__height);
+            .lib-css(margin-bottom, @quickview-iframe__margin-bottom);
+        }
+    }
+}
+
+//
+//  Tablet below
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .quickview-content {
+        .lib-css(margin, @quick-view__margin);
+    }
+}

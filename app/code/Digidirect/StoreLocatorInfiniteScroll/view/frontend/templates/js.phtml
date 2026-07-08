@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var $block \Digidirect\InfiniteScroll\Block\Core
+ */
+$loadAction = $block->getActionType();
+$itemsLimit = $block->getPerPageCount();
+?>
+<script>
+    window.storelocatorinfinitescroll = {
+        action: "<?php /* @noEscape */ echo $this->getActionType(); ?>",
+        perPageCount: <?php echo (int)$this->getPerPageCount(); ?>
+    };
+</script>

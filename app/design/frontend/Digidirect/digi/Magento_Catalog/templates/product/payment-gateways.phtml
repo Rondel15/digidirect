@@ -1,0 +1,62 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$listBlock = $objectManager->get('\Magento\Catalog\Block\Product\ListProduct');
+$addToCartUrl = $listBlock->getAddToCartUrl($product);
+$seller = $product->getData('marketplacer_seller');
+?>
+
+<script defer type="text/javascript" src="https://static.zip.co/lib/js/zm-widget-js/dist/zip-widget.min.js"></script>
+
+<div class="payment-gateways">
+    <div class="row-first">
+        <form action="<?php echo $addToCartUrl; ?>" method="post" id="product_addtocart_form" novalidate="novalidate">
+            <?php echo $block->getBlockHtml('formkey')?>
+            <button type="submit"
+                class="action tocart btn_cart tocart-pdp-btn"
+                id="product-addtocart-button"
+                data-action="add-to-cart-action"
+                >
+                <div class="credit-cards">
+                    <img src="<?php echo $block->getUrl("media/wysiwyg/payment-gateways/")?>visa.png"/>
+                    <img src="<?php echo $block->getUrl("media/wysiwyg/payment-gateways/")?>mastercard.png"/>
+                    <img src="<?php echo $block->getUrl("media/wysiwyg/payment-gateways/")?>amex.png"/>
+                </div>
+            </button>
+        </form>
+        <div id="paypal-custom">
+        </div>
+    </div>
+    <div class="row-second">
+        <div style="cursor:pointer;" 
+            id="zip-product-widget"
+            data-zm-widget="popup" 
+            data-zm-region="au"
+            data-env="production"
+            data-zm-merchant="5a7e18db-dd65-4502-8814-2d8388807da8"      
+            data-zm-price="<?= $product->getData('final_price') ? $product->getData('final_price') : $product->getFinalPrice(); ?>" 
+            data-zm-asset="productwidget" 
+            data-zm-popup-asset="termsdialog">
+        </div>
+    </div>
+    
+    <div class="row-third" style="margin: 10px 0; background: #B2FCE4; border-radius: 25px; text-align: center;">
+        <div class="pdp-afterpay-logo" style="padding-top: 11px; padding-bottom: 5px;">
+            <strong>
+                <span data-afterpay-modal="en_AU">
+                    <img src="https://www.digidirect.com.au/media/wysiwyg/afterpay/afterpay-logo-no-space.png" alt="Checkout with Afterpay" width="120">
+                    <span style="vertical-align: super !important;">&nbsp;&nbsp;ⓘ</span>
+                </span>
+            </strong>
+        </div>
+    </div>
+</div>
+
+<script>
+    require([
+            'jquery'
+        ],
+        function ($) {
+            $('#paypal-custom').append($('#paypal-smart-button'));
+    });
+</script>

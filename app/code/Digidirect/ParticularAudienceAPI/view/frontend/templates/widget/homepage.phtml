@@ -1,0 +1,219 @@
+<?php
+    use Magento\Framework\App\Action\Action;
+?>
+<script>
+
+require(['jquery'], function ($) {
+
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    var customerId = getCookie('pa_customer_id');
+    var customerParam = "";
+
+    if (customerId) {
+        customerParam = "&customerId=" + customerId;
+    }
+
+    const getRecommendationsUrl = "https://api-recs.particularaudience.com/3.0/recommendations?currentUrl=https://www.digidirect.com.au/pa-digi-home-page&expandProductDetails=false"+customerParam;
+    const accessToken = "<?= $block->getBearerToken() ?>"; // Replace with your actual access token
+
+    var result;
+
+    $.ajax({
+        async: false,
+        url: getRecommendationsUrl,
+        headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': "application/json"
+        },
+        type: "GET",
+        success: function(data){
+            result = data;
+        },
+        error: function(){
+            console.log('AJAX Fail!');
+        }
+    });
+
+    var recommendationsResult = result;
+    var widgets  = recommendationsResult.recommendations.route.widgets;
+
+    function widgetObject(widgetId) {
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetArr = [];
+        let widgetSlots = widget.slots;
+        Object.keys(widgetSlots).forEach(key => {
+            widgetArr.push(widgetSlots[key].products[0].refId);
+        });
+        return widgetArr;
+    }
+
+    function checkProduct(id) {
+        var productObj = "";
+        var url = "<?php echo $block->getBaseUrl().'particularaudienceapi/index/product'?>";
+        $.ajax({
+            url: url,
+            type: "GET",
+            data: {
+                id: id
+            },
+            success: function(data){
+                productObj = data;
+            },
+            error: function(){
+                console.log("Error!");
+            }
+        });
+
+        return productObj;
+    }
+
+    //Blue Widget
+    widgetObject('458d80ed-033e-ec11-aae9-02dca44cceec').forEach(function (id) {
+        let product = checkProduct(id);
+        let productItem = '<div class="product-item-info product-item">' +
+                            '<a href="https://www.digidirect.com.au/' + product.url_key + '" class="product photo product-item-photo" tabindex="-1">' +
+                                '<span class="product-image-container" style="width: 240px;">' +
+                                    '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                        '<img class="product-image-photo" src="https://www.digidirect.com.au/media/catalog/product' + product.thumbnail + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                    '</span>' +
+                                '</span>' +
+                            '</a>' +
+                            '<div class="product details product-item-details">' +
+                                '<strong class="product-item-name">' +
+                                    '<a title="' + product.name + '" href="https://www.digidirect.com.au/' + product.url_key + '" class="product-item-link">' +
+                                        product.name +
+                                    '</a>' +
+                                '</strong>' +
+                            '</div>' +
+                        '</div>'
+        $('#pa-blue-right-side-widget .pa-product-widget-container').append(productItem);
+    });
+
+    //Recommended For You
+    widgetObject('94e9300c-023e-ec11-aae9-02dca44cceec').forEach(function (id) {
+
+        let product = checkProduct(id);
+        let digiDealsLogo = "";
+
+        let addToCart = "";
+
+        if (product.is_digiprint) {
+            if ((product.wiser_price < product.price) || (product.marketplaces_price > product.price) || (product.item_condition == "") || (product.item_condition == null)) {
+                digiDealsLogo = '<div class="digideals-overlay"><img src="https://www.digidirect.com.au/media/wysiwyg/digidirect/digiDeals-Logo.png"/></div>';
+            }
+            addToCart = '<a class="ordernow-link" href="' + product.digiprint_customlink + '" target="_blank">' +
+                            '<button type="button" title="Order Now" class="action btn-ordernow primary">' +
+                                'Order Now <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                            '</button>' +
+                        '</a>'
+        } else {
+            addToCart = '<a class="ordernow-link" href="' + product.digiprint_customlink + '" target="_blank">' +
+                            '<button type="button" title="Add To Cart" class="action btn-ordernow primary">' +
+                                'Add To Cart <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                            '</button>' +
+                        '</a>'
+        }
+
+        let digiSeconds = "";
+        let digiSecondsOverlay = "";
+        let digiSecondsRating = "";
+
+        if (product.item_condition) {
+
+            if (product.item_condition == "PRELOVED") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-pre-loved.png"/>';
+            } else if (product.item_condition == "OPENBOX") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-demo.png"/>';
+            } else if (product.item_condition == "REFURB") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-refurbished.png"/>';
+            }
+
+            if (product.item_rating == 5) {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            } else if (product.item_rating == 4) {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
+            } else if (product.item_rating == 3) {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (product.item_rating == 2) {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (product.item_rating == 1) {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            }
+
+            digiSeconds = '<div class="digiseconds-overlay">' + digiSecondsOverlay + '<div class="digiseconds-rating">' + digiSecondsRating + '</div></div>';
+        }
+
+        let productItem = '<div class="product-item-info product-item">' +
+                        '<div class="wish-list-wrapper" data-role="add-to-links">' +
+                            '<a href="#"' +
+                            'data-post=""' +
+                            'class="action towishlist" data-action="add-to-wishlist"' +
+                            'title="Add to Wish List">' +
+                            '<i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>' +
+                            '</a>' +
+                        '</div>' +
+                        '<a href="https://www.digidirect.com.au/' + product.url_key + '" class="product photo product-item-photo" tabindex="-1">' +
+                            digiDealsLogo + digiSeconds +
+                            '<span class="product-image-container" style="width: 240px;">' +
+                                '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                    '<img class="product-image-photo" src="https://www.digidirect.com.au/media/catalog/product' + product.thumbnail + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                '</span>' +
+                            '</span>' +
+                        '</a>' +
+                        '<div class="product details product-item-details">' +
+                            '<strong class="product-item-name">' +
+                                '<a title="' + product.name + '" href="https://www.digidirect.com.au/' + product.url_key + '" class="product-item-link">' +
+                                    product.name +
+                                '</a>' +
+                            '</strong>' +
+                        '</div>' +
+                        '<div class="product actions product-item-actions">' +
+                            '<div class="actions-primary">' +
+                                addToCart +
+                            '</div>' +
+                        '</div>' +
+                    '</div>'
+        $('.recommended-for-you-widget .pa-digidirect-product-widget-container').append(productItem);
+    });
+
+});
+
+</script>
+
+<div class="home-main-banners">
+    <div class="home-main-banner-left">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main-web-banner')->toHtml(); ?>
+    </div>
+    <div class="home-main-banner-right">
+        <div>
+            <div id="pa-blue-right-side-widget-wrapper">
+                <div id="pa-blue-right-side-widget">
+                    <div class="product-widget-header">
+                        <h3 class="title">Welcome Back! Continue Shopping!</h3>
+                    </div>
+                    <div class="pa-product-widget-container">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('lower-right-side-banner')->toHtml(); ?>
+        </div>
+    </div>
+</div>
+
+<div id="pa-digidirect-product-widget-wrapper">
+    <div id="pa-digidirect-product-widget" class="recommended-for-you-widget">
+        <div class="product-widget-header">
+            <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Recommended For You</h3>
+        </div>
+        <div class="pa-digidirect-product-widget-container"></div>
+    </div>
+</div>

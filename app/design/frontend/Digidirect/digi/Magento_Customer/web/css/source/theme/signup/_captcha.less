@@ -1,0 +1,112 @@
+//
+//  Customer: Captcha
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@forgot-password-captcha__height__xxs: 40px;
+@forgot-password-captcha__height__m: 45px;
+@forgot-password-captcha__height__l: 50px;
+@forgot-password-captcha__width__xxs: 127px;
+@forgot-password-captcha__width__m: 140px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .captcha-reload.-icon {
+        & {
+            background: none;
+            border: 0;
+            height: 30px;
+            padding: 0;
+        }
+
+        svg {
+            height: 30px;
+            width: 26px;
+        }
+    }
+
+    .forget .fieldset {
+        margin-bottom: 16px;
+    }
+
+    .control.captcha-image {
+        & {
+            margin-top: 20px;
+        }
+
+        .captcha-img {
+            height: 50px;
+            margin: 0;
+            max-width: none;
+            /*left: 50%;*/
+/*            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);*/
+        }
+    }
+
+    .wrap-captcha {
+        .lib-css(height, @forgot-password-captcha__height__xxs);
+        .lib-css(width, @forgot-password-captcha__width__xxs);
+        display: inline-block;
+        margin: 0 8px 0 0;
+        overflow: hidden;
+        position: relative;
+        vertical-align: middle;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .forget .fieldset {
+        margin-bottom: 26px;
+    }
+
+    .forget {
+        .control.captcha {
+            .lib-vendor-prefix-display();
+        }
+
+        .nested {
+            flex: 0 1 190px;
+            margin-left: 20px;
+        }
+
+        .code {
+            flex: 1 1 100px;
+        }
+    }
+
+    .control.captcha-image {
+        margin-top: 30px;
+    }
+
+    .wrap-captcha {
+        .lib-css(height, @forgot-password-captcha__height__m);
+        .lib-css(width, @forgot-password-captcha__width__m);
+        margin: 0 18px 0 0;
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .wrap-captcha {
+        .lib-css(height, @forgot-password-captcha__height__l);
+    }
+
+    .form.password.forget .nested .field.captcha {
+        width: auto;
+    }
+}

@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Comments $block
+ */
+
+/**
+ * @var \Digidirect\Digi\Helper\Blog $helper
+ */
+$helper = $this->helper('Digidirect\Digi\Helper\Blog');
+?>
+
+<?php if($block->isCommentsEnabled() && !$helper->isPostRelatedToContributors()): ?>
+    <div class="blog-comments -dark">
+        <?php /* @escapeNotVerified*/ echo  $block->getCommentsHtml(); ?>
+    </div>
+<?php endif; ?>

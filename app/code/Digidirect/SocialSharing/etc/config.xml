@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../Core/etc/config.xsd">
+    <default>
+        <digidirect_social_sharing>
+            <general>
+                <enable>1</enable>
+            </general>
+            <sharing_facebook>
+                <enable>1</enable>
+                <like>1</like>
+                <count>1</count>
+            </sharing_facebook>
+            <sharing_google>
+                <enable_plus_one>1</enable_plus_one>
+                <enable_share>1</enable_share>
+                <count>1</count>
+            </sharing_google>
+            <sharing_pin>
+                <enable>1</enable>
+                <count>1</count>
+            </sharing_pin>
+            <sharing_twitter>
+                <enable>1</enable>
+            </sharing_twitter>
+        </digidirect_social_sharing>
+    </default>
+</config>

@@ -1,0 +1,30 @@
+<div class="cards-list" data-bind="if: isHasCards()">
+    <!-- ko foreach: {data: cardsData, as: 'card'} -->
+    <div class="fieldset remove">
+        <div class="field giftcard-number">
+            <label class="label" data-bind="attr: {for: card.cardId}">
+                <span data-bind="text: $parent.cardLabel"></span>
+            </label>
+            <div class="control">
+                <input class="input-text" type="text" readonly data-bind="value: card.cardNumber, attr: {id: card.cardId}">
+            </div>
+        </div>
+        <div class="field giftcard-pin">
+            <label class="label" data-bind="attr: {for: card.pinId}">
+                <span data-bind="text: $parent.pinLabel"></span>
+            </label>
+            <div class="control">
+                <input class="input-text" type="password" readonly data-bind="attr: {value: $parent.pinValue, id: card.pinId}">
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <button type="button" class="action primary remove-all-gift-card hide" data-bind="click: $parent.removeAllGiftCards, attr: {title: $parent.removeLabel}">
+                <span data-bind="text: $parent.removeLabel"></span>
+            </button>
+            <button type="button" class="action primary remove" data-bind="click: $parent.removeGiftCard, attr: {title: $parent.removeLabel}">
+                <span data-bind="text: $parent.removeLabel"></span>
+            </button>
+        </div>
+    </div>
+    <!-- /ko -->
+</div>

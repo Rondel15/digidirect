@@ -1,0 +1,289 @@
+//
+//  Off Canvas
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@offcanvas__is-enabled = true) {
+        // freeze body scroll if offcanvas opened
+        .-offcanvas-opened {
+            overflow: hidden;
+            // fix for ios mobile to prevent body scroll on offCanvas scroll
+            position: fixed;
+            width: 100vw;
+        }
+
+/*        .trigger-offcanvas {
+            .digidirect-lib-offcanvas-trigger();
+        }*/
+
+        .offcanvas-panel:not(.device-only) {
+            .lib-offcanvas-panel();
+        }
+
+        .offcanvas-wrapper {
+            .-offcanvas-overflow {
+                overflow: hidden;
+            }
+
+            &.-move-body {
+                .lib-css(transition, transform .3s, 1);
+            }
+
+            &.-move-body.-right {
+                .lib-css(transform, translateX(-@offcanvas__width), 1);
+            }
+
+            &.-move-body.-left {
+                .lib-css(transform, translateX(@offcanvas__width), 1);
+            }
+
+            &.-move-body.-right .offcanvas-panel.offcanvas-right.-active {
+                .lib-css(right, -@offcanvas__width);
+            }
+
+            &.-move-body.-left .offcanvas-panel.offcanvas-left.-active {
+                .lib-css(left, -@offcanvas__width);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) and  (@hide-offcanvas__tablet = false) {
+    & when (@offcanvas__is-enabled = true) {
+        .@{offcanvas__wrapper-class} {
+            &.-move-body.-right {
+                .lib-css(transform, translateX(-@offcanvas__width__tablet), 1);
+            }
+
+            &.-move-body.-left {
+                .lib-css(transform, translateX(@offcanvas__width__tablet), 1);
+            }
+
+            &.-move-body.-right .offcanvas-panel.offcanvas-right.-active {
+                .lib-css(right, -@offcanvas__width__tablet);
+            }
+
+            &.-move-body.-left .offcanvas-panel.offcanvas-left.-active {
+                .lib-css(left, -@offcanvas__width__tablet);
+            }
+        }
+
+        .offcanvas-panel:not(.device-only) {
+            .lib-css(width, @offcanvas__width__tablet);
+            .lib-css(left, calc(-@offcanvas__width__tablet - @offcanvas__box-shadow-blur));
+
+            &.offcanvas-right {
+                .lib-css(right, calc(-@offcanvas__width__tablet - @offcanvas__box-shadow-blur));
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .offcanvas-panel:not(.device-only){
+        /*width: 80% !important;*/
+    }
+}
+
+//
+//  Tablet -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    .offcanvas-panel.device-only {
+        .lib-offcanvas-panel();
+    }
+}
+
+//  Hide rigger-offcanvas elements if @offOffcanvasForTablet is true
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) and (@hide-offcanvas__tablet = true) {
+    & when (@offcanvas__is-enabled = true) {
+        .trigger-offcanvas {
+            display: none;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) and  (@hide-offcanvas__desktop = false) {
+    & when (@offcanvas__is-enabled = true) {
+        .@{offcanvas__wrapper-class} {
+            &.-move-body.-right {
+                .lib-css(transform, translateX(-@offcanvas__width__desktop), 1);
+            }
+
+            &.-move-body.-left {
+                .lib-css(transform, translateX(@offcanvas__width__desktop), 1);
+            }
+
+            &.-move-body.-right .offcanvas-panel.offcanvas-right.-active {
+                .lib-css(right, -@offcanvas__width__desktop);
+            }
+
+            &.-move-body.-left .offcanvas-panel.offcanvas-left.-active {
+                .lib-css(left, -@offcanvas__width__desktop);
+            }
+        }
+
+        .offcanvas-panel {
+            .lib-css(width, @offcanvas__width__desktop);
+            .lib-css(left, calc(-@offcanvas__width__desktop - @offcanvas__box-shadow-blur));
+
+            &.offcanvas-right {
+                right: 0;
+            }
+        }
+    }
+}
+
+//  Hide and trigger-offcanvas elements if @hideOffcanvasForDesktop is true
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) and (@hide-offcanvas__desktop = true) {
+    & when (@offcanvas__is-enabled = true) {
+        .trigger-offcanvas {
+            display: none;
+        }
+
+        .offcanvas-panel.device-only {
+            position: relative;
+        }
+    }
+}
+
+//
+//  Lib offcanvas
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+.lib-offcanvas-panel() {
+    .lib-css(position, @offcanvas__position);
+    .lib-css(top, @offcanvas__top);
+    .lib-css(left, calc(-@offcanvas__width - @offcanvas__box-shadow-blur));
+    .lib-css(width, @offcanvas__width);
+    .lib-css(height, @offcanvas__height);
+    .lib-css(padding, @offcanvas__padding);
+    .lib-css(background, @offcanvas__background-color);
+    .lib-css(color, @offcanvas__color);
+    .lib-css(font-family, @offcanvas__font-family);
+    .lib-css(font-size, @offcanvas__font-size);
+    .lib-css(transition, all .3s, 1);
+    .lib-css(box-shadow, @offcanvas__box-shadow);
+    .lib-css(z-index, @offcanvas-overlay__z-index);
+    
+    overflow-y: auto;
+    
+    &.-active {
+        .lib-css(z-index, @offcanvas-overlay__z-index + 1);
+    }
+    
+    &.offcanvas-right {
+        left: auto;
+        .lib-css(right, calc(-@offcanvas__width - @offcanvas__box-shadow-blur));
+    }
+    
+    &.offcanvas-right.-active {
+        right: 0;
+    }
+    
+    &.offcanvas-left.-active {
+        left: 0;
+    }
+}
+
+//
+//  Off Canvas Trigger Mixin
+//  _____________________________________________
+
+.digidirect-lib-offcanvas-trigger(
+    @_active-class: @offcanvas__active-class,
+    @_width: @offcanvas-trigger__width,
+    @_height: @offcanvas-trigger__height,
+    @_background: @offcanvas-trigger__background-color,
+    @_color: @offcanvas-trigger__color,
+    @_text-align: @offcanvas-trigger__text-align,
+    @_cursor: @offcanvas-trigger__cursor,
+    @_overlay-background: @offcanvas-overlay__background-color,
+    @_overlay-z-index: @offcanvas-overlay__z-index,
+    @_overlay-opacity: @offcanvas-overlay__opacity
+) {
+    & {
+        position: relative;
+        .lib-css(width, @_width);
+        .lib-css(height, @_height);
+        .lib-css(text-align, @_text-align);
+        .lib-css(background-color, @_background);
+        .lib-css(color, @_color);
+        
+        &:hover {
+            .lib-css(cursor, @_cursor);
+        }
+        
+        &::after {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            .lib-css(background, @_overlay-background);
+            visibility: hidden;
+            content: '';
+            opacity: 0;
+            .lib-css(z-index, @_overlay-z-index);
+            .lib-css(transition, opacity .3s, 1);
+        }
+    }
+    
+    &@{_active-class}::after {
+        visibility: visible;
+        .lib-css(opacity, @_overlay-opacity);
+    }
+}
+
+// Add only overlay for trigger
+.digidirect-lib-offcanvas-trigger-overlay-only(
+    @_active-class: @offcanvas__active-class,
+    @_overlay-background: @offcanvas-overlay__background-color,
+    @_overlay-z-index: @offcanvas-overlay__z-index,
+    @_overlay-opacity: @offcanvas-overlay__opacity
+) {
+    & {
+        position: relative;
+        
+        &::after {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            .lib-css(background, @_overlay-background);
+            visibility: hidden;
+            content: '';
+            opacity: 0;
+            .lib-css(z-index, @_overlay-z-index);
+            .lib-css(transition, opacity .9s, 1);
+        }
+    }
+    
+    &@{_active-class}::after {
+        visibility: visible;
+        .lib-css(opacity, @_overlay-opacity);
+    }
+}

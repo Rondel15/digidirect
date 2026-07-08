@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Braintree\Controller\Paypal\Review">
+        <plugin name="Digidirect_Vii::Magento\Braintree\Controller\Paypal\Review"
+                type="Digidirect\Vii\Plugin\Magento\Braintree\Controller\Paypal\ReviewPlugin"
+                sortOrder="999"/>
+    </type>
+</config>

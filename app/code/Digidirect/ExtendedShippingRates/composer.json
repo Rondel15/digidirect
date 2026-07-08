@@ -1,0 +1,14 @@
+{
+  "name": "digidirect/extendedshippingrates",
+  "description": "Digidirect Extended Shipping Rates",
+  "type": "magento2-module",
+  "version": "1.5.3.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\ExtendedShippingRates\\": ""
+    }
+  }
+}

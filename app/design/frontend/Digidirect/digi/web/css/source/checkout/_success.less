@@ -1,0 +1,49 @@
+//
+//  Checkout: Success Page
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-success__is-enabled: true; // Enable/disable style
+
+@checkout-success__use-add-clearfix: true;
+@checkout-success-print__display: none;
+@checkout-success-print__float__m: right;
+@checkout-success-print__display__m: block;
+@checkout-success-print__margin__m: 22px 0 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-success__is-enabled = true) {
+        .checkout-onepage-success {
+            & when (@checkout-success__use-add-clearfix = true) {
+                &:extend(.abs-add-clearfix all);
+            }
+
+            .print {
+                .lib-css(display, @checkout-success-print__display);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@checkout-success__is-enabled = true) {
+        .checkout-onepage-success {
+            .print {
+                .lib-css(float, @checkout-success-print__float__m);
+                .lib-css(display, @checkout-success-print__display__m);
+                .lib-css(margin, @checkout-success-print__margin__m);
+            }
+        }
+    }
+}

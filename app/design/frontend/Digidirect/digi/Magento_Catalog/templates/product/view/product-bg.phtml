@@ -1,0 +1,14 @@
+<?php
+$_bgHelper = $this->helper('Digidirect\Digi\Helper\Background');
+$imageMobile = $_bgHelper->getProductBackground(\Digidirect\Digi\Helper\Background::TYPE_MOBILE);
+$imageDesktop = $_bgHelper->getProductBackground(\Digidirect\Digi\Helper\Background::TYPE_DESKTOP);
+?>
+<picture class="product-bg">
+<?php if ($imageMobile) : ?>
+    <source media="(max-width: 1023px)" srcset="<?= $block->escapeUrl($imageMobile); ?>">
+<?php endif; ?>
+<?php if ($imageDesktop) : ?>
+    <source media="(min-width: 1024px)" srcset="<?= $block->escapeUrl($imageDesktop); ?>">
+    <img class="img" src="<?= $block->escapeUrl($imageDesktop); ?>" alt="">
+<?php endif; ?>
+</picture>

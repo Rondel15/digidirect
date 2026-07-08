@@ -1,0 +1,146 @@
+//
+//  Checkout: Checkout
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout__is-enabled: true; // Enable/disable style
+
+@checkout-nav-elements__display: none;
+
+//  Logo
+@checkout-logo__margin: 0 0 10px;
+
+//  Page Title
+@checkout-page-title-wrapper__use-visually-hidden: true;
+
+//  Container
+@checkout-container__use-add-clearfix: true;
+@checkout-container__margin: 0 0 @indent__base;
+
+//  Wrapper
+@checkout-wrapper__margin: 0 0 @indent__base;
+@checkout-wrapper__float__m: left;
+@checkout-wrapper__width__m: 66%;
+@checkout-wrapper__padding-right__m: @indent__l;
+
+//  List of Steps
+@checkout-wrapper-opc__use-reset-list: true;
+
+@checkout-step-title__use-checkout-title: true;
+@checkout-step-content__margin: 0 0 @indent__xl;
+
+@checkout-step-title__padding-bottom__s-only: 0;
+@checkout-step-title__border-bottom__s-only: 0;
+@checkout-step-title__font-size__s-only: 26px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout__is-enabled = true) {
+        .checkout-index-index {
+            .nav-sections,
+            .nav-toggle {
+                .lib-css(display, @checkout-nav-elements__display);
+            }
+            
+            .amount{
+                font-weight: 700;
+            }
+            
+            .page-header{
+                padding: 30px;
+                background: #000;
+            }
+            
+            .action-auth-toggle > .svg-icon.icon-login{
+                position: absolute;
+                top: -10px;
+                left: -20px;
+                width: 30px;
+                height: 44px;
+            }
+
+            .page-header .logo {
+                .lib-css(margin, @checkout-logo__margin);
+            }
+
+            .page-title-wrapper {
+                color: #000;
+                height: unset;
+                width: unset;
+                position: unset;
+                
+                .page-title{
+                    margin-top: 50px;
+                    margin-bottom: 50px;
+                    font-size: 3.4rem;
+                    line-height: 1;
+                }
+            }
+        }
+
+        .checkout-container {
+            & when (@checkout-container__use-add-clearfix = true) {
+                &:extend(.abs-add-clearfix all);
+            }
+            .lib-css(margin, @checkout-container__margin);
+        }
+
+        .opc-wrapper {
+            & {
+                .lib-css(margin, @checkout-wrapper__margin);
+            }
+
+            .opc {
+                & when (@checkout-wrapper-opc__use-reset-list = true) {
+                    &:extend(.abs-reset-list all);
+                }
+            }
+
+            .step-title {
+                & when (@checkout-step-title__use-checkout-title = true) {
+                    &:extend(.abs-checkout-title all);
+                }
+            }
+
+            .step-content {
+                margin: 0;
+            }
+        }
+    }
+}
+
+//
+//  Mobile s only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    & when (@checkout__is-enabled = true) {
+        .opc-wrapper {
+            .step-title {
+                .lib-css(padding-bottom, @checkout-step-title__padding-bottom__s-only);
+                .lib-css(border-bottom, @checkout-step-title__border-bottom__s-only);
+                .lib-css(font-size, @checkout-step-title__font-size__s-only);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@checkout__is-enabled = true) {
+        .opc-wrapper {
+            .lib-css(float, @checkout-wrapper__float__m);
+            .lib-css(width, @checkout-wrapper__width__m);
+            .lib-css(padding-right, @checkout-wrapper__padding-right__m);
+        }
+    }
+}

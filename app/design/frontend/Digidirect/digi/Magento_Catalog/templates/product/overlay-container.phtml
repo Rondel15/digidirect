@@ -1,0 +1,52 @@
+<div class="overlay-container-pdp"></div>
+
+
+<script>
+    require([
+        'jquery'
+    ],
+    function ($) {
+        if ($('.media-area .product-overlay').length) {
+            $('.overlay-container-pdp').append($('.media-area .product-overlay'));
+        } 
+        if ($('.media-area .digiseconds-overlay').length) {
+            $('.overlay-container-pdp').attr("style", "top: 95px;");
+        }
+    });
+</script>
+
+
+
+
+<style>
+    .overlay-container-pdp {
+        position: absolute !important;
+        top: 15px;
+        left: 15px;
+        z-index: 1;
+    }
+    
+    .product-overlay.-top-left.-ready:not(.-hide)~.-top-left.-ready {
+        -webkit-transform: unset !important;
+        -moz-transform: unset !important;
+        -ms-transform: unset !important;
+        transform: unset !important;
+    }
+    
+    .overlay-container-pdp .product-overlay {
+        max-height: unset;
+    }
+
+    .overlay-container-pdp .product-overlay {
+        height: 100% !important;
+        display: block !important;
+    }
+
+    .overlay-container-pdp .product-overlay img {
+        float: left !important;
+         /*height: 70px;  remove by jireh*/ 
+        width: auto !important;
+        object-fit: contain;
+        max-height: unset !important;
+    }
+</style>

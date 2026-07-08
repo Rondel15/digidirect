@@ -1,0 +1,25 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Latest $block
+ * @var \Digidirect\Blog\Model\Post $post
+ */
+?>
+
+<?php $latestPosts = $block->getCollection(); ?>
+<div class="blog-latest blog-widget widget negative-gutter full-width-background">
+    <div class="blog-list">
+        <?php foreach ($latestPosts as $post): ?>
+            <?php $postTitle = $block->escapeHtml($post->getTitle()); ?>
+            <?php $mainImage = $post->getMainImage(); ?>
+            <a class="post-card item" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php /* @escapeNotVerified */ echo $postTitle; ?>">
+                <?php if (!empty($mainImage)): ?>
+                    <img class="image" src="<?php echo $block->escapeHtml($mainImage); ?>" alt="<?php /* @escapeNotVerified */ echo $postTitle; ?>" />
+                <?php endif; ?>
+                <div class="container">
+                    <h3 class="title"><?php /* @escapeNotVerified */ echo $postTitle; ?></h3>
+                    <p class="content"><?php /* @escapeNotVerified */ echo $post->getShortContent(); ?></p>
+                </div>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</div>

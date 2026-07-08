@@ -1,0 +1,199 @@
+<?php
+
+use Magento\Framework\App\Action\Action;
+
+$brands = $block->getBrands();
+
+/**
+ * Author: Rondel Dalumpines
+ */
+/** @var \Digidirect\ShopByCategory\Block\Widget\ShopByCategory $block */
+?>
+
+<link rel="stylesheet" type="text/css" href="<?php echo $block->getViewFileUrl('css/owl.carousel.min.css')?>">
+
+<div class="shop-by-category-dropdown">
+    <label class="label-brands-dropdown" for="brands-dropdown">Shop By Category</label>
+
+</div>
+
+<div id="shop-by-category-tablet-main">
+
+    <div id="shop-by-category-carousel" class="shop-by-category-tablet product-carousel owl-carousel owl-theme widget-product-grid owl-loaded owl-drag">
+        <div class="owl-stage-outer">
+             <div id="shop-by-category-container" class="owl-stage shop-by-category-container" style="transform: translate3d(-2185px, 0px, 0px); transition: all 0s ease 0s; width: 8470px;">
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("cameras")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-cameras.jpg" loading="lazy"/>
+                             <div class="product-count" id="cameras-count">Cameras</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("lenses")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-lens.jpg" loading="lazy"/>
+                             <div class="product-count"  id="lenses-count">Lenses</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("drones")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-drones.jpg" loading="lazy"/>
+                             <div class="product-count"  id="drones-count">Drones</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("smart-home")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-smarthome.jpg" loading="lazy"/>
+                             <div class="product-count"  id="smart-home-count">Smart Home</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("computers-mobile")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-computers.jpg" loading="lazy"/>
+                             <div class="product-count"  id="computers-mobile-count">Computers & Mobile</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("lighting-and-studio")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-lights-and-studio.jpg" loading="lazy"/>
+                             <div class="product-count"  id="lighting-and-studio-count">Lighting & Studio</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("photo-accessories")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-photo-accessories.jpg" loading="lazy"/>
+                             <div class="product-count"  id="photo-accessories-count">Photo Accessories</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("optics")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-optics.jpg" loading="lazy"/>
+                             <div class="product-count"  id="optics-count">Optics</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("audio-visual")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-audio-and-visual.jpg" loading="lazy"/>
+                             <div class="product-count"  id="audio-and-visual-count">Audio & Visual</div>
+                         </a>
+                     </div>
+                 </div>
+                 <div class="owl-item">
+                     <div class="shop-by-category-category">
+                         <a href="<?php echo $block->getUrl("pro-video")?>">
+                             <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-provideo.jpg" loading="lazy"/>
+                             <div class="product-count"  id="pro-video-count">Pro Video</div>
+                         </a>
+                     </div>
+                 </div>
+             </div>
+        </div>
+    </div>
+
+</div>
+
+<?php header('Access-Control-Allow-Origin:*'); ?>
+
+<script>
+
+    require(['jquery'],function(){
+
+        jQuery(document).ready(function() {
+
+            //$(document).on('change','select', function(){
+
+            jQuery("#brands-text").on('change',function(){
+
+                //alert("OnChange Event Working Desktop!");
+
+                var value = jQuery('#brands-text').val();
+                //alert(jQuery('#brands-dropdown [value="' + value + '"]').data('value'));
+                var url = "<?php echo $block->getBaseUrl().'shopbycategory/index/view' ?>";
+                var brand = jQuery('#brands-dropdown [value="' + value + '"]').data('value');
+                //alert(url + ", " + brand);
+                jQuery.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {brand:brand},
+                    showLoader: true,
+                    cache: false,
+                    success: function(response){
+                        console.log(response.output);
+                        //jQuery("#cameras-count").text('Test Success!');
+                        jQuery('#shop-by-category-tablet-main').html(response.output);
+                        return true;
+                    }
+                });
+
+            });
+        });
+    });
+</script>
+<script>
+    require(['jquery', 'owl_carousel'],
+        function ($) {
+            $(document).ready(function() {
+               $('.shop-by-category-tablet').owlCarousel({
+                    loop: true,
+                    nav: true,
+                    responsive: {
+                        0: {
+                            items:4,
+                            margin: 15
+                        },
+                        600: {
+                            items: 4,
+                            margin: 15
+                        },
+                        992: {
+                            items: 4,
+                            margin: 15
+                        },
+                        1024: {
+                            items: 4,
+                            margin: 15
+                        },
+                        1440: {
+                            items: 4,
+                            margin: 15
+                        },
+                        1680: {
+                            items: 4,
+                            margin: 15
+                        }
+                    },
+                    dots: false,
+                    autoplay: false,
+                    autoplayTimeout: 3000
+                })
+            });
+        }
+    );
+</script>
+<style>
+    #brands-text {
+        border: none;
+        border-bottom: 1px solid;
+    }
+
+    #brands-text::-webkit-calendar-picker-indicator {
+        display: none !important;
+    }
+</style>
+

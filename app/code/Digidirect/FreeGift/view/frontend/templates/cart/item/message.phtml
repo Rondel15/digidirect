@@ -1,0 +1,9 @@
+<?php
+/** @var $block \Digidirect\FreeGift\Block\Cart\Item\Message */
+?>
+<?php $customMessage = $block->getCartMessage(); ?>
+<?php if ($customMessage): ?>
+    <div class="cart item message notice freegift-items">
+        <div><?php echo $block->escapeHtml($customMessage); ?></div>
+    </div>
+<?php endif; ?>

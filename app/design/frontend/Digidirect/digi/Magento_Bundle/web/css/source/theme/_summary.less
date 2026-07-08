@@ -1,0 +1,174 @@
+//
+//  Theme: Bundle: Block Summary
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .block-bundle-summary {
+        > .title {
+            .lib-css(margin, 0 -20px 19px);
+            .lib-css(padding, 0 20px 20px);
+            .lib-css(border-bottom, 1px solid @color-gray-middle1);
+            .lib-font-size(22);
+            line-height: 30px;
+        }
+
+        .price-as-configured {
+            margin: 0 0 20px;
+        }
+
+        .price-as-configured .price {
+            line-height: 32px;
+            vertical-align: top;
+        }
+
+        .bundle-summary > .subtitle {
+            margin-bottom: 10px;
+            padding: 15px 0;
+            .lib-css(border-top, 1px solid @color-3-2);
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__regular);
+            line-height: 20px;
+            cursor: pointer;
+
+            &::before,
+            &::after {
+                right: 7px;
+            }
+        }
+
+        .bundle-summary > .subtitle > .text {
+            &::before {
+                content: attr(data-count);
+                padding-right: 4px;
+            }
+        }
+
+        .bundle.items .label {
+            .lib-font-size(12);
+            line-height: 16px;
+        }
+
+        .block-extendedrule {
+            float: right;
+            text-align: right;
+        }
+    }
+
+    .bundle-mini {
+        & {
+            margin-top: 10px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .img {
+            display: block;
+            width: 80px;
+            height: 80px;
+            margin-right: 10px;
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block-bundle-summary {
+        > .title {
+            .lib-font-size(24);
+        }
+
+        .price-box .price {
+            .lib-font-size(30);
+        }
+
+        .bundle-summary > .subtitle {
+            margin-bottom: 20px;
+            .lib-font-size(13);
+        }
+
+        .bundle.items .label {
+            .lib-font-size(13);
+        }
+    }
+}
+
+//
+//  XM +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm) {
+    .block-bundle-summary {
+        & {
+            width: 360px;
+            margin-left: 30px;
+            padding-right: 30px;
+            padding-left: 30px;
+        }
+
+        > .title {
+            margin: 0 -30px 30px;
+            padding: 6px 30px 26px;
+            .lib-font-size(28);
+        }
+
+        .price-as-configured {
+            margin-bottom: 30px;
+        }
+
+        .price-as-configured .price {
+            .lib-font-size(34);
+            line-height: 40px;
+        }
+
+        .bundle-summary > .subtitle {
+            .lib-font-size(14);
+        }
+
+        .bundle.items .label {
+            .lib-font-size(14);
+        }
+    }
+
+    .bundle-mini {
+        & {
+            margin-bottom: 19px;
+        }
+
+        img {
+            margin-right: 19px;
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .block-bundle-summary {
+        width: 396px;
+    }
+}
+
+//
+//  XL +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .block-bundle-summary {
+        width: 520px;
+        margin-left: 80px;
+    }
+}

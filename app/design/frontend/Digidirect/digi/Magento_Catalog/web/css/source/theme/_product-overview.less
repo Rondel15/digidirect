@@ -1,0 +1,262 @@
+//
+//  Theme: Pdp block product overview
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .product-overview {
+        & {
+            .lib-vendor-prefix-flex-direction (column);
+            .lib-vendor-prefix-display(flex);
+            .lib-css(border-bottom, 1px solid @color-3-5);
+            width: 100%;
+            padding-left: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tabpanel {
+            .lib-vendor-prefix-flex-direction (column);
+            .lib-vendor-prefix-display(flex);
+            width: 100%;
+        }
+
+        .entity {
+            & {
+                .lib-vendor-prefix-display(flex);
+                align-items: center;
+                margin-bottom: 27px;
+                margin-left: -15px;
+            }
+
+            .slick-prev {
+                display: none !important;
+            }
+
+            .slick-next {
+                background: none;
+                right: -10px;
+                width: 40px;
+                height: 40px;
+            }
+
+            .slick-next:before {
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                position: absolute;
+                font-size: 20px;
+                top: 50%;
+                left: 50%;
+            }
+
+            .slick-next:hover:before {
+                .lib-css(color, @color-2-1);
+            }
+
+            .slick-next svg {
+                display: none;
+            }
+
+            .item {
+                .lib-vendor-prefix-display(flex) !important;
+                align-items: center;
+                width: 50%;
+                margin: 5px 0;
+            }
+
+            .item .title {
+                .lib-font-size(11);
+                display: block;
+                padding: 0 0 0 10px;
+            }
+
+            .item .img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        .short-desc {
+            line-height: 2;
+        }
+
+        .short-desc .top-section-list-item {
+            & {
+                line-height: 1.5;
+            }
+
+            em {
+                .lib-font-size(14);
+            }
+        }
+
+        .tabpanel > .price-description {
+            .lib-css(color, @color-white);
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .lib-font-size(11);
+            width: 100%;
+            display: none;
+        }
+
+        .tabpanel > .price-description > .title {
+            .lib-font-size(11);
+            text-align: left;
+            padding-left: 20px;
+            width: 100%;
+        }
+
+        > .overview-product {
+            .lib-vendor-prefix-display(flex);
+            width: 100%;
+        }
+
+        > .overview-product > .overview-tab {
+            .lib-css(color, @color-white);
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .lib-font-size(14);
+            justify-content: space-between;
+            text-transform: capitalize;
+            padding: 15px 0;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        > .overview-product > .overview-tab > .arrow > .svgi-action {
+            width: 20px;
+            height: 20px;
+        }
+
+        .overview-tab > .arrow > .svgi-action,
+        > .overview-product > .overview-tab > .arrow {
+            display: none;
+        }
+
+        .overview-tab {
+            margin-left: -15px;
+            margin-top: 23px;
+            margin-bottom: 28px;
+        }
+
+        .title {
+            .lib-css(font-weight, @font-weight__heavier);
+            .lib-font-size(18);
+            line-height: 1.11;
+            text-transform: capitalize;
+        }
+
+        .top-section-list {
+            padding-left: 0;
+        }
+    }
+
+    .product-overview .head {
+        .lib-font-size(18);
+        font-weight: 500;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.11;
+        letter-spacing: normal;
+        display: none;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product-overview {
+        .entity {
+            & {
+                .lib-css(border-top, none);
+            }
+
+            .item {
+                .lib-vendor-prefix-display(flex) !important;
+                .lib-vendor-box-align(center);
+                width: 50% !important;
+            }
+        }
+
+        .short-desc {
+            column-count: 2;
+            padding-bottom: 35px;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .catalog-product-view {
+        .entity {
+            .slick-next {
+                right: -40px;
+            }
+        }
+
+        .product-overview {
+            border-bottom: none;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .product-overview {
+        .overview-tab > .arrow > .svgi-action {
+            display: none;
+        }
+
+        .overview-tab > .title {
+            display: none;
+        }
+
+        .tabpanel > .price-description {
+            .lib-vendor-prefix-flex-direction (column);
+            .lib-vendor-box-align(flex-start);
+            .lib-font-size(12);
+        }
+        
+        .title{
+            font-weight: bold !important;
+        }
+    }
+
+    .product-overview {
+        .tabpanel > .price-description > .title {
+            .lib-font-size(12);
+            padding-left: 0;
+            padding-top: 20px;
+        }
+
+        .entity {
+            padding-top: 0;
+            margin-top: 0;
+        }
+
+        .short-desc {
+            column-count: 2;
+            width: 100%;
+            line-height: 1;
+        }
+    }
+
+    .product-overview .entity > .item {
+        width: 50%;
+    }
+
+    .product-overview .head {
+        .lib-font-size(16);
+        display: block;
+        width: 100%;
+        padding: 15px 0;
+        text-transform: capitalize;
+    }
+}

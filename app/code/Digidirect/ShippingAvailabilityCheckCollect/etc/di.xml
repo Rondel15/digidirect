@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\Collect\Helper\Data">
+        <plugin name="Digidirect_ShippingAvailabilityCheckCollect::validateArea" type="Digidirect\ShippingAvailabilityCheckCollect\Plugin\Collect\Helper\Data"/>
+    </type>
+    <type name="Digidirect\Collect\Block\CollectPlaces">
+        <plugin name="Digidirect_ShippingAvailabilityCheckCollect::showPostcode"
+                type="Digidirect\ShippingAvailabilityCheckCollect\Plugin\Collect\Block\CollectPlaces"/>
+    </type>
+
+    <type name="Digidirect\ShippingAvailabilityCheck\Model\QuoteManagement">
+        <plugin name="Digidirect_ShippingAvailabilityCheckCollect::setQuoteToFilterRate"
+                type="Digidirect\ShippingAvailabilityCheckCollect\Plugin\Collect\Helper\Data" />
+    </type>
+</config>

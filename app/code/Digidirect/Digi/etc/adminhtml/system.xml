@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="catalog">
+            <group id="background_placeholders" translate="label" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Background Image Placeholders</label>
+
+                <field id="enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable Catalog Background Images</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="category_desktop" type="image" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Default Category Background Image (Desktop)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">catalog/category/background</upload_dir>
+                    <base_url type="media" scope_info="1">catalog/category/background</base_url>
+                </field>
+                <field id="category_mobile" type="image" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Default Category Background Image (Mobile)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">catalog/category/background</upload_dir>
+                    <base_url type="media" scope_info="1">catalog/category/background</base_url>
+                </field>
+                <field id="product_desktop" type="image" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Default Product Background Image (Desktop)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">catalog/product/background</upload_dir>
+                    <base_url type="media" scope_info="1">catalog/product/background</base_url>
+                </field>
+                <field id="product_mobile" type="image" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Default Product Background Image (Mobile)</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">catalog/product/background</upload_dir>
+                    <base_url type="media" scope_info="1">catalog/product/background</base_url>
+                </field>
+            </group>
+        </section>
+        <section id="custom_canonicals" translate="label" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Custom Canonical Links Mapper</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_Digi::custom_canonical</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>General</label>
+                <field id="mapper" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mapper</label>
+                    <frontend_model>Digidirect\Digi\Block\Adminhtml\Form\Field\Mapper</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

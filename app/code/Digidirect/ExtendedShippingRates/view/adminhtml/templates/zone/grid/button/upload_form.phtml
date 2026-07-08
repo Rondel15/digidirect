@@ -1,0 +1,8 @@
+<?php
+/** @var Digidirect\ExtendedShippingRates\Block\Adminhtml\ExtendedShippingRates\Zone\Grid\Button\Upload $block*/
+?>
+<form id="import-form" class="admin__fieldset" action="<?php /* @escapeNotVerified */ echo $block->getUploadUrl() ?>" method="post" enctype="multipart/form-data">
+    <?php echo $block->getBlockHtml('formkey')?>
+    <input type="file" style="display:none" id="extendedshippingrates_zone_file" name="extendedshippingrates_zone_file" class="input-file required-entry"/>
+    <?php echo $block->getButtonHtml(__('Import Zones'), '', 'import-submit primary') ?>
+</form>

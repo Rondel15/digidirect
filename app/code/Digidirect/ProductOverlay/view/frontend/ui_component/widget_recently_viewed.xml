@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <columns name="widget_columns">
+        <column name="overlays" component="Digidirect_ProductOverlay/js/product/overlay" sortOrder="2" displayArea="general-area">
+            <settings>
+                <label>overlay</label>
+                <bodyTmpl>Digidirect_ProductOverlay/product/overlay</bodyTmpl>
+            </settings>
+        </column>
+    </columns>
+</listing>

@@ -1,0 +1,16 @@
+<!-- ko if: elems().length > 0 -->
+
+<div class="payment-option _collapsible opc-payment-additional"
+     data-bind="mageInit: {'collapsible':{'openedState': '_active'}}">
+    <div class="payment-option-title field choice" data-role="title">
+        <span class="action action-toggle" role="heading" aria-level="2" data-bind="text: title"></span>
+    </div>
+    <div class="payment-option-content" data-role="content">
+        <!-- ko foreach: elems() -->
+        <div class="payment-option-item">
+            <!-- ko template: getTemplate() --><!-- /ko -->
+        </div>
+        <!-- /ko -->
+    </div>
+</div>
+<!-- /ko -->

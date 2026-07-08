@@ -1,0 +1,134 @@
+//
+//  Locator:search
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+// @locator-search__margin: 0 0 20px;
+@locator-search__padding: 20px;
+@locator-search__background: @color-3-4;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .locator-search:not(.-collect) {
+        & {
+            .lib-css(background, @locator-search__background);
+        }
+    
+        .control.-select {
+            .lib-css(background, @color-white);
+        }
+    }
+}
+
+//
+//  Mobile Only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .locator-search {
+        .input-group {
+            flex-wrap: wrap;
+            margin: 0;
+        }
+        
+        .control.-text {
+            width: 100%;
+            margin: 0 0 10px;
+        }
+    
+        .control.-select {
+            margin: 0;
+            padding-right: 10px;
+            width: 53%;
+        }
+    
+        .control.-select .selectric .label {
+            height: 36px;
+            line-height: 36px;
+        }
+        
+        .input-group > .button {
+            flex-basis: 47%;
+            margin: 0;
+        }
+
+        .selectric-wrapper .selectric {
+            padding-right: 21px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .locator-search {
+        .input-group .control.-text {
+            flex-basis: 56.5%;
+        }
+        
+        .input-group .control.-select {
+            flex-basis: 140px;
+        }
+    
+        .input-group > .button {
+            flex-basis: 120px;
+            margin-left: 20px;
+        }
+    
+        .control .selectric .label {
+            height: 42px;
+            line-height: 3.1;
+        }
+    }
+}
+
+
+//
+//  Desktop small
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .locator-search {
+        .button.-responsive {
+            line-height: .8;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .locator-search {
+        & {
+            padding: 58px 80px 52px;
+        }
+
+        .input-group .control.-text {
+            flex-basis: 67.5%;
+        }
+
+        .input-group .control.-select {
+            flex-basis: 180px;
+            margin-left: 20px;
+        }
+    
+        .control .selectric .label {
+            height: 46px;
+            line-height: 3.5;
+        }
+    
+        .button.-responsive {
+            flex-basis: 200px;
+            line-height: 1;
+        }
+    }
+}

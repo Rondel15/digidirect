@@ -1,0 +1,68 @@
+//
+//  Abstract Attributes (widgets)
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@widget-attribute-item__position: relative;
+@widget-attribute-item__float: false;
+@widget-attribute-item__display: inline-block;
+@widget-attribute-item__width: 200px;
+@widget-attribute-item__margin: false;
+@widget-attribute-item__padding: 10px;
+@widget-attribute-item__border: false;
+@widget-attribute-item__font: @font-size__base @font-family-name__base;
+@widget-attribute-item__text-align: center;
+@widget-attribute-item__vertical-align: middle;
+
+@widget-attribute-link__display: false;
+@widget-attribute-link__margin: false;
+@widget-attribute-link__padding: false;
+@widget-attribute-link__border: false;
+@widget-attribute-link__color: false;
+
+@widget-attribute-image__display: false;
+@widget-attribute-image__margin: 0 auto;
+@widget-attribute-image__vertical-align: middle;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .widget-attribute {
+        > .attribute-item {
+            .lib-css(float, @widget-attribute-item__float);
+            .lib-css(display, @widget-attribute-item__display);
+            .lib-css(width, @widget-attribute-item__width);
+            .lib-css(vertical-align, @widget-attribute-item__vertical-align);
+        }
+    }
+
+    .attribute-item {
+        & {
+            .lib-css(position, @widget-attribute-item__position);
+            .lib-css(margin, @widget-attribute-item__margin);
+            .lib-css(padding, @widget-attribute-item__padding);
+            .lib-css(border, @widget-attribute-item__border);
+            .lib-css(font, @widget-attribute-item__font);
+            .lib-css(text-align, @widget-attribute-item__text-align);
+        }
+
+        .image {
+            .lib-css(display, @widget-attribute-image__display);
+            .lib-css(margin, @widget-attribute-image__margin);
+            .lib-css(vertical-align, @widget-attribute-image__vertical-align);
+        }
+
+        > .link {
+            .lib-css(display, @widget-attribute-link__display);
+            .lib-css(margin, @widget-attribute-link__margin);
+            .lib-css(padding, @widget-attribute-link__padding);
+            .lib-css(border, @widget-attribute-link__border);
+            .lib-css(color, @widget-attribute-link__color);
+        }
+    }
+}

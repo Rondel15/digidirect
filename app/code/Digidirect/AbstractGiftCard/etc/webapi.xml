@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <!--add gift cart account for customer-->
+    <route url="/V1/carts/mine/abstractGiftCards" method="POST">
+        <service class="Digidirect\AbstractGiftCard\Api\AbstractGiftCardAccountManagementInterface" method="addAbstractGiftCard"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <!--check gift cart account for customer-->
+    <route url="/V1/carts/mine/checkAbstractGiftCard" method="POST">
+        <service class="Digidirect\AbstractGiftCard\Api\AbstractGiftCardAccountManagementInterface" method="checkAbstractGiftCard"/>
+        <resources>
+            <resource ref="self" />
+        </resources>
+        <data>
+            <parameter name="cartId" force="true">%cart_id%</parameter>
+        </data>
+    </route>
+    <!--add gift cart account for guest-->
+    <route url="/V1/carts/guest-carts/:cartId/abstractGiftCards" method="POST">
+        <service class="Digidirect\AbstractGiftCard\Api\AbstractGuestGiftCardAccountManagementInterface" method="addAbstractGiftCard"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+    <!--check gift cart account for guest-->
+    <route url="/V1/carts/guest-carts/:cartId/checkAbstractGiftCard" method="POST">
+        <service class="Digidirect\AbstractGiftCard\Api\AbstractGuestGiftCardAccountManagementInterface" method="checkAbstractGiftCard"/>
+        <resources>
+            <resource ref="anonymous" />
+        </resources>
+    </route>
+
+</routes>

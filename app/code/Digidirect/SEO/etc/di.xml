@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\SEO\Api\Data\SitemapExcludeSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults" />
+    <preference for="Digidirect\SEO\Api\Data\SitemapExcludeInterface" type="Digidirect\SEO\Model\SitemapExclude" />
+    <preference for="Digidirect\SEO\Api\SitemapExcludeRepositoryInterface" type="Digidirect\SEO\Model\SitemapExcludeRepository" />
+
+    <type name="Digidirect\SEO\Model\Config\Source\StoreCode">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="StoreCodeName" xsi:type="string">From Store Code</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

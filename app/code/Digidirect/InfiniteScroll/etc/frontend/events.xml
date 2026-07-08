@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_generate_blocks_after">
+        <observer name="digidirect_infinitescroll_category" instance="Digidirect\InfiniteScroll\Observer\Frontend\LayoutGenerateBlocksAfter"/>
+    </event>
+    <event name="layout_load_before">
+        <observer name="digidirect_infinitescroll_layout_load_before" instance="Digidirect\InfiniteScroll\Observer\Frontend\LayoutLoadBefore"/>
+    </event>
+</config>

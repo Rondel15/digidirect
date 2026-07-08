@@ -1,0 +1,81 @@
+//
+//  Social Sharing
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@social-sharing-label__margin-right: 10px;
+@social-sharing-label__font-size: @typography-h6__font-size__m;
+@social-sharing-label__font-family: @font-family-name__base;
+@social-sharing-label__font-weight: @font-weight__bold;
+@social-link__margin-right: 20px;
+@social-link__margin-bottom: 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .social-links {
+        & {
+            .lib-vendor-prefix-display(flex);
+            margin: 0;
+            padding: 0;
+        }
+
+        > .item {
+            display: block;
+            .lib-css(margin-right, @social-link__margin-right);
+            .lib-css(margin-bottom, @social-link__margin-bottom);
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+
+        > .item > .link {
+            display: inline-block;
+            cursor: pointer;
+        }
+    }
+
+    .social-sharing {
+        & {
+            .lib-vendor-prefix-display(flex);
+            justify-content: center;
+            .lib-vendor-box-align(baseline);
+            margin-bottom: 40px;
+        }
+
+        > .label {
+            .lib-css(margin-right, @social-sharing-label__margin-right);
+            .lib-css(font-size, @social-sharing-label__font-size);
+            .lib-css(font-weight, @social-sharing-label__font-weight);
+        }
+
+        .svg-icon {
+            height: 18px;
+            width: 18px;
+        }
+
+        .svg-icon.-pinterest {
+            pointer-events: none;
+        }
+
+        .svg-icon.-google-plus {
+            width: 24px;
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .social-sharing {
+        margin-bottom: 30px;
+    }
+}

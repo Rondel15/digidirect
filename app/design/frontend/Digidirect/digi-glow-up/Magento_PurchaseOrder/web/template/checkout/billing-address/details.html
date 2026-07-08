@@ -1,0 +1,46 @@
+<!--
+/**
+ * ADOBE CONFIDENTIAL
+ *
+ * Copyright 2020 Adobe
+ * All Rights Reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of Adobe and its suppliers, if any. The intellectual
+ * and technical concepts contained herein are proprietary to Adobe
+ * and its suppliers and are protected by all applicable intellectual
+ * property laws, including trade secret and copyright laws.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from Adobe.
+ */
+-->
+<div if="isAddressDetailsVisible() && currentBillingAddress()" class="billing-address-details">
+    <text args="currentBillingAddress().prefix"></text> <text args="currentBillingAddress().firstname"></text>
+    <text args="currentBillingAddress().middlename"></text>
+    <text args="currentBillingAddress().lastname"></text> <text args="currentBillingAddress().suffix"></text><br>
+    <if args="currentBillingAddress().company">
+        <text args="currentBillingAddress().company"></text><br>
+    </if>
+    <text args="_.values(_.compact(currentBillingAddress().street)).join(', ')"></text><br>
+<!--    <text args="currentBillingAddress() && _.compact(currentBillingAddress().street).length ? _.values(_.compact(currentBillingAddress().street)).join(', ') : 'Street'"></text><br>-->
+    <text args="currentBillingAddress().city "></text>, <span text="currentBillingAddress().region"></span>
+    <text args="currentBillingAddress().postcode"></text><br>
+    <text args="getCountryName(currentBillingAddress().countryId)"></text><br>
+    <a if="currentBillingAddress().telephone" attr="'href': 'tel:' + currentBillingAddress().telephone" text="currentBillingAddress().telephone"></a><br>
+    <if args="currentBillingAddress().vatId">
+        <translate args="'VAT'"></translate>: <text args="currentBillingAddress().vatId"></text><br>
+    </if>
+
+    <each args="data: currentBillingAddress().customAttributes, as: 'element'">
+        <text args="$parent.getCustomAttributeLabel(element)"></text>
+        <br>
+    </each>
+
+    <button visible="!isAddressSameAsShipping()"
+            type="button"
+            class="action action-edit-address"
+            click="editAddress">
+        <span translate="'Edit'"></span>
+    </button>
+</div>

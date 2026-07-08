@@ -1,0 +1,195 @@
+//
+//  Form variables
+//  _____________________________________________
+
+@form-element-input__height__m: 45px;
+@form-element-input__font-size__m: 13px;
+
+@form-element-input__height__l: 50px;
+@form-element-input__font-size__l: 14px;
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    form{
+        input[type=text], 
+        input[type=password], 
+        input[type=url], 
+        input[type=tel], 
+        input[type=search],
+        input[type=number],
+        input[type=datetime], 
+        input[type=email],
+        select:not([multiple]) {
+            height: 50px;
+            font-size: 1.4rem;
+            border-color: #e1e1e1;
+            color: #222;
+        }
+
+        .input-group {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: flex-start;
+            -ms-align-items: flex-start;
+            align-items: flex-start;
+        }
+
+        .button {
+            background-image: none;
+            background: #e65300;
+            border: 2px solid transparent;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 700;
+            margin: 0;
+            padding: 16px;
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+    }
+    
+    .fieldset > .field:not(.choice) > .control{
+        display: block;
+        width: 100%;
+        float: unset;
+    }
+    
+    .fieldset > .field:not(.choice) > .label {
+        padding: 6px 15px 0 0;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        float: left;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    form{
+        input[type=text], 
+        input[type=password], 
+        input[type=url], 
+        input[type=tel], 
+        input[type=search],
+        input[type=number],
+        input[type=datetime], 
+        input[type=email],
+        select:not([multiple]) {
+            height: 50px;
+            font-size: 1.4rem;
+            border-color: #e1e1e1;
+            color: #222;
+        }
+
+        .input-group {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: flex-start;
+            -ms-align-items: flex-start;
+            align-items: flex-start;
+        }
+
+        .button {
+            background-image: none;
+            background: #e65300;
+            border: 2px solid transparent;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 700;
+            margin: 0;
+            padding: 16px;
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+    }
+    
+    .fieldset > .field:not(.choice) > .control{
+        display: block;
+        width: 100%;
+        float: unset;
+    }
+    
+    .fieldset > .field:not(.choice) > .label {
+        padding: 6px 15px 0 0;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        float: left;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    form{
+        input[type=text], 
+        input[type=password], 
+        input[type=url], 
+        input[type=tel], 
+        input[type=search],
+        input[type=number],
+        input[type=datetime], 
+        input[type=email],
+        select:not([multiple]) {
+            height: 50px;
+            font-size: 1.4rem;
+            border-color: #e1e1e1;
+            color: #222;
+        }
+
+        .input-group {
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-align-items: flex-start;
+            -ms-align-items: flex-start;
+            align-items: flex-start;
+        }
+
+        .button {
+            background-image: none;
+            background: #e65300;
+            border: 2px solid transparent;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-weight: 700;
+            margin: 0;
+            padding: 16px;
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+    }
+    
+    .fieldset > .field:not(.choice) > .control{
+        display: block;
+        width: 100%;
+        float: unset;
+    }
+    
+    .fieldset > .field:not(.choice) > .label {
+        padding: 6px 15px 0 0;
+        text-align: left;
+        width: 100%;
+        box-sizing: border-box;
+        float: left;
+    }
+}

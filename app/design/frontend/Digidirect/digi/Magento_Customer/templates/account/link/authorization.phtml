@@ -1,0 +1,41 @@
+<?php
+/** @var \Magento\Customer\Block\Account\AuthorizationLink $block */
+
+$dataPostParam = '';
+if ($block->isLoggedIn()) {
+    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
+    $BlockAccountLink = $block->getChildBlock('my-account-link');
+    $wishListLink = $block->getChildBlock('wish-list-links');
+}
+
+?>
+<?php if(!$block->isLoggedIn()):?>
+<span class="authorization-link" data-label="<?= $block->escapeHtml(__('or')) ?>">
+    <a <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?> class="link" title="<?= __('Account') ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-account"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-account"></use></svg>
+        <span class="text"><?= /* @escapeNotVerified */ __('Account') ?></span>
+    </a>
+</span>
+<?php else: ?>
+    <div class="authorization-link">
+        <strong data-role="trigger" class="link js-dropdown-dialog" title="<?= /* @escapeNotVerified */ __('Account') ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-account"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-account"></use></svg>
+            <span class="text"><?= /* @escapeNotVerified */ __('Account') ?></span>
+        </strong>
+        <ul data-role="dropdownDialog"
+            class="customer-dialog"
+            data-mage-init='{"dropdownDialog":{
+                "appendTo":".authorization-link",
+                "triggerTarget":".authorization-link .js-dropdown-dialog",
+                "closeOnMouseLeave": false,
+                "closeOnEscape": true,
+                "triggerClass":"active",
+                "parentClass":"active",
+                "buttons":[]}}'>
+            <li class="item"><a href="<?=  $BlockAccountLink->getHref(); ?>" title="<?= __('My Account') ?>"><?= __('My Account') ?></a></li>
+            <li class="item"><a href="<?= $block->getHref(); ?>" title="<?= __('Sign out') ?>"><?= __('Sign out') ?></a></li>
+
+            <?= /* @noEscape */ $wishListLink->toHtml(); ?>
+        </ul>
+    </div>
+<?php endif ?>

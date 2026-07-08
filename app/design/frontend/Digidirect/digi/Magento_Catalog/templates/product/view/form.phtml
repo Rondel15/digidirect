@@ -1,0 +1,187 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+// @codingStandardsIgnoreFile
+
+/**
+ * Product view template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View
+ */
+?>
+<?php $_helper = $this->helper('Magento\Catalog\Helper\Output'); ?>
+<?php $_product = $block->getProduct(); ?>
+<?php
+$_objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$currencysymbol = $_objectManager->get('Magento\Store\Model\StoreManagerInterface');
+$currencyCode = $currencysymbol->getStore()->getCurrentCurrencyCode();
+$points = $_product->getFinalPrice();
+$finalQffPoints = $_product->getPoints();
+$finalProductPrice = $_product->getFinalPrice();
+$qff_bonus_points = 0;
+$brand = $_product->getAttributeText('brand');
+$brand = strtolower($brand);
+
+$sourceDataBySku = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\InventoryCatalogAdminUi\Model\GetSourceItemsDataBySku::class);
+$sku = $_product->getSku();
+$awaiting = $_product->getAwaitingProduct();
+
+//if ($_product->offsetExists("qff_bonus_points") && $_product->offsetExists("qff_base")) {
+//    $qff_bonus_points = $_product->getQffBonusPoints();
+//    $qff_base_points = $_product->getQffBase();
+//    $bonusPlusBase = $qff_bonus_points + $qff_base_points;
+//
+//    $points = number_format($finalProductPrice * $bonusPlusBase);
+//}else {
+//    if($_product->offsetExists("qff_base")){
+//        $qff_base_points = $_product->getQffBase();
+//        $points = number_format($finalProductPrice * $qff_base_points);
+//    } else {
+//        $points = number_format($finalProductPrice * 2);
+//    }
+//}
+?>
+
+<?php
+    $productData = $sourceDataBySku->execute($_product->getSku());
+    $productQuantity = 0;
+
+    foreach($productData as $key => $value){
+        if($value["source_status"] == true){
+            $productQuantity += $value["quantity"];
+        }
+    }
+?>
+
+<?php if ($productQuantity > 0):?>
+<!--    <div class="shipping-notice stock available">
+        <span class="stock-availability"><?= $escaper->escapeHtml(__('Leaves warehouse in 3-5 business days.')) ?></span>
+    </div>-->
+<?php else:?>
+<!--    <div class="shipping-notice stock unavailable">
+        <span class="stock-availability"><?= $escaper->escapeHtml(__('Temporarily out of stock. Order today and we\'ll deliver in 9-12 business days.')) ?></span>
+    </div>-->
+<?php endif; ?>
+<?php if ($_product->getIndentItem()): ?>
+    <div class="box-tocart" style="margin-bottom: 0 !important;">
+        <div class="fieldset qty-fieldset">
+            <button type="submit"
+                onclick="openChat()"
+                class="action tocart btn_cart tocart-pdp-btn"
+                id="product-request-assistance"
+                data-action="add-to-cart-action"
+                style="background: #00C3FF !important; margin-right: 8px;">
+                <span class="addcart_words"><?= /* @escapeNotVerified */ 'Request Assistance' ?></span>
+            </button>
+            <div class="product-addto-wishlist" data-role="add-to-wishlist">
+                <?= $block->getLayout()
+                    ->createBlock('Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist')
+                    ->setProduct($_product)
+                    ->setTemplate("Magento_Wishlist::catalog/product/list/addto/wishlist.phtml")
+                    ->toHtml(); ?>
+            </div>
+        </div>
+        <?php if ($_product->getIndentItemMessage()): ?>
+            <div style="margin-top: 40px;text-align: center;"><?= $_product->getIndentItemMessage(); ?></div>
+        <?php endif; ?>
+    </div>
+<?php else:?>
+    <div class="product-add-form">
+        <form data-product-sku="<?= $block->escapeHtml($sku) ?>"
+              action="<?= /* @NoEscape */ $block->getSubmitUrl($_product) ?>" method="post"
+              id="product_addtocart_form"<?php if ($_product->getOptions()): ?> enctype="multipart/form-data"<?php endif; ?>>
+            <input type="hidden" name="product" value="<?= /* @escapeNotVerified */ $_product->getId() ?>" />
+            <input type="hidden" name="selected_configurable_option" value="" />
+            <input type="hidden" name="related_product" id="related-products-field" value="" />
+            <input type="hidden" name="item"  value="<?= /* @noEscape */ $block->getRequest()->getParam('id') ?>" />
+            <?= $block->getBlockHtml('formkey') ?>
+            <?= $block->getChildHtml('form_top') ?>
+            <?php if (!$block->hasOptions()):?>
+                <?= $block->getChildHtml('product_info_form_content') ?>
+            <?php else:?>
+                <?php if ($_product->isSaleable() && $block->getOptionsContainer() == 'container1'):?>
+                    <?= $block->getChildChildHtml('options_container') ?>
+                <?php endif;?>
+            <?php endif; ?>
+
+            <?php if ($_product->isSaleable() && $block->hasOptions() && $block->getOptionsContainer() == 'container2'):?>
+                <?= $block->getChildChildHtml('options_container') ?>
+            <?php endif;?>
+
+            <?= $block->getChildHtml('form_bottom') ?>
+        </form>
+    </div>
+<?php endif; ?>
+
+<!-- clint commented out requested by Haig 17 03 25-->
+<?php if($awaiting == 1):?>
+    <div class="awaiting" id="awaiting-product">
+        <div class="ribbon-wrapper">
+            <div class="ribbon">
+                <div class="ribbon-inner"><i class="far fa-clock" style="display: inline-block; margin-right: 7px;"></i>AWAITING STOCK</div>
+                <div class="addtocart-tooltip">
+                    <i class="fas fa-info-circle" style="font-family: 'Font Awesome 5 Free';
+                        font-style: unset;
+                        float: right;
+                        color: #00C3FF;
+                        display: inline-block;
+                        margin-top: -25px;
+                        margin-right: 10px;">
+                    </i>
+                    <div class="addtocart-tooltiptext tooltip-bottom-awaiting">
+                        This means item is within an estimated 2 weeks from delivery to digiDirect. For the latest ETA, please click <a href="https://www.digidirect.com.au/contact/">here</a> to contact us.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+<script>
+    function openChat() {
+        zE('messenger', 'open');
+    }
+</script>
+
+<script type="text/x-magento-init">
+    {
+    "[data-role=priceBox][data-product-id='<?= $block->escapeHtml($_product->getId()) ?>']": {
+    "priceBox": {
+    "priceConfig": <?= /* @escapeNotVerified */ $block->getJsonConfig() ?>
+    }
+    }
+    }
+</script>
+
+<?php if ($_product): ?>
+    <?php $price = $_product->getData('final_price'); ?>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            'value': <?= $price ?>,
+            'items': [{
+                'id':  '<?= $_product->getSku(); ?>',
+                    'google_business_vertical': 'retail'
+                }]
+        });
+    </script>
+<?php endif ?>
+
+<!--comment out clint Jan 11 2024 -->
+<!-- FeedOps - Dynamic Remarketing - Version 1 START -->
+<?php //$_product = $block->getProduct(); ?>
+<!--    <script>-->
+<!--        dataLayer.push({-->
+<!--            'event': 'DynamicRemarketing',-->
+<!--            'ecomm_pagetype': 'product',-->
+<!--            'ecomm_totalvalue': --><?php //echo $_product->getPrice() ?>//,
+//            'currency': 'AUD',
+//            'ecomm_prodid': [
+//                <?php //echo $_product->getId() ?>
+//            ]
+//        });
+//    </script>
+<!-- FeedOps - Dynamic Remarketing - Version 1 END -->

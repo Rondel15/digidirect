@@ -1,0 +1,12 @@
+<% if (data) { %>
+    <table id="collect_place_table">
+        <% data.forEach(function(item) { %>
+            <tr>
+                <td>
+                    <input type="radio" name="collect_place_id" id="<%= item.collectplace.id %>" value="<%= item.collectplace.id %>" data-collectplace-storage-name="<%= item.collectplace_storage_name %>"/>
+                    <label for="<%= item.collectplace.id %>"><%= item.collectplace.name %> (<%= item.distance %> <% if (item.length_unit){%><%= item.length_unit %><%}%>)</label>
+                </td>
+            </tr>
+        <% }); %>
+    </table>
+<% } %>

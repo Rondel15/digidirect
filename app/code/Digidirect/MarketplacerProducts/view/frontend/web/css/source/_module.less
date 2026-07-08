@@ -1,0 +1,257 @@
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+
+    // jireh
+    .product {
+
+        .product-item-info {
+            max-height: 100% !important;
+        }
+
+        .s19-rental-price-target {
+            // border: 1px solid #FF3000;
+            padding-top: 10px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 15px;
+
+            p {
+                line-height: 10px;
+            }
+        }
+    }
+        
+    
+    .digimarket-index-index.page-products .products-grid .product-item {
+        //width: calc((100% - 15%)/5) !important;
+    }
+    
+    .digimarket-index-index .category-view {
+        display: block !important;
+        padding: 0;
+        margin: 15px auto 0 auto;
+        //max-width: 1075px;
+        //margin-left: -39px;
+    }
+    
+    .digimarket-index-index .sidebar-main .filter.block {
+        width: unset !important;
+    }
+    
+    .digimarket-index-index .toolbar-products {
+        //margin: 0 50px 0 -50px;
+        //padding: 0 15px;
+    }
+    
+    .digimarket-index-index .block-content.filter-content {
+        //margin-left: 30px;
+        //width: 210px !important;
+    }
+
+    .digimarket-index-index .block.filter {
+        padding-right: 0 !important;
+        //margin-right: 20px;
+    }
+
+    .digimarket-index-index .toolbar-amount {
+        padding: 0;
+        margin: 0 0 20px 0;
+        text-align: left;
+        //margin-left: 5px;
+    }
+    
+    .digimarket-index-index ol.products.items.product-items.-grid {
+        //margin-left: 20px;
+    }
+    
+    .digimarket-index-index .field.limiter {
+        display: none !important;
+    }
+    
+    .digimarket-index-index .pages {
+        float: right;
+    }
+
+    .digimarket-index-index .pages-items {
+        margin-right: 35px;
+        margin-bottom: 50px;
+    }
+
+    .digimarket-index-index .pages strong.page {
+        background: #ff3c00 !important;
+        color: #fff !important;
+    }
+    
+    .digimarket-index-index .pages {
+        float: right !important;
+    }
+
+    .digimarket-index-index .pages .page {
+        padding: 0 14px !important;
+    }
+
+    .digimarket-index-index .pages a.page {
+        color: #ff3c00;
+    }
+    
+    .digimarket-index-index .products.wrapper.products-widget.product-category-listing.grid.products-grid {
+        margin-left: -72px;
+        //width: 1320px !important;
+    }
+    
+    .digimarket-index-index.page-products .category-view .page-main {
+        display: block;
+    }
+    
+    .digimarket-index-index.page-products .category-view .page-title-wrapper {
+        display: none;
+    }
+    
+    .inner-search-container {
+        //margin-left: -38px;
+        margin-bottom: 15px;
+        //max-width: 100%;
+        display: flex;
+    }
+    
+    #inner-search {
+        border: 1px solid #cacaca !important;
+        border-radius: 5px;
+        border-right: 0 !important;
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    
+    #inner-search-button {
+        display: flex;
+        color: #727272;
+        border: 1px solid #cacaca;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        padding: 8px 15px;
+        cursor: pointer;
+        //margin-right: 15px;
+    }
+    
+    .inner-search-preloader {
+        display: none;
+        margin: auto;
+        margin-top: 100px;
+        margin-bottom: 200px;
+        vertical-align: middle;
+        border: 7px solid #f5f5f5;
+        border-radius: 50%;
+        border-top: 7px solid #000;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+    
+    #toolbar-inner-search {
+        display: none;
+    }
+    
+    .digimarket-index-index .product-item .price-box .old-price .price:before {
+        top: 17% !important;
+    }
+    
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+}
+
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+    @media only screen and (min-width: 768px) and (max-width: (1440px)) {
+        .inner-search-container {
+            margin-left: 15px;
+        }
+        
+        .digimarket-index-index .category-view {
+            background: #fff !important;
+        }
+        
+        .digimarket-index-index.page-products .category-view .page-main {
+            display: none;
+        }
+        
+        .digimarket-index-index .sidebar.sidebar-main {
+            display: none;
+        }
+    }
+    @media only screen and (min-width: 1680px) {
+        .digimarket-index-index .sidebar-main .filter.block {
+            margin-left: 50px;
+        }
+    }
+    @media only screen and (max-width: 1680px) {
+        .digimarket-index-index .sidebar-main .filter.block {
+            width: unset !important;
+            margin-left: 0;
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    
+    .digimarket-index-index.page-products .category-view .page-main {
+        display: none;
+    }
+    
+    .digimarket-index-index.page-products .category-view .page-title-wrapper {
+        display: block;
+    }
+    
+    .digimarket-index-index .products.wrapper.products-widget.product-category-listing.grid.products-grid {
+        margin-left: 0 !important;
+        width: 100% !important;
+    }
+    
+    .digimarket-index-index.page-products .products-grid .product-item {
+        width: 47.5% !important;
+    }
+    
+    .inner-search-container {
+        margin: 0 15px 15px 15px;
+        max-width: 100%;
+    }
+    
+    .digimarket-index-index .page-title-wrapper .base {
+        padding-left: 40px;
+    }
+    
+    #inner-search-button {
+        margin-right: 0;
+    }
+    
+}
+
+
+@media screen and (min-width: 1440px) and (max-width: (1560px)) {
+    .s19-rental-price-target {
+        // border: 1px solid #FF3000;
+        padding-top: 10px;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 15px;
+
+        p {
+            line-height: 10px;
+            font-size: 11px !important;
+        }
+    }
+}
+
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+}

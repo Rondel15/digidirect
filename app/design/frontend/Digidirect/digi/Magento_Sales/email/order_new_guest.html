@@ -1,0 +1,247 @@
+<!--@subject {{trans "Your %store_name order confirmation" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var formattedBillingAddress|raw":"Billing Address",
+"var order.getEmailCustomerNote()":"Email Order Note",
+"var order.getBillingAddress().getName()":"Guest Customer Name",
+"var order.getCreatedAtFormatted(2)":"Order Created At (datetime)",
+"var order.increment_id":"Order Id",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var payment_html|raw":"Payment Details",
+"var formattedShippingAddress|raw":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"var shipping_msg":"Shipping message"
+} @-->
+{{template config_path="design/email/header_template"}}
+<table class="order-main">
+    <tr>
+        <td class="email-title">
+            {{trans "Confirmation"}}
+        </td>
+    </tr>
+    <tr class="email-intro">
+        <td>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                            <tr>
+                                <td style="width:600px; padding:0px" class="padRemove">
+                                    <table width="100%" cellpadding="0" cellspacing="0" border="0" valign="top" align="center" class="mobiletable">
+                                        <tr>
+                                            <td class="padMobile">
+                                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                    <tr>
+                                                        <th class="mobileStack padRemove" valign="top" style="padding:0px 40px 0px 0px">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                <tr>
+                                                                    <td class="padBottom">
+                                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                            <tr>
+                                                                                <td align="left" style="padding:0px">
+                                                                                    <h1 style="color:#000000;font-size:20px;font-family:Arial,Helvetica,sans-serif;line-height:normal;margin:0;font-weight:bold;">
+                                                                                        Thank you for purchasing from digiDirect.
+                                                                                    </h1>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align="left" style="padding:23px 0px 0px">
+                                                                                    <p style="color:#000000;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:1.36;margin:0;font-weight:normal;">
+                                                                                        {{trans 'Once your package ships we will send you an email to confirm your shipment. If you have registered an account, you can log in to your account to <a href="%account_url" style="color:#000000;text-decoration:underline">track your order</a>.' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+                                                                                    </p>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td align="left" style="padding:18px 0px 0px">
+                                                                                    <p style="color:#000000;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:1.36;margin:0;font-weight:normal;">
+                                                                                        {{trans 'Don&#39;t have an account? <a href="%register_url" style="color:#000000;text-decoration:underline">Sign up</a> today, so you can track your next order and access all your orders and invoices at any time.' register_url=$this.getUrl($store,'customer/account/create/',[_nosid:1]) |raw}}
+                                                                                    </p>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                        <th class="mobileStack orderBoxPad" valign="middle" style="background-color:#252525; width:240px; padding: 0px 0px 0px">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable order-questions">
+                                                                <tr>
+                                                                    <td align="center">
+                                                                        <img src="{{view url='Magento_Email::images/email-question.png'}}" style="display:block; max-width:40px; color:#060e9f;" alt="phone" border="0" width="43" class="image-resize">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" style="padding:15px 0px 0px">
+                                                                        <h2 style="color:#ffffff;font-size:20px;font-family:Arial,Helvetica,sans-serif;line-height:24px;margin:0;font-weight:bold;">
+                                                                            Order Questions?
+                                                                        </h2>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" style="padding:23px 0px 0px">
+                                                                        <p style="color:#ffffff;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:17px;margin:0;font-weight:bold;">
+                                                                            {{trans 'Call %store_phone' store_phone=$store_phone |raw}}
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" style="padding:0px">
+                                                                        <p style="color:#ffffff;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:17px;margin:0;font-weight:normal;">
+                                                                            {{trans 'or email <a href="mailto:%store_email" style="color:#ffffff;text-decoration:underline">%store_email</a>' store_email=$store_email |raw}}
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="email-summary">
+        <td>
+            <h1>{{trans 'Order Summary'}}</h1>
+            <p class="order-number">{{trans 'Order #: <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}</p>
+            <p class="order-placed">{{trans 'Order Placed: <span class="no-link">%created_at</span>' created_at=$order.getCreatedAtFormatted(2) |raw}}</p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend order.getEmailCustomerNote()}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var order.getEmailCustomerNote()|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}}
+            {{layout handle="sales_email_order_items" order=$order}}
+            <table class="order-details">
+                <tr>
+                    <td class="address-details" style="padding-right:30px;">
+                        <h3>{{trans "Billing address"}}</h3>
+                        <p>{{var formattedBillingAddress|raw}}</p>
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="address-details -shipping">
+                        <h3>{{trans "Shipping address"}}</h3>
+                        <p>{{var formattedShippingAddress|raw}}</p>
+                    </td>
+                    {{/depend}}
+                </tr>
+                <tr>
+                    <td class="method-info">
+                        <h3>{{trans "Payment Method"}}</h3>
+                        {{var payment_html|raw}}
+                    </td>
+                    {{depend order.getIsNotVirtual()}}
+                    <td class="method-info" style="padding-right:30px;">
+                        <h3>{{trans "Shipping Method"}}</h3>
+                        <p>{{var order.getShippingDescription()}}</p>
+                        {{if shipping_msg}}
+                        <p>{{var shipping_msg}}</p>
+                        {{/if}}
+                    </td>
+                    {{/depend}}
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <table width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="border-bottom:1px solid #f5f5f5;">
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                            <tr>
+                                <td style="width:600px; padding:26px 0px 26px" class="">
+                                    <table width="100%" cellpadding="0" cellspacing="0" bgcolor="#f5f5f5" border="0" align="center" class="mobiletable">
+                                        <tr>
+                                            <td style="padding: 0px" class="padRemove">
+                                                <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                    <tr>
+                                                        <th align="left" style="width:50%;" width="50%" valign="top" class="mobileStack">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                <tr>
+                                                                    <td style="padding:20px 0;">
+                                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                            <tr>
+                                                                                <td style="padding:13px 15px;border-left:6px solid #222222;">
+                                                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <p style="color:#000000;font-size:22px;font-family:Arial,Helvetica,sans-serif;line-height:24px;margin:0;font-weight:bold;">
+                                                                                                    Have a question?
+                                                                                                </p>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                {{trans '<a href="%account_url" title="FAQS" style="color:#666666;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:24px;margin:0;font-weight:normal;text-decoration:none;">View our FAQs</a>' account_url=$this.getUrl($store,'faq',[_nosid:1]) |raw}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td align="center" valign="top" style="padding:0 20px 0 0">
+                                                                                    <img src="{{view url='Magento_Email::images/email-faq.png'}}" style="display:block; max-width:55px; color:#000000;" alt="questions" border="0" width="60">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                        <th align="left" style="width:50%;" width="50%" valign="top" class="mobileStack">
+                                                            <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                <tr>
+                                                                    <td style="padding:20px 0;">
+                                                                        <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                            <tr>
+                                                                                <td style="padding:13px 15px;border-left:6px solid #222222;">
+                                                                                    <table width="100%" cellpadding="0" cellspacing="0" border="0" align="center" class="mobiletable">
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <p style="color:#000000;font-size:22px;font-family:Arial,Helvetica,sans-serif;line-height:24px;margin:0;font-weight:bold;">
+                                                                                                    Manage my order
+                                                                                                </p>
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                {{trans '<a href="%account_url" style="color:#666666;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:24px;margin:0;font-weight:normal;text-decoration:none;">View My Account</a>' account_url=$this.getUrl($store,'customer/account/',[_nosid:1]) |raw}}
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>
+                                                                                </td>
+                                                                                <td align="center" valign="top" style="padding:0 16px 0 0">
+                                                                                    <img src="{{view url='Magento_Email::images/email-account.png'}}" style="display:block; max-width:38px; color:#000000;" alt="questions" border="0" width="60">
+                                                                                </td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </th>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+{{template config_path="design/email/footer_template"}}

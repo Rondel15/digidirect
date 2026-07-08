@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+
+        <referenceBlock name="my_order_item_group_info" remove="true" />
+
+        <referenceContainer name="content">
+            <container name="itemsGroupsContainer" htmlTag="div" htmlId="items-groups-container" htmlClass="items-groups-container" >
+                <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList" name="my_order_item_group_list" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/list.phtml">
+                    <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Pager" name="my_order_item_group_pager">
+                        <arguments>
+                            <argument name="path" xsi:type="string">myorderitems/myorderitems/index</argument>
+                        </arguments>
+                    </block>
+                    <block class="Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Info" name="my_order_item_group_info_override" template="Digidirect_MyOrderItems::customer/myorderitems/list/info-group.phtml">
+                        <arguments>
+                            <argument name="itemParameter" xsi:type="string">group_item_id</argument>
+                            <argument name="relatedProductsBlockName" xsi:type="string">group_item_related_products</argument>
+                            <argument name="productKey" xsi:type="string">group_product</argument>
+                        </arguments>
+                        <block class="Digidirect\MyOrderItemsGroups\Block\Product\ProductList\Related" name="group_item_related_products" template="Digidirect_MyOrderItems::customer/myorderitems/product/list/items.phtml">
+                            <arguments>
+                                <argument name="type" xsi:type="string">related</argument>
+                            </arguments>
+                        </block>
+                        <block class="Digidirect\MyOrderItemsGroups\Block\Product\ProductList\RelatedRules" name="group_item_related_products" template="Digidirect_MyOrderItems::customer/myorderitems/product/list/items.phtml">
+                            <arguments>
+                                <argument name="type" xsi:type="string">related-rule</argument>
+                            </arguments>
+                        </block>
+                    </block>
+                    <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups" name="my_order_item_groups" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/list/groups.phtml"/>
+                    <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups" name="my_order_item_groups_management" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/list/management.phtml"/>
+                    <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Sharing" name="my_order_item_groups_sharing" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/list/sharing.phtml" ifconfig="digidirect_social_sharing/general/enable">
+                        <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Sharing" name="digidirect.social.sharing.facebook.shelf" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/elements/facebook.phtml" ifconfig="digidirect_social_sharing/sharing_facebook/enable"/>
+                        <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Sharing" name="digidirect.social.sharing.pin.shelf" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/elements/pin.phtml" ifconfig="digidirect_social_sharing/sharing_pin/enable"/>
+                        <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Sharing" name="digidirect.social.sharing.twitter.shelf" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/elements/twitter.phtml" ifconfig="digidirect_social_sharing/sharing_twitter/enable"/>
+                    </block>
+                </block>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="myorderitems_list">
+            <block class="Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups" name="my_order_items_moving_item" template="Digidirect_MyOrderItemsGroups::customer/myorderitems/group/list/add-to-group.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

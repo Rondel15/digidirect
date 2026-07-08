@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Config\Block\System\Config\Form">
+        <plugin name="digidirect-add-extension-version" type="Digidirect\Utilities\Plugin\Magento\Config\Block\System\Config\Form" />
+    </type>
+    <type name="Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Fieldset\Modules\DisableOutput">
+        <plugin name="digidirect-add-disabled-config-module-version" type="Digidirect\Utilities\Plugin\Magento\Config\Block\System\Config\Fieldset\Modules\DisableOutputPlugin" />
+    </type>
+    <!-- Widget noroute layout handle fix -->
+    <type name="Magento\Widget\Model\ResourceModel\Widget\Instance">
+        <plugin name="change_handle_name" type="Digidirect\Utilities\Plugin\Magento\Widget\Model\ResourceModel\Widget\Instance" />
+    </type>
+    <type name="Digidirect\Utilities\Plugin\Magento\Widget\Model\ResourceModel\Widget\Instance">
+        <arguments>
+            <argument name="handlesToCorrect" xsi:type="array">
+                <item name="cms_index_noroute" xsi:type="string">cms_noroute_index</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- EOF Widget noroute layout handle fix  -->
+    <type name="Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Field\MessageIdentifiers">
+        <arguments>
+            <argument name="blockType" xsi:type="string">\Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Field\RendererType</argument>
+        </arguments>
+    </type>
+    <!-- Allowed file types for upload using WYSIWYG -->
+    <type name="Magento\Cms\Model\Wysiwyg\Images\Storage">
+        <plugin
+            name="DigidirectUtilities::MagentoCmsModelWysiwygImagesStoragePlugin"
+            sortOrder="10"
+            type="Digidirect\Utilities\Plugin\Magento\Cms\Model\Wysiwyg\Images\StoragePlugin"
+        />
+    </type>
+    <!-- Adding allowed mime type from Allowed file types for upload using WYSIWYG -->
+    <type name="Magento\Framework\File\Uploader">
+        <plugin
+            name="DigidirectUtilities::MagentoFrameworkFileUploaderPlugin"
+            sortOrder="10"
+            type="Digidirect\Utilities\Plugin\Magento\Framework\File\UploaderPlugin"
+        />
+    </type>
+    <type name="Magento\Framework\Image\Adapter\Gd2">
+        <plugin
+            name="DigidirectUtilities::MagentoFrameworkImageAdapterGd2Plugin"
+            sortOrder="10"
+            type="Digidirect\Utilities\Plugin\Magento\Framework\Image\Adapter\Gd2Plugin"
+        />
+    </type>
+    <type name="Magento\Cms\Block\Adminhtml\Wysiwyg\Images\Content\Files">
+        <plugin
+            name="DigidirectUtilities::MagentoCmsBlockAdminhtmlWysiwygImagesContentFilesPlugin"
+            sortOrder="10"
+            type="Digidirect\Utilities\Plugin\Magento\Cms\Block\Adminhtml\Wysiwyg\Images\Content\FilesPlugin"
+        />
+    </type>
+    <!-- Additional WYSIWYG Configs:  -->
+    <type name="Magento\Cms\Model\Wysiwyg\Config">
+        <plugin
+                name="DigidirectUtilities::MagentoCmsModelWysiwygConfig"
+                sortOrder="10"
+                type="Digidirect\Utilities\Plugin\Magento\Cms\Model\Wysiwyg\ConfigPlugin"
+        />
+    </type>
+
+    <!-- Allow to preview SVG files in WYSIWYG:  -->
+    <preference for="Magento\Cms\Controller\Adminhtml\Wysiwyg\Directive"
+                type="Digidirect\Utilities\Preference\Magento\Cms\Controller\Adminhtml\Wysiwyg\Directive"/>
+
+    <type name="Digidirect\Utilities\Preference\Magento\Cms\Controller\Adminhtml\Wysiwyg\Directive">
+        <arguments>
+            <argument name="xmlImageTypes" xsi:type="array">
+                <item name="image/svg+xml" xsi:type="string">image/svg+xml</item>
+                <item name="image/svg" xsi:type="string">image/svg</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

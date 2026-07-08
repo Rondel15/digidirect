@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="product_attribute_form_build_main_tab">
+        <observer name="digidirect_aa_form_build_main_tab" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\ProductAttributeFormBuildMainTab"/>
+    </event>
+    <event name="catalog_entity_attribute_save_after">
+        <observer name="digidirect_aa_attribute_save_after" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\CatalogEntityAttributeSaveAfter"/>
+        <observer name="digidirect_aa_attribute_save_options" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\CatalogEntityAttributeSaveOptions"/>
+    </event>
+    <event name="catalog_entity_attribute_load_after">
+        <observer name="digidirect_aa_attribute_load_after" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\CatalogEntityAttributeLoadAfter"/>
+    </event>
+    <event name="admin_system_config_changed_section_digidirect_aa_config">
+        <observer name="digidirect_aa_url_regenerate" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\SystemConfigUpdateAfter"/>
+    </event>
+    <event name="catalog_entity_attribute_delete_before">
+        <observer name="digidirect_aa_url_regenerate" instance="Digidirect\AbstractAttributes\Observer\Adminhtml\CatalogAttributeDeleteBefore"/>
+    </event>
+</config>

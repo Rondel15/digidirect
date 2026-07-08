@@ -1,0 +1,13 @@
+<?php /** @var Digidirect\CheckoutFields\Block\Pdp\Custom\Fields $block */ ?>
+<?php $customFields = $block->getCustomFields(); ?>
+
+<?php foreach ($customFields as $key => $_field): ?>
+<div class="digidirect_checkoutfields_custom_pdp_fields">
+    <input id="<?= /* @escapeNotVerified */ $key; ?>" name="<?= /* @escapeNotVerified */ $key; ?>"
+           form="<?= /* @escapeNotVerified */ $block::ADD_TO_CART_FORM_NAME; ?>" type="checkbox"/>
+
+    <label for="<?= /* @escapeNotVerified */ $key; ?>">
+        <?= /* @escapeNotVerified */ $_field['frontend_name']; ?>
+    </label>
+</div>
+<?php endforeach; ?>

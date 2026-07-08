@@ -1,0 +1,91 @@
+<?php
+/**
+ * Author: Rondel Y. Dalumpines
+ */
+
+?>
+
+<div class="digiseconds-listing" style="display: grid; grid-auto-rows: 100px;">
+
+<a href="https://digidirect.com.au/digiseconds/openbox">
+    <div class="digiseconds-menu">
+        <div role="img" class="digiseconds-menu-img" style="background-image: url('<?php echo $block->getUrl("media/wysiwyg/digiseconds/icons")?>nav-demo.png'); background-repeat: no-repeat; background-size: contain;" alt="Open Box"></div>
+        <span class="digiseconds-menu-description-wrapper">
+            <span class="digiseconds-menu-title">OPEN BOX</span><br>
+            <span class="digiseconds-menu-description">Package opended but product inside appears unused.</span>
+            <span class="digiseconds-get-started" style="color: #ff3c00; font-size: 12px; font-weight: 400;">Get Started</span>
+
+        </span>
+    </div>
+</a>
+    
+<a href="https://digidirect.com.au/digiseconds/preloved">
+    <div class="digiseconds-menu">
+        <div role="img" class="digiseconds-menu-img" style="background-image: url('<?php echo $block->getUrl("media/wysiwyg/digiseconds/icons")?>nav-pre-loved.png'); background-repeat: no-repeat; background-size: contain;" alt="Pre-Loved"></div>
+        <span class="digiseconds-menu-description-wrapper">
+            <span class="digiseconds-menu-title">PRE-LOVED</span><br>
+            <span class="digiseconds-menu-description">We buy used gears from our customers, fix and clean them up, then sell them back to you for a lower price.</span>
+            <span class="digiseconds-get-started" style="color: #ff3c00; font-size: 12px; font-weight: 400;">Get Started</span>
+
+        </span>
+    </div>
+</a>
+    
+<a href="https://digidirect.com.au/digiseconds/refurb">
+    <div class="digiseconds-menu">
+        <div role="img" class="digiseconds-menu-img" style="background-image: url('<?php echo $block->getUrl("media/wysiwyg/digiseconds/icons")?>nav-refurbished.png'); background-repeat: no-repeat; background-size: contain;" alt="Refurbished"></div>
+        <span class="digiseconds-menu-description-wrapper">
+            <span class="digiseconds-menu-title">REFURBISHED</span><br>
+            <span class="digiseconds-menu-description">We repaired it and restored it to it's original glory and beyond!</span>
+            <span class="digiseconds-get-started" style="color: #ff3c00; font-size: 12px; font-weight: 400;">Get Started</span>
+
+        </span>
+    </div>
+</a>
+
+</div>
+
+<style>
+.digiseconds-menu {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    margin-top: 12px !important;
+}
+
+.digiseconds-menu-img {
+    background-position: center;
+    height: 75px;
+}
+
+.digiseconds-menu-title {
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.digiseconds-menu-description {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.digiseconds-menu-description-wrapper {
+    padding-right: 10px;
+}
+
+.digiseconds-listing a {
+    text-decoration: none !important;
+}
+
+.digiseconds-listing a:hover {
+    transition: 0.3s;
+    background: #ff3c00 !important;
+}
+
+.digiseconds-listing a:hover * {
+    color: #fff !important;
+}
+
+.digiseconds-listing a:hover .digiseconds-get-started  {
+    text-decoration: underline;
+}
+
+</style>

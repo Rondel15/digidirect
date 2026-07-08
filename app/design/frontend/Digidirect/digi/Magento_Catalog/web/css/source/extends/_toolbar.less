@@ -1,0 +1,270 @@
+//
+//  Catalog: Toolbar
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+/*@catalog-toolbar__is-enabled: true;*/
+
+@catalog-toolbar__margin-bottom:  @layout__width-xs-indent;
+@catalog-toolbar__padding__l: 30px;
+@toolbar-amount__padding: 0;
+
+//  Pages
+//@catalog-toolbar-pages__display: none;
+
+//  Limiter
+@catalog-toolbar-limiter__display: none;
+@catalog-toolbar-limiter-control__display: inline-block;
+
+//  Sorter
+@catalog-toolbar-sorter__padding: 0;
+@catalog-toolbar-sorter__float__m: right;
+@catalog-toolbar-sorter-options__width: auto;
+@catalog-toolbar-sorter-options__margin: 0 0 0 7px;
+@catalog-toolbar-sorter-action__vertical-align: top;
+
+//  Sorter Icon
+@catalog-toolbar-sorter-action__use-base64: true;
+@catalog-toolbar-sorter-action-icon__width: 16px;
+@catalog-toolbar-sorter-action-icon__height: 16px;
+@catalog-toolbar-sorter-action-icon__margin: false;
+//@catalog-toolbar-sorter-action-icon__background-image: @base64-icon__arrow-up;
+@catalog-toolbar-sorter-action-icon__text-hide: true;
+@catalog-toolbar-sorter-desc-action__use-base64: true;
+//@catalog-toolbar-sorter-desc-action-icon__background-image: @base64-icon__arrow-down;
+
+//  Toolbar Bottom
+@catalog-toolbar-bottom-modes__display: none;
+@catalog-toolbar-bottom-amount__display: none;
+@catalog-toolbar-bottom-pages__display: block;
+@catalog-toolbar-bottom-pages__float__m: left;
+@catalog-toolbar-bottom-sorter__display: none;
+@catalog-toolbar-bottom-limiter__display__m: block;
+@catalog-toolbar-bottom-limiter__float__m: right;
+
+
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .toolbar-products {
+        & {
+            .lib-css(background-color, @color-white);
+            //.lib-css(margin-left, -@layout__width-xs-indent);
+            //.lib-css(margin-right, -@layout__width-xs-indent);
+        }
+
+        .desktop-row {
+            .lib-vendor-prefix-display(flex);
+        }
+
+        .desktop-row .toolbar-amount {
+            display: none;
+        }
+
+        .mobile-row {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .digidirect-lib-box-align(space-between);
+            .lib-css(border-bottom, 1px solid @color-4-3);
+            /*.lib-css(padding, @layout__width-xs-indent @layout__width-xs-indent 18px);*/
+        }
+
+        .page-title {
+            .lib-font-size(22);
+            .lib-css(font-weight, @font-weight__bold);
+            margin-bottom: 0;
+            padding-right: 30px;
+            line-height: 1.36;
+        }
+
+        .toolbar-sorter {
+            display: none;
+        }
+
+        .filter.-mobile,
+        .sorter.-mobile {
+            .lib-font-size(14);
+            .lib-css(font-weight, @font-weight__bold);
+            width: 50%;
+            padding: 16px 0 14px;
+            text-transform: uppercase;
+            line-height: 1;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .filter.-mobile {
+            .lib-css(border-right, 1px solid @color-4-3);
+            width: 30%;
+        }
+
+        .sorter-trigger {
+            .digidirect-lib-offcanvas-trigger-overlay-only();
+        }
+        
+        .sorter.-mobile {
+            //display: flex;
+            display: block;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+    
+        .sorter.-mobile > * {
+            flex-basis: 50%;
+        }
+    
+        .sorter.-mobile .sorter-trigger {
+            text-align: right;
+        }
+    
+        .sorter.-mobile .sorter-action {
+            text-align: left;
+        }
+        
+        .page-title-wrapper{
+            margin-left: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+    }
+
+    .sorter-container {
+        & {
+            padding: 0;
+        }
+
+        .heading {
+            padding: 32px 20px;
+            .lib-css(border-bottom, 1px solid @color-3-5);
+        }
+
+        .heading .label {
+            margin-right: 5px;
+            .lib-css(font-weight, @font-weight__bold);
+            text-transform: uppercase;
+        }
+
+        .sorter-options {
+            margin: 0;
+            padding: 0;
+        }
+
+        .sorter-options .item {
+            list-style: none;
+            padding: 15px 20px;
+            margin: 0;
+            .lib-css(border-bottom, 1px solid @color-3-5);
+            .lib-font-size(12);
+            cursor: pointer;
+        }
+
+        .sorter-options .item:hover {
+            .lib-css(background-color, @color-3-9);
+        }
+
+        .sorter-options .item.active {
+            .lib-css(background-color, @color-3-9);
+            .lib-css(font-weight, @font-weight__bold);
+        }
+    }
+    
+    .toolbar-products .modes {
+        display: none !important;
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .toolbar-products {
+        .mobile-row {
+            display: initial;
+            float: right;
+            border-bottom: none !important;
+        }
+        
+        .filter.-mobile {
+            width: 50% !important;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+/*.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+}*/
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+    .desktop-row {
+        width: 1200px !important;
+        margin-right: 0 !important;
+        margin-left: auto !important;
+    }
+    
+    .toolbar-products {
+        & {
+            //position: relative;
+        }
+
+        .desktop-row .toolbar-amount {
+            display: block;
+        }
+
+        .filter.-mobile,
+        .sorter.-mobile {
+            display: none;
+        }
+
+        .mobile-row {
+            padding: 0;
+            border-bottom: none; 
+            /*display: none;*/
+        }
+
+        .desktop-row {
+            .digidirect-lib-box-align(space-between);
+            padding: 0 0 18px 18px;
+            //visibility: hidden;
+        }
+
+        .toolbar-sorter {
+            .lib-vendor-prefix-display(flex);
+            align-items: center;
+            display: none;
+            //margin-right: 15px;
+        }
+
+        .page-title {
+            .lib-font-size(28);
+        }
+
+        .modes {
+            .lib-css(right, @catalog-toolbar__padding__l);
+            position: absolute;
+            bottom: 20px;
+        }
+    }
+    
+    .sorter-container {
+        display: none;
+    }
+}

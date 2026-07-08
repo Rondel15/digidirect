@@ -1,0 +1,32 @@
+<?php
+/**
+ * @var $block \Digidirect\CategoryFilter\Block\Category
+ */
+$category = $block->getCurrentCategory();
+$parentCategory = $category->getParentCategory();
+$childrenCollection = $block->getChildrenCategories();
+?>
+<div class="block-categories block">
+    <div class="title" data-toggle="dropdown" data-mage-init='{"dropdown":{"activeClass":"-active"}}'>
+        <span class="arrow">+</span>
+        <?php echo $block->escapeHtml($category->getName()); ?>
+    </div>
+    <div class="content" data-target="dropdown">
+        <ul class="items">
+            <?php foreach ($childrenCollection as $category) : ?>
+                <li class="item">
+                    <a href="<?php echo $block->escapeUrl($block->getCategoryUrl($category)) ?>" class="link" title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                        <?php echo $block->escapeHtml($category->getName()); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            <?php if ($block->showParentLink()): ?>
+                <li class="item">
+                    <a href="<?php echo $block->escapeUrl($block->getCategoryUrl($parentCategory)) ?>" class="link -all" title="<?php echo $block->escapeHtml(__("See All: %1", $parentCategory->getName())) ?>">
+                        <?php echo $block->escapeHtml(__("See All: %1", $parentCategory->getName())) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>

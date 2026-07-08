@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="digidirect" translate="label" sortOrder="10">
+            <label>Digidirect</label>
+        </tab>
+        <section id="digidirect_ai" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <label>Abstract Integration</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_AI::menu</resource>
+            <group id="backups" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Backups</label>
+                <field id="backups_path" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Path for backup files</label>
+                    <comment>All backup files of all integrations processes will be moved to {backups_path} / + {process_name} / {date_time_of_running}.txt</comment>
+                </field>
+            </group>
+            <group id="logs" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Logs</label>
+                <field id="remove_db_logs_older_than_days" translate="label comment" type="text" sortOrder="4" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Remove DB logs older than X days</label>
+                    <comment>disabled if empty</comment>
+                    <validate>validate-number validate-greater-than-zero validate-digits</validate>
+                </field>
+                <field id="remove_logs_cron_expr" translate="label comment" type="text" sortOrder="5" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Remove DB logs cron schedule</label>
+                </field>
+                <field id="logs_path" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Path for log files</label>
+                    <comment>All log files of all integrations processes will be moved to {logs_path} / "digidirect_integrations_logs" / {process_name} / {date_time_of_running}.txt</comment>
+                </field>
+                <field id="backup_logs_path" translate="label comment" type="text" sortOrder="11" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Path for log files backups</label>
+                    <comment>All log files of all integrations processes will be moved to {backup_logs_path} / + {process_name} / {date_time_of_running}.gz</comment>
+                </field>
+                <field id="cron_expr" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Backup run schedule</label>
+                </field>
+                <field id="logs_files_backup_days" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Days count after logs file should be moved to archive</label>
+                    <comment>All log files archives will be placed {logs_path} / + {process_name} / backups / {date}.tar</comment>
+                </field>
+                <field id="logs_email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Logs Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="exceptions" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Exceptions</label>
+                <field id="exceptions_emails" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Emails list for Integrations Fails Notifications</label>
+                    <comment>Use comma for list.</comment>
+                </field>
+                <field id="fail_run_email_template" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Emails Template for Integrations Fails Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="queue" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Integration Queuing</label>
+                <field id="cron_expr" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Run Schedule</label>
+                </field>
+                <field id="number_of_attempts" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Number of Runs On Error</label>
+                    <validate>required-entry validate-number validate-greater-than-zero validate-digits</validate>
+                </field>
+                <field id="number_of_attempts_per_process" translate="label comment" sortOrder="310" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Number of Runs On Error (Per Integration Process)</label>
+                    <frontend_model>Digidirect\AI\Block\Adminhtml\Config\IntegrationSelectToText</frontend_model>
+                    <backend_model>Digidirect\Utilities\Model\System\Config\Backend\DefaultOptionModel</backend_model>
+                    <comment>will override setting `Number of Runs On Error` if specified</comment>
+                </field>
+                <field id="interval_of_attempts" translate="label comment" type="text" sortOrder="400" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Generate Run On Error Every</label>
+                    <validate>required-entry validate-number validate-greater-than-zero validate-digits</validate>
+                    <comment>interval in seconds</comment>
+                </field>
+                <field id="interval_of_attempts_for_pending_depends" translate="label comment" type="text" sortOrder="410" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Generate Run On Error Every (for Pending Depends)</label>
+                    <validate>required-entry validate-number validate-greater-than-zero validate-digits</validate>
+                    <comment>interval in seconds</comment>
+                </field>
+                <field id="fail_emails" translate="label comment" type="text" sortOrder="500" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Emails list for Queue Fails Notifications</label>
+                    <comment>Use comma for list.</comment>
+                </field>
+                <field id="fail_email_template" translate="label comment" type="select" sortOrder="510" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Emails Template for Queue Fails Notifications</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

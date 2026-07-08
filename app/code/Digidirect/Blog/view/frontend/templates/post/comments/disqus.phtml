@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Comments\Disqus $block
+ */
+?>
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = "<?php echo $block->escapeUrl($block->getPost()->getViewUrl()) ?>";
+        this.page.identifier = "<?php echo $block->escapeUrl($block->getPost()->getUrlKey()) ?>"
+    };
+
+    (function () {
+        var d = document, s = d.createElement('script');
+        s.src = '//<?php echo $block->escapeHtml($block->getShortName()); ?>.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>

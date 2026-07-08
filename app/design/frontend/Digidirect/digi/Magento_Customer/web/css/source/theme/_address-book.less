@@ -1,0 +1,77 @@
+//
+//  My Account: address book
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .account {
+        .box-address-billing {
+            padding-bottom: 15px;
+        }
+
+        .block-addresses-list .empty {
+            padding-top: 15px;
+        }
+
+        .items.addresses .box {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            padding: 20px 0;
+        }
+
+        .block-addresses-list .actions-toolbar {
+            margin-top: 20px;
+        }
+
+        .block-addresses-default {
+            margin-bottom: 10px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account {
+        .box-address-billing {
+            padding-bottom: 0;
+        }
+
+        .items.addresses .box {
+            border-bottom: none;
+            padding: 15px 0 10px;
+        }
+
+        .primary .add {
+            width: 145px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .account {
+        .items.addresses .box {
+            padding: 15px 0;
+        }
+
+        .block-addresses-list .actions-toolbar {
+            margin-top: 25px;
+        }
+
+        &.customer-address-index .box .box-actions {
+            margin: 25px 0 0;
+        }
+    }
+}

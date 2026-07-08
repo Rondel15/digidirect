@@ -1,0 +1,41 @@
+<div class="qff-content" data-role="content">
+    <span class="form-title">Earn Points</span>
+    <form id="qff-form" class="form" novalidate="novalidate">
+        <div class="qantas-promo-box">
+            <img class="qantas-logo "data-bind="attr: { src: require.toUrl('images/qff-logo.svg') }" />
+            <span><strong>Earn <span data-bind='text: getPromotionPoints()'></span> Qantas Points</strong> per $1 spent when you add a valid Qantas Frequent Flyer number.</a>
+            <a href="/qantas" target="_blank" rel="noopener">Learn more</a>
+        </div>
+        
+        <fieldset class="fieldset create info">
+            <div class="field">
+                <label for="qff_number" class="label">Qantas Frequent Flyer Number</label>
+                <div class="control">
+                    <input type="text" 
+                           name="qff_number" 
+                           id="qff_number" 
+                           title="Qantas Frequent Flyer Number" class="input-text"
+                           />
+                </div>
+            </div>
+            <div class="field">
+                <label for="qff_lastname" class="label">Qantas Frequent Flyer Last Name</label>
+                <div class="control">
+                    <input type="text" 
+                           name="qff_lastname" 
+                           id="qff_lastname" 
+                           title="Qantas Frequent Flyer Last Name" 
+                           class="input-text"
+                          />
+                </div>
+            </div>
+        </fieldset>
+        <div class="qff-trigger">
+            <div class="primary qff-action-container">
+                <button id="qff-trigger" data-bind="click: validate(),clickBubble: false" type="button" class="action action-add primary">
+                    <span>Validate</span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_CheckoutFields:etc/checkout_fields.xsd">>
+    <!-- EXAMPLE TEXT: -->
+    <field id="options_test">
+        <frontend_name>Delivery Type</frontend_name>
+        <frontend_input>select</frontend_input>
+        <sort_order>0</sort_order>
+        <validation>
+            <rule name="required-entry">1</rule>
+            <rule name="validate-email">1</rule>
+        </validation>
+        <area>
+            <checkout_step>shipping-step</checkout_step>
+            <custom_scope>shippingAddress</custom_scope>
+            <fieldset>address-list-additional-addresses</fieldset>
+        </area>
+        <options>
+            <option value="1" label="Test Label 1" />
+            <option value="2" label="Test Label 2" />
+        </options>
+    </field>
+</config>

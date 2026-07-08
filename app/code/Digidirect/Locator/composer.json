@@ -1,0 +1,16 @@
+{
+  "name": "Digidirect/locator",
+  "type": "magento2-module",
+  "description": "Digidirect Locator Module",
+  "version": "1.7.1.0",
+  "suggest": {
+    "Digidirect/utilities": "Digidirect Locator may use Digidirect/utilities methods",
+    "Digidirect/googleapi": "Digidirect Locator does use Digidirect/googleapi methods."
+  },
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\Locator\\": ""
+    }
+  }
+}

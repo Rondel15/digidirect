@@ -1,0 +1,136 @@
+//
+//  Customer: Account navigation
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .account .sidebar-main {
+        & {
+            margin: 0;
+            width: 100%;
+        }
+
+        .account-nav,
+        .nav.item.current,
+        .nav.item.current + .nav.item.-icon {
+            display: none;
+        }
+    }
+
+    .account-orders .sidebar-main {
+        .nav.item.current,
+        .nav.item.current + .nav.item.-icon {
+            display: block;
+            background: transparent;
+            border-bottom-width: 1px;
+
+            &::after {
+                display: none;
+            }
+        }
+    }
+
+    .account .navigation {
+        & {
+            padding: 0;
+        }
+
+        .nav.item {
+            z-index: 2;
+            position: relative;
+            padding: 0;
+        }
+
+        .nav.item:not(.-icon) a {
+            display: block;
+        }
+
+        .nav.item:not(.-icon) a {
+            padding: 16px 0 17px 70px;
+        }
+
+        .nav.item.-icon {
+            position: absolute;
+            z-index: 9;
+            display: inline-block;
+            margin-left: 20px;
+            margin-bottom: 0;
+            padding: 10px 0 12px;
+            transform: translateY(-100%);
+            border-bottom: none;
+        }
+
+        .-account .svg-icon,
+        .-newsletter .svg-icon,
+        .svg-icon.-account,
+        .svg-icon.-newsletter {
+            width: 26px;
+            height: 26px;
+        }
+
+        .block-collapsible-nav-title {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+        }
+
+        .svg-icon-arrow-down {
+            .lib-transition(transform);
+            transform: rotate(-90deg);
+            margin-left: auto;
+            width: 20px;
+            height: 20px;
+        }
+
+        .svg-icon.-main {
+            margin-right: 16px;
+        }
+
+        .block-collapsible-nav-title.active .svg-icon-arrow-down {
+            transform: rotate(90deg);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .account .navigation {
+        .block-collapsible-nav-content,
+        .nav.item.current,
+        .nav.item.current + .nav.item.-icon {
+            display: block;
+        }
+
+        .nav.item:not(.-icon) a,
+        .nav.item.current {
+            padding: 19px 0 21px 40px;
+        }
+
+        .nav.item.current a {
+            padding: 0;
+        }
+
+        .nav.item.-icon {
+            margin-left: 0;
+        }
+
+        .nav.item.-icon:hover::after {
+            display: none;
+        }
+
+        .nav.item.-icon {
+            padding: 12px 0 14px;
+            background-color: transparent;
+            border: none;
+        }
+    }
+}

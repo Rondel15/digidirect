@@ -1,0 +1,24 @@
+<div class="cross close" title="{{text_cancel}}">&#10005;</div>
+<div class="prnp-title">
+    <div class="price-off"></div>
+    <span>{{text_title}}</span>
+</div>
+
+<div class="newspopup-descr">{{text_description}}</div>
+
+<form class="newspopup_up_bg_form" method="POST">
+    <div class="newspopup-left-col">
+        {{form_fields}}
+    </div>
+    <div class="newspopup-right-col">
+        <div class="newspopup-right-col-wrapper">
+            <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                {{text_submit}}
+            </a>
+            <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme9_loader.gif"}}" style="display: none;" class="ajax-loader" />
+        </div>
+    </div>
+    <div class="pl-clearfix"></div>
+    {{contact_lists}}
+</form>
+<a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}" target="_blank" class="privacy-policy">Privacy Policy</a>

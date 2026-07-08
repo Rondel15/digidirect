@@ -1,0 +1,224 @@
+//
+//  Navigation: Default
+//  _____________________________________________
+
+@navigation__is-enabled: false; // Disable styles of default Magento Navigation
+
+@nav-menu-wrapper-selector: ~'.menu-wrapper';
+
+@nav-menu-wrapper__position: false;
+@nav-menu-wrapper__max-width: @layout__max-width - (@layout-indent__width * 2);
+@nav-menu-wrapper__position__m: relative;
+@nav-menu-wrapper__margin: 0 auto;
+@nav-menu-wrapper__padding: 0;
+@nav-menu-wrapper__list-style: none;
+
+@menu__margin: 0;
+@menu__padding: 0;
+@menu__list-style: none;
+
+@menu-item__position: relative;
+@menu-item__position__m: static;
+@menu-item__margin: 0;
+@menu-item__padding: 0;
+
+@menu-item-link__display: block;
+@menu-item-link__padding: false;
+@menu-item-link__font-weight: false;
+@menu-item-link__font-size: false;
+@menu-item-link__line-height: false;
+@menu-item-link__text-decoration: none;
+@menu-item-link__word-wrap: break-word;
+@menu-item-link__color: false;
+@menu-item-link__cursor: pointer;
+
+//  Level 0
+@menu-item-level0__border-bottom: 1px solid @color-3-5;
+@menu-item-level0__border-bottom__m: 0;
+@menu-item-link-level1__display: false;
+@menu-item-link-level1__margin: false;
+@menu-item-link-level1__padding: 20px;
+@menu-item-link-level1__padding__m: 20px 10px;
+@menu-item-link-level1__font-size: 14px;
+@menu-item-link-level1__font-weight: 700;
+@menu-item-link-level1__line-height: 20px;
+@menu-item-link-level1__line-height__m: 17px;
+@menu-item-link-level1__text-align: false;
+@menu-item-link-level1__text-align__m: center;
+@menu-item-link-level1__text-transform: uppercase;
+@menu-item-link-level1__color: @text__color;
+@menu-item-link-level1__background-color: false;
+
+//  Level 0: Hover + Open states
+@menu-item-link-level1__hover__color: @color-black;
+@menu-item-link-level1__hover__background-color: @color-white;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    @{nav-menu-wrapper-selector} {
+        & {
+            .lib-css(position, @nav-menu-wrapper__position);
+            .lib-css(max-width, @nav-menu-wrapper__max-width);
+            .lib-css(margin, @nav-menu-wrapper__margin);
+            .lib-css(padding, @nav-menu-wrapper__padding);
+            .lib-css(list-style, @nav-menu-wrapper__list-style);
+        }
+
+        .menu {
+            .lib-css(margin, @menu__margin);
+            .lib-css(padding, @menu__padding);
+            .lib-css(list-style, @menu__list-style);
+        }
+
+        .item {
+            .lib-css(position, @menu-item__position);
+            .lib-css(margin, @menu-item__margin);
+            .lib-css(padding, @menu-item__padding);
+        }
+
+        .item > .link {
+            .lib-css(display, @menu-item-link__display);
+            .lib-css(padding, @menu-item-link__padding);
+            .lib-css(font-weight, @menu-item-link__font-weight);
+            .lib-css(font-size, @menu-item-link__font-size);
+            .lib-css(line-height, @menu-item-link__line-height);
+            .lib-css(text-decoration, @menu-item-link__text-decoration);
+            .lib-css(word-wrap, @menu-item-link__word-wrap);
+            .lib-css(color, @menu-item-link__color);
+            .lib-css(cursor, @menu-item-link__cursor);
+        }
+
+        .item.-added > .link {
+            font-weight: 500;
+            font-size: 15px;
+            text-decoration: underline;
+            .lib-css(color, @link__hover__color);
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        > .item {
+            .lib-css(border-bottom, @menu-item-level0__border-bottom);
+        }
+
+        > .item > .link {
+            .lib-css(display, @menu-item-link-level1__display);
+            .lib-css(margin, @menu-item-link-level1__margin);
+            .lib-css(padding, @menu-item-link-level1__padding);
+            .lib-css(font-size, @menu-item-link-level1__font-size);
+            .lib-css(font-weight, @menu-item-link-level1__font-weight);
+            .lib-css(line-height, @menu-item-link-level1__line-height);
+            .lib-css(text-align, @menu-item-link-level1__text-align);
+            .lib-css(text-transform, @menu-item-link-level1__text-transform);
+            .lib-css(color, @menu-item-link-level1__color);
+            .lib-css(background-color, @menu-item-link-level1__background-color);
+        }
+
+        > .item.-open > .link,
+        > .item > .link:hover {
+            .lib-css(color, @menu-item-link-level1__hover__color);
+            .lib-css(background-color, @menu-item-link-level1__hover__background-color);
+        }
+    }
+    
+    .category-tabs-second-level .mgz-tabs-nav .mgz-tabs-tab-title span {
+        display: inline-block !important;
+    }
+
+    .category-tabs-second-level .mgz-tabs-nav .mgz-tabs-tab-title a {
+        background: unset !important;
+        padding: 10px 0 !important;
+        margin-left: 10px;
+        border: none !important;
+    }
+
+    .category-tabs-second-level .mgz-tabs-nav .mgz-tabs-tab-title.retract {
+        width: 100% !important;
+    }
+    
+    #switcher-language-nav {
+        display: none;
+    }
+}
+
+//
+//  L -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    @{nav-menu-wrapper-selector} {
+        > .item > .link[style*='background-image'] {
+            padding-left: 70px;
+            background-size: 38px;
+            background-repeat: no-repeat;
+            background-position: 14px 50%;
+        }
+
+        > .item.-parent > .link {
+            position: relative;
+            padding-right: 40px;
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 50%;
+                right: 20px;
+                width: 11px;
+                height: 20px;
+                background-size: auto 100%;
+                .lib-css(background-image, @base64-icon__right);
+                background-repeat: no-repeat;
+                background-position: 0 0;
+                transform: translateY(-50%);
+            }
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    @{nav-menu-wrapper-selector} {
+        & {
+            .lib-css(position, @nav-menu-wrapper__position__m);
+        }
+
+        .item {
+            .lib-css(position, @menu-item__position__m);
+        }
+
+        > .item {
+            .lib-css(border-bottom, @menu-item-level0__border-bottom__m);
+            width: 100%;
+        }
+
+        > .item > .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            .lib-css(padding, @menu-item-link-level1__padding__m);
+            .lib-css(line-height, @menu-item-link-level1__line-height__m);
+            .lib-css(text-align, @menu-item-link-level1__text-align__m);
+        }
+
+        .prevented {
+            pointer-events: none;
+        }
+
+        &.-expanded .prevented {
+            pointer-events: auto;
+        }
+
+        > .item > .link[style*='background-image'] {
+            background-image: none !important; // Override inline styles from BO
+        }
+    }
+}

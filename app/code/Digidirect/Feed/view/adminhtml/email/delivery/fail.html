@@ -1,0 +1,14 @@
+<!--@subject Unable to delivery feed "{{var feed.name}}" @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1>{{var feed.name}}</h1>
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0">
+    <tr>
+        <th align="left" nowrap>{{trans "Error Message"}}</th>
+        <td>{{var error}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

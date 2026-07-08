@@ -1,0 +1,20 @@
+<div class="prnp-title">{{text_title}}</div>
+<div class="border-title">
+    <span class="border-title-line"></span>
+    <span class="border-title-circle"></span>
+    <span class="border-title-line"></span>
+</div>
+<div class="newspopup-descr">
+    {{text_description}}
+</div>
+<form class="newspopup_up_bg_form" method="POST">
+    {{form_fields}}
+
+    <div style="position: relative; margin-top: 10px;">
+        <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+            {{text_submit}}
+        </a>
+        <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme12_loader.gif"}}" title="" style="display: none;" class="ajax-loader" />
+    </div>
+</form>
+<div class="cross close" title="{{text_cancel}}">&#10005;</div>

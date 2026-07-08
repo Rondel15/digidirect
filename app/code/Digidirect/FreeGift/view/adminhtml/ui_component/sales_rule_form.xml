@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="actions">
+        <field name="simple_action">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="string">0</item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[type]">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Type</item>
+                    <item name="dataType" xsi:type="string">number</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[type]</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="sortOrder" xsi:type="string">1</item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[sku]">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Promo Items</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="notices" xsi:type="array">
+                        <item name="0" xsi:type="string" translate="true">Comma separated list of the SKUs</item>
+                    </item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[sku]</item>
+                    <item name="default" xsi:type="string"></item>
+                    <item name="sortOrder" xsi:type="string">2</item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[enable_on_pdp]">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Enable Free Gift Block On Product Detail</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="sortOrder" xsi:type="number">3</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[show_desc_on_pdp]">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Show description on product details</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="sortOrder" xsi:type="number">4</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[show_desc_on_pdp]</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[description_label]">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Description Label on Product details page</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="sortOrder" xsi:type="number">5</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="wysiwyg" xsi:type="boolean">true</item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[description_label]</item>
+                    <item name="rows" xsi:type="number">8</item>
+                    <item name="template" xsi:type="string">ui/form/field</item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[is_hidden_for_customer]">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="dataType" xsi:type="string">int</item>
+                    <item name="label" xsi:type="string" translate="true">Hide on frontend</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="sortOrder" xsi:type="number">9</item>
+                    <item name="default" xsi:type="string">0</item>
+                    <item name="validation" xsi:type="array">
+                        <item name="required-entry" xsi:type="boolean">true</item>
+                    </item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[cart_message]">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Message For The Free Item In The Cart</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[cart_message]</item>
+                    <item name="default" xsi:type="string"></item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                </item>
+            </argument>
+        </field>
+        <field name="freegiftrule[prefix]">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Prefix For The Free Item Name In The Order</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">sales_rule</item>
+                    <item name="dataScope" xsi:type="string">freegiftrule[prefix]</item>
+                    <item name="default" xsi:type="string"></item>
+                    <item name="sortOrder" xsi:type="string">11</item>
+                </item>
+            </argument>
+        </field>
+        <container name="instruction">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">35</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Digidirect\FreeGift\Block\Adminhtml\SalesRule\Instruction</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

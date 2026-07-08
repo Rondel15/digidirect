@@ -1,0 +1,14 @@
+{
+  "name": "digidirect/addressverification",
+  "description": "Address suggestions with Google places API",
+  "type": "magento2-module",
+  "version": "2.0.11.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\AddressVerification\\": ""
+    }
+  }
+}

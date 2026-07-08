@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="container.remove.cart.item.message" htmlTag="div" htmlClass="cartrule-message" before="-">
+                <block name="cart.remove_cart_item.message" class="Digidirect\ExtendedCartPriceRules\Block\RemoveCartItem\Message"  template="Digidirect_ExtendedCartPriceRules::cart/remove_cart_item/message.phtml" />
+            </container>
+        </referenceContainer>
+    </body>
+</page>

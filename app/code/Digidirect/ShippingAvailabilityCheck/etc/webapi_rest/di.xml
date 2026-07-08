@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\ShippingAvailabilityCheck\Api\CheckManagementInterface" type="Digidirect\ShippingAvailabilityCheck\Model\CheckManagement"/>
+    <preference for="Digidirect\ShippingAvailabilityCheck\Api\Data\ProductDataInterface" type="Digidirect\ShippingAvailabilityCheck\Model\ProductData"/>
+    <preference for="Digidirect\ShippingAvailabilityCheck\Api\QuoteManagementInterface" type="Digidirect\ShippingAvailabilityCheck\Model\QuoteManagement"/>
+    <preference for="Digidirect\ShippingAvailabilityCheck\Api\Data\ShippingMethodInterface" type="Digidirect\ShippingAvailabilityCheck\Model\Cart\ShippingMethod"/>
+    <preference for="Digidirect\ShippingAvailabilityCheck\Api\QuoteRepositoryInterface" type="Digidirect\ShippingAvailabilityCheck\Model\QuoteRepository"/>
+
+    <type name="Digidirect\ShippingAvailabilityCheck\Model\Quote">
+        <arguments>
+            <argument name="resource" xsi:type="object">Digidirect\ShippingAvailabilityCheck\Model\ResourceModel\Quote</argument>
+        </arguments>
+    </type>
+</config>

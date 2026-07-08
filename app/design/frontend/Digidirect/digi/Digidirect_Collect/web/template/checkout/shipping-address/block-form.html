@@ -1,0 +1,45 @@
+<input type="hidden" value="" name="collect_place_storage_name" id="collect_place_storage_name"/>
+<input type="hidden" value="" name="collect_quote_item_id" id="collect_quote_item_id"/>
+
+<!-- ko if: collectPlaces().length > 0 -->
+    <div class="collect-preselect">
+        <span class="title" data-bind="i18n: 'You selected place:'"></span>
+        <b class="name" data-bind="text: collectPlaces()[0].collect_place_name"></b>
+    </div>
+<!-- /ko -->
+
+<form class="form" data-bind='mageInit: {"validation": {}}'>
+    <div class="fieldset">
+        <div class="field required">
+            <label for="collect_distance" class="label" data-bind="i18n: 'Distance'"></label>
+            <div class="control">
+                <select name="collect_distance" id="collect_distance" data-bind="foreach: { data: distanceList, as: 'item'}">
+                    <option data-bind="value: item, text: item"></option>
+                </select>
+            </div>
+        </div>
+        <div class="field required">
+            <label for="collect_postcode" class="label" data-bind="i18n: 'Postcode'"></label>
+            <div class="control">
+                <input type="text" name="postcode" id="collect_postcode" data-validate='{required: true}'/>
+            </div>
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button type="submit" class="action secondary" data-bind="click: searchCollectPlaces.bind($data, $element, event), attr: {'title': 'Search'}, i18n: 'Search'"></button>
+            </div>
+            <div class="secondary">
+                <button type="button" class="action primary" data-bind="click: submitCollect.bind($data, $element, event), attr: {'title': 'Buy and Collect'}, i18n: 'Buy and Collect'"></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- ko if: collectPlaceRows().length > 0 -->
+    <ul class="place-rows items" data-bind="foreach: { data: collectPlaceRows, as: 'row'}">
+        <li class="item">
+            <input type="radio" name="collect_place_id" data-bind="click: $parent.updateStorageName.bind($parent, row.collectplace.id), attr: {'id': row.collectplace.id, 'value': row.collectplace.id, 'data-collectplace-storage-name': row.collectplace_storage_name, 'disabled': !row.available}"/>
+            <label data-bind="attr: {'for': row.collectplace.id}, text: row.collectplace.name + ' (' + row.distance + (row.length_unit ? row.length_unit : '') + ') ' + (row.show_availability ? (row.available ? $t('Available in store') : $t('Unavailable in store')) : '')"></label>
+        </li>
+    </ul>
+<!-- /ko -->

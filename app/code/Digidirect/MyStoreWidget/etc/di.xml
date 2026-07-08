@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\MyStoreWidget\Api\MyStoreRepositoryInterface" type="Digidirect\MyStoreWidget\Model\MyStoreRepository"/>
+    <preference for="Digidirect\MyStoreWidget\Api\Data\MyStoreSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Digidirect\MyStoreWidget\Api\Data\MyStoreInterface" type="Digidirect\MyStoreWidget\Model\MyStore"/>
+
+    <type name="Digidirect\MyStoreWidget\Model\ResourceModel\MyStoreIndex">
+        <arguments>
+            <argument name="rangeAttributes" xsi:type="array">
+                <item name="postcode" xsi:type="string">postcode</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\MyStoreWidget\Helper\Data">
+        <arguments>
+            <argument name="customerSessionFactory" xsi:type="object">Digidirect\MyStoreWidget\Model\Customer\SessionFactory</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\MyStoreWidget\Block\MyStore">
+        <arguments>
+            <argument name="customerSessionFactory" xsi:type="object">Digidirect\MyStoreWidget\Model\Customer\SessionFactory</argument>
+        </arguments>
+    </type>
+</config>

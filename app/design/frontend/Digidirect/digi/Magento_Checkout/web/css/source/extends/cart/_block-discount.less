@@ -1,0 +1,152 @@
+//
+//  Cart: Discount Block
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@discount-button__padding-left: 10px;
+@discount-button__width: 110px;
+@discount-field__width: calc(~'100% - @{discount-button__width}');
+@discount-button__width__m: 150px;
+@discount-field__width__m: calc(~'100% - @{discount-button__width__m}');
+@discount-button__padding-left__l: 20px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .cart-summary .block.discount {
+        &.active > .title {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+        }
+
+        > .title .name {
+            .lib-font-size(13);
+            .lib-css(font-weight, @font-weight__heavier);
+            text-transform: none;
+        }
+
+        > .title::after {
+            width: 20px;
+            height: 11px;
+            top: 21px;
+            transform: none;
+        }
+
+        > .title::before {
+            display: none;
+        }
+
+        .fieldset {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(flex-end);
+            position: relative;
+        }
+
+        .fieldset .field {
+            .lib-css(width, @discount-field__width);
+            margin-bottom: 0;
+            position: relative;
+        }
+
+        .actions-toolbar {
+            .lib-css(padding-left, @discount-button__padding-left);
+            .lib-css(width, @discount-button__width);
+        }
+
+        .action {
+            width: 100%;
+        }
+
+        .block.giftcard .fieldset {
+            margin-bottom: 0;
+        }
+
+        .fieldset.coupon {
+            margin-top: 0;
+        }
+
+        .control .input-text + .mage-error {
+            position: absolute;
+            bottom: -15px;
+            white-space: nowrap;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cart-summary .block.discount {
+        > .title .name {
+            .lib-font-size(14) !important;
+            font-weight: bold !important;
+        }
+
+        .actions-toolbar {
+            .lib-css(width, @discount-button__width__m);
+        }
+
+        .action {
+            .lib-font-size(14);
+            padding: 13px 15px 12px;
+        }
+
+        .block.giftcard .label,
+        .fieldset.coupon .label {
+            .lib-font-size(13);
+            padding: 0 !important;
+        }
+
+        .block.giftcard .fieldset {
+            margin-top: 10px;
+        }
+
+        .fieldset.coupon {
+            margin-top: 15px;
+            margin-bottom: 33px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .cart-summary .block.discount {
+        > .title {
+            padding: 14px 0 12px;
+        }
+
+        > .title .name {
+            .lib-font-size(16);
+        }
+
+        > .title::after {
+            top: 18px;
+        }
+
+        .block.giftcard .label,
+        .fieldset.coupon .label {
+            .lib-font-size(14);
+        }
+
+        .actions-toolbar {
+            .lib-css(padding-left, @discount-button__padding-left__l);
+        }
+
+        .action {
+            .lib-font-size(16);
+            padding: 16px 15px 14px;
+        }
+
+        .fieldset.coupon {
+            margin-bottom: 22px;
+        }
+    }
+}

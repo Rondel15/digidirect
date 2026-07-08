@@ -1,0 +1,90 @@
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .wishlist-header {
+        & {
+            position: relative;
+            margin: 0;
+            width: 100%;
+        }
+
+        .link {
+            .lib-css(top, @indent__base);
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__heavier);
+            .lib-css(color, @color-white);
+        }
+    }
+
+    .form-wishlist-items .actions-toolbar {
+        & {
+            .lib-css(background-color, @color-white);
+            .lib-css(padding, @indent__m @indent__m 0);
+        }
+
+        .action.share,
+        .action.tocart {
+            display: none;
+        }
+    }
+
+    .toolbar.wishlist-toolbar {
+        .lib-css(background-color, @color-white);
+        .lib-css(padding, 0 @indent__m @indent__m);
+        .lib-css(margin-bottom, @indent__m);
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .wishlist-header {
+        .link {
+            position: absolute;
+        }
+
+        .link.-share {
+            .lib-css(left, @indent__m);
+        }
+
+        .link.-tocart {
+            .lib-css(right, @indent__m);
+        }
+
+        .link.-update {
+            display: none;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .wishlist-header {
+        .actions-toolbar {
+/*            .digi-lib-center(@horizontal:false, @vertical:true);
+            .lib-css(right, @indent__m);*/
+        }
+
+        .link {
+            .lib-font-size(14);
+            .lib-css(margin-left, @indent__m);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .wishlist-header .actions-toolbar {
+        right: 0;
+    }
+}

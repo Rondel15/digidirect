@@ -1,0 +1,55 @@
+//
+//  Abstract Entity - View
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@pos-view__margin: false;
+@pos-view__padding: false;
+@pos-view__border: false;
+@pos-view__font: false;
+@pos-view__color: false;
+@pos-view__background: false;
+
+//  Title
+@pos-view-title__margin: 0 0 20px;
+@pos-view-title__padding: false;
+@pos-view-title__font: false;
+@pos-view-title__color: false;
+
+//  Address
+@pos-view-address__margin: 0 0 10px;
+@pos-view-address__padding: false;
+@pos-view-address__font: false;
+@pos-view-address__color: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .pos-view {
+        & {
+            .lib-css(margin, @pos-view__margin);
+            .lib-css(padding, @pos-view__padding);
+            .lib-css(border, @pos-view__border);
+            .lib-css(font, @pos-view__font);
+            .lib-css(color, @pos-view__color);
+            .lib-css(background, @pos-view__background);
+        }
+        > .title {
+            .lib-css(margin, @pos-view-title__margin);
+            .lib-css(padding, @pos-view-title__padding);
+            .lib-css(font, @pos-view-title__font);
+            .lib-css(color, @pos-view-title__color);
+        }
+        > .address {
+            .lib-css(margin, @pos-view-address__margin);
+            .lib-css(padding, @pos-view-address__padding);
+            .lib-css(font, @pos-view-address__font);
+            .lib-css(color, @pos-view-address__color);
+        }
+    }
+}

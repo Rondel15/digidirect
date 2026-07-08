@@ -1,0 +1,64 @@
+<!-- ko if: (isActiveService(serviceCode) && (getTotals() > 0)) -->
+<form method="post" data-bind="blockLoader: isLoading, attr:{id: 'giftcard-form-' + serviceCode, class: 'abstract-giftcardcheckout form-giftcard-account form -' + serviceCode}">
+    <div class="payment-option-inner fieldset apply">
+        <div class="field giftcard-number">
+            <label class="label apply" data-bind="attr:{for: 'giftcard-code-' + serviceCode}">
+                <span data-bind="i18n: 'Gift Card Number'"></span>
+            </label>
+            <div class="control">
+                <input class="input-text"
+                       type="text"
+                       name="giftcard_code"
+                       data-validate="{'required-entry':true}"
+                       data-bind="value: giftCartCode, attr:{id: 'giftcard-code-' + serviceCode, placeholder: $t('Enter the gift card code')} "/>
+            </div>
+        </div>
+        <!-- ko if: isPin -->
+        <div class="field giftcard-pin">
+            <label class="label apply" data-bind="attr:{for: 'giftcard-pin-' + serviceCode}">
+                <span data-bind="i18n: 'Gift Card PIN'"></span>
+            </label>
+            <div class="control">
+                <input class="input-text"
+                       type="password"
+                       name="giftcard_pin"
+                       data-validate="{'required-entry':true}"
+                       data-bind="value: giftCardPin, attr:{id: 'giftcard-pin-' + serviceCode, placeholder: $t('Pin')} "/>
+            </div>
+        </div>
+        <!-- /ko -->
+
+        <!-- ko if: abstractGiftCardAccount.isChecked-->
+        <!-- ko if: abstractGiftCardAccount.isValid-->
+        <div class="giftcard-account-info">
+            <div class="giftcard-account-number">
+                <!-- ko i18n: 'Gift Card:'--><!-- /ko -->
+                <span class="giftcard-number">
+                    <!-- ko i18n: abstractGiftCardAccount.code--><!-- /ko -->
+                </span>
+            </div>
+
+            <div class="giftcard-account-balance">
+                <!-- ko i18n: 'Current Balance: '--><!-- /ko -->
+                <span class="price">
+                     <!-- ko text: getAmount(abstractGiftCardAccount.amount())--><!-- /ko -->
+                </span>
+            </div>
+        </div>
+        <!-- /ko -->
+        <!-- /ko -->
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action action-add primary" type="submit" data-bind="'value': $t('Apply'), click: setGiftCard">
+                    <span><!-- ko i18n: 'Apply'--><!-- /ko --></span>
+                </button>
+            </div>
+            <div class="secondary" data-bind="if: isCheckBalance">
+                <button class="action action-check" type="button" data-bind="'value': $t('See Balance'), click: checkBalance">
+                    <span><!-- ko i18n: 'See Balance'--><!-- /ko --></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+<!-- /ko -->

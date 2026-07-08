@@ -1,0 +1,224 @@
+<?php
+
+/**
+ * @var \Digidirect\AbstractEntityPopup\Helper\Config $helper
+ * @var \Digidirect\Utilities\Helper\Cms $cmsHelper
+ */
+
+$helper = $this->helper('Digidirect\AbstractEntityPopup\Helper\Config');
+$cmsHelper = $this->helper(\Digidirect\Utilities\Helper\Cms::class);
+$entityDataList = $helper->getAbstractEntity('CODE');
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customer = $objectManager->create('Magento\Customer\Model\Session')->getCustomer();
+$isCustomerVisited = $customer->getData('is_visited');
+?>
+<?php if ($entityDataList): ?>
+
+    <?php
+    $entityCustomerAttribute = $helper->getCustomerAttribute('is_visited');
+    $arrayLabels = $entityDataList->getData();
+    $labelsArray = [];
+    $descriptionArray = [];
+    $count = 1;
+    $counter_des = 1;
+
+    $parsedArr = array_filter(array_keys($arrayLabels),
+        function ($key) {
+            return substr($key, -6) === '_label';
+        }
+    );
+
+    $stepsNumber = sizeof($parsedArr);
+
+    for ($i = 1; $i <= $stepsNumber; $i++) {
+        $label = 'step' . $i . '_label';
+        $description = 'step' . $i . '_description';
+        $labelsArray[$i] = $entityDataList->getData($label);
+        $descriptionArray[$i] = $entityDataList->getData($description);
+    }
+    ?>
+
+    <div class="tutorial-link">
+        <div class="modal-tutorial" id="open-tutorial-modal"><span class="title"><?= /* @escapeNotVerified */__('Show tutorial'); ?></span></div>
+        <div class="modal-init init" id="init-tutorial-modal">
+            <div class="nav-wrapper">
+                <?php for ($j = 1; $j <= $stepsNumber; $j++) { ?>
+                    <div class="nav-step step<?= $j ?>" data-count="<?= $j ?>">
+                    <span class="num">
+                        <?= $j ?>
+                    </span>
+                    </div>
+                <?php } ?>
+            </div>
+
+            <div class="modal-tutorial skip"><span class="title" id="skip-tutorial-modal" data-role="closeBtn"><?= /* @escapeNotVerified */__('Skip tutorial'); ?></span></div>
+
+            <div class="content">
+                <?php foreach ($labelsArray as $label): ?>
+                    <div class="step-label step<?= $count ?>"><?= strip_tags($label) ?></div>
+                    <?php $count++ ?>
+                <?php endforeach; ?>
+                <?php foreach ($descriptionArray as $description): ?>
+                    <div class="step-description step<?= $counter_des ?>">
+                        <?php echo $cmsHelper->getCmsFilterContent($description) ?>
+                    </div>
+                    <?php $counter_des++ ?>
+                <?php endforeach; ?>
+            </div>
+
+            <div class="shelf-navigation">
+                <a class="prev back" id="backBtn" title="<?= /* @escapeNotVerified */__('Back'); ?>">
+                    <svg class="svg-icon svg-back">
+                        <use xlink:href="#svgi-back"></use>
+                    </svg><?= /* @escapeNotVerified */__('Back'); ?></a>
+                <div class="button next -responsive -fixed-sizes slick-arrow" id="nextBtn"><span class="next-title"><?= /* @escapeNotVerified */__('Continue'); ?></span></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal',
+                'mage/translate'
+            ],
+            function ($, modal, $t) {
+
+                /**
+                 *  Options Pop-up Init
+                 *  autoOpen: $isCustomerVisited - is custom attribute
+                 *  check if pop-up should be shown for user automatically (if attribute = null)
+                 *  (when user first visited page)
+                 */
+
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title: false,
+                    autoOpen: '<?php echo $isCustomerVisited == '1' ? false : true ?>',
+                    modalClass: 'tutorial-modal',
+                    buttons: []
+                };
+
+                /**
+                 *  Init modal Tutorial Pop-up
+                 */
+
+                var popup = modal(options, $('#init-tutorial-modal'));
+
+                $("#open-tutorial-modal").click(function () {
+                    $("#init-tutorial-modal").modal('openModal');
+                });
+
+                /**
+                 *  Options Pop-up Steps
+                 */
+
+                var navButtons = $('.nav-step');
+                var navButtonsFirstStep = $('.nav-step.step1');
+                var navNext = $('#nextBtn');
+                var navBack = $('#backBtn');
+                var navClose = $('#skip-tutorial-modal');
+                var navCont = $('.step-label');
+                var navDescription = $('.step-description');
+                var countedDataStep = null;
+
+                /**
+                 *  Pop-up steps switching logic implementd
+                 */
+
+                $('.nav-step').on('click', function () {
+                    $(navButtons).removeClass('-active');
+                    this.classList.add('-active');
+                    countedDataStep = this.getAttribute('data-count');
+                    $(navCont).removeClass('-active');
+                    $(navDescription).removeClass('-active');
+
+                    /**
+                     *  Set custom color (gray) if step has been visited
+                     */
+
+                    var prevStep = $(this).prevAll();
+                    $(navButtons).each(function () {
+                        $(this).removeClass('-grayed');
+                    });
+                    prevStep.addClass('-grayed');
+
+                    /**
+                     *  Change last step Next Button's name
+                     */
+
+                    var selectorsStep = $('.step' + countedDataStep);
+                    if ( +selectorsStep[0].getAttribute('data-count') === navButtons.length) {
+                        navNext[0].innerText = $t("Enter My Shelf");
+                    } else {
+                        navNext[0].innerText = $t("Continue");
+                    }
+
+                    $(selectorsStep).each(function () {
+                        $(this).addClass('-active');
+                    });
+
+                    checkBackButtonShow();
+                });
+
+                /**
+                 *  Show first step trigger
+                 */
+
+                $(navButtonsFirstStep).trigger('click');
+                checkBackButtonShow();
+
+                /**
+                 *  Continue button
+                 */
+
+                $(navNext).on('click', function () {
+                    var stepCounter = +(countedDataStep) + 1;
+
+                    var stepSelected = $('[data-count=' + stepCounter + ']');
+                    if (stepSelected.length > 0) {
+                        $(stepSelected).trigger('click');
+                    } else {
+                        $('.nav-step.step1').trigger('click');
+                        $(navClose).trigger('click');
+                    }
+                    checkBackButtonShow();
+                });
+
+                /**
+                 *  Back button
+                 */
+
+                $(navBack).on('click', function () {
+                    var stepCounter = +(countedDataStep) - 1;
+                    var stepSelected = $('[data-count=' + stepCounter + ']');
+                    if (stepSelected) {
+                        $(stepSelected).trigger('click');
+                    }
+                });
+
+                /**
+                 *  Check if back-button should be shown
+                 */
+
+                function checkBackButtonShow () {
+                    if (navButtonsFirstStep.hasClass("-active")) {
+                        navBack.css("opacity", "0");
+                        navBack.css("cursor", "default");
+                    } else {
+                        navBack.css("opacity", "1");
+                        navBack.css("cursor", "pointer");
+                    }
+                }
+            }
+        );
+    </script>
+    <?php
+    if ($customer->getData('is_visited') == null ) {
+        $customer->setData('is_visited', '1');
+        $helper->saveCustomerAttribute($customer,'is_visited');
+    }
+    ?>
+<?php endif; ?>

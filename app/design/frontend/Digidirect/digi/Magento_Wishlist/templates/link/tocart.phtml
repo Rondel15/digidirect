@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Button $block */
+?>
+
+<?php if ($block->getWishlist()->getItemsCount() && $block->getWishlist()->isSalable()): ?>
+    <a data-mage-init='{"eventTransporter":{"customerEventSelector":"#wishlist-view-form .action.tocart"}}'
+       href="javascript:void(0);"
+       data-role="all-tocart"
+       title="<?= $block->escapeHtmlAttr(__('Add all to cart')); ?>"
+       class="link -tocart">
+        <span><?= $block->escapeHtml(__('Add all to cart')); ?></span>
+    </a>
+<?php endif;?>

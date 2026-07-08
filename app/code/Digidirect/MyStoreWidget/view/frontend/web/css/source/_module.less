@@ -1,0 +1,112 @@
+//
+//  My Store Widget
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+//  Bar
+@mystore-widget-bar__margin: false;
+@mystore-widget-bar__padding: 10px;
+@mystore-widget-bar__background: false;
+@mystore-widget-bar__hide__display: none;
+//  Modes
+@mystore-widget-bar-change-mode__display: none;
+@mystore-widget-bar-search-mode__selected__display: none;
+@mystore-widget-bar-change-mode__selected__display: block;
+
+//  Message
+@mystore-widget-bar-message__float: left;
+@mystore-widget-bar-message__margin: false;
+@mystore-widget-bar-message__padding: 5px 15px 5px 0;
+@mystore-widget-bar-message__font: false;
+@mystore-widget-bar-message__color: false;
+//  Notice
+@mystore-widget-bar-notice__display: block;
+@mystore-widget-bar-notice__margin: false;
+@mystore-widget-bar-notice__padding: false;
+@mystore-widget-bar-notice__font: 11px @font-family-name__base;
+@mystore-widget-bar-notice__color: @message-warning__color;
+@mystore-widget-bar-notice__background-color: false;
+
+//  Selection
+@mystore-widget-bar-selection__margin: false;
+@mystore-widget-bar-selection__padding: 5px 0;
+@mystore-widget-bar-selection__font: false;
+@mystore-widget-bar-selection__color: false;
+//  Autocomplete
+@mystore-widget-bar-autocomplete-no-results-link__font: false;
+@mystore-widget-bar-autocomplete-no-results-link__text-decoration: none;
+@mystore-widget-bar-autocomplete-no-results-link__color: #ccc;
+@mystore-widget-bar-autocomplete-no-results-link__cursor: default;
+@mystore-widget-bar-autocomplete-no-results-link__hover__color: @mystore-widget-bar-autocomplete-no-results-link__color;
+@mystore-widget-bar-autocomplete-no-results-link__hover__background-color: transparent;
+//  Form
+@mystore-widget-form__margin: false;
+@mystore-widget-form__padding: 0 0 20px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .block-mystorebar {
+        & {
+            .lib-css(margin, @mystore-widget-bar__margin);
+            .lib-css(padding, @mystore-widget-bar__padding);
+            .lib-css(background, @mystore-widget-bar__background);
+        }
+        &.-hide {
+            .lib-css(display, @mystore-widget-bar__hide__display);
+        }
+        .message {
+            .lib-css(float, @mystore-widget-bar-message__float);
+            .lib-css(margin, @mystore-widget-bar-message__margin);
+            .lib-css(padding, @mystore-widget-bar-message__padding);
+            .lib-css(font, @mystore-widget-bar-message__font);
+            .lib-css(color, @mystore-widget-bar-message__color);
+        }
+        .change-mode {
+            .lib-css(display, @mystore-widget-bar-change-mode__display);
+        }
+        &.-selected .search-mode {
+            .lib-css(display, @mystore-widget-bar-search-mode__selected__display);
+        }
+        &.-selected .change-mode {
+            .lib-css(display, @mystore-widget-bar-change-mode__selected__display);
+        }
+
+        .notice {
+            .lib-css(display, @mystore-widget-bar-notice__display);
+            .lib-css(margin, @mystore-widget-bar-notice__margin);
+            .lib-css(padding, @mystore-widget-bar-notice__padding);
+            .lib-css(font, @mystore-widget-bar-notice__font);
+            .lib-css(color, @mystore-widget-bar-notice__color);
+            .lib-css(background-color, @mystore-widget-bar-notice__background-color);
+        }
+
+        .selection {
+            .lib-css(margin, @mystore-widget-bar-selection__margin);
+            .lib-css(padding, @mystore-widget-bar-selection__padding);
+            .lib-css(font, @mystore-widget-bar-selection__font);
+            .lib-css(color, @mystore-widget-bar-selection__color);
+        }
+        //  No results mode
+        &.-no-results .ui-menu-item .link {
+            .lib-css(font, @mystore-widget-bar-autocomplete-no-results-link__font);
+            .lib-css(text-decoration, @mystore-widget-bar-autocomplete-no-results-link__text-decoration);
+            .lib-css(color, @mystore-widget-bar-autocomplete-no-results-link__color);
+            .lib-css(cursor, @mystore-widget-bar-autocomplete-no-results-link__cursor);
+        }
+        &.-no-results .ui-menu-item.selected > .link,
+        &.-no-results .ui-menu-item > .ui-state-focus,
+        &.-no-results .ui-menu-item > .link:hover {
+            .lib-css(color, @mystore-widget-bar-autocomplete-no-results-link__hover__color);
+            .lib-css(background-color, @mystore-widget-bar-autocomplete-no-results-link__hover__background-color);
+        }
+    }
+    .mystore-form {
+        .lib-css(margin, @mystore-widget-form__margin);
+        .lib-css(padding, @mystore-widget-form__padding);
+    }
+}

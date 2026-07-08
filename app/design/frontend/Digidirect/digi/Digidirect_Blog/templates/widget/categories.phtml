@@ -1,0 +1,63 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Categories $block
+ */
+
+?>
+<div class="faq-categories secondary-nav blog-categories -cms" id="blog-tab-menu">
+    <div class="logo" data-role="collapsible">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-blog-widget">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-logo-digi-life"></use>
+        </svg>
+        <span class="logo-title"></span>
+        <div class="arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-action">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-left"></use>
+            </svg>
+        </div>
+    </div>
+    <ul class="list" data-role="content">
+        <?php /* @escapeNotVerified */ echo $block->renderTree(); ?>
+    </ul>
+    <script>
+        require([
+            'jquery',
+            'matchMedia',
+            'jquery/ui',
+            'mage/accordion',
+            'domReady!'
+        ], function ($, mediaCheck) {
+
+            var elemInit = $('#blog-tab-menu');
+
+            mediaCheck({
+                media: '(max-width: 1279px)',
+                entry: function () {
+                    $(elemInit).tabs({
+                        active: 1,
+                        openedState: "active",
+                        collapsible: true,
+                        animate: 400
+                    })
+                },
+                exit: function () {
+                    $(elemInit).tabs({
+                        active: 0,
+                        openedState: "active",
+                        collapsible: false,
+                        animate: 400
+                    })
+                }
+            });
+
+            var title = $('.blog-categories').find('.link.-active').text();
+            var titleFirst = $('.blog-categories').find('.link').first().text();
+
+            if (title) {
+                $('.logo-title').append(title);
+            } else if (titleFirst) {
+                $('.logo-title').append(titleFirst);
+            }
+        });
+    </script>
+</div>

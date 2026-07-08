@@ -1,0 +1,192 @@
+<?php
+    $blockBrandList = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\BrandList');
+    $blockSearch = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\Search');
+    $blockCategory = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\Category');
+    $blockBrands = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand');
+    $categories = $blockBrands->getCategories();
+    $helperCategories = $blockBrands->helper();
+
+    $helper = $blockBrandList->helper();
+    $brandCollection = $blockBrandList->getCollection();
+    $displayType = $helper->getBrandConfig('display');
+
+    $categoryData = $block->getData();
+    $categoryId = $categoryData['data']['categoryId'];
+    $this->getLayout()->getBlock('head')->setTitle('My title');
+    $this->getLayout()->getBlock('head')->setDescription('My description');
+
+    $catId = 0;
+    $catUrlKey = "";
+
+    if ($categoryId == "Cameras") {
+        $catId = 17;
+        $catUrlKey = 'cameras';
+    }elseif ($categoryId == "Lenses") {
+        $catId = 18;
+        $catUrlKey = "lenses";
+    }elseif ($categoryId == "Drones") {
+        $catId = 21;
+        $catUrlKey = "drones";
+    }elseif ($categoryId == "Lighting_&_Studio") {
+        $catId = 19;
+        $catUrlKey = "lighting-and-studio";
+    }elseif ($categoryId == "Photo_Accessories") {
+        $catId = 71;
+        $catUrlKey = "photo-accessories";
+    }elseif ($categoryId == "Optics") {
+        $catId = 22;
+        $catUrlKey = "optics";
+    }elseif ($categoryId == "Audio_&_Visual") {
+        $catId = 73;
+        $catUrlKey = "audio-and-visual";
+    }elseif ($categoryId == "Pro_Video") {
+        $catId = 77;
+        $catUrlKey = "pro-video";
+    }elseif ($categoryId == "Smart_Home") {
+        $catId = 75;
+        $catUrlKey = "smart-home";
+    }elseif ($categoryId == "Computers_&_Mobile") {
+        $catId = 999;
+        $catUrlKey = "computers-mobile";
+    }
+?>
+
+<script type="text/javascript">
+    filterSelection(<?= "'cat" . /** @noEscape */ $categoryId . "'" ?>);
+</script>
+
+<?php if ($categoryId == "all") : ?>
+    <?php foreach ($brandCollection as $brand) : ?>
+        <?php if ($helper->getBrandImageUrl($brand) != $block->getBaseUrl()."media/catalog/product/placeholder/default/ICS_placeHolder.fw_1.png") : ?>
+            <?php if ($block->getProductCollectionCountWithBrandOnly($brand->getOptionId())) : ?>
+            <li style="display: none;" class="item product product-item mix <?= /** @noEscape */ $blockBrandList->getFilterClass($brand) ?> <?= /** @noEscape */ $blockBrandList->getCatFilterClass($brand->getId()) ?>">
+                <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LABEL) : ?>
+                    <div class="product-item-info" data-container="product-grid" style="width: 240px">
+                        <?php if ($blockBrandList->showQuickView()) : ?>
+                            <div title="Quick View" class="changelog module-version quickview_popup">
+                                <a class="fa fa-eye open_model"
+                                   id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                            </div>
+                        <?php endif; ?>
+                        <a title="<?= /** @noEscape */ $brand->getValue() ?>"
+                           href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>"
+                           class="product photo product-item-photo"
+                           tabindex="-1">
+                            <span class="product-image-container" style="width:240px;">
+                                <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                                    <div role="img" class="brand-menu-img product-image-photo"
+                                         style="background-image: url('<?= /** @noEscape */ $helper->getBrandImageUrl($brand) ?>'); background-repeat: no-repeat; background-size: contain;" alt="<?= /** @noEscape */ $brand->getValue() ?>">
+                                    </div>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="product details product-item-details">
+                            <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LOGO) : ?>
+                                <strong class="product name product-item-name" style="text-align: center">
+                                    <a title="<?= /** @noEscape */ $brand->getValue() ?>" class="product-item-link"
+                                       href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>">
+                                            <?= $blockBrandList->showProductQty() ? /** @noEscape */ $brand->getValue() . ' (' . /** @noEscape */ $block->getProductCollectionCountWithBrandOnly($brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                                    </a>
+                                </strong>
+                            <?php endif; ?>
+                            <?php if ($blockBrandList->showDescription()) : ?>
+                                <div class="product description product-item-description">
+                                    <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <div class="brand-name-type-label-only" data-container="product-grid">
+                        <strong class="product name product-item-name" style="margin: 0;">
+                            <a class="product-item-link"
+                               href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>" style="float: left; padding-right: 10px;">
+                                    <?= $blockBrandList->showProductQty() ? /** @noEscape */ $brand->getValue() . ' (' . /** @noEscape */ $block->getProductCollectionCountWithBrand($catId, $brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                            </a>
+                            <?php if ($blockBrandList->showQuickView()) : ?>
+                                <div title="Quick View" class="changelog module-version quickview_popup">
+                                    <a class="fa fa-eye open_model"
+                                       id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                                </div>
+                            <?php endif; ?>
+                        </strong>
+                        <?php if ($blockBrandList->showDescription()) : ?>
+                            <div class="product description product-item-description">
+                                <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </li>
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else : ?>
+    <?php foreach ($brandCollection as $brand) : ?>
+        <?php if ($helper->getBrandImageUrl($brand) != $block->getBaseUrl()."media/catalog/product/placeholder/default/ICS_placeHolder.fw_1.png") : ?>
+            <?php if ($block->getProductCollectionCountWithBrand($catId, $brand->getOptionId())) : ?>
+            <li style="display: none;" class="item product product-item mix <?= /** @noEscape */ $blockBrandList->getFilterClass($brand) ?> <?= /** @noEscape */ $blockBrandList->getCatFilterClass($brand->getId()) ?>">
+                <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LABEL) : ?>
+                    <div class="product-item-info" data-container="product-grid" style="width: 240px">
+                        <?php if ($blockBrandList->showQuickView()) : ?>
+                            <div title="Quick View" class="changelog module-version quickview_popup">
+                                <a class="fa fa-eye open_model"
+                                   id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                            </div>
+                        <?php endif; ?>
+                        <a title="<?= /** @noEscape */ $brand->getValue() ?>"
+                           href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) . "/filters/cat/" . $catUrlKey . "?brand_key=" . $helper->processKey($brand) ?>"
+                           class="product photo product-item-photo"
+                           tabindex="-1">
+                            <span class="product-image-container" style="width:240px;">
+                                <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                                    <div role="img" class="brand-menu-img product-image-photo"
+                                         style="background-image: url('<?= /** @noEscape */ $helper->getBrandImageUrl($brand) ?>'); background-repeat: no-repeat; background-size: contain;" alt="<?= /** @noEscape */ $brand->getValue() ?>">
+                                    </div>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="product details product-item-details">
+                            <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LOGO) : ?>
+                                <strong class="product name product-item-name" style="text-align: center">
+                                    <a title="<?= /** @noEscape */ $brand->getValue() ?>" class="product-item-link"
+                                       href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) . "/filters/cat/" . $catUrlKey . "?brand_key=" . $helper->processKey($brand) ?>">
+                                            <?= $blockBrandList->showProductQty() ? /** @noEscape */ $brand->getValue() . ' (' . /** @noEscape */ $block->getProductCollectionCountWithBrand($catId, $brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                                    </a>
+                                </strong>
+                            <?php endif; ?>
+                            <?php if ($blockBrandList->showDescription()) : ?>
+                                <div class="product description product-item-description">
+                                    <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <div class="brand-name-type-label-only" data-container="product-grid">
+                        <strong class="product name product-item-name" style="margin: 0;">
+                            <a class="product-item-link"
+                               href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) . "/filters/cat/" . $catUrlKey . "?brand_key=" . $brand->getUrlKey() ?>" style="float: left; padding-right: 10px;">
+                                    <?= $blockBrandList->showProductQty() ? /** @noEscape */ $brand->getValue() . ' (' . /** @noEscape */ $block->getProductCollectionCountWithBrand($catId, $brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                            </a>
+                            <?php if ($blockBrandList->showQuickView()) : ?>
+                                <div title="Quick View" class="changelog module-version quickview_popup">
+                                    <a class="fa fa-eye open_model"
+                                       id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                                </div>
+                            <?php endif; ?>
+                        </strong>
+                        <?php if ($blockBrandList->showDescription()) : ?>
+                            <div class="product description product-item-description">
+                                <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+            </li>
+            <?php endif; ?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+

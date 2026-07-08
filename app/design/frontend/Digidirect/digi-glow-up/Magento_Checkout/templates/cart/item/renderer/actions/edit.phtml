@@ -1,0 +1,13 @@
+<?php
+/** @var $block \Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit */
+?>
+
+<?php if ($block->isProductVisibleInSiteVisibility() && $block->getItem()->getData('product_type')!='simple'): ?>
+    <a class="action action-edit"
+       href="<?= /* @escapeNotVerified */ $block->getConfigureUrl() ?>"
+       title="<?= $block->escapeHtml(__('Edit item parameters')) ?>">
+        <span>
+            <?= /* @escapeNotVerified */ __('Edit') ?>
+        </span>
+   </a>
+<?php endif ?>

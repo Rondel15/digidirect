@@ -1,0 +1,320 @@
+<?php
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $customerSession = $objectManager->get('Magento\Customer\Model\Session');
+    $faceBookPixel = $this->helper('Digidirect\Digi\Helper\FaceBookPixel');
+    $googleAnalytic = $this->helper('Digidirect\Digi\Helper\GoogleAnalytics');
+    $googleConversion = $this->helper('Digidirect\Digi\Helper\GoogleConversion');
+    $lastOrder = $block->getRealOrderDetail();
+    $items = $lastOrder->getAllItems();
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+
+<script>
+    
+    require(['jquery'], function ($) {
+
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+        }
+
+        var customerId = getCookie('pa_customer_id');
+        var sessionId = getCookie('pa_session_id');
+
+        if (!sessionId || sessionId === undefined) {
+            $.ajax({
+                async: false,
+                url: "https://www.digidirect.com.au/particularaudienceapi/index/getconfig",
+                type: "POST",
+                data: {
+                    customerId: customerId
+                },
+                success: function(data){
+                    console.log(data);
+                    customerId = data.payload.customerId;
+                    sessionId = data.payload.session.id
+                },
+                error: function(){
+                    console.log('AJAX Get Config Fail!');
+                }
+            });
+        }
+        
+        var currentUrl = window.location.href;
+
+        var configCustomerId;
+        var configSessionId;
+
+        configCustomerId = customerId;
+        configSessionId = sessionId;
+
+        var date = new Date();
+        var productsCheckout = [];
+        var productsPurchase = [];
+        
+        <?php
+
+            foreach ($items as $item) { ?>
+                    
+                <?php 
+                
+                    $widgetId = "";
+                    $routeId = "";
+                    $recommenderId = "";
+                    $campaignId = "";
+                    $tacticId = "";
+                    $retailBoostCollectionCampaignId = "";
+                    $adSetId = "";
+                    $adSetVersion = "";
+                    $costPerClick = "";
+                    $timeStamp = "";
+                    $hmacSalt = "";
+                    $hmac = "";
+                    $keywordId = "";
+                    
+                    $options = $item->getProductOptions();
+                    
+                    if(!empty($options["info_buyRequest"])) {
+                        if(!empty($options["info_buyRequest"]["widget_id"]) && $options["info_buyRequest"]["widget_id"] != "undefined") {
+                            $widgetId = $options["info_buyRequest"]["widget_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["route_id"]) && $options["info_buyRequest"]["route_id"] != "undefined") {
+                            $routeId = $options["info_buyRequest"]["route_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["recommender_id"]) && $options["info_buyRequest"]["recommender_id"] != "undefined") {
+                            $recommenderId = $options["info_buyRequest"]["recommender_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["campaign_id"]) && $options["info_buyRequest"]["campaign_id"] != "undefined") {
+                            $campaignId = $options["info_buyRequest"]["campaign_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["tactic_id"]) && $options["info_buyRequest"]["tactic_id"] != "undefined") {
+                            $tacticId = $options["info_buyRequest"]["tactic_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["retail_boost_collection_campaign_id"]) && $options["info_buyRequest"]["retail_boost_collection_campaign_id"] != "undefined") {
+                            $retailBoostCollectionCampaignId = $options["info_buyRequest"]["retail_boost_collection_campaign_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["adset_id"]) && $options["info_buyRequest"]["adset_id"] != "undefined") {
+                            $adSetId = $options["info_buyRequest"]["adset_id"];
+                        }
+                        if(!empty($options["info_buyRequest"]["adset_version"]) && $options["info_buyRequest"]["adset_version"] != "undefined") {
+                            $adSetVersion = $options["info_buyRequest"]["adset_version"];
+                        }
+                        if(!empty($options["info_buyRequest"]["cost_per_click"]) && $options["info_buyRequest"]["cost_per_click"] != "undefined") {
+                            $costPerClick = $options["info_buyRequest"]["cost_per_click"];
+                        }
+                        if(!empty($options["info_buyRequest"]["timestamp"]) && $options["info_buyRequest"]["timestamp"] != "undefined") {
+                            $timeStamp = $options["info_buyRequest"]["timestamp"];
+                        }
+                        if(!empty($options["info_buyRequest"]["hmac_salt"]) && $options["info_buyRequest"]["hmac_salt"] != "undefined") {
+                            $hmacSalt = $options["info_buyRequest"]["hmac_salt"];
+                        }
+                        if(!empty($options["info_buyRequest"]["hmac"]) && $options["info_buyRequest"]["hmac"] != "undefined") {
+                            $hmac = $options["info_buyRequest"]["hmac"];
+                        }
+                        if(!empty($options["info_buyRequest"]["keyword_id"]) && $options["info_buyRequest"]["keyword_id"] != "undefined") {
+                            $keywordId = $options["info_buyRequest"]["keyword_id"];
+                        }
+                    }
+                ?>
+                        
+                var refId = "<?= $item->getProductId(); ?>"; 
+                var quantity = <?= $item->getQtyOrdered(); ?>; 
+                        
+                var productItemCheckout = {"refId": refId, "quantity": quantity};    
+                
+                var price = <?= $item->getPrice(); ?>;
+                var productItemPurchase = {"refId": refId, "quantity": quantity, "price": price};
+                
+                var widgetId = "<?= $widgetId; ?>";
+                var routeId = "<?= $routeId; ?>";
+                var recommenderId = "<?= $recommenderId; ?>";
+                var campaignId = "<?= $campaignId; ?>";
+                var tacticId = "<?= $tacticId; ?>";
+                var retailBoostCollectionCampaignId = "<?= $retailBoostCollectionCampaignId; ?>";
+                var adSetId = "<?= $adSetId; ?>";
+                var adSetVersion = "<?= $adSetVersion; ?>";
+                var costPerClick = "<?= $costPerClick; ?>";
+                var timeStamp = "<?= $timeStamp; ?>";
+                var hmacSalt = "<?= $hmacSalt; ?>";
+                var hmac = "<?= $hmac; ?>";
+                var keywordId = "<?= $keywordId; ?>";
+                
+                if (widgetId) {
+                    productItemCheckout.widgetId = widgetId;
+                    productItemPurchase.widgetId = widgetId;
+                }
+                if (routeId) {
+                    productItemCheckout.routeId = routeId;
+                    productItemPurchase.routeId = routeId;
+                }
+                if (recommenderId) {
+                    productItemCheckout.recommenderId = recommenderId;
+                    productItemPurchase.recommenderId = recommenderId;
+                }
+                if (campaignId) {
+                    productItemCheckout.campaignId = campaignId;
+                    productItemPurchase.campaignId = campaignId;
+                }
+                if (tacticId) {
+                    productItemCheckout.tacticId = tacticId;
+                    productItemPurchase.tacticId = tacticId;
+                }
+                if (retailBoostCollectionCampaignId) {
+                    productItemCheckout.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                    productItemPurchase.retailBoostCollectionCampaignId = retailBoostCollectionCampaignId;
+                }
+                if (adSetId) {
+                    productItemCheckout.adSetId = adSetId;
+                    productItemPurchase.adSetId = adSetId;
+                }
+                if (adSetVersion) {
+                    productItemCheckout.adSetVersion = adSetVersion;
+                    productItemPurchase.adSetVersion = adSetVersion;
+                }
+                if (costPerClick) {
+                    productItemCheckout.costPerClick = costPerClick;
+                    productItemPurchase.costPerClick = costPerClick;
+                }
+                if (timeStamp) {
+                    productItemCheckout.timeStamp = timeStamp;
+                    productItemPurchase.timeStamp = timeStamp;
+                }
+                if (hmacSalt) {
+                    productItemCheckout.hmacSalt = hmacSalt;
+                    productItemPurchase.hmacSalt = hmacSalt;
+                }
+                if (hmac) {
+                    productItemCheckout.hmac = hmac;
+                    productItemPurchase.hmac = hmac;
+                }
+                if (keywordId) {
+                    productItemCheckout.keywordId = keywordId;
+                    productItemPurchase.keywordId = keywordId;
+                }
+                
+                productsCheckout.push(productItemCheckout);
+                productsPurchase.push(productItemPurchase);
+                
+        <?php       
+            }
+        ?>
+        console.log("productsCheckout", JSON.stringify(productsCheckout));
+        console.log("productsPurchase", JSON.stringify(productsPurchase));
+        
+        //Prepare data for checkout event
+        var subTotal = <?= $lastOrder->getSubtotal(); ?>;
+        var discount = <?= abs($lastOrder->getDiscountAmount()); ?>;
+        if (!discount) {
+            discount = 0;
+        }
+        var totalPrice = <?= $lastOrder->getGrandTotal(); ?>;
+        var deliveryFee = <?= $lastOrder->getShippingAmount(); ?>;
+
+        const checkoutData = {
+            customerId: configCustomerId,
+            sessionId: configSessionId,
+            events: [
+                {
+                    currentUrl: currentUrl,
+                    eventTime: date.toISOString(),
+                    products: productsCheckout,
+                    subTotal: subTotal,
+                    discount: discount,
+                    totalPrice: totalPrice,
+                    currencyCode: "AUD",
+                    deliveryFee: deliveryFee
+                }
+            ]
+        };
+        console.log("checkoutData", JSON.stringify(checkoutData));
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/checkout",
+            type: "POST",
+            data: {
+                eventData: checkoutData
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+        
+        //Prepare data for purchase event
+        var orderId = "<?= $lastOrder->getIncrementId(); ?>";
+        var paymentMethod = "<?= $lastOrder->getPayment()->getMethod(); ?>";
+
+        const purchaseData = {
+            customerId: configCustomerId,
+            sessionId: configSessionId,
+            events: [
+                {
+                    currentUrl: currentUrl,
+                    eventTime: date.toISOString(),
+                    products: productsPurchase,
+                    orderId: orderId,
+                    paymentMethod: paymentMethod,
+                    currencyCode: "AUD"
+                }
+            ]
+        };
+        console.log("purchaseData", JSON.stringify(purchaseData));
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/purchase",
+            type: "POST",
+            data: {
+                eventData: purchaseData
+            },
+            success: function(data){
+                console.log(data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+        
+    });
+    
+</script>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()): ?>
+        <?php if ($block->getShippingDetails() == "Pick Up in Store - Click and Collect Shipping"): ?>
+            <span class="header"><?= /* @escapeNotVerified */__('YOUR CLICK & COLLECT HAS BEEN RECEIVED') ?></span>
+            <span class="title"><?= /* @escapeNotVerified */__('Thank you for your purchase') ?></span>
+            <?php if ($block->getCanViewOrder()) : ?>
+                <span class="title -addition"><?= __('Your order no # %1', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></span>
+            <?php else : ?>
+                <span class="title -addition"><?= __('Your order # <span>%1</span>', $block->escapeHtml($block->getOrderId())) ?></span>
+            <?php endif; ?>
+            <div class="contentcontainer">
+                <p class="importantnote"><?= /* @escapeNotVerified */__('IMPORTANT!') ?></p>
+                <br/>
+                <p class="content"><?= /* @escapeNotVerified */__('You will receive an order confirmation email with details of your order. Then you will receive a second email notifying you that your order is ready for pick-up.') ?></p>
+                <br/>
+                <p class="secondcontent"><?= /* @escapeNotVerified */__('NOTE: You must wait for the email notifying you that your order is ready for pick-up before making your way to your chosen Click & Collect location.') ?></p>
+            </div>
+        <?php else : ?>
+            <span class="header"><?= /* @escapeNotVerified */__('Your order has been received') ?></span>
+            <span class="title"><?= /* @escapeNotVerified */__('Thank you for your purchase') ?></span>
+            <?php if ($block->getCanViewOrder()) : ?>
+                <span class="title -addition"><?= __('Your order no # %1', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></span>
+            <?php else : ?>
+                <span class="title -addition"><?= __('Your order # <span>%1</span>', $block->escapeHtml($block->getOrderId())) ?></span>
+            <?php endif; ?>
+            <p class="content"><?= /* @escapeNotVerified */__('You will receive an order confirmation email with details of your order and a link to track its progress.') ?></p>
+        <?php endif; ?>
+
+    <?php endif; ?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" title="Continue Shopping" href="<?= /* @escapeNotVerified */$block->getContinueUrl() ?>"><span><?= /* @escapeNotVerified */__('Continue Shopping') ?></span></a>
+        </div>
+    </div>
+</div>

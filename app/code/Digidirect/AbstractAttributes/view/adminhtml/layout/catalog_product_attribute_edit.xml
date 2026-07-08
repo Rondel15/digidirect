@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="js">
+            <block class="Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Js"
+                   name="aa_edit_js" template="Digidirect_AbstractAttributes::catalog/product/attribute/js.phtml"/>
+        </referenceContainer>
+
+        <referenceBlock name="attribute_edit_tabs">
+            <block class="Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Tab\AdvancedOptionsProperties"
+                   name="eaa.properties.tab" template="Digidirect_AbstractAttributes::catalog/product/attribute/tab/advanced_options.phtml">
+                <block class="Magento\Backend\Block\Store\Switcher" name="store_switcher">
+                    <action method="setUseConfirm">
+                        <argument name="params" xsi:type="string">1</argument>
+                    </action>
+                </block>
+                <uiComponent name="eaa_advanced_options_tab"/>
+                <uiComponent name="eaa_product_attribute_advanced_options_grid"/>
+            </block>
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">advanced_options_properties</argument>
+                <argument name="block" xsi:type="string">eaa.properties.tab</argument>
+                <argument name="after" xsi:type="string">main</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\AbstractGiftCard\Api\Data\GiftCardServiceInterface" type="Digidirect\AbstractGiftCard\Model\GiftCardService"/>
+    <preference for="Digidirect\AbstractGiftCard\Api\GiftCardServiceListInterface" type="Digidirect\AbstractGiftCard\Model\GiftCardServiceList"/>
+    <preference for="Digidirect\AbstractGiftCard\Service\Validator\ResultInterface" type="Digidirect\AbstractGiftCard\Service\Validator\Result"/>
+    <preference for="Digidirect\AbstractGiftCard\Service\ConfigFactoryInterface" type="Digidirect\AbstractGiftCard\Service\Config\ConfigFactory" />
+    <preference for="Digidirect\AbstractGiftCard\Service\Command\CommandManagerPoolInterface" type="Digidirect\AbstractGiftCard\Service\Command\CommandManagerPool" />
+    <preference for="Digidirect\AbstractGiftCard\Service\Data\ServiceDataObjectFactoryInterface" type="Digidirect\AbstractGiftCard\Service\Data\ServiceDataObjectFactory" />
+    <preference for="Digidirect\AbstractGiftCard\Api\AbstractGiftCardEntityInterface" type="Digidirect\AbstractGiftCard\Model\AbstractGiftCardEntity"/>
+    <preference for="Digidirect\AbstractGiftCard\Api\AbstractGiftCardEntityRepositoryInterface" type="Digidirect\AbstractGiftCard\Model\AbstractGiftCardEntityRepository"/>
+
+    <preference for="Digidirect\AbstractGiftCard\Api\AbstractGiftCardLoggerInterface" type="Digidirect\AbstractGiftCard\Model\Service\Logger"/>
+
+    <type name="Magento\GiftCardAccount\Block\Adminhtml\Giftcardaccount\Edit\Tab\Info">
+        <plugin name="digidirect_abstract_gift_card_admin_tab_info" type="Digidirect\AbstractGiftCard\Plugin\GiftCardAccount\Block\Adminhtml\Giftcardaccount\Edit\Tab\Info"/>
+    </type>
+    <type name="Magento\GiftCardAccount\Block\Adminhtml\Giftcardaccount\Edit\Tab\Send">
+        <plugin name="digidirect_abstract_gift_card_admin_tab_send" type="Digidirect\AbstractGiftCard\Plugin\GiftCardAccount\Block\Adminhtml\Giftcardaccount\Edit\Tab\Send"/>
+    </type>
+
+    <type name="Magento\GiftCardAccount\Block\Account\Redeem">
+        <plugin name="digidirect_abstract_gift_card_account_redeem" type="Digidirect\AbstractGiftCard\Plugin\GiftCardAccount\Block\Account\Redeem"/>
+    </type>
+
+    <type name="Magento\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount">
+        <plugin name="digidirect_abstract_gift_card_giftcardaccount_cart" type="Digidirect\AbstractGiftCard\Plugin\GiftCardAccount\Block\Checkout\Cart\Giftcardaccount"/>
+    </type>
+
+    <type name="Magento\GiftCardAccount\Model\Giftcardaccount">
+        <plugin name="digidirect_abstract_gift_card_account_model" type="Digidirect\AbstractGiftCard\Plugin\GiftCardAccount\Model\Giftcardaccount"/>
+    </type>
+
+    <type name="Digidirect\AbstractGiftCard\Model\Config">
+        <arguments>
+            <argument name="dataStorage" xsi:type="object">Digidirect\AbstractGiftCard\Model\Config\Data</argument>
+        </arguments>
+    </type>
+    <preference for="Digidirect\AbstractGiftCard\Api\AbstractGiftCardAccountManagementInterface" type="Digidirect\AbstractGiftCard\Model\Service\AbstractGiftCardAccountManagement"/>
+    <preference for="Digidirect\AbstractGiftCard\Api\AbstractGuestGiftCardAccountManagementInterface" type="Digidirect\AbstractGiftCard\Model\Service\AbstractGuestGiftCardAccountManagement"/>
+</config>

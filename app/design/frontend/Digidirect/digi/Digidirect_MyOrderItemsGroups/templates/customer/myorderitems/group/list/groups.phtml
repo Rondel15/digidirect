@@ -1,0 +1,60 @@
+<?php
+/** @var \Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups $block */
+$groupList = $block->getGroups();
+$filterParams = $block->collectFilterParams([$block->getPageParameter()]);
+$defaultNameGroup =  $this->getConfigHelper()->getDefaultGroupName();
+?>
+
+<?php if (!$block->isEmptyGroup()): ?>
+    <div class="group-rename">
+        <form action="<?php echo $block->getFormRenameActionUrl() ?>" method="post" id="group-action-rename" data-mage-init='{"validation":{}}'>
+            <input type="hidden" name="group_id" class="group_id" value="<?= $block->getCurrentGroupId() ?>">
+            <div class="content">
+                <div class="control">
+                    <input name="name" id="name" type="text"
+                           value="<?= $block->escapeHtml($block->getCurrentGroupName()) ?>"
+                           data-validate="{required:true}"/>
+                </div>
+                <div class="actions">
+                    <button class="action" title="<?= $block->escapeHtmlAttr(__('Save')) ?>" type="submit">
+                        <?= $block->escapeHtml(__('Save')) ?>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+<?php endif; ?>
+<?php if (!$block->isEmptyGroup()): ?>
+    <?php if (sizeof($groupList) > 1 ): ?>
+        <div class="filter-groups nav-container">
+          <div class="title" data-toggle="dropdown" data-mage-init='{"dropdown": {}}' data-role="group-name"><?= $block->escapeHtml($block->getCurrentGroupName()) ?></div>
+    <?php else: ?>
+        <div class="filter-groups nav-container -empty">
+          <div class="title" data-role="group-name"><?= $block->escapeHtml($block->getCurrentGroupName()) ?></div>
+    <?php endif; ?>
+        <div class="list -gear" data-target="dropdown">
+            <?php foreach ($groupList as $groupId => $group): ?>
+                <?php $filterParams['group_id'] = $groupId ?>
+                    <?php if ($groupId !== $block->getCurrentGroupId()): ?>
+                        <a class="item" title="<?= $block->escapeHtml($group) ?>" href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/index',  $filterParams)) ?>"><?= $block->escapeHtml($group) ?></a>
+                    <?php endif; ?>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <div class="group-clear">
+        <div class="field elem choice">
+            <input type="checkbox" class="checkbox" id="select-all" data-role="select-all">
+            <label class="label" for="select-all"><?= $block->escapeHtml('Select All') ?></label>
+        </div>
+        <div class="elem -apply">
+            <button class="button" type="button" title="<?= $block->escapeHtml(__('Clear items')) ?>" data-role="apply-remove"><?= $block->escapeHtml(__('Clear (%1) items', '&')) ?></button>
+        </div>
+        <div class="elem -cancel">
+            <button class="button" type="button" title="<?= $block->escapeHtml(__('Cancel')) ?>" data-role="cancel-remove"><?= $block->escapeHtml(__('Cancel')) ?></button>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="filter-groups nav-container -empty">
+        <span class="title"><?= $block->escapeHtml($defaultNameGroup) ?></span>
+    </div>
+<?php endif; ?>

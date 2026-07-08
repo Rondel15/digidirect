@@ -1,0 +1,11 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Categories $block
+ */
+?>
+<div class="blog-categories blog-widget widget">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Categories'); ?></h3>
+    <ul class="list">
+        <?php /* @escapeNotVerified */ echo $block->renderTree(); ?>
+    </ul>
+</div>

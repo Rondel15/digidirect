@@ -1,0 +1,211 @@
+//
+//  Checkout: Tooltip
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-tooltip__is-enabled: true; // Enable/disable styles
+
+//  Field
+@checkout-field-tooltip__position: absolute;
+@checkout-field-tooltip__top: 0;
+@checkout-field-tooltip__right: 0;
+@checkout-field-tooltip__cursor: pointer;
+@checkout-field-tooltip___hover__z-index: @tooltip__z-index;
+@checkout-field-control-with-tooltip__position: relative;
+@checkout-field-control-with-tooltip__padding-right: 35px;
+
+//  Field Choice
+@checkout-field-choice-tooltip__position: relative;
+@checkout-field-choice-tooltip__top: 0;
+@checkout-field-choice-tooltip__display: inline-block;
+@checkout-field-choice-tooltip__margin-left: @indent__s;
+@checkout-field-choice-tooltip-action__line-height: 24px;
+
+//  Action
+@checkout-field-tooltip-action-icon__use-base64: true;
+@checkout-field-tooltip-action-icon__width: 20px;
+@checkout-field-tooltip-action-icon__height: 32px;
+@checkout-field-tooltip-action-icon__margin: false;
+@checkout-field-tooltip-action-icon__background-image: @base64-icon__help;
+@checkout-field-tooltip-action-icon__text-hide: true;
+
+//  Content
+@checkout-field-tooltip-content__position: absolute;
+@checkout-field-tooltip-content__top: -9px;
+@checkout-field-tooltip-content__left: 38px;
+@checkout-field-tooltip-content__z-index: 2;
+@checkout-field-tooltip-content__display: none;
+@checkout-field-tooltip-content__width: 270px;
+@checkout-field-tooltip-content__padding: 12px;
+@checkout-field-tooltip-content__border-width: 1px;
+@checkout-field-tooltip-content__border-color: @color-gray60;
+@checkout-field-tooltip-content__border: @checkout-field-tooltip-content__border-width solid @checkout-field-tooltip-content__border-color;
+@checkout-field-tooltip-content__border-radius: @checkout-field-tooltip-content__border-width;
+@checkout-field-tooltip-content__font-size: @font-size__base;
+@checkout-field-tooltip-content__text-transform: none;
+@checkout-field-tooltip-content__word-wrap: break-word;
+@checkout-field-tooltip-content__background-color: @color-gray-light01;
+@checkout-field-tooltip-content__active__display: block;
+@checkout-field-tooltip-content__active__border-color: darken(@checkout-field-tooltip-content__border-color, 20%);
+
+@checkout-field-tooltip-content__pseudo__use-arrow: true;
+@checkout-field-tooltip-content__pseudo__arrow-position: left;
+@checkout-field-tooltip-content__pseudo__arrow-size: 10px;
+@checkout-field-tooltip-content__pseudo__arrow-color: @checkout-field-tooltip-content__background-color;
+@checkout-field-tooltip-content__pseudo__content: ' ';
+@checkout-field-tooltip-content__pseudo__position: absolute;
+@checkout-field-tooltip-content__pseudo__top: @checkout-field-tooltip-content__padding;
+@checkout-field-tooltip-content__pseudo__left: -(@checkout-field-tooltip-content__padding + @checkout-field-tooltip-content__pseudo__arrow-size - @checkout-field-tooltip-content__border-width);
+@checkout-field-tooltip-content__pseudo__z-index: 3;
+@checkout-field-tooltip-content__pseudo__display: block;
+@checkout-field-tooltip-content__before__border-right-color: @checkout-field-tooltip-content__active__border-color;
+@checkout-field-tooltip-content__after__z-index: 4;
+@checkout-field-tooltip-content__after__width: 1px;
+@checkout-field-tooltip-content__after__border-right-color: @checkout-field-tooltip-content__background-color;
+
+//  Modal Specific
+@checkout-tooltip-content-mobile-popup__width: 200px;
+
+//  Custom Breakpoint
+@checkout-tooltip-breakpoint__screen-m: @modal-popup-breakpoint-screen__m;
+@checkout-tooltip__use-checkout-tooltip-content-position-top-mobile__custom-breakpoint: true;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-tooltip__is-enabled = true) {
+        .field-tooltip {
+            & {
+                .lib-css(position, @checkout-field-tooltip__position);
+                .lib-css(top, @checkout-field-tooltip__top);
+                .lib-css(right, @checkout-field-tooltip__right);
+                .lib-css(cursor, @checkout-field-tooltip__cursor);
+            }
+
+            .field-tooltip-action {
+                & when (@checkout-field-tooltip-action-icon__use-base64 = true) {
+                    .lib-base64(
+                        @_base64-width: @checkout-field-tooltip-action-icon__width,
+                        @_base64-height: @checkout-field-tooltip-action-icon__height,
+                        @_base64-margin: @checkout-field-tooltip-action-icon__margin,
+                        @_base64-background-image: @checkout-field-tooltip-action-icon__background-image,
+                        @_base64-text-hide: @checkout-field-tooltip-action-icon__text-hide
+                    );
+                }
+
+                &:focus {
+                    ._keyfocus & {
+                        .lib-css(z-index, @checkout-field-tooltip___hover__z-index);
+
+                        + .field-tooltip-content {
+                            .lib-css(display, @checkout-field-tooltip-content__active__display);
+                        }
+                    }
+                }
+            }
+
+            .field-tooltip-content {
+                .lib-css(position, @checkout-field-tooltip-content__position);
+                .lib-css(top, @checkout-field-tooltip-content__top);
+                .lib-css(left, @checkout-field-tooltip-content__left);
+                .lib-css(z-index, @checkout-field-tooltip-content__z-index);
+                .lib-css(display, @checkout-field-tooltip-content__display);
+                .lib-css(width, @checkout-field-tooltip-content__width);
+                .lib-css(padding, @checkout-field-tooltip-content__padding);
+                .lib-css(border, @checkout-field-tooltip-content__border);
+                .lib-css(border-radius, @checkout-field-tooltip-content__border-radius);
+                .lib-css(font-size, @checkout-field-tooltip-content__font-size);
+                .lib-css(text-transform, @checkout-field-tooltip-content__text-transform);
+                .lib-css(word-wrap, @checkout-field-tooltip-content__word-wrap);
+                .lib-css(background-color, @checkout-field-tooltip-content__background-color);
+
+                &::before,
+                &::after {
+                    & when (@checkout-field-tooltip-content__pseudo__use-arrow = true) {
+                        .lib-arrow(
+                            @_position: @checkout-field-tooltip-content__pseudo__arrow-position,
+                            @_size: @checkout-field-tooltip-content__pseudo__arrow-size,
+                            @_color: @checkout-field-tooltip-content__pseudo__arrow-color
+                        );
+                    }
+                    .lib-css(content, @checkout-field-tooltip-content__pseudo__content);
+                    .lib-css(position, @checkout-field-tooltip-content__pseudo__position);
+                    .lib-css(top, @checkout-field-tooltip-content__pseudo__top);
+                    .lib-css(left, @checkout-field-tooltip-content__pseudo__left);
+                    .lib-css(z-index, @checkout-field-tooltip-content__pseudo__z-index);
+                    .lib-css(display, @checkout-field-tooltip-content__pseudo__display);
+                }
+
+                &::before {
+                    .lib-css(border-right-color, @checkout-field-tooltip-content__before__border-right-color);
+                }
+
+                &::after {
+                    .lib-css(z-index, @checkout-field-tooltip-content__after__z-index);
+                    .lib-css(width, @checkout-field-tooltip-content__after__width);
+                    .lib-css(border-right-color, @checkout-field-tooltip-content__after__border-right-color);
+                }
+            }
+
+            &._active {
+                .lib-css(z-index, @checkout-field-tooltip___hover__z-index);
+            }
+            &._active .field-tooltip-content {
+                .lib-css(display, @checkout-field-tooltip-content__active__display);
+            }
+        }
+
+        .field {
+            .control._with-tooltip {
+                .lib-css(position, @checkout-field-control-with-tooltip__position);
+                .lib-css(padding-right, @checkout-field-control-with-tooltip__padding-right);
+            }
+
+            &.choice .field-tooltip {
+                .lib-css(position, @checkout-field-choice-tooltip__position);
+                .lib-css(top, @checkout-field-choice-tooltip__top);
+                .lib-css(display, @checkout-field-choice-tooltip__display);
+                .lib-css(margin-left, @checkout-field-choice-tooltip__margin-left);
+            }
+
+            &.choice .field-tooltip-action {
+                .lib-css(line-height, @checkout-field-choice-tooltip-action__line-height);
+            }
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+    & when (@checkout-tooltip__is-enabled = true) {
+        .modal-popup {
+            .field-tooltip .field-tooltip-content {
+                .lib-css(width, @checkout-tooltip-content-mobile-popup__width);
+            }
+        }
+    }
+}
+
+//
+//  Custom Breakpoint @checkout-tooltip-breakpoint__screen-m only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @checkout-tooltip-breakpoint__screen-m) {
+    & when (@checkout-tooltip__is-enabled = true) {
+        .field-tooltip {
+            .field-tooltip-content {
+                & when (@checkout-tooltip__use-checkout-tooltip-content-position-top-mobile__custom-breakpoint = true) {
+                    &:extend(.abs-checkout-tooltip-content-position-top-mobile all);
+                }
+            }
+        }
+    }
+}

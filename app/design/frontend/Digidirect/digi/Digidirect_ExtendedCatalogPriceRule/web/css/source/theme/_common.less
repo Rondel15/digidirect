@@ -1,0 +1,115 @@
+//
+//  Extended Catalog Price Rule
+//  _____________________________________________
+
+//
+// Variables
+// ----------------------------------------------------------
+@special-offer__background-position: calc(~'100% - 8px');
+
+@extendedrule-price-box-with-special-offer__border-color: @color-3-5;
+@extendedrule-price-box-with-special-offer__border: 2px solid @extendedrule-price-box-with-special-offer__border-color;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .page-product-bundle {
+        .product-info-main .block-extendedrule {
+            padding-bottom: 20px;
+        }
+    }
+
+    .modal-catalogrule {
+        .description {
+            line-height: 18px;
+        }
+
+        .description p {
+            margin: 0 0 18px;
+        }
+
+        .modal-inner-wrap {
+            max-width: 600px;
+        }
+    }
+
+    .block-extendedrule {
+        .name {
+            background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iOTYiIGhlaWdodD0iOTYiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CgogPGc+CiAgPHRpdGxlPmJhY2tncm91bmQ8L3RpdGxlPgogIDxyZWN0IGZpbGw9Im5vbmUiIGlkPSJjYW52YXNfYmFja2dyb3VuZCIgaGVpZ2h0PSI0MDIiIHdpZHRoPSI1ODIiIHk9Ii0xIiB4PSItMSIvPgogPC9nPgogPGc+CiAgPHRpdGxlPkxheWVyIDE8L3RpdGxlPgogIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJzdmdfMSIgZD0ibTg4LDQ4Yy0yLjIwOSwwIC00LDEuNzkxIC00LDRsMCwyOGMwLDIuMjEgLTEuNzksNCAtNCw0bC02NCwwYy0yLjIxLDAgLTQsLTEuNzkgLTQsLTRsMCwtNjRjMCwtMi4yMSAxLjc5LC00IDQsLTRsMjgsMGMyLjIwOSwwIDQsLTEuNzkxIDQsLTRzLTEuNzkxLC00IC00LC00bC0yOCwwYy02LjYyNywwIC0xMiw1LjM3MyAtMTIsMTJsMCw2NGMwLDYuNjI3IDUuMzczLDEyIDEyLDEybDY0LDBjNi42MjcsMCAxMiwtNS4zNzMgMTIsLTEybDAsLTI4YzAsLTIuMjA5IC0xLjc5MSwtNCAtNCwtNHoiLz4KICA8cGF0aCBmaWxsPSIjZmZmZmZmIiBpZD0ic3ZnXzIiIGQ9Im05MS45OTYsNy45NThjLTAuMDAzLC0wLjI0OSAtMC4wMjYsLTAuNDk4IC0wLjA3NSwtMC43NDJjLTAuMDIzLC0wLjExMiAtMC4wNjUsLTAuMjE2IC0wLjA5NywtMC4zMjVjLTAuMDQsLTAuMTQyIC0wLjA3NCwtMC4yODUgLTAuMTMxLC0wLjQyM2MtMC4wNSwtMC4xMjIgLTAuMTIsLTAuMjMxIC0wLjE4MiwtMC4zNDZjLTAuMDYyLC0wLjExNSAtMC4xMTMsLTAuMjM0IC0wLjE4NywtMC4zNDRjLTAuMTIsLTAuMTc5IC0wLjI2MSwtMC4zNDIgLTAuNDA3LC0wLjQ5OWMtMC4wMzIsLTAuMDM1IC0wLjA1NSwtMC4wNzUgLTAuMDg5LC0wLjEwOGMtMC4wMzEsLTAuMDMxIC0wLjA2NywtMC4wNTEgLTAuMSwtMC4wODFjLTAuMTU5LC0wLjE1IC0wLjMyNiwtMC4yOTMgLTAuNTA5LC0wLjQxNmMtMC4xMDgsLTAuMDcyIC0wLjIyNiwtMC4xMjMgLTAuMzM5LC0wLjE4NGMtMC4xMTYsLTAuMDYyIC0wLjIyOCwtMC4xMzMgLTAuMzUsLTAuMTg0Yy0wLjEzOSwtMC4wNTggLTAuMjgzLC0wLjA5MSAtMC40MjcsLTAuMTMyYy0wLjEwNywtMC4wMzEgLTAuMjEsLTAuMDczIC0wLjMyMSwtMC4wOTVjLTAuMjU3LC0wLjA1MiAtMC41MiwtMC4wNzkgLTAuNzgzLC0wLjA3OWwtMjMuOTk5LDBjLTIuMjA5LDAgLTQsMS43OTEgLTQsNHMxLjc5MSw0IDQsNGwxNC4zNDMsMGwtMzIuNzcsMzIuNzdjLTEuNTYyLDEuNTYyIC0xLjU2Miw0LjA5NSAwLDUuNjU2YzEuNTYyLDEuNTYyIDQuMDk1LDEuNTYyIDUuNjU2LDBsMzIuNzcxLC0zMi43N2wwLDE0LjM0NGMwLDIuMjA5IDEuNzkxLDQgNCw0czQsLTEuNzkxIDQsLTRsMCwtMjRjMCwtMC4wMTQgLTAuMDA0LC0wLjAyNyAtMC4wMDQsLTAuMDQyeiIvPgogPC9nPgo8L3N2Zz4=");
+            .lib-css(background-position, @special-offer__background-position center);
+            .lib-css(font-weight, @font-weight__bold);
+            padding: 0 8px 0 12px;
+            background-repeat: no-repeat;
+            background-size: 13px 15px;
+            line-height: 1.9;
+            cursor: pointer;
+            background-color: #e65401;
+            color: #fff;
+            border-radius: 10px;
+            /*margin-bottom: 15px;*/
+            font-size: 11px;
+        }
+
+        .price-box + .name {
+            display: none;
+        }
+
+        &.-cashback:not(.-special-price) ~ .price-box,
+        &.-cashback:not(.-special-price) ~ .product-info-price .price-box,
+        & + .block-extendedrule {
+            display: none;
+        }
+
+        &.-cashback.-no-price-affection ~ .product-info-price .price-box {
+            display: block;
+        }
+
+        &.-special-price .price-box {
+            border-bottom: 0 !important;
+            margin-bottom: 0;
+            padding-bottom: 15px;
+        }
+    }
+}
+
+//
+//  M -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .modal-catalogrule {
+        .modal-content {
+            padding: 20px;
+        }
+    }
+
+    .block-extendedrule .name {
+        .lib-font-size(12);
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .modal-catalogrule {
+        .description {
+            line-height: 22px;
+        }
+
+        .description p {
+            margin-bottom: 22px;
+        }
+
+        .description p:last-child {
+            margin-bottom: 10px;
+        }
+    }
+
+    .block-extendedrule .name {
+        .lib-font-size(12);
+    }
+}

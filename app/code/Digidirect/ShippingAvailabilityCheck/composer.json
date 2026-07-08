@@ -1,0 +1,14 @@
+{
+  "name": "digidirect/shippingavailabilitycheck",
+  "description": "Digidirect ShippingAvailabilityCheck",
+  "type": "magento2-module",
+  "version": "1.4.3.0",
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\ShippingAvailabilityCheck\\": ""
+    }
+  }
+}

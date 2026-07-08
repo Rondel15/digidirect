@@ -1,0 +1,19 @@
+<?php
+$blockSignOutLink = $block->getLayout()->getBlock('sign-out-link');
+$isUserLoggedIn = false;
+
+if (!empty($blockSignOutLink)) {
+    $isUserLoggedIn = $blockSignOutLink->isLoggedIn();
+}
+
+$accountTitle = 'Login / Register';
+
+if ($isUserLoggedIn) {
+    $accountTitle = 'Account';
+}
+
+?>
+
+<a class="your-account" <?= /* @noEscape */ $block->getLinkAttributes() ?> title="<?= /* @noEscape */ __($accountTitle) ?>">
+    <svg class="svg-icon"><use xlink:href="#svgi-account"></use></svg>
+</a>

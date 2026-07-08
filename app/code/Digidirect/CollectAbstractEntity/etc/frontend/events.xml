@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+
+    <!-- Prepare collect places data for front-end rendering -->
+    <event name="digidirect_collect_after_get_places_by_data_from_storage">
+        <observer name="digidirect_collect_prepare_places_result"
+                  instance="Digidirect\CollectAbstractEntity\Observer\Collect\FormatCollectPlacesResult" />
+    </event>
+
+</config>

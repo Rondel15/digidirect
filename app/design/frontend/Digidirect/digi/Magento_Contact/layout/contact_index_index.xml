@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <title>Contact Us</title>
+    </head>
+    <body>
+        <referenceContainer name="main.content" htmlClass="page-main cms-bg-block">
+            <referenceContainer name="columns.top">
+                <block class="Magento\Cms\Block\Block" name="page.cms.bg" >
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">cms-bg-title</argument>
+                    </arguments>
+                </block>
+            </referenceContainer>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <container name="contact.page" htmlTag="div" htmlClass="contact-page -cms-page">
+                <container name="contact.left" htmlTag="div" htmlClass="left-column">
+                    <block class="Magento\Contact\Block\ContactForm" name="contactForm" template="Magento_Contact::form.phtml">
+                        <container name="form.additional.info" label="Form Additional Info"/>
+                    </block>
+                </container>
+                <container name="contact.right" htmlTag="div" htmlClass="right-column">
+                    <block class="Magento\Cms\Block\Block" name="contact.banner">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">cms-contact-banner</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+
+    </body>
+</page>

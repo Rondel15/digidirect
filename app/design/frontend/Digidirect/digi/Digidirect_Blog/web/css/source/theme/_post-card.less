@@ -1,0 +1,209 @@
+//
+//  Blog widget post-card
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-categories-list-wrapper{
+        .content{
+            color: #fff !important;
+            display: block !important;
+            max-width: 500px !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+        }
+    }
+    
+    .post-card {
+        & {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+        }
+
+        > .container {
+            display: flex;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding: 19px 20px 10px;
+        }
+
+        > .container > .content,
+        > .container > .post-homepage {
+            max-width: 80%;
+            font-weight: 300;
+            font-size: 17px;
+            padding: 0 0 10px;
+            margin-bottom: 0;
+        }
+
+        > .container .posted,
+        .tags,
+        .description,
+        .date,
+        .comments,
+        .more {
+            width: 100%;
+        }
+
+        > .image {
+            min-height: 1px; // IE11 fix
+        }
+
+        > .container > .svgi-arrow {
+            height: 17px;
+            width: 30px;
+            .lib-css(fill, @color-2-1);
+            padding-left: 5px;
+            margin-top: 2px;
+        }
+        
+        
+    }
+    
+    .blog-categories-list-wrapper{
+        .mgz-element-text p,
+        .mgz-element-text span,
+        .mgz-element-text div{
+            color: #fff !important;
+            display: block;
+            max-width: 500px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .post-card {
+        > .container {
+            background: #2A2A2A;
+            padding: 15px !important;
+            
+            > .content,
+            > .post-homepage{
+                font-size: 14px !important;
+                color: #fff;
+            }
+            
+            .link{
+                color: #fff !important;
+            }
+        }
+        
+        .posted{
+            color: #fff;
+        }
+        
+        .svgi-arrow{
+            fill: #fff;
+        }
+        
+        > .container > .title {
+            color: #fff;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 700;
+            margin-top: 0;
+            margin-bottom: 0;
+            text-transform: uppercase;
+        }
+        
+        .mgz-element-inner{
+            margin-left: -3px;
+            margin-right: -3px;
+        }
+        
+        .more-title{
+            color: #fff !important;
+        }
+    }
+    
+    .blog-pg .post-card > .container .link{
+        color: #fff;
+    }
+    
+    .container > .tags .label{
+        color: #fff;
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .post-card {
+        > .container {
+            padding: 20px 30px 20px;
+            background: transparent;
+        }
+
+        > .container > .title {
+            width: 100%;
+            font-size: 26px;
+            line-height: 1;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            color: #fff;
+        }
+
+        > .container > .content,
+        > .container > .post-homepage {
+            .lib-css(color, @color-white);
+            font-size: 17px;
+            line-height: 1;
+            padding: 5px 0 10px;
+        }
+
+        > .container > .svgi-arrow {
+            margin: auto 0;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .post-card {
+        > .container > .content,
+        > .container > .post-homepage {
+            .lib-css(color, @color-white);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        > .container {
+            padding: 10px 20px 50px 50px;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .post-card {
+        > .container > .content,
+        > .container > .post-homepage {
+            .lib-css(color, @color-white);
+            font-size: 17px;
+        }
+
+        > .container {
+            padding: 60px 0 60px 60px;
+        }
+    }
+}

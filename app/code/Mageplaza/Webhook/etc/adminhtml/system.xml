@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Webhook
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="mp_webhook" translate="label" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label>Webhook</label>
+            <tab>mageplaza</tab>
+            <resource>Mageplaza_Webhook::configuration</resource>
+            <group id="general" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Select <b>Yes</b> to enable this module.<br />
+                    <a href="https://www.mageplaza.com/kb/webhook/" target="_blank">How to integrate with others</a> <br />
+                        1. It helps to reduce abandonment cart with <a href="https://www.mageplaza.com/magento-2-one-step-checkout-extension/" target="_blank">One Step Checkout</a>. <br />
+                        2. Magento stores see upwards of 30% revenue 💰 with AVADA. <a href="https://go.avada.io/mageplaza">Learn more</a>]]></comment>
+                </field>
+                <field id="abandoned_time" translate="label comment" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Abandoned Cart After</label>
+                    <validate>validate-digits</validate>
+                    <comment>How to deteminte as Abandonded Cart. Enter number of hour(s). Recommend: 1, 6, 10, 12, 24. Default: 10</comment>
+                </field>
+                <field id="keep_log" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Keep logs</label>
+                    <validate>validate-digits</validate>
+                    <comment>The number of logs will be kept in each hook. If it reaches this number, the old logs will be removed. If empty or zero, no limitation. Default: 10</comment>
+                </field>
+                <field id="alert_enabled" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Alert on Error</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Send alert email to your email addresses if any error. To avoid going to spambox, you should install <a href="https://www.mageplaza.com/magento-2-smtp/" target="_blank">SMTP</a>]]></comment>
+                </field>
+                <field id="resend" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Auto-replay errored hook</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[Enable to automatically replay the hook with “Error” status at specified time]]></comment>
+                </field>
+                <field id="time" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>After every hour(s)</label>
+                    <validate>validate-number validate-greater-than-zero</validate>
+                    <depends>
+                        <field id="resend">1</field>
+                    </depends>
+                </field>
+                <field id="send_to" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Send To</label>
+                    <backend_model>Mageplaza\Webhook\Model\Config\Backend\Email</backend_model>
+                    <comment>Separated by comma (,)</comment>
+                </field>
+                <field id="email_template" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                </field>
+            </group>
+            <group id="cron" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Schedule For Cron</label>
+                <field id="schedule" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1" >
+                    <label>Schedule For Cron</label>
+                    <source_model>Mageplaza\Webhook\Model\Config\Source\Schedule</source_model>
+                    <comment><![CDATA[Applied for Processing Type as Cron]]></comment>
+                </field>
+                <field id="start_time" translate="label" type="time" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Start Time</label>
+                    <depends>
+                        <field id="schedule" separator=",">day,week,month</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

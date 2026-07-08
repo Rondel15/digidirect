@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers">
+            <group id="collect">
+                <field id="click_collect_entity" translate="label comment" type="select"
+                       sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Click and Collect Entity</label>
+                    <source_model>Digidirect\AbstractEntity\Model\Config\Source\AttributeSetWithEmpty</source_model>
+                    <comment>The selected Abstract Entity will be used by Click and Collect extension</comment>
+                </field>
+                <field id="click_collect_fields_matrix" translate="label comment"
+                       sortOrder="82" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Click and Collect Fields to Set Up Store</label>
+                    <frontend_model>Digidirect\CollectAbstractEntity\Block\Adminhtml\Form\Field\CollectFieldsMatrix</frontend_model>
+                    <backend_model>Digidirect\Utilities\Model\System\Config\Backend\DefaultOptionModel</backend_model>
+                    <comment>You should re-save config to reload list of available attributes in the field below</comment>
+                </field>
+                <field id="prefill_shipping_address_fields_matrix" translate="label comment"
+                       sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Pre-fill Shipping Address Fields</label>
+                    <frontend_model>Digidirect\CollectAbstractEntity\Block\Adminhtml\Form\Field\PrefillShippingAddressFieldsMatrix</frontend_model>
+                    <backend_model>Digidirect\Utilities\Model\System\Config\Backend\DefaultOptionModel</backend_model>
+                    <comment>Set up shipping address fields will be hidden and pre-filled with 'Click and Collect Entity’ attribute values on Checkout</comment>
+                </field>
+
+                <!-- "Tracking Number Adding Notification" uses "Abstract Entity" that is selected in "Click and Collect Entity" dropdown. -->
+                <field id="enable_tracking_number_adding_notification" translate="label" type="select" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Tracking Number Adding Notification</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="store_email_attribute" translate="label" type="select" sortOrder="210" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Store Email Attribute</label>
+                    <source_model>Digidirect\CollectAbstractEntity\Model\System\Config\Source\DefaultEmpty\AbstractEntityAttr</source_model>
+                    <depends>
+                        <field id="enable_tracking_number_adding_notification">1</field>
+                    </depends>
+                </field>
+                <field id="tracking_number_adding_notification_template" translate="label" type="select" sortOrder="220" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <depends>
+                        <field id="enable_tracking_number_adding_notification">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

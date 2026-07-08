@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\Blog\Ui\DataProvider\Post\Form\PostDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\Blog\Ui\DataProvider\Post\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Ui\DataProvider\Category\Form\CategoryDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Ui\DataProvider\Comment\Form\CommentDataProvider">
+        <arguments>
+            <argument name="pool" xsi:type="object">Digidirect\Blog\Ui\DataProvider\Comment\Form\Modifier\Pool</argument>
+        </arguments>
+    </type>
+    <virtualType name="Digidirect\Blog\Ui\DataProvider\Post\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="modifier_image" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Post\Form\Modifier\Image</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+                <item name="actions" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Post\Form\Modifier\ActionParamsModifier</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="defaultData" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Post\Form\Modifier\DefaultData</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array">
+                <item name="actions" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\ActionParamsModifier</item>
+                    <item name="sortOrder" xsi:type="number">20</item>
+                </item>
+                <item name="defaultData" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\DefaultData</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+                <item name="disableNonStoreViewProperties" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\DisableNonStoreViewProperties</item>
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+                <item name="disableNonStoreViewPropertiesInCategory" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\DisableNonStoreViewPropertiesInCategory</item>
+                    <item name="sortOrder" xsi:type="number">10</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Ui\DataProvider\Comment\Form\Modifier\Pool" type="Magento\Ui\DataProvider\Modifier\Pool">
+        <arguments>
+            <argument name="modifiers" xsi:type="array"/>
+        </arguments>
+    </virtualType>
+
+    <!-- default cache types to be invalidated -->
+    <type name="Digidirect\Blog\Model\CacheInvalidator">
+        <arguments>
+            <argument name="defaultTypesToInvalidate" xsi:type="array">
+                <item name="block_html" xsi:type="string">block_html</item>
+                <item name="full_page" xsi:type="string">full_page</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\Blog\Ui\DataProvider\Category\Form\Modifier\DisableNonStoreViewPropertiesInCategory">
+        <arguments>
+            <argument name="fieldCodes" xsi:type="array">
+                <item name="parent_id" xsi:type="string">parent_id</item>
+                <item name="store_id" xsi:type="string">store_id</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

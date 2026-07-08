@@ -1,0 +1,12 @@
+<!--@subject {{trans "Your %store_name order canceling confirmation" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var order.getBillingAddress().getName()":"Guest Customer Name",
+"var order.increment_id":"Order Id",
+} @-->
+
+<p class="greeting">{{trans "%name," name=$order.getBillingAddress().getName()}}</p>
+<p>
+    {{trans 'Your Order <span class="no-link">#%increment_id</span>' increment_id=$order.increment_id |raw}}{{trans ' was canceled because Vii services reverted the transaction' |raw}}
+</p>
+
+

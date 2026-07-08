@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Profile</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="customer_account_navigation_block">
+            <arguments>
+                <argument name="block_title" translate="true" xsi:type="string">Profile</argument>
+                <argument name="icon_id" xsi:type="string">profile</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

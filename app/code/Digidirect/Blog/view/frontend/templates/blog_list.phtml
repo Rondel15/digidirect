@@ -1,0 +1,124 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Blog $block
+ * @var \Digidirect\Blog\Model\Post $post
+ */
+
+?>
+<?php if ($block->isListPageMode()): ?>
+    <div class="blog-list">
+        <?php foreach ($block->getCollection() as $post): ?>
+            <article class="post-card item">
+
+                <?php if ($block->isShowCategoryNames()) : ?>
+                    <?php $categoriesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                    <?php $categoriesTitlesCount = count($categoriesArray); ?>
+                    <?php if ($categoriesTitlesCount) : ?>
+                        <div class="categories">
+                            <?php /** @var $category \Digidirect\Blog\Model\Category*/ ?>
+                            <?php $i=1; foreach ($categoriesArray as $key => $category): ?>
+                                <a href="<?php echo $block->escapeUrl($category->getViewUrl())?>" class="link" title="<?php echo /* @escapeNotVerified */  $category->getName(); ?>"><?php /* @escapeNotVerified */  echo $category->getName(); ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                                <?php $i++; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <h2 class="title">
+                    <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>"
+                       rel="bookmark"><?php echo $block->escapeHtml($post->getTitle()) ?></a>
+                </h2>
+                <?php $thumb = $post->getImageUrl(null, 150); ?>
+                <?php if (!empty($thumb)): ?>
+                    <a class="thumb" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                        <img src="<?php echo $block->escapeHtml($thumb); ?>" alt="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                    </a>
+                <?php endif; ?>
+                <div class="description"><?php echo /* @escapeNotVerified */ $block->getShortDescription($post); ?></div>
+                <div class="date">
+                    <span class="label"><?php /* @escapeNotVerified */ echo __('Posted') ?></span>
+                    <span class="month"><?php echo $block->escapeHtml($post->getCreatedDate()) ?></span>
+                </div>
+                <?php if($block->isDisplayTagEnabled() && $post->getTags()): ?>
+                    <div class="tags">
+                        <span class="label"><?php /* @escapeNotVerified */ echo __('Tags') ?></span>
+                        <?php foreach ($post->getTags() as $tag): ?>
+                            <a class="link" href="<?php echo $block->escapeUrl($block->getTagUrl($tag)) ?>" title="#<?php echo $block->escapeHtml($tag) ?>">#<?php echo $block->escapeHtml($tag) ?></a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if($block->isCommentsEnabled()): ?>
+                <a class="comments" href="<?php echo $block->escapeHtml($post->getViewUrl()); ?>#comments"
+                   title="<?php /* @escapeNotVerified */ echo __('Comment on ') ?><?php echo $block->escapeHtml($post->getTitle()) ?>">
+                    <?php /* @escapeNotVerified */ echo __('Comments') ?>
+                    <?php echo $block->escapeHtml($block->getComments($post->getId())) ?>
+                </a>
+                <?php endif; ?>
+                <a class="more" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php /* @escapeNotVerified */ echo __('Read More') ?>">
+                    <?php /* @escapeNotVerified */ echo __('Read More') ?>
+                </a>
+            </article>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div class="blog-list -grid small-block-grid-1 medium-block-grid-2 large-block-grid-3">
+        <?php foreach ($block->getCollection() as $post): ?>
+            <?php $thumb = ""; ?>
+            <article class="post-card -grid item">
+
+                <?php if ($block->isShowCategoryNames()) : ?>
+                    <?php $categoriesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                    <?php $categoriesTitlesCount = count($categoriesArray); ?>
+                    <?php if ($categoriesTitlesCount) : ?>
+                        <div class="categories">
+                            <?php /** @var $category \Digidirect\Blog\Model\Category*/ ?>
+                            <?php $i=1; foreach ($categoriesArray as $key => $category): ?>
+                                <a href="<?php $block->escapeUrl($category->getViewUrl())?>" class="link" title="<?php /* @escapeNotVerified */  echo $category->getName(); ?>"><?php /* @escapeNotVerified */  echo $category->getName(); ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                                <?php $i++; ?>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <?php $thumb = $post->getImageUrl(null, 150); ?>
+                <?php if (!empty($thumb)): ?>
+                    <a class="thumb" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                        <img src="<?php echo $block->escapeHtml($thumb); ?>" alt="<?php echo $block->escapeHtml($post->getTitle()) ?>">
+                    </a>
+                <?php endif; ?>
+                <div class="date">
+                    <?php echo $block->escapeHtml($post->getCreatedDate()); ?>
+                </div>
+                <h2 class="title">
+                    <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()) ?>" title="<?php echo $block->escapeHtml($post->getTitle()); ?>">
+                        <?php echo $block->escapeHtml($post->getTitle()); ?>
+                    </a>
+                </h2>
+                <div class="description"><?php /* @escapeNotVerified */ echo $block->getShortDescription($post); ?></div>
+                <?php if($block->isDisplayTagEnabled() && $post->getTags()): ?>
+                    <div class="tags">
+                        <span class="label"><?php /* @escapeNotVerified */ echo __('Tags') ?></span>
+                        <?php foreach ($post->getTags() as $tag): ?>
+                            <a class="link" href="<?php echo $block->escapeUrl($block->getTagUrl($tag)) ?>" title="#<?php echo $block->escapeHtml($tag) ?>">#<?php echo $block->escapeHtml($tag) ?></a>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+                <?php if($block->isCommentsEnabled()): ?>
+                    <a class="comments" href="<?php echo $block->escapeHtml($post->getViewUrl()); ?>#comments"
+                       title="<?php /* @escapeNotVerified */ echo __('Comment on ') ?><?php echo $block->escapeHtml($post->getTitle()) ?>">
+                        <?php /* @escapeNotVerified */ echo __('Comments') ?>
+                        <?php echo $block->escapeHtml($block->getComments($post->getId())) ?>
+                    </a>
+                <?php endif; ?>
+                <a class="more" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php /* @escapeNotVerified */ echo __('Read More') ?>">
+                    <?php /* @escapeNotVerified */ echo __('Read More') ?>
+                </a>
+            </article>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+<?php if (!$block->getCollection()->getSize()): ?>
+    <div class="message info empty"><div><?php /* @escapeNotVerified */ echo __('There are no blog posts.') ?></div></div>
+<?php endif; ?>
+    
+<?php echo "HEHE " . $block->getPagerHtml() ?>

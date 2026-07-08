@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<page_types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_types.xsd">
+    <type id="blog_index_index" label="Blog Post List"/>
+    <type id="blog_category_index" label="Blog Category"/>
+    <type id="blog_tag_index" label="Blog Tag Post"/>
+    <type id="blog_view_index" label="Blog Post Detail"/>
+    <type id="blog_b2b_index" label="Blog Post List"/>
+</page_types>

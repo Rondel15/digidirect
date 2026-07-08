@@ -1,0 +1,476 @@
+//
+//  Theme: Bundle: Common
+//  _____________________________________________
+
+@bundle-price-to-label__color: @primary__color;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .bundle-actions {
+        .action {
+            &:extend(.abs-button-l all);
+        }
+    }
+
+    .page-product-bundle {
+        .product-section {
+            margin-bottom: 0;
+        }
+
+        .product-info-price {
+            text-align: left;
+        }
+
+        .product-info-price .price-label {
+            .lib-font-size(12);
+            text-transform: none;
+        }
+
+        .product-info-price .price-box p {
+            margin-bottom: 5px;
+        }
+
+        .product-info-price .stock {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            margin: 0;
+            line-height: 22px;
+        }
+
+        .price-wrapper {
+            display: block;
+        }
+    }
+
+    .page-product-bundle .product-info-main {
+        .price-box > .price-to > .price-label {
+            .lib-font-size(13);
+            .lib-line-height(22);
+            .lib-css(font-weight, @font-weight__heavier);
+            .lib-css(color, @bundle-price-to-label__color);
+        }
+    }
+
+    .bundle-options-container {
+        & {
+            margin-bottom: 40px;
+            .lib-css(padding, 0 @layout__width-xs-indent 12px);
+            .lib-css(background, ~'linear-gradient(to bottom, @{color-3-4}, rgba(255, 255, 255, 0)) no-repeat  0 0, @{color-white} no-repeat 0 0');
+            background-size: 100% 30px, 100% 100%;
+        }
+
+        .fieldset {
+            margin: 0;
+            text-align: center;
+        }
+
+        .fieldset > .legend {
+            width: 100%;
+            margin: 30px 0 20px;
+            .lib-font-size(18);
+            line-height: 28px;
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+
+        .action.back {
+            position: relative;
+            display: inline-block;
+            padding: 0 0 0 40px;
+            border: 0;
+            font-size: 12px;
+            line-height: 30px;
+            background: none;
+            cursor: pointer;
+        }
+
+        .action.back > .icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30px;
+            height: 30px;
+            .lib-css(border, 1px solid @color-4-1);
+            border-radius: 50%;
+            text-align: center;
+        }
+
+        .action.back:hover > .icon {
+            .lib-css(border-color, @color-2-2);
+        }
+
+        .action.back .svg-icon {
+            width: 9px;
+            height: 28px;
+            margin-left: -1px;
+            vertical-align: top;
+        }
+
+        .box-tocart {
+            .field.qty {
+                .lib-css(padding-right, @catalog-pdp-box-tocart-field-qty__padding-right);
+            }
+
+            .input-text.qty {
+                .lib-css(width, @catalog-pdp-box-tocart-input-tex-qty__width);
+                .lib-css(height, 50);
+                .lib-css(text-align, @catalog-pdp-box-tocart-input-tex-qty__text-align);
+            }
+
+            .actions {
+                .lib-css(text-align, @catalog-pdp-box-tocart-actions__text-align);
+            }
+
+            .action.tocart {
+                & when (@catalog-pdp-box-tocart-action-tocart__use-button-l = true) {
+                    &:extend(.abs-button-l all);
+                }
+            }
+        }
+    }
+
+    .bundle-options-wrapper {
+        .field {
+            text-align: left;
+        }
+
+        .option {
+            margin-bottom: 20px;
+        }
+
+        .option > .label {
+            margin-bottom: 10px;
+            .lib-font-size(13);
+            .lib-css(font-weight, @font-weight__heavier);
+            line-height: 15px;
+        }
+
+        .option > .control {
+            padding-top: 10px;
+            .lib-css(border-top, 1px solid @color-3-2);
+        }
+
+        .nested {
+            position: relative;
+        }
+
+        .field.choice > .label {
+            margin-bottom: 0;
+        }
+
+        .nested.options-list > .field {
+            margin-bottom: 20px;
+        }
+
+        .option .price-notice {
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+            .lib-css(font-weight, @font-weight__bold);
+        }
+
+        .option .price-notice .price {
+            .lib-font-size(12);
+            line-height: 16px;
+        }
+
+        .option .count {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            line-height: 16px;
+        }
+
+        .qty-holder {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .options-list > .field.choice ~ .qty-holder {
+            top: 40px;
+        }
+
+        .qty-holder .label {
+            &:extend(.abs-visually-hidden all);
+        }
+
+        .qty-holder .input-text.qty {
+            width: 40px;
+            height: 35px;
+            padding-right: 2px;
+            padding-left: 2px;
+            .lib-font-size(12);
+        }
+
+        .fieldset-bundle-options .options-list .radio:checked + .label {
+            &::after {
+                left: 4px;
+            }
+        }
+
+        .bundle-item .radio + .label {
+            &::after {
+                margin-top: -6px;
+            }
+        }
+
+        .option .field.choice > .checkbox + .label {
+            &::after {
+                margin-top: -4px;
+            }
+        }
+    }
+
+    .bundle-item {
+        & {
+            position: relative;
+            padding-right: 65px;
+        }
+
+        > .img {
+            float: left;
+            width: 80px;
+            height: 80px;
+        }
+
+        > .content {
+            overflow: hidden;
+        }
+
+        .field.choice > input.option + .label {
+            position: static;
+            margin: 10px 0 0;
+            padding: 0;
+            line-height: 16px;
+
+            &::before,
+            &::after {
+                top: 50%;
+            }
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .bundle-options-container {
+        & {
+            padding-bottom: 30px;
+        }
+
+        .action.back {
+            .lib-font-size(13);
+        }
+
+        .fieldset > .legend {
+            .lib-font-size(20);
+            line-height: 30px;
+        }
+    }
+
+    .bundle-options-wrapper {
+        .field.choice > .label {
+            .lib-font-size(13);
+        }
+
+        .option > .label {
+            .lib-font-size(14);
+            line-height: 16px;
+        }
+
+        .option .price-notice,
+        .option .count {
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .option .price-notice {
+            bottom: auto;
+        }
+
+        .option .price-notice .price {
+            .lib-font-size(13);
+        }
+
+        .option .count,
+        .qty-holder {
+            right: 112px;
+            width: 50px;
+        }
+
+        .option .count {
+            text-align: center;
+        }
+
+        .qty-holder {
+            top: 20px;
+        }
+
+        .options-list > .field.choice ~ .qty-holder {
+            top: 60px;
+        }
+
+        .qty-holder .input-text.qty {
+            width: 100%;
+            height: 40px;
+            .lib-font-size(14);
+        }
+    }
+
+    .bundle-item {
+        & {
+            display: flex;
+            align-items: center;
+            padding-right: 172px;
+        }
+
+        .field.choice > input.option + .label {
+            margin: 0;
+            .lib-font-size(13);
+        }
+    }
+}
+
+//
+//  XM -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xm) {
+    .page-product-bundle .product-info-main {
+        .price-box > .price-to > .price-label {
+            .lib-font-size(14);
+        }
+    }
+
+    .bundle-options-wrapper {
+        .field.choice > .label {
+            &::before,
+            &::after {
+                transform: scale(.8);
+            }
+        }
+
+        .field.choice > .checkbox + .label {
+            &::after {
+                transform: scale(.8) rotate(-45deg);
+            }
+        }
+    }
+}
+
+//
+//  XM +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm) {
+    .page-product-bundle .product-info-main {
+        .price-box > .price-to > .price-label {
+            .lib-font-size(16);
+            margin-bottom: 0;
+        }
+    }
+
+    .bundle-options-container {
+        & {
+            padding-top: 40px;
+            padding-bottom: 40px;
+            .lib-css(background, @color-white);
+        }
+
+        .product-add-form > form {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action.back {
+            margin-bottom: 40px;
+            .lib-font-size(14);
+        }
+
+        .fieldset {
+            text-align: left;
+        }
+
+        .fieldset > .legend {
+            margin: 0 0 30px;
+            .lib-font-size(24);
+            line-height: 32px;
+        }
+    }
+
+    .bundle-options-wrapper {
+        & {
+            flex-grow: 1;
+        }
+
+        .option > .control {
+            padding-top: 15px;
+        }
+
+        .option > .label {
+            .lib-font-size(16);
+            line-height: 24px;
+        }
+
+        .field.choice > .label {
+            .lib-font-size(14);
+        }
+
+        .option .price-notice .price {
+            .lib-font-size(14);
+        }
+
+        .option .count,
+        .qty-holder {
+            right: 150px;
+        }
+
+        .qty-holder {
+            top: 35px;
+        }
+
+        .options-list > .field.choice ~ .qty-holder {
+            top: 75px;
+        }
+
+        .qty-holder .input-text.qty {
+            height: 45px;
+        }
+    }
+
+    .bundle-item {
+        & {
+            padding-right: 210px;
+        }
+
+        > .img {
+            width: 120px;
+            height: 120px;
+            margin-right: 19px;
+            margin-left: 40px;
+        }
+
+        .field.choice > input.option + .label {
+            .lib-font-size(14);
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .bundle-options-container {
+        margin-bottom: 60px;
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+}

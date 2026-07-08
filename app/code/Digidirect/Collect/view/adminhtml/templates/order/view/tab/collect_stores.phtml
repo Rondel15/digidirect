@@ -1,0 +1,60 @@
+<?php
+/**
+ * @var $block \Digidirect\Collect\Block\Adminhtml\Order\View\Tab\CollectStores
+ */
+?>
+<?php
+$items = $block->getItems();
+?>
+
+<section class="admin__page-section digidirect-collect-stores-info">
+    <div class="admin__page-section-title"><?= /* @escapeNotVerified */ __('Store Information'); ?></div>
+    <div class="admin__table-wrapper">
+        <table class="data-table admin__table-primary">
+            <thead>
+            <tr class="headings">
+                <th class="col-product"><span><?= /* @escapeNotVerified */ __('Product'); ?></span></th>
+                <th class="col-store last"><span><?= /* @escapeNotVerified */ __('Store Information'); ?></span></th>
+            </tr>
+            </thead>
+            <tbody class="odd">
+            <?php foreach ($items as $_item): ?>
+                <?php
+                /** @var $product \Magento\Sales\Model\Order\Item */
+                $product = $_item['product'];
+                ?>
+                <tr class="border">
+                    <td class="col-product">
+                        <p><?= $block->escapeHtml($product->getName()); ?></p>
+                        <p>
+                            <span class="text-uppercase"><?= /* @escapeNotVerified */ __('sku'); ?>:</span>
+                            <span><?= $block->escapeHtml($product->getSku()); ?></span>
+                        </p>
+                        <?php if ($_options = $block->getOrderItemOptions($product)): ?>
+                        <dl class="item-options">
+                            <?php foreach ($_options as $_option) : ?>
+                                <dt>
+                                    <?= $block->escapeHtml($_option['label']); ?>:
+                                    <?= $block->escapeHtml($_option['value']); ?>
+                                </dt>
+                            <?php endforeach; ?>
+                        </dl>
+                        <?php endif; ?>
+                    </td>
+                    <?php if (!empty($_item['store'])): ?>
+                        <?php
+                        /** @var $store \Digidirect\Collect\Api\Data\CollectPlaceInterface */
+                        $store = $_item['store'];
+                        ?>
+                        <td class="col-store last">
+                            <p><?= $block->escapeHtml($store->getId()); ?></p>
+                            <p><?= $block->escapeHtml($store->getName()); ?></p>
+                            <p><?= $block->escapeHtml($store->getAddress()); ?></p>
+                        </td>
+                    <?php endif; ?>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+</section>

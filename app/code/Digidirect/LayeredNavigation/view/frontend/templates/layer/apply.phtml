@@ -1,0 +1,15 @@
+<?php
+/** @var \Digidirect\LayeredNavigation\Helper\FilterRemember $remember */
+$remember = $this->helper('Digidirect\LayeredNavigation\Helper\FilterRemember');
+$isRemember = $remember->isFilterRememberEnabled() && !$remember->isFiltersApplied();
+$applyMobileOnly = $block->showApplyButtonOnMobileOnly();
+?>
+<?php if ($isRemember): ?>
+    <div class="block filter" data-role="filter-remember"></div>
+<?php endif; ?>
+<?php if ($block->canShowBlock()): ?>
+    <button id="ln-apply" class="ln-apply<?php if ($isRemember): ?> -hide<?php endif; ?><?php if ($applyMobileOnly): ?> -mobile-only<?php endif; ?>" title="<?php echo
+    $block->escapeHtml(__('Apply')); ?>">
+        <?php echo $block->escapeHtml(__('Apply')); ?>
+    </button>
+<?php endif; ?>

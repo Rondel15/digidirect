@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * ITORIS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the ITORIS's Magento Extensions License Agreement
+ * which is available through the world-wide-web at this URL:
+ * http://www.itoris.com/magento-extensions-license.html
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sales@itoris.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extensions to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to the license agreement or contact sales@itoris.com for more information.
+ *
+ * @category   ITORIS
+ * @package    ITORIS_M2_ITORIS_PRICE_MATCH
+ * @copyright  Copyright (c) 2018 ITORIS INC. (http://www.itoris.com)
+ * @license    http://www.itoris.com/magento-extensions-license.html  Commercial License
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+<system>
+    <tab id="itoris_extensions" translate="label" sortOrder="101">
+        <label>ITORIS Extensions</label>
+    </tab>
+    <section id="itoris_pricematch" translate="label" type="text" sortOrder="225" showInDefault="1" showInWebsite="1" showInStore="1">
+        <label>Price Match</label>
+        <tab>itoris_extensions</tab>
+        <resource>Itoris_PriceMatch::price_match</resource>
+        <group id="general" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>General</label>
+            <field id="module_enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Extension Enabled</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="send_email_admin" translate="label comment" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Send Email to Admin</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+            </field>
+            <field id="sender_admin_email"  translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin's Email Address</label>
+                <depends>
+                    <field id="*/*/send_email_admin">1</field>
+                </depends>
+                <validate>validate-no-empty validate-email</validate>
+            </field>
+            <field id="template_admin_email" translate="label comment" type="select" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Admin's Email Template</label>
+                <depends>
+                    <field id="*/*/send_email_admin">1</field>
+                </depends>
+                <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+            </field>
+            <field id="sender_customer_email" translate="label comment" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email to Customer Sender</label>
+                <source_model>Itoris\PriceMatch\Model\Source\Sender</source_model>
+            </field>
+            <field id="template_customer_email"  translate="label comment" type="select" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Email to Customer Template</label>
+                <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+            </field>
+            <field id="group_list" type="multiselect" translate="label comment" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Allowed Customer Groups</label>
+                <source_model>Itoris\PriceMatch\Model\Source\GroupList</source_model>
+            </field>
+            <field id="link_text"  translate="label comment" type="text" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Link Text</label>
+                <validate>validate-no-empty</validate>
+            </field>
+            <field id="comment_popup"  translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Comment in Popup</label>
+                <validate>validate-no-empty</validate>
+            </field>
+        </group>
+    </section>
+</system>
+</config>

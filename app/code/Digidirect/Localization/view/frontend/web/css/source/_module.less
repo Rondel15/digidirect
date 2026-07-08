@@ -1,0 +1,34 @@
+//
+//  Localization
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@localization-field__display: flex;
+@localization-select__flex: 0 0 100px;
+@localization-select__padding-right: 20px;
+
+@localization__control__flex: 1 1 80%;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .localization-field {
+        & {
+            .lib-css(display, @localization-field__display);
+        }
+
+        > .localization-select {
+            .lib-css(flex, @localization-select__flex);
+            .lib-css(padding-right, @localization-select__padding-right);
+        }
+
+        > .control {
+            .lib-css(flex, @localization__control__flex);
+        }
+    }
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Logging:etc/logging.xsd">
+    <groups>
+        <group name="digidirect_feed_feeds">
+            <label translate="true">Digidirect Feeds</label>
+            <expected_models>
+                <expected_model class="Digidirect\Feed\Model\Feed" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_feed_feed_edit" action_alias="view" />
+                <event controller_action="digidirect_feed_feed_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_feed_feed_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_feed_feed_delete" action_alias="delete" />
+            </events>
+        </group>
+        <group name="digidirect_feed_rules">
+            <label translate="true">Digidirect Feed Rules</label>
+            <expected_models>
+                <expected_model class="Digidirect\Feed\Model\Rule" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_feed_rule_edit" action_alias="view" />
+                <event controller_action="digidirect_feed_rule_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_feed_rule_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_feed_rule_delete" action_alias="delete" />
+            </events>
+        </group>
+        <group name="digidirect_feed_templates">
+            <label translate="true">Digidirect Feed Templates</label>
+            <expected_models>
+                <expected_model class="Digidirect\Feed\Model\Template" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_feed_template_edit" action_alias="view" />
+                <event controller_action="digidirect_feed_template_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_feed_template_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_feed_template_delete" action_alias="delete" />
+            </events>
+        </group>
+        <group name="digidirect_feed_dynamic_attributes">
+            <label translate="true">Digidirect Feed Dynamic Attributes</label>
+            <expected_models>
+                <expected_model class="Digidirect\Feed\Model\Dynamic\Attribute" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_feed_dynamic_attribute_edit" action_alias="view" />
+                <event controller_action="digidirect_feed_dynamic_attribute_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_feed_dynamic_attribute_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_feed_dynamic_attribute_delete" action_alias="delete" />
+            </events>
+        </group>
+        <group name="digidirect_feed_dynamic_categories">
+            <label translate="true">Digidirect Feed Category Mappings</label>
+            <expected_models>
+                <expected_model class="Digidirect\Feed\Model\Dynamic\Category" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_feed_dynamic_category_edit" action_alias="view" />
+                <event controller_action="digidirect_feed_dynamic_category_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_feed_dynamic_category_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_feed_dynamic_category_delete" action_alias="delete" />
+            </events>
+        </group>
+    </groups>
+</logging>

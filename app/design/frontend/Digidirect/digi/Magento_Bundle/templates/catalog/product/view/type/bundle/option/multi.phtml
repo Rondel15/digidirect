@@ -1,0 +1,68 @@
+<?php /* @var $block \Magento\Bundle\Block\Catalog\Product\View\Type\Bundle\Option\Multi */ ?>
+<?php $_option = $block->getOption() ?>
+<?php $_selections = $_option->getSelections() ?>
+<?php $isEnableImages = $block->getIsEnableBundleImages(); ?>
+<div class="field option <?php echo ($_option->getRequired()) ? ' required': ''; ?>">
+    <label class="label" for="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>">
+        <span><?php echo $block->escapeHtml($_option->getTitle()) ?></span>
+    </label>
+    <?php if ($block->getChildBlock('bundle.option.comment.multi')): ?>
+        <?php echo /* @noEscape */ $block->getChildBlock('bundle.option.comment.multi')->setOption($_option)->toHtml();?>
+    <?php endif; ?>
+    <div class="control">
+        <?php if ($block->showSingle()): ?>
+            <?php if ($isEnableImages): ?>
+                <?php $imageUrl = $this->helper('Magento\Catalog\Helper\Image')->init($_selections[0], 'bundle_product_image_thumbnail')->getUrl(); ?>
+                <figure class="bundle-img"
+                        data-role="bundle-simple"
+                        data-product-id="<?= $_selections[0]->getProductId() ?>"
+                        data-product-url="<?= $block->escapeUrl($_selections[0]->getProductUrl()); ?>"
+                >
+                    <img src="<?php echo $block->escapeUrl($imageUrl); ?>" alt="<?php echo $block->escapeHtml($_selections[0]->getName()) ?>">
+                    <figcaption class="name">
+                        <?php /* @escapeNotVerified */ echo $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+                        <input type="hidden"
+                               name="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                               value="<?php /* @escapeNotVerified */ echo $_selections[0]->getSelectionId() ?>"/>
+                    </figcaption>
+                </figure>
+            <?php else: ?>
+                <?php /* @escapeNotVerified */ echo $block->getSelectionQtyTitlePrice($_selections[0]) ?>
+                <input type="hidden"
+                       name="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>]"
+                       value="<?php /* @escapeNotVerified */ echo $_selections[0]->getSelectionId() ?>"/>
+            <?php endif; ?>
+        <?php else: ?>
+            <?php if ($isEnableImages): ?>
+                <?php foreach ($_selections as $_selection): ?>
+                    <?php $imageUrl = $this->helper('Magento\Catalog\Helper\Image')->init($_selection, 'bundle_product_image_thumbnail')->getUrl(); ?>
+                    <figure class="bundle-img">
+                        <img src="<?php echo $block->escapeUrl($imageUrl); ?>" alt="<?php echo $block->escapeHtml($_selection->getName()) ?>">
+                        <figcaption class="name"><?php /* @escapeNotVerified */ echo $block->getSelectionQtyTitlePrice($_selection, false) ?></figcaption>
+                    </figure>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            <select multiple="multiple"
+                    size="5"
+                    id="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?>"
+                    name="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>][]"
+                    data-selector="bundle_option[<?php /* @escapeNotVerified */ echo $_option->getId() ?>][]"
+                    class="bundle-option-<?php /* @escapeNotVerified */ echo $_option->getId() ?> multiselect product bundle option change-container-classname"
+                    data-role="bundle-simple"
+                    data-product-id="<?=$_selection->getProductId() ?>"
+                    data-product-url="<?= $block->escapeUrl($_selection->getProductUrl()); ?>"
+                    <?php if ($_option->getRequired()) echo 'data-validate={required:true}' ?>>
+                <?php if(!$_option->getRequired()): ?>
+                    <option value=""><?php /* @escapeNotVerified */ echo __('None') ?></option>
+                <?php endif; ?>
+                <?php foreach ($_selections as $_selection): ?>
+                    <option value="<?php /* @escapeNotVerified */ echo $_selection->getSelectionId() ?>"
+                            <?php if ($block->isSelected($_selection)) echo ' selected="selected"' ?>
+                            <?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?>>
+                        <?php /* @escapeNotVerified */ echo $block->getSelectionQtyTitlePrice($_selection, false) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        <?php endif; ?>
+    </div>
+</div>

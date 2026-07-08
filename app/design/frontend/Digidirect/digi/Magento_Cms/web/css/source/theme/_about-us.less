@@ -1,0 +1,151 @@
+//
+//  Page About Us
+// _____________________________________
+
+//
+//  Variables
+// _____________________________________
+
+@column-distance__l: 80px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .pagecms-content {
+        & {
+            .lib-css(background, @color-white);
+            margin: 20px 0 30px;
+            padding: 20px 20px 24px;
+        }
+
+        > h2 {
+            .lib-css(font-weight, @font-weight__bold);
+            line-height: 1.36;
+            margin: 0 0 1rem;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        p > a {
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+
+        p + p {
+            margin: 1.8rem 0 0;
+        }
+
+        > p:last-child {
+            margin: 0 0 1.5rem;
+        }
+
+        h4 {
+            margin: 2rem 0 1rem;
+        }
+
+        > .image-wrap {
+            margin: 1.3rem 0 2rem;
+        }
+
+        > .image-wrap > img {
+            width: 100%;
+        }
+
+        .paragraph-gap {
+            margin: 0 0 .8rem;
+        }
+
+        .vital {
+            .lib-css(color, @color-2-1);
+            .lib-css(font-weight, @font-weight__bold);
+            .lib-font-size(2.2rem);
+            position: relative;
+            text-decoration: none;
+            top: 1px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .pagecms-content {
+        & {
+            margin: 20px 0 40px;
+        }
+
+        > h2 {
+            margin: 0 0 20px;
+        }
+
+        p + p {
+            margin: 20px 0 0;
+        }
+
+        > p:last-child {
+            margin: 0 0 15px;
+        }
+
+        h4 {
+            margin: 30px 0 20px;
+        }
+
+        > .image-wrap {
+            margin: 40px 0 0;
+        }
+
+        .paragraph-gap {
+            margin: 5px 0 4px;
+        }
+
+        .vital {
+            .lib-font-size(24px);
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .pagecms-content {
+        & {
+            .lib-vendor-prefix-column-count(2);
+            .lib-css(column-gap, @column-distance__l, 1);
+            margin: 0 0 80px;
+            padding: 60px 60px 80px;
+        }
+
+        > .indivisible-node {
+            break-inside: avoid;
+        }
+
+        .vital {
+            .lib-font-size(28px);
+        }
+
+        > h2 {
+            column-span: all;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .pagecms-content {
+        & {
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 1760px;
+        }
+    }
+}

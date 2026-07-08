@@ -1,0 +1,12 @@
+{
+  "name": "digidirect/msi",
+  "type": "magento2-module",
+  "description": "Digidirect MSI",
+  "version": "1.0.3.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\MSI\\": ""
+    }
+  }
+}

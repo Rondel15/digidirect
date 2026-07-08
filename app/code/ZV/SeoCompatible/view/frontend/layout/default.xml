@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <container name="canonical.url.cms.page.container">
+                <block class="Magento\Framework\View\Element\Text" name="canonical.url.cms.page">
+                    <arguments>
+                        <argument name="label" xsi:type="string">Adding canonical link with base URL</argument>
+                        <argument name="text" xsi:type="helper" helper="ZV\SeoCompatible\Helper\Canonical::getCanonicalForAllCmsPages"/>
+                    </arguments>
+                </block>
+            </container>
+            <block class="ZV\SeoCompatible\Block\Hreflang" name="default_hreflang" template="hreflang.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

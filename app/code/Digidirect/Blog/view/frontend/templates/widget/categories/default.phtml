@@ -1,0 +1,46 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\BlogCategories $block
+ */
+$categories = $block->getCategoriesTree();
+?>
+<div class="blog-categories blog-widget widget">
+    <h3 class="title"><?php /* @escapeNotVerified */ echo __('Categories'); ?></h3>
+    <ul class="list">
+        <?php if ($block->showAllCategory()): ?>
+            <li class="item item-0">
+                <a class="link" href="<?php echo $block->escapeUrl($block->getBlogUrl()); ?>"
+                   title="<?php echo $block->escapeHtml(__('All')); ?>">
+                    <?php echo $block->escapeHtml(__('All')); ?>
+                </a>
+            </li>
+        <?php endif; ?>
+        <?php $function = function ($category) use (&$function, $block) { ?>
+            <?php if(!empty($category) && $block->showCategory($category)): ?>
+                <li class="item item-<?php echo $block->escapeHtml($category->getEntityId()); ?>">
+                    <?php if($block->isEnabled($category)): ?>
+                        <a class="link<?php if($block->isActive($category->getEntityId())): ?> -active<?php endif; ?>" href="<?php echo $block->escapeUrl($block->getCategoryUrl($category->getUrlKey())); ?>"
+                           title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                            <?php echo $block->escapeHtml($category->getName()); ?>
+                        </a>
+                    <?php else: ?>
+                        <?php echo $block->escapeHtml($category->getName()); ?>
+                    <?php endif; ?>
+                    <span class="count"><?php echo ' (' . $block->escapeHtml($category->getCountPosts()) . ')'; ?></span>
+                    <?php if($category->hasChildren()): ?>
+                        <ul class="list -child">
+                            <?php foreach ($category->getChildren() as $childCategory): ?>
+                                <?php $childCategory = $block->getCategoryObject($childCategory); ?>
+                                <?php $function($childCategory)?>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
+        <?php } ;?>
+        <?php foreach ($categories as $category): ?>
+            <?php $category = $block->getCategoryObject($category); ?>
+            <?php $function($category);?>
+        <?php endforeach; ?>
+    </ul>
+</div>

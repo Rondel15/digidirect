@@ -1,0 +1,237 @@
+<li id="customer-info" class="checkout-customer-information" data-bind="fadeVisible: visible()">
+    <div data-bind="fadeVisible: isShippingVisible">
+        <div class="step-title accordion-step" data-bind="i18n: '1. Customer Information'" data-role="title" data-step="checkout-step-customerinfo"></div>
+        <div id="checkout-step-customerinfo"
+             class="step-content"
+             data-role="content">
+
+            <!-- ko if: (!quoteIsVirtual) -->
+                <!-- ko foreach: getRegion('customer-email') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                <!--/ko-->
+            <!--/ko-->
+
+        </div>
+    </div>
+
+
+<!--    <div class="actions-toolbar">-->
+<!--        <div class="primary">-->
+<!--            <button type="button"-->
+<!--                    class="action primary"-->
+<!--                    data-bind="click: loginCustomerGlowup">-->
+<!--                <span data-bind="i18n: 'Next'"></span>-->
+<!--            </button>-->
+<!--        </div>-->
+<!--    </div>-->
+
+
+    <div class="action-extension-toolbar">
+        <div class="primary">
+            <button id="customer-info-button-extension" class="extension-action button continue primary" type="button">
+<!--            <button id="customer-info-button-extension" class="extension-action button continue primary" type="button">-->
+                <span>Save & Continue</span>
+            </button>
+        </div>
+    </div>
+
+</li>
+
+<li id="shipping" class="checkout-shipping-address" data-bind="fadeVisible: visible(), afterRender: afterRenderHandler">
+    <div data-bind="fadeVisible: isShippingVisible">
+        <div class="step-title accordion-step" data-bind="i18n: '2. Delivery or Click & Collect'" data-role="title" data-step="checkout-step-shipping"></div>
+        <div id="checkout-step-shipping"
+             class="step-content"
+             data-role="content">
+
+            <!-- ko if: (isDefaultShipping) -->
+            <!-- ko foreach: getRegion('address-list') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+
+            <!-- Address form pop up -->
+            <!-- ko if: (!isFormInline) -->
+            <button type="button"
+                    data-bind="attr: {title: $t('New Address')},click: showFormPopUp, visible: !isNewAddressAdded()"
+                    class="action action-show-popup">
+                <span data-bind="i18n: 'New Address'"></span></button>
+            <div id="opc-new-shipping-address" data-bind="visible: isFormPopUpVisible()">
+                <!-- ko template: 'Magento_Checkout/shipping-address/form' --><!-- /ko -->
+            </div>
+            <!-- /ko -->
+
+            <!-- ko foreach: getRegion('address-list-additional-addresses') -->
+            <div class="fieldset">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <!--/ko-->
+
+            <!-- ko foreach: getRegion('before-form') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+
+            <!-- Inline address form -->
+            <!-- ko if: (isFormInline || addressFormWhatever()) -->
+            <div data-role="shipping-form" data-bind="fadeVisible: isShippingAddressVisible">
+                <!-- ko template: 'Magento_Checkout/shipping-address/form' --><!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!--/ko-->
+        </div>
+    </div>
+    <div class="action-extension-toolbar">
+        <div class="primary">
+            <button id="delivery-info-button-extension" class="extension-action button continue primary" type="button">
+                <span>Save & Continue</span>
+            </button>
+        </div>
+    </div>
+</li>
+
+<!--Shipping method template-->
+<li id="opc-shipping_method"
+    data-bind="fadeVisible: visible(), blockLoader: isLoading"
+    role="presentation">
+    <div class="checkout-shipping-method">
+        <div data-bind="i18n: '3. Shipping Method', css: 'step-title accordion-step' + titleClasses()" data-role="title" data-step="checkout-step-shipping_method"></div>
+        <div id="checkout-step-shipping_method"
+             class="step-content"
+             data-role="content"
+             role="tabpanel"
+             aria-hidden="false">
+            <!-- ko if: rates().length  -->
+            <form class="form methods-shipping" id="co-shipping-method-form" data-bind="submit: setShippingInformation" novalidate="novalidate">
+                <div id="checkout-shipping-method-load" data-bind="css: methodListClasses()">
+                    <span class="note14">Delivery Options</span><br />
+                    <!-- ko if: checkSellers()  -->
+                        <div>Please note that this order will be shipped in <!-- ko text: marketplacerSellers().length --><!-- /ko --> deliveries, and the costs below are the total you will be charged for all deliveries.</div>
+                    <!-- /ko -->
+                    <span class="deliveryoptionnote">Please note some delivery methods may be unavailable due to your shipping location and time of order.</span><br />
+                    <ul class="shipping-methods table-checkout-shipping-method items">
+                        <!-- ko foreach: { data: rates(), as: 'method'} -->
+                        <li class="row" data-bind="click: $parent.selectShippingMethod, css: method.carrier_code ">
+                        <!-- ko ifnot: method.error_message -->
+                            <!-- ko if: $parent.rates().length == 1 -->
+                            <input class="radio"
+                                   type="radio"
+                                   data-bind="attr: {
+                                                checked: $parent.rates().length == 1,
+                                                'value' : method.carrier_code + '_' + method.method_code,
+                                                'id': 's_method_' + method.method_code,
+                                                'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code
+                                             }" />
+                            <label class="label" data-bind="attr: {'for': 's_method_' + method.method_code}"></label>
+                            <!-- /ko -->
+                            <!--ko ifnot: ($parent.rates().length == 1)-->
+                            <input type="radio"
+                                   data-bind="
+                                            value: method.carrier_code + '_' + method.method_code,
+                                            checked: $parent.isSelected,
+                                            attr: {
+                                                'id': 's_method_' + method.carrier_code + '_' + method.method_code,
+                                                'aria-labelledby': 'label_method_' + method.method_code + '_' + method.carrier_code + ' ' + 'label_carrier_' + method.method_code + '_' + method.carrier_code,
+                                                'class': 'radio -item-' + $index()
+                                            },
+                                            click: $parent.selectShippingMethod"
+                                   class="radio"/>
+                            <label class="label" data-bind="attr: {'for': 's_method_' + method.carrier_code + '_' + method.method_code}"></label>
+                            <!--/ko-->
+                            <!-- /ko -->
+
+                            <span class="col col-carrier"
+                                 data-bind="text: method.carrier_title, attr: {'id': 'label_carrier_' + method.method_code + '_' + method.carrier_code}"></span>
+
+                            <span class="col col-method"
+                                    data-bind="text: method.method_title + ' *', attr: {'id': 'label_method_' + method.method_code + '_' + method.carrier_code}"></span>
+
+                            <!-- ko if: ((method.carrier_code == 'express') || (method.carrier_code == 'nextdaydelivery')) -->
+                                <span> ** ***</span>
+                            <!-- /ko -->
+
+                            <!-- ko if: (method.carrier_code == 'AP') -->
+                                <span> ****</span>
+                            <!-- /ko -->
+
+                            <strong class="col col-price">
+                                <!-- ko foreach: $parent.getRegion('price') -->
+                                <!-- ko template: getTemplate() --><!-- /ko -->
+                                <!-- /ko -->
+                            </strong>
+
+                            <!-- ko if: ((method.carrier_code == 'standard' && method.price_excl_tax == 20) || (method.carrier_code == 'express' && method.price_excl_tax == 35) || (method.carrier_code == 'AP' && method.price_excl_tax == 41) || (method.carrier_code == 'AP' && method.price_excl_tax == 69) || (method.carrier_code == 'nextdaydelivery' && method.price_excl_tax == 45)) -->
+                                <span> ***</span>
+                            <!-- /ko -->
+
+                        </li>
+
+                        <!-- ko if:  method.carrier_code == 'collect'  -->
+                            <!-- ko foreach: $parent.getRegion('collect-places') -->
+                                <!-- ko template: getTemplate() --><!-- /ko -->
+                            <!-- /ko -->
+                        <!-- /ko -->
+
+                        <!-- ko if:  method.error_message -->
+                        <li class="row row-error">
+                            <div class="col col-error">
+                                <div class="message error">
+                                    <div data-bind="text: method.error_message"></div>
+                                </div>
+                                <span class="no-display">
+                                    <input type="radio" data-bind="attr: {'value' : method.method_code, 'id': 's_method_' + method.method_code}"/>
+                                </span>
+                            </div>
+                        </li>
+                        <!-- /ko -->
+
+                        <!-- /ko -->
+                    </ul>
+                    <span class="note14">Shipping Notes</span>
+                    <span class="shippingnotes">1. During peak promotional periods, please allow additional time for your order dispatch.</span>
+                    <span class="shippingnotes">2. Allow more time for orders paid by bank transfer.</span>
+                    <span class="shippingnotes">3. Note that Express and Next Day delivery options are only applicable to items shipped by digiDirect, not third-party sellers on the digiDirect Marketplace.</span>
+                    <span class="shippingnotes">4. Note that charges outside of freight (duties, etc) not included.</span>
+                    <span class="bulk-surcharge-note">
+                        <!-- ko foreach: { data: rates(), as: 'method'} -->
+                            <!-- ko if: ((method.carrier_code == 'standard' && method.price_excl_tax == 20) || (method.carrier_code == 'express' && method.price_excl_tax == 35) || (method.carrier_code == 'AP' && method.price_excl_tax == 41) || (method.carrier_code == 'AP' && method.price_excl_tax == 69) || (method.carrier_code == 'nextdaydelivery' && method.price_excl_tax == 45)) -->
+                                <span style="display: none;">*** The shipping fee includes a $20.00 Bulky Goods surcharge due to the size and/or weight of product(s) ordered.</span>
+                            <!-- /ko -->
+                        <!-- /ko -->
+                    </span>
+                </div>
+
+                <!-- ko foreach: getRegion('before-shipping-method-form') -->
+                <!-- ko template: getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+
+                <div id="onepage-checkout-shipping-method-additional-load">
+                    <!-- ko foreach: getRegion('shippingAdditional') -->
+                    <!-- ko template: getTemplate() --><!-- /ko -->
+                    <!-- /ko -->
+                </div>
+                <!-- ko if: errorValidationMessage().length > 0 -->
+                <div class="message notice">
+                    <span><!-- ko text: errorValidationMessage()--><!-- /ko --></span>
+                </div>
+                <!-- /ko -->
+                <div class="actions-toolbar" id="shipping-method-buttons-container">
+                    <div class="primary">
+                        <button data-role="opc-continue" type="submit" class="button action continue primary">
+                            <span><!-- ko i18n: 'Next'--><!-- /ko --></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+            <!-- /ko -->
+            <!-- ko ifnot: rates().length > 0 --><div data-bind="css: 'no-quotes-block ' + methodListClasses()"><!-- ko i18n: 'Sorry, no quotes are available for this order at this time'--><!-- /ko --></div><!-- /ko -->
+        </div>
+    </div>
+
+    <div class="action-extension-toolbar">
+        <div class="primary">
+            <button id="shipping-button-extension" class="extension-action button continue primary" type="button">
+                <span>Continue</span>
+            </button>
+        </div>
+    </div>
+
+</li>

@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Wishlist\Block\Customer\Wishlist\Button $block */
+?>
+
+<?php if ($block->getWishlist()->getItemsCount()): ?>
+    <a data-mage-init='{"eventTransporter":{"customerEventSelector":"#wishlist-view-form .action.update"}}'
+       href="javascript:void(0)"
+       title="<?= $block->escapeHtmlAttr(__('Update Wish List')); ?>"
+       class="link -update">
+        <span><?= $block->escapeHtml(__('Update Wish List')); ?></span>
+    </a>
+<?php endif;?>

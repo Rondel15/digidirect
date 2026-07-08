@@ -1,0 +1,1074 @@
+<?php
+    use Magento\Framework\App\Action\Action;
+?>
+
+<script>
+    
+require(['jquery'], function ($) {
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    var customerId = getCookie('pa_customer_id');
+    var sessionId = getCookie('pa_session_id');
+    
+    var recommendationsResult = <?= json_encode($block->getRecommendations()); ?>;
+    var widgets  = recommendationsResult.recommendations.route.widgets;
+    
+    var routeId  = recommendationsResult.recommendations.route.id;
+    var currentUrl = window.location.href;
+    
+    var configCustomerId;
+    var configSessionId;
+    
+    configCustomerId = customerId;
+    configSessionId = sessionId;
+    
+    function blueWidget(widgetId, appendTo) {
+        let productItem = "";
+        let priceBlock = "";
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetSlots = widget.slots;
+        Object.keys(widgetSlots).forEach(key => {
+            
+            let product = widgetSlots[key].products[0];
+            let discountTotal = Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+            
+            if (discountTotal >= 10 || !product.prices[0].discountPrice) {
+                let campaignId = widgetSlots[key].campaignId;
+                let recommenderId = widgetSlots[key].recommenderId;
+                let tacticId = widgetSlots[key].tacticId;
+                let retailBoostCollectionCampaignId = widgetSlots[key].retailBoostCollectionCampaignId;
+                let adSetId = widgetSlots[key].adSetId;
+                let adSetVersion = widgetSlots[key].adSetVersion;
+                let costPerClick = widgetSlots[key].costPerClick;
+                let timeStamp = widgetSlots[key].timeStamp;
+                let hmacSalt = widgetSlots[key].hmacSalt;
+                let hmac = widgetSlots[key].hmac;
+                let keywordId = widgetSlots[key].keywordId;
+
+                if (product.prices[0].discountPrice) {
+                    let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                    let discountPriceToDisplay = "$" + Number(product.prices[0].discountPrice).toFixed(2);
+                    let discount = "$" + Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+                    priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                    '<div class="old-price-wrapper"><span class="old-price">' +
+                                        '<span class="price-container price-final_price tax weee">' +
+                                            '<span class="price-label">Price Slashed </span>' + 
+                                                '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                    '<span class="price">'+ priceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                    '<div class="current-price-wrapper has-special-price">' +
+                                        '<div class="digidirectprice">' +
+                                            '<span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span>' +
+                                        '</div>' +
+                                        '<span class="special-price"><span class="price-container price-final_price tax weee">' +
+                                            '<span class="price-label"></span>' + 
+                                                '<span id="product-price-'+ product.refId +'" data-price-amount="'+ discountPriceToDisplay +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                    '<span class="price">'+ discountPriceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                    '<div class="discount-price-wrapper"><span class="discount-price">'+ discount +'</span> Off</div>' +
+                                '</div>';
+                } else {
+                    let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                    priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                    '<div class="current-price-wrapper no-special-price">' +
+                                        '<div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div>' +
+                                            '<span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span>' + 
+                                                '<span id="product-price-'+ product.refId +'" data-price-amount="'+ product.prices[0].price +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                    '<span class="price">' + priceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                '</div>';
+                }
+
+                var tileId = 'product-' + product.refId;
+
+                var productItemDiv = '<div id="'+ tileId +'" class="product-item-info product-item" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">';
+
+                productItem = productItemDiv +
+                        '<a href="' + product.url + '" class="product photo product-item-photo" tabindex="-1">' +
+                            '<span class="product-image-container" style="width: 240px;">' +
+                                '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                    '<img class="product-image-photo" src="' + product.images[0] + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                '</span>' +
+                            '</span>' +
+                        '</a>' + 
+                        '<div class="product details product-item-details">' +
+                            '<strong class="product-item-name">' +
+                                '<a title="' + product.name + '" href="' + product.url + '" class="product-item-link">' +
+                                    product.name +
+                                '</a>' +
+                            '</strong>' +
+                            priceBlock +
+                        '</div>' +
+                    '</div>'
+                $(appendTo).append(productItem);
+                //slots(product.refId);
+            }
+        });
+        $('.pa-product-widget-container.widget-placeholder').remove();
+    }
+    
+    function productTile(widgetId, appendTo, isMobile) {
+        let productItem = "";
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetSlots = widget.slots;
+        var productCtr = 0;
+        Object.keys(widgetSlots).forEach(key => {
+            
+            let product = widgetSlots[key].products[0];
+            let discountTotal = Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+            
+            if (discountTotal >= 10 || !product.prices[0].discountPrice) {
+                productCtr++;
+                let campaignId = widgetSlots[key].campaignId;
+                let recommenderId = widgetSlots[key].recommenderId;
+                let tacticId = widgetSlots[key].tacticId;
+                let retailBoostCollectionCampaignId = widgetSlots[key].retailBoostCollectionCampaignId;
+                let adSetId = widgetSlots[key].adSetId;
+                let adSetVersion = widgetSlots[key].adSetVersion;
+                let costPerClick = widgetSlots[key].costPerClick;
+                let timeStamp = widgetSlots[key].timeStamp;
+                let hmacSalt = widgetSlots[key].hmacSalt;
+                let hmac = widgetSlots[key].hmac;
+                let keywordId = widgetSlots[key].keywordId;
+
+                let digiDealsLogo = "";
+                let priceBlock = "";
+                let addToCart = "";
+
+                let digiSeconds = "";
+                let digiSecondsOverlay = "";
+                let sellerName = "";
+
+                let categories = product.attributes.find(obj => {
+                    return obj.name === 'Categories';
+                })
+
+                let seller = product.attributes.find(obj => {
+                    return obj.name === 'DDR_Seller_Id';
+                })
+
+                let digiPrint = product.attributes.find(obj => {
+                    return obj.name === 'is_digiprint';
+                })
+
+                let digiPrintLink = product.attributes.find(obj => {
+                    return obj.name === 'digiprint_customlink';
+                })
+
+                let digiSecondsRatingValue = product.attributes.find(obj => {
+                    return obj.name === 'item_rating';
+                })
+
+                let digiSecondsRating = "";            
+
+                if (digiSecondsRatingValue.stringValue == "5") {
+                    digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+                } else if (digiSecondsRatingValue.stringValue == "4") {
+                    digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
+                } else if (digiSecondsRatingValue.stringValue == "3") {
+                    digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+                } else if (digiSecondsRatingValue.stringValue == "2") {
+                    digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+                } else if (digiSecondsRatingValue.stringValue == "1") {
+                    digiSecondsRating = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+                }
+
+                sellerName = seller.stringValue;
+
+                let digiSecondsCategories = ["PRELOVED","OPENBOX","REFURB"];
+                let isDigiSeconds = digiSecondsCategories.includes(categories.options[0].value);
+
+                if (categories.options[0].value == "PRELOVED") {
+                    digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-pre-loved.png"/>';
+                } else if (categories.options[0].value == "OPENBOX") {
+                    digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-demo.png"/>';
+                } else if (categories.options[0].value == "REFURB") {
+                    digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-refurbished.png"/>';
+                }
+
+                digiSeconds = '<div class="digiseconds-overlay">' + digiSecondsOverlay + '<div class="digiseconds-rating">' + digiSecondsRating + '</div></div>';
+                //console.log(attribute);
+
+                let digiPrintValue = digiPrint.stringValue;
+                let digiPrintLinkValue = digiPrintLink.stringValue;
+
+                if (digiPrintValue == 1) {
+                    addToCart = '<a class="ordernow-link" href="' + digiPrintLinkValue + '" target="_blank">' +
+                                    '<button type="button" title="Order Now" class="action tocart primary">' +
+                                        'Order Now <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                                    '</button>' +
+                                '</a>'
+                } else {
+                    addToCart = '<form data-role="tocart-form"' +
+                                        'data-product-sku="' + product.sku + '"' +
+                                        'action="https://www.digidirect.com.au/checkout/cart/add/uenc/%25uenc%25/product/'+ product.refId +'" method="post"><?php echo $block->getBlockHtml("formkey"); ?>' +
+                                        '<input type="text" name="ref_id" value="'+ product.refId +'" hidden/>' +
+                                        '<input type="text" name="qty" value="1" hidden/>' +
+                                        '<input type="text" name="widget_id" value="631dfdd4-dc01-ef11-abf3-02bf4bf6447c" hidden/>' +
+                                        '<input type="text" name="route_id" value="'+ routeId +'" hidden/>' +
+                                        '<input type="text" name="recommender_id" value="'+ recommenderId +'" hidden/>' +
+                                        '<input type="text" name="campaign_id" value="'+ campaignId +'" hidden/>' +
+                                        '<input type="text" name="tactic_id" value="'+ tacticId +'" hidden/>' +
+                                        '<input type="text" name="retail_boost_collection_campaign_id" value="'+ retailBoostCollectionCampaignId +'" hidden/>' +
+                                        '<input type="text" name="adset_id" value="'+ adSetId +'" hidden/>' +
+                                        '<input type="text" name="adset_version" value="'+ adSetVersion +'" hidden/>' +
+                                        '<input type="text" name="cost_per_click" value="'+ costPerClick +'" hidden/>' +
+                                        '<input type="text" name="timestamp" value="'+ timeStamp +'" hidden/>' +
+                                        '<input type="text" name="hmac_salt" value="'+ hmacSalt +'" hidden/>' +
+                                        '<input type="text" name="hmac" value="'+ hmac +'" hidden/>' +
+                                        '<input type="text" name="keyword_id" value="'+ keywordId +'" hidden/>' +
+                                        '<button type="submit" title="Add to Cart" class="action tocart primary" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '">' +
+                                        '<span>Add to Cart</span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>' +
+                                    '</button>' +
+                                '</form>'
+                }
+                //console.log(product.name, sellerName);
+                if (!isDigiSeconds) {
+                    if (sellerName != "20329" && sellerName !== undefined) {
+                        digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                    } else {
+                        digiDealsLogo = '';
+                    }
+                }
+
+                if (product.prices[0].discountPrice) {
+                    if (!isDigiSeconds) {
+                        digiDealsLogo = '<div class="ribbon-digideals">digiDeals</div>';
+                        if (sellerName != "20329" && sellerName !== undefined) {
+                            digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                        }
+                    }
+
+                    let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                    let discountPriceToDisplay = "$" + Number(product.prices[0].discountPrice).toFixed(2);
+                    let discount = "$" + Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+                    priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                    '<div class="old-price-wrapper"><span class="old-price">' +
+                                        '<span class="price-container price-final_price tax weee">' +
+                                            '<span class="price-label">Price Slashed </span>' + 
+                                                '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                    '<span class="price">'+ priceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                    '<div class="current-price-wrapper has-special-price">' +
+                                        '<div class="digidirectprice">' +
+                                            '<span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span>' +
+                                        '</div>' +
+                                        '<span class="special-price"><span class="price-container price-final_price tax weee">' +
+                                            '<span class="price-label"></span>' + 
+                                                '<span id="product-price-'+ product.refId +'" data-price-amount="'+ discountPriceToDisplay +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                    '<span class="price">'+ discountPriceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                    '<div class="discount-price-wrapper"><span class="discount-price">'+ discount +'</span> Off</div>' +
+                                '</div>';
+                } else {
+                    let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                    priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                    '<div class="current-price-wrapper no-special-price">' +
+                                        '<div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div>' +
+                                            '<span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span>' + 
+                                                '<span id="product-price-'+ product.refId +'" data-price-amount="'+ product.prices[0].price +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                    '<span class="price">' + priceToDisplay +'</span>' +
+                                                '</span>' + 
+                                            '</span>' +
+                                        '</span>' +
+                                    '</div>' +
+                                '</div>';
+                }
+
+                let hideProductItem = "";
+                if (isMobile && productCtr > 4) {
+                    hideProductItem = "hide-product-item";
+                }
+                var view = "";
+                if (isMobile) {
+                    view = "-mobile";
+                } else {
+                    view = "-desktop";
+                }
+                var tileId = 'product-' + product.refId + view;
+
+                var productItemDiv = '<div id="'+ tileId +'" class="product-item-info product-item" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">';
+
+                productItem = productItemDiv +
+                            '<div class="wish-list-wrapper" data-role="add-to-links">' +
+                                '<a href="#"' +
+                                'data-post=""' +
+                                'class="action towishlist" data-action="add-to-wishlist"' +
+                                'title="Add to Wish List">' +
+                                '<i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>' +
+                                '</a>' +
+                            '</div>' +
+                            '<a href="' + product.url + '" class="product photo product-item-photo" tabindex="-1">' +
+                                digiDealsLogo + digiSeconds +
+                                '<span class="product-image-container" style="width: 240px;">' +
+                                    '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                        '<img class="product-image-photo" src="' + product.images[0] + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                    '</span>' +
+                                '</span>' +
+                            '</a>' + 
+                            '<div class="product details product-item-details">' +
+                                '<strong class="product-item-name">' +
+                                    '<a title="' + product.name + '" href="' + product.url + '" class="product-item-link">' +
+                                        product.name +
+                                    '</a>' +
+                                '</strong>' +
+                                priceBlock +
+                            '</div>' +
+                            '<div class="product actions product-item-actions">' +
+                                '<div class="actions-primary">' +
+                                    addToCart +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                $(appendTo).append(productItem);
+                //slots(product.refId, recommenderId, campaignId, tacticId);
+            }
+        });
+        $('.pa-digidirect-product-widget-container.widget-placeholder').remove();
+    }
+    
+    blueWidget('458d80ed-033e-ec11-aae9-02dca44cceec', '#pa-blue-right-side-widget .pa-product-widget-container.real-container');
+    productTile('94e9300c-023e-ec11-aae9-02dca44cceec', '#recommended-for-you-widget-desktop', false);
+    productTile('94e9300c-023e-ec11-aae9-02dca44cceec', '#recommended-for-you-widget-mobile', true);
+    productTile('886fc4e3-a9f0-ee11-abf3-02bf4bf6447c', '#trending-digimarket-products-widget-desktop', false);
+    productTile('886fc4e3-a9f0-ee11-abf3-02bf4bf6447c', '#trending-digimarket-products-widget-mobile', true);
+    productTile('0bfcb498-893d-ef11-abf3-02bf4bf6447c', '#shop-tech-and-more-widget-desktop', false);
+    productTile('0bfcb498-893d-ef11-abf3-02bf4bf6447c', '#shop-tech-and-more-widget-mobile', true);
+    productTile('6631ff51-60f5-ee11-abf3-02bf4bf6447c', '#trending-technology-products-for-you-widget-desktop', false);
+    productTile('6631ff51-60f5-ee11-abf3-02bf4bf6447c', '#trending-technology-products-for-you-widget-mobile', true);
+    productTile('4dd9e335-bef7-ee11-abf3-02bf4bf6447c', '#trending-photography-products-for-you-widget-desktop', false);
+    productTile('4dd9e335-bef7-ee11-abf3-02bf4bf6447c', '#trending-photography-products-for-you-widget-mobile', true);
+    productTile('a24cb666-8a3d-ef11-abf3-02bf4bf6447c', '#trending-digimarket-products-for-you-widget-desktop', false);
+    productTile('a24cb666-8a3d-ef11-abf3-02bf4bf6447c', '#trending-digimarket-products-for-you-widget-mobile', true);
+    productTile('f61e5e9b-4500-ef11-abf3-02bf4bf6447c', '#trending-digiseconds-products-for-you-widget-desktop', false);
+    productTile('f61e5e9b-4500-ef11-abf3-02bf4bf6447c', '#trending-digiseconds-products-for-you-widget-mobile', true);
+    productTile('d659416a-40f6-ee11-abf3-02bf4bf6447c', '#trending-digiprint-products-for-you-widget-desktop', false);
+    productTile('d659416a-40f6-ee11-abf3-02bf4bf6447c', '#trending-digiprint-products-for-you-widget-mobile', true);
+    
+    $("#pa-blue-right-side-widget .product-item-info.product-item:not(.slot)").each(function() {
+        var element = $(this).attr("id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        isElementInViewPort(element, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+    });
+    $(".pa-digidirect-product-widget .product-item-info.product-item:not(.slot)").each(function() {
+        var element = $(this).attr("id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        isElementInViewPort(element, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+    });
+    
+    function slots(productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId) {
+
+        var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                refId: productId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const slotData = {
+            customerId: configCustomerId,
+            sessionId: configSessionId,
+            events: [events]
+        };
+
+        console.log(JSON.stringify(slotData));
+
+        $.ajax({
+            //async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/slots",
+            type: "POST",
+            data: {
+                eventData: slotData
+            },
+            success: function(data){
+                console.log("slots", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+    }
+    
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, 
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    
+    //Product Info Add To Cart
+    $(".product-item-details").click(function() {
+        $(this).siblings('.product-item-actions').find('.action.tocart.primary').trigger('click');
+    });
+
+    $(".pa-digidirect-product-widget .product-item-info.product-item").click(function(){
+
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                clickId: uuidv4(),
+                refId: productId,
+                actionType: 1,
+                contextType: 1,
+                routeId: routeId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const clickData = {
+            customerId: configCustomerId,
+            sessionId: configSessionId,
+            events: [events]
+        };
+
+        //console.log(JSON.stringify(clickData));
+
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/clicks",
+            type: "POST",
+            data: {
+                eventData: clickData
+            },
+            success: function(data){
+                console.log("clicks", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    $(".pa-digidirect-product-widget .action.tocart").click(function(){
+
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        var product = {"refId": productId, "quantity": 1};
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                product: product,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+        
+        const productData = {
+            customerId: configCustomerId,
+            sessionId: configSessionId,
+            events: [events]
+        };
+        
+        //console.log("productData", JSON.stringify(productData));
+
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/addtocart",
+            type: "POST",
+            data: {
+                eventData: productData
+            },
+            success: function(data){
+                console.log("addtocart", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    function isElementInViewPort(element, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId){
+        var thisElement = document.getElementById(element);
+        let rect = thisElement.getBoundingClientRect();
+
+        // check if element is completely visible inside the viewport
+        if ((rect.top <= 600 && rect.top >= 0) && rect.height != 0) {
+            //console.log("Product ID id ", element, "The bounding Rect of element is ", rect, "viewPortBottom", viewPortBottom);
+            //return (isTopInViewPort && isLeftInViewPort && isBottomInViewPort && isRightInViewPort);
+            slots(productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            $(thisElement).addClass("slot");
+        }
+    }
+
+    window.addEventListener('scroll', function() {
+        $("#pa-blue-right-side-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+        $(".pa-digidirect-product-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    }, false);
+    
+});
+
+</script>
+
+<?php
+    $isDigiClub = false;
+    $customer = $block->checkCustomer();
+    if ($customer->isLoggedIn()) {
+        $customerGroupId = $customer->getCustomer()->getGroupId();
+        if ($customerGroupId == 10) {
+            $isDigiClub = true;
+        }
+    }
+?>
+
+<div class="homepage-row main-banner" style="margin-bottom: 40px;">
+    <div class="home-main-banners" style="display: grid; grid-template-columns: 75% 25%;">
+        <div class="home-main-banner-left">
+            <?php if ($isDigiClub) :?>
+                <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main-web-banner-digiclub')->toHtml(); ?>
+                <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('mobile-single-banner-digiclub')->toHtml(); ?>
+            <?php else : ?> 
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main-web-banner')->toHtml(); ?>
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('mobile-single-banner')->toHtml(); ?>
+            <?php endif; ?>
+        </div>
+        <div class="home-main-banner-right">
+            <div>
+                <div id="pa-blue-right-side-widget-wrapper">
+                    <div id="pa-blue-right-side-widget">
+                        <div class="product-widget-header">
+                            <h3 class="title">Welcome Back! Continue Shopping!</h3>
+                        </div>
+                        <div class="pa-product-widget-container real-container">
+                        </div>
+                        <div class="pa-product-widget-container widget-placeholder">
+                            <div class="product-item-info product-item" style="height: 183px;"><div class="loader"></div></div>
+                            <div class="product-item-info product-item" style="height: 183px;"><div class="loader"></div></div>
+                            <div class="product-item-info product-item" style="height: 183px;"><div class="loader"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('lower-right-side-banner')->toHtml(); ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 15px;">
+    <div class="pa-digidirect-product-widget recommended-for-you-widget">
+        <div class="product-widget-header">
+            <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Recommended For You</h3>
+        </div>
+        <div id="recommended-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div id="recommended-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('recommended-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+        <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('recommended-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+        <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('recommended-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 40px;">
+    <div class="pa-digidirect-product-widget trending-digimarket-products-widget">
+        <div class="product-widget-header">
+            <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending digiMarket Products</h3>
+        </div>
+        <div id="trending-digimarket-products-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div id="trending-digimarket-products-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digimarket-products-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+        <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digimarket-products-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+        <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digimarket-products-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 40px;">
+    <div class="home-banner-ad">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('homepage-banner-ad')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 40px;">
+    <div class="digiservice-row">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-digiservices')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 40px;">
+    <div class="pa-digidirect-product-widget shop-tech-and-more-widget">
+        <div class="product-widget-header">
+            <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Shop Tech and More</h3>
+        </div>
+        <div id="shop-tech-and-more-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div id="shop-tech-and-more-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('shop-tech-and-more-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+        <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('shop-tech-and-more-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+        <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('shop-tech-and-more-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 80px;">
+    <div class="current-promotions-row">
+        <?php if ($isDigiClub) :?>
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('new-current-promotions-slider-digiclub')->toHtml(); ?>
+        <?php else : ?> 
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('new-current-promotions-slider')->toHtml(); ?>
+        <?php endif; ?>
+    </div>
+</div>
+<div class="homepage-row shop-by-row technology" style="margin-bottom: 50px;">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-technology')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-technology-products-for-you-widget">
+            <div class="product-widget-header">
+                <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending Technology Products For You</h3>
+            </div>
+            <div id="trending-technology-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div id="trending-technology-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-technology-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-technology-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-technology-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row shop-by-row photography" style="margin-bottom: 50px;">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-photography')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-photography-products-for-you-widget">
+            <div class="product-widget-header">
+                <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending Photography Products For You</h3>
+            </div>
+            <div id="trending-photography-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div id="trending-photography-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-photography-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-photography-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-photography-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row shop-by-row digimarket" style="margin-bottom: 50px;">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-digimarket')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-photography-products-for-you-widget">
+            <div class="product-widget-header">
+                <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending digiMarket Products For You</h3>
+            </div>
+            <div id="trending-digimarket-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div id="trending-digimarket-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digimarket-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digimarket-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digimarket-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row shop-by-row digiseconds" style="margin-bottom: 50px;">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-digiseconds')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-digiseconds-products-for-you-widget">
+            <div class="product-widget-header">
+                <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending digiSeconds Products For You</h3>
+            </div>
+            <div id="trending-digiseconds-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div id="trending-digiseconds-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digiseconds-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digiseconds-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digiseconds-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row shop-by-row digiprint" style="margin-bottom: 50px;">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-digiprint')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-digiprint-products-for-you-widget">
+            <div class="product-widget-header">
+                <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">Trending digiPrint Products For You</h3>
+            </div>
+            <div id="trending-digiprint-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div id="trending-digiprint-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digiprint-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digiprint-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digiprint-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<script type="text/x-magento-init">
+{
+    "[data-role=tocart-form], .form.map.checkout": {
+        "catalogAddToCart": {
+           "bindSubmit": true
+        }
+    }
+}
+</script>
+
+<script>
+
+    function loadMoreProducts(widgetClass) {
+        var hiddenTiles = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        var ctr = 0;
+        for (let x = 0; x < hiddenTiles.length; x++) {
+          ctr++;
+          hiddenTiles[x].classList.remove('hide-product-item');
+          if (ctr == 4) break;
+        }
+        var hiddenTilesCount = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        if (hiddenTilesCount.length == 0) {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "none";    
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "block";    
+
+            try {
+                document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "block"; 
+            }
+            catch(err) {
+            }
+        }
+    }
+
+    function viewLessProducts(widgetClass) {
+        var productTiles = document.querySelectorAll('.'+ widgetClass + ' ' + '.mobile-widget .product-item'); 
+
+        var ctr = 0;
+        for (let x = 0; x < productTiles.length; x++) {
+          ctr++;
+          if (ctr > 4) {
+             productTiles[x].classList.add('hide-product-item');
+          }
+        }
+
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "block";    
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "none";    
+        try {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "none"; 
+        }
+        catch(err) {
+        }
+        document.getElementById(widgetClass).scrollIntoView();
+
+    }
+
+    function viewAllProducts(viewAllLink) {
+        window.location.href = viewAllLink;
+    }
+    
+</script>

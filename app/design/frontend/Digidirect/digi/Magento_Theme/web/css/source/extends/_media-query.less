@@ -1,0 +1,72 @@
+//
+//  Catalog: Listing
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    
+}
+
+//
+//  Mobile above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    
+}
+
+//
+//  Tablet and above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .deals-offers-wrapper,
+    .blog-categories-list-wrapper,
+    .helpful-info-wrapper{
+        padding: 0 40px;
+    }
+    
+    .deal-offer-wrapper-inner .mgz-element-column > .mgz-element-inner{
+        padding: 0 0 !important;
+    }
+    
+    .column-wrapper.main-banner-wrapper{
+        width: calc(~"100% + 60px");
+        margin-right: -30px;
+        margin-left: -30px;
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    
+}

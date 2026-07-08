@@ -1,0 +1,15 @@
+<?php
+/** @var \Digidirect\AbstractAttributes\Block\Attribute\Option\View $block */
+/** @var $imageHelper \Digidirect\AbstractAttributes\Helper\Image */
+$option = $block->getOption();
+$imageHelper = $this->helper('Digidirect\AbstractAttributes\Helper\Image');
+$isShowMedia = false;
+?>
+<?php if($isShowMedia): ?>
+    <?php if ($option->getImage()) : ?>
+        <div class="category-image">
+            <img class="image" src="<?php echo $block->escapeUrl($imageHelper->init($option, 'image')->resize(400, 300)->getUrl()); ?>"
+                 alt="<?php echo $block->escapeHtml($option->getLabel()); ?>"/>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>

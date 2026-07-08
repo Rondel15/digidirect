@@ -1,0 +1,62 @@
+<!-- ko if: (available)-->
+<div class="locator-item locator-details item"
+     data-bind="css: { 'store-wrapper column': $parents[2].locations.settings().open_in_popup }">
+    <!-- ko if: (available)-->
+    <!-- ko foreach: $parent.getRegion('itemEnd') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <div class="details">
+        <!-- ko if: (available)-->
+        <span class="name -available"><!-- ko text: name --><!-- /ko --> <!-- ko if: entity_id == 35 --><span>* (Monday to Friday only)</span><!--/ko--></span>
+        <!-- /ko -->
+        <!-- ko ifnot: (available)-->
+        <span class="name"><!-- ko text: name --><!-- /ko --> <!-- ko if: entity_id == 35 --><span>* (Monday to Friday only)</span><!--/ko--></span>
+        <!-- /ko -->
+        <span><address class="address">
+            <!-- ko text: street --><!-- /ko -->,
+            <!-- ko text: city --><!-- /ko -->
+            <!-- ko text: state --><!-- /ko -->
+            <!-- ko text: postcode --><!-- /ko -->
+        </address></span>
+    </div>
+    <div class="item -address">
+
+
+
+    </div>
+    <!-- ko if: entity_id == 16 -->
+        <div class="item -cannington-note" style="padding-left: 0;">
+            <span>* Orders are likely to take longer than <b style="color: #ff3c00;">24-72 hours</b> for delivery to Cannington in Western Australia.</span>
+        </div>
+    <!--/ko-->
+    <div class="item -available">
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-bag"></use>
+            </svg>
+        </span>
+        <!-- ko if: (available)-->
+        <span class="available"
+              data-bind="i18n: 'Available in store'"></span>
+        <!-- /ko -->
+
+        <!-- ko ifnot: (available)-->
+        <span class="unavailable"
+              data-bind="i18n: 'Unavailable in store'"></span>
+        <a attr="'href': window.unavalabilityUrl, 'title': $t('Contact us')" text="$t('Contact us')"></a>
+        <!-- /ko -->
+    </div>
+    <div class="item -hours">
+        <span class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-clock"></use>
+            </svg>
+        </span>
+        <div class="open-hours collapsible-table"
+             data-bind="mageInit:{'Digidirect_CollectStoreLocator/js/collapsible-table':{}}, html: opening_hours"></div>
+    </div>
+
+</div>
+<!-- /ko -->

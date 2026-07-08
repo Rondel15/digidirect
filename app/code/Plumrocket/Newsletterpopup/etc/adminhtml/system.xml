@@ -1,0 +1,1281 @@
+<?xml version="1.0"?>
+<!--
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="prnewsletterpopup" translate="label" type="text" sortOrder="8096099" showInDefault="1" showInWebsite="1" showInStore="1">
+            <class>separator-top</class>
+            <label><![CDATA[Newsletter Popup]]></label>
+            <tab>plumrocket</tab>
+            <resource>Plumrocket_Newsletterpopup::config</resource>
+            <group id="toolbox" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\ToolbarFieldset</frontend_model>
+                <field id="version" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Version</frontend_model>
+                    <attribute type="pr_extension_name">Newsletterpopup</attribute>
+                </field>
+            </group>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <attribute type="expanded">1</attribute>
+                <field id="enable" translate="label comment" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Extension</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="serial" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Serial Key</label>
+                    <frontend_model>Plumrocket\Base\Block\Adminhtml\System\Config\Form\Serial</frontend_model>
+                    <attribute type="pr_extension_name">Newsletterpopup</attribute>
+                </field>
+                <field id="enable_analytics" translate="label comment" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Google Analytics Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Add auto-generated Google Analytics Event Tracking code to popup form buttons to track user interaction.</comment>
+                </field>
+                <field id="gtm_tracking" translate="label comment" type="select" sortOrder="45" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use Google Tag Manager Tracking</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Fire GTM events to track user interaction with your newsletter popup.</comment>
+                </field>
+                <field id="enable_history" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Subscription History</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If enabled, all user interactions with newsletter popup will be saved in magento database.</comment>
+                </field>
+                <field id="erase_history" translate="label comment" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Erase Old Subscription History</label>
+                    <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Erase</source_model>
+                    <depends>
+                        <field id="enable_history">1</field>
+                    </depends>
+                </field>
+                <field id="ip_skip" translate="label comment" type="textarea" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disable History for IP-addresses</label>
+                    <comment>Enter each IP address in a new line. You can use a wildcard to cover a larger range of IP addresses.</comment>
+                    <depends>
+                        <field id="enable_history">1</field>
+                    </depends>
+                </field>
+                <field id="cookies_usage" translate="label comment" type="select" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Cookie Timeout Usage</label>
+                    <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Cookies</source_model>
+                    <comment>Separate cookie for each popup allows you to record time when popup was closed for each popup independently. When 2 or more popups are enabled at the same time, the user will see 2nd popup after the page refresh even if the 1st popup was just closed.</comment>
+                </field>
+                <field id="htmltoimage" translate="label comment" type="label" sortOrder="90" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Newsletter Popup Thumbnail</label>
+                    <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Htmltoimage</frontend_model>
+                </field>
+            </group>
+
+            <group id="size" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Device Screen Sizes</label>
+
+                <field id="desktop" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Desktop</label>
+                    <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Size</frontend_model>
+                    <comment>Width of Desktop screen in pixels. Used to recognize device type to display newsletter popup. Default value is: "equals or greater than 992 px".</comment>
+                </field>
+                <field id="tablet" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Tablet</label>
+                    <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Size</frontend_model>
+                    <comment>Width of Tablet screen in pixels. Default value is: "equals or greater than 768 px".</comment>
+                </field>
+                <field id="mobile" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mobile</label>
+                    <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Size</frontend_model>
+                    <comment>Width of Mobile screen in pixels. Default value is: "less than 768 px".</comment>
+                </field>
+            </group>
+
+            <group id="disposable_emails" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Disposable Emails</label>
+
+                <field id="disable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Reject Subscriptions from Disposable Email Addresses</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="domains" translate="label comment" type="textarea" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Disposable Email Services</label>
+                    <comment>Black listed domain names. Newsletter subscriptions will be rejected for the email addresses from the above domains.</comment>
+                    <depends>
+                        <field id="disable">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="google_recaptcha" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Google reCAPTCHA</label>
+                <field id="google_recaptcha_config_type" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google reCAPTCHA Config</label>
+                    <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\ReCaptcha</source_model>
+                </field>
+                <field id="google_recaptcha_sitekey" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Google reCAPTCHA Site Key</label>
+                    <depends>
+                        <field id="google_recaptcha_config_type">custom</field>
+                    </depends>
+                </field>
+                <field id="google_recaptcha_secretkey" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Google reCAPTCHA Secret Key</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                    <depends>
+                        <field id="google_recaptcha_config_type">custom</field>
+                    </depends>
+                </field>
+            </group>
+
+            <group id="integration" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Integrations</label>
+                <group id="activecampaign" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>ActiveCampaign</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\ActivecampaignEnable</frontend_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your ActiveCampaign List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API URL</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry validate-url</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API URL in your <a target="_blank" href="https://www.activecampaign.com/login">ActiveCampaign</a> account.]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://www.activecampaign.com/login">ActiveCampaign</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\ActiveCampaignList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\Integration\ActiveCampaignList</backend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\ActiveCampaign</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="campaignmonitor" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Campaign Monitor</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Campaign Monitor List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://www.campaignmonitor.com/api">Compaign Monitor</a> account.]]></comment>
+                    </field>
+                    <field id="client_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Client ID</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Client ID in your <a target="_blank" href="https://www.campaignmonitor.com/api">Compaign Monitor</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\CampaignMonitorList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\CampaignMonitor</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="constantcontact" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Constant Contact</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Constant Contact List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Redirect URI</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\RedirectUri</frontend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Key in your <a target="_blank" href="https://app.constantcontact.com/pages/dma/portal/">Constant Contact</a> applications.]]></comment>
+                    </field>
+                    <field id="secret" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Secret</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Secret in your <a target="_blank" href="https://app.constantcontact.com/pages/dma/portal/">Constant Contact</a> account.]]></comment>
+                    </field>
+                    <field id="access_token" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Access Token</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\GenerateAccessToken</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <can_be_empty>1</can_be_empty>
+                        <comment><![CDATA[You can generate Access Token only after saving API Key and Secret]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\ConstantContact\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Email Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\ConstantContactList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>\Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\ConstantContact\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\ConstantContact</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[Newsletter Popup Fields from the table above will be transferred to the Constant Contact and can be used in the email templates. Some fields, such as Firstname, Lastname, Address are predefined by the Constant Contact and should not be renamed. Other fields, such as Fax, Gender, Coupon can be created using custom fields functionality. You can load a list of all custom fields below. Or check our <a target="_blank" href="https://plumrocket.com/docs/magento-newsletter-popup/v3">online documentation</a> for more info.]]></comment>
+                    </field>
+                    <field id="custom_fields" translate="label comment" type="button" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Get Custom Field List</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\ConstantContact\CustomFields</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[Retrieve List of Custom Fields and their respective ID's from Constant Contact. Copy "Integration Field ID" into "Fields Mapping" table above to link your Newsletter Popup Fields with Custom Fields on Constant Contact. You can create custom fields by navigating to Constant Contact > My Settings > Contact Settings > <a target="_blank" href="https://ui.constantcontact.com/rnavmap/distui/contacts/settings#custom_fields">Manage Custom Fields</a>]]></comment>
+                    </field>
+                </group>
+                <group id="convertkit" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Convertkit</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your ConvertKit Sequences. Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://convertkit.com/">ConvertKit</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Secret API ID</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Secret API ID in your <a target="_blank" href="https://convertkit.com/">ConvertKit </a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Sequences</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\ConvertKitList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\ConvertKit</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="dotmailer" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Dotdigital</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Dotdigital Address book(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Endpoint</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry validate-url</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API URL in your <a target="_blank" href="https://dotdigital.com/">Dotdigital</a> account.]]></comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API User Email</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API User Email in your <a target="_blank" href="https://dotdigital.com/">Dotdigital</a> account.]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API User Password</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API User Password in your <a target="_blank" href="https://dotdigital.com/">Dotdigital</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Address books</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\DotmailerList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Dotmailer</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="egoi" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Egoi</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Egoi List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://www.e-goi.com/">Egoi</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\EgoiList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Egoi</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="emma" translate="label" type="text" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Emma</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Emma List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Public Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Public Key in your <a target="_blank" href="https://myemma.com">Emma</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Private Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Private Key in your <a target="_blank" href="https://myemma.com">Emma</a> account.]]></comment>
+                    </field>
+                    <field id="account_id" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Account ID</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Account ID in your <a target="_blank" href="https://myemma.com">Emma</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\EmmaList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Emma</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="getresponse" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>GetResponse</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Get Response List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://app.getresponse.com/api">GetResponse</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\GetResponseList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\GetResponse</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="hubspot" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>HubSpot</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your HubSpot List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API URL</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry validate-url</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API URL in your <a target="_blank" href="https://app.hubspot.com/">HubSpot</a> account.]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://app.hubspot.com/">HubSpot</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\HubSpotList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\HubSpot</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="icontact" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>IContact</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your IContact List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>App ID</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API App ID in your <a target="_blank" href="https://www.icontact.com">IContact</a> account.]]></comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Username</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Username in your <a target="_blank" href="https://www.icontact.com">IContact</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Password</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Password in your <a target="_blank" href="https://www.icontact.com">IContact</a> account.]]></comment>
+                    </field>
+                    <field id="account_id" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Account ID</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Account ID in your <a target="_blank" href="https://www.icontact.com">IContact</a> account.]]></comment>
+                    </field>
+                    <field id="client_folder_id" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Client Folder ID</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Client Folder ID in your <a target="_blank" href="https://www.icontact.com">IContact</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\IContactList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\IContact</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="infusionsoft" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Keap</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Keap "Hot Leads". Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Application Name</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Application Name in your <a target="_blank" href="https://accounts.infusionsoft.com/app/central/home">Keap</a> account.]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Key in your <a target="_blank" href="https://infusionsoft.app/settings">Keap</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\InfusionSoft</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="klaviyo" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Klaviyo</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Klaviyo List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Private API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://www.klaviyo.com/account#api-keys-tab">Klaviyo</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\KlaviyoList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Klaviyo</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="madmimi" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>MadMimi</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your MadMimi List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://www.madmimi.com/">MadMimi</a> account.]]></comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Username</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API Username in your <a target="_blank" href="https://madmimi.com">MadMimi</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\MadMimiList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\MadMimi</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="mailchimp" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mailchimp</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Mailchimp List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment>You can find API key in your Mailchimp account.</comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Contact Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\MailchimpList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="send_email" translate="label comment" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Double opt-in</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[<strong>Important:</strong> Should be set to <strong>Yes</strong>. Abusing this may cause your account to be suspended.<br><a href="http://kb.mailchimp.com/article/how-does-confirmed-optin-or-double-optin-work/" target="_blank">How does double opt-in work?</a>]]></comment>
+                    </field>
+                    <field id="info" translate="label comment" type="label" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Account Details</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Info</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="mailjet" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mailjet</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Mailjet List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://app.mailjet.com/">Mailjet</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Secret API Key</label>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Secret API Key in your <a target="_blank" href="https://app.mailjet.com/">Mailjet </a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact List(s)</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\MailjetList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Mailjet</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="mautic" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Mautic</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Mautic List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API URL</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry validate-url</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API URL in your Mautic account.]]></comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API User Name</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API User Name in your Mautic account.]]></comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API User Password</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API User Password in your Mautic account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment></comment>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Mautic</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="ontraport" translate="label" type="text" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Ontraport</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Ontraport List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://app.ontraport.com">Ontraport</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API App ID</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API App ID in your <a target="_blank" href="https://app.ontraport.com">Ontraport</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Ontraport</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="salesforce" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Salesforce</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Salesforce Campaign(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="user_id" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Consumer Key</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Consumer Key in your <a target="_blank" href="https://www.salesforce.com">Salesforce</a> account.]]></comment>
+                    </field>
+                    <field id="secret_id" translate="label comment" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Consumer Secret Key</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Consumer Secret Key in your <a target="_blank" href="https://www.salesforce.com">Salesforce</a> account.]]></comment>
+                    </field>
+                    <field id="app_name" translate="label comment" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Account username</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="api_password" translate="label comment" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Account password</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                    <field id="api_security_token" translate="label comment" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Security token</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\HelpMessage</frontend_model>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find Security token in your <a target="_blank" href="https://www.salesforce.com">Salesforce</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Campaign Lists</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\SalesForceList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\SalesForce</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="sendinblue" translate="label" type="text" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>SendinBlue</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your SendinBlue List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="https://my.sendinblue.com/">SendinBlue</a> account.]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact List(s)</label>
+                        <source_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\SendinBlueList</source_model>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\IntegrationList</frontend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You will be able to enable lists in each newsletter popup individually.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\SendinBlue</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+                <group id="sendy" translate="label" type="text" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Sendy</label>
+                    <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Enable</label>
+                        <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                        <comment>The integration allows you to collect subscriber data from the newsletter popup and transfer it to your Sendy List(s). Please enable this integration in your popup configurations as well.</comment>
+                    </field>
+                    <field id="key" translate="label comment" type="obscure" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>API Key</label>
+                        <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[You can find API key in your <a target="_blank" href="http://sendy.co/">Sendy</a> account.]]></comment>
+                    </field>
+                    <field id="url" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Installation Url for Sendy</label>
+                        <can_be_empty>0</can_be_empty>
+                        <validate>required-entry</validate>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[Installation Url for Sendy. Example: http://somedomain.com/sendy/]]></comment>
+                    </field>
+                    <field id="test_connection" translate="label comment" type="button" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Test Connection</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\Integration\TestConnection</frontend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[]]></comment>
+                    </field>
+                    <field id="list" translate="label comment" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
+                        <label>Contact Lists</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Renderer\FieldArray</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Config\Source\Integration\SendyList</backend_model>
+                        <can_be_empty>1</can_be_empty>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                        <comment><![CDATA[To synchronize new subscribers with Sendy, you must go to your Sendy installation -> Brands -> View all lists and manually copy & paste Contact List ID and Name from Sendy in the fields above.]]></comment>
+                        <can_be_empty>1</can_be_empty>
+                    </field>
+                    <field id="fields_tag" translate="label comment" type="text" sortOrder="70" showInDefault="1" showInWebsite="0" showInStore="0">
+                        <label>Fields Mapping</label>
+                        <frontend_model>Plumrocket\Newsletterpopup\Block\Adminhtml\System\Config\Form\FieldsTag</frontend_model>
+                        <backend_model>Plumrocket\Newsletterpopup\Model\Backend\FieldsTag\Sendy</backend_model>
+                        <depends>
+                            <field id="enable">1</field>
+                        </depends>
+                    </field>
+                </group>
+            </group>
+        </section>
+        <section id="recaptcha_frontend">
+            <group id="type_for">
+                <field id="prnewsletter_popup" translate="label comment" type="select" sortOrder="165" showInDefault="1"
+                       showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Enable for Plumrocket Newsletter Popup</label>
+                    <source_model>Magento\ReCaptchaAdminUi\Model\OptionSource\Type</source_model>
+                    <depends>
+                        <field id="prnewsletterpopup/google_recaptcha/google_recaptcha_config_type">default</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

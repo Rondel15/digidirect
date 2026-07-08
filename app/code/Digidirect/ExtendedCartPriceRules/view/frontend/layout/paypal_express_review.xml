@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="container.remove.cart.item.message" htmlTag="div" htmlClass="cartrule-message" before="-">
+                <block class="Digidirect\ExtendedCartPriceRules\Block\RemoveCartItem\Message" name="paypal.express.review.message" before="-" template="Digidirect_ExtendedCartPriceRules::paypal/express/review/message.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

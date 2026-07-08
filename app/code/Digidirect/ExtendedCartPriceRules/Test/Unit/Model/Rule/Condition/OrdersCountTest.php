@@ -1,0 +1,199 @@
+<?php
+
+namespace Digidirect\ExtendedCartPriceRules\Test\Unit\Model\Rule\Condition;
+
+use Magento\Quote\Model\Quote;
+use Digidirect\ExtendedCartPriceRules\Model\ResourceModel\Sales\Order as OrderResource;
+use Digidirect\ExtendedCartPriceRules\Helper\Config as ConfigHelper;
+use Magento\Checkout\Model\Session as CheckoutSession;
+use Digidirect\ExtendedCartPriceRules\Model\Rule\Condition\OrdersCount;
+
+class OrdersCountTest extends \PHPUnit\Framework\TestCase
+{
+    /**
+     * @var OrdersCount
+     */
+    protected $_ordersCount;
+
+    /**
+     * @var OrderResource
+     */
+    protected $_orderResource;
+
+    /**
+     * @var ConfigHelper
+     */
+    protected $_configHelper;
+
+    /**
+     * @var CheckoutSession
+     */
+    protected $_checkoutSession;
+
+    /**
+     * @var Quote
+     */
+    protected $_quote;
+
+    /**
+     * @param $object
+     * @param $property
+     * @param $value
+     */
+    protected function _setProtectedProperty($object, $property, $value)
+    {
+        $reflection = new \ReflectionClass($object);
+        $reflectionProperty = $reflection->getProperty($property);
+        $reflectionProperty->setAccessible(true);
+        $reflectionProperty->setValue($object, $value);
+    }
+
+    /**
+     * Set up required common objects
+     *
+     * @return void
+     */
+    public function setUp()
+    {
+        $this->_orderResource = $this->getMockBuilder(OrderResource::class)
+            ->setMethods(['getCustomerOrdersCount'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->_configHelper = $this->getMockBuilder(ConfigHelper::class)
+            ->setMethods(['getOrderStatusesForOrdersCount'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->_checkoutSession = $this->getMockBuilder(CheckoutSession::class)
+            ->setMethods(['getData'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->_ordersCount = $this->getMockBuilder(OrdersCount::class)
+            ->setMethods([
+                'getAttribute',
+                'getValueParsed',
+                'getOperatorForValidate',
+            ])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->_ordersCount->expects($this->any())
+            ->method('getAttribute')
+            ->willReturn('previous_customer_orders');
+
+        $this->_ordersCount->expects($this->any())
+            ->method('getOperatorForValidate')
+            ->willReturn('==');
+
+        $this->_setProtectedProperty($this->_ordersCount, '_orderResource', $this->_orderResource);
+        $this->_setProtectedProperty($this->_ordersCount, '_configHelper', $this->_configHelper);
+        $this->_setProtectedProperty($this->_ordersCount, '_checkoutSession', $this->_checkoutSession);
+
+        $this->_quote = $this->getMockBuilder(Quote::class)
+            ->setMethods(['getCustomerId', 'getCustomerEmail', 'getStoreId'])
+            ->disableOriginalConstructor()
+            ->getMockForAbstractClass();
+
+        $this->_quote->expects($this->any())
+            ->method('getStoreId')
+            ->willReturn(1);
+    }
+
+    /**
+     * @param int|null $customerId
+     * @param string|null $customerEmail
+     * @param string|null $lastCheckedEmail
+     * @return void
+     */
+    protected function _setExpectedCustomerInfo($customerId, $customerEmail, $lastCheckedEmail)
+    {
+        $this->_quote->expects($this->any())
+            ->method('getCustomerId')
+            ->willReturn($customerId);
+
+        $this->_quote->expects($this->any())
+            ->method('getCustomerEmail')
+            ->willReturn($customerEmail);
+
+        $this->_checkoutSession->expects($this->any())
+            ->method('getData')
+            ->with('last_checked_email')
+            ->willReturn($lastCheckedEmail);
+    }
+
+    /**
+     * @return array
+     */
+    public function provideDataValidate()
+    {
+        return [
+            [null, null, 'test@test.com', 'test@test.com', ['completed'], 0, 1, false],
+            [null, null, 'test@test.com', 'test@test.com', ['completed'], 1, 1, true],
+            [null, null, 'test@test.com', 'test@test.com', ['completed'], 2, 1, false],
+            [1, 'test@test.com', null, 'test@test.com', ['completed'], 0, 1, false],
+            [1, 'test@test.com', null, 'test@test.com', ['completed'], 1, 1, true],
+            [1, 'test@test.com', null, 'test@test.com', ['completed'], 2, 1, false],
+        ];
+    }
+
+    /**
+     * @dataProvider provideDataValidate
+     * @param int|null $customerId
+     * @param string|null $customerEmail
+     * @param string|null $lastCheckedEmail
+     * @param string|null $resultEmail
+     * @param [] $orderStatuses
+     * @param int $ordersCount
+     * @param int $conditionValue
+     * @param bool $expectedResult
+     * @return void
+     */
+    public function testValidate(
+        $customerId,
+        $customerEmail,
+        $lastCheckedEmail,
+        $resultEmail,
+        $orderStatuses,
+        $ordersCount,
+        $conditionValue,
+        $expectedResult
+    ) {
+        $this->_setExpectedCustomerInfo($customerId, $customerEmail, $lastCheckedEmail);
+
+        $this->_configHelper->expects($this->once())
+            ->method('getOrderStatusesForOrdersCount')
+            ->willReturn($orderStatuses);
+
+        $this->_orderResource->expects($this->once())
+            ->method('getCustomerOrdersCount')
+            ->with($customerId, $resultEmail, $orderStatuses)
+            ->willReturn($ordersCount);
+
+        $this->_ordersCount->expects($this->any())
+            ->method('getValueParsed')
+            ->willReturn($conditionValue);
+
+        $this->assertEquals($expectedResult, $this->_ordersCount->validate($this->_quote));
+    }
+
+    /**
+     * @return void
+     */
+    public function testValidateUndefined()
+    {
+        $this->_setExpectedCustomerInfo(null, null, null);
+
+        $this->_configHelper->expects($this->never())
+            ->method('getOrderStatusesForOrdersCount');
+
+        $this->_orderResource->expects($this->never())
+            ->method('getCustomerOrdersCount');
+
+        $this->_ordersCount->expects($this->never())
+            ->method('getValueParsed');
+
+        $this->assertFalse($this->_ordersCount->validate($this->_quote));
+    }
+}

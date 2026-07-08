@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+?>
+<?php if ($block->getSvgActive() && $block->getSvgUrl()) : ?>
+    <script>
+        window.svgSpriteConfig = {
+            path: '<?php echo $block->escapeUrl($block->getViewFileUrl($block->getSvgUrl())); ?>',
+            revision: '<?php echo $block->escapeHtml($block->getSvgRevision()); ?>',
+            className: '<?php echo $block->escapeHtml($block->getSvgClassName()); ?>'
+        } 
+    </script>
+    <?php if ($block->getSvgIsInline()) : ?>
+        <script><?php echo $block->getChildHtml('svg.sprite.inline'); ?></script>
+    <?php else : ?>
+        <script src="<?php echo $block->escapeUrl($block->getViewFileUrl($block->getSvgScriptUrl())); ?>" async></script>
+    <?php endif; ?>
+<?php endif; ?>

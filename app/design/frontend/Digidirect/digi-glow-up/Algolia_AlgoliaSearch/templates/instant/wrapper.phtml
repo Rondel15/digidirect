@@ -1,0 +1,73 @@
+<?php /** @var \Algolia\AlgoliaSearch\Block\Instant\Wrapper $block */ ?>
+
+<!-- Wrapping template -->
+<script type="text/template" id="instant_wrapper_template">
+    {{#findAutocomplete}}
+        <div id="algolia-autocomplete-container"></div>
+    {{/findAutocomplete}}
+
+    <div id="algolia_instant_selector"
+         class="<?php echo $block->escapeHtml($block->hasFacets() ? ' with-facets' : ''); ?>">
+        <div class="row">
+            <div class="col-md-3" id="algolia-left-container">
+                <div id="refine-toggle" class="visible-xs visible-sm">
+                    + <?php echo $block->escapeHtml(__('Refine')); ?>
+                </div>
+                <div class="hidden-xs hidden-sm" id="instant-search-facets-container">
+                </div>
+            </div>
+            <div class="col-md-9" id="algolia-right-container">
+                <div class="row">
+                    <?php echo $this->getLayout()->createBlock("Magento\Theme\Block\Html\Title")->setTemplate("Magento_Theme::html/title.phtml")->toHtml() ?>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            {{#second_bar}}
+                               <div id="instant-search-bar"></div>
+                            {{/second_bar}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div itemscope itemtype="http://schema.org/ItemList" class="hits">
+                            <div class="algolia-infos">
+                                <div class="pull-left" id="algolia-stats" style="display: none;"></div>
+                                <div class="pull-right">
+                                    <div class="sort-by-label pull-left">
+                                        <?php echo $block->escapeHtml(__('Sort By :')); ?> &nbsp;
+                                    </div>
+                                    <div class="pull-left" id="algolia-sorts"></div>
+                                </div>
+                                <div class="algolia-clearfix"></div>
+                                <div class="hits-per-page-container">
+                                    <div class="sort-by-label pull-left">
+                                        <?php echo $block->escapeHtml(__('Item Show Per Page :')); ?> &nbsp;
+                                    </div>
+                                    <div id="hits-per-page"></div>
+                                </div>
+                                <div class="ais-ViewToggle">
+                                    <button class="ais-ViewToggle-button" data-view="grid"><img src="<?= $block->getViewFileUrl('images/grid-view.png') ?>"/></button>
+                                    <button class="ais-ViewToggle-button" data-view="list"><img src="<?= $block->getViewFileUrl('images/list-view.png') ?>"/></button>
+                                </div>
+                            </div>
+                            <div id="algolia-custom-refinement">
+                                <div id="current-refinements"></div>
+                                <div id="clear-refinements"></div>
+                            </div>
+                            <div id="algolia-banner"></div>
+                            <div id="instant-empty-results-container"></div>
+                            <div id="instant-search-results-container"></div>
+                        </div>
+                    </div>
+                    <div class="algolia-clearfix"></div>
+                </div>
+
+                <div class="text-center">
+                    <div id="instant-search-pagination-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

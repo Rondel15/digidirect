@@ -1,0 +1,71 @@
+<?php
+/**
+ * Category layered navigation state
+ * @var $block \Digidirect\LayeredNavigation\Block\Navigation\State
+ */
+?>
+<?php $_filters = $block->getActiveFilters() ?>
+<?php $_filters = $block->modifyAppliedFiltersArray($_filters); ?>
+<?php if (!empty($_filters)): ?>
+    <div class="filter-current">
+        <strong class="block-subtitle filter-current-subtitle"
+                role="heading"
+                aria-level="2"
+                data-role="title"
+                data-count="<?php echo count($_filters); ?>">
+            <?php echo $block->escapeHtml(__('Now Shopping by (%1)', count($_filters))); ?>
+        </strong>
+        <ol class="items">
+            <?php foreach($_filters  as $filterName => $appliedFilters): ?>
+                <li class="filter-label">
+                    <span><?php echo $block->escapeHtml(__($filterName)); ?> (<?php echo (int)count($appliedFilters) ?>)</span>
+                </li>
+            <?php foreach ($appliedFilters as $_filter): ?>
+                <li class="item">
+                    <span class="filter-value" data-testid="sln-filter-current-value"><?php echo $block->escapeHtml($block->stripTags($_filter->getLabel())); ?></span>
+                    <?php
+                        $clearLinkUrl = $_filter->getClearLinkUrl();
+                        $currentFilterName = $block->escapeHtml(__($_filter->getName())) . " " . $block->stripTags($_filter->getLabel());
+                    ?>
+                    <?php if ($clearLinkUrl): ?>
+                        <a class="action previous digidirect_layered_navigation_state_<?php echo $block->escapeHtml($_filter->getFilter()->getRequestVar()); ?>"
+                           href="<?php echo $block->escapeUrl($_filter->getRemoveUrl()); ?>"
+                           title="<?php echo $block->escapeHtml(__('Previous')); ?>">
+                            <span><?php echo $block->escapeHtml(__('Previous')); ?></span>
+                        </a>
+                        <a class="action remove digidirect_layered_navigation_state_<?php echo $block->escapeHtml($_filter->getFilter()->getRequestVar()); ?>"
+                           title="<?php echo $block->escapeHtml($_filter->getFilter()->getClearLinkText()); ?>"
+                           href="<?php echo $block->escapeUrl($clearLinkUrl); ?>">
+                            <span><?php echo $block->escapeHtml($_filter->getFilter()->getClearLinkText()); ?></span>
+                        </a>
+                    <?php else: ?>
+                        <a class="action remove digidirect_layered_navigation_state_<?php echo $block->escapeHtml($_filter->getFilter()->getRequestVar()); ?>"
+                           href="<?php echo $block->escapeUrl($_filter->getRemoveUrl()); ?>"
+                           title="<?php echo $block->escapeHtml(__('Remove')) . " " . $block->escapeHtml($currentFilterName); ?>">
+                            <span><?php echo $block->escapeHtml(__('Remove This Item')); ?></span>
+                        </a>
+                    <?php endif; ?>
+                </li>
+                <script type="text/x-magento-init">
+                {
+                    ".digidirect_layered_navigation_state_<?php echo $block->escapeHtml($_filter->getFilter()->getRequestVar()); ?>": {
+                        "layeredNavigationFilterLink": {
+                            "resetParameters": "true"
+                        }
+                    }
+                }
+                </script>
+            <?php endforeach; ?>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <script type="text/x-magento-init">
+    {
+        ".filter-clear": {
+            "layeredNavigationFilterLink": {
+                 "resetParameters": "true"
+            }
+        }
+    }
+    </script>
+<?php endif; ?>

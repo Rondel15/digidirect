@@ -1,0 +1,42 @@
+<?php
+//@codingStandardsIgnoreFile
+/**
+ * @var \Digidirect\Feed\Helper\Output $outputHelper
+ * @var \Magento\Framework\Json\Helper\Data $jsonHelper
+ */
+$outputHelper = $this->helper('Digidirect\Feed\Helper\Output');
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+?>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $.attributes = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getAttributeOptions()) ?>;
+    });
+</script>
+
+<table class="admin__control-table">
+    <thead>
+    <tr>
+        <th class="col-default"><?php echo $block->escapeHtml(__('Attribute')) ?></th>
+        <th class="col-default"><?php echo $block->escapeHtml(__('Pattern')) ?></th>
+        <th class="col-default"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <!-- ko foreach: attributes -->
+        <tr>
+            <td class="col-default" colspan="3"><b data-bind="text: label"></b></td>
+        </tr>
+        <!-- ko foreach: value -->
+        <tr data-bind="click: $root.toggleRow">
+            <td class="col-default" data-bind="text: label"></td>
+            <td class="col-default" data-bind="text: '{{ product.' + value + ' }}'"></td>
+            <td class="col-default"><a href="#"><?php echo $block->escapeHtml(__('Preview')) ?></a></td>
+        </tr>
+        <!-- /ko -->
+    <!-- /ko -->
+    </tbody>
+</table>

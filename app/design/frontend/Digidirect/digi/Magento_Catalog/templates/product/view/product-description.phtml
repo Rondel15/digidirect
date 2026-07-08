@@ -1,0 +1,23 @@
+<?php
+    $getDescription = $block->getProduct()->getDescription();
+?>
+<div class="short-desc-container">
+    <div class="short-desc-title">Product Description</div>
+    <div class="short-desc">
+        <?php 
+            if (!is_null($getDescription)) {
+                echo html_entity_decode($getDescription);
+            }
+        ?>
+    </div>
+    <span onclick="scrollToProductOverview();"><div class="short-desc-read-more">Read More</div></span>
+</div>
+<script>
+    function scrollToProductOverview() {
+        if(document.getElementById("tab-label-productoverview")){
+            document.getElementById("tab-label-productoverview").scrollIntoView();
+        } else {
+            document.getElementById("tab-label-description").scrollIntoView();
+        }
+    }
+</script>

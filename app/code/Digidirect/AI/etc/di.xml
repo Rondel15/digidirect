@@ -1,0 +1,805 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights erved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="IntegrationsListDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">
+                Digidirect\AI\Model\ResourceModel\Integrations\Integrations\Collection
+            </argument>
+            <argument name="filterPool" xsi:type="object" shared="false">IntegrationsFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IntegrationsFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="digidirect_ai_integrations_data_source" xsi:type="string">Digidirect\AI\Model\ResourceModel\Integrations\Integrations\Grid\Collection</item>
+                <!--<item name="digidirect_queue_data_source" xsi:type="string">Digidirect\AI\Model\ResourceModel\Queue\Queue\Collection</item>-->
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="cms_page_listing_data_source" xsi:type="string">Magento\Cms\Model\ResourceModel\Page\Grid\Collection</item>
+                <item name="cms_block_listing_data_source" xsi:type="string">Magento\Cms\Model\ResourceModel\Block\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\ResourceModel\Integrations\Integrations\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_ai_integrations</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_ai_intgegration_lst</argument>
+            <argument name="eventObject" xsi:type="string">digidirect_ai_intgegration_lst</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\AI\Model\ResourceModel\Integrations</argument>
+        </arguments>
+    </type>
+    <virtualType name="logsListDataProvider" type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">
+                Digidirect\AI\Model\ResourceModel\Logger\Logger\Collection
+            </argument>
+            <argument name="filterPool" xsi:type="object" shared="false">IntegrationsFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="IntegrationsFilterPool" type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+                <item name="fulltext" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\FulltextFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="digidirect_ai_logs_listing_data_source" xsi:type="string">Digidirect\AI\Model\ResourceModel\Logger\Logger\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\ResourceModel\Logger\Logger\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_ai_logs</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_ai_logs_lst</argument>
+            <argument name="eventObject" xsi:type="string">digidirect_ai_logs_lst</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\AI\Model\ResourceModel\Logger</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="run_command" xsi:type="object">Digidirect\AI\Commands\AIRunCommand</item>
+                <item name="list_command" xsi:type="object">Digidirect\AI\Commands\AIListCommand</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Digidirect\AI\Model\Logger\Types\File\BackupInterface" type="Digidirect\AI\Model\Logger\Types\File\Backup"/>
+    <type name="Digidirect\AI\Model\Logger\Types\File\Backup">
+        <arguments>
+            <argument name="archive" xsi:type="object">Magento\Framework\Archive\Tar</argument>
+            <argument name="archiveFileExtension" xsi:type="string">tar</argument>
+            <argument name="postArchive" xsi:type="object">Magento\Framework\Archive\Gz</argument>
+            <argument name="postArchiveFileExtension" xsi:type="string">gz</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\Lib\Backup\BackupInterface">
+        <arguments>
+            <argument name="archiveType"  xsi:type="array">
+                <item name="instanceObject" xsi:type="object">Digidirect\AI\Model\Lib\Archive\Tar</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\Logger\Logger">
+        <arguments>
+            <argument name="alternativeLoggers"  xsi:type="array">
+                <item name="email" xsi:type="object">\Digidirect\AI\Model\Logger\Types\Email</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\Integrations\Config\Data">
+        <arguments>
+            <argument name="reader" xsi:type="object">Digidirect\AI\Model\Integrations\Config\Reader</argument>
+            <argument name="cacheId" xsi:type="string">digidirect_integrations</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\AI\Model\Integrations\Config\Reader">
+        <arguments>
+            <argument name="converter" xsi:type="object">Digidirect\AI\Model\Integrations\Config\Converter</argument>
+            <argument name="schemaLocator" xsi:type="object">Digidirect\AI\Model\Integrations\Config\SchemaLocator</argument>
+            <argument name="fileName" xsi:type="string">digidirect_integrations.xml</argument>
+        </arguments>
+    </type>
+
+    <preference for="Digidirect\AI\Model\Logger\LoggerInterface" type="Digidirect\AI\Model\Logger\Logger" />
+    <preference for="Digidirect\AI\Model\Lib\Backup\BackupInterface" type="Digidirect\AI\Model\Lib\Backup\Backup" />
+    <preference for="Digidirect\AI\Api\Data\MapperDataInterface" type="Digidirect\AI\Model\Integrations\Rule\Mapping\Data"/>
+    <preference for="Digidirect\AI\Api\MapperDataRepositoryInterface" type="Digidirect\AI\Model\Integrations\Rule\Mapping\DataRepository"/>
+
+    <preference for="\Magento\Framework\Archive\ArchiveInterface" type="Digidirect\AI\Model\Lib\Archive\Tar" />
+    <!--preference for="Magento\CatalogImportExport\Model\Import\Product\SkuProcessor" type="Digidirect\AI\Model\Lib\Import\Product\Entity\SkuProcessor"/>
+    <preference for="Magento\CatalogImportExport\Model\Import\Product\TaxClassProcessor" type="Digidirect\AI\Model\Lib\Import\Product\Entity\TaxClassProcessor"/>
+    <preference for="Magento\ImportExport\Model\Import\ErrorProcessing\ProcessingErrorAggregator" type="Digidirect\AI\Model\Lib\Import\Product\ErrorProcessing\ProcessingErrorAggregator"/>
+    <preference for="Magento\ConfigurableImportExport\Model\Import\Product\Type\Configurable" type="Digidirect\AI\Model\Lib\Import\Product\Type\Configurable"/-->
+
+    <type name="Digidirect\AI\Model\Engine\Processor\ProcessorAbstract">
+        <plugin name="digidirect_ai_processor" type="Digidirect\AI\Plugin\Model\Engine\Processor\Processor" />
+    </type>
+
+
+    <!-- V2. Lib\Entity: -->
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Customer\CustomerInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Customer\Customer" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Product\ProductInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Product\Product" />
+
+
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\Customer\CustomerInterface" type="Digidirect\AI\Model\Lib\Entity\Import\Customer\Customer" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\Product\ProductInterface" type="Digidirect\AI\Model\Lib\Entity\Import\Product\Product" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\Category\CategoryInterface" type="Digidirect\AI\Model\Lib\Entity\Import\Category\Category" />
+
+    <!-- Product Validators: -->
+    <virtualType name="Digidirect\AI\Model\Lib\Entity\Import\Product\ColNames" type="Magento\Framework\Data\DataArray">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="sku" xsi:type="string">required</item>
+                <item name="store_view_code" xsi:type="string">optional</item>
+                <item name="attribute_set_code" xsi:type="string">required</item>
+                <item name="product_type" xsi:type="string">required</item>
+                <item name="categories" xsi:type="string">required</item>
+                <item name="product_websites" xsi:type="string">required</item>
+                <item name="name" xsi:type="string">required</item>
+                <item name="status" xsi:type="string">optional</item>
+                <item name="description" xsi:type="string">optional</item>
+                <item name="short_description" xsi:type="string">optional</item>
+                <item name="weight" xsi:type="string">optional,numeric</item>
+                <item name="product_online" xsi:type="string">optional,boolean</item>
+                <item name="tax_class_name" xsi:type="string">optional,array</item>
+                <item name="visibility" xsi:type="string">required</item>
+                <item name="price" xsi:type="string">optional,numeric</item>
+                <item name="special_price" xsi:type="string">optional,numeric</item>
+                <item name="special_price_from_date" xsi:type="string">optional,date</item>
+                <item name="special_price_to_date" xsi:type="string">optional,date</item>
+                <item name="url_key" xsi:type="string">optional</item>
+                <item name="meta_title" xsi:type="string">optional</item>
+                <item name="meta_keywords" xsi:type="string">optional</item>
+                <item name="meta_description" xsi:type="string">optional</item>
+                <item name="base_image" xsi:type="string">optional</item>
+                <item name="base_image_label" xsi:type="string">optional</item>
+                <item name="small_image" xsi:type="string">optional</item>
+                <item name="small_image_label" xsi:type="string">optional</item>
+                <item name="thumbnail_image" xsi:type="string">optional</item>
+                <item name="thumbnail_image_label" xsi:type="string">optional</item>
+                <item name="swatch_image" xsi:type="string">optional</item>
+                <item name="swatch_image_label" xsi:type="string">optional</item>
+                <item name="created_at" xsi:type="string">optional,date</item>
+                <item name="updated_at" xsi:type="string">optional,date</item>
+                <item name="new_from_date" xsi:type="string">optional,date</item>
+                <item name="new_to_date" xsi:type="string">optional,date</item>
+                <item name="display_product_options_in" xsi:type="string">optional</item>
+                <item name="map_price" xsi:type="string">optional</item>
+                <item name="msrp_price" xsi:type="string">optional,numeric</item>
+                <item name="map_enabled" xsi:type="string">optional,boolean</item>
+                <item name="gift_message_available" xsi:type="string">optional,boolean</item>
+                <item name="custom_design" xsi:type="string">optional</item>
+                <item name="custom_design_from" xsi:type="string">optional,date</item>
+                <item name="custom_design_to" xsi:type="string">optional,date</item>
+                <item name="custom_layout_update" xsi:type="string">optional</item>
+                <item name="page_layout" xsi:type="string">optional</item>
+                <item name="product_options_container" xsi:type="string">optional</item>
+                <item name="msrp_display_actual_price_type" xsi:type="string">optional,boolean</item>
+                <item name="country_of_manufacture" xsi:type="string">optional</item>
+                <item name="additional_attributes" xsi:type="string">optional,array</item>
+                <item name="qty" xsi:type="string">optional,numeric</item>
+                <item name="out_of_stock_qty" xsi:type="string">optional,numeric</item>
+                <item name="use_config_min_qty" xsi:type="string">optional,boolean</item>
+                <item name="is_qty_decimal" xsi:type="string">optional,boolean</item>
+                <item name="allow_backorders" xsi:type="string">optional,boolean</item>
+                <item name="use_config_backorders" xsi:type="string">optional,boolean</item>
+                <item name="min_cart_qty" xsi:type="string">optional,boolean</item>
+                <item name="use_config_min_sale_qty" xsi:type="string">optional,boolean</item>
+                <item name="max_cart_qty" xsi:type="string">optional,numeric</item>
+                <item name="use_config_max_sale_qty" xsi:type="string">optional,boolean</item>
+                <item name="is_in_stock" xsi:type="string">optional,boolean</item>
+                <item name="notify_on_stock_below" xsi:type="string">optional,numeric</item>
+                <item name="use_config_notify_stock_qty" xsi:type="string">optional,boolean</item>
+                <item name="manage_stock" xsi:type="string">optional,boolean</item>
+                <item name="use_config_manage_stock" xsi:type="string">optional,boolean</item>
+                <item name="use_config_qty_increments" xsi:type="string">optional,boolean</item>
+                <item name="qty_increments" xsi:type="string">optional</item>
+                <item name="use_config_enable_qty_inc" xsi:type="string">optional,boolean</item>
+                <item name="enable_qty_increments" xsi:type="string">optional,boolean</item>
+                <item name="is_decimal_divided" xsi:type="string">optional,boolean</item>
+                <item name="website_id" xsi:type="string">optional,numeric</item>
+                <item name="deferred_stock_update" xsi:type="string">optional</item>
+                <item name="use_config_deferred_stock_update" xsi:type="string">optional,boolean</item>
+                <item name="related_skus" xsi:type="string">optional,array</item>
+                <item name="related_position" xsi:type="string">optional,array</item>
+                <item name="crosssell_skus" xsi:type="string">optional,array</item>
+                <item name="crosssell_position" xsi:type="string">optional,array</item>
+                <item name="upsell_skus" xsi:type="string">optional,array</item>
+                <item name="upsell_position" xsi:type="string">optional,array</item>
+                <item name="additional_images" xsi:type="string">optional,array</item>
+                <item name="additional_image_labels" xsi:type="string">optional,array</item>
+                <item name="hide_from_product_page" xsi:type="string">optional,boolean</item>
+                <!-- Bundle type: -->
+                <item name="bundle_price_type" xsi:type="string">optional</item>
+                <item name="bundle_sku_type" xsi:type="string">optional</item>
+                <item name="bundle_price_view" xsi:type="string">optional</item>
+                <item name="bundle_weight_type" xsi:type="string">optional</item>
+                <item name="bundle_values" xsi:type="string">optional,array</item>
+                <item name="bundle_shipment_type" xsi:type="string">optional</item>
+                <!-- Configurable type: -->
+                <item name="configurable_variations" xsi:type="string">optional,array</item>
+                <!-- Grouped type: -->
+                <item name="associated_skus" xsi:type="string">optional,array</item>
+                <!-- Gift Card type: -->
+                <item name="giftcard_type" xsi:type="string">optional</item>
+                <item name="giftcard_amount" xsi:type="string">optional,array</item>
+                <item name="allow_open_amount" xsi:type="string">optional</item>
+                <item name="open_amount_min" xsi:type="string">optional,numeric</item>
+                <item name="open_amount_max" xsi:type="string">optional,numeric</item>
+                <item name="is_redeemable" xsi:type="string">optional,boolean</item>
+                <item name="lifetime" xsi:type="string">optional,numeric</item>
+                <item name="allow_message" xsi:type="string">optional,boolean</item>
+                <item name="email_template" xsi:type="string">optional</item>
+                <!-- Downloadable type: -->
+                <item name="downloadable_samples" xsi:type="string">optional,array</item>
+                <item name="downloadable_links" xsi:type="string">optional,array</item>
+                <item name="links_purchased_separately" xsi:type="string">optional</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\Product\Product">
+        <arguments>
+            <argument name="preparers" xsi:type="array">
+                <item name="bundle" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\Bundle</item>
+                <item name="grouped" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\Grouped</item>
+                <item name="configurable" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\Configurable</item>
+                <item name="giftcard" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\GiftCard</item>
+                <item name="downloadable" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\Downloadable</item>
+                <item name="all" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\TypePreparer\All</item>
+            </argument>
+            <argument name="colNames" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Product\ColNames</argument>
+        </arguments>
+    </type>
+
+    <!-- Category Validators: -->
+    <virtualType name="Digidirect\AI\Model\Lib\Entity\Import\Category\Validator\InputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="name" xsi:type="string">required</item>
+                <item name="parent_categories" xsi:type="string">required</item>
+                <item name="store_id" xsi:type="string">optional,numeric</item>
+                <item name="is_active" xsi:type="string">optional,boolean</item>
+                <item name="description" xsi:type="string">optional</item>
+                <item name="meta_title" xsi:type="string">optional</item>
+                <item name="meta_keywords" xsi:type="string">optional</item>
+                <item name="meta_description" xsi:type="string">optional</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="Digidirect\AI\Model\Lib\Entity\Import\Category\Validator\Save" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Category\Validator\InputValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\Category\Category">
+        <arguments>
+            <argument name="beforeSaveValidator" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Category\Validator\Save</argument>
+            <argument name="beforeUpdateValidator" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Category\Validator\Save</argument>
+        </arguments>
+    </type>
+
+
+    <preference for="Digidirect\AI\Model\Lib\Mapping\MapperInterface" type="Digidirect\AI\Model\Lib\Mapping\Mapper" />
+
+    <!--  CUSTOMERS -->
+
+    <!--  Customer Entity Import  BEGIN -->
+
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\Customer\CustomerInterface" type="Digidirect\AI\Model\Lib\Entity\Import\Customer\Customer" />
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\Customer\Customer">
+        <arguments>
+            <argument name="beforeSaveValidator" xsi:type="object">CustomerBeforeSaveValidator</argument>
+            <argument name="beforeUpdateValidator" xsi:type="object">CustomerBeforeUpdateValidator</argument>
+            <argument name="colNames" xsi:type="object">CustomerColNames</argument>
+            <argument name="preparers" xsi:type="array">
+                <item name="arrayToString" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Customer\Preparer\ArrayToString</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Columns which take part in import. Extra data will be removed -->
+    <virtualType name="CustomerColNames" type="Magento\Framework\Data\DataArray">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="_store" xsi:type="string"/>
+                <item name="_website" xsi:type="string"/>
+                <item name="group_id" xsi:type="string"/>
+                <item name="lastname" xsi:type="string"/>
+                <item name="firstname" xsi:type="string"/>
+                <item name="middlename" xsi:type="string"/>
+                <item name="email" xsi:type="string"/>
+                <item name="prefix" xsi:type="string"/>
+                <item name="dob" xsi:type="string"/>
+                <item name="taxvat" xsi:type="string"/>
+                <item name="gender" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer validation fields before save(create) -->
+    <virtualType name="CustomerCreateInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="email" xsi:type="string">required,email</item>
+                <item name="_website" xsi:type="string">required,slug</item>
+                <item name="_store" xsi:type="string">required,slug</item>
+                <item name="lastname" xsi:type="string">required</item>
+                <item name="firstname" xsi:type="string">required</item>
+                <item name="middlename" xsi:type="string">optional</item>
+                <item name="prefix" xsi:type="string">optional</item>
+                <item name="dob" xsi:type="string">optional,date</item>
+                <item name="taxvat" xsi:type="string">optional</item>
+                <item name="gender" xsi:type="string">optional</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer Validator fields before update  -->
+    <virtualType name="CustomerUpdateInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="email" xsi:type="string">required,email</item>
+                <item name="_website" xsi:type="string">required,slug</item>
+                <item name="_store" xsi:type="string">required,slug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer validators before save(create) -->
+    <virtualType name="CustomerBeforeSaveValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">CustomerCreateInputValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer validators before update -->
+    <virtualType name="CustomerBeforeUpdateValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">CustomerUpdateInputValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!--
+     Behaviour configuration:
+
+     in example if behaviour is:
+         "append" - "entitiesToUpdate" will be empty
+         "add_update" - no empty entities
+         "replace" - "entitiesToCreate" will be empty
+         "delete" - $entitiesToCreate and $entitiesToUpate will be empty
+      -->
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\Customer\Extended\CustomerImport">
+        <arguments>
+            <argument name="errorAggregator" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Service\ErrorProcessing\ProcessingErrorAggregator</argument>
+            <argument name="configuration" xsi:type="array">
+                <item name="actions" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_REPLACE</item>
+                        </item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_APPEND</item>
+                        </item>
+                    </item>
+                    <item name="delete" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_REPLACE</item>
+                            <item name="2" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_APPEND</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <!-- Customer Entity Import EOF -->
+
+
+    <!-- Customer ADDRESS import BEGIN -->
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\CustomerAddress\CustomerAddressInterface" type="Digidirect\AI\Model\Lib\Entity\Import\CustomerAddress\CustomerAddress" />
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\CustomerAddress\CustomerAddress">
+        <arguments>
+            <argument name="beforeSaveValidator" xsi:type="object">CustomerAddressBeforeSaveValidator</argument>
+            <argument name="beforeUpdateValidator" xsi:type="object">CustomerAddressBeforeUpdateValidator</argument>
+            <argument name="colNames" xsi:type="object">CustomerAddressColNames</argument>
+            <argument name="preparers" xsi:type="array">
+                <item name="arrayToString" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Customer\Preparer\ArrayToString</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="CustomerAddressColNames" type="Magento\Framework\Data\DataArray">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="_website" xsi:type="string"/>
+                <item name="_email" xsi:type="string"/>
+                <item name="city" xsi:type="string"/>
+                <item name="company" xsi:type="string"/>
+                <item name="country_id" xsi:type="string"/>
+                <item name="firstname" xsi:type="string"/>
+                <item name="lastname" xsi:type="string"/>
+                <item name="middlename" xsi:type="string"/>
+                <item name="postcode" xsi:type="string"/>
+                <item name="region" xsi:type="string"/>
+                <item name="prefix" xsi:type="string"/>
+                <item name="street" xsi:type="string"/>
+                <item name="vat_id" xsi:type="string"/>
+                <item name="vat_is_valid" xsi:type="string"/>
+                <item name="vat_request_date" xsi:type="string"/>
+                <item name="vat_request_id" xsi:type="string"/>
+                <item name="vat_request_success" xsi:type="string"/>
+                <item name="_address_default_billing_" xsi:type="string"/>
+                <item name="_address_default_shipping_" xsi:type="string"/>
+                <item name="_entity_id" xsi:type="string" />
+                <item name="telephone" xsi:type="string" />
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer Validator fields before update  -->
+    <virtualType name="CustomerAddressUpdateInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="_email" xsi:type="string">required,email</item>
+                <item name="_website" xsi:type="string">required,slug</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer validators before save(create) -->
+    <virtualType name="CustomerAddressBeforeSaveValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">CustomerAddressCreateInputValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Customer validators before update -->
+    <virtualType name="CustomerAddressBeforeUpdateValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">CustomerAddressUpdateInputValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- Customer validation fields before save(create) -->
+    <virtualType name="CustomerAddressCreateInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="_email" xsi:type="string">required,email</item>
+                <item name="_website" xsi:type="string">required,slug</item>
+                <item name="lastname" xsi:type="string">required</item>
+                <item name="firstname" xsi:type="string">required</item>
+                <item name="middlename" xsi:type="string">optional</item>
+                <item name="city" xsi:type="string">required</item>
+                <item name="dob" xsi:type="string">optional,date</item>
+                <item name="taxvat" xsi:type="string">optional</item>
+                <item name="gender" xsi:type="string">optional</item>
+                <item name="telephone" xsi:type="string">required</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\CustomerAddress\Extended\CustomerAddressImport">
+        <arguments>
+            <argument name="errorAggregator" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Service\ErrorProcessing\ProcessingErrorAggregator</argument>
+            <argument name="configuration" xsi:type="array">
+                <item name="actions" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_REPLACE</item>
+                        </item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_APPEND</item>
+                        </item>
+                    </item>
+                    <item name="delete" xsi:type="array">
+                        <item name="empty" xsi:type="array">
+                            <item name="1" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_REPLACE</item>
+                            <item name="2" xsi:type="const">Magento\ImportExport\Model\Import::BEHAVIOR_APPEND</item>
+                        </item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+
+    <!-- Customer ADDRESS import EOF -->
+
+    <!-- CUSTOMER COMPOSITE IMPORT BEGIN (ARRAY OF CUSTOMERS WITH ADDRESSES) -->
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\CustomerComposite\CustomerCompositeInterface" type="Digidirect\AI\Model\Lib\Entity\Import\CustomerComposite\CustomerComposite" />
+    <!-- CUSTOMER COMPOSITE IMPORT EOF -->
+    <!-- CUSTOMERS EOF -->
+
+    <virtualType name="systemConfigSourceAggregated">
+        <arguments>
+            <argument name="sources" xsi:type="array">
+                <item name="digidirectAiDefaultSource" xsi:type="array">
+                    <item name="source" xsi:type="object">Digidirect\AI\Model\Config\Reader\Source\Dynamic\DefaultScope</item>
+                    <item name="disabled" xsi:type="boolean">false</item>
+                    <item name="sortOrder" xsi:type="number">200</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Reward Point import BEGIN -->
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\RewardPoint\RewardPointInterface"
+                type="Digidirect\AI\Model\Lib\Entity\Import\RewardPoint\RewardPoint"/>
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\RewardPoint\RewardPoint">
+        <arguments>
+            <argument name="beforeSaveValidator" xsi:type="object">RewardPointBeforeSaveValidator</argument>
+            <argument name="beforeUpdateValidator" xsi:type="object">RewardPointBeforeUpdateValidator</argument>
+            <argument name="preparers" xsi:type="array">
+                <item name="arrayToString" xsi:type="object">Digidirect\AI\Model\Lib\Entity\Import\Customer\Preparer\ArrayToString</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Reward Point validators before save(create) -->
+    <virtualType name="RewardPointBeforeSaveValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">RewardPointInputValidator</item>
+                <item name="2" xsi:type="object">RewardPointRelationValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Reward Point validators before update -->
+    <virtualType name="RewardPointBeforeUpdateValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">RewardPointInputValidator</item>
+                <item name="2" xsi:type="object">RewardPointRelationValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Reward Point validation fields before save(create) -->
+    <virtualType name="RewardPointInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="valitronValidatorFactory" xsi:type="object">valitronFactory</argument>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="customer_id" xsi:type="string">required,numeric</item>
+                <item name="website_id" xsi:type="string">required,numeric</item>
+                <item name="points_balance" xsi:type="string">required,numeric</item>
+                <item name="website_currency_code" xsi:type="string">optional</item>
+                <item name="history" xsi:type="string">optional,array</item>
+                <item name="history.*.history_id" xsi:type="string">optional</item>
+                <item name="history.*.reward_id" xsi:type="string">optional</item>
+                <item name="history.*.website_id" xsi:type="string">optional</item>
+                <item name="history.*.store_id" xsi:type="string">required</item>
+                <item name="history.*.action" xsi:type="string">optional</item>
+                <item name="history.*.entity" xsi:type="string">required,numeric</item>
+                <item name="history.*.points_balance" xsi:type="string">required,numeric</item>
+                <item name="history.*.points_delta" xsi:type="string">required,numeric</item>
+                <item name="history.*.points_used" xsi:type="string">optional</item>
+                <item name="history.*.points_voided" xsi:type="string">optional</item>
+                <item name="history.*.currency_amount" xsi:type="string">optional</item>
+                <item name="history.*.currency_delta" xsi:type="string">optional</item>
+                <item name="history.*.base_currency_code" xsi:type="string">required,optional</item>
+                <item name="history.*.additional_data" xsi:type="string">optional</item>
+                <item name="history.*.comment" xsi:type="string">optional</item>
+                <item name="history.*.created_at" xsi:type="string">optional</item>
+                <item name="history.*.expired_at_static" xsi:type="string">optional</item>
+                <item name="history.*.expired_at_dynamic" xsi:type="string">optional</item>
+                <item name="history.*.is_expired" xsi:type="string">optional</item>
+                <item name="history.*.is_duplicate_of" xsi:type="string">optional</item>
+                <item name="history.*.notification_sent" xsi:type="string">optional</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="RewardPointRelationValidator" type="Digidirect\AI\Model\Lib\Validator\RelationValidator">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magento_reward</argument>
+            <argument name="exists" xsi:type="array">
+                <item name="website_id" xsi:type="string">store_website.website_id</item>
+                <item name="customer_id" xsi:type="string">customer_entity.entity_id</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Reward Point import EOF -->
+
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Sales\CreditMemo\CreditMemoInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Sales\CreditMemo\CreditMemo" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Sales\Invoice\InvoiceInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Sales\Invoice\Invoice" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Sales\CreditMemo\CreditMemoItemInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Sales\CreditMemo\CreditMemoItem" />
+    <preference for="Digidirect\AI\Model\Lib\Entity\Export\Sales\Invoice\InvoiceItemInterface" type="Digidirect\AI\Model\Lib\Entity\Export\Sales\Invoice\InvoiceItem" />
+
+    <virtualType name="valitronFactory" type="Valitron\ValidatorFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">Digidirect\AI\Model\Lib\Validator\ValitronValidator</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="valitronValidatorFactory" xsi:type="object">valitronFactory</argument>
+        </arguments>
+    </type>
+
+    <!-- Gift Card Account import BEGIN -->
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\GiftCardAccount\GiftCardAccountInterface"
+                type="Digidirect\AI\Model\Lib\Entity\Import\GiftCardAccount\GiftCardAccount"/>
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\GiftCardAccount\GiftCardAccount">
+        <arguments>
+            <argument name="beforeSaveValidator" xsi:type="object">GiftCardAccountBeforeSaveValidator</argument>
+            <argument name="beforeUpdateValidator" xsi:type="object">GiftCardAccountBeforeUpdateValidator</argument>
+            <argument name="fields" xsi:type="array">
+                <item name="giftcardaccount_id" xsi:type="string"/>
+                <item name="code" xsi:type="string"/>
+                <item name="status" xsi:type="string"/>
+                <item name="date_created" xsi:type="string"/>
+                <item name="date_expires" xsi:type="string"/>
+                <item name="website_id" xsi:type="string"/>
+                <item name="balance" xsi:type="string"/>
+                <item name="state" xsi:type="string"/>
+                <item name="is_redeemable" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\GiftCardAccount\History">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="history_id" xsi:type="string"/>
+                <item name="giftcardaccount_id" xsi:type="string"/>
+                <item name="updated_at" xsi:type="string"/>
+                <item name="action" xsi:type="string"/>
+                <item name="balance_amount" xsi:type="string"/>
+                <item name="balance_delta" xsi:type="string"/>
+                <item name="additional_info" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </type>
+
+    <!-- Gift Card Account validators before save(create) -->
+    <virtualType name="GiftCardAccountBeforeSaveValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">GiftCardAccountInputValidator</item>
+                <item name="2" xsi:type="object">GiftCardAccountRelationValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Gift Card Account validators before update -->
+    <virtualType name="GiftCardAccountBeforeUpdateValidator" type="Digidirect\AI\Model\Lib\Validator\Validate">
+        <arguments>
+            <argument name="validators" xsi:type="array">
+                <item name="1" xsi:type="object">GiftCardAccountInputValidator</item>
+                <item name="2" xsi:type="object">GiftCardAccountRelationValidator</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Gift Card Account validation fields before save(create) -->
+    <virtualType name="GiftCardAccountInputValidator" type="Digidirect\AI\Model\Lib\Validator\InputValidator">
+        <arguments>
+            <argument name="valitronValidatorFactory" xsi:type="object">valitronFactory</argument>
+            <argument name="inputFormat" xsi:type="array">
+                <item name="giftcardaccount_id" xsi:type="string">optional,numeric</item>
+                <item name="code" xsi:type="string">required</item>
+                <item name="status" xsi:type="string">required,numeric</item>
+                <item name="date_created" xsi:type="string">optional</item>
+                <item name="date_expires" xsi:type="string">optional</item>
+                <item name="website_id" xsi:type="string">required,numeric</item>
+                <item name="balance" xsi:type="string">required,numeric</item>
+                <item name="state" xsi:type="string">optional,numeric</item>
+                <item name="is_redeemable" xsi:type="string">optional,numeric</item>
+                <item name="email" xsi:type="string">optional</item>
+                <item name="history" xsi:type="string">optional,array</item>
+                <item name="history.*.history_id" xsi:type="string">optional</item>
+                <item name="history.*.giftcardaccount_id" xsi:type="string">optional</item>
+                <item name="history.*.updated_at" xsi:type="string">optional</item>
+                <item name="history.*.action" xsi:type="string">optional</item>
+                <item name="history.*.balance_amount" xsi:type="string">optional</item>
+                <item name="history.*.balance_delta" xsi:type="string">optional</item>
+                <item name="history.*.additional_info" xsi:type="string">optional</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="GiftCardAccountRelationValidator" type="Digidirect\AI\Model\Lib\Validator\RelationValidator">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">magento_giftcardaccount</argument>
+            <argument name="exists" xsi:type="array">
+                <item name="website_id" xsi:type="string">store_website.website_id</item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Gift Card Account import EOF -->
+
+    <type name="Magento\CatalogImportExport\Model\Import\Product\Validator\Media">
+        <plugin name="digidirect_ai_plugin_model_import_product_validator_media" type="Digidirect\AI\Plugin\Model\Import\Product\Validator\Media"/>
+    </type>
+    <preference for="Magento\CatalogImportExport\Model\Import\Uploader"
+                type="Digidirect\AI\Model\Import\Uploader"/>
+
+    <preference for="Magento\CatalogImportExport\Model\Import\Product"
+                type="Digidirect\AI\Preferences\Model\Import\Product"/>
+
+    <preference for="Magento\CatalogImportExport\Model\Import\Product\CategoryProcessor"
+                type="Digidirect\AI\Preferences\Model\Import\Product\CategoryProcessor"/>
+
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\CatalogRule\CatalogRuleInterface"
+                type="Digidirect\AI\Model\Lib\Entity\Import\CatalogRule\CatalogRule"/>
+
+    <type name="Magento\CatalogImportExport\Model\Import\Product\Validator">
+        <plugin name="pluginImportProductValidator" type="Digidirect\AI\Plugin\Model\Import\Product\Validator"/>
+    </type>
+
+    <preference for="Digidirect\AI\Model\Lib\Entity\Import\Stock\StockInterface"
+                type="Digidirect\AI\Model\Lib\Entity\Import\Stock\Stock"/>
+
+    <type name="Digidirect\AI\Model\Lib\Entity\Import\Stock\Stock">
+        <arguments>
+            <argument name="colNames" xsi:type="object">StockColNames</argument>
+        </arguments>
+    </type>
+
+    <!-- Columns which take part in import. Extra data will be removed -->
+    <virtualType name="StockColNames" type="Magento\Framework\Data\DataArray">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="sku" xsi:type="string"/>
+                <item name="website_id" xsi:type="string"/>
+                <item name="stock_id" xsi:type="string"/>
+                <item name="qty" xsi:type="string"/>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <preference for="Digidirect\AI\Api\ScheduleRepositoryInterface" type="Digidirect\AI\Model\Integrations\ScheduleRepository" />
+    <preference for="Digidirect\AI\Api\Data\ScheduleInterface" type="Digidirect\AI\Model\Integrations\Schedule" />
+    <preference for="Digidirect\AI\Api\Data\ScheduleSearchResultInterface" type="Digidirect\AI\Model\ResourceModel\Integrations\Schedule\Collection" />
+
+    <type name="Magento\Indexer\Model\Indexer">
+        <plugin name="digidirect_ai_indexer_model_plugin" type="Digidirect\AI\Plugin\Model\Indexer" sortOrder="100"/>
+    </type>
+</config>

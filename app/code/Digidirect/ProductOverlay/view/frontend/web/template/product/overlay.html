@@ -1,0 +1,17 @@
+<!-- ko if: isAllowed() -->
+    <!-- ko foreach: {data: itemOverlays($row()), as: 'overlay'} -->
+        <!-- ko if: $parent.getContainerPath(overlay) -->
+            <div data-testid="productOverlay-overlayBlock"
+                 data-bind="css: 'product-overlay -' + overlay.css_class + $parent.hasImageSize(overlay),
+                 attr: {'data-role': $parent.getUseForParent(overlay)},
+                 mageInit: $parent.getDataMageInit(overlay)">
+                <img class="img" data-bind="attr: {
+                    src: overlay.image_src,
+                    alt: $parent.getNativeText(overlay),
+                    title: $parent.getNativeText(overlay)
+                }">
+                <div class="text" data-bind="html: overlay.cat_txt"></div>
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+<!-- /ko -->

@@ -1,0 +1,108 @@
+<?php
+    /** @var \Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule $block */
+    $_parentBlock = $block->getParentBlock();
+    if (!($product = $block->getProduct()) && $_parentBlock) {
+        $product = $_parentBlock->getProduct();
+    }
+    $productId = $product->getId();
+    $productRules = null;//$block->getProductRules($product);
+?>
+<?php if ($product && $productRules) : ?>
+    <?php foreach ($productRules as $rule): ?>
+        <?php
+        $id = 'rule-' . $rule['rule_id'] . '-' . $productId;
+        $priceClass = (!empty($rule['action_amount'])) ? '-cashback' : '';
+        $productPrice = (float) $product->getPrice();
+        $productFinalPrice = (float) $product->getFinalPrice();
+        $hasSpecialPrice = false;
+        if ($productPrice > $productFinalPrice) {
+            $hasSpecialPrice = true;
+            $priceClass .= ' -special-price';
+        }
+        ?>
+
+        <div class="block-extendedrule <?= /* @noEscape */ $priceClass?>" id="<?= /* @noEscape */ $id ?>">
+            <div class="name" data-rule-id="<?= /* @noEscape */ 'rule-' . $rule['rule_id']; ?>" data-mage-init='{"catalogPriceRuleModal": {"ruleId": "<?= /* @noEscape */ 'rule-' . $rule['rule_id']; ?>"}}'>
+                <?php if(!empty($rule['plp_label'])): ?>
+                    <?= $block->escapeHtml($rule['plp_label']); ?>
+                <?php endif; ?>
+            </div>
+
+            <?php if(!empty($rule['action_amount']) && $rule['action_amount'] > 0): ?>
+                <?php
+                $fromLabel = __('Before Cashback');
+                $fromClass = 'before-cashback';
+                $fromPrice = $fromPrice = $hasSpecialPrice ? $productFinalPrice : $productPrice;
+                $afterLabel = __('After Cashback');
+                $afterClass = 'after-cashback';
+                $afterPrice = 0;
+                $productType = $product->getTypeId();
+                switch ($productType) {
+                    case Magento\Catalog\Model\Product\Type::TYPE_BUNDLE:
+                        $fromLabel = __('From');
+                        $fromPrice = $product->getMinimalPrice();
+                        $fromClass = 'price-from';
+                        $afterLabel = __('Cashback available');
+                        $afterPrice = false;
+                        $afterClass = 'price-to';
+                        break;
+                    case Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE:
+                        $fromLabel = __('Starting at');
+                        $fromPrice = 0;
+                        if ($_parentBlock && $productPrice = $_parentBlock->getProductPrice($product)) {
+                            $fromPrice = $productPrice;
+                        }
+
+                        if (empty($fromPrice)) {
+                            $fromPrice = $product->getMinimalPrice();
+                        }
+
+                        $fromClass = 'price-from';
+                        $afterLabel = __('Cashback available');
+                        $afterPrice = false;
+                        $afterClass = 'price-to';
+                        break;
+                    default:
+                        $afterPrice = $fromPrice - $rule['action_amount'];
+                }
+                ?>
+                <div class="price-box">
+                    <div class="price-container">
+                        <span class="<?= /* @escapeNotVerified */ $fromClass; ?>">
+                            <?php if ($fromLabel): ?>
+                                <span class="price-label"><?= /* @noEscape */  $fromLabel; ?></span>
+                            <?php endif; ?>
+                            <?php if (is_numeric($fromPrice)): ?>
+                                <span class="price-wrapper"><span class="price"><?= /* @noEscape */ $block->formatDiscountAmount($fromPrice); ?></span></span>
+                            <?php elseif ($fromPrice): ?>
+                                <?= /* @noEscape */ $fromPrice; ?>
+                            <?php endif; ?>
+                        </span>
+                        <span class="<?= /* @escapeNotVerified */ $fromClass; ?>">
+                            <?php if ($afterLabel): ?>
+                                <span class="price-label"><?= /* @noEscape */  $afterLabel; ?></span>
+                            <?php endif; ?>
+                            <?php if (is_numeric($afterPrice)): ?>
+                                <span class="price-wrapper"><span class="price"><?= /* @noEscape */  $block->formatDiscountAmount($afterPrice); ?></span></span>
+                            <?php endif; ?>
+                        </span>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <?php if(!empty($rule['pdp_description']) || !empty($rule['url_promotion'])): ?>
+                <div class="details-extendedrule no-display" data-rule="<?= /* @noEscape */ 'rule-' . $rule['rule_id']; ?>">
+                    <?php if(!empty($rule['pdp_description'])): ?>
+                        <div class="description"><?=  /* @noEscape */ $rule['pdp_description']; ?></div>
+                    <?php endif; ?>
+
+                    <?php if(!empty($rule['url_promotion'])): ?>
+                        <a class="link" href="<?= $block->escapeUrl($rule['url_promotion']); ?>" title="<?= /* @noEscape */ __('Promotion URL'); ?>">
+                            <?= /* @noEscape */ __('Promotion URL'); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

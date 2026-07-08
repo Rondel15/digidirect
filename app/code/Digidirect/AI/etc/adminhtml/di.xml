@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <virtualType name="Digidirect\AI\Block\Adminhtml\Config\Field\Attribute\Renderer\Integration"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+            <argument name="attributeList" xsi:type="object">Digidirect\AI\Model\Config\Source\Integration</argument>
+            <argument name="data" xsi:type="array">
+                <item name="extra_params" xsi:type="string">class="integration"</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\AI\Block\Adminhtml\Config\IntegrationSelectToText"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="label" xsi:type="array">
+                    <item name="label" xsi:type="string">Integration Process</item>
+                    <item name="class" xsi:type="object">Digidirect\AI\Block\Adminhtml\Config\Field\Attribute\Renderer\Integration</item>
+                </item>
+                <item name="value" xsi:type="array">
+                    <item name="label" xsi:type="string">Value</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

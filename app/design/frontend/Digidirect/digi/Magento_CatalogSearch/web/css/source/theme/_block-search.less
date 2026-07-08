@@ -1,0 +1,510 @@
+//
+//  Search block
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@block-search__width: 644px;
+
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    #search_autocomplete {
+        margin-left: 16px;
+        margin-right: 15px;
+    }
+
+    .livesearch.popover-container {
+        width: 100% !important;
+    }
+
+    .block-search .actions {
+        display: none;
+    }
+    
+    .livesearch.product-result img {
+        height: 50px;
+        object-fit: contain;
+        border: 1px solid #cacaca;
+        padding: 12px;
+    }
+    
+    .livesearch.product-price {
+        font-size: 19px;
+        color: #ff3c00;
+        font-weight: 600;
+    }
+    
+    .livesearch.product-name {
+        width: 100%;
+        line-height: 2rem;
+        max-height: 4rem;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 2;
+        font-weight: 500;
+        font-size: 12px;
+    }
+    
+    .livesearch.view-all-footer {
+        background: #ff3c00;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+    }
+    
+    .catalogsearch-result-index .page-title-wrapper {
+        padding-top: 0 !important;
+    }
+    
+    .livesearch.products-container {
+        row-gap: 15px;
+        grid-template-rows: unset !important;
+    }
+    
+    .livesearch.product-result:hover {
+        background-color: unset !important;
+    }
+    
+    .livesearch.product-result > div {
+        align-self: start;
+        font-size: 15px;
+        margin-left: 20px;
+    }
+}
+
+//
+//  Mobile 780
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+    .header.content {
+        padding-top: 0;
+        margin-bottom: 28px !important;
+    }
+
+    &.block-search{
+        //margin-left: auto;
+        //padding-right: 15px;
+        //margin-top: 15px !important;
+        //clint workaround just to make it appear
+        margin-left: auto;
+        //padding-right: 300px;
+        margin-top: 50px !important;
+        margin-bottom: 25px !important;
+        position: absolute;
+        width: 100% !important;
+        height: 0 !important;
+
+        .minisearch{
+            position: absolute;
+            /*max-width: 300px;
+            margin: 0 auto;*/
+            label{
+                &:before{
+                    content: "" !important;
+                }
+            }
+
+            .field.search{
+                height: 0 !important;
+                label{
+                  span{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .main-header-wrapper .logo-wrapper {
+        position: absolute;
+        margin-left: 30px;
+    }
+
+    .block-search input {
+        //left: -750% !important;
+        left: 0 !important;
+        position: initial !important;
+    }
+
+    .block-search .actions {
+        position: absolute;
+        //right: -260px;
+        right: 30px;
+        //top: 42px !important;
+        background-color: #000;
+        width: 65px;
+        //height: 38px;
+        border-radius: 0px 5px 5px 0px;
+        top: 41px !important;
+        height: 40px;
+    }
+    .block-search .actions span {
+        font-size: 25px;
+        color: #fff;
+        padding-left: 18px;
+    }
+
+    .block-search .action.search {
+        background: 0 0;
+        -moz-box-sizing: content-box;
+        border: 40px;
+        box-shadow: none;
+        line-height: inherit;
+        margin: 0;
+        text-shadow: none;
+        font-weight: 400;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        z-index: 1;
+        display: inline-block;
+        padding: 3.75px 0;
+    }
+
+    .block-search .control {
+        margin: 0 !important;
+        padding: 0 !important;
+        padding-right: 30px !important;
+    }
+
+    #main-header-wrapper.sticky {
+        margin-left: unset !important;
+        margin-right: unset !important;
+        padding-left: 15px !important;
+        padding-right: unset !important;
+    }
+
+    .sticky .wrap-links {
+        margin-right: 30px !important;
+        transition: unset !important;
+    }
+
+    .main-header-wrapper .wrap-links {
+        transition: unset !important;
+    }
+
+    .sticky .form.minisearch .control {
+        margin-right: 15px !important;
+    }
+
+    .sticky .block-search .actions {
+        right: 45px !important;
+    }
+    
+    #search_autocomplete {
+        margin-left: 0 !important;
+        margin-right: 30px !important;
+    }
+    
+    .livesearch.popover-container {
+        height: unset !important;
+    }
+    
+    .livesearch.products-container {
+        grid-template-columns: 1fr;
+    }
+
+    .livesearch.product-result {
+        grid-template-areas:
+            "image productName"
+            "image price";
+        grid-template-columns: 1fr 4fr;
+        grid-template-rows: unset;
+        column-gap: 16px;
+        align-self: center;
+        height: unset;
+        min-width: 192px;
+        box-sizing: inherit;
+        display: grid;
+        padding: unset;
+    }
+
+    .livesearch.product-price {
+        margin-top: 0;
+    }
+
+    .livesearch.product-result img {
+        height: 70px;
+        padding: 5px;
+    }
+    
+    .livesearch.product-result * {
+        text-align: left;
+    }
+    
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block-search {
+        & {
+            padding: 0 90px;
+            margin-left: 0;
+            width: 100%;
+            max-width: 1300px;
+            margin-top: 3px;
+        }
+
+        .minisearch{
+            position: relative;
+            max-width: 900px;
+            margin: -2px auto;
+        }
+
+        .actions
+        {
+            position: absolute;
+            //right: 7px;
+            //top: 1px !important;
+            background: #000;
+            width: 65px;
+            //height: 38px;
+            border-radius: 0 5px 5px 0;
+            right: 5px;
+            top: 0 !important;
+            height: 40px;
+
+            .search {
+                background-image: none;
+                background: 0 0;
+                -moz-box-sizing: content-box;
+                border: 40px;
+                box-shadow: none;
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                text-shadow: none;
+                font-weight: 400;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                z-index: 1;
+                display: inline-block;
+                padding: 3.75px 0;
+            }
+
+            .search::before {
+                display: none;
+            }
+        }
+
+        .svg-icon {
+            width: 25px !important;
+            height: 27px !important;
+            margin-bottom: 4px;
+            display: inline-block;
+            fill: currentColor;
+            vertical-align: middle;
+            margin-top: -2px;
+            margin-right: 15px;
+            color: #FFFFFF;
+        }
+
+        .control{
+            padding: 0 15px;
+        }
+
+        .input-text {
+            width: 100%;
+            border-radius: 5px;
+            left: 50px;
+            font-size: 1.6rem;
+            height: 40px;
+            padding: 0 45px 0 15px;
+            background: linear-gradient(90deg,#f5f5f5 93%,#222 10%);
+        }
+    }
+    
+    .livesearch.products-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .block-search {
+        & {
+            padding: 0 90px;
+            margin-left: 0;
+            width: 100%;
+            max-width: 1300px;
+            margin-top: 3px;
+        }
+
+        .minisearch{
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .actions
+        {
+            position: absolute;
+            //right: 7px;
+            //top: 1px !important;
+            background: #000;
+            width: 65px;
+            //height: 38px;
+            border-radius: 0 5px 5px 0;
+            right: 6px;
+            top: 0 !important;
+            height: 40px;
+
+            .search {
+                background-image: none;
+                background: 0 0;
+                -moz-box-sizing: content-box;
+                border: 40px;
+                box-shadow: none;
+                line-height: inherit;
+                margin: 0;
+                padding: 0;
+                text-decoration: none;
+                text-shadow: none;
+                font-weight: 400;
+                position: absolute;
+                top: 0;
+                right: 10px;
+                z-index: 1;
+                display: inline-block;
+                padding: 3.75px 0;
+            }
+
+            .search::before {
+                display: none;
+            }
+
+            span {
+                font-size: 25px;
+                color: #fff;
+                padding-left: 13px;
+            }
+        }
+
+        .svg-icon {
+            width: 25px !important;
+            height: 27px !important;
+            margin-bottom: 4px;
+            display: inline-block;
+            fill: currentColor;
+            vertical-align: middle;
+            margin-top: -2px;
+            margin-right: 15px;
+            color: #FFFFFF;
+        }
+
+        .control{
+            padding: 0 15px;
+        }
+
+        .input-text {
+            width: 100%;
+            border-radius: 5px;
+            left: 50px;
+            font-size: 1.6rem;
+            height: 40px;
+            padding: 0 45px 0 15px;
+            background: linear-gradient(90deg,#f5f5f5 93%,#222 10%);;
+        }
+    }
+    
+    
+    
+    .livesearch.products-container {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+}
+
+//
+//  Mobile 480
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xs) {
+
+
+    &.block-search{
+        //margin-left: auto;
+        //padding-right: 15px;
+        //margin-top: 15px !important;
+        //clint workaround just to make it appear
+        margin-left: auto;
+        padding-right: 220px;
+        margin-top: 50px !important;
+        margin-bottom: 25px !important;
+
+        .minisearch{
+                position: absolute;
+                //max-width: 300px;
+                //margin: 0 auto;
+
+            label{
+                &:before{
+                    content: "" !important;
+                }
+            }
+
+            .field.search{
+                label{
+                    span{
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+
+    .block-search input {
+        //left: -750% !important;
+        left: 0 !important;
+        position: initial !important;
+    }
+
+    .block-search .actions {
+        position: absolute;
+        //right: -180px;
+        //top: 42px !important;
+        background-color: #000;
+        width: 65px;
+        //height: 38px;
+        border-radius: 0px 5px 5px 0px;
+        top: 41px !important;
+        height: 40px;
+    }
+    .block-search .actions span {
+        font-size: 25px;
+        color: #fff;
+        padding-left: 18px;
+    }
+
+    .block-search .action.search {
+        background: 0 0;
+        -moz-box-sizing: content-box;
+        border: 40px;
+        box-shadow: none;
+        line-height: inherit;
+        margin: 0;
+        text-shadow: none;
+        font-weight: 400;
+        position: absolute;
+        top: 0;
+        right: 10px;
+        z-index: 1;
+        display: inline-block;
+        padding: 3.75px 0;
+    }
+
+}

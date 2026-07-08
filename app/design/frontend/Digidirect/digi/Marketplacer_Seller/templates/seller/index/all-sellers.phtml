@@ -1,0 +1,85 @@
+<?php
+/**
+ * @var $block Index
+ * @var $imageHelper Image
+ * @var $urlHelper Url
+ * @var $viewModel BaseViewModel
+ * @var $escaper Escaper
+ */
+
+use Magento\Framework\Escaper;
+use Marketplacer\Base\Helper\Image;
+use Marketplacer\Base\ViewModel\BaseViewModel;
+use Marketplacer\Seller\Api\Data\SellerInterface;
+use Marketplacer\Seller\Block\Seller\Index;
+use Marketplacer\Seller\Helper\Url;
+
+$viewModel = $block->getViewModel();
+$escaper = $escaper ?? $viewModel->getEscaper();
+
+$imageHelper = $this->helper('Marketplacer\Base\Helper\Image');
+$urlHelper = $this->helper('Marketplacer\Seller\Helper\Url');
+
+$sellers = $block->getAllDisplayedSellers();
+?>
+
+<?php
+    echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('seller-page-header')->toHtml();
+?>
+
+
+<?php if ($sellers): ?>
+    <section class="mrkt-sellers-list-wrapper">
+        <ul id="mrkt-sellers-list" class="mrkt-sellers-list">
+            <?php /** @var $seller SellerInterface */ ?>
+            <?php foreach ($sellers as $seller): ?>
+                <?php
+                $sellerUrl = $urlHelper->getSellerUrl($seller);
+                    $sellerLabel = $seller->getName();
+                    $sellerLogoSrc = $seller->getLogo();
+                    if (!$sellerLogoSrc) {
+                        $sellerLogoSrc = $imageHelper->init($seller, 'image')->resize(200, 200)->getUrl();
+                    }
+                ?>
+                <li class="item">
+                    <div class="mrkt-sellers-item" itemscope itemtype="http://schema.org/Store">
+                        <h3 class="name">
+                            <a href="<?= $escaper->escapeUrl($sellerUrl); ?>"
+                               title="<?= $escaper->escapeHtmlAttr($sellerLabel) ?>"
+                               itemprop="url">
+                                <span itemprop="name"><?= $escaper->escapeHtml($sellerLabel); ?></span>
+                            </a>
+                        </h3>
+                    </div>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </section>
+<?php else: ?>
+    <div class="message info empty"><span><?= $escaper->escapeHtml(__('There are no sellers available.')); ?></span>
+    </div>
+<?php endif ?>
+
+<script> 
+
+    var list = document.getElementById('mrkt-sellers-list');
+
+    var items = list.childNodes;
+    var itemsArr = [];
+    for (var i in items) {
+        if (items[i].nodeType == 1) { 
+            itemsArr.push(items[i]);
+        }
+    }
+
+    itemsArr.sort(function(a, b) {
+      return a.innerHTML == b.innerHTML
+              ? 0
+              : (a.innerHTML > b.innerHTML ? 1 : -1);
+    });
+
+    for (i = 0; i < itemsArr.length; ++i) {
+      list.appendChild(itemsArr[i]);
+    }
+
+</script>

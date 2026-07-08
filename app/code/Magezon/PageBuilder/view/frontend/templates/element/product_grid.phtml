@@ -1,0 +1,272 @@
+<?php
+use Magento\Framework\App\Action\Action;
+
+$coreHelper           = $this->helper('\Magezon\Core\Helper\Data');
+$compareHelper        = $this->helper('Magento\Catalog\Helper\Product\Compare');
+$element              = $this->getElement();
+$title                = $coreHelper->filter($element->getData('title'));
+$titleAlign           = $element->getData('title_align');
+$titleTag             = $element->getData('title_tag') ? $element->getData('title_tag') : 'h2';
+$description          = $coreHelper->filter($element->getData('description'));
+$showLine             = $element->getData('show_line');
+$linePosition         = $element->getData('line_position');
+$items                = $this->getItems();
+$imageId              = 'category_page_grid';
+$templateType         = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+$showImage            = $element->getData('product_image');
+$showName             = $element->getData('product_name');
+$showPrice            = $element->getData('product_price');
+$showShortDescription = $element->getData('product_shortdescription');
+$showWishlist         = $element->getData('product_wishlist');
+$showCompare          = $element->getData('product_compare');
+$showCart             = $element->getData('product_addtocart');
+$showReview           = $element->getData('product_review');
+$swatches             = $element->getData('product_swatches');
+$displayStyle         = $element->getData('display_style');
+$options = $this->getOwlCarouselOptions();
+$options['item_xl']   = $options['item_lg'] = $options['item_md'] = $options['item_sm'] = $options['item_xs'] = 1;
+$options['dots']      = $element->getData('owl_dots') ? true : false;
+$options['lazyLoad']  = true;
+$lazyLoad             = true;
+$xl                   = $element->getData('item_xl');
+$lg                   = $element->getData('item_lg');
+$md                   = $element->getData('item_md');
+$sm                   = $element->getData('item_sm');
+$xs                   = $element->getData('item_xs');
+$htmlId               = $element->getHtmlId(); 
+?>
+<div class="mgz-block">
+	<?php if ($title || $description) { ?>
+	<div class="mgz-block-heading mgz-block-heading-align-<?= $titleAlign ?><?= $showLine ? ' mgz-block-heading-line' : '' ?> mgz-block-heading-line-position-<?= $linePosition ?>">
+		<?php if ($title) { ?>
+			<<?= $titleTag ?> class="title"><?= $title ?></<?= $titleTag ?>>
+		<?php } ?>
+		<?php if ($description) { ?>
+			<div class="info"><?= $description ?></div>
+		<?php } ?>
+	</div>
+	<?php } ?>
+	<div class="mgz-block-content">
+		<div class="mgz-grid mgz-product-items <?= $displayStyle=='pagination' ? 'mgz-carousel owl-carousel' : '' ?>"
+			 <?php if ($displayStyle=='pagination') { ?>data-mage-init='{"Magezon_Builder/js/carousel":<?= json_encode($options) ?>}'<?php } ?>
+			>
+			<?php foreach ($items as $_items) { ?>
+				<div class="mgz-grid-page mgz-grid-col-xl-<?= $xl ?> mgz-grid-col-lg-<?= $lg ?> mgz-grid-col-md-<?= $md ?> mgz-grid-col-sm-<?= $sm ?> mgz-grid-col-xs-<?= $xs ?>">
+				<?php foreach ($_items as $_product) { ?>
+					<div class="item product product-item mgz-grid-item">
+						<div class="product-item-info">
+                                                    <?php if ($showWishlist || $showCompare) { ?>
+                                                            <div class="actions-secondary" data-role="add-to-links">
+                                                                    <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist) { ?>
+                                                                        <a href="#"
+                                                                                data-post='<?= $block->getAddToWishlistParams($_product) ?>'
+                                                                                class="action towishlist" data-action="add-to-wishlist"
+                                                                                title="<?= __('Add to Wish List') ?>">
+                                                                                <i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6; float: right;"></i>
+                                                                        </a>
+                                                                    <?php } ?>
+                                                            </div>
+                                                    <?php } ?>
+							<?php if ($showImage) { ?>
+                                    <?php               
+                                        $categoryIds = $_product->getCategoryIds();
+                                        $digiSecondsIds = array(2564,2567,2570,2573);
+                                        $isDigiSeconds = count(array_intersect($categoryIds, $digiSecondsIds));  
+                                        
+                                        $preorder = $_product->getPreOrderStatus();
+                                        $seller = $_product->getAttributeText('marketplacer_seller');
+                                        $d2ItemCondition = $_product->getData('item_condition');
+                                        $d2ItemRating = $_product->getData('item_rating');
+                                        
+                                        $finalProductPrice = $_product->getFinalPrice();
+                                        $originalPrice = $_product->getPrice();
+                                        $marketplacesPrice = $_product->getMarketplacesPrice();
+                                        $wiserPrice = $_product->getData('wiser_price');
+                                        $hasDiscountClass = "";
+
+                                        $discountPrice = round($originalPrice - $finalProductPrice, 2);
+                                        $discountWiserPrice = 0;
+                                        if (!is_null($wiserPrice)) {
+                                            $discountWiserPrice = round($originalPrice - $wiserPrice, 2);
+                                        }
+                                        
+                                        $is_digiPrint = ($_product->getData('is_digiprint') ? $_product->getData('is_digiprint') : '');
+                                        $digiprintCustomLinkProductSKU = ($_product->getData('digiprint_customlink') ? $_product->getData('digiprint_customlink') : '');
+                                    ?>
+                                                    
+                                    <?php if (count(array_intersect($categoryIds, $digiSecondsIds)) > 0): ?>
+                                        <?php if ($d2ItemCondition): ?>
+                                            <?php if ($discountPrice > 0 || ($discountWiserPrice > 0 && $wiserPrice != 0) || $marketplacesPrice > $finalProductPrice): ?>
+                                                <?php 
+                                                    $hasDiscountClass = "has-discount";
+                                                ?>
+                                            <?php endif; ?>
+                                            <div class="digiseconds-overlay <?= $hasDiscountClass; ?>">
+                                                <?php if ($d2ItemCondition == "PRELOVED"): ?>
+                                                    <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-pre-loved.png"/>
+                                                <?php elseif ($d2ItemCondition == "OPENBOX"): ?>
+                                                    <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-demo.png"/>
+                                                <?php elseif ($d2ItemCondition == "REFURB"): ?>
+                                                    <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-refurbished.png"/>
+                                                <?php endif; ?>
+                                                <div class="digiseconds-rating">
+                                                    <?php if ($d2ItemRating == 5): ?>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                    <?php elseif ($d2ItemRating == 4): ?>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    <?php elseif ($d2ItemRating == 3): ?>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    <?php elseif ($d2ItemRating == 2): ?>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    <?php elseif ($d2ItemRating == 1): ?>
+                                                        <i class="fas fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    <?php elseif ($d2ItemRating == 0): ?>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                        <i class="far fa-star"></i>
+                                                    <?php endif; ?>
+                                                </div>
+                                            </div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>                
+                                                    
+                                    <?php $productImage = $block->getImage($_product, $imageId); ?>
+		                    <a href="<?= $_product->getProductUrl() ?>" class="product photo product-item-photo" tabindex="-1" preorder="<?= $preorder; ?>">
+		                    	<?php
+		                    	$imgHtml = $productImage->toHtml();
+		                    	if ($displayStyle == 'pagination' && $lazyLoad) $imgHtml = $coreHelper->filterCarouselLazyImage($imgHtml);
+		                    	?>
+		                        <?= $imgHtml ?>
+		                    </a>
+                                    <?php if ($seller != "digiDirect" && $seller != ""): ?>
+                                        <div class="ribbon-online">Online only</div>
+                                    <?php else: ?>
+                                        <?php if ($is_digiPrint == 1): ?>
+                                            <?php if ($discountPrice > 0 || $marketplacesPrice > $finalProductPrice): ?>
+                                                <?php 
+                                                    $hasDiscountClass = "has-discount";
+                                                ?>
+                                                <div class="ribbon-digideals">digiDeals</div>
+                                            <?php endif; ?>
+                                        <?php else: ?>
+                                            <?php if ($discountPrice > 0 || ($discountWiserPrice > 0 && $wiserPrice != 0) || $marketplacesPrice > $finalProductPrice): ?>
+                                                <?php 
+                                                    $hasDiscountClass = "has-discount";
+                                                ?>
+                                                <?php if ($isDigiSeconds == 0): ?>
+                                                    <div class="ribbon-digideals">digiDeals</div>
+                                                <?php endif; ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+							<?php } ?>
+							<div class="product details product-item-details">
+								<?php if ($showName) { ?>
+									<strong class="product-item-name">
+										<a title="<?= $block->escapeHtml($_product->getName()) ?>"
+											href="<?= $block->getProductUrl($_product) ?>"
+											class="product-item-link">
+											<?= $block->escapeHtml($_product->getName()) ?>
+										</a>
+									</strong>
+								<?php } ?>
+
+								<?= $showPrice ? $block->getProductPrice($_product) : '' ?>
+
+								<?= $swatches ? $this->getSwatchesHtml($_product) : '' ?>
+
+								<?= ($templateType && $showReview) ? $block->getReviewsSummaryHtml($_product, $templateType) : '' ?>
+
+								<?php if ($showShortDescription) { ?>
+									<div class="product-item-shortdescription"><?= $coreHelper->filter($_product->getShortDescription()) ?></div>
+								<?php } ?>
+
+								<?php if ($showWishlist || $showCompare || $showCart) { ?>
+									<div class="product-item-actions">
+										<?php if ($showCart) { ?>
+											<div class="actions-primary">
+                                                                                            <div class="s19-rental-price-target">
+                                                                                                <?php if ($is_digiPrint == 1): ?>
+                                                                                                    <p style="font-size: 13px; font-weight: 500;">Order Online Today!</p>
+                                                                                                <?php else: ?>
+                                                                                                    <p style="font-size: 13px; font-weight: 500;">Buy now pay later</p>
+                                                                                                    <p style="font-size: 13px; font-weight: 500;">Options Available</p>
+                                                                                                <?php endif; ?>
+                                                                                            </div>
+                                                                                                <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                                                                                <?php if ($is_digiPrint == 1): ?>
+                                                                                                    <a class="ordernow-link" href="<?php echo $digiprintCustomLinkProductSKU;?> target="_blank">
+                                                                                                        <button type="button"
+                                                                                                            title="<?= /* @escapeNotVerified */ __('Order Now'); ?>"
+                                                                                                            class="action btn-ordernow primary">
+                                                                                                            Order Now <i class="fas fa-cart-plus" style="float: right;"></i>
+                                                                                                        </button>
+                                                                                                    </a>
+                                                                                                <?php else: ?>
+                                                                                                    <form data-role="tocart-form" action="<?= $postParams['action']; ?>" method="post">
+                                                                                                        <input type="hidden" name="product" value="<?= $postParams['data']['product']; ?>">
+                                                                                                        <input type="hidden" name="<?= Action::PARAM_NAME_URL_ENCODED; ?>" value="<?= $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>">
+                                                                                                        <?php if ($formKey = $block->getProductFormKey()) { ?>
+                                                                                                            <input name="form_key" type="hidden" value="<?= $formKey ?>" />
+                                                                                                            <?php } else { ?>
+                                                                                                            <?= $block->getBlockHtml('formkey')?>
+                                                                                                            <?php } ?>
+
+                                                                                                            <?php if ($preorder == "Yes"): ?>
+                                                                                                                <button type="submit"
+                                                                                                                title="<?= $block->escapeHtml(__('Pre-order')); ?>"
+                                                                                                                class="action tocart primary <?= $preorder; ?>">
+                                                                                                                <span><?= /* @escapeNotVerified */ __('Pre-order'); ?></span><i class="fas fa-cart-plus" style="float: right; color: #ffffff;"></i>
+                                                                                                                </button>
+                                                                                                            <?php else: ?>
+                                                                                                                <button type="submit"
+                                                                                                                title="<?= $block->escapeHtml(__('Add to Cart')); ?>"
+                                                                                                                class="action tocart primary <?= $preorder; ?>">
+                                                                                                                <span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span><i class="fas fa-cart-plus" style="float: right; color: #ffffff;"></i>
+                                                                                                                </button>
+                                                                                                            <?php endif; ?>
+                                                                                                    </form>
+                                                                                                <?php endif; ?>
+											</div>
+										<?php } ?>
+									</div>
+								<?php } ?>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
+				</div>
+			<?php } ?>
+		</div>
+	</div>
+	<script type="text/x-magento-init">
+	{
+	    ".<?= $htmlId ?> [data-role=tocart-form]": {
+	        "catalogAddToCart": {
+	        }
+	    }
+	}
+	</script>
+</div>

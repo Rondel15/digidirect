@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="Digidirect_FreeGift::addPromoItemsImagesToGallery"
+                type="Digidirect\FreeGift\Plugin\Catalog\Block\Product\View\Gallery"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Helper\Data">
+        <plugin name="Digidirect_FreeGift::addSmallImagesToGallery"
+                type="Digidirect\FreeGift\Plugin\ConfigurableProduct\Helper\Data"/>
+    </type>
+    <type name="Magento\ConfigurableProduct\Model\Quote\Item\CartItemProcessor">
+        <plugin name="Digidirect_FreeGift::checkCustomOptionsBeforeProcessCartItem"
+                type="Digidirect\FreeGift\Plugin\ConfigurableProduct\Model\Quote\Item\CartItemProcessor"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote">
+        <plugin name="Digidirect_FreeGift::Magento\Quote\Model\Quote"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Quote"/>
+    </type>
+    <type name="Magento\Tax\Block\Item\Price\Renderer">
+        <plugin name="Digidirect_FreeGift::Magento\Tax\Block\Item\Price\Renderer"
+                type="Digidirect\FreeGift\Plugin\Magento\Tax\Block\Item\Price\Renderer"/>
+    </type>
+    <type name="Magento\Quote\Model\Cart\Totals\ItemConverter">
+        <plugin name="Digidirect_FreeGift::Digidirect\FreeGift\Plugin\Magento\Quote\Model\Cart\Totals\ItemConverter"
+                type="Digidirect\FreeGift\Plugin\Magento\Quote\Model\Cart\Totals\ItemConverter"/>
+    </type>
+    <type name="Digidirect\FreeGift\Observer\Frontend\LoadLayoutBefore">
+        <arguments>
+            <argument name="hideHiddenFreeGiftOn" xsi:type="array">
+                <item name="order_item" xsi:type="array">
+                    <item name="sales_order_view" xsi:type="string">sales_order_view</item>
+                    <item name="sales_order_print" xsi:type="string">sales_order_print</item>
+                    <item name="sales_order_invoice" xsi:type="string">sales_order_invoice</item>
+                    <item name="sales_order_printinvoice" xsi:type="string">sales_order_printinvoice</item>
+                    <item name="sales_order_shipment" xsi:type="string">sales_order_shipment</item>
+                    <item name="sales_order_printshipment" xsi:type="string">sales_order_printshipment</item>
+                    <item name="sales_guest_view" xsi:type="string">sales_guest_view</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

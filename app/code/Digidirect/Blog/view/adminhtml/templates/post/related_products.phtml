@@ -1,0 +1,24 @@
+<?php
+/** @var \Digidirect\Blog\Block\Adminhtml\Post\Edit\Tab\RelatedPosts $block */
+
+/** @var \Digidirect\Blog\Block\Adminhtml\Post\Edit\Tab\RelatedPosts\Grid $blockGrid */
+$blockGrid = $block->getBlockGrid();
+$gridJsObjectName = $blockGrid->getJsObjectName();
+$selector = 'in_related_products';
+?>
+<?php  echo $block->getGridHtml(); ?>
+<input type="hidden" name="<?php echo $block->escapeHtml($selector); ?>" id="<?php echo $block->escapeHtml($selector); ?>" data-form-part="blog_post_form" value="" />
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Digidirect_Blog/js/related-data": {
+                "selectedProducts": <?php /* @escapeNotVerified */ echo $block->getDataJson(); ?>,
+                "selector": <?php /* @escapeNotVerified */ echo '"' . $selector . '"'; ?>,
+                "gridJsObjectName": <?php /* @escapeNotVerified */ echo '"' . $gridJsObjectName . '"' ?: '{}'; ?>
+            }
+        }
+    }
+</script>
+<script>
+    require('mage/apply/main').apply();
+</script>

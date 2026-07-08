@@ -1,0 +1,83 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var \Plumrocket\Newsletterpopup\Block\Popup\Integration $block */
+
+$integrationModes = $block->getPopupIntegrationModes();
+?>
+<?php if ($block->canShow()) : ?>
+    <div class="integration_item_wrapper">
+        <h3><?= $block->escapeHtml(__('Mailing List(s)')) ?></h3>
+        <ul class="integration_list">
+        <?php foreach ($block->getLists() as $integrationId => $lists) : ?>
+            <?php if (isset($integrationModes[$integrationId])) : ?>
+                <?php switch ($integrationModes[$integrationId]) :
+                    case \Plumrocket\Newsletterpopup\Model\Config\Source\SubscriptionMode::ONE_LIST_RADIO: ?>
+                        <?php $isCheckedFirstItem = false ?>
+                        <?php foreach ($lists as $listId => $list) : ?>
+                            <?php
+                            $elementId = $integrationId . '_' . $list['name'];
+                            $elementName = sprintf('integration[%s][]', $integrationId);
+                            ?>
+                            <li class="integration_item">
+                                <input
+                                    type="radio"
+                                    id="<?= /* @noEscape */ $elementId ?>"
+                                    name="<?= /* @noEscape */ $elementName ?>"
+                                    value="<?= /* @noEscape */ $list['name'] ?>"
+                                    class="validate-one-required-by-name"
+                                    <?php if (! $isCheckedFirstItem) : ?>checked="checked"<?php endif ?>
+                                />
+                                <label for="<?= /* @noEscape */ $elementId ?>"><?= /* @noEscape */ $list['label'] ?></label>
+                            </li>
+                            <?php $isCheckedFirstItem = true ?>
+                        <?php endforeach ?>
+                        <?php break ?>
+                    <?php case \Plumrocket\Newsletterpopup\Model\Config\Source\SubscriptionMode::ONE_LIST_SELECT : ?>
+                        <?php
+                        $elementId = $integrationId;
+                        $elementName = sprintf('integration[%s]', $integrationId);
+                        ?>
+                        <li class="integration_item">
+                            <select
+                                id="<?= /* @noEscape */ $elementId ?>"
+                                name="<?= /* @noEscape */ $elementName ?>">
+                                <?php foreach ($lists as $listId => $list) : ?>
+                                    <option value="<?= /* @noEscape */ $list['name'] ?>"><?= /* @noEscape */ $list['label'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                            <label for="<?= /* @noEscape */ $elementId ?>"></label>
+                        </li>
+                        <?php break ?>
+                    <?php case \Plumrocket\Newsletterpopup\Model\Config\Source\SubscriptionMode::MUPTIPLE_LIST : ?>
+                        <?php foreach ($lists as $listId => $list): ?>
+                            <?php
+                            $elementId = $integrationId . '_' . $list['name'];
+                            $elementName = sprintf('integration[%s][]', $integrationId);
+                            ?>
+                            <li class="integration_item">
+                                <input
+                                    type="checkbox"
+                                    id="<?= /* @noEscape */ $elementId ?>"
+                                    name="<?= /* @noEscape */ $elementName ?>"
+                                    value="<?= /* @noEscape */ $list['name'] ?>"
+                                    class="validate-one-required-by-name"
+                                    checked="checked"
+                                />
+                                <label for="<?= /* @noEscape */ $elementId ?>"><?= /* @noEscape */ $list['label'] ?></label>
+                            </li>
+                        <?php endforeach ?>
+                        <?php break ?>
+                    <?php default : ?>
+                    <?php endswitch ?>
+            <?php endif ?>
+        <?php endforeach ?>
+        </ul>
+    </div>
+<?php endif ?>

@@ -1,0 +1,27 @@
+<!--@subject Log Details Data. @-->
+<!--@vars {
+"var data.created_at":"Created At",
+"var data.updated_at":"Updated At",
+"var data.sync_type":"Sync Type",
+"var data.id":"Log ID",
+"var data.details":"Details"
+} @-->
+
+<div style="font-family: monospace;">
+    <strong><span style="color: dimgrey;">Integration Process Log Data.</span></strong>
+    <br>
+    <br>
+    <strong>{{trans "Log ID: %id" id=$data.id}}</strong>
+    <br>
+    <strong>{{trans "Sync Type: %sync_type" sync_type=$data.sync_type}}</strong>
+    <br>
+    <strong>{{trans "Created At: %created_at" created_at=$data.created_at}}</strong>
+    <br>
+    <strong>{{trans "Updated At: %updated_at" updated_at=$data.updated_at}}</strong>
+    <br><br>
+    <div style="padding: 50px; background:#f4f4f4">
+        <pre>
+            <strong>{{trans "Details: %details" details=$data.details}}</strong>
+        </pre>
+    </div>
+</div>

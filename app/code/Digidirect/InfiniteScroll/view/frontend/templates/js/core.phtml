@@ -1,0 +1,14 @@
+<?php
+/** @var $this \Digidirect\InfiniteScroll\Block\Core */
+?>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "infinitescroll": {
+                "itemsContainerSelector": "<?php /* @escapeNotVerified */ echo $this->getSelector(); ?>",
+                "nextUrl": "<?php echo /* @escapeNotVerified */ $this->getNextPageUrl(); ?>",
+                "action": "<?php /* @escapeNotVerified */ echo $this->getActionType(); ?>"
+            }
+        }
+    }
+</script>

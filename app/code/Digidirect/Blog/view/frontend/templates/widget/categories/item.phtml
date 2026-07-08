@@ -1,0 +1,26 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Categories\Renderer $block
+ * @var \Magento\Framework\DataObject $category
+ */
+$category = $block->getCategory();
+?>
+
+<?php if(!empty($category)): ?>
+    <li class="item item-<?php echo $block->escapeHtml($category->getEntityId()); ?>">
+        <?php if($category->getStatus()): ?>
+            <a class="link<?php if($block->isActive($category->getEntityId())): ?> -active<?php endif; ?>" href="<?php echo $block->escapeUrl($block->getCategoryUrl($category->getUrlKey())); ?>"
+                title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                <?php echo $block->escapeHtml($category->getName()); ?>
+            </a>
+        <?php else: ?>
+            <?php echo $block->escapeHtml($category->getName()); ?>
+        <?php endif; ?>
+        <span class="count"><?php echo ' (' . $block->escapeHtml($block->getCountPosts($category->getEntityId())) . ')'; ?></span>
+        <?php if($category->hasChildren()): ?>
+            <ul class="list -child">
+                <?php /* @escapeNotVerified */ echo $block->render($category->getChildren(), true); ?>
+            </ul>
+        <?php endif; ?>
+    </li>
+<?php endif; ?>

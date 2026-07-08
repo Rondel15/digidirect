@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+        <referenceBlock name="catalog.product.related">
+            <arguments>
+                <argument name="all_category_limit" xsi:type="number">20</argument>
+            </arguments>
+            <block class="Magento\Cms\Block\Block" name="product.related.rent">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">product-tile-rent</argument>
+                </arguments>
+            </block>
+            <block name="product.related.extended.catalog.rule"
+                   class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+                   template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml" />
+        </referenceBlock>
+</layout>

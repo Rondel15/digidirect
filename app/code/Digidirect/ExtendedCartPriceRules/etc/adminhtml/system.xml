@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_extendedcartpricerules" translate="label" type="text" sortOrder="161809" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <resource>Digidirect_ExtendedCartPriceRules::config</resource>
+            <class>separator-top</class>
+            <label>Extended Cart Price Rules</label>
+            <tab>digidirect</tab>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>General</label>
+                <field id="order_statuses_for_orders_count" translate="label comment" type="multiselect" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order Statuses for Previous Orders Count</label>
+                    <source_model>Digidirect\ExtendedCartPriceRules\Model\Config\Source\Order\Status</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

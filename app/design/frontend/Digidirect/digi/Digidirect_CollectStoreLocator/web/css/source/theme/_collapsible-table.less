@@ -1,0 +1,91 @@
+//
+//  Collect store locator:Collapsible table
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@collapsible-table-iterations__delay: 7;
+
+//
+//  Loop
+//  ---------------------------------------------
+
+.mixin-loop (@i) when (@i >= 2) {
+    &:nth-child(@{i}) td {
+        transition-delay: @i * 15ms;
+    }
+    .mixin-loop(@i - 1);
+}
+
+//Redeploy
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .collapsible-table {
+        & {
+            padding-right: 15px;
+            position: relative;
+            
+            &::after {
+                .lib-css(border-color, @color-black transparent transparent transparent);
+                content: '';
+                position: absolute;
+                display: block;
+                right: 0;
+                top: 10px;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 9px 6.5px 0 6.5px;
+                /*transition: transform .3s ease;*/
+            }
+        }
+    
+        &.-active::after {
+            transform: rotate(180deg);
+        }
+        
+        /*tr:not(.-show):not(:first-child) {
+            display: block;
+            overflow: hidden;
+            height: 0;
+            position: absolute;
+        }*/
+        
+        tr:not(.-show) {
+            display: block;
+            overflow: hidden;
+            height: 0;
+            position: absolute;
+        }
+    
+        /*tr td {
+            transition: transform .7s 0s ease;
+        }*/
+    
+        /*tr:not(.-show):not(:first-child) td:first-child {
+            transform: translateX(-80%);
+        }*/
+    
+        /*tr:not(.-show):not(:first-child) td:last-child {
+            transform: translateX(80%);
+        }*/
+        
+        tr.-show {
+            height: auto;
+            position: static;
+            display: table-row;
+        }
+        
+        /*tr {
+            .mixin-loop(@collapsible-table-iterations__delay);
+        }*/
+    
+        /*tr.-show td {
+            transform: translate(0, 0);
+        }*/
+    }
+}

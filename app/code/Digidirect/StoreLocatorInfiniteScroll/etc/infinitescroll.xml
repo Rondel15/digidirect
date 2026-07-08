@@ -1,0 +1,6 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:digidirect:module:Digidirect_InfiniteScroll:etc/infinitescroll.xsd">
+    <scroll name="digidirect_storelocator_index_index">
+        <config handle="digidirect_storelocator_index_index" instance="Digidirect\StoreLocatorInfiniteScroll\Model\InfiniteScroll\Processor" selector=".storelocator-infinite"/>
+    </scroll>
+</config>

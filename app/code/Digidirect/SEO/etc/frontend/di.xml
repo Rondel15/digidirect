@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\SEO\Model\CategoryMetadata">
+        <arguments>
+            <argument name="metadataConfig" xsi:type="array">
+                <item name="meta_description" xsi:type="string">description</item>
+                <item name="meta_title" xsi:type="string">name</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\UrlInterface">
+        <plugin name="digidirect_trailing_slash_url" type="Digidirect\SEO\Plugin\Magento\Framework\UrlInterfacePlugin" sortOrder="100"/>
+    </type>
+    <type name="Magento\Customer\Block\Address\Book">
+        <plugin name="add_trailing_slash" type="Digidirect\SEO\Plugin\Magento\Customer\Block\Address\Book" sortOrder="100"/>
+    </type>
+    <type name="Magento\Customer\Block\SectionConfig">
+        <plugin name="add_trailing_slash_section_config" type="Digidirect\SEO\Plugin\Magento\Customer\Block\SectionConfig" sortOrder="100"/>
+    </type>
+
+    <virtualType name="ProductSuffixPathUpdater" type="Digidirect\SEO\Model\Router\SuffixPathUpdater">
+        <arguments>
+            <argument name="suffixPath" xsi:type="const">
+                Magento\CatalogUrlRewrite\Model\ProductUrlPathGenerator::XML_PATH_PRODUCT_URL_SUFFIX
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CategorySuffixPathUpdater" type="Digidirect\SEO\Model\Router\SuffixPathUpdater">
+        <arguments>
+            <argument name="suffixPath" xsi:type="const">
+                Magento\CatalogUrlRewrite\Model\CategoryUrlPathGenerator::XML_PATH_CATEGORY_URL_SUFFIX
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="ProductPathUpdaterRegistry" type="Digidirect\SEO\Model\Router\PathsUpdaterRegistry">
+        <arguments>
+            <argument name="updaterClassesList" xsi:type="array">
+                <item name="productSuffix" xsi:type="array">
+                    <item name="class" xsi:type="string">ProductSuffixPathUpdater</item>
+                    <item name="sortOrder" xsi:type="string">10</item>
+                    <item name="enabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CategoryPathUpdaterRegistry" type="Digidirect\SEO\Model\Router\PathsUpdaterRegistry">
+        <arguments>
+            <argument name="updaterClassesList" xsi:type="array">
+                <item name="categorySuffix" xsi:type="array">
+                    <item name="class" xsi:type="string">CategorySuffixPathUpdater</item>
+                    <item name="sortOrder" xsi:type="string">20</item>
+                    <item name="enabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="RecursivePathUpdaterRegistry" type="Digidirect\SEO\Model\Router\PathsUpdaterRegistry"/>
+
+    <virtualType name="ProductContextualRedirectRouter" type="Digidirect\SEO\Controller\ContextualRedirectRouter">
+        <arguments>
+            <argument name="pathsUpdaterRegistry" xsi:type="object">ProductPathUpdaterRegistry</argument>
+            <argument name="entityType" xsi:type="const">
+                Magento\CatalogUrlRewrite\Model\Map\UrlRewriteFinder::ENTITY_TYPE_PRODUCT
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="CategoryContextualRedirectRouter" type="Digidirect\SEO\Controller\ContextualRedirectRouter">
+        <arguments>
+            <argument name="pathsUpdaterRegistry" xsi:type="object">CategoryPathUpdaterRegistry</argument>
+            <argument name="entityType" xsi:type="const">
+                Magento\CatalogUrlRewrite\Model\Map\UrlRewriteFinder::ENTITY_TYPE_CATEGORY
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\SEO\Controller\RecursiveContextualRedirectRouter">
+        <arguments>
+            <argument name="pathsUpdaterRegistry" xsi:type="object">RecursivePathUpdaterRegistry</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\App\RouterList">
+        <arguments>
+            <argument name="routerList" xsi:type="array">
+                <item name="product_contextual_redirect_router" xsi:type="array">
+                    <item name="class" xsi:type="string">ProductContextualRedirectRouter</item>
+                    <item name="sortOrder" xsi:type="string">85</item>
+                </item>
+                <item name="category_contextual_redirect_router" xsi:type="array">
+                    <item name="class" xsi:type="string">CategoryContextualRedirectRouter</item>
+                    <item name="sortOrder" xsi:type="string">90</item>
+                </item>
+                <item name="recursive_contextual_redirect_router" xsi:type="array">
+                    <item name="class" xsi:type="string">Digidirect\SEO\Controller\RecursiveContextualRedirectRouter</item>
+                    <item name="sortOrder" xsi:type="string">95</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Digidirect\SEO\Model\RedirectProcessorInterface" type="Digidirect\SEO\Model\RedirectProcessor" />
+</config>

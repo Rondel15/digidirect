@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\AbstractEntity\Block\Adminhtml\Attribute\Edit" name="digidirect_abstractentity_attribute_edit"/>
+        </referenceContainer>
+        <referenceContainer name="left">
+            <block class="Digidirect\AbstractEntity\Block\Adminhtml\Attribute\Edit\Tabs" name="digidirect_abstractentity_attribute_edit_tabs">
+                <block class="Digidirect\AbstractEntity\Block\Adminhtml\Attribute\Edit\Tab\Main" name="digidirect_abstractentity_attribute_edit_tab_general"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">general</argument>
+                    <argument name="block" xsi:type="string">digidirect_abstractentity_attribute_edit_tab_general</argument>
+                </action>
+                <block class="Digidirect\AbstractEntity\Block\Adminhtml\Attribute\Edit\Tab\Options" name="digidirect_abstractentity_attribute_edit_tab_options"/>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">options</argument>
+                    <argument name="block" xsi:type="string">digidirect_abstractentity_attribute_edit_tab_options</argument>
+                </action>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="js">
+            <block class="Digidirect\AbstractEntity\Block\Adminhtml\Attribute\Edit\Js" name="js.digidirect_abstractentity_attributes" template="Digidirect_AbstractEntity::attribute/js.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

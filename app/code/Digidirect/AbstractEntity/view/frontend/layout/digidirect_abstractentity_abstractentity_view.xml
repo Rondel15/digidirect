@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\AbstractEntity\Block\AbstractEntity" name="abstractentity" template="Digidirect_AbstractEntity::abstractentity.phtml">
+                <arguments>
+                    <argument name="image_width" xsi:type="string">500</argument>
+                    <argument name="image_height" xsi:type="string">500</argument>
+                </arguments>
+                <container name="abstractentity.additional.info" as="abstractentity_additional_info"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

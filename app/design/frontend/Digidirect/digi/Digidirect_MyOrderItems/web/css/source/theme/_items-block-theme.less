@@ -1,0 +1,313 @@
+//
+//  My Order Items: Items Block
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .items-block.my-shelf {
+        & {
+            padding-top: 0;
+        }
+
+        h2 {
+            margin: 0;
+            cursor: move;
+        }
+
+        > .item {
+            z-index: 1;
+            width: 160px;
+            min-width: 160px;
+            //min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            margin: 0 5px 25px;
+        }
+
+        > .item:not(.dashed) {
+            .lib-css(background, @color-white);
+        }
+
+        > .item > .image {
+            margin-bottom: 20px;
+        }
+
+        > .item > .name {
+            .lib-font-size(12);
+            word-break: break-all;
+            font-weight: 500;
+            text-decoration: none;
+            height: 45px;
+            line-height: 15px;
+            overflow: hidden;
+        }
+
+        > .item.-disabled .actions-link {
+            position: absolute;
+            bottom: 31px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            height: 15px;
+            top: inherit;
+        }
+
+        > .item.-disabled .actions-link > .action {
+            .lib-css(color, @color-white);
+            text-decoration: underline;
+        }
+
+        > .item.-disabled .actions-link > .action:after {
+            display: none;
+        }
+
+        > .item.-disabled .details-link {
+            opacity: 0;
+        }
+
+        .details-link {
+            padding: 10px 0;
+            font-weight: 700;
+        }
+
+        .actions-link .action::after {
+            content: '';
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            vertical-align: middle;
+            .lib-css(background-image, @base64-icon__close);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            speak: none;
+            background-size: 70% auto;
+        }
+
+        > .item .actions-link {
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            cursor: pointer;
+        }
+    }
+
+    .items-block.my-shelf.no-purchase {
+        & {
+            display: flex;
+        }
+
+        > .show-title {
+            display: none;
+        }
+
+        > .item {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 10px 60px;
+            min-width: 160px;
+            margin: 0 10px;
+            width: 215px;
+        }
+
+        .item-icon {
+            .lib-css(border, 2px solid @color-black);
+            border-radius: 50%;
+            padding: 5px;
+            margin: 0 10px 10px;
+        }
+
+        .item-icon > .svg-icon {
+            margin-top: 1px;
+            margin-left: 1px;
+        }
+
+        > .item .name {
+            .lib-font-size(12);
+            font-weight: 700;
+        }
+
+        > .item .block-content {
+            .lib-font-size(12);
+            font-weight: 400;
+        }
+
+        .link {
+            .lib-css(color, @color-2-1);
+            text-decoration: none;
+            display: block;
+            font-weight: 700;
+        }
+    }
+
+    .info-element.dashed {
+        display: flex;
+        background: linear-gradient(90deg, @color-3-1, transparent 50%),
+            linear-gradient(0deg, @color-3-1, transparent 50%),
+            linear-gradient(90deg, @color-3-1, transparent 50%),
+            linear-gradient(0deg, @color-3-1, transparent 50%);
+        background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+        background-size: 15px 2px, 2px 15px, 15px 2px, 2px 15px;
+        background-position: left top, right top, left bottom, left top;
+        padding: 2px;
+        animation: border-animation 7s infinite linear;
+    }
+
+    .item.info-element.dashed > .content {
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    @keyframes border-animation {
+        0% {
+            background-position: left top, right top, right bottom, left bottom;
+        }
+        100% {
+            background-position: right top, right bottom, left bottom, left top;
+        }
+    }
+
+    .items-block.my-shelf::after {
+        content: '';
+        height: 100%;
+        width: 10px;
+        background: transparent;
+        color: transparent;
+        display: list-item;
+    }
+
+    .name.pop-up-name {
+        cursor: pointer;
+    }
+
+    .name.pop-up-name:hover {
+        .lib-css(color, @color-2-2);
+    }
+
+    .init-tutorial-modal-1 {
+        > .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .msg {
+            padding-left: 40px;
+            padding-right: 40px;
+            .lib-font-size(26);
+            text-align: center;
+            padding-bottom: 20px;
+            font-weight: 700;
+            max-width: 600px; // IE11 fix
+        }
+
+        .button {
+            padding: 13px 15px 12px;
+            .lib-font-size(16);
+            width: 250px;
+            margin: auto;
+        }
+    }
+
+    .modal-popup.modal-slide.pop-up-key-modal {
+        > .modal-inner-wrap {
+            width: auto;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .modal-header {
+            padding-bottom: 32px;
+            border: none;
+        }
+
+        .modal-content {
+            padding-top: 0;
+        }
+    }
+
+    .item.info-element.dashed {
+        margin-bottom: 25px;
+        min-height: 260px;
+        width: 160px;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .items-block.my-shelf {
+        & {
+            padding-top: 80px;
+            min-width: 25%;
+        }
+
+        //> .item {
+        //    min-height: 220px;
+        //}
+    }
+
+    .items-block.my-shelf.no-purchase {
+        > .show-title {
+            width: 100%;
+            .lib-css(color, @color-white);
+            padding: 30px 10px 25px;
+        }
+
+        > .item {
+            padding: 80px 15px;
+        }
+
+        .link {
+            font-weight: 700;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .items-block.my-shelf {
+        > .item > .name {
+            .lib-font-size(14);
+            height: 57px;
+            line-height: 19px;
+        }
+
+        > .item:not(.dashed) {
+            .lib-css(background, @color-white);
+        }
+
+        .details-link {
+            .lib-font-size(14);
+            font-weight: 500;
+            padding: 7px;
+        }
+
+        > .item {
+            width: calc(~'20% - 20px');
+            margin-bottom: 0;
+        }
+    }
+
+    .items-block.my-shelf.no-purchase {
+        padding-top: 0;
+    }
+
+    .modal-popup.modal-slide.pop-up-key-modal > .modal-inner-wrap {
+        //width: auto;
+        //max-width: 900px;
+        margin: 0;
+    }
+
+    .item.info-element.dashed {
+        margin-bottom: 0;
+        width: 19%;
+    }
+}

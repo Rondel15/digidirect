@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_abstract_gift_card" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Abstract Gift Card Settings</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_AbstractGiftCard::abstractgiftcard</resource>
+            <group id="settings" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Settings</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allow_native_gift_cards" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Allow Native Gift Cards</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="accept_gift_cards_for_paid_orders" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Accept Gift Cards Only For Paid Orders</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+        <section id="giftcard_service" translate="label" type="text" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Abstract Gift Card Services</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_AbstractGiftCard::abstractgiftcard</resource>
+        </section>
+    </system>
+</config>

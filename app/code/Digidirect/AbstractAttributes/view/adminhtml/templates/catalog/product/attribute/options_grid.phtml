@@ -1,0 +1,15 @@
+<?php
+/**
+ * @var \Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Tab\AdvancedOptionsProperties\OptionsGrid $block
+ */
+$isNew = $block->isNew();
+?>
+<?php if ($isNew): ?>
+    <i style="color:red; font-weight: bold"><?php echo $block->escapeHtml(__('Please save attribute first to edit advanced options.')); ?></i>
+<?php else: ?>
+    <a title="<?php echo $block->escapeHtml(__('Add New Option')); ?>"
+       class="action-primary" role="button"
+       aria-disabled="false" href="<?php echo $block->escapeUrl($block->getNewOptionUrl()); ?>">
+        <?php echo $block->escapeHtml(__('Add New Option')); ?>
+    </a>
+<?php endif; ?>

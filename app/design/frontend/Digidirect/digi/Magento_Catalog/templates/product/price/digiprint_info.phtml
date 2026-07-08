@@ -1,0 +1,83 @@
+<?php
+    $productBlock = \Magento\Framework\App\ObjectManager::getInstance()->get('Digidirect\Catalog\Block\ProductInfoBlock');
+    $currentProduct = $productBlock->getCurrentProduct();
+
+    $digiprintItemCondition = ($currentProduct->getItemCondition() ? $currentProduct->getItemCondition() : '');
+    $digiprintItemDescription = ($currentProduct->getData('digiprint_desc') ? $currentProduct->getData('digiprint_desc') : '');
+    $digiprintCustomLinkProductSKU = ($currentProduct->getData('digiprint_customlink') ? $currentProduct->getData('digiprint_customlink') : '');
+    $is_digiPrint = ($currentProduct->getData('is_digiprint') ? $currentProduct->getData('is_digiprint') : '');
+?>
+
+
+<?php if ($is_digiPrint == 1): ?>
+    <br>
+        <p>
+            <a class="create-now-btn pa-digiprintproduct" href="<?php echo $digiprintCustomLinkProductSKU;?>" target="_blank"> 
+                <button>
+                    <span>Create Now <span><i class="fa-solid fa-cart-plus" style="font-family: 'Font Awesome 5 Free';font-style: unset;float: right;color: #fff;font-weight: 900;font-size: 18px;"></i></span></span>
+                </button>
+            </a>
+        </p>
+    <br>
+    <span class="digiprint-note">
+        Dimensions: <br>
+        <?= /* @escapeNotVerified */ $digiprintItemDescription ?>
+    </span>
+
+   <?php echo '<style>
+   .qantas-pts-wrapper, .box-tocart, .payment-gateways-container, .payment-gateways-container-bottom, .product-info-main-bottom, .studio19-wrapper, .awaiting, .widget-product, .zip-container, .ribbon-wrapper
+   {display:none !important;}</style>'; 
+   ?>
+<?php endif; ?>
+
+
+<style>
+    .create-now-btn {
+        text-decoration: none;
+    }
+
+    .create-now-btn:hover {
+        text-decoration: none;
+    }
+
+    /* .product-info-main:not(.create-now-btn) {
+        display: none;
+
+    } */
+
+    .create-now-btn button {
+        margin-top: 10px;
+        background: #ff3c00 !important;
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 500;
+        color: #fff !important;
+        text-transform: uppercase;
+        width:100%;
+        font-family: 'Poppins',sans-serif;
+        text-transform: uppercase;
+        padding: 14px 17px; 
+        height: 50px;
+        display: block;
+    }
+
+    .create-now-btn svg {
+        margin-left: 10px;
+        margin-right: 10px;
+        float: right;
+    }
+
+    .create-now-btn button:hover {
+        opacity: 0.8;
+    }
+
+    span.digiprint-note {
+        background: #f5f5f5;
+        height: 150px;
+        padding: 25px;
+        border-radius: 4px;
+        border: 1px solid #E8E8E8;
+        line-height: 2.0;
+    }
+
+</style>

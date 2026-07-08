@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <referenceContainer name="content.aside">
+        <block class="Digidirect\RelatedProduct\Block\ProductList\Related" name="catalog.product.related" template="Digidirect_RelatedProduct::product/list/items.phtml">
+            <arguments>
+                <argument name="display_all_category" xsi:type="boolean">true</argument>
+                <argument name="all_category_limit" xsi:type="number">5</argument>
+            </arguments>
+        </block>
+    </referenceContainer>
+</layout>

@@ -1,0 +1,102 @@
+//
+//  Blog (Tags page)
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-tag-index {
+        & {
+            .lib-css(background, @color-4-1);
+        }
+
+        .post-card.item {
+            margin: 10px 0;
+            // margin: 20px 0;
+        }
+
+        > .blog-list {
+            padding: 0 0 40px;
+        }
+
+        .blog-list {
+            width: 100%;
+        }
+
+        .post-card {
+            margin-bottom: 20px;
+        }
+
+        .post-card:hover {
+            .lib-css(color, @color-4-1);
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .blog-tag-index .post-card {
+        & {
+            flex-direction: row;
+            width: 100%;
+        }
+
+        > img {
+            width: 50%;
+            height: 100%;
+        }
+
+        > .container {
+            width: 50%;
+        }
+
+        > .container > .content {
+            .lib-css(color, @color-black);
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+//.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+//    .blog-search.blog-widget {
+//        & {
+//            margin-top: 60px;
+//        }
+//
+//        .button.action {
+//            height: 50px;
+//        }
+//    }
+//}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    .@{layout-class-2columns__left}.blog-tag-index {
+        .sidebar.sidebar-main,
+        .sidebar.sidebar-additional,
+        .column.main {
+            width: 100%;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+//.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+//    .blog-category-index .blog-search.blog-widget {
+//        right: 20px;
+//    }
+//}

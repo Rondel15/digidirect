@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_mystorewidget" translate="label" sortOrder="20"
+                 showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>My Store</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_MyStoreWidget::mystorewidget_config</resource>
+            <group id="click_and_collect" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Click and Collect</label>
+                <field id="disable_not_full_c_c" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Disable For Not 'Full C&amp;C' Variation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If 'Yes' value selected - 'My Store' Widget should be shown only for 'Full C&amp;C' option
+                        selected in Stores - Configuration - Sales - Shipping Methods - Click and Collect (section) -  Click&amp;Collect Variation</comment>
+                </field>
+                <field id="c_c_relation_enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable C&amp;C Relation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Tip: If 'Yes' - after Customer will select Store in 'My Store' Widget - Shipping method C&amp;C with this Store will be preselected. </comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

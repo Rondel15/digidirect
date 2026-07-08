@@ -1,0 +1,72 @@
+<?php
+/** @var \Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\Share $block */
+$itemsList = $block->getItems();
+$requestParams = $block->collectFilterParams();
+$currentGroup = $block->getCurrentGroup();
+?>
+
+<div class="kit-wrapper">
+    <?php if ($currentGroup): ?>
+        <h3 class="title"><?= $currentGroup->getName() ?></h3>
+    <?php endif; ?>
+    <a class="button action" title="<?= $block->escapeHtml(__('Add group to cart')) ?>"
+       href="<?= $block->escapeUrl($block->getAddGroupActionUrl()) ?>"><?= $block->escapeHtml(__('Add All to Cart')) ?></a>
+</div>
+<div class="group-block">
+    <div class="items-block products items product-items -grid">
+        <?php foreach ($itemsList as $salesItem): ?>
+        <?php if ($block->isItemSalable($salesItem)): ?>
+        <div class="item product-item-info">
+            <?php else: ?>
+            <div class="item product-item-info no-item-available">
+                <?php endif; ?>
+                <?php /** @var \Magento\Sales\Model\Order\Item $salesItem */ ?>
+                <?php
+                $product = $block->getProduct($salesItem);
+                $productUrl = $product ? $product->getProductUrl(): '';
+                ?>
+                <div class="image"><img src="<?php echo $block->escapeUrl($block->getDataHelper()->getImageFilePath($salesItem, 'shelf__order_items__shared_products_list')) ?>" alt="<?php echo $block->escapeHtml($salesItem->getName()); ?>"></div>
+                <a class="name -visible"
+                   href="<?= $block->escapeUrl($block->getUrl($productUrl)) ?>"
+                   title="<?php echo $block->escapeHtml($salesItem->getName()); ?>"><?php echo $block->escapeHtml($salesItem->getName()); ?></a>
+                <?php if ($block->isItemSalable($salesItem)): ?>
+                    <div class="product details product-item-details">
+                        <?php if($product): ?>
+                            <?= /* @escapeNotVerified */ $block->getProductPriceHtml($product, \Magento\Catalog\Pricing\Price\FinalPrice::PRICE_CODE) ?>
+                        <?php endif; ?>
+                    </div>
+                    <a class="add-to-cart-link button action" href="<?= $block->escapeUrl($block->getAddItemActionUrl($salesItem->getItemId())) ?>" title="<?php echo $block->escapeHtml(__('Add to cart')) ?>"><?php echo $block->escapeHtml(__('Add to cart')) ?></a>
+                    <?php if ($block->getWishlistHelper()->isAllow() && $product): ?>
+                        <div data-role="add-to-links" class="actions-secondary">
+                            <a href="<?php echo $block->escapeHtml($product->getProductUrl()); ?>"
+                               class="wishlist"
+                               title="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+                               aria-label="<?= $block->escapeHtmlAttr(__('Add to Wish List')) ?>"
+                               data-post='<?= /* @noEscape */ $block->getAddToWishlistParams($product) ?>'
+                               data-action="add-to-wishlist"
+                               role="button">
+                                <span><?= $block->escapeHtml(__('Add to Wish List')) ?></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div class="actions-secondary disabled-message">
+                        <span class="wishlist"
+                              title="<?= $block->escapeHtmlAttr(__('This product is no longer available in the store')) ?>"
+                              aria-label="<?= $block->escapeHtmlAttr(__('This product is no longer available in the store')) ?>">
+                            <span><?= $block->escapeHtml(__('This product is no longer available in the store')) ?></span>
+                        </span>
+                    </div>
+                <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "shareGroupCartUpdate": {}
+        }
+    }
+</script>

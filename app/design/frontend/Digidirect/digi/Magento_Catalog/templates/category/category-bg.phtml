@@ -1,0 +1,13 @@
+<?php
+$_bgHelper = $this->helper('Digidirect\Digi\Helper\Background');
+$imageMobile = $_bgHelper->getCategoryBackground(\Digidirect\Digi\Helper\Background::TYPE_MOBILE);
+$imageDesktop = $_bgHelper->getCategoryBackground(\Digidirect\Digi\Helper\Background::TYPE_DESKTOP);
+?>
+
+<?= $block->getChildHtml('page.main.title');?>
+
+<style>
+    .category-view.category-background{
+        background-image: url('<?= $block->escapeUrl($imageDesktop); ?>')
+    }
+</style>

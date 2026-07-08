@@ -1,0 +1,56 @@
+//
+//  Wishlist: Grid
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@wishlist-grid__is-enabled: true; // Enable/disable styles
+
+//@wishlist-grid-comment-box-label__use-visually-hidden: true;
+
+//  Comment
+//@wishlist-grid-item-comment__display: block;
+@wishlist-grid-item-comment__height: 60px;
+
+//  Product Item Actions
+//@wishlist-grid-item-product-item-actions__display__m-only: block;
+//@wishlist-grid-item-product-item-actions-action__margin-right: 15px;
+//@wishlist-grid-item-product-item-actions-action__last-child__margin-right: 0;
+
+//  Box to Cart
+//@wishlist-grid-item-box-tocart__margin: 7px 0;
+//@wishlist-grid-item-box-tocart-field-qty__margin-bottom: @indent__s;
+//@wishlist-grid-item-box-tocart-input-qty__use-input-qty: true;
+
+//  Tooltip
+//@wishlist-grid-item-product-item-tooltip__display: inline-block;
+
+//  Hidden elements (Mobile only)
+//@wishlist-grid-item-product-item-giftregisty-dropdown-field-qty__display__m-only: none;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .products-grid.wishlist .price-as-configured {
+        & {
+            display: flex;
+            width: 100%;
+            min-height: 33px;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 0;
+        }
+
+        & > .price-container {
+            margin-left: auto;
+        }
+
+        & > .special-price .price-label {
+            text-align: right;
+        }
+    }
+}

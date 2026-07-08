@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Digidirect_ShippingAvailabilityCheckCollect" setup_version="1.0.0">
+        <sequence>
+            <module name="Digidirect_Utilities" />
+            <module name="Digidirect_ShippingAvailabilityCheck" />
+            <module name="Digidirect_Collect" />
+        </sequence>
+    </module>
+</config>

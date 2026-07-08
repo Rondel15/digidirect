@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="simple-structure"/>
+        <referenceBlock name="customer.new" template="Magento_Customer::newcustomer.phtml">
+            <block class="Magento\Cms\Block\Block" name="newcustomer-benefits">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">account-benefits</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

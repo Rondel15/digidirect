@@ -1,0 +1,288 @@
+/*
+    Created on : Feb 19, 2021, 11:38:32 AM
+    Author     : Johnry Valeriano
+*/
+& when (@media-common = true) {
+    .product-item{
+        .qantas-pts-wrapper{
+            &{
+                text-align: center;
+                padding: 10px 15px;
+                background: #f8f8f8;
+            }
+            
+            .svg-icon{
+                width: 20px;
+                height: 20px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+            
+            span{
+                width: 100%;
+                color: #222;
+            }
+        }
+    }
+    
+    .qantas-promo-banner {
+        &{
+            //background: #e40301;
+        }
+        
+        .child-banner {
+            padding: 0;
+            margin: 0;
+        }
+        
+        .blurb {
+            color: #fff;
+        }
+        
+        .button{
+            //background: transparent;
+            width: 100%;
+            border: 1px solid #fff;
+            //border-radius: 30px;
+            padding: 15px 50px;
+            background: #e40301;
+            color: #fff;
+            font-weight: 500;
+            
+            &:hover{
+                background: #fff;
+                color: #e40301;
+            }
+        }
+    }
+}
+//
+//  Mobile Only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .qantas-promo-banner{   
+        &{
+            padding: 10px !important;
+        }
+        
+        .child-banner{
+            display: block;
+        }
+        
+       .column-banner{
+            width: 100%;
+            margin: 5px 0;
+            max-width: unset;
+            display: block;
+            text-align: center;
+        } 
+        
+        .action{
+            display: none;
+        }
+        
+        .image {
+            width: 120px;
+            display: inline-block;
+            margin: 0 auto;
+            padding: 0 5px;
+        }
+        
+        .blurb {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 300;
+            width: calc(~"100% - 120px");
+            padding: 0 5px;
+            text-align: center;
+        }
+        
+        .mgz-element-column > .mgz-element-inner{
+            padding: 0 10px !important;
+        }
+    }
+    
+    .product-item{
+        &{
+            margin-bottom: 5px !important;
+        }
+        
+        .qantas-pts-wrapper{
+            &{
+                margin: 15px -10px 0;
+            }
+        }
+    }
+}
+
+
+//
+//  Tablet below
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .product-item{
+        .qantas-pts-wrapper{
+            &{
+                margin: 15px -15px 0;
+            }
+        }
+    }
+    
+    .qantas-promo-banner {
+        &{
+            //background: #e40301;
+            padding: 0;
+            //margin: 10px -40px !important;
+            //margin: 10px -67px 0 -70px !important;
+        }
+
+        .child-banner {
+            display: flex;
+            align-items: center;
+            //justify-content: center;
+        }
+        
+        .blurb {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 300;
+            color: #fff;
+        }
+        
+        .column-banner{
+            padding: 0 10px;
+        }
+        
+        .image {
+            width: 100%;
+            max-width: 140px;
+            display: inline-block;
+            //margin: 20px;
+        }
+        
+        .action{
+            a{
+                padding: 15px 50px;
+            }
+        }
+    }
+    
+    .product-tab-wrapper{
+        margin: 0 -50px;
+    }
+/*    .qantas-promo-banner{   
+        &{
+        padding: 20px 30px !important;
+            margin: 0 -50px;
+            display: flex;
+        }
+        
+        .child-banner{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+       .column-banner{
+            width: 100%;
+            margin: 5px 0;
+            max-width: unset;
+            display: block;
+            text-align: center;
+        } 
+        
+        .image {
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 5px;
+            max-width: 180px;
+        }
+        
+        .blurb {
+            font-size: 15px;
+            font-weight: 300;
+            padding: 0 5px;
+            text-align: center;
+        }
+        
+        .mgz-element-column > .mgz-element-inner{
+            padding: 0 10px !important;
+        }
+    }
+    
+    .product-item{
+        &{
+            margin-bottom: 5px !important;
+        }
+        
+        .qantas-pts-wrapper{
+            &{
+                margin: 15px -10px 0;
+            }
+        }
+    }*/
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+    .product-item{
+        .qantas-pts-wrapper{
+            &{
+                margin: 5px -15px 0;
+            }
+        }
+    }
+    
+    .qantas-promo-banner {
+        &{
+            //background: #e40301;
+            //padding: 20px 0;
+            border: 2px solid #e40301;
+            width: 1440px !important;
+            //margin-top: 18px !important;
+            margin: 10px -67px 0 -70px !important;
+        }
+
+        .child-banner {
+            display: flex;
+            align-items: center;
+            margin-left: 35px;
+            //justify-content: center;
+        }
+        
+        .blurb {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 400;
+            //color: #fff;
+            color: #000;
+            margin-right: 9% !important;
+            margin-left: 4% !important;
+            
+            span {
+                color: #e40301;
+            }
+        }
+        
+        .column-banner{
+            //padding: 0 30px;
+            //margin-right: 97px;
+        }
+        
+        .image {
+            width: 100%;
+            max-width: 320px;
+            display: inline-block;
+            //margin: 20px;
+            margin-left: -46px;
+            margin-bottom: -6px;
+            margin-top: -1px;
+        }
+    }
+}

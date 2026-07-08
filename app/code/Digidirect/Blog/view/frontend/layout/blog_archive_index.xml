@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="3columns"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Digidirect\Blog\Block\Canonical" name="blog.canonical" template="Digidirect_Blog::canonical.phtml"/>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Digidirect\Blog\Block\Archive" name="blog.list" template="blog_list.phtml">
+                <arguments>
+                    <argument name="cache_lifetime" xsi:type="string">86400</argument>
+                </arguments>
+                <block class="Magento\Theme\Block\Html\Pager" name="post_list_pager.toolbar" as="post_list_pager"/>
+            </block>
+        </referenceContainer>
+
+        <referenceContainer name="sidebar.additional">
+            <block class="Digidirect\Blog\Block\Widget\Search" name="blog.widget.search" template="widget/search.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Categories" ifconfig="digidirect_blog/list_page/category_onlist_right" name="blog.categorytree.right" template="widget/categories.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Popular" ifconfig="digidirect_blog/list_page/popular_onlist_right" name="blog.popular.right" template="widget/popular.phtml">
+                <arguments>
+                    <argument name="count" xsi:type="string" translate="true">5</argument>
+                </arguments>
+            </block>
+            <block class="Digidirect\Blog\Block\Widget\Latest" ifconfig="digidirect_blog/list_page/latest_onlist_right" name="blog.latest.right" template="widget/latest.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Archive" ifconfig="digidirect_blog/list_page/archive_onlist_right" name="blog.archive.right" template="widget/archive.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud" template="Digidirect_Blog::widget/tags.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="sidebar.main">
+            <block class="Digidirect\Blog\Block\Widget\Search" name="blog.widget.search" template="widget/search.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Categories" ifconfig="digidirect_blog/list_page/category_onlist_left" name="blog.categorytree.left" template="widget/categories.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Popular" ifconfig="digidirect_blog/list_page/popular_onlist_left" name="blog.popular.left" template="widget/popular.phtml">
+                <arguments>
+                    <argument name="count" xsi:type="string" translate="true">5</argument>
+                </arguments>
+            </block>
+            <block class="Digidirect\Blog\Block\Widget\Latest" ifconfig="digidirect_blog/list_page/latest_onlist_left" name="blog.latest.left" template="widget/latest.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Archive" ifconfig="digidirect_blog/list_page/archive_onlist_left" name="blog.archive.left" template="widget/archive.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud" template="Digidirect_Blog::widget/tags.phtml"/>
+        </referenceContainer>
+
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true"/>
+    </body>
+</page>

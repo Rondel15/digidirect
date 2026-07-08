@@ -1,0 +1,1405 @@
+<?php
+    use Magento\Framework\App\Action\Action;
+?>
+<script>
+    
+require(['jquery'], function ($) {
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    var customerId = getCookie('pa_customer_id');
+    var sessionId = getCookie('pa_session_id');
+    
+    if (!customerId || customerId === undefined || !sessionId || sessionId === undefined) {
+        $.ajax({
+            async: false,
+            url: "<?= $block->getBaseUrl(); ?>particularaudienceapi/index/getconfig",
+            type: "POST",
+            data: {
+                customerId: customerId
+            },
+            success: function(data){
+                console.log(data);
+                customerId = data.payload.customerId;
+                sessionId = data.payload.session.id;
+            },
+            error: function(data){
+                console.log('Config Error!', data);
+            }
+        });
+    }
+    
+    var result;
+    
+    $.ajax({
+        async: false,
+        url: "<?= $block->getBaseUrl(); ?>particularaudienceapi/index/homepage", //getRecommendationsUrl,
+        type: "POST",
+        data: {
+            customerId: customerId
+        },
+        success: function(data){
+            result = data;
+        },
+        error: function(data){
+            console.log('Recommendations Error!', data);
+        }
+    });
+    
+    console.log('result', result);
+    var recommendationsResult = result;
+    
+    var widgets  = recommendationsResult.recommendations.route.widgets;
+    var routeId  = recommendationsResult.recommendations.route.id;
+    var currentUrl = window.location.href;
+    
+    function productTile(widgetId, appendTo, isMobile) {
+        let productItem = "";
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetSlots = widget.slots;
+        var productCtr = 0;
+        Object.keys(widgetSlots).forEach(key => {
+            
+            let product = widgetSlots[key].products[0];
+            let discountTotal = Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+            
+            productCtr++;
+            let campaignId = widgetSlots[key].campaignId;
+            let recommenderId = widgetSlots[key].recommenderId;
+            let tacticId = widgetSlots[key].tacticId;
+            let retailBoostCollectionCampaignId = widgetSlots[key].retailBoostCollectionCampaignId;
+            let adSetId = widgetSlots[key].adSetId;
+            let adSetVersion = widgetSlots[key].adSetVersion;
+            let costPerClick = widgetSlots[key].costPerClick;
+            let timeStamp = widgetSlots[key].timeStamp;
+            let hmacSalt = widgetSlots[key].hmacSalt;
+            let hmac = widgetSlots[key].hmac;
+            let keywordId = widgetSlots[key].keywordId;
+
+            let digiDealsLogo = "";
+            let priceBlock = "";
+            let addToCart = "";
+
+            let digiSeconds = "";
+            let digiSecondsOverlay = "";
+            let sellerName = "";
+
+            let categories = product.attributes.find(obj => {
+                return obj.name === 'Categories';
+            })
+
+            let seller = product.attributes.find(obj => {
+                return obj.name === 'DDR_Seller_Id';
+            })
+
+            let digiPrint = product.attributes.find(obj => {
+                return obj.name === 'is_digiprint';
+            })
+
+            let digiPrintLink = product.attributes.find(obj => {
+                return obj.name === 'digiprint_customlink';
+            })
+
+            let digiSecondsRatingValue = product.attributes.find(obj => {
+                return obj.name === 'item_rating';
+            })
+
+            let digiSecondsRating = "";            
+
+            if (digiSecondsRatingValue.stringValue == "5") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "4") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "3") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "2") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "1") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            }
+
+            sellerName = seller.stringValue;
+
+            let digiSecondsCategories = ["PRELOVED","OPENBOX","REFURB"];
+            let isDigiSeconds = digiSecondsCategories.includes(categories.options[0].value);
+
+            const includesString = (str, searchString) =>
+            new RegExp(searchString, 'i').test(str);
+
+            if (categories.options[0].value == "PRELOVED" || includesString(product.name, 'used')) {
+                digiSecondsOverlay = '<img src="<?= $block->getBaseUrl(); ?>media/wysiwyg/digiseconds/overlays/badge-pre-loved.png"/>';
+            } else if (categories.options[0].value == "OPENBOX" || includesString(product.name, 'open box')) {
+                digiSecondsOverlay = '<img src="<?= $block->getBaseUrl(); ?>media/wysiwyg/digiseconds/overlays/badge-demo.png"/>';
+            } else if (categories.options[0].value == "REFURB" || includesString(product.name, 'refurb')) {
+                digiSecondsOverlay = '<img src="<?= $block->getBaseUrl(); ?>media/wysiwyg/digiseconds/overlays/badge-refurbished.png"/>';
+            }
+
+            digiSeconds = '<div class="digiseconds-overlay">' + digiSecondsOverlay + '<div class="digiseconds-rating">' + digiSecondsRating + '</div></div>';
+            //console.log("adSetId", adSetId, product.name);
+
+            let digiPrintValue = digiPrint.stringValue;
+            let digiPrintLinkValue = digiPrintLink.stringValue;
+            let sponsoredLabel = "";
+            if (adSetId || adSetId != null) {
+                sponsoredLabel = '<div class="sponsored-container"><div class="sponsored-label"><i class="fas fa-info-circle"></i>Sponsored</div><span class="label-tooltip">This product has been promoted by one of our partners using <a href="https://particularaudience.com/">Particular Audience</a>.</span></div>';
+            }
+
+            if (digiPrintValue == 1) {
+                addToCart = '<a class="ordernow-link" href="' + digiPrintLinkValue + '" target="_blank">' +
+                                '<button type="button" title="Order Now" class="action tocart primary">' +
+                                    'Order Now <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                                '</button>' +
+                            '</a>'
+            } else {
+                addToCart = '<form data-role="tocart-form"' +
+                                'data-product-sku="' + product.sku + '"' +
+                                'action="<?= $block->getBaseUrl(); ?>checkout/cart/add/product/'+ product.refId +'" method="post"><?php echo $block->getBlockHtml("formkey"); ?>' +
+                                '<input type="text" name="ref_id" value="'+ product.refId +'" hidden/>' +
+                                '<input type="text" name="qty" value="1" hidden/>' +
+                                '<input type="text" name="widget_id" value="'+ widgetId +'" hidden/>' +
+                                '<input type="text" name="route_id" value="'+ routeId +'" hidden/>' +
+                                '<input type="text" name="recommender_id" value="'+ recommenderId +'" hidden/>' +
+                                '<input type="text" name="campaign_id" value="'+ campaignId +'" hidden/>' +
+                                '<input type="text" name="tactic_id" value="'+ tacticId +'" hidden/>' +
+                                '<input type="text" name="retail_boost_collection_campaign_id" value="'+ retailBoostCollectionCampaignId +'" hidden/>' +
+                                '<input type="text" name="adset_id" value="'+ adSetId +'" hidden/>' +
+                                '<input type="text" name="adset_version" value="'+ adSetVersion +'" hidden/>' +
+                                '<input type="text" name="cost_per_click" value="'+ costPerClick +'" hidden/>' +
+                                '<input type="text" name="timestamp" value="'+ timeStamp +'" hidden/>' +
+                                '<input type="text" name="hmac_salt" value="'+ hmacSalt +'" hidden/>' +
+                                '<input type="text" name="hmac" value="'+ hmac +'" hidden/>' +
+                                '<input type="text" name="keyword_id" value="'+ keywordId +'" hidden/>' +
+                                '<button type="submit" title="Add to Cart" class="action tocart primary" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">' +
+                                '<span>Add to Cart</span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>' +
+                                '</button>' + sponsoredLabel
+                            '</form>'
+            }
+            //console.log(product.name, sellerName);
+            if (!isDigiSeconds) {
+                if (sellerName != "20329" && sellerName !== undefined) {
+                    digiDealsLogo = '<div class="ribbon-container"><div class="ribbon-online">Online Only</div></div>';
+                } else {
+                    digiDealsLogo = '<div class="ribbon-container"></div>';
+                }
+            }
+
+            if (product.prices[0].discountPrice) {
+                if (!isDigiSeconds) {
+                    digiDealsLogo = '<div class="ribbon-container"><div class="ribbon-digideals"><span class="digi">digi</span>Deals</div></div>';
+                    if (sellerName != "20329" && sellerName !== undefined) {
+                        digiDealsLogo = '<div class="ribbon-container"><div class="ribbon-online">Online Only</div></div>';
+                    }
+                }
+
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                let discountPriceToDisplay = "$" + Number(product.prices[0].discountPrice).toFixed(2);
+                let discount = "$" + Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="old-price-wrapper"><span class="old-price">' +
+                                    '<span class="price-container price-final_price tax weee">' +
+                                            '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="current-price-wrapper has-special-price">' +
+                                    '<div class="digidirectprice">' +
+                                        '<span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span>' +
+                                    '</div>' +
+                                    '<span class="special-price"><span class="price-container price-final_price tax weee">' +
+                                        '<span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ discountPriceToDisplay +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ discountPriceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>';
+            } else {
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="old-price-wrapper" style="visibility: hidden;"><span class="old-price">' +
+                                    '<span class="price-container price-final_price tax weee">' +
+                                            '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="current-price-wrapper no-special-price">' +
+                                    '<div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div>' +
+                                        '<span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ product.prices[0].price +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">' + priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>';
+            }
+
+            let hideProductItem = "";
+            if (isMobile && productCtr > 4) {
+                hideProductItem = "hide-product-item";
+            }
+            var view = "";
+            if (isMobile) {
+                view = "mobile";
+            } else {
+                view = "desktop";
+            }
+            var tileId = view + '-' + widgetId + '-product-' + product.refId;
+
+            var productItemDiv = '<div id="'+ tileId +'" class="product-item-info product-item" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">';
+            
+            var zip = '<div style="width:100%;height:100%;line-height:13px;font-size:10px;color:#4D4E4E;"><span>Zip Money is only available up to $10,000. <br>Fees apply*. </span><a href="/zip-money" style="color:#FE4C25;">Learn how.</a></div>';
+            
+            productItem = productItemDiv +
+                        '<div class="wish-list-wrapper" data-role="add-to-links">' +
+                            '<a href="#"' +
+                            'data-post=""' +
+                            'class="action towishlist" data-action="add-to-wishlist"' +
+                            'title="Add to Wish List">' +
+                            '<i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>' +
+                            '</a>' +
+                        '</div>' +
+                        '<a href="' + product.url + '" class="product photo product-item-photo" tabindex="-1">' +
+                            digiDealsLogo + digiSeconds +
+                            '<span class="product-image-container">' +
+                                '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                    '<img class="product-image-photo" src="' + product.images[0] + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                '</span>' +
+                            '</span>' +
+                        '</a>' + 
+                        '<div class="product details product-item-details">' +
+                            '<strong class="product-item-name">' +
+                                '<a title="' + product.name + '" href="' + product.url + '" class="product-item-link">' +
+                                    product.name +
+                                '</a>' +
+                            '</strong>' +
+                            priceBlock + zip +
+                        '</div>' +
+                    '</div>'
+            $(appendTo).append(productItem);
+            //slots(product.refId, recommenderId, campaignId, tacticId);
+        });
+        $('.pa-digidirect-product-widget-container.widget-placeholder').remove();
+    }
+    
+    function productTileMinicart(widgetId, appendTo, isMobile) {
+        let productItem = "";
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetSlots = widget.slots;
+        var productCtr = 0;
+        Object.keys(widgetSlots).forEach(key => {
+            productCtr++;
+            let product = widgetSlots[key].products[0];
+            let campaignId = widgetSlots[key].campaignId;
+            let recommenderId = widgetSlots[key].recommenderId;
+            let tacticId = widgetSlots[key].tacticId;
+            let retailBoostCollectionCampaignId = widgetSlots[key].retailBoostCollectionCampaignId;
+            let adSetId = widgetSlots[key].adSetId;
+            let adSetVersion = widgetSlots[key].adSetVersion;
+            let costPerClick = widgetSlots[key].costPerClick;
+            let timeStamp = widgetSlots[key].timeStamp;
+            let hmacSalt = widgetSlots[key].hmacSalt;
+            let hmac = widgetSlots[key].hmac;
+            let keywordId = widgetSlots[key].keywordId;
+            
+            let digiDealsLogo = "";
+            let priceBlock = "";
+            let addToCart = "";
+            let s19Label = "";
+            
+            let digiSeconds = "";
+            let digiSecondsOverlay = "";
+            let sellerName = "";
+            
+            let categories = product.attributes.find(obj => {
+                return obj.name === 'Categories';
+            })
+            
+            let seller = product.attributes.find(obj => {
+                return obj.name === 'DDR_Seller_Id';
+            })
+            
+            let digiPrint = product.attributes.find(obj => {
+                return obj.name === 'is_digiprint';
+            })
+            
+            let digiPrintLink = product.attributes.find(obj => {
+                return obj.name === 'digiprint_customlink';
+            })
+            
+            let digiSecondsRatingValue = product.attributes.find(obj => {
+                return obj.name === 'item_rating';
+            })
+            
+            let digiSecondsRating = "";            
+            
+            if (digiSecondsRatingValue.stringValue == "5") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "4") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "3") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "2") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "1") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            }
+            
+            sellerName = seller.stringValue;
+            
+            let digiSecondsCategories = ["PRELOVED","OPENBOX","REFURB"];
+            let isDigiSeconds = digiSecondsCategories.includes(categories.options[0].value);
+            
+            if (categories.options[0].value == "PRELOVED") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-pre-loved.png"/>';
+            } else if (categories.options[0].value == "OPENBOX") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-demo.png"/>';
+            } else if (categories.options[0].value == "REFURB") {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-refurbished.png"/>';
+            }
+            
+            digiSeconds = '<div class="digiseconds-overlay">' + digiSecondsOverlay + '<div class="digiseconds-rating">' + digiSecondsRating + '</div></div>';
+            //console.log(attribute);
+
+            let digiPrintValue = digiPrint.stringValue;
+            let digiPrintLinkValue = digiPrintLink.stringValue;let sponsoredLabel = "";
+            if (adSetId || adSetId != null) {
+                sponsoredLabel = '<div class="sponsored-container"><div class="sponsored-label"><i class="fas fa-info-circle"></i>Sponsored</div><span class="label-tooltip">This product has been promoted by one of our partners using <a href="https://particularaudience.com/">Particular Audience</a>.</span></div>';
+            }
+
+            if (digiPrintValue == 1) {
+                addToCart = '<a class="ordernow-link" href="' + digiPrintLinkValue + '" target="_blank">' +
+                                '<button type="button" title="Order Now" class="action tocart primary">' +
+                                    'Order Now <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                                '</button>' +
+                            '</a>'
+                s19Label = '<div class="s19-rental-price-target"><p style="font-size: 13px; font-weight: 500;">Order Online Today!</p></div>'
+            } else {
+                addToCart = '<form data-role="tocart-form"' +
+                                'data-product-sku="' + product.sku + '"' +
+                                'action="https://www.digidirect.com.au/checkout/cart/add/product/'+ product.refId +'" method="post"><?php echo $block->getBlockHtml("formkey"); ?>' +
+                                '<input type="text" name="ref_id" value="'+ product.refId +'" hidden/>' +
+                                '<input type="text" name="qty" value="1" hidden/>' +
+                                '<input type="text" name="widget_id" value="'+ widgetId +'" hidden/>' +
+                                '<input type="text" name="route_id" value="'+ routeId +'" hidden/>' +
+                                '<input type="text" name="recommender_id" value="'+ recommenderId +'" hidden/>' +
+                                '<input type="text" name="campaign_id" value="'+ campaignId +'" hidden/>' +
+                                '<input type="text" name="tactic_id" value="'+ tacticId +'" hidden/>' +
+                                '<input type="text" name="retail_boost_collection_campaign_id" value="'+ retailBoostCollectionCampaignId +'" hidden/>' +
+                                '<input type="text" name="adset_id" value="'+ adSetId +'" hidden/>' +
+                                '<input type="text" name="adset_version" value="'+ adSetVersion +'" hidden/>' +
+                                '<input type="text" name="cost_per_click" value="'+ costPerClick +'" hidden/>' +
+                                '<input type="text" name="timestamp" value="'+ timeStamp +'" hidden/>' +
+                                '<input type="text" name="hmac_salt" value="'+ hmacSalt +'" hidden/>' +
+                                '<input type="text" name="hmac" value="'+ hmac +'" hidden/>' +
+                                '<input type="text" name="keyword_id" value="'+ keywordId +'" hidden/>' +
+                                '<button type="submit" title="Add to Cart" class="action tocart primary" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">' +
+                                '<span>Add to Cart</span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>' +
+                                '</button>' + sponsoredLabel
+                            '</form>'
+                s19Label = '<div class="s19-rental-price-target"><p style="font-size: 13px; font-weight: 500;">Buy now pay later</p><p style="font-size: 13px; font-weight: 500;">Options Available</p></div>'
+            }
+            //console.log(product.name, sellerName);
+            if (!isDigiSeconds) {
+                if (sellerName != "20329" && sellerName !== undefined) {
+                    digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                } else {
+                    digiDealsLogo = '';
+                }
+            }
+            
+            if (product.prices[0].discountPrice) {
+                if (!isDigiSeconds) {
+                    digiDealsLogo = '<div class="ribbon-digideals">digiDeals</div>';
+                    if (sellerName != "20329" && sellerName !== undefined) {
+                        digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                    }
+                }
+                
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                let discountPriceToDisplay = "$" + Number(product.prices[0].discountPrice).toFixed(2);
+                let discount = "$" + Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="old-price-wrapper"><span class="old-price">' +
+                                    '<span class="price-container price-final_price tax weee">' +
+                                        '<span class="price-label">Price Slashed </span>' + 
+                                            '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="current-price-wrapper has-special-price">' +
+                                    '<div class="digidirectprice">' +
+                                        '<span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span>' +
+                                    '</div>' +
+                                    '<span class="special-price"><span class="price-container price-final_price tax weee">' +
+                                        '<span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ discountPriceToDisplay +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ discountPriceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="discount-price-wrapper"><span class="discount-price">'+ discount +'</span> Off</div>' +
+                            '</div>';
+            } else {
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="current-price-wrapper no-special-price">' +
+                                    '<div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div>' +
+                                        '<span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ product.prices[0].price +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">' + priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>';
+            }
+            
+            var view = "-minicart";
+            var tileId = widgetId + '-product-' + product.refId + view;
+            productItem = '<div id="'+ tileId +'" class="product-item-info product-item" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">' +
+                            '<div class="wish-list-wrapper" data-role="add-to-links">' +
+                                '<a href="#"' +
+                                'data-post=""' +
+                                'class="action towishlist" data-action="add-to-wishlist"' +
+                                'title="Add to Wish List">' +
+                                '<i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>' +
+                                '</a>' +
+                            '</div>' +
+                            '<a href="' + product.url + '" class="product photo product-item-photo" tabindex="-1">' +
+                                digiDealsLogo + digiSeconds +
+                                '<span class="product-image-container" style="width: 240px;">' +
+                                    '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                        '<img class="product-image-photo" src="' + product.images[0] + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                    '</span>' +
+                                '</span>' +
+                            '</a>' + 
+                            '<div class="product details product-item-details">' +
+                                '<strong class="product-item-name">' +
+                                    '<a title="' + product.name + '" href="' + product.url + '" class="product-item-link">' +
+                                        product.name +
+                                    '</a>' +
+                                '</strong>' +
+                                priceBlock +
+                            '</div>' +
+                            '<div class="product actions product-item-actions">' +
+                                '<div class="actions-primary">' + s19Label +
+                                    addToCart +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+            $(appendTo).append(productItem);
+            //slots(product.refId, recommenderId, campaignId, tacticId);
+        });
+        $('.pa-digidirect-product-widget-container.widget-placeholder').remove();
+    }
+    
+    productTile('94e9300c-023e-ec11-aae9-02dca44cceec', '#recommended-for-you-widget-desktop', false);
+    productTile('94e9300c-023e-ec11-aae9-02dca44cceec', '#recommended-for-you-widget-mobile', true);
+    productTile('886fc4e3-a9f0-ee11-abf3-02bf4bf6447c', '#trending-digimarket-products-widget-desktop', false);
+    productTile('886fc4e3-a9f0-ee11-abf3-02bf4bf6447c', '#trending-digimarket-products-widget-mobile', true);
+    productTile('0bfcb498-893d-ef11-abf3-02bf4bf6447c', '#shop-tech-and-more-widget-desktop', false);
+    productTile('0bfcb498-893d-ef11-abf3-02bf4bf6447c', '#shop-tech-and-more-widget-mobile', true);
+    productTile('6631ff51-60f5-ee11-abf3-02bf4bf6447c', '#trending-technology-products-for-you-widget-desktop', false);
+    productTile('6631ff51-60f5-ee11-abf3-02bf4bf6447c', '#trending-technology-products-for-you-widget-mobile', true);
+    productTile('4dd9e335-bef7-ee11-abf3-02bf4bf6447c', '#trending-photography-products-for-you-widget-desktop', false);
+    productTile('4dd9e335-bef7-ee11-abf3-02bf4bf6447c', '#trending-photography-products-for-you-widget-mobile', true);
+    productTile('a24cb666-8a3d-ef11-abf3-02bf4bf6447c', '#trending-digimarket-products-for-you-widget-desktop', false);
+    productTile('a24cb666-8a3d-ef11-abf3-02bf4bf6447c', '#trending-digimarket-products-for-you-widget-mobile', true);
+    productTile('f61e5e9b-4500-ef11-abf3-02bf4bf6447c', '#trending-digiseconds-products-for-you-widget-desktop', false);
+    productTile('f61e5e9b-4500-ef11-abf3-02bf4bf6447c', '#trending-digiseconds-products-for-you-widget-mobile', true);
+    productTile('d659416a-40f6-ee11-abf3-02bf4bf6447c', '#trending-digiprint-products-for-you-widget-desktop', false);
+    productTile('d659416a-40f6-ee11-abf3-02bf4bf6447c', '#trending-digiprint-products-for-you-widget-mobile', true);
+    
+    if (customerId && sessionId) {
+        $("#pa-blue-right-side-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+        $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    }
+    
+    function slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId) {
+
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                refId: productId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const slotData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+
+        console.log(JSON.stringify(slotData));
+
+        $.ajax({
+            //async: false,
+            url: "<?= $block->getBaseUrl(); ?>particularaudienceapi/events/slots",
+            type: "POST",
+            data: {
+                eventData: slotData
+            },
+            success: function(data){
+                console.log("slots", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+    }
+    
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, 
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    
+    //Product Info Add To Cart
+    $(".price-final_price").click(function() {
+        $(this).siblings('.product-item-actions').find('.action.tocart.primary').trigger('click');
+    });
+    
+    $(".product-item-info.product-item").click(function(){
+
+        var widgetId = $(this).attr("widget-id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                clickId: uuidv4(),
+                refId: productId,
+                actionType: 1,
+                contextType: 1,
+                routeId: routeId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const clickData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+
+        //console.log(JSON.stringify(clickData));
+
+        $.ajax({
+            async: false,
+            url: "<?= $block->getBaseUrl(); ?>particularaudienceapi/events/clicks",
+            type: "POST",
+            data: {
+                eventData: clickData
+            },
+            success: function(data){
+                console.log("clicks", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    $(".pa-digidirect-product-widget .action.tocart").click(function(){
+
+        var widgetId = $(this).attr("widget-id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        var product = {"refId": productId, "quantity": 1};
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                product: product,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+        
+        const productData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+        
+        //console.log("productData", JSON.stringify(productData));
+
+        $.ajax({
+            async: false,
+            url: "<?= $block->getBaseUrl(); ?>particularaudienceapi/events/addtocart",
+            type: "POST",
+            data: {
+                eventData: productData
+            },
+            success: function(data){
+                console.log("addtocart", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    function isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId){
+        var thisElement = document.getElementById(element);
+        let rect = thisElement.getBoundingClientRect();
+
+        // check if element is completely visible inside the viewport
+        if ((rect.top <= 600 && rect.top >= 0) && rect.height != 0) {
+            //console.log("Product ID id ", element, "The bounding Rect of element is ", rect, "viewPortBottom", viewPortBottom);
+            //return (isTopInViewPort && isLeftInViewPort && isBottomInViewPort && isRightInViewPort);
+            slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            $(thisElement).addClass("slot");
+        }
+    }
+    
+    jQuery.extend( jQuery.fn, {
+        // Name of our method & one argument (the parent selector)
+        hasParent: function(p) {
+            // Returns a subset of items using jQuery.filter
+            return this.filter(function(){
+                // Return truthy/falsey based on presence in parent
+                return $(p).find(this).length;
+            });
+        }
+    });
+    
+    function isElementInViewPortOwlCarousel(currentElement, element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId){
+        var thisElement = document.getElementById(element);
+        let rect = thisElement.getBoundingClientRect();
+        //console.log("element", element);
+        // check if element is completely visible inside the viewport
+        if ((rect.top <= 600 && rect.top >= 0) && rect.height != 0) {
+            //console.log("Product ID id ", element, "The bounding Rect of element is ", rect, "viewPortBottom", viewPortBottom);
+            //return (isTopInViewPort && isLeftInViewPort && isBottomInViewPort && isRightInViewPort);
+            slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            currentElement.addClass("slot");
+        }
+    }
+    
+    window.addEventListener('scroll', function() {
+        $("#pa-blue-right-side-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+        $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPortOwlCarousel($(this), element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+        $(".pa-digidirect-product-widget .mobile-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    }, false);
+    
+    $("#minicart-content-wrapper").on('scroll', function(){
+        $("#pa-minicart-desktop .product-item-info.product-item:not(.slot)").each(function() {
+            console.log();
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    });
+    
+    const observer = new MutationObserver((mutations) => { 
+        if ($("#pa-minicart-desktop").length) {
+            //console.log("MutationObserver!");
+            productTileMinicart('5576c304-fd3d-ec11-aae9-02dca44cceec', '#pa-minicart-desktop', false);
+            stopMutationObserver();
+        }
+    }); 
+    
+    const config = { attributes: true, childList: true, subtree: true }; 
+    observer.observe(document.body, config); 
+    
+    function stopMutationObserver() {
+        observer.disconnect(); 
+    }
+    
+    $(document).ready(function(){                                               
+        $(".owl-carousel.custom").owlCarousel({
+            loop: false,
+            nav: true,
+            margin: 15,
+            responsive: {
+                0: {
+                    items:2
+                },
+                600: {
+                    items: 2
+                },
+                992: {
+                    items: 2
+                },
+                1024: {
+                    items: 4
+                },
+                1310: {
+                    items: 5
+                },
+                1366: {
+                    items: 4
+                },
+                1550: {
+                    items: 5
+                }
+            },
+            dots: false,
+            autoplay: false,
+            autoplayTimeout: 3000
+        });
+    
+        //Owl Nav Slot Observer
+        $(".owl-carousel.custom .owl-prev, .owl-carousel.custom .owl-next").click(function() {
+            console.log("Owl Nav Button Clicked!");
+            $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+                var element = $(this).attr("id");
+                var widgetId = $(this).attr("widget-id");
+                var productId = $(this).attr("product-id");
+                var recommenderId = $(this).attr("recommender-id");
+                var campaignId = $(this).attr("campaign-id");
+                var tacticId = $(this).attr("tactic-id");
+                var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+                var adSetId = $(this).attr("adset-id");
+                var adSetVersion = $(this).attr("adset-version");
+                var costPerClick = $(this).attr("cost-per-click");
+                var timeStamp = $(this).attr("timestamp");
+                var hmacSalt = $(this).attr("hmac-salt");
+                var hmac = $(this).attr("hmac");
+                var keywordId = $(this).attr("keyword-id");
+                isElementInViewPortOwlCarousel($(this), element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            });
+        });
+        
+        var htmlBody = $("#html-body");
+
+        const minicartObserver = new MutationObserver((mutations) => { 
+            if (htmlBody.hasClass("-minicart-opened")) {
+                $("#pa-minicart-desktop .product-item-info.product-item:not(.slot)").each(function() {
+                    var element = $(this).attr("id");
+                    var widgetId = $(this).attr("widget-id");
+                    var productId = $(this).attr("product-id");
+                    var recommenderId = $(this).attr("recommender-id");
+                    var campaignId = $(this).attr("campaign-id");
+                    var tacticId = $(this).attr("tactic-id");
+                    var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+                    var adSetId = $(this).attr("adset-id");
+                    var adSetVersion = $(this).attr("adset-version");
+                    var costPerClick = $(this).attr("cost-per-click");
+                    var timeStamp = $(this).attr("timestamp");
+                    var hmacSalt = $(this).attr("hmac-salt");
+                    var hmac = $(this).attr("hmac");
+                    var keywordId = $(this).attr("keyword-id");
+                    isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+                });
+            }
+        }); 
+
+        const minicartConfig = { attributes: true, childList: false, subtree: false }; 
+        minicartObserver.observe(htmlBody, minicartConfig);
+    });
+    
+    $(document).ready(function(){                                               
+        $(".owl-carousel.brands").owlCarousel({
+            loop: true,
+            nav: false,
+            margin: 15,
+            responsive: {
+                0: {
+                    items:2
+                },
+                600: {
+                    items: 2
+                },
+                992: {
+                    items: 2
+                },
+                1024: {
+                    items: 5
+                },
+                1310: {
+                    items: 6
+                },
+                1366: {
+                    items: 5
+                },
+                1550: {
+                    items: 6
+                }
+            },
+            dots: false,
+            autoplay: false,
+            autoplayTimeout: 3000
+        });
+    });
+    
+    $(document).ready(function () {
+        $(".owl-carousel.featured-videos").owlCarousel({
+            merge: true,
+            loop: true,
+            margin: 15,
+            video: true,
+            lazyLoad: true,
+            responsive: {
+                0: { items: 1 },
+                600: { items: 1 },
+                992: { items: 2 }
+            },
+            dots: false,
+            autoplay: false
+        });
+    });
+    
+    $('.owl-carousel').on('changed.owl.carousel initialized.owl.carousel', function(event) {
+        let $carousel = $(this);
+        let $secondLastItem = $carousel.find('.owl-item').eq(-3); // second to last
+
+        if ($secondLastItem.hasClass('active')) {
+            // second to last slide is active → disable the next button
+            $carousel.find('.owl-next').addClass('unclickable').prop('disabled', true);
+        } else {
+            // otherwise enable it
+            $carousel.find('.owl-next').removeClass('unclickable').prop('disabled', false);
+        }
+    });
+    
+    $(".owl-carousel.featured-videos").on("initialized.owl.carousel", function () {
+        $(".owl-video-tn").each(function () {
+            var src = $(this).attr("srctype");
+            if (src) {
+                $(this).css("background-image", "url(" + src + ")");
+            }
+        });
+    });
+    
+    // Reset all videos back to thumbnails
+    function resetOwlVideos($carousel) {
+        $carousel.find(".owl-video-wrapper").each(function () {
+            var $wrapper = $(this);
+            var $a = $wrapper.find("a.owl-video");
+            if ($a.length) return; // already has link = still thumbnail
+
+            var videoUrl = $wrapper.closest(".owl-item").attr("data-video");
+            var videoId = videoUrl.split("v=")[1].split("&")[0];
+            var thumb = "https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg";
+
+            // Restore thumbnail view
+            $wrapper.html(
+                '<a class="owl-video" href="' + videoUrl + '" data-thumb="' + thumb + '" style="display:none;"></a>' +
+                '<div class="owl-video-play-icon"></div>' +
+                '<div class="owl-video-tn" style="background-image:url(' + thumb + '); background-size:cover; background-position:center;"></div>'
+            );
+        });
+    }
+
+    // Handle play clicks
+    $(".owl-carousel.featured-videos").on("click", ".owl-video-play-icon", function () {
+        var $carousel = $(this).closest(".owl-carousel.featured-videos");
+
+        // reset all before playing new
+        resetOwlVideos($carousel);
+
+        var $wrapper = $(this).closest(".owl-video-wrapper");
+        var videoUrl = $wrapper.closest(".owl-item").attr("data-video");
+        var videoId = videoUrl.split("v=")[1].split("&")[0];
+
+        var iframe = '<iframe width="100%" height="100%" ' +
+            'src="https://www.youtube.com/embed/' + videoId + '?autoplay=1" ' +
+            'frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>' +
+            '</iframe>';
+
+        $wrapper.html(iframe);
+    });
+
+
+});
+
+</script>
+
+<?php
+    $isDigiClub = false;
+    $customer = $block->checkCustomer();
+    if ($customer->isLoggedIn()) {
+        $customerGroupId = $customer->getCustomer()->getGroupId();
+        if ($customerGroupId == 10) {
+            $isDigiClub = true;
+        }
+    }
+    $zip = '<div style="width:100%;height:100%;line-height:13px;font-size:10px;color:#4D4E4E;"><span>Zip Money is only available up to $10,000. <br>Fees apply*. </span><a href="/zip-money" style="color:#FE4C25;">Learn how.</a></div>';
+?>
+
+<div class="homepage-row">
+    <div class="glow-up-banner-row">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('main-banner-glow-up')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row">
+    <div class="glow-up-categories">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('categories-glow-up')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row pa-widget">
+    <div class="pa-digidirect-product-widget recommended-for-you-widget">
+        <div class="product-widget-header">
+            <div><span style="color: #FE4C25; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word">Recommended for you.</span><span style="color: black; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word"> </span><span style="color: #8E8E93; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word">Our AI believes ‘You’re going to love this’</span></div>
+        </div>
+        <div id="recommended-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container owl-carousel custom"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder">
+            <div id="desktop-94e9300c-023e-ec11-aae9-02dca44cceec-product-85626" class="product-item-info product-item slot" product-id="85626" widget-id="94e9300c-023e-ec11-aae9-02dca44cceec" campaign-id="92255490-5440-ec11-aae9-02dca44cceec" recommender-id="66939ba9-713b-ec11-aae9-02dca44cceec" tactic-id="7b1c91aa-5440-ec11-aae9-02dca44cceec" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz55-digital-camera-black" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-digideals"><span class="digi">digi</span>Deals</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/6/1649678752_1699922.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Kodak PIXPRO FZ55 Digital Camera (Black)" href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz55-digital-camera-black" class="product-item-link">Kodak PIXPRO FZ55 Digital Camera (Black)</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="85626" data-price-box="product-id-85626"><div class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price-85626" data-price-amount="$215.00" data-price-type="oldPrice" class="price-wrapper "><span class="price">$215.00</span></span></span></span></div><div class="current-price-wrapper has-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-85626" data-price-amount="$193.00" data-price-type="basePrice" class="price-wrapper "><span class="price">$193.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-94e9300c-023e-ec11-aae9-02dca44cceec-product-62517" class="product-item-info product-item slot" product-id="62517" widget-id="94e9300c-023e-ec11-aae9-02dca44cceec" campaign-id="92255490-5440-ec11-aae9-02dca44cceec" recommender-id="66939ba9-713b-ec11-aae9-02dca44cceec" tactic-id="7b1c91aa-5440-ec11-aae9-02dca44cceec" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>apple-airtag-4-pack-mx542x-a" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-digideals"><span class="digi">digi</span>Deals</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/a/p/apple_airtag_4_pack_-_mx542x-a-01.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Apple AirTag - 4 Pack" href="<?= $block->getBaseUrl(); ?>apple-airtag-4-pack-mx542x-a" class="product-item-link">Apple AirTag - 4 Pack</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="62517" data-price-box="product-id-62517"><div class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price-62517" data-price-amount="$145.00" data-price-type="oldPrice" class="price-wrapper "><span class="price">$145.00</span></span></span></span></div><div class="current-price-wrapper has-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-62517" data-price-amount="$130.50" data-price-type="basePrice" class="price-wrapper "><span class="price">$130.50</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-94e9300c-023e-ec11-aae9-02dca44cceec-product-85614" class="product-item-info product-item slot" product-id="85614" widget-id="94e9300c-023e-ec11-aae9-02dca44cceec" campaign-id="92255490-5440-ec11-aae9-02dca44cceec" recommender-id="66939ba9-713b-ec11-aae9-02dca44cceec" tactic-id="7b1c91aa-5440-ec11-aae9-02dca44cceec" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz55-digital-camera-red" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-digideals"><span class="digi">digi</span>Deals</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/6/1649682328_1699924.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Kodak PIXPRO FZ55 Digital Camera (Red)" href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz55-digital-camera-red" class="product-item-link">Kodak PIXPRO FZ55 Digital Camera (Red)</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="85614" data-price-box="product-id-85614"><div class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price-85614" data-price-amount="$215.00" data-price-type="oldPrice" class="price-wrapper "><span class="price">$215.00</span></span></span></span></div><div class="current-price-wrapper has-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-85614" data-price-amount="$196.00" data-price-type="basePrice" class="price-wrapper "><span class="price">$196.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-94e9300c-023e-ec11-aae9-02dca44cceec-product-29347" class="product-item-info product-item slot" product-id="29347" widget-id="94e9300c-023e-ec11-aae9-02dca44cceec" campaign-id="92255490-5440-ec11-aae9-02dca44cceec" recommender-id="66939ba9-713b-ec11-aae9-02dca44cceec" tactic-id="7b1c91aa-5440-ec11-aae9-02dca44cceec" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>canon-powershot-sx740-hs-black" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/7/17058_canon-powershot-sx740-hs-black_1.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Canon PowerShot SX740 HS Black" href="<?= $block->getBaseUrl(); ?>canon-powershot-sx740-hs-black" class="product-item-link">Canon PowerShot SX740 HS Black</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="29347" data-price-box="product-id-29347"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-29347" data-price-amount="648" data-price-type="basePrice" class="price-wrapper "><span class="price">$648.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-94e9300c-023e-ec11-aae9-02dca44cceec-product-85620" class="product-item-info product-item slot" product-id="85620" widget-id="94e9300c-023e-ec11-aae9-02dca44cceec" campaign-id="92255490-5440-ec11-aae9-02dca44cceec" recommender-id="66939ba9-713b-ec11-aae9-02dca44cceec" tactic-id="7b1c91aa-5440-ec11-aae9-02dca44cceec" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz45-digital-camera-white" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-digideals"><span class="digi">digi</span>Deals</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/6/1649676942_1699921.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Kodak PIXPRO FZ45 Digital Camera (White)" href="<?= $block->getBaseUrl(); ?>kodak-pixpro-fz45-digital-camera-white" class="product-item-link">Kodak PIXPRO FZ45 Digital Camera (White)</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="85620" data-price-box="product-id-85620"><div class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price-85620" data-price-amount="$189.00" data-price-type="oldPrice" class="price-wrapper "><span class="price">$189.00</span></span></span></span></div><div class="current-price-wrapper has-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-85620" data-price-amount="$165.00" data-price-type="basePrice" class="price-wrapper "><span class="price">$165.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+        </div>
+        <div id="recommended-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('recommended-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+        <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('recommended-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+        <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('recommended-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+    </div>
+</div>
+<div class="homepage-row">
+    <div class="glow-up-promotions">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('promotions-glow-up')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row pa-widget">
+    <div class="pa-digidirect-product-widget trending-digimarket-products-widget">
+        <div class="product-widget-header">
+            <div><span style="color: #FE4C25; font-size: 32px;  font-weight: 700; line-height: 43.44px; word-wrap: break-word">digi</span><span style="color: black; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word">Market.</span><span style="color: #9E9E9E; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word"> </span><span style="color: #8E8E93; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word">Your marketplace for tech, tools and more.</span></div>
+        </div>
+        <div id="trending-digimarket-products-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container owl-carousel custom"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder">
+            <div id="desktop-886fc4e3-a9f0-ee11-abf3-02bf4bf6447c-product-465504" class="product-item-info product-item slot" product-id="465504" widget-id="886fc4e3-a9f0-ee11-abf3-02bf4bf6447c" campaign-id="bdf5ae32-d4a7-ef11-abf3-02bf4bf6447c" recommender-id="98fdc027-d4a7-ef11-abf3-02bf4bf6447c" tactic-id="fdba67e9-d4a7-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>sony-a-minolta-af-lens-mount-to-micro-four-thirds-m4-3-camera-mount" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-online">Online Only</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/p/r/product_image_418656_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Urth Sony A (Minolta AF) Lens Mount to Micro Four Thirds (M4/3) Camera Mount" href="<?= $block->getBaseUrl(); ?>sony-a-minolta-af-lens-mount-to-micro-four-thirds-m4-3-camera-mount" class="product-item-link">Urth Sony A (Minolta AF) Lens Mount to Micro Four Thirds (M4/3) Camera Mount</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="465504" data-price-box="product-id-465504"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-465504" data-price-amount="89" data-price-type="basePrice" class="price-wrapper "><span class="price">$89.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-886fc4e3-a9f0-ee11-abf3-02bf4bf6447c-product-465501" class="product-item-info product-item slot" product-id="465501" widget-id="886fc4e3-a9f0-ee11-abf3-02bf4bf6447c" campaign-id="bdf5ae32-d4a7-ef11-abf3-02bf4bf6447c" recommender-id="98fdc027-d4a7-ef11-abf3-02bf4bf6447c" tactic-id="d1eea3c3-d4a7-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>canon-ef-ef-s-lens-mount-to-sony-e-camera-mount" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-online">Online Only</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/p/r/product_image_418642_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Urth Canon (EF/EF-S) Lens Mount to Sony E Camera Mount" href="<?= $block->getBaseUrl(); ?>canon-ef-ef-s-lens-mount-to-sony-e-camera-mount" class="product-item-link">Urth Canon (EF/EF-S) Lens Mount to Sony E Camera Mount</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="465501" data-price-box="product-id-465501"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-465501" data-price-amount="79" data-price-type="basePrice" class="price-wrapper "><span class="price">$79.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-886fc4e3-a9f0-ee11-abf3-02bf4bf6447c-product-465681" class="product-item-info product-item slot" product-id="465681" widget-id="886fc4e3-a9f0-ee11-abf3-02bf4bf6447c" campaign-id="bdf5ae32-d4a7-ef11-abf3-02bf4bf6447c" recommender-id="98fdc027-d4a7-ef11-abf3-02bf4bf6447c" tactic-id="d1eea3c3-d4a7-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>contax-yashica-c-y-lens-mount-to-nikon-z-camera-mount" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-online">Online Only</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/p/r/product_image_418829_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Urth Contax/Yashica (C/Y) Lens Mount to Nikon Z Camera Mount" href="<?= $block->getBaseUrl(); ?>contax-yashica-c-y-lens-mount-to-nikon-z-camera-mount" class="product-item-link">Urth Contax/Yashica (C/Y) Lens Mount to Nikon Z Camera Mount</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="465681" data-price-box="product-id-465681"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-465681" data-price-amount="89" data-price-type="basePrice" class="price-wrapper "><span class="price">$89.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-886fc4e3-a9f0-ee11-abf3-02bf4bf6447c-product-465495" class="product-item-info product-item slot" product-id="465495" widget-id="886fc4e3-a9f0-ee11-abf3-02bf4bf6447c" campaign-id="bdf5ae32-d4a7-ef11-abf3-02bf4bf6447c" recommender-id="98fdc027-d4a7-ef11-abf3-02bf4bf6447c" tactic-id="7cad827e-d4a7-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>leica-m-lens-mount-to-sony-e-camera-mount" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-online">Online Only</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/p/r/product_image_418641_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Urth Leica M Lens Mount to Sony E Camera Mount" href="<?= $block->getBaseUrl(); ?>leica-m-lens-mount-to-sony-e-camera-mount" class="product-item-link">Urth Leica M Lens Mount to Sony E Camera Mount</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="465495" data-price-box="product-id-465495"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-465495" data-price-amount="79" data-price-type="basePrice" class="price-wrapper "><span class="price">$79.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            <div id="desktop-886fc4e3-a9f0-ee11-abf3-02bf4bf6447c-product-465645" class="product-item-info product-item slot" product-id="465645" widget-id="886fc4e3-a9f0-ee11-abf3-02bf4bf6447c" campaign-id="bdf5ae32-d4a7-ef11-abf3-02bf4bf6447c" recommender-id="98fdc027-d4a7-ef11-abf3-02bf4bf6447c" tactic-id="7cad827e-d4a7-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>m39-lens-mount-to-leica-m-camera-mount-50-75mm-frame-lines" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"><div class="ribbon-online">Online Only</div></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/p/r/product_image_418794_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Urth M39 Lens Mount to Leica M Camera Mount (50-75mm Frame Lines)" href="<?= $block->getBaseUrl(); ?>m39-lens-mount-to-leica-m-camera-mount-50-75mm-frame-lines" class="product-item-link">Urth M39 Lens Mount to Leica M Camera Mount (50-75mm Frame Lines)</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="465645" data-price-box="product-id-465645"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-465645" data-price-amount="59" data-price-type="basePrice" class="price-wrapper "><span class="price">$59.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+        </div>
+        <div id="trending-digimarket-products-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+        <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+        </div>
+        <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digimarket-products-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+        <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digimarket-products-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+        <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digimarket-products-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+    </div>
+</div>
+<div class="homepage-row">
+    <div class="glow-up-digiseconds">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('digiseconds-glow-up')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row">
+    <div class="glow-up-brands">
+        <div style="margin-bottom: 10px;"><span style="color: #FE4C25; font-size: 32px; font-weight: 400; line-height: 43.44px; word-wrap: break-word">Featured</span> <span style="color: #F05A24; font-size: 32px; font-weight: 400; line-height: 43.44px; word-wrap: break-word"> </span><span style="color: black; font-size: 32px; font-weight: 400; line-height: 43.44px; word-wrap: break-word">Brands.</span> <span style="color: #8E8E93; font-size: 32px; font-weight: 400; line-height: 43.44px; word-wrap: break-word">Gear up with industry leaders.</span></div>
+        <div id="glow-up-brands" class="owl-carousel brands">
+            <a href="<?= $block->getBaseUrl(); ?>brands/sony" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/sony.png') ?>" alt="Sony"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/canon" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/canon.png') ?>" alt="Canon"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/apple" class="brand"><img style="max-width: 65px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/apple.svg') ?>" alt="Apple"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/dji" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/dji.svg') ?>" alt="DJI"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/fujifilm" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/fujifilm.png') ?>" alt="Fujifilm"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/nikon" class="brand"><img style="max-width: 90px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/nikon.svg') ?>" alt="Nikon"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/nvidia" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/nvidia.svg') ?>" alt="NVIDIA"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/logitech" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/logitech.png') ?>" alt="Logitech"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/hp" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/hp.svg') ?>" alt="HP"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/rog" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/rog.svg') ?>" alt="ROG"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/asus" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/asus.svg') ?>" alt="ASUS"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/om-system" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/om.svg') ?>" alt="OM SYSTEM"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/leica" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/leica.svg') ?>" alt="Leica"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/gopro" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/gopro.svg') ?>" alt="GoPro"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/msi" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/msi.svg') ?>" alt="MSI"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/samsung" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/samsung.svg') ?>" alt="Samsung"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/microsoft" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/microsoft.svg') ?>" alt="Microsoft"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/sigma" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/sigma.svg') ?>" alt="SIGMA"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/bose" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/bose.svg') ?>" alt="Bose"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/dji" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/dji.svg') ?>" alt="DJI"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/godox" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/godox.png') ?>" alt="Godox"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/tamron" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/tamron.svg') ?>" alt="Tamron"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/dell" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/dell.svg') ?>" alt="Dell"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/lg" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/lg.svg') ?>" alt="LG"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/xbox" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/xbox.svg') ?>" alt="Xbox"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/jbl" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/jbl.svg') ?>" alt="JBL"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/nintendo" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/nintendo.svg') ?>" alt="Nintendo"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/blackmagic" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/blackmagic.svg') ?>" alt="Blackmagic Design"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/steelseries" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/steelseries.png') ?>" alt="SteelSeries"style="max-width: 55px;"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/panasonic" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/panasonic.svg') ?>" alt="Panasonic"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/kodak" class="brand"><img style="max-width: 100px;" src="<?= $block->getViewFileUrl('images/megamenu/brands/kodak.svg') ?>" alt="Kodak"/></a>
+            <a href="<?= $block->getBaseUrl(); ?>brands/polaroid" class="brand"><img src="<?= $block->getViewFileUrl('images/megamenu/brands/polaroid.svg') ?>" alt="Polaroid"/></a>
+        </div>
+    </div>
+</div>
+
+<div class="homepage-row pa-widget">
+    <div class="shop-by-widget-container">
+        <div class="shop-by-widget">
+            <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('test-shop-digiprint')->toHtml(); ?>
+        </div>
+        <div class="pa-digidirect-product-widget trending-digiprint-products-for-you-widget">
+            <div class="product-widget-header">
+                <div><span style="color: #FE4C25; font-size: 32px;  font-weight: 700; line-height: 43.44px; word-wrap: break-word">digi</span><span style="color: #242426; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word">Print.</span><span style="color: #9E9E9E; font-size: 32px;  font-weight: 500; line-height: 43.44px; word-wrap: break-word"> Turn moments into memories.</span></div>
+            </div>
+            <div id="trending-digiprint-products-for-you-widget-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container owl-carousel custom"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder">
+                <div id="desktop-d659416a-40f6-ee11-abf3-02bf4bf6447c-product-94460" class="product-item-info product-item slot" product-id="94460" widget-id="d659416a-40f6-ee11-abf3-02bf4bf6447c" campaign-id="97ab358b-4100-ef11-abf3-02bf4bf6447c" recommender-id="3a47044b-4100-ef11-abf3-02bf4bf6447c" tactic-id="64762bf2-4100-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>6x4-digital-print" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/e/z/ezgif.com-crop_37_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="6x4" digital="" print"="" href="<?= $block->getBaseUrl(); ?>6x4-digital-print" class="product-item-link">6x4" Digital Print</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="94460" data-price-box="product-id-94460"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-94460" data-price-amount="0.19" data-price-type="basePrice" class="price-wrapper "><span class="price">$0.19</span></span></span></span></div></div><?= $zip; ?></div></div>
+                <div id="desktop-d659416a-40f6-ee11-abf3-02bf4bf6447c-product-76409" class="product-item-info product-item slot" product-id="76409" widget-id="d659416a-40f6-ee11-abf3-02bf4bf6447c" campaign-id="97ab358b-4100-ef11-abf3-02bf4bf6447c" recommender-id="3a47044b-4100-ef11-abf3-02bf4bf6447c" tactic-id="64762bf2-4100-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>fujifilm-instax-mini-spray-art-film-10-pack" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/f/u/fujifilm_instax_mini_spray_art_film_10_pack_01.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="Fujifilm INSTAX Mini Spray Art Film - 10 Pack" href="<?= $block->getBaseUrl(); ?>fujifilm-instax-mini-spray-art-film-10-pack" class="product-item-link">Fujifilm INSTAX Mini Spray Art Film - 10 Pack</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="76409" data-price-box="product-id-76409"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-76409" data-price-amount="19" data-price-type="basePrice" class="price-wrapper "><span class="price">$19.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+                <div id="desktop-d659416a-40f6-ee11-abf3-02bf4bf6447c-product-229286" class="product-item-info product-item slot" product-id="229286" widget-id="d659416a-40f6-ee11-abf3-02bf4bf6447c" campaign-id="97ab358b-4100-ef11-abf3-02bf4bf6447c" recommender-id="3a47044b-4100-ef11-abf3-02bf4bf6447c" tactic-id="64762bf2-4100-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>20x30-poster-print" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/0/100169-01.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="20x30" poster="" print"="" href="<?= $block->getBaseUrl(); ?>20x30-poster-print" class="product-item-link">20x30" Poster Print</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="229286" data-price-box="product-id-229286"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-229286" data-price-amount="55" data-price-type="basePrice" class="price-wrapper "><span class="price">$55.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+                <div id="desktop-d659416a-40f6-ee11-abf3-02bf4bf6447c-product-94445" class="product-item-info product-item slot" product-id="94445" widget-id="d659416a-40f6-ee11-abf3-02bf4bf6447c" campaign-id="97ab358b-4100-ef11-abf3-02bf4bf6447c" recommender-id="3a47044b-4100-ef11-abf3-02bf4bf6447c" tactic-id="64762bf2-4100-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>6x9-digital-print" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/e/z/ezgif.com-crop_33_.jpg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="6x9" digital="" print"="" href="<?= $block->getBaseUrl(); ?>6x9-digital-print" class="product-item-link">6x9" Digital Print</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="94445" data-price-box="product-id-94445"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-94445" data-price-amount="3.95" data-price-type="basePrice" class="price-wrapper "><span class="price">$3.95</span></span></span></span></div></div><?= $zip; ?></div></div>
+                <div id="desktop-d659416a-40f6-ee11-abf3-02bf4bf6447c-product-229298" class="product-item-info product-item slot" product-id="229298" widget-id="d659416a-40f6-ee11-abf3-02bf4bf6447c" campaign-id="97ab358b-4100-ef11-abf3-02bf4bf6447c" recommender-id="3a47044b-4100-ef11-abf3-02bf4bf6447c" tactic-id="64762bf2-4100-ef11-abf3-02bf4bf6447c" retail-boost-collection-campaign-id="undefined" adset-id="undefined" adset-version="undefined" cost-per-click="undefined" timestamp="undefined" hmac-salt="undefined" hmac="undefined" keyword-id="undefined"><div class="wish-list-wrapper" data-role="add-to-links"><a href="#" data-post="" class="action towishlist" data-action="add-to-wishlist" title="Add to Wish List"><i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i></a></div><a href="<?= $block->getBaseUrl(); ?>a2-poster-print-horizontal" class="product photo product-item-photo" tabindex="-1"><div class="ribbon-container"></div><div class="digiseconds-overlay"><div class="digiseconds-rating"></div></div><span class="product-image-container"><span class="product-image-wrapper" style="padding-bottom: 125%;"><img class="product-image-photo" src="<?= $block->getBaseUrl(); ?>media/catalog/product/1/0/100267_1.jpeg" loading="lazy" width="240" height="300" alt="Product Image"></span></span></a><div class="product details product-item-details"><strong class="product-item-name"><a title="A2 Poster Print Horizontal" href="<?= $block->getBaseUrl(); ?>a2-poster-print-horizontal" class="product-item-link">A2 Poster Print Horizontal</a></strong><div class="price-box price-final_price" data-role="priceBox" data-product-id="229298" data-price-box="product-id-229298"><div style="visibility: hidden;" class="old-price-wrapper"><span class="old-price"><span class="price-container price-final_price tax weee"><span id="old-price" data-price-type="oldPrice" class="price-wrapper "><span class="price">0</span></span></span></span></div><div class="current-price-wrapper no-special-price"><div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div><span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span><span id="product-price-229298" data-price-amount="45" data-price-type="basePrice" class="price-wrapper "><span class="price">$45.00</span></span></span></span></div></div><?= $zip; ?></div></div>
+            </div>
+            <div id="trending-digiprint-products-for-you-widget-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+            <div class="pa-digidirect-product-widget-container widget-placeholder mobile-widget">
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+                <div class="product-item-info product-item " style="height: 381px !important;"><div class="loader"></div></div>
+            </div>
+            <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('trending-digiprint-products-for-you-widget');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+            <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('trending-digiprint-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+            <div class="view-all mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-all grid-toggle-more" onclick="viewAllProducts('trending-digiprint-products-for-you-widget');" style="display: none;"><div class="mgz-element-inner"><p>View All</p></div></div>
+        </div>
+    </div>
+</div>
+<div class="homepage-row" style="margin-bottom: 40px;">
+    <div class="digiservice-row">
+        <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('digi-services-glow-up')->toHtml(); ?>
+    </div>
+</div>
+<div class="homepage-row">
+    <div class="glow-up-featured-videos">
+        <div><span style="color: black; font-size: 32px; font-weight: 500; line-height: 43.44px; word-wrap: break-word">Watch. </span><span style="color: #FE4C25; font-size: 32px; font-weight: 500; line-height: 43.44px; word-wrap: break-word">Inspire.</span><span style="color: #F05A24; font-size: 32px; font-weight: 500; line-height: 43.44px; word-wrap: break-word"> </span><span style="color: #9E9E9E; font-size: 32px; font-weight: 500; line-height: 43.44px; word-wrap: break-word">Create.</span></div>
+        <div id="glow-up-featured-videos" class="owl-carousel featured-videos">
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v=IQhsWc3IbtQ" data-thumb="https://img.youtube.com/vi/IQhsWc3IbtQ/hqdefault.jpg"></a>
+            </div>
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v=qRqEEBvcMMo" data-thumb="https://img.youtube.com/vi/qRqEEBvcMMo/hqdefault.jpg"></a>
+            </div>
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v=5uqhvFd5d_A" data-thumb="https://img.youtube.com/vi/5uqhvFd5d_A/hqdefault.jpg"></a>
+            </div>
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v=Ioe8Eweg2ds" data-thumb="https://img.youtube.com/vi/Ioe8Eweg2ds/hqdefault.jpg"></a>
+            </div>
+            <div class="item-video" data-merge="1">
+                <a class="owl-video" href="https://www.youtube.com/watch?v=yIoChkfxDTQ" data-thumb="https://img.youtube.com/vi/yIoChkfxDTQ/hqdefault.jpg"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-magento-init">
+{
+    "[data-role=tocart-form], .form.map.checkout": {
+        "catalogAddToCart": {
+           "bindSubmit": true
+        }
+    }
+}
+</script>
+
+<script>
+
+    function loadMoreProducts(widgetClass) {
+        var hiddenTiles = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        var ctr = 0;
+        for (let x = 0; x < hiddenTiles.length; x++) {
+          ctr++;
+          hiddenTiles[x].classList.remove('hide-product-item');
+          if (ctr == 4) break;
+        }
+        var hiddenTilesCount = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        if (hiddenTilesCount.length == 0) {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "none";    
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "block";    
+
+            try {
+                document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "block"; 
+            }
+            catch(err) {
+            }
+        }
+    }
+
+    function viewLessProducts(widgetClass) {
+        var productTiles = document.querySelectorAll('.'+ widgetClass + ' ' + '.mobile-widget .product-item'); 
+
+        var ctr = 0;
+        for (let x = 0; x < productTiles.length; x++) {
+          ctr++;
+          if (ctr > 4) {
+             productTiles[x].classList.add('hide-product-item');
+          }
+        }
+
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "block";    
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "none";    
+        try {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "none"; 
+        }
+        catch(err) {
+        }
+        document.getElementById(widgetClass).scrollIntoView();
+
+    }
+
+    function viewAllProducts(viewAllLink) {
+        window.location.href = viewAllLink;
+    }
+
+    
+</script>

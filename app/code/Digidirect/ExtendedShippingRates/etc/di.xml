@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\ExtendedShippingRates\Api\MethodRepositoryInterface" type="Digidirect\ExtendedShippingRates\Model\MethodRepository"/>
+    <preference for="Digidirect\ExtendedShippingRates\Api\CarrierRepositoryInterface" type="Digidirect\ExtendedShippingRates\Model\CarrierRepository"/>
+    <preference for="Digidirect\ExtendedShippingRates\Api\RateRepositoryInterface" type="Digidirect\ExtendedShippingRates\Model\RateRepository"/>
+    <preference for="Digidirect\ExtendedShippingRates\Api\ZoneRepositoryInterface" type="Digidirect\ExtendedShippingRates\Model\ZoneRepository"/>
+    <preference for="Digidirect\ExtendedShippingRates\Api\RuleRepositoryInterface" type="Digidirect\ExtendedShippingRates\Model\RuleRepository"/>
+    <preference for="Digidirect\ExtendedShippingRates\Api\RateManagementInterface" type="Digidirect\ExtendedShippingRates\Model\RateManagement"/>
+
+    <type name="Magento\Shipping\Model\Rate\Result">
+        <plugin name="digidirect_extendedshippingrates_update_rate_result"
+                type="Digidirect\ExtendedShippingRates\Model\Plugin\Shipping\Rate\Result\Append"
+                sortOrder="10"
+                disabled="false"/>
+        <plugin name="digidirect_extendedshippingrates_update_disabled_or_enabled_rates"
+                type="Digidirect\ExtendedShippingRates\Model\Plugin\Shipping\Rate\Result\GetAllRates"
+                sortOrder="11"
+                disabled="false"/>
+    </type>
+    <type name="Magento\Framework\App\Config">
+        <plugin name="digidirect_extendedshippingrates_add_shipping_methods"
+                type="Digidirect\ExtendedShippingRates\Model\Plugin\AddMethods"
+                sortOrder="10"
+                disabled="false"/>
+    </type>
+    <type name="Digidirect\ExtendedShippingRates\Model\Rule\Action\RateFactory">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="amount" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Rule\Action\Rate\Amount</item>
+                <item name="item" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Rule\Action\Rate\PerItem</item>
+                <item name="product" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Rule\Action\Rate\PerProduct</item>
+                <item name="weight" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Rule\Action\Rate\PerUnitOfWeight</item>
+                <item name="selected" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Rule\Action\Rate\PerSelectedItem</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Listing start -->
+    <virtualType name="DigidirectExtendedShippingRatesCarrierGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Digidirect\ExtendedShippingRates\Model\ResourceModel\Carrier\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DigidirectExtendedShippingRatesCarrierGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DigidirectExtendedShippingRatesCarrierGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Model\ResourceModel\Carrier\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_extendedshippingrates_carrier</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_extendedshippingrates_carrier_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">carrier_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Carrier</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="digidirect_extendedshippingrates_carrier_listing_data_source" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Carrier\Grid\Collection</item>
+                <item name="digidirect_extendedshippingrates_method_listing_data_source" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Method\Grid\Collection</item>
+                <item name="digidirect_extendedshippingrates_quote_listing_data_source" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rule\Grid\Collection</item>
+                <item name="digidirect_extendedshippingrates_zone_listing_data_source" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Zone\Grid\Collection</item>
+                <item name="digidirect_extendedshippingrates_rates_listing_data_source" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rate\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <!-- Methods listing -->
+    <virtualType name="DigidirectExtendedShippingRatesMethodGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Digidirect\ExtendedShippingRates\Model\ResourceModel\Method\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DigidirectExtendedShippingRatesMethodGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DigidirectExtendedShippingRatesMethodGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Model\ResourceModel\Method\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_extendedshippingrates_methods</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_extendedshippingrates_method_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">method_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Method</argument>
+        </arguments>
+    </type>
+    <!-- Rates listing -->
+    <virtualType name="DigidirectExtendedShippingRatesRateGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rate\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DigidirectExtendedShippingRatesRateGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DigidirectExtendedShippingRatesRateGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Model\ResourceModel\Rate\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_extendedshippingrates_rates</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_extendedshippingrates_rate_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">rate_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rate</argument>
+        </arguments>
+    </type>
+    <!-- Rules listing -->
+    <virtualType name="DigidirectExtendedShippingRatesRuleGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rule\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DigidirectExtendedShippingRatesRuleGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DigidirectExtendedShippingRatesRuleGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Model\ResourceModel\Rule\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_extendedshippingrates</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_extendedshippingrates_rule_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">rule_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Rule</argument>
+        </arguments>
+    </type>
+    <!-- Zones listing -->
+    <virtualType name="DigidirectExtendedShippingRatesZoneGridDataProvider"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+        <arguments>
+            <argument name="collection" xsi:type="object" shared="false">Digidirect\ExtendedShippingRates\Model\ResourceModel\Zone\Grid\Collection</argument>
+            <argument name="filterPool" xsi:type="object" shared="false">DigidirectExtendedShippingRatesZoneGridFilterPool</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="DigidirectExtendedShippingRatesZoneGridFilterPool"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\FilterPool">
+        <arguments>
+            <argument name="appliers" xsi:type="array">
+                <item name="regular" xsi:type="object">Magento\Framework\View\Element\UiComponent\DataProvider\RegularFilter</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\ExtendedShippingRates\Model\ResourceModel\Zone\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_extendedshippingrates_zone</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_extendedshippingrates_zone_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">zone_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\ExtendedShippingRates\Model\ResourceModel\Zone</argument>
+        </arguments>
+    </type>
+    <!-- Import -->
+    <type name="Digidirect\ExtendedShippingRates\Model\CsvUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">tmp</argument>
+            <argument name="basePath" xsi:type="string">tmp</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="csv" xsi:type="string">csv</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\ExtendedShippingRates\Model\Rate\Import">
+        <arguments>
+            <argument name="defaultRateValues" xsi:type="array">
+                <item name="active" xsi:type="string">1</item>
+                <item name="priority" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\SalesRule\Model\Rule\Condition\Combine">
+        <plugin name="Digidirect_ExtendedShippingRates::MagentoSalesRuleModelRuleConditionCombine"
+                type="Digidirect\ExtendedShippingRates\Plugin\Magento\SalesRule\Model\Rule\Condition\Combine"/>
+    </type>
+
+    <type name="Digidirect\ExtendedShippingRates\Model\Zone\Import">
+        <arguments>
+            <argument name="defaultZoneValues" xsi:type="array">
+                <item name="is_active" xsi:type="string">0</item>
+                <item name="attribute_set" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\ExtendedShippingRates\Model\Zone">
+        <arguments>
+            <argument name="dataProcessors" xsi:type="array">
+                <item name="country_id" xsi:type="object">Digidirect\ExtendedShippingRates\Model\Zone\Processors\CountryIdDataProcessor</item>
+                <item name="region_id" xsi:type="object">Digidirect\ExtendedShippingRates\Model\Zone\Processors\RegionIdDataProcessor</item>
+                <item name="postcode" xsi:type="object">Digidirect\ExtendedShippingRates\Model\Zone\Processors\PostcodeDataProcessor</item>
+            </argument>
+            <argument name="defaultAggregator" xsi:type="array">
+                <item name="aggregator" xsi:type="string">all</item>
+                <item name="new_child" xsi:type="string"></item>
+                <item name="type" xsi:type="string">Digidirect\ExtendedShippingRates\Model\Zone\Condition\Combine</item>
+                <item name="value" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\ExtendedShippingRates\Model\Validator">
+        <arguments>
+            <argument name="actionMethodFields" xsi:type="array">
+                <item name="overwrite_cost" xsi:type="array">
+                    <item name="action" xsi:type="const">\Digidirect\ExtendedShippingRates\Model\Rule::ACTION_OVERWRITE_COST</item>
+                    <item name="fields" xsi:type="const">\Digidirect\ExtendedShippingRates\Api\Data\RuleInterface::SHIPPING_METHODS</item>
+                </item>
+                <item name="disable_sm" xsi:type="array">
+                    <item name="action" xsi:type="const">\Digidirect\ExtendedShippingRates\Model\Rule::ACTION_DISABLE_SM</item>
+                    <item name="fields" xsi:type="const">\Digidirect\ExtendedShippingRates\Api\Data\RuleInterface::DISABLED_SHIPPING_METHODS</item>
+                </item>
+                <item name="use_alt_title" xsi:type="array">
+                    <item name="action" xsi:type="const">\Digidirect\ExtendedShippingRates\Model\Rule::ACTION_USE_ALT_TITLE</item>
+                    <item name="fields" xsi:type="const">\Digidirect\ExtendedShippingRates\Api\Data\RuleAlternativeTitleInterface::USED_ALT_TITLE_SHIPPING_METHODS</item>
+                </item>
+                <item name="use_alt_code" xsi:type="array">
+                    <item name="action" xsi:type="const">\Digidirect\ExtendedShippingRates\Model\Rule::ACTION_USE_ALT_CODE</item>
+                    <item name="fields" xsi:type="const">\Digidirect\ExtendedShippingRates\Api\Data\RuleAlternativeCodeInterface::USED_ALT_CODE_SHIPPING_METHODS</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Quote\Model\CouponManagement">
+        <plugin name="digidirect_extendedshippingrates_magento_quote_model_couponmanagement"
+                type="Digidirect\ExtendedShippingRates\Plugin\Magento\Quote\Model\CouponManagementPlugin"/>
+    </type>
+</config>

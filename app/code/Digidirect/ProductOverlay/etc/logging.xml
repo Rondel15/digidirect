@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<logging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Logging:etc/logging.xsd">
+    <groups>
+        <group name="digidirect_productoverlay_overlays">
+            <label translate="true">Digidirect Product Overlay</label>
+            <expected_models>
+                <expected_model class="Digidirect\ProductOverlay\Model\Overlays" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_productoverlay_overlays_edit" action_alias="view" />
+                <event controller_action="digidirect_productoverlay_overlays_save" action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_productoverlay_overlays_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_productoverlay_overlays_delete" action_alias="delete" />
+            </events>
+        </group>
+    </groups>
+</logging>

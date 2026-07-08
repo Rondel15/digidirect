@@ -1,0 +1,79 @@
+<div class="cyber first_popup">
+    <div class="cyber__container">
+        <button class="cyber__close-bth close cross"><span>{{text_cancel}}</span></button>
+        <div class="cyber__bg">
+            <div class="cyber__circles">
+                <img
+                        class="cyber__circle1"
+                        src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_1_circle.svg'}}"
+                        width="890"
+                        alt=""
+                />
+                <img
+                        class="cyber__circle2"
+                        src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_2_circle.svg'}}"
+                        width="890"
+                        alt=""
+                />
+                <img
+                        class="cyber__circle3"
+                        src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_3_circle.svg'}}"
+                        width="890"
+                        alt=""
+                />
+            </div>
+            <div class="cyber-scene">
+                <div class="cyber-scene__wrapper" id="cyber-scene-wrapper">
+                    <div class="cyber-scene__item">
+                        <img
+                                class="cyber-scene__img"
+                                data-depth="-0.05"
+                                src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_laptop.png'}}"
+                                width="416"
+                                height="274"
+                                alt=""
+                        />
+                    </div>
+                    <div class="cyber-scene__item">
+                        <img
+                                class="cyber-scene__img"
+                                data-depth="0.12"
+                                src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_laptop.png'}}"
+                                width="416"
+                                height="274"
+                                alt=""
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cyber__wrapper">
+            <div class="cyber__inner">
+                <div class="cyber__header">
+                    <img
+                            src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme26_header.png'}}"
+                            alt="Cyber Monday Deals"
+                            draggable="false"
+                    />
+                </div>
+                <div class="cyber__promo">
+                    <p class="cyber__text">{{text_title}}</p>
+                    <p class="cyber__off">10% OFF</p>
+                    <p class="cyber__text">{{text_description}}</p>
+                </div>
+                <div class="cyber__actions">
+                    <button class="cyber__btn show_secondary_popup" type="button">{{text_submit}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cyber__form-wrap secondary_popup hidden">
+    <form action="" method="post" class="cyber__form">
+        <button class="cyber__close-bth close cross"><span>{{text_cancel}}</span></button>
+        {{form_fields}}
+        <button class="cyber__btn" type="submit">
+            {{text_submit}}
+        </button>
+    </form>
+</div>

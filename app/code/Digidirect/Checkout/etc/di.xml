@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Checkout\Model\Session" type="Digidirect\Checkout\Model\Session" />
+    <preference for="Magento\Checkout\Block\Onepage\Success" type="Digidirect\Checkout\Block\Onepage\Success" />
+    <type name="Magento\Checkout\CustomerData\AbstractItem">
+        <plugin name="Digidirect_Checkout_DefaultItemPlugin" type="Digidirect\Checkout\Plugin\DefaultItemPlugin" sortOrder="10"  disabled="false" />
+    </type>
+    <type name="Magento\Shipping\Model\Shipping">
+        <plugin name="digidirect_disable_shipping_method" sortOrder="10" type="Digidirect\Checkout\Plugin\Model\Shipping" disabled="false" />
+    </type>
+    <type name="Magento\Checkout\Block\Checkout\LayoutProcessor">
+        <plugin name="Custom_Checkout" type="Digidirect\Checkout\Block\Cart\LayoutProcessor" sortOrder="10"/>
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="limit_cart_quantity" type="Digidirect\Checkout\Plugin\Model\Cart"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="AddAttPlug" type="Digidirect\Checkout\Plugin\DefaultItem" disabled="false" sortOrder="10"/>
+    </type>
+</config>

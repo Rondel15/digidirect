@@ -1,0 +1,182 @@
+//
+//  Customer: Login
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@customer-login-container__width__l: 970px;
+@customer-login-block__width__l: 420px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .login-container {
+        & {
+            margin-bottom: 30px;
+        }
+
+        .block-new-customer {
+            margin-bottom: 0;
+        }
+
+        .block-customer-login .actions-toolbar > .primary {
+            margin-bottom: 20px;
+            padding-top: 10px;
+        }
+        
+        .block{
+            .block-title{
+                text-transform: uppercase;
+            }
+        }
+        
+        .actions-toolbar{
+            .primary{
+                a.button{
+                    font-size: 16px;
+                    
+                    &:hover{
+                        background: #ce6e3a !important;
+                    }
+                }
+            }
+        }
+        
+        .actions-toolbar{
+            .secondary{
+                a.action{
+                    color: #222;
+                    font-weight: bold;
+                    
+                    span{
+                        color: #222;
+                    }
+                    
+                    &:hover{
+                        background: #ce6e3a !important;
+                    }
+                }
+            }
+        }
+    }
+
+    .block.-vast {
+        .actions-toolbar > .secondary {
+            .lib-css(font-weight, @font-weight__heavier);
+            .lib-font-size(13);
+            text-align: left;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .login-container {
+        margin-bottom: 40px;
+        
+        .block-content{
+            .form{
+                .fieldset{
+                    .actions-toolbar{
+                        margin-left: 0;
+                        
+                        .primary{
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block.-vast {
+        & {
+            width: 100%;
+        }
+
+        .actions-toolbar,
+        .actions-toolbar {
+            .lib-actions-toolbar-clear-floats();
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .login-container {
+        & {
+            .lib-css(width, @customer-login-container__width__l);
+            margin: 0 auto 60px;
+            padding-top: 20px;
+            
+            .block{
+                .block-title{
+                    &.-great {
+                        font-size: 18px;
+                        margin: 0 0 30px;
+                    } 
+                    
+                    strong{
+                        font-weight: 600;
+                    }
+                } 
+            } 
+        }
+
+        .block-customer-login {
+            .lib-css(width, @customer-login-block__width__l);
+            margin-bottom: 0;
+        }
+
+        .block-new-customer {
+            .lib-css(width, @customer-login-block__width__l);
+        }
+
+        .block-customer-login .actions-toolbar > .primary {
+            margin-bottom: 17px;
+        }
+    }
+
+    .block.-vast {
+        .actions-toolbar > .secondary {
+            .lib-font-size(14);
+        }
+    }
+    
+    .actions-toolbar{
+        .primary{
+           .action,
+           a.button{
+               width: 100%;
+                background-image: none;
+                background: #e65300;
+                border: 2px solid transparent;
+                color: #fff;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: 700;
+                margin: 0;
+                padding: 10px 15px;
+                font-size: 16px !important;
+                line-height: 1.6rem;
+                box-sizing: border-box;
+                vertical-align: middle;
+                border-radius: 0;
+
+               span{
+                   color: #fff;
+               }
+           }
+       }
+   }      
+}

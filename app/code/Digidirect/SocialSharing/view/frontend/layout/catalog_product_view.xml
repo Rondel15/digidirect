@@ -1,0 +1,12 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.social">
+            <block class="Digidirect\SocialSharing\Block\Sharing" name="digidirect.social.sharing" before="product.info.mailto" template="sharing.phtml" ifconfig="digidirect_social_sharing/general/enable">
+                <block class="Digidirect\SocialSharing\Block\Sharing" name="digidirect.social.sharing.facebook" template="elements/facebook.phtml" ifconfig="digidirect_social_sharing/sharing_facebook/enable"/>
+                <block class="Digidirect\SocialSharing\Block\Sharing" name="digidirect.social.sharing.google" template="elements/google.phtml"/>
+                <block class="Digidirect\SocialSharing\Block\Sharing" name="digidirect.social.sharing.pin" template="elements/pin.phtml" ifconfig="digidirect_social_sharing/sharing_pin/enable"/>
+                <block class="Digidirect\SocialSharing\Block\Sharing" name="digidirect.social.sharing.twitter" template="elements/twitter.phtml" ifconfig="digidirect_social_sharing/sharing_twitter/enable"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="adminhtml_digidirect_abstractentity_save_after">
+        <observer name="Digidirect_MyStoreWidget::store_data_save_after" instance="Digidirect\MyStoreWidget\Observer\Admin\MyStoreSaveAfterObserver" />
+    </event>
+    <event name="admin_system_config_changed_section_digidirect_mystorewidget">
+        <observer name="Digidirect_MyStoreWidget::reindex_store_data_config" instance="Digidirect\MyStoreWidget\Observer\Admin\ReindexStoreDataObserver" />
+    </event>
+</config>

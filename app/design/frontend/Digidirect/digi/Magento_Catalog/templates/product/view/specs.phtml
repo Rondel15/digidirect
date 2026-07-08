@@ -1,0 +1,6 @@
+<?php
+$productSpec = $block->getProduct()->getData('specification');
+?>
+<?php if ($productSpec): ?>
+    <div class="item spec"><?php echo $productSpec; ?></div>
+<?php endif; ?>

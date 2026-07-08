@@ -1,0 +1,28 @@
+name: Amazon(pictures)
+type: xml
+xml:
+  schema: |+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <AmazonEnvelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="amzn-envelope.xsd">
+      <Header>
+        <DocumentVersion>1.01</DocumentVersion>
+        <MerchantIdentifier>M_SELLER_354577</MerchantIdentifier>
+      </Header>
+      <MessageType>ProductImage</MessageType>
+      {% for product in context.products %}
+      <Message>
+        <MessageID>{{ product.entity_id }}</MessageID>
+        <OperationType>Update</OperationType>
+        <ProductImage>
+          <SKU><![CDATA[{{ product.sku }}]]></SKU>
+          <ImageType>Main</ImageType>
+          <ImageLocation><![CDATA[{{ product.image }}]]></ImageLocation>
+        </ProductImage>
+        <ProductImage>
+          <SKU><![CDATA[{{ product.sku }}]]></SKU>
+          <ImageType>PT1</ImageType>
+          <ImageLocation><![CDATA[{{ product.gallery[0] }}]]></ImageLocation>
+        </ProductImage>
+      </Message>
+      {% endfor %}
+    </AmazonEnvelope>

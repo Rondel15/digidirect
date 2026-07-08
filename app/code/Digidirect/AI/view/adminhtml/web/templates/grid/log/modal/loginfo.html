@@ -1,0 +1,87 @@
+<div id="log_info_main">
+    <!-- ko if: message-->
+    <!-- ko with: message-->
+    <!-- ko if: text-->
+    <div class="ajax-messages" data-bind="text: text, css: state"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+    <div class="row">
+        <div class="left-side">
+            <div class="top-section">
+                <!-- ko if: created_at -->
+                <i data-bind="text: created_at"></i><br/><br/>
+                <!-- /ko -->
+    
+                <!-- ko if: download_link -->
+                <a data-bind="attr: {href: download_link}" class="item" title="download">Download LOG File</a>
+                <!-- /ko -->
+                <!-- ko ifnot: download_link -->
+                <span>Log File does not exist</span>
+                <!-- /ko -->
+            </div>
+            <div class="middle-section">
+                <!-- ko if: details -->
+                <pre data-bind="text: details"></pre>
+                <!-- /ko -->
+            </div>
+        </div>
+    
+        <!-- ko if: details -->
+        <div class="right-side">
+            <form class="email-block" id="send-report-data" action="#" method="POST" data-bind="submit: sendForm">
+                <input type="hidden" name="log_id" value="" data-bind="value: id">
+    
+                <!-- ko if: download_link -->
+                <div class="controls">
+                    <input type="checkbox" id="attach-log-file" name="attach-log-file" class="admin__control-checkbox"/>
+                    <label for="attach-log-file"> Attach Log File to email</label>
+                </div>
+                <!-- /ko -->
+    
+                <button data-bind="click: addMailField" class="addemail">ADD EMAIL</button>
+    
+                <div class="fields" data-bind="foreach: mailfields">
+                    <div class="field">
+                        <a data-bind="click: $parent.deleteMailField" class="delete" href="#delete_field"
+                           title="Delete field">?</a>
+                        <input data-bind="attr: {name:'emails[' + $data + ']'}" class="emails"
+                               data-validate="{required:true, 'validate-email':true}" type="email"/>
+                    </div>
+                </div>
+    
+                <button type="submit" id="send-report-emails" class="send">SEND</button>
+            </form>
+        </div>
+        <!-- /ko -->
+    </div>
+    <!-- ko if: connector_data -->
+        <div class="payloads-section">
+            <h2>Payloads</h2>
+            <hr>
+            <div class="payloads-list">
+                <!-- ko foreach: { data: connector_data, as: 'row' } -->
+                    <dl>
+                        <dt data-bind="i18n: 'Method'"></dt>
+                        <dd><span data-bind="html: row.method"></span></dd>
+
+                        <dt data-bind="i18n: 'Url'"></dt>
+                        <dd><span data-bind="html: row.url"></span></dd>
+
+                        <dt data-bind="i18n: 'Response Status'"></dt>
+                        <dd><span data-bind="html: row.response_status"></span></dd>
+                        <!-- ko if: row.request_download_link -->
+                        <dt data-bind="i18n: 'Request Payload'"></dt>
+                        <dd><a data-bind="attr: {href: row.request_download_link}, i18n: 'Download'" class="item" title="Download"></a></dd>
+                        <!-- /ko -->
+                        <!-- ko if: row.response_download_link -->
+                        <dt data-bind="i18n: 'Response Payload'"></dt>
+                        <dd><a data-bind="attr: {href: row.response_download_link}, i18n: 'Download'" class="item" title="Download"></a></dd>
+                        <!-- /ko -->
+                    </dl>
+                    <hr/>
+                <!-- /ko -->
+            </div>
+        </div>
+    <!-- /ko -->
+</div>

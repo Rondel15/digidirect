@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <giftcard_service>
+            <vii>
+                <title>Vii</title>
+                <active>1</active>
+                <code>vii</code>
+                <allowspecific>0</allowspecific>
+                <model>ViiServiceAdapter</model>
+                <curl_ssl_version>-1</curl_ssl_version>
+                <sort_order>1</sort_order>
+                <can_check_status>1</can_check_status>
+                <can_hold>1</can_hold>
+                <can_accept>1</can_accept>
+                <can_cancel>1</can_cancel>
+                <can_use_on_front>1</can_use_on_front>
+                <can_undo>1</can_undo>
+                <order_cron_expr>45 0 * * *</order_cron_expr>
+                <quote_cron_expr>0 1 * * *</quote_cron_expr>
+                <quote_visitor_cron_expr>*/15 * * * *</quote_visitor_cron_expr>
+                <send_undo_cron_expr>*/5 * * * *</send_undo_cron_expr>
+            </vii>
+        </giftcard_service>
+    </default>
+</config>

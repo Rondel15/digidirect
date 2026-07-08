@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--<referenceBlock name="header_mystore_widget" remove="true" />-->
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="my-store" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Digidirect_MyStoreWidget/js/view/mystore</item>
+                                                                    <item name="sortOrder" xsi:type="string">30</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="widget" xsi:type="array">
+                                                                            <item name="options" xsi:type="array">
+                                                                                <item name="container" xsi:type="string">#block-opcmystorebar</item>
+                                                                                <item name="form" xsi:type="string">#mystorecheckout-form</item>
+                                                                                <item name="input" xsi:type="string">#mystorecheckout-input</item>
+                                                                                <item name="findStoreInput" xsi:type="string">#mystorecheckout_find_store</item>
+                                                                                <item name="entityId" xsi:type="string">#checkout_abstract_entity_id</item>
+                                                                                <item name="saveAction" xsi:type="string">#block-opcmystorebar [data-action="save-mystore"]</item>
+                                                                                <item name="isAjaxSave" xsi:type="boolean">true</item>
+                                                                                <item name="googleInputPrefix" xsi:type="string">#mystorecheckout_</item>
+                                                                                <item name="autocompleteSettings" xsi:type="array">
+                                                                                    <item name="appendTo" xsi:type="string">#mystorecheckout-control</item>
+                                                                                </item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                    <item name="children" xsi:type="array">
+                                                                        <item name="errors" xsi:type="array">
+                                                                            <item name="sortOrder" xsi:type="string">0</item>
+                                                                            <item name="component" xsi:type="string">Digidirect_MyStoreWidget/js/view/messages</item>
+                                                                            <item name="displayArea" xsi:type="string">messages</item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Store/etc/config.xsd">
+    <default>
+        <digidirect_extendedcatalogpricerules>
+            <general>
+                <add_dynamic_price>0</add_dynamic_price>
+            </general>
+        </digidirect_extendedcatalogpricerules>
+    </default>
+</config>

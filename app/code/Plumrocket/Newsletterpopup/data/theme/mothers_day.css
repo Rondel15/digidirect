@@ -1,0 +1,62 @@
+.hidden{display:none}
+.newspopup_up_bg,.newspopup-theme{position:fixed;top:0;bottom:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.3)}
+.newspopup-theme{overflow:hidden;overflow-y:auto;background:transparent}
+.newspopup_up_bg img{max-width:100%;height:auto}
+.newspopup_up_bg a{text-decoration:none}
+.newspopup_up_bg button{cursor:pointer}
+.mother-day{position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);box-sizing:border-box;text-align:center}
+.mother-day__container{position:relative;min-width:517px;text-align:center}
+.pr-mode-form .mother-day{position:relative;left:0;transform:none;margin-bottom:15px}
+.pr-mode-form .mother-day__form-wrap{position:relative}
+.pr-mode-form .mother-day__form{margin:0 auto}
+.mother-day__close{margin-top:170px;position:absolute;right:0;top:0;background:none;border:none;padding:15px;outline:none;z-index:20;box-shadow:none}
+.mother-day__close:before,.mother-day__close:after{content:"";display:block;background:#626262;width:10px;height:1px;transform:rotate(45deg)}
+.mother-day__close:after{transform:translateY(-1px) rotate(-45deg)}
+.mother-day__close > span{position:absolute;overflow:hidden;clip:rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0}
+.mother-day__close:active:before,.mother-day__close:active:after,.mother-day__close:hover:before,.mother-day__close:hover:after{background:#999}
+.mother-day__content{position:absolute;top:0;left:0;width:100%;padding-top:270px;padding-left:73px;box-sizing:border-box}
+.mother-day__title{margin:0}
+.mother-day__descr{color:#4b6958;margin:25px 0 27px}
+.mother-day__subscr,.mother-day__order{font:16px/1.4 "Open Sans",sans-serif;display:block}
+.mother-day__off{font:60px/1 "Work Sans",sans-serif;display:block}
+.mother-day__btn{background:#0c8f21;margin-bottom:33px;font-family:"Open Sans",Arial,Helvetica,sans-serif;font-size:18px;font-weight:400;color:#fff;text-transform:uppercase;border:none;border-radius:3px;padding:15px;min-width:196px;box-sizing:border-box;transition:.3s;line-height:1;box-shadow:none}
+.mother-day__btn:hover{transform:scale(1.05)}
+.mother-day__form-wrap{position:absolute;top:10%;left:50%;transform:translateX(-50%)}
+.mother-day__form-wrap::after{content:"";display:block;height:15px}
+.mother-day__form{position:relative;display:flex;flex-direction:column;align-items:center;width:350px;max-width:80vw;margin-top:10px;padding:25px;color:#59430c;background:#ffeeac;border-radius:10px}
+.mother-day__form-wrap label{display:inline-block;margin-bottom:5px}
+.mother-day__form-wrap label a,.mother-day__form-wrap .g-recaptcha-key a{color:#59430c}
+.pr-np-fields-wrapper{width:100%;margin:0;padding:0;list-style:none}
+.pr-np-fields-wrapper li{margin-bottom:12px}
+.mother-day__form-wrap .mother-day__close{right:0;top:0}
+.mother-day__form input[type="text"],.mother-day__form input[type="email"],.mother-day__form input[type="number"],.mother-day__form input[type="password"],.mother-day__form select{height:40px;border:none;border-radius:3px}
+.mother-day__form .mother-day__btn{margin-top:15px;margin-bottom:0}
+.mother-day__form a{color:#fff;text-decoration:underline}
+.mother-day__form .agreement-hld{display:inline-block}
+.mother-day__form .input-box{position:relative;width:100%}
+.mother-day__form .nl_agreement_2_label{margin-bottom:0}
+.agreement-hld .data-agreement.checkbox{margin-top:0}
+.newspopup_up_bg div.mage-error{background:red}
+.newspopup_up_bg div.mage-error:after{border-left:8px solid red}
+.mother-day__form .mother-day__close{margin-top:0}
+.mother-day__form #agreement-error{top:-15px}
+@media (max-width: 768px) {
+    .newspopup_up_bg div.mage-error{left:0;bottom:-15px;width:100%;padding:2px 10px!important;border-radius:0;box-shadow:none}
+    .newspopup_up_bg div.mage-error:after{display:none}
+    .mother-day__form #agreement-error{top:10px}
+}
+@media (max-width: 554px) {
+    .mother-day{width:100%}
+    .mother-day__wrapper{width:calc(100% - 30px);margin-left:10px}
+    .mother-day__container{min-width:calc(100% - 30px)}
+    .mother-day__content{width:calc(100% - 30px);padding-top:48vw;padding-left:16vw}
+    .mother-day__title{padding:0 8.3vw}
+    .mother-day__descr{margin:3.5vw 0 3.9vw}
+    .mother-day__off{font-size:10vw}
+    .mother-day__btn{padding:10px}
+    .mother-day__close{right:20px;margin-top:32vw}
+    .mother-day__subscr{font-size:14px}
+}
+@media (max-width: 400px) {
+    .mother-day__descr{margin:.5vw 0 2.9vw}
+}

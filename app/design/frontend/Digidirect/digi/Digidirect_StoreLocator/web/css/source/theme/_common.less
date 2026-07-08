@@ -1,0 +1,882 @@
+//
+//  Locator:common
+//  _____________________________________________
+
+//  Redeploy
+//  Variables
+//  ---------------------------------------------
+
+@locator-map__min-height: 500px;
+//@locator-map-img__max-width: none;
+
+@locator-items-column__width__l: 510px;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    /*.store-locator {*/
+    .locator-details .name,
+    .locator-item .name{
+        font-family: 'Poppins', sans-serif;
+    }
+    /*}*/
+
+    .store-locator {
+
+         margin-top: 50px;
+        
+         //St Peter Hide
+        //  div#sldetails-St\ Peters {
+        //      display: none !important;
+        //  }
+         
+        //  #scontentSt\ Peters {
+        //      display: none !important;
+        //  }
+         //
+
+        .St.Peters:checked ~ .scontent-St.Peters {
+            display: block;
+            background: #F5F5F5;
+        }
+         
+         .Sydney:checked ~ .scontent-Sydney {
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Brisbane:checked ~ .scontent-Brisbane{
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Bondi.Junction:checked ~ .scontent-Bondi.Junction{
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Melbourne:checked ~ .scontent-Melbourne{
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Miranda:checked ~ .scontent-Miranda{
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Parramatta:checked ~ .scontent-Parramatta {
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+         .Cannington:checked ~ .scontent-Cannington{
+             display: block;
+             background: #F5F5F5;
+         }
+ 
+ 
+         //st peter hide
+        //  div#sldetails-New\ South\ Wales {
+        //      display: none !important;
+        //  }
+ 
+        //  div#scontentNew\ South\ Wales {
+        //      display: none !important;
+        //  }
+
+        .scontent-St.Peters {
+            display:none;
+        }
+ 
+         .scontent-Sydney {
+             display:none;
+             // background: #F5F5F5;
+         }
+ 
+         // .Sydney ~ #sldetails-Sydney {
+         //     background: #F5F5F5;
+         //     margin-right: -25px;
+         // }
+ 
+         // .Sydney:not(:checked) ~ #sldetails-Sydney {
+         //     background: transparent;
+         // }
+ 
+ 
+         // .Brisbane:checked .Sydney:not(:checked) ~ #sldetails-Sydney,
+         // .Bondi.Junction:checked .Sydney:not(:checked) ~ #sldetails-Sydney,
+         // .Melbourne:checked .Sydney:not(:checked) ~ #sldetails-Sydney,
+         // .Miranda:checked .Sydney:not(:checked) ~ #sldetails-Sydney,
+         // .Cannington:checked .Sydney:not(:checked) ~ #sldetails-Sydney {
+         //     background: transparent;
+         //     color: red;
+         // }
+ 
+         // .Sydney:not(:checked) .Sydney ~ #sldetails-Sydney,
+         // .Brisbane:not(:checked) .Sydney ~ #sldetails-Sydney,
+         // .Bondi.Junction:not(:checked) .Sydney ~ #sldetails-Sydney,
+         // .Melbourne:not(:checked) .Sydney ~ #sldetails-Sydney,
+         // .Miranda:not(:checked) .Sydney ~ #sldetails-Sydney,
+         // .Cannington:not(:checked) .Sydney ~ #sldetails-Sydney {
+         //     background: #F5F5F5;
+         //     margin-right: -25px;
+         // }
+ 
+         .scontent-Brisbane{
+             display:none;
+         }
+ 
+         // .scontent-Bondi.Junction{
+         //     display: block;
+         //     background: #F5F5F5;
+         //     // background-color: #F5F5F5;
+         // }
+ 
+         .scontent-Melbourne{
+             display:none;
+         }
+ 
+         .scontent-Miranda{
+             display:none;
+         }
+ 
+         .scontent-Cannington{
+             display:none;
+         }
+ 
+         .scontent-Parramatta{
+             display:none;
+         }
+ 
+         .parent-storelist {
+             display: grid; //Rondel Fix
+             // grid-gap: 0.5rem;
+             grid-template-columns: 1fr 2fr;
+             grid-auto-flow: dense;
+             padding: 0.5rem;
+         }
+ 
+         //Rondel Fix
+         .store-hour .image._hide-for-mobile {
+             object-fit: contain;
+         }
+ 
+         input[type="radio"] {
+             display: none;
+             /*display: block;*/
+         }
+ 
+         input[type="radio"]:checked  ~ .sldetails{
+             background-color: #F5F5F5;
+             margin-right: -25px;
+         }
+ 
+         .sdetails {
+             position: absolute;
+             top: 10px;
+             /*left: 286px;*/
+             /*background: red;*/
+             right: 0;
+             bottom: 0;
+             padding: 5px;
+             margin: 15px 0 15px 0;
+             // border: 1px solid #ccc;
+             width: 62%;
+             // height: 1200px;
+             height: 100% ;
+ 
+             h2.name-city{
+                 font-weight: 500;
+                 font-size: 22px;
+                 margin-bottom: 1rem !important;
+             }
+ 
+             h3.storehours {
+                 color: #e65504 !important;
+                 font-weight: 500;
+                 margin-top: 0.8rem !important;
+             }
+ 
+             .shours-section {
+ 
+                 display: flex;
+ 
+                 table {
+                     width: 100%;
+ 
+                     // tbody tr:nth-child(3) {
+                     //     color: #e65504 !important;
+                     // }
+ 
+                     tr>td {
+                         padding-bottom: 1px !important;
+                     }
+                 }
+ 
+                 table>thead>tr>th, table>tbody>tr>th, table>tfoot>tr>th, table>thead>tr>td, table>tbody>tr>td, table>tfoot>tr>td {
+                     padding: 2px 5px !important;
+                 }
+ 
+                 .store-hour {
+                     position: relative;
+                     display: inline-block;
+                     vertical-align: top;
+                     margin: 25px;
+                 }
+             }
+ 
+             .scontent-inner {
+                 margin: 55px;
+             }
+        }
+       
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .store-locator {
+        & {
+            margin-bottom: 60px;
+        }
+
+        .sldetails {
+            margin-right: -25px;
+        }
+
+        .parent-storelist {
+            display: grid !important; //Rondel Fix
+        }
+
+        .scontent-Bondi.Junction{
+            display: block;
+            background: #F5F5F5;
+            // background-color: #F5F5F5;
+        }
+
+        .grid-row {
+            /*display: flex;*/
+            margin-top: 30px;
+            // align-items: center;
+            justify-content: start;
+        }
+
+        .store-view.grid-row > .column.-main {
+            align-items: unset;
+            justify-content: unset;
+        }
+
+        .grid-row > .column.-left {
+            flex-basis: 530px;
+        }
+
+        .store-view.grid-row > .column.-left {
+            flex-basis: 512px;
+        }
+
+        .grid-row > .column.-main {
+            .lib-css(flex-basis, (@screen__xl - @locator-items-column__width__l) / @screen__xl * 100%);
+            display: none;
+        }
+
+        .store-view.grid-row > .column.-main {
+            display: block;
+        }
+
+        .locator-search {
+            margin-bottom: 38px;
+            display: none;
+        }
+
+        .store-wrapper {
+            .store-items {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .store-details {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-left: 15px;
+            }
+        }
+
+        img[alt="Melbourne CBD"] {
+            width: 145px !important;
+        }
+
+        .locator-list .locator-item {
+            border: none !important;
+        }
+
+        .locator-item .address {
+            margin: 0 5px 18px !important;
+        }
+       
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+@media (min-width:768px) and (max-width: 1024px) {
+// .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) { 
+        .store-locator {
+        margin-top: 50px;
+        // display: none;
+
+        .storebanners {
+            img.store-locatorbanner2 {
+                // display: none !important;
+                width: 60% !important;
+            }
+
+            img.store-locatorbanner1 {
+                margin: 0 !important;
+                width: 30% !important;
+            }
+        }
+
+        .locator-search {
+            display: none;
+        }
+
+        // .scontent-Sydney {
+        //     display:none;
+        // }
+
+        .scontent-Bondi.Junction{
+            display: none;
+        }
+
+        img[alt="Melbourne CBD"] {
+            width: 145px !important;
+        }
+
+        .sdetails {
+            // position: initial;
+            position: initial !important;
+            // padding: 0px;
+            width: 98% !important;
+            height: auto !important;
+            margin: 0 !important;
+
+            h2.name-city {
+                display: none !important;
+            }
+
+            .scontent-inner {
+                margin: 5px !important;
+            }
+
+        }
+
+        .locator-item {
+
+            .address {
+                margin: 0 0 5px;
+                font-size: 12px;
+                display: flex;
+            }
+
+            .name {
+                margin: 0 0 5px
+            }
+
+            .main.-phone {
+                font-size: 12px;
+            }
+
+            .image {
+                // display: block;
+                display: block !important;
+                margin: 0 20px 0 0;
+            }
+
+        }
+
+        .parent-storelist {
+            // display: block;
+            display: block !important;
+            border: 1px solid #c7c7c7 !important;
+            margin-bottom: 15px;
+            background: #F5F5F5;
+
+            .store-hour {
+
+                margin: 5px !important;
+
+                .image {
+                    display: none !important;
+                }
+
+                .openwelcome {
+                    width: 80%;
+                }
+            }
+
+            input[type="checkbox"]:checked {
+                background: red;
+            }
+
+            input[type="checkbox"] {
+                -webkit-appearance: initial;
+                appearance: initial;
+                color: black;
+                position: relative;
+                right: -55px;
+                font-size: 15px;
+            }
+
+            input[type="checkbox"]:checked:after {
+                content: "x";
+                color: red;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+            input[type="checkbox"]:not(:checked):before {
+                content: 'x';
+
+            }
+
+        }
+
+        // .locator-wrapper.locator-item.item.sldetails.store-wrapper.column {
+        //     border: 1px solid #c7c7c7 !important;
+        // }
+
+
+
+        input[type=radio]:checked~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:not(:checked)~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:checked~.sldetails {
+            margin-right: 0px !important;
+            border: none !important;
+        }
+
+        .store-view.grid-row > .column.-main {
+            align-items: unset;
+            justify-content: unset;
+        }
+
+        .locator-list .details > .link{
+            color: #222;
+            font-weight: bold;
+        }
+
+        .locator-details .name,
+        .locator-item .name{
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        div#locator-map {
+            display: none;
+        }
+
+    }
+}
+
+
+@media (min-width:1025px) and (max-width: 1279px) {
+    .store-locator {
+        margin-top: 50px;
+        // display: none;
+
+        .storebanners {
+            img.store-locatorbanner2 {
+                // display: none !important;
+                width: 60% !important;
+            }
+
+            img.store-locatorbanner1 {
+                margin: 0 !important;
+                width: 30% !important;
+            }
+        }
+
+        .locator-search {
+            display: none;
+        }
+
+        // .scontent-Sydney {
+        //     display:none;
+        // }
+
+        .scontent-Bondi.Junction{
+            display: none;
+        }
+
+        img[alt="Melbourne CBD"] {
+            width: 145px !important;
+        }
+
+        .sdetails {
+            // position: initial;
+            position: initial !important;
+            // padding: 0px;
+            width: 98% !important;
+            height: auto !important;
+            margin: 0 !important;
+
+            h2.name-city {
+                display: none !important;
+            }
+
+            .scontent-inner {
+                margin: 5px !important;
+            }
+
+        }
+
+        .locator-item {
+
+            .address {
+                margin: 0 0 5px;
+                font-size: 12px;
+                display: flex;
+            }
+
+            .name {
+                margin: 0 0 5px
+            }
+
+            .main.-phone {
+                font-size: 12px;
+            }
+
+            .image {
+                // display: block;
+                display: block !important;
+                margin: 0 20px 0 0;
+            }
+
+        }
+
+        .parent-storelist {
+            // display: block;
+            display: block !important;
+            border: 1px solid #c7c7c7 !important;
+            margin-bottom: 15px;
+            background: #F5F5F5;
+
+            .store-hour {
+
+                margin: 5px !important;
+
+                .image {
+                    display: none !important;
+                }
+
+                .openwelcome {
+                    width: 80%;
+                }
+            }
+
+            input[type="checkbox"]:checked {
+                background: red;
+            }
+
+            input[type="checkbox"] {
+                -webkit-appearance: initial;
+                appearance: initial;
+                color: black;
+                position: relative;
+                right: -55px;
+                font-size: 15px;
+            }
+
+            input[type="checkbox"]:checked:after {
+                content: "x";
+                color: red;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+            input[type="checkbox"]:not(:checked):before {
+                content: 'x';
+
+            }
+
+        }
+
+        // .locator-wrapper.locator-item.item.sldetails.store-wrapper.column {
+        //     border: 1px solid #c7c7c7 !important;
+        // }
+
+
+
+        input[type=radio]:checked~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:not(:checked)~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:checked~.sldetails {
+            margin-right: 0px !important;
+            border: none !important;
+        }
+
+        .store-view.grid-row > .column.-main {
+            align-items: unset;
+            justify-content: unset;
+        }
+
+        .locator-list .details > .link{
+            color: #222;
+            font-weight: bold;
+        }
+
+        .locator-details .name,
+        .locator-item .name{
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        div#locator-map {
+            display: none;
+        }
+
+    } 
+
+}
+
+//
+//  Mobile Only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .store-locator {
+
+        // margin-top: 50px;
+        // display: none;
+        margin-top: -15px;
+
+        .google-map-wrapper.column.-main.storemap {
+            display: none !important;
+        }
+
+        .storebanners {
+
+            // img {
+            //     margin: 0;
+            // }
+
+            img.store-locatorbanner2 {
+                display: none !important;
+            }
+
+            img.store-locatorbanner1 {
+                margin: 0 !important;
+                display: none !important;
+            }
+        }
+
+        .locator-search {
+            display: none;
+        }
+
+        // .scontent-Sydney {
+        //     display:none;
+        // }
+
+        .scontent-Bondi.Junction{
+            display: none;
+        }
+
+        img[alt="Melbourne CBD"] {
+            width: 145px !important;
+        }
+
+        .sdetails {
+            // position: initial;
+            position: initial !important;
+            // padding: 0px;
+            width: 98% !important;
+            height: auto !important;
+            margin: 0 !important;
+
+            h2.name-city {
+                display: none !important;
+            }
+
+            .scontent-inner {
+                margin: 5px !important;
+            }
+
+        }
+
+        .locator-item {
+
+            .address {
+                margin: 0 0 5px;
+                font-size: 12px;
+                display: flex;
+            }
+
+            .name {
+                margin: 0 0 5px
+            }
+
+            .main.-phone {
+                font-size: 12px;
+            }
+
+            .image {
+                // display: block;
+                display: block !important;
+                margin: 0 20px 0 0;
+            }
+
+        }
+
+        .parent-storelist {
+            // display: block;
+            display: block !important;
+            border: 1px solid #c7c7c7 !important;
+            margin-bottom: 15px;
+            background: #F5F5F5;
+
+            .store-hour {
+
+                margin: 5px !important;
+
+                .image {
+                    display: none !important;
+                }
+
+                .openwelcome {
+                    width: 80%;
+                }
+            }
+
+            input[type="checkbox"]:checked {
+                background: red;
+            }
+
+            input[type="checkbox"] {
+                -webkit-appearance: initial;
+                appearance: initial;
+                color: black;
+                position: relative;
+                right: -55px;
+                font-size: 15px;
+            }
+
+            input[type="checkbox"]:checked:after {
+                content: "x";
+                color: red;
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                -moz-transform: translate(-50%,-50%);
+                -ms-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+            input[type="checkbox"]:not(:checked):before {
+                content: 'x';
+
+            }
+
+        }
+
+        // .locator-wrapper.locator-item.item.sldetails.store-wrapper.column {
+        //     border: 1px solid #c7c7c7 !important;
+        // }
+
+
+
+        input[type=radio]:checked~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:not(:checked)~.sl-close {
+            display: block;
+        }
+
+        input[type=radio]:checked~.sldetails {
+            margin-right: 0px !important;
+            border: none !important;
+        }
+
+        .grid-row {
+            display: flex;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .store-view.grid-row > .column.-main {
+            align-items: unset;
+            justify-content: unset;
+        }
+
+        .locator-list .details > .link{
+            color: #222;
+            font-weight: bold;
+        }
+
+        .locator-details .name,
+        .locator-item .name{
+            font-size: 18px;
+            font-weight: bold;
+        }
+    }
+
+    .message.info > *:first-child::before,
+    .message.error > *:first-child::before,
+    .message.warning > *:first-child::before,
+    .message.notice > *:first-child::before,
+    .message.success > *:first-child::before{
+        transform: unset !important;
+    }
+}
+
+@media (min-width:669px) and (max-width: 767px) { 
+    .store-locator .parent-storelist {
+        margin-left: 35px !important;
+        margin-right: 35px !important;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .store-locator {
+        .lib-css(max-width, @screen__xl);
+
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+}
+

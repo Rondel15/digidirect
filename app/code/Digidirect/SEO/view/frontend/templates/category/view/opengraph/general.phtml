@@ -1,0 +1,21 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Category\View */
+$category = $block->getCurrentCategory();
+if ($description = $category->getDescription()) {
+    $description = $this->helper('Magento\Catalog\Helper\Output')
+        ->categoryAttribute($block->getCurrentCategory(), $description, 'description');
+} else {
+    $description = $category->getName();
+}
+?>
+
+<meta name="twitter:card" content="summary_large_image" >
+<meta property="og:type" content="product.group" />
+<meta property="og:title" content="<?php echo $block->escapeHtml($category->getName()); ?>" />
+<meta property="og:description" content="<?php echo $block->escapeHtml($description) ?>" />
+<?php if ($imgUrl = $category->getImageUrl()): ?>
+    <meta property="og:image" content="<?php echo $block->escapeUrl($imgUrl); ?>" />
+<?php endif;?>
+<meta property="og:url" content="<?php echo $block->escapeUrl($category->getUrl()); ?>" />

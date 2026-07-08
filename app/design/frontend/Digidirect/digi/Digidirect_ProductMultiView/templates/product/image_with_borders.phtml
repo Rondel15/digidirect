@@ -1,0 +1,19 @@
+<?php /** @var $block \Magento\Catalog\Block\Product\Image */ ?>
+<span class="product-image-container multiview-container<?php if (!$block->getMultiViewImageUrl()): ?> -no-multiview<?php endif; ?>" style="width:<?php echo (int)$block->getWidth()?>px; height:<?php echo (int)$block->getHeight(); ?>px">
+    <span class="product-image-wrapper" style="padding-bottom: <?php echo (int)($block->getRatio() * 100); ?>%;">
+        <img class="product-image-photo"
+            <?php /* @escapeNotVerified */ echo $block->getCustomAttributes(); ?>
+             src="<?php echo $block->escapeUrl($block->getImageUrl()); ?>"
+             width="<?php echo (int)$block->getResizedImageWidth(); ?>"
+             height="<?php echo (int)$block->getResizedImageHeight(); ?>"
+             alt="<?php echo $block->escapeHtml($block->stripTags($block->getLabel(), null, true)); ?>"/>
+        <?php if ($block->getMultiViewImageUrl()): ?>
+            <img class="image"
+                <?php /* @escapeNotVerified */ echo $block->getCustomAttributes(); ?>
+                 src="<?php echo $block->escapeUrl($block->getMultiViewImageUrl()); ?>"
+                 width="<?php echo (int)$block->getMultiViewResizedImageWidth(); ?>"
+                 height="<?php echo (int)$block->getMultiViewResizedImageHeight(); ?>"
+                 alt="<?php echo $block->escapeHtml($block->stripTags($block->getLabel(), null, true)); ?>"/>
+        <?php endif; ?>
+    </span>
+</span>

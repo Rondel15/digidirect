@@ -1,0 +1,282 @@
+//
+//  Checkout: Authentication
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@authentication__is-enabled: true; // Enable/disable style
+
+//  Dropdown
+@authentication-dropdown__position__m: absolute;
+@authentication-dropdown__top__m: 100%;
+@authentication-dropdown__width__m: 100%;
+@authentication-dropdown__visibility__m: hidden;
+@authentication-dropdown__border__m: 1px solid @color-gray-light3;
+@authentication-dropdown__text-align__m: left;
+@authentication-dropdown__transform__m: scale(1, 0);
+@authentication-dropdown__transform-origin__m: 0 0;
+@authentication-dropdown__transition__m: transform linear .1s, visibility 0s linear .1s;
+@authentication-dropdown__background-color__m: @color-white;
+@authentication-dropdown__show__z-index__m: @dropdown-list__z-index;
+@authentication-dropdown__show__visibility__m: visible;
+@authentication-dropdown__show__transform__m: scale(1, 1);
+@authentication-dropdown__show__transition__m: transform linear .1s, visibility 0s linear 0s;
+@authentication-dropdown-modal-inner-wrap__padding: @indent__m;
+
+//  Wrapper
+@authentication-wrapper__position: relative;
+@authentication-wrapper__z-index: 1;
+@authentication-wrapper__float: right;
+@authentication-wrapper__max-width: 50%;
+@authentication-wrapper__margin-top: -65px;
+@authentication-wrapper__has-auth-shown__z-index: @modal__z-index;
+@authentication-wrapper__use-column-width__m: true;
+@authentication-wrapper__column-width__m: 4;
+@authentication-wrapper__text-align__m: right;
+
+//  Auth Toggle
+@authentication-action-auth-toggle__use-action-button-as-link: true;
+
+//  Block
+@authentication-block__margin: 0;
+@authentication-block__or-label__size: 36px;
+@authentication-block-ul__padding-left: @indent__s;
+@authentication-block-ul__list-style: none;
+@authentication-block-title__border-bottom__m: 0;
+@authentication-block-actions-toolbar-primary__float__m: right;
+@authentication-block-actions-toolbar-primary__display__m: inline;
+@authentication-block-actions-toolbar-primary__margin-right__m: 0;
+@authentication-block-actions-toolbar-primary-action__margin-right__m: 0;
+@authentication-block-actions-toolbar-secondary__float__m: left;
+@authentication-block-actions-toolbar-secondary__margin-right__m: 2rem;
+@authentication-block-actions-toolbar-secondary__padding-top__m: 1rem;
+
+//  Block + Block
+@authentication-block-siblings-block__position: relative;
+@authentication-block-siblings-block__margin-top: @indent__xl;
+@authentication-block-siblings-block__padding-top: @indent__xl;
+@authentication-block-siblings-block__border-top: 1px solid @color-gray-light5;
+@authentication-block-siblings-block__before__content: attr(data-label);
+@authentication-block-siblings-block__before__position: absolute;
+@authentication-block-siblings-block__before__top: 0;
+@authentication-block-siblings-block__before__left: 50%;
+@authentication-block-siblings-block__before__display: inline-block;
+@authentication-block-siblings-block__before__min-width: @authentication-block__or-label__size;
+@authentication-block-siblings-block__before__height: @authentication-block__or-label__size;
+@authentication-block-siblings-block__before__margin: -(@authentication-block__or-label__size/2 + 1px) 0 0 -(@authentication-block__or-label__size / 2);
+@authentication-block-siblings-block__before__padding: 0 .2rem;
+@authentication-block-siblings-block__before__border: 1px solid @color-gray-light5;
+@authentication-block-siblings-block__before__border-radius: 50%;
+@authentication-block-siblings-block__before__line-height: @authentication-block__or-label__size - 2px;
+@authentication-block-siblings-block__before__text-align: center;
+@authentication-block-siblings-block__before__letter-spacing: normal;
+@authentication-block-siblings-block__before__text-transform: uppercase;
+@authentication-block-siblings-block__before__color: @color-gray-light5;
+@authentication-block-siblings-block__before__background: @color-white;
+
+//  Block Action Register/Login
+@authentication-block-action-register-action-login__use-button-l: true;
+
+//  Popup Auth
+@authentication-popup-modal-inner-wrap__width__m: 60%;
+@authentication-popup-modal-inner-wrap__min-width__m: @screen__m;
+@authentication-popup-block-auth__use-vendor-prefix-display__m: true;
+@authentication-popup-block-auth__border-top__m: 1px solid @color-gray-light5;
+@authentication-popup-blocks-auth__use-vendor-prefix-display__m: true;
+@authentication-popup-block__float__m: left;
+@authentication-popup-block__width__m: 50%;
+@authentication-popup-block__padding__m: @indent__s @indent__l 0 0;
+@authentication-popup-block-siblings-block__margin__m: 0;
+@authentication-popup-block-siblings-block__padding__m: @indent__s 0 0 @indent__xl;
+@authentication-popup-block-siblings-block__border-top__m: 0;
+@authentication-popup-block-siblings-block__border-left__m: 1px solid @color-gray-light5;
+@authentication-popup-block-siblings-block__before__top__m: 50%;
+@authentication-popup-block-siblings-block__before__left__m: 0;
+@authentication-popup-actions-toolbar__margin-top__m: auto;
+@authentication-popup-actions-toolbar__margin-bottom__m: 0;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@authentication__is-enabled = true) {
+        .authentication-dropdown {
+            .modal-inner-wrap {
+                .lib-css(padding, @authentication-dropdown-modal-inner-wrap__padding);
+            }
+            
+            .modal-header{
+                padding-top: 0;
+                padding-bottom: 0;
+            }
+            
+            .modal-custom .action-close{
+                top: 0;
+                right: 28px;
+            }
+        }
+        .authentication-wrapper {
+            .lib-css(position, @authentication-wrapper__position);
+            .lib-css(z-index, @authentication-wrapper__z-index);
+            .lib-css(float, @authentication-wrapper__float);
+            .lib-css(max-width, @authentication-wrapper__max-width);
+            .lib-css(margin-top, @authentication-wrapper__margin-top);
+
+            ._has-auth-shown & {
+                .lib-css(z-index, @authentication-wrapper__has-auth-shown__z-index);
+            }
+        }
+
+        .action-auth-toggle {
+            & when (@authentication-action-auth-toggle__use-action-button-as-link = true) {
+                &:extend(.abs-action-button-as-link all);
+            }
+        }
+
+        .block-authentication {
+            .block[class] {
+                .lib-css(margin, @authentication-block__margin);
+
+                ul {
+                    .lib-css(padding-left, @authentication-block-ul__padding-left);
+                    .lib-css(list-style, @authentication-block-ul__list-style);
+                }
+            }
+            .block[class] + .block {
+                .lib-css(position, @authentication-block-siblings-block__position);
+                .lib-css(margin-top, @authentication-block-siblings-block__margin-top);
+                .lib-css(padding-top, @authentication-block-siblings-block__padding-top);
+                .lib-css(border-top, @authentication-block-siblings-block__border-top);
+
+                &::before {
+                    .lib-css(content, @authentication-block-siblings-block__before__content);
+                    .lib-css(position, @authentication-block-siblings-block__before__position);
+                    .lib-css(top, @authentication-block-siblings-block__before__top);
+                    .lib-css(left, @authentication-block-siblings-block__before__left);
+                    .lib-css(display, @authentication-block-siblings-block__before__display);
+                    .lib-css(min-width, @authentication-block-siblings-block__before__min-width);
+                    .lib-css(height, @authentication-block-siblings-block__before__height);
+                    .lib-css(margin, @authentication-block-siblings-block__before__margin);
+                    .lib-css(padding, @authentication-block-siblings-block__before__padding);
+                    .lib-css(border, @authentication-block-siblings-block__before__border);
+                    .lib-css(border-radius, @authentication-block-siblings-block__before__border-radius);
+                    .lib-css(line-height, @authentication-block-siblings-block__before__line-height);
+                    .lib-css(text-align, @authentication-block-siblings-block__before__text-align);
+                    .lib-css(letter-spacing, @authentication-block-siblings-block__before__letter-spacing);
+                    .lib-css(text-transform, @authentication-block-siblings-block__before__text-transform);
+                    .lib-css(color, @authentication-block-siblings-block__before__color);
+                    .lib-css(background, @authentication-block-siblings-block__before__background);
+                }
+            }
+
+            .action.action-register,
+            .action.action-login {
+                & when (@authentication-block-action-register-action-login__use-button-l = true) {
+                    &:extend(.abs-button-l all);
+                }
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@authentication__is-enabled = true) {
+        .authentication-dropdown {
+            & {
+                .lib-css(position, @authentication-dropdown__position__m);
+                .lib-css(top, @authentication-dropdown__top__m);
+                .lib-css(width, @authentication-dropdown__width__m);
+                .lib-css(visibility, @authentication-dropdown__visibility__m);
+                .lib-css(border, @authentication-dropdown__border__m);
+                .lib-css(text-align, @authentication-dropdown__text-align__m);
+                .lib-css(transform, @authentication-dropdown__transform__m);
+                .lib-css(transform-origin, @authentication-dropdown__transform-origin__m);
+                .lib-css(transition, @authentication-dropdown__transition__m);
+                .lib-css(background-color, @authentication-dropdown__background-color__m);
+            }
+
+            &._show {
+                .lib-css(z-index, @authentication-dropdown__show__z-index__m);
+                .lib-css(visibility, @authentication-dropdown__show__visibility__m);
+                .lib-css(transform, @authentication-dropdown__show__transform__m);
+                .lib-css(transition, @authentication-dropdown__show__transition__m);
+            }
+        }
+
+        .block-authentication {
+            .block-title {
+                .lib-css(border-bottom, @authentication-block-title__border-bottom__m);
+            }
+
+            .actions-toolbar > .primary {
+                .lib-css(float, @authentication-block-actions-toolbar-primary__float__m);
+                .lib-css(display, @authentication-block-actions-toolbar-primary__display__m);
+                .lib-css(margin-right, @authentication-block-actions-toolbar-primary__margin-right__m);
+            }
+            .actions-toolbar > .primary .action {
+                .lib-css(margin-right, @authentication-block-actions-toolbar-primary-action__margin-right__m);
+            }
+            .actions-toolbar > .secondary {
+                .lib-css(float, @authentication-block-actions-toolbar-secondary__float__m);
+                .lib-css(margin-right, @authentication-block-actions-toolbar-secondary__margin-right__m);
+                .lib-css(padding-top, @authentication-block-actions-toolbar-secondary__padding-top__m);
+            }
+        }
+
+        .popup-authentication {
+            .modal-inner-wrap {
+                .lib-css(width, @authentication-popup-modal-inner-wrap__width__m);
+                .lib-css(min-width, @authentication-popup-modal-inner-wrap__min-width__m);
+            }
+
+            .block-authentication {
+                & when (@authentication-popup-block-auth__use-vendor-prefix-display__m = true) {
+                    .lib-vendor-prefix-display(flex);
+                    .lib-vendor-prefix-flex-direction(row);
+                }
+                .lib-css(border-top, @authentication-popup-block-auth__border-top__m);
+            }
+
+            .block[class],
+            .form-login,
+            .fieldset,
+            .block-content {
+                & when (@authentication-popup-blocks-auth__use-vendor-prefix-display__m = true) {
+                    .lib-vendor-prefix-display(flex);
+                    .lib-vendor-prefix-flex-direction(column);
+                    .lib-vendor-prefix-flex-grow(1);
+                }
+            }
+
+            .block[class] {
+                .lib-css(float, @authentication-popup-block__float__m);
+                .lib-css(width, @authentication-popup-block__width__m);
+                .lib-css(padding, @authentication-popup-block__padding__m);
+            }
+
+            .block[class] + .block {
+                .lib-css(margin, @authentication-popup-block-siblings-block__margin__m);
+                .lib-css(padding, @authentication-popup-block-siblings-block__padding__m);
+                .lib-css(border-top, @authentication-popup-block-siblings-block__border-top__m);
+                .lib-css(border-left, @authentication-popup-block-siblings-block__border-left__m);
+
+                &::before {
+                    .lib-css(top, @authentication-popup-block-siblings-block__before__top__m);
+                    .lib-css(left, @authentication-popup-block-siblings-block__before__left__m);
+                }
+            }
+
+            .actions-toolbar {
+                .lib-css(margin-top, @authentication-popup-actions-toolbar__margin-top__m);
+                .lib-css(margin-bottom, @authentication-popup-actions-toolbar__margin-bottom__m);
+            }
+        }
+    }
+}

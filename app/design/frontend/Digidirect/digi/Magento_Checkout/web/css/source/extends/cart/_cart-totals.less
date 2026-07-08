@@ -1,0 +1,66 @@
+//
+//  Cart: Table with Totals
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .cart-totals {
+        .totals.shipping .value,
+        .discount.coupon {
+            display: none;
+        }
+
+        .grand.totals {
+            .lib-css(border-top, 1px solid @color-3-2);
+        }
+
+        .mark,
+        .amount {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .shipping .mark,
+        .shipping .amount {
+            padding-bottom: 20px;
+        }
+
+        .grand .mark,
+        .grand .amount {
+            .lib-font-size(14);
+            .lib-css(font-weight, @font-weight__bold);
+            padding-top: 20px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cart-totals {
+        .grand .mark,
+        .grand .amount {
+            .lib-font-size(18);
+            padding-bottom: 17px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .cart-totals {
+        .grand .mark,
+        .grand .amount {
+            .lib-font-size(16);
+            padding-bottom: 29px;
+        }
+    }
+}

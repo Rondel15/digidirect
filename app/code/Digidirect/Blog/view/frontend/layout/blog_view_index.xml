@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="3columns"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="msrp_popup"/>
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Magento\Framework\View\Element\Template"
+                   ifconfig="digidirect_blog/opengraph_settings/enable_opengraph_on_post_page"
+                   name="blog.opengraph.post">
+                <arguments>
+                    <argument name="template" xsi:type="string">Digidirect_Blog::opengraph.phtml</argument>
+                    <argument name="viewModel" xsi:type="object">\Digidirect\Blog\ViewModel\OpenGraphBlogPost</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Digidirect\Blog\Block\Post" name="blog.post" template="post_view.phtml">
+                <arguments>
+                    <argument name="cache_lifetime" xsi:type="string">86400</argument>
+                </arguments>
+                <block class="Digidirect\Blog\Block\Post" name="blog.post.share" template="Digidirect_Blog::post/share.phtml"/>
+            </block>
+            <block class="Digidirect\Blog\Block\Post\RelatedProducts" ifconfig="digidirect_blog/related_products/enabled" name="blog.relatedproducts" as="relatedproducts" template="Digidirect_Blog::post/related_products.phtml"/>
+            <block class="Digidirect\Blog\Block\Post\Comments" name="blog.comment" template="Digidirect_Blog::post/comments.phtml">
+                <block class="Digidirect\Blog\Block\Post\Comments\DefaultType" name="default.comment.type" as="default.comment.type" template="Digidirect_Blog::post/comments/default.phtml">
+                    <block class="Magento\Theme\Block\Html\Pager" name="comment_list_pager" as="comment_list_pager"/>
+                    <block class="Magento\Framework\View\Element\FormKey" name="form_key"/>
+                </block>
+                <block class="Digidirect\Blog\Block\Post\Comments\Facebook" name="facebook.comment.type" as="facebook.comment.type" template="Digidirect_Blog::post/comments/facebook.phtml"/>
+                <block class="Digidirect\Blog\Block\Post\Comments\Google" name="google.comment.type" as="google.comment.type" template="Digidirect_Blog::post/comments/google.phtml"/>
+                <block class="Digidirect\Blog\Block\Post\Comments\Disqus" name="disqus.comment.type" as="disqus.comment.type" template="Digidirect_Blog::post/comments/disqus.phtml"/>
+            </block>
+            <block class="Digidirect\Blog\Block\Post\Arrow" name="blog.post.arrow" as="arrow" template="Digidirect_Blog::post/arrow.phtml"/>
+            <block class="Digidirect\Blog\Block\Post\RelatedPosts" name="blog.post.relatedposts" as="relatedposts" template="Digidirect_Blog::post/related_posts.phtml"/>
+            
+        </referenceContainer>
+        <referenceContainer name="sidebar.additional">
+            <block class="Digidirect\Blog\Block\Widget\Search" name="blog.widget.search" template="widget/search.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Categories" ifconfig="digidirect_blog/view_page/category_onpost_right" name="blog.categorytree.right" template="widget/categories.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Popular" ifconfig="digidirect_blog/view_page/popular_onpost_right" name="blog.popular.right" template="widget/popular.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Latest" ifconfig="digidirect_blog/view_page/latest_onpost_right" name="blog.latest.right" template="widget/latest.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Archive" ifconfig="digidirect_blog/view_page/archive_onpost_right" name="blog.archive.right" template="widget/archive.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud" template="Digidirect_Blog::widget/tags.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="sidebar.main">
+            <block class="Digidirect\Blog\Block\Widget\Search" name="blog.widget.search" template="widget/search.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Categories" ifconfig="digidirect_blog/view_page/category_onpost_left" name="blog.categorytree.left" template="widget/categories.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Popular" ifconfig="digidirect_blog/view_page/popular_onpost_left" name="blog.popular.left" template="widget/popular.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Latest" ifconfig="digidirect_blog/view_page/latest_onpost_left" name="blog.latest.left" template="widget/latest.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\Archive" ifconfig="digidirect_blog/view_page/archive_onpost_left" name="blog.archive.left" template="widget/archive.phtml"/>
+            <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud" template="Digidirect_Blog::widget/tags.phtml"/>
+        </referenceContainer>
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true"/>
+        <referenceBlock name="multiple-wishlist_sidebar" remove="true"/>
+        <referenceBlock name="page.main.title" remove="true"/>
+    </body>
+</page>
+

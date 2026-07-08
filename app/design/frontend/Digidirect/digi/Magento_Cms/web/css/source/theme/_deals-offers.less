@@ -1,0 +1,247 @@
+//
+//  CMS-block Deals and offers
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .deals-offers {
+        & {
+            &:extend(.negative-gutter);
+            .lib-css(background, @color-3-8);
+            padding: 37px 5px;
+        }
+        
+        .column-bottom & {
+            .lib-css(background, @color-3-4);
+    
+            margin-left: 0;
+            margin-right: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        
+        > .title {
+            display: block;
+            font-size: 22px;
+            font-weight: 700;
+            margin: 0 5px 33px;
+        }
+
+        > .grid {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        > .grid > .item {
+            width: 50%;
+            display: block;
+            padding: 5px;
+            position: relative;
+        }
+
+        > .grid > .item > .image {
+            display: block;
+        }
+
+        > .grid > .item > .link {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            display: block;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+        }
+
+        > .main {
+            position: relative;
+            padding: 0 5px 5px;
+        }
+
+        > .main > .item {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            text-align: center;
+        }
+
+        > .main > .image {
+            display: block;
+        }
+
+        > .main > .item > .logo-top {
+            margin: 10px;
+            color: transparent;
+        }
+
+        > .main > .item > .logo-middle {
+            margin: 2px;
+        }
+
+        > .main > .item > .control {
+            margin: 15px auto;
+            width: 120px;
+        }
+
+        .control > .action {
+            text-transform: capitalize;
+        }
+
+        .logo-top .svgi-digi-white {
+            width: 100px;
+            height: 24px;
+        }
+
+        .logo-middle {
+            display: flex;
+        }
+
+        .logo-middle .svgi-photolab {
+            width: 43px;
+            height: 37px;
+            .lib-css(color, @color-white);
+        }
+
+        .logo-middle > .content {
+            .lib-css(color, @color-white);
+            .lib-font-size(25);
+            text-transform: uppercase;
+            padding: 5px 5px 0;
+            font-weight: 500;
+            letter-spacing: 4px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .deals-offers {
+        & {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 37px 15px;
+        }
+
+        > .title {
+            width: 100%;
+            display: block;
+        }
+
+        > .grid {
+            padding: 5px;
+        }
+
+        > .grid > .item {
+            .lib-hover-out();
+            width: calc(~'50% - 10px');
+            position: relative;
+            padding: 0;
+        }
+
+        > .grid > .item > .image {
+            position: absolute;
+            left: 0;
+        }
+
+        > .grid > .item:nth-child(odd) {
+            margin-right: 10px;
+        }
+
+        > .grid > .item:nth-child(even) {
+            margin-left: 10px;
+        }
+
+        > .grid > .item:nth-child(1) > .image {
+            top: 0;
+        }
+
+        > .grid > .item:nth-child(2) > .image {
+            top: 0;
+        }
+
+        > .grid > .item:nth-child(3) > .image {
+            bottom: 0;
+        }
+
+        > .grid > .item:nth-child(4) > .image {
+            bottom: 0;
+        }
+
+        > .main {
+            width: 50%;
+            padding: 5px 10px 5px 0;
+        }
+
+        > .main > .item > .control {
+            width: 140px;
+        }
+
+        > .grid > .item:hover {
+            .lib-increased-hover();
+        }
+
+        > .grid {
+            width: 50%;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .deals-offers {
+        > .title {
+            margin: 0 5px 35px;
+            font-size: 28px;
+        }
+
+        > .main {
+            padding: 5px 15px 5px 0;
+        }
+
+        > .main > .item > .control {
+            width: 218px;
+        }
+
+        .logo-top .svgi-digi-white {
+            width: 174px;
+            height: 50px;
+        }
+
+        .logo-middle .svgi-photolab {
+            width: 90px;
+            height: 80px;
+        }
+
+        .logo-middle > .content {
+            .lib-font-size(50);
+            padding: 10px 5px 0;
+            letter-spacing: 5px;
+        }
+
+        .control > .action {
+            min-width: 195px;
+        }
+
+        > .grid > .item {
+            width: calc(~'50% - 15px');
+        }
+
+        > .grid > .item:nth-child(odd) {
+            margin-right: 10px;
+        }
+
+        > .grid > .item:nth-child(even) {
+            margin-left: 15px;
+        }
+    }
+}

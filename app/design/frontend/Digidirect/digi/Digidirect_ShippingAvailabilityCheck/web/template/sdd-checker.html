@@ -1,0 +1,18 @@
+<div class="availability-wrapper">
+    <span class="title sdd" id="same_day_delivery_title"
+          data-bind="html: cmsSddBoxTitle"
+    >
+    </span>
+
+    <span class="msi-availability">
+        <!-- ko if: isSddAvailable -->
+            <span class="status sdd -available">Available</span>
+        <!--/ko-->
+        <!-- ko ifnot: isSddAvailable -->
+            <span class="status sdd -unavailable">Unavailable</span>
+        <!--/ko-->
+        </span>
+    <!-- ko ifnot: isCheckSddShipping -->
+    <button id="check_sdd"><span class="sdd-btn-text">Check</span></button>
+    <!--/ko-->
+</div>

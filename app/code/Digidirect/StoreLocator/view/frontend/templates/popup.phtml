@@ -1,0 +1,16 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<div data-role="storelocator-popup">
+    <div data-bind="scope: 'locator_details'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+    <div id="locator-map" class="locator-map"></div>
+</div>
+<script type="text/x-magento-init">
+{
+    "*": {
+        "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+    }
+}
+</script>

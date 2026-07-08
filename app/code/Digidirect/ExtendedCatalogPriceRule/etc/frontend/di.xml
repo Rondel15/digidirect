@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Add information about Custom rules for children products for a PDP page -->
+    <type name="Magento\ConfigurableProduct\Block\Product\View\Type\Configurable">
+        <plugin name="Digidirect_ExtendedCatalogPriceRule::ConfigurableProductViewPlugin"
+                type="Digidirect\ExtendedCatalogPriceRule\Plugin\Magento\ConfigurableProduct\Block\Product\View\Type\ConfigurablePlugin"/>
+    </type>
+
+</config>

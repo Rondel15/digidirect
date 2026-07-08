@@ -1,0 +1,38 @@
+.box-tags {
+    position: relative;
+    box-sizing: border-box;
+    display: none;
+    width: 100%;
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #c8c8c8;
+}
+
+.close-tags {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.post-tag {
+    display: inline-block;
+    margin: 2px 2px 2px 0;
+    padding: .4em .5em;
+    border: 1px solid #e4edf4;
+    border-radius: 0;
+    font-size: 12px;
+    line-height: 1;
+    text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+    color: #3e6d8e;
+    background: #e4edf4;
+    -webkit-transition: color .15s ease, background .15s ease, border .15s ease;
+    transition: color .15s ease, background .15s ease, border .15s ease;
+}
+
+.post-tag:hover {
+    opacity: .85;
+}

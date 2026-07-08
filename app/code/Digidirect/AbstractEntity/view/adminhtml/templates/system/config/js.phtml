@@ -1,0 +1,249 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<script>
+    require([
+        'prototype'
+    ], function () {
+        var originModel = Class.create();
+        originModel.prototype = {
+            initialize : function()
+            {
+                this.reload = false;
+                this.loader = new varienLoader(true);
+                this.entitiesUrl = "<?php echo $block->escapeUrl($block->getUrl('digidirect_abstractentity/json/abstractEntity')) ?>";
+                this.dataCache = [];
+                this.bindEntityAttributeRelation();
+            },
+            bindEntityAttributeRelation : function(parentId)
+            {
+                if (parentId) {
+                    var entityElements = $$('#'+parentId+' .digidirect_abstract_entities');
+                } else {
+                    var entityElements = $$('.digidirect_abstract_entities');
+                }
+                for(var i=0; i<entityElements.size(); i++) {
+                    Event.observe(entityElements[i], 'change', this.reloadAttributeFields.bind(this));
+                    this.initAttributeFields(entityElements[i]);
+                }
+            },
+            initAttributeFields : function(element)
+            {
+                var entityElement = element;
+                if (entityElement && entityElement.id) {
+                    if (entityElement.value.length) {
+                        var url = this.entitiesUrl+'parent/'+entityElement.value;
+                        this.loader.load(url, {}, this.refreshAttributeField.bind(this));
+                    } else {
+                        this.clearAttributeField();
+                    }
+                }
+            },
+            reloadAttributeFields : function(event)
+            {
+                this.reload = true;
+                var entityElement = Event.element(event);
+                if (entityElement && entityElement.id) {
+                    if (entityElement.value.length) {
+                        var url = this.entitiesUrl+'parent/'+entityElement.value;
+                        this.loader.load(url, {}, this.refreshAttributeField.bind(this));
+                    } else {
+                        this.clearAttributeField();
+                    }
+                }
+            },
+            prepareData: function (data, element) {
+                var classList = element.classList,
+                    str = 'digidirect_abstract_entities_attribute_',
+                    types = [],
+                    key = 'all_types',
+                    type ='',
+                    input ='',
+                    result = [];
+
+                for(var i=0; i<classList.length; i++) {
+                    if (classList[i].indexOf(str) >= 0) {
+                        key = classList[i].substring(str.length, classList[i].length);
+                        types[key] = key.split('_');
+                        if (this.dataCache[key] !== undefined) {
+                            result = result.concat(this.dataCache[key]);
+                        }
+                    }
+                }
+                if (key === 'all_types') {
+                    types[0] = key;
+                    if (this.dataCache[key] === undefined) {
+                        for (var j in data) {
+                            if (data[j] === undefined) {
+                                continue;
+                            }
+                            if (this.dataCache[key] === undefined) {
+                                this.dataCache[key] = [];
+                            }
+                            for (var k in data[j]) {
+                                if (data[j][k] === undefined) {
+                                    continue;
+                                }
+                                this.dataCache[key] = this.dataCache[key].concat(data[j][k]);
+                            }
+                        }
+                    }
+                    result = result.concat(this.dataCache[key]);
+                }
+
+                if (!result.length) {
+                    for (var l in types) {
+                        if (types[l][0] === undefined) {
+                            continue;
+                        }
+                        type = types[l][0];
+                        if (data[type] === undefined) {
+                            continue;
+                        }
+                        if (types[l].length > 1) {
+                            input = types[l][1];
+                            if (data[type][input] === undefined) {
+                                continue;
+                            }
+                            this.dataCache[l] = data[type][input];
+                        } else {
+                            for (var n in data[type]) {
+                                if (data[type][n] === undefined) {
+                                    continue;
+                                }
+                                if (this.dataCache[l] === undefined) {
+                                    this.dataCache[l] = [];
+                                }
+                                this.dataCache[l] = this.dataCache[l].concat(data[type][n]);
+                            }
+                        }
+                        if (this.dataCache[l] !== undefined) {
+                            result = result.concat(this.dataCache[l]);
+                        }
+                    }
+                }
+
+                return result;
+            },
+            refreshAttributeField : function(serverResponse)
+            {
+                if (serverResponse) {
+                    var data = eval('(' + serverResponse + ')');
+                    var attributeElements = $$('.digidirect_abstract_entities_attributes');
+                    this.attributeElements = attributeElements;
+                    for(var ci=0; ci<this.attributeElements.size(); ci++) {
+                        var attributeElement = this.attributeElements[ci],
+                            value = attributeElement.value,
+                            disabled = attributeElement.disabled,
+                            preparedData = [];
+                        if (JSON.stringify(data) != "{}") {
+                            var emptyValue = '';
+                            var requiredClass = 'required-entry';
+                            if (attributeElement.hasClassName('digidirect_add_empty_option')) {
+                                emptyValue = '<option value=""><?php /* @escapeNotVerified */ echo __('--Please Select--') ?></option>';
+                                requiredClass = '';
+                            }
+                            var html = '<select name="' + attributeElement.name + '" id="' + attributeElement.id + '" class="digidirect_abstract_entities_attributes select" + requiredClass + title="' + attributeElement.title + '"' + (disabled ? " disabled" : "") + '>';
+                            if (emptyValue != '') {
+                                html += emptyValue;
+                            }
+                            preparedData = this.prepareData(data, attributeElement);
+                            if (preparedData.length) {
+                                for (var i = 0; i < preparedData.length; i++) {
+                                    if (preparedData[i].label) {
+                                        html += '<option value="' + preparedData[i].value + '"';
+                                        if (attributeElement.value && (attributeElement.value == preparedData[i].value || attributeElement.value == preparedData[i].label)) {
+                                            html += ' selected';
+                                        }
+                                        html += '>' + preparedData[i].label + '<\/option>';
+                                    }
+                                }
+                            }
+                            html += '<\/select>';
+                            var parentNode = attributeElement.parentNode;
+                            var attributeElementId = attributeElement.id;
+                            parentNode.innerHTML = html;
+                            attributeElement = $(attributeElementId);
+                        } else if (this.reload) {
+                            this.clearAttributeField(disabled, attributeElement);
+                        }
+                    }
+                }
+            },
+            clearAttributeField: function() {
+                var html = '<input type="text" name="' + attributeElement.name + '" id="' + attributeElement.id + '" class="input-text" title="' + attributeElement.title + '"' + '>';
+                var parentNode = attributeElement.parentNode;
+                var attributeElementId = attributeElement.id;
+                parentNode.innerHTML = html;
+                attributeElement = $(attributeElementId);
+            }
+        }
+
+        originAddress = new originModel();
+
+        var perPageModel = Class.create();
+
+        perPageModel.prototype = {
+            initialize : function()
+            {
+                this.listModeElement = $('catalog_frontend_list_mode');
+                if (this.listModeElement) {
+                    this.gridValuesElement = $('catalog_frontend_grid_per_page_values');
+                    this.listValuesElement = $('catalog_frontend_list_per_page_values');
+                    this.listElement = $('catalog_frontend_list_per_page');
+                    this.gridElement = $('catalog_frontend_grid_per_page');
+
+                    this.gridOptions = [];
+                    this.listOptions = [];
+
+                    this.refreshPerPageSelect();
+                    this.bindListModeChange();
+                }
+            },
+            bindListModeChange : function()
+            {
+                Event.observe(this.listModeElement, 'change', this.refreshPerPageSelect.bind(this));
+            },
+            refreshPerPageSelect : function()
+            {
+                if (this.listModeElement.value != '') {
+                    if (this.listModeElement.value == 'grid') {
+                        this.listElement.up(1).hide();
+                        this.listValuesElement.up(1).hide();
+
+                        this.gridElement.up(1).show();
+                        this.gridValuesElement.up(1).show();
+                    } else if (this.listModeElement.value == 'grid-list' || this.listModeElement.value == 'list-grid') {
+                        this.listElement.up(1).show();
+                        this.listValuesElement.up(1).show();
+
+                        this.gridElement.up(1).show();
+                        this.gridValuesElement.up(1).show();
+                    } else if (this.listModeElement.value == 'list') {
+                        this.listElement.up(1).show();
+                        this.listValuesElement.up(1).show();
+
+                        this.gridElement.up(1).hide();
+                        this.gridValuesElement.up(1).hide();
+                    }
+                }
+            }
+        }
+
+        perPageSelect = new perPageModel();
+
+        function showHint() {
+            $$('.hint').each(function(element){
+                Event.observe(element, 'mouseover', function(){
+                    element.down().show()
+                });
+                Event.observe(element, 'mouseout', function(){
+                    element.down().hide()
+                });
+            });
+        }
+
+        Event.observe(window, 'load', showHint);
+
+    });
+</script>

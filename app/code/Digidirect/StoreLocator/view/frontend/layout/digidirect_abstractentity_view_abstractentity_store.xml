@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="abstractentity.additional.info" destination="storelocator.view" as="abstractentity_additional_info"/>
+        <referenceContainer name="content">
+            <referenceBlock name="abstractentity" template="Digidirect_StoreLocator::store/wrapper.phtml">
+                <block class="Magento\Framework\View\Element\Template" name="storelocator.view" template="Digidirect_StoreLocator::store/view.phtml">
+                    <block class="Digidirect\StoreLocator\Block\ListStore\DetailPage" name="storelocator.description" template="Digidirect_StoreLocator::store/description.phtml"/>
+                    <block class="Magento\Framework\View\Element\Template" name="storelocator.map" template="Digidirect_StoreLocator::map.phtml" />
+                    <block class="Digidirect\StoreLocator\Block\ListStore\DetailPage" name="storelocator.details" template="Digidirect_StoreLocator::store/details.phtml"/>
+                    <block class="Digidirect\StoreLocator\Block\ListStore\DetailPage" name="storelocator.directions" template="Digidirect_StoreLocator::store/directions.phtml"/>
+                </block>
+            </referenceBlock>
+            <container name="storelocator.view.after" label="Store Locator - View After">
+                <block class="Digidirect\StoreLocator\Block\ListStore\DetailPage" name="storelocator.view.js" template="Digidirect_StoreLocator::store/js.phtml"/>
+            </container>
+        </referenceContainer>
+    </body>
+</page>

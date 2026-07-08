@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="menu">
+            <action method="setActive">
+                <argument name="itemId" xsi:type="string">Digidirect_ExtendedShippingRates::extendedshippingrates_zone</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="page.title">
+            <action method="setTitleClass">
+                <argument name="class" xsi:type="string">complex</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="js">
+            <block class="Magento\Backend\Block\Template" name="upload_file_js" template="Digidirect_ExtendedShippingRates::zone/grid/button/upload_form/js.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="content">
+            <uiComponent name="digidirect_extendedshippingrates_zone_listing"/>
+        </referenceContainer>
+    </body>
+</page>

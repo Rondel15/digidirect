@@ -1,0 +1,18 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Plumrocket\Newsletterpopup\Block\Template $block */
+ ?>
+
+<div class="newspopup_up_bg pr-newsletter-popup__wrp" id="newspopup_up_bg_<?= (int) $block->getPopup()->getId() ?>" style="display: none;" data-mage-init='{"prnewsletterpopup":{}}'>
+    <?= $block->getChildHtml('popup.body') ?>
+</div>
+<script type="text/javascript">
+    requirejs(['prnewsletterpopup'], function() {
+        window.prnewsletterPopup.updateSettings(<?= /* @noEscape */ $block->getJsonConfig() ?>);
+    });
+</script>

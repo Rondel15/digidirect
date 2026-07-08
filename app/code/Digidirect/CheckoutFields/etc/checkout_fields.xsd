@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:annotation>
+            <xs:documentation>
+                Specifies a configuration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+            <xs:sequence minOccurs="0" maxOccurs="unbounded">
+                <xs:element minOccurs="1" maxOccurs="unbounded" name="field" type="fieldType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="fieldType">
+        <xs:annotation>
+            <xs:documentation>
+                Field information to be displayed and saved
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="frontend_name" type="xs:string" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="frontend_input" type="frontendInput" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="frontend_format" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="sort_order" type="xs:integer" maxOccurs="1" minOccurs="1" />
+            <xs:element name="validation" type="validationType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="area" type="areaType" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="depends" type="dependsType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="options" type="optionsType" minOccurs="0" maxOccurs="1"/>
+            <xs:element name="class" type="xs:string" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="optionsType">
+        <xs:annotation>
+            <xs:documentation>
+                Options
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="option" type="optionType" minOccurs="1" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="optionType">
+        <xs:attribute name="value" use="required" type="xs:string"/>
+        <xs:attribute name="label" use="required" type="xs:string"/>
+    </xs:complexType>
+
+    <xs:complexType name="areaType">
+        <xs:annotation>
+            <xs:documentation>
+                Area configuration
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="checkoutStepType" name="checkout_step"/>
+            <xs:element type="customScope" name="custom_scope"/>
+            <xs:element type="xs:string" name="fieldset"/>
+            <xs:element type="xs:string" name="fieldset_customer_logged" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="customScope">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="payment" />
+            <xs:enumeration value="shippingAddress" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="checkoutStepType">
+        <xs:annotation>
+            <xs:documentation>
+                Checkout step name
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="billing-step"/>
+            <xs:enumeration value="shipping-step"/>
+        </xs:restriction>
+
+    </xs:simpleType>
+
+    <xs:complexType name="validationType">
+        <xs:annotation>
+            <xs:documentation>
+                validation rules
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="rule" maxOccurs="unbounded" type="ruleType"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="ruleType">
+        <xs:annotation>
+            <xs:documentation>
+                Rule name and its value
+            </xs:documentation>
+        </xs:annotation>
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="name" type="xs:token" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="dependsType">
+        <xs:annotation>
+            <xs:documentation>
+                Describes the field on which the current field depends
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element type="xs:string" name="field_id"/>
+            <xs:element type="xs:string" name="action"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="frontendInput">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="radio"/>
+            <xs:enumeration value="text"/>
+            <xs:enumeration value="textarea"/>
+            <xs:enumeration value="date"/>
+            <xs:enumeration value="select"/>
+            <xs:enumeration value="checkbox"/>
+            <xs:enumeration value="multiselect"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

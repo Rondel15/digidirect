@@ -1,0 +1,22 @@
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+?>
+
+<?php if ($block->getLayer()->getState()->getFilters()): ?>
+    <a title="<?php /* @escapeNotVerified */ echo __('Clear All') ?>" href="<?php /* @escapeNotVerified */ echo $block->getClearUrl() ?>" class="clear
+    filter-clear -size-l"><?php /* @escapeNotVerified */ echo __('Clear All') ?></a>
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        ".filter-clear": {
+            "layeredNavigationFilterLink": {
+                 "resetParameters": "true"
+            }
+        }
+    }
+</script>

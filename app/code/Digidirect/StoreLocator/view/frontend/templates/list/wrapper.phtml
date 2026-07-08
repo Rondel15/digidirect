@@ -1,0 +1,21 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\Wrapper $block */
+$isInPopup = $block->getOpenInPopup();
+?>
+<div class="store-locator">
+    <?php echo $block->getChildHtml('storelocator.search'); ?>
+    <div class="grid-row">
+        <div class="<?php echo /* @noEscape */ $isInPopup ? 'inpopup' : 'store-wrapper column'; ?>">
+            <?php echo $block->getChildHtml('storelocator.list'); ?>
+        </div>
+        <?php if ($isInPopup): ?>
+            <?php echo $block->getChildHtml('storelocator.popup'); ?>
+        <?php else: ?>
+            <div class="google-map-wrapper column">
+                <?php echo $block->getChildHtml('storelocator.map'); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<?php echo $block->getChildHtml('storelocator.list.after'); ?>

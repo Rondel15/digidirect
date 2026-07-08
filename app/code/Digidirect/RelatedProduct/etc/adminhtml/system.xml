@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_related_product" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Related Product Info</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_RelatedProduct::config</resource>
+            <group id="shown_parameters" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Shown Parameters</label>
+                <field id="filter_tab_enable" translate="label comment" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Category Filter Tabs</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="category_attributes" translate="label comment" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Category Attributes</label>
+                    <source_model>Digidirect\RelatedProduct\Model\Config\Source\CategoryAttribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                    <depends>
+                        <field id="*/*/filter_tab_enable">1</field>
+                    </depends>
+                </field>
+                <field id="attributes" translate="label comment" type="multiselect" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Product Attributes</label>
+                    <source_model>Digidirect\RelatedProduct\Model\Config\Source\ProductAttribute</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="visibility_products" translate="label comment" type="multiselect" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Visibility Products</label>
+                    <source_model>Magento\Catalog\Model\Product\Visibility</source_model>
+                </field>
+
+                <field id="images_enable" translate="label comment" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Images</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="attribute_sets" translate="label comment" type="multiselect" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Featured Image for Attribute Set</label>
+                    <source_model>Magento\Catalog\Model\Product\AttributeSet\Options</source_model>
+                    <comment>Featured Image checkbox can be shown only to images of products, that are assigned to the specified Attribute set.</comment>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="display_one_category" translate="label comment" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Display Only One Category of a Product</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If switched to 'Yes' - only one category of a product will be displayed in the Recommended Accessories section</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

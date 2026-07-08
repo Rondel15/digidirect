@@ -1,0 +1,17 @@
+{
+    "text_title": "Sign Up & Save 10%",
+    "text_description": "<p>Join our email list &amp; receive a coupon for an extra 10% off + other great exclusive offers!<\/p>",
+    "text_success": "<p><strong style=\"font-size: 28px; line-height: 33px;\">Enjoy 10% OFF Your Entire Purchase.<\/strong><\/p><p style=\"padding-top: 15px;\">Enter Coupon Code:&nbsp;<strong style=\"color: #ca0b0b; background: #faffad; padding: 5px 7px; border-radius: 3px; border: 1px dashed #d4da65;\">{{coupon_code}}<\/strong><br\/>At Checkout<\/p><p style=\"padding-top: 24px; color: #d00000;\">Hurry! This Offer Ends in 2 HOURS!<\/p>",
+    "text_submit": "Sign Up & Get  Coupon",
+    "text_cancel": "No Thanks",
+    "animation": "fadeInDownBig",
+    "signup_fields": {
+        "email": {
+            "name": "email",
+            "label": "Your Email Address",
+            "enable": "1",
+            "sort_order": "10",
+            "orig_label": "Email"
+        }
+    }
+}

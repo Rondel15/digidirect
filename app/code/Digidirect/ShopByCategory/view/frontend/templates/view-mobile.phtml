@@ -1,0 +1,98 @@
+<?php
+    $brandData = $block->getData();
+    $brandId = $brandData['data']['brandId'];
+    $brandName = $block->getBrandName($brandId);
+?>
+<div id="shop-by-category-container" class="shop-by-category-container"> 
+    <?php if ($block->getProductCollectionCountWithBrand(17, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/cameras?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-cameras.jpg" loading="lazy"/>
+                <div class="product-count" id="cameras-count">Cameras</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(18, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/lenses?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-lens.jpg" loading="lazy"/>
+                <div class="product-count"  id="lenses-count">Lenses</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(21, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/drones?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-drones.jpg" loading="lazy"/>
+                <div class="product-count"  id="drones-count">Drones</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(19, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/lighting-and-studio?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-lights-and-studio.jpg" loading="lazy"/>
+                <div class="product-count"  id="lighting-and-studio-count">Lighting & Studio</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(71, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/photo-accessories?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-photo-accessories.jpg" loading="lazy"/>
+                <div class="product-count"  id="photo-accessories-count">Photo Accessories</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(22, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/optics?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-optics.jpg" loading="lazy"/>
+                <div class="product-count"  id="optics-count">Optics</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(73, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/audio-visual?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-audio-and-visual.jpg" loading="lazy"/>
+                <div class="product-count"  id="audio-and-visual-count">Audio & Visual</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(77, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/pro-video?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>category-provideo.jpg" loading="lazy"/>
+                <div class="product-count"  id="pro-video-count">Pro Video</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(75, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/smart-home?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-smarthome.jpg" loading="lazy"/>
+                <div class="product-count"  id="smart-home-count">Smart Home</div>
+            </a>
+        </div>
+    <?php endif; ?>
+    <?php if ($block->getProductCollectionCountWithBrand(999, $brandId)) :?>
+        <div class="shop-by-category-category">
+            <a href="<?php echo $block->getUrl("brands/" . $brandName . "/filters/cat/computers-mobile?_aa=222&_option=" . $brandId)?>">
+                <img src="<?php echo $block->getUrl("media/wysiwyg/category-grid")?>new-category-computers.jpg" loading="lazy"/>
+                <div class="product-count"  id="computers-mobile-count">Computers & Mobile</div>
+            </a>
+        </div>
+    <?php endif; ?>
+</div>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,50 @@
+<?php
+/**
+ * @var Digidirect\Collect\Block\Adminhtml\System\Config\ImportFile $block
+ */
+?>
+<script>
+    require(['prototype'], function(){
+
+//<![CDATA[
+        function importPostCodeDataFile() {
+            var validationMessage = $('import_result');
+            new Ajax.Request('<?php /* @escapeNotVerified */ echo $block->getImportUrl() ?>', {
+                parameters: {},
+                onSuccess: function(response) {
+                    var result = '<?php /* @escapeNotVerified */ echo __('Error during import data.') ?>';
+                    try {
+                        if (response.responseText.isJSON()) {
+                            response = response.responseText.evalJSON();
+                            result = response.message;
+                        }
+                        if (response.exported == 1) {
+                            validationMessage.removeClassName('hidden').addClassName('success');
+                            $('last-import-empty').addClassName('hidden');
+                            $('carriers_collect_post_code_upload').next().remove();
+                            $('<?php echo $block->getHtmlId() ?>').disabled = true;
+                        } else {
+                            validationMessage.removeClassName('hidden').addClassName('error')
+                        }
+                    } catch (e) {
+                        validationMessage.removeClassName('hidden').addClassName('error')
+                    }
+                    validationMessage.update(result);
+                }
+            });
+        }
+        window.importPostCodeDataFile = importPostCodeDataFile;
+//]]>
+
+    });
+</script>
+<div class="actions actions-validate-vat">
+    <button onclick="javascript:importPostCodeDataFile(); return false;"
+            class="action-validate-vat" type="button" id="<?php echo $block->getHtmlId() ?>" <?php if($block->getDisabled()): ?>disabled="disabled"<?php endif; ?>>
+        <span><?php echo $block->escapeHtml($block->getButtonLabel()) ?></span>
+    </button>
+        <span id="last-import-empty" <?php if($block->getLastImportTime()): ?> class="hidden" <?php endif; ?>>
+            <?php echo /* @escapeNotVerified */ __('The file has not been imported yet'); ?>
+        </span>
+    <div id="import_result" class="message-validation hidden"></div>
+</div>

@@ -1,0 +1,29 @@
+//
+//  Blog toolbar
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-toolbar__text-align: center;
+@blog-toolbar-pages__display: inline-block;
+@blog-toolbar-pages__padding: 0 0 10px;
+@blog-toolbar-pages__vertical-align: top;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-toolbar {
+        & {
+            .lib-css(text-align, @blog-toolbar__text-align);
+        }
+        .pages {
+            .lib-css(display, @blog-toolbar-pages__display);
+            .lib-css(padding, @blog-toolbar-pages__padding);
+            .lib-css(vertical-align, @blog-toolbar-pages__vertical-align);
+        }
+    }
+}

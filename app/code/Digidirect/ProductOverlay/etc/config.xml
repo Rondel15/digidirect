@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_productoverlay>
+            <general>
+                <image_type>jpg,jpeg,png,gif</image_type>
+                <image_mime_type>image/jpeg,image/png,image/gif</image_mime_type>
+            </general>
+            <on_sale>
+                <rounding>round</rounding>
+            </on_sale>
+            <new>
+                <is_new>1</is_new>
+                <creation_date>0</creation_date>
+                <days>10</days>
+            </new>
+            <overlay_management>
+                <enable_management>0</enable_management>
+            </overlay_management>
+            <smart_cache>
+                <enable_cache_cleaner>0</enable_cache_cleaner>
+                <cache_cleaner_cron_expr>*/5 * * * *</cache_cleaner_cron_expr>
+            </smart_cache>
+        </digidirect_productoverlay>
+    </default>
+</config>

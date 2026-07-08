@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="carriers" translate="label" type="text" sortOrder="320" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="collect" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Click and Collect</label>
+                <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="active_on_pdp" translate="label" type="select" sortOrder="11"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label><![CDATA[Enable C&C On The PDP]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If 'Enable C&C On The PDP' is set up to 'No': C&C will be unavailable on PDP pages on the storefront]]></comment>
+                </field>
+                <field id="active_on_cart" translate="label" type="select" sortOrder="12"
+                       showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label><![CDATA[Enable C&C On The Cart]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If 'Enable C&C On The Cart' is set up to 'No': C&C will be unavailable on the Cart page on the storefront]]></comment>
+                </field>
+                <field id="enable_single_store_in_cart_restriction" translate="label" type="select" sortOrder="13" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Single Store In Cart Restriction</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to 'Yes' customer would be able to add to cart only products available in one store</comment>
+                </field>
+                <field id="active_on_checkout" translate="label" type="select" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Click And Collect On Checkout</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="name" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Method Name</label>
+                </field>
+                <field id="title" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Title</label>
+                </field>
+                <field id="showmethod" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Method if Not Applicable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sallowspecific" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Ship to Applicable Countries</label>
+                    <frontend_class>shipping-applicable-country</frontend_class>
+                    <source_model>Magento\Shipping\Model\Config\Source\Allspecificcountries</source_model>
+                </field>
+                <field id="specificcountry" translate="label" type="multiselect" sortOrder="91" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ship to Specific Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <can_be_empty>1</can_be_empty>
+                </field>
+                <field id="specificerrmsg" translate="label" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Displayed Error Message</label>
+                </field>
+                <field id="message_product_is_available_in_previously_store" translate="label" type="textarea" sortOrder="54" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message If Product Is Available In Previously Added Item's Store</label>
+                    <comment>You could use {STORE_NAME} placeholder to define store name.</comment>
+                </field>
+                <field id="message_product_is_not_available_in_previously_store" translate="label" type="textarea" sortOrder="57" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Message If Product Is Not Available In Previously Added Item's Store</label>
+                    <comment>You could use {STORE_NAME} placeholder to define store name.</comment>
+                </field>
+                <field id="variation" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Click&amp;Collect Variation</label>
+                    <source_model>Digidirect\Collect\Model\Config\Source\Variation</source_model>
+                </field>
+                <field id="stock_update_interface" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Stock Update Interface</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="*/*/variation" separator=",">full,single_cart</field>
+                    </depends>
+                </field>
+                <field id="geo_location_method" translate="label" type="select" sortOrder="75" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Geo Location Method</label>
+                    <source_model>Digidirect\Collect\Model\Config\Source\LocationMethod</source_model>
+                </field>
+                <field id="post_code_upload" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="77" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Upload post code file</label>
+                    <backend_model>Digidirect\Collect\Model\Config\Backend\DownloadFile</backend_model>
+                    <upload_dir config="system" scope_info="1">collect</upload_dir>
+                    <depends>
+                        <field id="*/*/geo_location_method">post_code</field>
+                    </depends>
+                </field>
+                <field id="import_post_code_data_file" translate="button_label" sortOrder="78" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <button_label>Import</button_label>
+                    <frontend_model>Digidirect\Collect\Block\Adminhtml\System\Config\ImportFile</frontend_model>
+                    <depends>
+                        <field id="*/*/geo_location_method">post_code</field>
+                    </depends>
+                </field>
+                <field id="google_api_key" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Google API key</label>
+                    <comment>API key for Google request to get coordinates by postal code.</comment>
+                    <depends>
+                        <field id="*/*/geo_location_method">google_api</field>
+                    </depends>
+                </field>
+                <field id="default_distance_range" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Distance Range</label>
+                    <comment>Input default distance range separated by commas to show on frontend for users.</comment>
+                    <depends>
+                        <field id="*/*/variation" separator=",">full,single_cart</field>
+                    </depends>
+                </field>
+                <field id="show_unavailable_places" translate="label" type="select" sortOrder="94" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label><![CDATA[Show Unavailable C&C Places]]></label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment><![CDATA[If set up to 'Yes' unavailable C&C Places will be shown on storefront.]]></comment>
+                </field>
+                <field id="places_on_page" translate="label" type="text" sortOrder="96" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label><![CDATA[C&C Pagination On Checkout]]></label>
+                    <comment><![CDATA[Number of C&C places to be displayed on one page on checkout. Empty - no limit.]]></comment>
+                </field>
+                <field id="default_shipping_address_label" translate="label" type="label" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Address</label>
+                    <comment>This address will be used instead of customer address, if a customer was not entered address on checkout page.</comment>
+                </field>
+                <field id="default_shipping_first_name" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping First Name</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="default_shipping_last_name" translate="label" type="text" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Last Name</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="default_shipping_city" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping City</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="default_shipping_telephone" translate="label" type="text" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Telephone</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="default_shipping_postcode" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Postcode</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="default_shipping_street" translate="label" type="text" sortOrder="160" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Street Address</label>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="country_id" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Shipping Country</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <frontend_class>countries</frontend_class>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="region_id" translate="label" type="text" sortOrder="180" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Region/State</label>
+                </field>
+                <field id="default_address_template" translate="label" type="textarea" sortOrder="190" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Address Format</label>
+                    <depends>
+                        <field id="*/*/variation">single</field>
+                    </depends>
+                </field>
+            </group>
+            <resource>Digidirect_Utilities::Digidirect_config</resource>
+        </section>
+    </system>
+</config>

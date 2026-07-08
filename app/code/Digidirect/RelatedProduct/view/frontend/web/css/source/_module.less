@@ -1,0 +1,228 @@
+//
+//  Related Product Info
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//  Filter container
+@related-filters__margin: false;
+@related-filters__padding: false;
+@related-filters__overflow: false;
+@related-filters__text-align: center;
+
+//  Filter items
+@related-filters-item__display: inline-block;
+@related-filters-item__margin: 0 5px;
+@related-filters-item__padding: 5px 10px;
+@related-filters-item__font: @font-size__base;
+@related-filters-item__text-decoration: false;
+@related-filters-item__text-transform: false;
+@related-filters-item__color: false;
+@related-filters-item__background: false;
+@related-filters-item__hover-active__text-decoration: false;
+@related-filters-item__hover-active__color: @color-white;
+@related-filters-item__hover-active__background: @color-black;
+
+//  Filter items content
+@related-filters-item-content__float: left;
+@related-filters-item-content__width: 100%;
+@related-filters-item-content__margin: false;
+@related-filters-item-content__padding: 10px 20px;
+@related-filters-item-content__font: false;
+
+//  Products grid
+@related-grid__overflow: hidden;
+@related-grid__clear: both;
+@related-grid__text-align: center;
+@related-grid-item__display: inline-block;
+@related-grid-item__margin: 0;
+@related-grid-item__padding: 10px 5px;
+@related-grid-item__text-align: false;
+@related-grid-item__vertical-align: top;
+@related-grid-item__active__background: @color-gray-light01;
+@related-grid-item-name__overflow: hidden;
+@related-grid-item-name__white-space: nowrap;
+@related-grid-item-name__text-overflow: ellipsis;
+
+@related-switch__display: inline-block;
+
+//  Expander container
+@related-expander__position: relative;
+@related-expander__float: left;
+@related-expander__display: false;
+@related-expander__width: 100%;
+@related-expander__padding: 20px;
+@related-expander__overflow: hidden;
+@related-expander__border: false;
+@related-expander__text-align: false;
+@related-expander__background: @related-grid-item__active__background;
+@related-expander__box-sizing: border-box;
+
+//  Featured images
+@related-featured__float: left;
+@related-featured__width: 65%;
+@related-featured__margin: false;
+@related-featured__padding: 0 10px;
+@related-featured__text-align: false;
+@related-featured-item__float: false;
+@related-featured-item__display: inline-block;
+@related-featured-item__margin: false;
+@related-featured-item__padding: 0 5px;
+
+//  Attributes
+@related-attributes__float: right;
+@related-attributes__width: 35%;
+@related-attributes__margin: false;
+@related-attributes__padding: false;
+
+@related-attributes-item__float: false;
+@related-attributes-item__dispaly: false;
+@related-attributes-item__margin: false;
+@related-attributes-item__padding: 0 5px;
+@related-attributes-item__text-align: false;
+
+@related-attributes-item-title__display: block;
+@related-attributes-item-title__margin: 0 0 10px;
+@related-attributes-item-title__padding: false;
+@related-attributes-item-title__font: @font-weight__semibold ~'14px/1.1' @font-family-name__base;
+@related-attributes-item-title__text-align: false;
+
+@related-attributes-item-list__margin: 0 0 10px;
+@related-attributes-item-list__padding: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .related-filters {
+        & {
+            .lib-css(margin, @related-filters__margin);
+            .lib-css(padding, @related-filters__padding);
+            .lib-css(overflow, @related-filters__overflow);
+        }
+
+        > .item {
+            display: inline-block;
+            margin: 5px 20px 5px 0;
+            padding: 2px 0;
+            color: #666;
+            cursor: pointer;
+        }
+
+        > .item:hover,
+        > .item.-active {
+            text-decoration: none;
+            .lib-css(color, @related-filters-item__hover-active__color);
+            .lib-css(background, @related-filters-item__hover-active__background);
+        }
+        > .content {
+            display: none;
+            .lib-css(float, @related-filters-item-content__float);
+            .lib-css(width, @related-filters-item-content__width);
+            .lib-css(margin, @related-filters-item-content__margin);
+            .lib-css(padding, @related-filters-item-content__padding);
+        }
+        > .content.-active {
+            display: block;
+        }
+    }
+
+    .related-grid {
+        .name {
+            .lib-css(overflow, @related-grid-item-name__overflow);
+            .lib-css(white-space,  @related-grid-item-name__white-space);
+            .lib-css(text-overflow,  @related-grid-item-name__text-overflow);
+        }
+        .switch {
+            .lib-css(display, @related-switch__display);
+        }
+    }
+
+    .products-grid {
+        &.-related {
+            .lib-css(overflow, @related-grid__overflow);
+            .lib-css(clear, @related-grid__clear);
+            .lib-css(text-align, @related-grid__text-align);
+        }
+        &.-related .product-item {
+            .lib-css(display, @related-grid-item__display);
+            .lib-css(margin, @related-grid-item__margin);
+            .lib-css(padding, @related-grid-item__padding);
+            .lib-css(text-align, @related-grid-item__text-align);
+            .lib-css(vertical-align, @related-grid-item__vertical-align);
+        }
+        &.-related .product-item.-hidden {
+            display: none;
+        }
+
+        &.-related .product-item.-active {
+            .lib-css(background, @related-grid-item__active__background);
+        }
+    }
+
+    .related-info {
+        display: none;
+    }
+
+    .related-expander {
+        .lib-css(position, @related-expander__position);
+        .lib-css(float, @related-expander__float);
+        .lib-css(display, @related-expander__display);
+        .lib-css(width, @related-expander__width);
+        .lib-css(padding, @related-expander__padding);
+        .lib-css(overflow, @related-expander__overflow);
+        .lib-css(border, @related-expander__border);
+        .lib-css(text-align, @related-expander__text-align);
+        .lib-css(background, @related-expander__background);
+        .lib-css(box-sizing, @related-expander__box-sizing);
+    }
+
+    .related-featured {
+        & {
+            .lib-css(float, @related-featured__float);
+            .lib-css(width, @related-featured__width);
+            .lib-css(margin, @related-featured__margin);
+            .lib-css(padding, @related-featured__padding);
+            .lib-css(text-align, @related-featured__text-align);
+        }
+
+        > .item {
+            .lib-css(float, @related-featured-item__float);
+            .lib-css(display, @related-featured-item__display);
+            .lib-css(margin, @related-featured-item__margin);
+            .lib-css(padding, @related-featured-item__padding);
+        }
+    }
+
+    .related-attributes {
+        & {
+            .lib-css(float, @related-attributes__float);
+            .lib-css(width, @related-attributes__width);
+            .lib-css(margin, @related-attributes__margin);
+            .lib-css(padding, @related-attributes__padding);
+        }
+
+        > .item {
+            .lib-css(float, @related-attributes-item__float);
+            .lib-css(dispaly, @related-attributes-item__dispaly);
+            .lib-css(margin, @related-attributes-item__margin);
+            .lib-css(padding, @related-attributes-item__padding);
+            .lib-css(text-align, @related-attributes-item__text-align);
+        }
+
+        > .item > .title {
+            .lib-css(display, @related-attributes-item-title__display);
+            .lib-css(padding, @related-attributes-item-title__padding);
+            .lib-css(text-align, @related-attributes-item-title__text-align);
+            margin: 0 25px !important;
+        }
+
+        > .item > .list {
+            .lib-css(margin, @related-attributes-item-list__margin);
+            .lib-css(padding, @related-attributes-item-list__padding);
+        }
+    }
+}

@@ -1,0 +1,34 @@
+<?php
+/** @var $block \Magento\ConfigurableProduct\Block\Product\View\Type\Configurable*/
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+$ruleId = $block->getRuleId();
+?>
+<?php if ($_product->isSaleable() && count($_attributes)):?>
+    <?php foreach ($_attributes as $_attribute): ?>
+        <div class="field configurable required">
+            <label class="label" for="attribute<?php echo (int)$_attribute->getAttributeId() ?>-<?php echo (int)$_product->getId() ?>">
+                <span>
+                    <?php echo $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?>
+                </span>
+            </label>
+            <div class="control">
+                <select name="super_attribute[<?php echo (int)$ruleId ?>][<?php echo (int)$_product->getId() ?>][<?php echo (int)$_attribute->getAttributeId() ?>]"
+                        data-validate="{required:true}"
+                        id="attribute<?php echo (int)$_attribute->getAttributeId() ?>-<?php echo (int)$_product->getId() ?>"
+                        class="super-attribute-select">
+                    <option value="">
+                        <?php echo $block->escapeHtml(__('Choose an Option...')); ?>
+                    </option>
+                </select>
+            </div>
+        </div>
+    <?php endforeach; ?>
+    <script>
+        require(['jquery', 'Digidirect_FreeGift/js/type/configurable'], function($) {
+            var spConfig = <?php /* @escapeNotVerified */ echo $block->unsetData('allow_products')->getJsonConfig() ?>;
+            spConfig.containerId = "#freegift_items_form-<?php echo (int)$block->getRuleId() ?>-<?php echo (int)$_product->getId() ?>";
+            $('#freegift_items_form-<?php echo (int)$block->getRuleId() ?>-<?php echo (int)$_product->getId()?>').freegiftConfigurable({spConfig: spConfig});
+        });
+    </script>
+<?php endif;?>

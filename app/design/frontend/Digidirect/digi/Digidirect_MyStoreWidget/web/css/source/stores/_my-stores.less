@@ -1,0 +1,812 @@
+//
+//  My stores widget styles
+//  _____________________________________________
+
+@nav-menu-wrapper__justify-content__l: center;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .mystore-button {
+        & {
+            .lib-vendor-prefix-display(flex);
+            margin-top: 5px;
+            cursor: pointer;
+        }
+
+        svg {
+            width: 24px;
+            height: 35px;
+            margin-right: 5px;
+        }
+
+        .mystore-text {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-prefix-flex-direction(column);
+        }
+
+        .store-title {
+            display: none;
+            font-size: 11px;
+            font-weight: 500;
+            line-height: 1.09;
+            color: #222222;
+            margin-top: 5px;
+        }
+
+        .current-store {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 0.75;
+            color: #222222;
+            margin-top: 5px;
+        }
+
+        .current-store-link {
+            .lib-css(color, @color-2-1);
+            .lib-css(font-weight, @font-weight__bold);
+            .lib-font-size(14);
+            line-height: 1.36;
+            text-decoration: none;
+            max-width: 100px;
+
+            width: 45%;
+            display: inline-block;
+            text-align: center;
+        }
+    }
+
+    .catalog-product-view .modal-popup.modal-mystore-widget-wrapper .modal-header {
+        display: block;
+    }
+
+    .modals-wrapper .modal-popup.modal-mystore-widget-wrapper {
+        & {
+            max-width: 100%;
+            width: 90%;
+            margin: 0;
+            height: 100%;
+        }
+
+        .modal-inner-wrap {
+            height: 100%;
+            max-height: none;
+            top: 0;
+            right: 0;
+            left: 0;
+            width: 100%;
+            -webkit-transform: none;
+            -ms-transform: none;
+            transform: none;
+        }
+
+        .block-mystorebar {
+            padding: 0;
+            position: relative;
+            display: none;
+        }
+
+        .sdd-loader {
+            display: none;
+            z-index: 101;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-header {
+            position: absolute;
+            right: 0;
+            border: none;
+            z-index: 100;
+        }
+
+        .modal-content {
+            padding: 0;
+        }
+
+        .mystore-modal-title {
+            & {
+                .lib-css(font-weight, @font-weight__heavier);
+                .lib-css(background-color, @color-black);
+                .lib-css(color, @color-white);
+                .lib-font-size(18);
+                position: relative;
+                background: black;
+                color: white;
+                height: 60px;
+                .lib-css(display, flex);
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -ms-flex-align: center;
+                align-items: center;
+                padding-left: 18px;
+            }
+        }
+
+        .action-close {
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 60px;
+            height: 60px;
+        }
+
+        .action-close:before,
+        .action-close:after {
+            position: absolute;
+            content: ' ';
+            width: 2px;
+            background-color: #ffffff;
+            left: 30px;
+            height: 23px;
+            top: 20px;
+        }
+
+        .action-close:before {
+            transform: rotate(45deg);
+        }
+
+        .action-close:after {
+            transform: rotate(-45deg);
+        }
+
+        .store-info-section {
+            & {
+                .lib-css(display, flex);
+                .lib-vendor-prefix-flex-direction(column);
+            }
+
+            .opening-hours-title {
+                .lib-css(font-weight, @font-weight__heavier);
+                .lib-css(color, @color-4-1);
+                .lib-font-size(16);
+                line-height: 1.13;
+            }
+
+            table {
+                margin-left: 20px;
+            }
+        }
+
+        #storeHours {
+            td {
+                padding-bottom: 0;
+            }
+
+            td:nth-child(2) {
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+
+        #storeStreet span,
+        #storeUrl a,
+        #storePhoneNumber span,
+        #storeFaxNumber span,
+        #storeEmail span {
+            .lib-css(color, @color-4-1);
+            .lib-font-size(13);
+            line-height: 1.38;
+            margin-left: 11px;
+        }
+
+        .my-store-icon {
+            width: 17px;
+            height: 24px;
+            margin-right: 6px;
+        }
+
+        .store-hours-icon {
+            width: 14px;
+            height: 14px;
+            margin-top: -4px;
+            margin-right: 9px;
+        }
+
+        .store-street-icon {
+            width: 11px;
+            height: 15px;
+            margin-right: 3px;
+        }
+
+        .store-url-icon {
+            width: 11px;
+            height: 15px;
+            margin-right: 3px;
+        }
+
+        #storeUrl a,
+        #storeUrl span {
+            .lib-css(font-weight, @font-weight__bold);
+            text-decoration: underline;
+            line-height: 1.38;
+        }
+
+        .store-phone-icon {
+            width: 15px;
+            height: 15px;
+        }
+
+        .store-fax-icon {
+            width: 15px;
+            height: 15px;
+        }
+
+        .store-email-icon {
+            & {
+                width: 15px;
+                height: 13px;
+            }
+        }
+
+        #storeEmail span {
+            .lib-css(font-weight, @font-weight__heavier);
+            text-decoration: underline;
+        }
+
+        .view-store-btn {
+            & {
+                .lib-css(background-color, @color-black);
+                width: 100%;
+                height: 40px;
+                text-align: center;
+                margin: auto;
+            }
+
+            span {
+                .lib-css(font-weight, @font-weight__bold);
+                .lib-css(color, @color-white);
+                .lib-font-size(16);
+                opacity: 0.94;
+                line-height: 1;
+                text-align: center;
+            }
+        }
+
+        .right-info {
+            & {
+                .lib-vendor-prefix-display(flex);
+                .lib-vendor-prefix-flex-direction(column);
+                justify-content: space-around;
+                margin-top: 30px;
+                padding-left: 0;
+                width: 100%;
+            }
+
+            div {
+                margin-bottom: 9px;
+            }
+        }
+
+        #storeEmail {
+            margin-bottom: 20px;
+        }
+
+        .left-info {
+            width: 100%;
+            padding-right: 20px;
+        }
+
+        .block-mystorebar.-selected .change-mode {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-prefix-flex-direction(row);
+            .lib-vendor-box-align(center);
+            -webkit-align-content: center;
+            -ms-flex-line-pack: center;
+            align-content: center;
+            margin-top: 31px;
+        }
+
+        .block-mystorebar .message {
+            padding-right: 8px;
+            padding-top: 4px;
+        }
+
+        .block-mystorebar .selection {
+            padding: 0;
+        }
+
+        .block-mystorebar .notice {
+            display: none;
+        }
+
+        #mystore-form {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 65px;
+        }
+
+        .change-mode {
+            & {
+                .lib-css(color, @color-black);
+                .lib-css(font-weight, @font-weight__bold);
+                .lib-font-size(12);
+                position: relative;
+                margin-bottom: 31px;
+                border-bottom: 1px solid @color-3-2;
+                padding-bottom: 15px;
+            }
+
+            .store-select-section .control {
+                & {
+                    line-height: 38px;
+                    margin-left: 5px;
+                    padding: 0 !important;
+                    max-width: 130px;
+                    overflow-wrap: break-word;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                a {
+                    .lib-css(color, @color-2-1);
+                }
+            }
+
+            .message {
+                padding: 0;
+                float: none;
+                margin-top: 0;
+            }
+
+            .change-store-link {
+                position: absolute;
+                right: 0;
+                top: 10px;
+            }
+
+            .input-group.store-select-section {
+                & {
+                    max-width: 100px;
+                }
+
+                .selection {
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+
+        .search-mode {
+            & {
+                margin-top: 33px;
+                margin-bottom: 33px;
+            }
+
+            #mystore-input {
+                width: 100%;
+                .lib-font-size(16);
+            }
+
+            input[type=text]::-ms-reveal,
+            input[type=text]::-ms-clear {
+                display: none;
+                width: 0;
+                height: 0;
+            }
+
+            .input-group {
+                position: relative;
+            }
+
+            .search-mode-btn {
+                background: none;
+                color: black;
+                position: absolute;
+                top: -1px;
+                right: 0;
+
+                .svg-icon.-search {
+                    width: 20px;
+                    height: 20px;
+                    background: #ffffff;
+                }
+
+                &:active {
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+            }
+
+            #mystore-control {
+                #mystore-input {
+                    background-image: none;
+                }
+
+                .ui-autocomplete {
+                    & {
+                        top: 25px !important;
+                        left: -40px !important;
+                        width: -webkit-calc(~'(100% + 40px)') !important;
+                        width: calc(~'(100% + 40px)') !important;
+                        height: 246px !important;
+                        border: solid 2px #cfcfcf;
+                        position: relative;
+                        max-height: none;
+                    }
+
+                    .item.ui-menu-item {
+                        & {
+                            -webkit-transition: none;
+                            -o-transition: none;
+                            transition: none !important;
+                            line-height: 81px;
+                            cursor: pointer;
+                            .lib-css(display, flex);
+                            padding: 15px;
+                            -webkit-box-pack: justify;
+                            -webkit-justify-content: space-between;
+                            -ms-flex-pack: justify;
+                            justify-content: space-between;
+                        }
+
+                        .link.ui-corner-all {
+                            .lib-css(font-weight, @font-weight__heavier);
+                            .lib-css(color, @color-4-1);
+                            .lib-font-size(14);
+                            display: inline-block;
+                            width: 60%;
+                            line-height: 1;
+                            text-decoration: none;
+                            padding: 0;
+                            -webkit-transition: none;
+                            -o-transition: none;
+                            transition: none !important;
+                            vertical-align: middle;
+                        }
+
+                        .link:hover {
+                            background-color: white;
+                            -webkit-transition: none;
+                            -o-transition: none;
+                            transition: none !important;
+                        }
+
+                        .choosed-sign {
+                            background-image: url('../images/choosed.png');
+                            width: 26px;
+                            height: 26px;
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            right: 60px;
+                            display: none;
+                        }
+
+                        .link-choose-btn {
+                            .lib-font-size(12);
+                            right: 10px;
+                            width: 100px;
+                            height: 30px;
+                            cursor: pointer;
+                            background-color: #e65300;
+                            color: #ffffff;
+                            font-weight: 500;
+                            z-index: 1;
+                            display: flex;
+                            flex-direction: row;
+                            -webkit-box-align: center;
+                            -webkit-align-items: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            -webkit-box-pack: center;
+                            -webkit-justify-content: center;
+                            -ms-flex-pack: center;
+                            justify-content: center;
+                        }
+                    }
+
+                    .item:hover {
+                        background-color: white;
+                        -webkit-transition: none;
+                        -o-transition: none;
+                        transition: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xs){
+    .modals-wrapper .modal-popup.modal-mystore-widget-wrapper .change-mode .store-select-section .control {
+        overflow: visible;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m){
+    .modals-wrapper .modal-popup.modal-mystore-widget-wrapper {
+        & {
+            max-width: 726px;
+            width: 100%;
+            margin: auto;
+            left: 0;
+            top: 35%;
+        }
+
+        .modal-inner-wrap {
+            height: auto;
+        }
+
+        .block-mystorebar {
+            padding: 0;
+        }
+
+        .modal-header {
+            position: absolute;
+            right: 0;
+            border: none;
+            z-index: 100;
+        }
+
+        .modal-content {
+            padding: 0;
+        }
+
+        .mystore-modal-title {
+            & {
+                .lib-css(background-color, @color-white);
+                .lib-css(color, @color-4-1);
+                .lib-font-size(24);
+                line-height: 1.33;
+                margin-top: 32px;
+                padding-bottom: 36px;
+                padding-left: 38px;
+            }
+
+            &:after {
+                .lib-css(background-color, @color-3-2);
+                content: "";
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+            }
+        }
+
+        .action-close {
+            right: 18px;
+            top: 18px;
+        }
+
+        .action-close:before {
+            position: static;
+            width: 23px;
+        }
+
+        .action-close:after {
+            content: none;
+        }
+
+        .action-close:before {
+            transform: none;
+        }
+
+        .store-info-section {
+            & {
+                .lib-css(display, flex);
+                .lib-vendor-prefix-flex-direction(row);
+            }
+        }
+
+        #storeHours {
+            .lib-font-size(15);
+        }
+
+        #storeHours td {
+            padding-bottom: 5px;
+        }
+
+        .view-store-btn {
+            & {
+                max-width: 259px;
+                height: 50px;
+                margin-left: 0;
+                margin-top: 20px;
+            }
+
+            span {
+                line-height: 1.5;
+            }
+        }
+
+        .left-info {
+            padding-right: 60px;
+        }
+
+        .right-info {
+            margin-top: 15px;
+            padding-left: 60px;
+        }
+
+        #mystore-form {
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .change-mode {
+            & {
+                .lib-font-size(14);
+            }
+
+            .store-select-section .control {
+                & {
+                    overflow: visible;
+                }
+            }
+
+            #mystore-control {
+                .item.ui-menu-item {
+                    line-height: 75px;
+                }
+            }
+
+        }
+
+        .search-mode {
+            & {
+                margin-top: 33px;
+                margin-bottom: 33px;
+            }
+
+            #mystore-input {
+                width: 100%;
+            }
+
+            .input-group {
+                position: relative;
+            }
+
+            .search-mode-btn {
+                & {
+                    top: 3px;
+                    right: 10px;
+                }
+
+                .svg-icon.-search {
+                    width: 20px;
+                    height: 20px;
+                }
+
+                &:active {
+                    -webkit-box-shadow: none;
+                    box-shadow: none;
+                }
+            }
+
+            #mystore-control {
+                .ui-autocomplete {
+                    & {
+                        top: 20px !important;
+                        left: -40px !important;
+                        width: 640px;
+                        height: 324px !important;
+                        border: solid 2px #cfcfcf;
+                        max-height: none;
+                    }
+
+                    .item.ui-menu-item {
+                        & {
+                            padding: 0 30px;
+                            .lib-css(display, flex);
+                            -webkit-box-align: center;
+                            -webkit-align-items: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            -webkit-box-pack: justify;
+                            -webkit-justify-content: space-between;
+                            -ms-flex-pack: justify;
+                            justify-content: space-between;
+                        }
+
+                        .link.ui-corner-all {
+                            .lib-font-size(16);
+                            display: inline;
+                            width: auto;
+                            line-height: 82px;
+                            text-decoration: none;
+                            padding: 0;
+                            -webkit-transition: none;
+                            -o-transition: none;
+                            transition: none !important;
+                            vertical-align: middle;
+                        }
+
+                        .link:hover {
+                            background-color: white;
+                            -webkit-transition: none;
+                            -o-transition: none;
+                            transition: none !important;
+                        }
+
+                        .link-choose-btn {
+                            .lib-font-size(16);
+                            cursor: pointer;
+                            position: static;
+                            width: 149px;
+                            height: 33px;
+                            .lib-css(display, flex);
+                            -webkit-box-align: center;
+                            -webkit-align-items: center;
+                            -ms-flex-align: center;
+                            align-items: center;
+                            -webkit-box-pack: center;
+                            -webkit-justify-content: center;
+                            -ms-flex-pack: center;
+                            justify-content: center;
+                        }
+
+                        .choosed-sign {
+                            background-image: url('../images/choosed.png');
+                            width: 32px;
+                            height: 32px;
+                            background-size: 100%;
+                            background-repeat: no-repeat;
+                            position: absolute;
+                            right: 90px;
+                            display: none;
+                        }
+                    }
+
+                    .item:hover {
+                        background-color: white;
+                        -webkit-transition: none;
+                        -o-transition: none;
+                        transition: none;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .modals-wrapper .modal-popup.modal-mystore-widget-wrapper {
+        .change-mode {
+            .input-group.store-select-section {
+                & {
+                    max-width: none;
+                }
+
+                .selection {
+                    white-space: nowrap;
+                    overflow: visible;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm){
+    .modals-wrapper .modal-popup.modal-mystore-widget-wrapper {
+        & {
+            top: 25%;
+        }
+    }
+    .product-info-main .msiavailability-root-wrapper .mystore-text .current-store-link {
+        margin-top: 0;
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .mystore-button {
+        .store-title {
+            display: block;
+        }
+    }
+}

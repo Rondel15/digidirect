@@ -1,0 +1,221 @@
+//
+//  Blog Widget
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-widgets__background-color: @color-4-1;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-widget {
+
+        .blog-list {
+            width: 100%;
+        }
+
+        .post-card {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .post-card:hover {
+            color: #fff;
+            text-decoration: none;
+        }
+    }
+
+    .cms-home.cms-index-index {
+        .post-view {
+            display: none;
+        }
+    }
+
+    .blog-view-index,
+    .blog-category-index,
+    .blog-tag-index,
+    .blog-index-index {
+        .post-homepage {
+            display: none;
+        }
+
+        .post-card .container > .content,
+        .post-card .container > .post-homepage {
+            max-width: 95%;
+        }
+    }
+    
+    .sidebar-main{
+        .blog-latest,
+        .blog-popular{
+            &{
+                padding: 0;
+            }
+
+            .title{
+                font-weight: bold;
+            }
+
+            ul{
+                
+                &{
+                    padding: 0;
+                    list-style: none;
+                    margin-bottom: 0; 
+                }
+
+                .item > a.link{
+                    color: #222;
+                }
+            }
+        }
+    }
+    
+    .custom-block{
+        .content{
+            padding: 0;
+            color: #222 !important;
+            margin: 0;
+        }
+        
+        .description{
+            color: unset !important;
+            max-width: unset;
+            font-weight: unset;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .blog-widget {
+        & {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            padding: 0 20px;
+        }
+
+        > .logo {
+            width: 15%;
+            display: inline;
+            padding: 40px 0 0;
+        }
+
+        > .logo > .svgi-blog-widget {
+            margin: auto;
+            width: 91px;
+            height: 91px;
+        }
+
+        > .blog-list {
+            padding: 0 0 40px;
+        }
+    }
+
+    .blog-widget .blog-list {
+        & {
+            position: relative;
+        }
+
+        > .post-card {
+            position: relative;
+            width: calc(~'100% * 0.39');
+            margin-bottom: 0;
+            .lib-css(background, @blog-widgets__background-color);
+            .lib-hover-out();
+        }
+
+        .post-card:hover {
+            .lib-increased-hover();
+            color: transparent;
+        }
+
+        > .post-card > .container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        > .post-card:nth-child(3) {
+            width: calc(~'(100% - 6.5%) * 0.6');
+            height: calc(~'(100% - 60px)');
+            position: absolute;
+            top: 0;
+            right: 20px;
+        }
+
+        > .post-card:nth-child(3) > .image {
+            height: 100%;
+            max-width: inherit;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            display: block;
+            transform: translate(-50%,-50%);
+        }
+    }
+
+    .blog-latest._full-width-background {
+        padding-top: 30px;
+    }
+
+    .blog-latest .blog-list {
+        > .post-card:first-child {
+            margin: 0 0 11px;
+        }
+    }
+
+    .blog-widget .blog-list {
+        & {
+            padding: 0 0 60px;
+        }
+
+        > .post-card {
+            position: relative;
+            width: calc(~'100% * 0.4');
+        }
+
+        > .post-card:nth-child(3) {
+            width: calc(~'(100% - 2%) * 0.6');
+            right: 0;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .blog-latest._full-width-background {
+        padding-top: 40px;
+    }
+    
+    .blog-widget {
+
+        > .blog-list {
+            padding: 0 0 60px;
+        }
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .blog-latest {
+        .blog-list {
+            > .post-card:first-child {
+                margin: 0 0 24px;
+            }
+        }
+    }
+}

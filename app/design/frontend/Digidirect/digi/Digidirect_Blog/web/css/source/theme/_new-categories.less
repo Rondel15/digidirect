@@ -1,0 +1,198 @@
+//
+//  Blog Widget Categories
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .categories-container {
+        & {
+            background: #fff;
+            margin-bottom: 0;
+        }
+
+        > .logo {
+            width: 100%;
+            max-width: unset;
+            display: flex;
+            justify-content: center;
+            padding-bottom: 15px;
+            z-index: 1 !important;
+        }
+
+        > .logo > .svgi-blog-widget {
+            width: 61px;
+            height: 61px;
+            margin: 30px 30px 15px;
+        }
+
+        .link {
+            color: #222 !important;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        > .list {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 0 0 10px;
+            margin-bottom: 0;
+        }
+
+        > .list > .item {
+            padding: 0 20px;
+        }
+
+        .svgi-arrow {
+            display: none;
+        }
+
+        .view-all {
+            margin-bottom: 10px;
+        }
+    }
+
+    .blog-widget .blog-categories-list {
+        & {
+            overflow-x: scroll;
+            list-style: none;
+        }
+        
+        .link{
+            color: #222;
+        }
+
+        > .item:first-child {
+            padding-left: 0;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .blog-categories-list-wrapper{
+        padding: 0 15px;
+    }
+    
+    .categories-container {
+        > .logo {
+            margin: 0;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .categories-container {
+        > .list {
+            width: 85%;
+        }
+
+        .link {
+            .lib-font-size(15);
+        }
+
+        .item:first-child > .link {
+            .lib-block-underline-hover();
+        }
+
+        .item:hover > .link {
+            .lib-block-underline-hover();
+        }
+
+        .view-all:hover .svgi-arrow {
+            margin-right: -40px;
+            .lib-hover-out();
+        }
+    }
+
+    .blog-widget .blog-categories-list {
+        width: 85%;
+        position: relative;
+        overflow-x: visible;
+        margin: 0;
+        padding: 40px 0 0 30px;
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+    .blog-categories-list-wrapper{
+        padding: 0 90px;
+    }
+    
+    .categories-container {
+        margin-bottom: 30px;
+        
+        .view-all {
+            position: absolute;
+            right: 0;
+        }
+
+        .link {
+            .lib-font-size(16);
+        }
+
+        .view-all > .link {
+            display: flex;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .svgi-arrow {
+            display: block;
+            padding-left: 5px;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        > .list {
+            width: 95%;
+        }
+
+        .view-all > .list > .item {
+            padding: 0;
+        }
+
+        > .logo {
+            width: 5%;
+            margin: 0 auto;
+        }
+    }
+
+    .blog-widget .blog-categories-list {
+        justify-content: center;
+        padding-right: 151px;
+        
+        .link{
+            font-size: 18px;
+        }
+    }
+}
+
+//Extra Large Desktop
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xll) {
+    .blog-widget .blog-categories-list {
+        .link{
+            font-size: 26px;
+        }
+    }
+}

@@ -1,0 +1,33 @@
+<div class="newspopup-wrap newspopup--one">
+    <div class="cross close" title="{{text_cancel}}">✕</div>
+    <div class="newspopup-prod">
+        <div class="newspopup-label">
+            <span class="price"><span>Was:</span>{{product_price}}</span>
+            <span class="price discount"><span>Discount:</span>{{product_discount_amount}}</span>
+            <span class="price new-price"><span>New Price:</span>{{product_sale_price}}</span>
+        </div>
+        <img class="newspopup-prod-photo" src="{{product_image_url}}" alt=""/>
+        <strong class="newspopup-prod-name">{{product_name}}</strong>
+        <span class="newspopup-sku">SKU {{product_sku}}</span>
+    </div>
+    <div class="newspopup-description">
+        <span class="newspopup-top-text">Limited time offer</span>
+        <div class="prnp-title">{{text_title}}</div>
+        <div class="small_text">
+            {{text_description}}
+        </div>
+        <span class="conditions-text">when you sign up for Store.com</span>
+        <form class="newspopup_up_bg_form" method="POST">
+            <div class="newspopup_up_bg_form-wrap">
+                {{form_fields}}
+                <div style="position:relative;">
+                    <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                        {{text_submit}}
+                    </a>
+                    <div class="lds-ellipsis ajax-loader" style="display: none;"><div></div><div></div><div></div><div></div></div>
+                </div>
+            </div>
+        </form>
+        <span class="newspopup-bottom-text">*Exclusions apply. Cannot  be combined with other offers</span>
+    </div>
+</div>

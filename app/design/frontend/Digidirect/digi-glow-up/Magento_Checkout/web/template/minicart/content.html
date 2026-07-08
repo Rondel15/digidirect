@@ -1,0 +1,110 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="block-title" style="margin-bottom: 15px;">
+    <strong style="font-size: 20px; font-weight: 400;">
+        <span
+            class="qty empty"
+            text="getCartParam('summary_count')"
+            data-bind="css: { empty: !!getCartParam('summary_count') == false },
+                       attr: { title: $t('Items in Cart') }">
+        </span>
+        <span class="text" translate="'Item added to your Cart'"></span>
+    </strong>
+    <div class="actions" if="getCartParam('summary_count')" style="float: right; color: #0066CC; font-size: 14px;">
+        <div class="secondary">
+            <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                <span translate="'View Cart'"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="block-content">
+
+    <if args="getCartParam('summary_count')">
+        <div data-action="scroll" class="minicart-items-wrapper">
+            <ol id="mini-cart" class="minicart-items" data-bind="foreach: { data: getCartItems(), as: 'item' }">
+                <each args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
+                      render="{name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}}"></each>
+            </ol>
+        </div>
+    </if>
+    
+    <if args="getCartParam('summary_count')">
+        <each args="getRegion('extraInfo')" render=""></each>
+
+        <div class="actions" if="getCartParam('possible_onepage_checkout')">
+            <div class="primary">
+                <button
+                        id="top-cart-btn-checkout"
+                        type="button"
+                        class="action primary checkout"
+                        data-action="close"
+                        data-bind="
+                            attr: {
+                                title: $t('Proceed to Checkout')
+                            },
+                            click: closeMinicart()
+                        "
+                        translate="'Proceed to Checkout'">
+                </button>
+                <div data-bind="html: getCartParamUnsanitizedHtml('extra_actions')"></div>
+            </div>
+        </div>
+        <span class="zip-container">
+            <span class="zip-learn-more">ⓘ</span>
+            <div class="zip-offer">
+              <div class="zip-apply">Apply Now</div>
+              <span class="zip-text">24 Months Interest Free</span>
+            </div>
+            <img
+              class="zip-logo"
+              src="https://static.zipmoney.com.au/assets/default/product-widget/img/zip-button-wht.svg"
+              alt="Zip Pay"
+            />
+        </span>
+        <span class="afterpay-container">
+            <svg xmlns="http://www.w3.org/2000/svg" width="107" height="20" viewBox="0 0 107 20" fill="none">
+                <g clip-path="url(#clip0_4145_29663)">
+                <path d="M8.80636 9.78691C8.80636 7.98936 7.45558 6.72601 5.79634 6.72601C4.13709 6.72601 2.78631 8.01065 2.78631 9.78691C2.78631 11.5419 4.13709 12.8479 5.79634 12.8479C7.45725 12.8462 8.80636 11.5845 8.80636 9.78691ZM8.83008 15.137V13.7458C8.01146 14.7094 6.79289 15.3074 5.33365 15.3074C2.30158 15.3074 0 12.9527 0 9.78691C0 6.64078 2.38972 4.24512 5.40144 4.24512C6.81835 4.24512 8.0132 4.84485 8.83175 5.78542V4.43683H11.5537V15.137H8.83008Z" fill="black"/>
+                <path d="M24.7746 12.7607C23.8221 12.7607 23.5577 12.4182 23.5577 11.5203V6.76987H25.3067V4.43651H23.5577V1.82619H20.768V4.43651H17.1749V3.78598C17.1749 2.88638 17.5292 2.5439 18.5037 2.5439H19.1156V0.467773H17.7732C15.4716 0.467773 14.3869 1.19532 14.3869 3.42056V4.43487H12.8379V6.76826H14.3869V15.135H17.1767V6.76826H20.7697V12.0118C20.7697 14.1945 21.6324 15.1367 23.8899 15.1367H25.3288V12.7607H24.7746Z" fill="black"/>
+                <path d="M34.78 8.82312C34.5817 7.43189 33.4072 6.59783 32.036 6.59783C30.6632 6.59783 29.5345 7.4106 29.248 8.82312H34.78ZM29.2243 10.4929C29.4243 12.0758 30.5971 12.9754 32.0801 12.9754C33.2529 12.9754 34.1614 12.4395 34.6918 11.5842H37.5476C36.8833 13.852 34.78 15.3071 32.0141 15.3071C28.6718 15.3071 26.3262 13.0392 26.3262 9.80789C26.3262 6.57654 28.8057 4.24316 32.0818 4.24316C35.38 4.24316 37.7697 6.59789 37.7697 9.80789C37.7697 10.0439 37.7477 10.2782 37.7036 10.4929H29.2243Z" fill="black"/>
+                <path d="M55.5059 9.78691C55.5059 8.05323 54.1551 6.72601 52.4959 6.72601C50.8367 6.72601 49.4858 8.01065 49.4858 9.78691C49.4858 11.5419 50.8367 12.8479 52.4959 12.8479C54.1551 12.8462 55.5059 11.5206 55.5059 9.78691ZM46.7402 4.43683H49.4621V5.82802C50.2807 4.84321 51.4976 4.24512 52.9585 4.24512C55.9466 4.24512 58.2922 6.6211 58.2922 9.76562C58.2922 12.9117 55.9025 15.309 52.8925 15.309C51.4976 15.309 50.3468 14.7732 49.5503 13.8753V19.54H46.7402V4.43683Z" fill="black"/>
+                <path d="M68.1032 9.78691C68.1032 7.98936 66.7541 6.72601 65.0931 6.72601C63.4339 6.72601 62.0831 8.01065 62.0831 9.78691C62.0831 11.5419 63.4339 12.8479 65.0931 12.8479C66.7541 12.8462 68.1032 11.5845 68.1032 9.78691ZM68.1271 15.137V13.7458C67.3085 14.7094 66.0896 15.3074 64.6302 15.3074C61.5984 15.3074 59.2969 12.9527 59.2969 9.78691C59.2969 6.64078 61.6866 4.24512 64.6966 4.24512C66.1134 4.24512 67.3085 4.84485 68.1271 5.78542V4.43683H70.8491V15.137H68.1271Z" fill="black"/>
+                <path d="M41.8332 5.48555C41.8332 5.48555 42.5264 4.24512 44.2229 4.24512C44.9483 4.24512 45.4178 4.48599 45.4178 4.48599V7.21594C45.4178 7.21594 44.3941 6.60472 43.4535 6.72762C42.5128 6.85052 41.9179 7.6862 41.9214 8.80375V15.1387H39.1113V4.43847H41.8332V5.48555Z" fill="black"/>
+                <path d="M83.5624 4.43652L76.6899 19.5053H73.7919L76.4901 13.68L71.9277 4.43652H75.2125L77.8817 10.6125L80.6205 4.43652H83.5624Z" fill="black"/>
+                <path d="M105.5 4.19437L98.6864 0.392779C96.6863 -0.723117 94.1866 0.671347 94.1866 2.90478V3.29477C94.1866 3.64708 94.3813 3.97316 94.6965 4.14849L95.983 4.86621C96.3608 5.07759 96.832 4.81377 96.832 4.39265V3.42259C96.832 2.93755 97.3747 2.63441 97.8085 2.87693L103.71 6.17055C104.144 6.41306 104.144 7.01935 103.71 7.26026L97.8085 10.5539C97.3747 10.7964 96.832 10.4932 96.832 10.0082V9.492C96.832 7.25858 94.3323 5.86249 92.3309 6.98L85.5177 10.7816C83.5175 11.8975 83.5175 14.6897 85.5177 15.8056L92.3309 19.6072C94.3303 20.7231 96.832 19.3286 96.832 17.0952V16.7052C96.832 16.3529 96.6373 16.0285 96.3221 15.8515L95.0355 15.1321C94.6578 14.9208 94.1866 15.1846 94.1866 15.6057V16.5758C94.1866 17.0608 93.6445 17.3639 93.2101 17.1214L87.309 13.8278C86.8751 13.5853 86.8751 12.979 87.309 12.7365L93.2101 9.44284C93.6445 9.20032 94.1866 9.50348 94.1866 9.98851V10.5047C94.1866 12.7381 96.6863 14.1343 98.6864 13.0167L105.5 9.21509C107.5 8.10245 107.5 5.31027 105.5 4.19437Z" fill="black"/>
+                </g>
+                <defs>
+                <clipPath id="clip0_4145_29663">
+                <rect width="107" height="20" fill="white"/>
+                </clipPath>
+                </defs>
+            </svg>
+        </span>
+    </if>
+    
+    <ifnot args="getCartParam('summary_count')">
+        <strong class="subtitle empty"
+                translate="'You have no items in your shopping cart.'"></strong>
+        <if args="getCartParam('cart_empty_message')">
+            <p class="minicart empty text" text="getCartParam('cart_empty_message')"></p>
+            <div class="actions">
+                <div class="secondary">
+                    <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                        <span translate="'View and Edit Cart'"></span>
+                    </a>
+                </div>
+            </div>
+        </if>
+    </ifnot>
+
+    <div id="minicart-widgets" class="minicart-widgets" if="regionHasElements('promotion')">
+        <each args="getRegion('promotion')" render=""></each>
+    </div>
+</div>
+<each args="getRegion('sign-in-popup')" render=""></each>

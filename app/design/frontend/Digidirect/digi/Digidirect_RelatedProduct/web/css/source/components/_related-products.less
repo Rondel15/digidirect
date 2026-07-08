@@ -1,0 +1,99 @@
+//
+//  Variables
+//  ---------------------------------------------
+
+@related-filters-item__hover-active__background: none;
+@related-filters-item__hover-active__color: @color-black;
+@related-filters-item__color: @color-gray40;
+@related-filters-item__font: 14px @font-family-name__base;
+@related-filters-item__font-weight: @font-weight__bold;
+@related-filters-item__padding: 2px 0;
+@related-filters-item__margin: 5px 20px;
+@related-filters__margin: 0 0 25px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .related-filters {
+        > .item {
+            .lib-css(font-weight, @related-filters-item__font-weight);
+        }
+
+        > .item.-active {
+            .lib-css(border-bottom, 4px solid @color-black);
+        }
+
+        > .item:last-child {
+            margin-right: 0;
+        }
+    }
+
+    .products-grid.-related {
+        overflow: visible;
+    }
+
+    .related-header {
+        & {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-prefix-flex-direction(column);
+            .lib-vendor-prefix-flex-wrap(wrap);
+            .lib-vendor-box-align(center);
+        }
+
+        > .title {
+            margin-bottom: 15px;
+            .lib-font-size(22);
+            text-align: center;
+            margin-right: 30px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .related-filters {
+        > .item {
+            .lib-font-size(15);
+        }
+    }
+
+    .related-header {
+        > .title {
+            .lib-font-size(24);
+            margin-bottom: 25px;
+        }
+    }
+}
+
+//
+//  Desktop 
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .related-filters {
+        
+        &{
+            margin: 0;
+        }
+        
+        > .item {
+            .lib-font-size(16);
+        }
+    }
+
+    .related-header {
+        & {
+            .lib-vendor-prefix-flex-direction(row);
+            .digidirect-lib-box-align(space-between);
+        }
+
+        > .title {
+            .lib-font-size(28);
+            margin-bottom: 0;
+        }
+    }
+}

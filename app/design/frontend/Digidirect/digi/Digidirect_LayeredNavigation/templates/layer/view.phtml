@@ -1,0 +1,304 @@
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ * @var $faceBookPixel \Digidirect\Digi\Helper\FaceBookPixel
+ */
+?>
+<?php
+    $isShowState = false; // Show/Hide filters state
+    $isShowTitleCount = false; // Show/Hide Title Count
+    $brandLabels = false;
+    $faceBookPixel = $this->helper('Digidirect\Digi\Helper\FaceBookPixel');
+    $filterExclusions = ['cat'];
+    
+    $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+    $request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+
+    $urlInterface = $objectManager->get('Magento\Framework\UrlInterface');
+    $currentUrl = $urlInterface->getCurrentUrl();
+
+    $isBrandPage = str_contains($currentUrl, 'brands/');
+?>
+<?php if ($block->canShowBlock()): ?>
+    <div class="block filter">
+        <div class="sidedar-toolbar">
+            <strong class="title _hide-for-mobile-tablet-l">
+                <?php echo /* @noEscape */ __('Refine By'); ?>
+            </strong>
+            
+            <?php echo $block->getChildHtml('catalog.leftnav.clear'); ?>
+            <?php echo $block->getChildHtml('digidirect.layerednavigation.apply'); ?>
+        </div>
+        <?php echo $block->getChildHtml('digidirect.categoryfilter.dropdown'); ?>
+        <?php $allFilter = $block->getFilters();
+        $filterWithCodeName = array_reduce($allFilter, static function ($acc, $filter) use ($filterExclusions) {
+            $filterRequestVar = $filter->getRequestVar();
+            if (!empty($filterRequestVar) && !in_array($filterRequestVar, $filterExclusions)) {
+                $acc[$filterRequestVar] = $filter;
+                return $acc;
+            }
+            return $acc;
+        }, []);
+        ?>
+
+        <div class="block-content filter-content">
+            <?php if ($isShowState): ?>
+                <?php echo $block->getChildHtml('state') ?>
+            <?php endif; ?>
+            <?php $allFilter = $block->getFilters();
+            $filterWithCodeName = array_reduce($allFilter, static function ($acc, $filter) {
+                $filterRequestVar = $filter->getRequestVar();
+                if (!empty($filterRequestVar)) {
+                    $acc[$filterRequestVar] = $filter;
+                    return $acc;
+                }
+                $acc[] = $filter;
+                return $acc;
+            }, []);
+            ?>
+            <?php $wrapOptions = false; ?>
+            <?php $i = 0; foreach ($filterWithCodeName as $filter): ?>
+            <?php $activeCount = (int)$block->getChildBlock('renderer')->getActiveCount($filter); ?>
+            <?php $isTabActive = ($i == 0 || $i == 1 || $activeCount) ? true : false; ?>
+                <?php if (!$wrapOptions): ?>
+                    <div class="filter-options" data-role="content" id="narrow-by-list">
+                    <?php $wrapOptions = true; ?>
+                <?php endif; ?>
+                <?php if ($filter->getItemsCount()): ?>
+                    <div data-role="collapsible" data-mage-init='{"collapsible":{"openedState": "active",
+                    "active":"<?php echo $isTabActive?>", "saveState": false, "animate": "200"}}'
+                         class="filter-options-item
+                    collapsible-section">
+                        <strong role="heading" aria-level="3" data-role="title" class="filter-options-title title"
+                           data-testid="sln-filter-title">
+                            <?php echo $block->escapeHtml(__($filter->getName())) ?>
+                            <?php $activeLabels = $block->getChildBlock('renderer')->getActiveLabels($filter) ?>
+
+                            <?php if ($activeCount > 0 && !empty($activeLabels)) : ?>
+                                <span class="value"><?php /* @escapeNotVerified */ echo implode(', ', $activeLabels) ?></span>
+                                <?php if ($isShowTitleCount): ?>
+                                    <span class="count"><?php echo (int)$activeCount ?></span>
+                                <?php endif; ?>
+                            <?php endif; ?>
+                        </strong>
+                        <div class="filter-options-content content" data-role="content"
+                             data-testid="sln-filter-content"><?php /* @escapeNotVerified
+                             */ echo $block->getChildBlock('renderer')->render($filter); ?></div>
+                    </div>
+                    <?php $i++; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+            <?php if ($wrapOptions): ?>
+                </div>
+            <?php endif; ?>
+            <div id="show-more-less" class="show-more-less" 
+                 style="text-align: 
+                 center;cursor: 
+                 pointer;margin-top: 20px;
+                 font-size: 13px;
+                 font-weight: 500;"><span class="show-option">+ More</span></div>
+        </div>
+    </div>
+<?php endif; ?>
+
+<script>
+    
+    require(['jquery', 'jquery/ui'], function($){ 
+        
+        function sortUsingNestedText(parent, childSelector, keySelector) {
+            
+            var items = parent.children(childSelector).sort(function(a, b) {
+                var vA = $(keySelector, a).text();
+                var vB = $(keySelector, b).text();
+                return (vB > vA) ? -1 : (vB < vA) ? 1 : 0;
+            });
+            parent.append(items);
+        }
+    
+        //sortUsingNestedText($('#narrow-by-list'), ".filter-options-item", ".filter-options-title");
+        
+        function prependPriorityAttributes(attribute) {
+            $('#narrow-by-list > .filter-options-item').each(function () {
+                //console.log($.trim($(this).children('.filter-options-title').text()));
+                var attributeCode = $.trim($(this).children('.filter-options-title').text());
+                if (attributeCode == attribute) {
+                    var parent = $('#narrow-by-list');
+                    parent.prepend($(this));
+                } else {
+                    //$(this).hide();
+                }
+            });
+        }
+        
+        var priorityAttributes = ["Price", "Color", "Brand", "Category"];
+        //        
+        //$.each(priorityAttributes , function(index, val) { 
+        //console.log(index, val);
+        //prependPriorityAttributes(val);
+        //});
+        
+        $('#narrow-by-list > .filter-options-item').each(function () {
+            $(this).hide();
+        });
+        
+        $('#narrow-by-list > .filter-options-item').each(function () {
+            var attributeCode = $.trim($(this).children('.filter-options-title').text());
+            
+            if (priorityAttributes.includes(attributeCode)) {
+                console.log("<?= $isBrandPage?>" + ', ' + attributeCode);
+                if (("<?= $isBrandPage?>") == "1" && attributeCode == "Brand") {
+                    $(this).remove();
+                }
+                $(this).show();
+            }
+            
+        });
+        
+        
+        $('#narrow-by-list > .filter-options-item').each(function () {
+            var ctrOption = 0;
+            var hiddenOptions = 0;
+            $(this).children('.filter-options-content')
+            .children('#filter-list-wrapper')
+            .children('#layered-nav-id')
+            .children('.item').each(function () {
+                ctrOption++;
+                if (ctrOption > 5) {
+                    $(this).hide();
+                    hiddenOptions++;
+                }
+            });
+            
+            if (hiddenOptions == 0) {
+                //console.log($.trim($(this).children('.filter-options-title').text()));
+                //console.log(hiddenOptions);
+                $(this).children('.filter-options-content').children('#filter-list-wrapper').children('#show-more-options').hide();
+            }
+        });
+        
+        
+        
+        
+        
+        
+        $('#narrow-by-list > .filter-options-item').each(function () {
+            
+            var optionLimit = 5;
+            var optionCtr = 0;
+            $(this).children('.filter-options-content').children('#filter-list-wrapper').children('#show-more-options').click(function() {
+                //console.log($(this).parent('#layered-nav-id').children('li').text());
+                //var wrapper = $(this).closest('#layered-nav-id');
+                //console.log(wrapper);
+
+                $(this).prev().each(function () {
+                    
+                    $(this).children('.item:hidden').each(function () {
+                        optionCtr++;
+                        $(this).show();
+                        if (optionCtr == optionLimit) {
+                            optionCtr = 0;
+                            return false;
+                        }
+                    })
+                    //console.log($(this));
+                    
+                    var hiddenOption = 0;
+                    $(this).children('.item:hidden').each(function () {
+                        hiddenOption++;
+                        //console.log($(this));
+                    })
+                    
+                    if (hiddenOption == 0) {
+                        $(this).next().hide();
+                    }
+                    
+                    //console.log($(this).children('.item'));
+                    
+                });
+            });
+            
+            
+        });
+        
+        $(".load-area:hidden:first");
+        var limit = 5;
+        var ctr = 0;
+        $("#show-more-less").click(function() {
+            $('#narrow-by-list > .filter-options-item:hidden').each(function () {
+                $(this).show();
+                ctr++;
+                if (ctr == limit){
+                    ctr = 0;
+                    return false;
+                }
+
+            });
+            
+            var hiddenFilter = 0;
+            $('#narrow-by-list > .filter-options-item:hidden').each(function () {
+                hiddenFilter++;
+            });
+            console.log("Hidden Filter : " + hiddenFilter);
+            console.log($(this));
+            
+            if (hiddenFilter == 0) {
+                $(this).hide();
+            }
+            
+        });
+    
+    });
+    
+</script>
+
+<style type="text/css">
+    .show-more-less:hover {
+        color: #ff3c00;
+        font-size: 18px;
+    }
+    
+    strong.filter-options-title.title {
+        padding-right: 20px !important;
+        font-size: 1.3rem !important;
+    }
+    
+    strong.filter-options-title.title::before {
+        top: 18px !important;
+    }
+    
+    .block-content.filter-content {
+        width: 90%;
+    }
+    
+    .filter-content .filter-link .label {
+        font-size: 1.2rem !important;
+    }
+    
+    #layered-nav-id .label:before {
+        border-radius: 50% !important;
+        border: 1px solid;
+        height: 16px !important;
+        width: 16px !important;
+    }
+    
+    #layered-nav-id input[type=checkbox]:checked + label:before {
+        background: none !important;
+    }
+    
+    
+    #layered-nav-id input[type=checkbox]:checked + label:after {
+        top: 14px !important;
+        left: 4px;
+        width: 9px;
+        height: 6px;
+        border-left: 3px solid #000 !important;
+        border-bottom: 3px solid #000 !important;
+        transform: rotate(-45deg);
+    }
+
+    
+    
+</style>

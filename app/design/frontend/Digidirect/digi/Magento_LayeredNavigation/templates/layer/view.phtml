@@ -1,0 +1,80 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+$currentPage = $this->getRequest()->getFullActionName();
+if ($currentPage != "catalogsearch_result_index") {
+    $catalogHelperData = $this->helper('Magento\Catalog\Helper\Data');
+    $categoryObject = $catalogHelperData->getCategory();
+    $categoryId = $categoryObject->getId();
+}
+
+$objectManager =  \Magento\Framework\App\ObjectManager::getInstance();        
+$categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+
+$categoryDigiPrint = $categoryFactory->create()->load(2881);
+$allChildrenCategoryIdsDigiPrint = $categoryDigiPrint->getAllChildren(true);
+
+if ($currentPage == "eaa-attribute_option-index") {
+    $priorityAttributes = ["Price", "Color", "Category"];
+} else {
+    $priorityAttributes = ["Price", "Color", "Brand", "Category"];
+}
+$digiPrintAttributes = ["Price", "Category", "Canvas Prints", "Metal Prints", "Photo Prints", "Wide Format & Fine Art"];
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter -core">
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions" style="display: none">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter) : ?>
+                <?php if (!$wrapOptions) : ?>
+                    <dl class="filter-options" id="narrow-by-list">
+                    <?php $wrapOptions = true;
+                endif; ?>
+                    <?php if ($currentPage != "catalogsearch_result_index") { ?>
+                        <?php if (in_array($categoryId, $allChildrenCategoryIdsDigiPrint)) { ?>
+                            <?php if (in_array($filter->getName(), $digiPrintAttributes)) { ?>
+                                <?php if ($filter->getItemsCount()) : ?>
+                                    <dt role="heading" aria-level="3" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                                    <dd class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></dd>
+                                <?php endif; ?>
+                            <?php } ?>
+                            <?php } else { ?> 
+                                <?php if (in_array($filter->getName(), $priorityAttributes)) { ?>
+                                    <?php if ($filter->getItemsCount()) : ?>
+                                        <dt role="heading" aria-level="3" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                                        <dd class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></dd>
+                                    <?php endif; ?>
+                                <?php } ?>
+                            <?php } ?>  
+                    <?php } else { ?> 
+                        <?php if (in_array($filter->getName(), $priorityAttributes)) { ?>
+                            <?php if ($filter->getItemsCount()) : ?>
+                                <dt role="heading" aria-level="3" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                                <dd class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></dd>
+                            <?php endif; ?>
+                        <?php } ?>
+                    <?php } ?>   
+            <?php endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </dl>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

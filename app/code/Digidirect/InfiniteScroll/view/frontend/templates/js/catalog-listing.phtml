@@ -1,0 +1,22 @@
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "infinitescroll": {
+                "itemsContainerSelector": ".products.wrapper .product-items",
+                "rememberScrollState": true,
+                "scrollToLastViewedItem": true,
+                "nextUrl": "<?php echo /* @escapeNotVerified */ $this->getNextPageUrl(); ?>",
+                "action": "<?php /* @escapeNotVerified */ echo $this->getActionType(); ?>",
+                "buttonContent": "<?php /* @escapeNotVerified */ echo __('Load more | Showing %1 / %2 product(s)', (int)$this->getCurrentCount
+    (), (int)$this->getTotalCount()); ?>",
+                "perPageCount": "<?php echo (int)$this->getPerPageCount(); ?>",
+                "currentCount": "<?php echo (int)$this->getCurrentCount(); ?>",
+                "totalCount": "<?php echo (int)$this->getTotalCount(); ?>",
+                "viewCustom": "<?php /* @escapeNotVerified */ echo $block->getViewCustom(); ?>",
+                "loaderIcon": "<?php echo $block->escapeUrl($this->helper('Digidirect\Utilities\Helper\Animation')->getImage()); ?>",
+                "loaderText": "<?php echo $block->escapeHtml($this->helper('Digidirect\Utilities\Helper\Animation')->getText()); ?>",
+                "addOn": "<?php /* @escapeNotVerified */ echo $block->getAddOn(); ?>"
+            }
+        }
+    }
+</script>

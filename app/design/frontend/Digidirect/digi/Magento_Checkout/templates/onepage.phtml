@@ -1,0 +1,333 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$cmsPaymentsBlock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('secure-pay')->toHtml();
+$quoteHelper = $helper = $this->helper('Digidirect\Digi\Helper\Quote');
+$hasWebOnly = $quoteHelper->isQuoteHasWebOnlyProducts();
+?>
+
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container">
+    <div id="checkout-loader" data-role="checkout-loader" class="loading-mask" data-mage-init='{"checkoutLoader": {}}'>
+        <div class="loader">
+            <img src="<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>"
+                 alt="<?= /* @escapeNotVerified */ __('Loading...') ?>"
+                 style="position: absolute;">
+        </div>
+    </div>
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+    <script>
+        window.checkoutConfig = <?= /* @escapeNotVerified */ $block->getSerializedCheckoutConfig() ?>;
+        // Create aliases for customer.js model from customer module
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        window.customerData = window.checkoutConfig.customerData;
+        window.cmsPayments = {"content": <?php echo json_encode(str_replace(array("\r", "\n"), "",
+            $cmsPaymentsBlock))?>};
+
+        login_state = window.isCustomerLoggedIn;
+    </script>
+    <script>
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader',
+        ], function(url, blockLoader) {
+            blockLoader("<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>");
+            return url.setBaseUrl('<?= /* @escapeNotVerified */ $block->getBaseUrl() ?>');
+        })
+    </script>
+
+    <script type="text/javascript">
+        require(['jquery',
+                 'accordionStep'],
+        function($, accordionStep) {
+            $("body").on("click", ".shipping-methods.table-checkout-shipping-method.items li:not('.collect')", function(){
+
+
+                let username = $('[name="username"]').val();
+                let firstname = $('[name="firstname"]').val();
+                let lastname = $('[name="lastname"]').val();
+                let telephone = $('[name="telephone"]').val();
+                let street = $('[name="street[0]"]').val();
+                let city = $('[name="city"]').val();
+                let postcode = $('[name="postcode"]').val();
+
+                if(username != ""
+                    && firstname != ""
+                   && lastname != ""
+                   && telephone != ""
+                   && street != ""
+                   && city != ""
+                   && postcode != ""){
+
+                   var target = $('.checkout-shipping-address');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+
+                        $(".checkout-shipping-address .accordion-step").removeClass("active");
+                        $(".checkout-shipping-address .step-content").fadeOut("slow", "swing");
+
+                        return false;
+                    }
+                }
+                else{
+                    if($("#shipping-address-select").length > 0){
+                        var target = $('.checkout-shipping-address');
+                        if (target.length) {
+                            $('html,body').animate({
+                                scrollTop: target.offset().top
+                            }, 1000);
+
+                            $(".checkout-shipping-address .accordion-step").removeClass("active");
+                            $(".checkout-shipping-address .step-content").fadeOut("slow", "swing");
+
+                            return false;
+                        }
+                    }
+                    else{
+                        $("#shipping-method-buttons-container .continue").trigger("click");
+                    }
+
+                }
+            });
+
+            $("body").on("click", "#shipping-button-extension", function(){
+
+                //comment to redeploy
+                if($('[name="username"]').length > 0)
+                {
+                    let username = $('[name="username"]').val();
+                    if(username == ""){
+                        $(".checkout-shipping-address .accordion-step").addClass("active");
+                        $(".checkout-shipping-method .accordion-step").addClass("active");
+
+                        $(".checkout-shipping-address .step-content").fadeIn("slow", "swing");
+                        $(".checkout-shipping-method .step-content").fadeIn("slow", "swing");
+
+                    }
+                }
+
+
+                if($(".field-error").length > 0){
+                    $(".checkout-shipping-address .accordion-step").addClass("active");
+                    $(".checkout-shipping-method .accordion-step").addClass("active");
+
+                    $(".checkout-shipping-address .step-content").fadeIn("slow", "swing");
+                    $(".checkout-shipping-method .step-content").fadeIn("slow", "swing");
+
+                }
+
+                $("#shipping-method-buttons-container .continue").trigger("click");
+            });
+
+            $("body").on("click", "#payment-button-extension", function(){
+                $(".order-trigger").trigger("click");
+            });
+
+            $(window).load(function() {
+                var checkExist = setInterval(function() {
+                    if ($("#qff_number").length) {
+                        clearInterval(checkExist);
+
+                        qff_form = $("#qff-form");
+                        qff_number = $("#qff_number");
+                        qff_lastname = $("#qff_lastname");
+                        qff_trigger = $("#qff-trigger");
+                        qff_error = $(".qff-link-error");
+                        function verifyQffDetails(action, action_url){
+                            $.ajax(
+                            {
+                                url: action_url,
+                                async: false,
+                                data: {
+                                    qff_number: qff_number.val(),
+                                    qff_lastname: qff_lastname.val(),
+                                    qff_action: action
+                                },
+                                type: "POST",
+                                dataType: "json",
+                                beforeSend: function(){
+                                    $("#qff-trigger").html("<span>Please wait</span>");
+                                    $("#qff-trigger").attr("disabled", true);
+                                },
+                                success: function(data){
+
+                                    setTimeout(
+                                    function()
+                                    {
+                                        if(data.result){
+                                            if($(".qff-link-error").length > 0){
+                                                $(".qff-link-error").remove();
+                                            }
+
+                                            if($(".qff-link-success").length > 0){
+                                                $(".qff-link-success").remove();
+                                            }
+
+                                            qff_number.attr("readonly", true);
+                                            qff_lastname.attr("readonly", true);
+                                            $("#qff-trigger").attr("data-action", "change");
+                                            $("#qff-trigger").html("<span>Change</span>");
+
+                                             var success_message = "<span class='qff-link-success'>Validation success.</span>";
+                                             $(success_message).insertAfter(qff_lastname);
+                                        }
+                                        else{
+                                            if($(".qff-link-error").length > 0){
+                                                $(".qff-link-error").remove();
+                                            }
+
+                                             if($(".qff-link-success").length > 0){
+                                                $(".qff-link-success").remove();
+                                            }
+
+                                            var error_message = "<span class='qff-link-error'>Details does not match our record. Please enter the correct details.</span>";
+                                            $(error_message).insertAfter(qff_lastname);
+
+                                            $("#qff-trigger").attr("data-action", "link");
+                                            $("#qff-trigger").html("<span>Validate</span>");
+                                        }
+
+                                        $("#qff-trigger").attr("disabled", false);
+                                    }, 3000);
+                                },
+                                error: function(){
+                                    $("#qff-trigger").attr("disabled", false);
+
+                                    if($(".qff-link-error").length > 0){
+                                        $(".qff-link-error").remove();
+                                    }
+
+                                    if($(".qff-link-success").length > 0){
+                                            $(".qff-link-success").remove();
+                                        }
+                                    var error_message = "<span class='qff-link-error'>Details does not match our record. Please enter the correct details.</span>";
+                                    $(error_message).insertAfter(qff_lastname);
+
+                                    $("#qff-trigger").attr("data-action", "link");
+                                    $("#qff-trigger").html("<span>Validate</span>");
+                                }
+                            });
+                        }
+
+                        if(login_state){
+                            if(qff_error.length > 0){
+                                qff_error.remove();
+                            }
+
+                            qff_number.val(window.customerData["qff_number"]);
+                            qff_lastname.val(window.customerData["qff_lastname"]);
+                        }
+
+                        $("body").on("focus", "#qff-form input[type=text]", function(){
+                            var target = $('.checkout-payment-method');
+                            if (target.length) {
+                                $('html,body').animate({
+                                    scrollTop: target.offset().top
+                                }, 1000);
+
+                                $(".checkout-payment-method .accordion-step").removeClass("active");
+                                $(".checkout-payment-method .step-content").fadeOut("slow", "swing");
+
+                                return false;
+                            }
+                        });
+
+                        $("body").on("focus", ".order-comment", function(){
+                            var target = $('.checkout-payment-method');
+                            if (target.length) {
+                                $('html,body').animate({
+                                    scrollTop: target.offset().top
+                                }, 1000);
+
+                                $(".checkout-qantas-wrapper .accordion-step").removeClass("active");
+                                $(".checkout-qantas-wrapper .step-content").fadeOut("slow", "swing");
+
+                                $(".checkout-payment-method .accordion-step").removeClass("active");
+                                $(".checkout-payment-method .step-content").fadeOut("slow", "swing");
+
+                                return false;
+                            }
+                        });
+
+                        $("#qff-trigger").click(function(e)
+                        {
+                            if($(".checkout-payment-method").length > 0){
+                                $(".checkout-payment-method .accordion-step").removeClass("active");
+                                $(".checkout-payment-method .step-content").fadeOut("slow", "swing");
+                            }
+
+                            if(qff_error.length > 0){
+                                qff_error.remove();
+                            }
+                            if($(".qff-link-success").length > 0){
+                               $(".qff-link-success").remove();
+                            }
+
+                            if($("#qff-trigger").attr("data-action") == "link"){
+                                var action = "update";
+
+                                $(".qff-link-error").remove();
+
+                                if(qff_number.val() == ""
+                                || qff_lastname.val() == ""){
+                                    var error_message = "<span class='qff-link-error'>Please enter the correct details.</span>";
+                                    $(error_message).insertAfter(qff_lastname);
+                                }
+                                else{
+                                    if(login_state){
+                                        var action_url = "/customer/account/editpost";
+                                    }
+                                    else{
+                                        var action_url = "/customer/index/qffaction";
+                                    }
+
+                                    verifyQffDetails(action, action_url);
+                                }
+
+                                e.preventDefault();
+                            }
+                            else{
+                                qff_number.attr("readonly", false);
+                                qff_lastname.attr("readonly", false);
+                                qff_trigger.attr("data-action", "link");
+                                qff_trigger.html("<span>Validate</span>");
+                            }
+                        });
+                    }
+                 }, 100);
+            });
+        });
+    </script>
+    <!--End-->
+    <?php $pickUpStoreCmsBlock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pick-up-store')->toHtml() ?>
+    <?php $oneHourPickUpAvailable = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-hour-pickup-available')->toHtml() ?>
+    <script type="text/javascript">
+        window.pickUpStoreCmsBlock = <?php echo json_encode($pickUpStoreCmsBlock)?>;
+        window.oneHourPickUpAvailable = <?php echo json_encode($oneHourPickUpAvailable)?>
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Checkout/js/order-field": {}
+        }
+    }
+    </script>
+</div>
+
+<?php if ($hasWebOnly) : ?>
+<script>
+    window.hasWebOnly = <?= $hasWebOnly ?>;
+</script>
+<?php endif; ?>

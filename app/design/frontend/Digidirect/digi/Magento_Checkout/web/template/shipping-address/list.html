@@ -1,0 +1,17 @@
+<!-- ko if: (visible)-->
+    <div class="field addresses">
+        <label for="shipping-address-select" class="label" data-bind="text: $t('Shipping to')"></label>
+        <div class="control">
+            <div class="shipping-address-items">
+                <select name="shipping-address-select" id="shipping-address-select" data-bind="event: {change: selectAddress}">
+                <!-- ko foreach: { data: elems, as: 'element' } -->
+                    <!-- ko template: element.getTemplate() --><!-- /ko -->
+                <!-- /ko -->
+                </select>
+            </div>
+        </div>
+    </div>
+    <button type="button" class="action edit-address-link" data-bind="attr:{'title': $t('Update address')}, event: {click: editAddress}, afterRender: checkEditStatus">
+        <span data-bind="text: $t('Update address')"></span>
+    </button>
+<!-- /ko -->

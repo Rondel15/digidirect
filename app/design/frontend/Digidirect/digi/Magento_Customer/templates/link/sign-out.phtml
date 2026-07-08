@@ -1,0 +1,13 @@
+<?php
+/** @var \Magento\Customer\Block\Account\AuthorizationLink $block */
+
+$dataPostParam = '';
+if ($block->isLoggedIn()) {
+    $dataPostParam = sprintf(" data-post='%s'", $block->getPostParams());
+}
+?>
+<?php if ($block->isLoggedIn()) : ?>
+    <a class="link-signout" <?= /* @noEscape */ $block->getLinkAttributes() ?><?= /* @noEscape */ $dataPostParam ?> title="<?= $block->escapeHtml($block->getLabel()) ?>">
+        <?= $block->escapeHtml($block->getLabel()) ?>
+    </a>
+<?php endif; ?>

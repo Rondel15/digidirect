@@ -1,0 +1,170 @@
+<?php
+/** @var \Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList $block */
+$itemsList = $block->getItems();
+$requestParams = $block->collectFilterParams();
+$blockPager = $block->getLayout()->getBlock('my_order_item_pager');
+$pageCount = (int)$blockPager->getCollection()->getPageSize();
+?>
+<div class="group-block" data-mage-init='{
+    "orderGroupManage": {
+        "allItemsIds": <?= /* @escapeNotVerified */  $block->getItemIds() ?>,
+        "groupId": "<?= (int)$block->getCurrentGroupId() ?>",
+        "addNewItemUrl": "<?php echo $block->getAddItemUrl(); ?>",
+        "alertContent": "<?= __('This item has already been added to the ')?>",
+        "loaderConfig": {
+            "config": {
+                "icon": "<?php echo $block->escapeUrl($this->helper('Digidirect\Utilities\Helper\Animation')->getImage()); ?>",
+                "texts": {
+                    "loaderText": "<?php echo $block->escapeHtml($this->helper('Digidirect\Utilities\Helper\Animation')->getText()); ?>"
+                }
+            }
+        }
+    },
+    "Digidirect_MyOrderItemsGroups/js/scroll-shelf": {}
+}'>
+    <div class="group-header nav-header -light -main">
+        <?= $block->getGroupFilterHtml() ?>
+
+        <div class="group-actions nav-header -light">
+            <?php if ($itemsList && sizeof($itemsList) >= 1): ?>
+                <div class="wrap-share-nav">
+            <?php else: ?>
+                <div class="wrap-share-nav -grayeds">
+            <?php endif; ?>
+            <span class="share-title"><?= $block->escapeHtml(__('Share Kit: ')) ?></span>
+            <?= $block->getChildHtml('my_order_item_groups_sharing') ?>
+            </div>
+            <?= $block->getChildHtml('my_order_item_groups_management') ?>
+        </div>
+    </div>
+    <?php if (!$block->isEmptyGroup()): ?>
+        <?php if($block->isPagerDisplayed()): ?>
+            <div class="add-field" ></div>
+        <?php endif ?>
+        <form action="<?php echo $block->getFormClearActionUrl() ?>" method="post" id="group-action-clear">
+            <input type="hidden" name="group_id" class="group_id" value="<?= $block->getCurrentGroupId() ?>"/>
+            <input type="hidden" data-role="remove-items-id" name="sales_item_ids"/>
+        </form>
+            <div class="items-block my-shelf group" data-role="drop-container">
+                <?php foreach ($itemsList as $salesItem): ?>
+                    <?php $requestParams['group_item_id'] = $salesItem->getItemId(); ?>
+                    <div class="item" data-item-id="<?= (int)$salesItem->getItemId(); ?>">
+                        <?php /** @var \Magento\Sales\Model\Order\Item $salesItem */ ?>
+                        <div class="hidden-control">
+                            <div class="field item choice">
+                                <input type="checkbox" class="checkbox" id="item-id-<?= (int)$salesItem->getItemId(); ?>" data-id-value="<?= $salesItem->getItemId() ?>" data-role="remove-item"/>
+                                <label class="label" for="item-id-<?= (int)$salesItem->getItemId(); ?>"></label>
+                            </div>
+                        </div>
+                        <div class="image"><img src="<?php echo $block->escapeUrl($block->getDataHelper()->getImageFilePath($salesItem,'shelf__order_items__products_list')) ?>" alt="<?php echo $block->escapeHtml($salesItem->getName()); ?>"></div>
+                        <?php if ($salesItem->getProduct() && $salesItem->getProduct()->isAvailable()): ?>
+                            <a class="name -visible"
+                               href="<?= $block->escapeUrl($block->getUrl($salesItem->getProduct()->getProductUrl())) ?>"
+                               title="<?php echo $block->escapeHtml($salesItem->getName()); ?>"><?php echo $block->escapeHtml($salesItem->getName()); ?></a>
+                        <?php else: ?>
+                            <span class="name pop-up-name pop-up-key-gr"><?php echo $block->escapeHtml($salesItem->getName()); ?></span>
+                        <?php endif ?>
+                        <a class="details-link" href="<?= $block->getIndexUrl($requestParams) ?>" title="<?php echo $block->escapeHtml(__('View Info')) ?>"><?php echo $block->escapeHtml(__('View Info')) ?></a>
+                    </div>
+                <?php endforeach; ?>
+                <?php if($itemsList && sizeof($itemsList) < $pageCount): ?>
+                    <div class="item info-element dashed">
+                        <div class="content">
+                             <span class="text _hide-for-mobile-tablet"><?= $block->escapeHtml(__('You can drag the purchased product to add new item here')) ?></span>
+                             <span class="text _hide-for-desktop">
+                                 <span><?= $block->escapeHtml(__('Click the')) ?></span>
+                                 <div class="dots-active">
+                                     <div class="dot"></div>
+                                     <div class="dot"></div>
+                                     <div class="dot"></div>
+                                 </div>
+                                 <span><?= $block->escapeHtml(__('icon to add a new item here')) ?></span>
+                             </span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <div class="shelf-wrapper">
+            <div class="shuffl"></div>
+        </div>
+        <?= $block->getChildHtml('my_order_item_group_info_override') ?>
+    <?php if ($itemsList && sizeof($itemsList) >= 1): ?>
+        <div class="wrap-share">
+    <?php else: ?>
+        <div class="wrap-share -grayeds">
+    <?php endif; ?>
+        <span class="share-title"><?= $block->escapeHtml(__('Share Kit: ')) ?></span>
+        <?= $block->getChildHtml('my_order_item_groups_sharing') ?>
+    </div>
+        <?php if($block->isPagerDisplayed()): ?>
+            <div data-block="order-items-pager-bottom" class="shelf group order-products-toolbar toolbar bottom"><?= $block->getPagerHtml() ?></div>
+        <?php endif ?>
+    <?php else: ?>
+        <div class="items-block" data-role="drop-container">
+            <div class="item info-element dashed">
+                <div class="content">
+                    <span class="text _hide-for-mobile-tablet">
+                    <?= $block->escapeHtml(__('You can drag the purchased product to add new item here')) ?>
+                    </span>
+                    <span class="text _hide-for-desktop">
+                        <span><?= $block->escapeHtml(__('Click the')) ?></span>
+                        <div class="dots-active">
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                            <div class="dot"></div>
+                        </div>
+                        <span><?= $block->escapeHtml(__('icon to add a new item here')) ?></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="shelf-wrapper">
+            <div class="shuffl"></div>
+        </div>
+    <?php endif; ?>
+</div>
+    <div class="modal-init init-tutorial-modal-1 init-tutorial-modal-group shelf-popup" >
+        <div class="content">
+            <span class="msg"><?= /* @escapeNotVerified */__('We are sorry. The product is no longer available. You can browse for other products.'); ?></span>
+            <button type="button" class="button" title="<?php echo  __('Continue Shopping') ?>" onclick="window.location='<?php echo $this->getUrl() ?>'">
+                <span><span><?php echo __('Continue Shopping') ?></span></span>
+            </button>
+        </div>
+    </div>
+    <script>
+        require(
+            [
+                'jquery',
+                'Magento_Ui/js/modal/modal'
+            ],
+            function ($, modal) {
+
+                /**
+                 *  Options Pop-up Init
+                 */
+
+                var options = {
+                    type: 'popup',
+                    responsive: true,
+                    innerScroll: true,
+                    title: false,
+                    autoOpen: false,
+                    modalClass: 'pop-up-key-modal',
+                    buttons: []
+                };
+
+                /**
+                 *  Init modal Tutorial Pop-up
+                 */
+
+                var initModal = $('.init-tutorial-modal-group'),
+                    initModalKey = $('.pop-up-key-gr');
+
+                var popup = modal(options, initModal);
+
+                initModalKey.click(function () {
+                    popup.element.modal('openModal');
+                });
+            }
+        );
+    </script>

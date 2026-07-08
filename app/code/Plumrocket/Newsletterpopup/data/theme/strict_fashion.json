@@ -1,0 +1,24 @@
+{
+    "text_title": "Hello",
+    "text_description": "<h2>Subscribe to our newsletter<\/h2>\r\n<div class=\"newspopup-text\">and you&rsquo;ll be the first to know about our newest arrivals, special offers and store events near you...<\/div>",
+    "text_success": "<div class=\"message-title\"><h2>ENJOY 15%OFF</h2><p>entire purchase</p></div><div class=\"coupon_wrp\"><div class=\"coupon-message\">Enter Coupon Code At Checkout:</div><div class=\"coupon-use\">{{coupon_code}}</div></div><div class=\"coupon-expiration\"><span>Hurry! This Offer Ends in 2 HOURS!</span></div>",
+    "text_submit": "Submit",
+    "text_cancel": "No Thanks",
+    "animation": "fadeInDown",
+    "signup_fields": {
+        "email": {
+            "name": "email",
+            "label": "Email",
+            "enable": "1",
+            "sort_order": "10",
+            "orig_label": "Email"
+        },
+        "gender": {
+            "name": "gender",
+            "label": "Gender",
+            "enable": "1",
+            "sort_order": "80",
+            "orig_label": "Gender"
+        }
+    }
+}

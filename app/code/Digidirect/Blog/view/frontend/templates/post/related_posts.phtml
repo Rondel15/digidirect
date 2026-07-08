@@ -1,0 +1,54 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\RelatedPosts $block
+ * @var \Digidirect\Blog\Model\Post $post
+ */
+?>
+
+<?php if ($block->isDisplayPosts()) : ?>
+    <?php $collection = $block->getCollection(); ?>
+    <?php if ($collection->count()) : ?>
+        <div class="block blog-relatedposts">
+            <div class="block-title title">
+                <strong role="heading" aria-level="2">
+                    <?php /* @escapeNotVerified */ echo __('Related Posts') ?>
+                </strong>
+            </div>
+            <ol class="small-block-grid-1 medium-block-grid-2 large-block-grid-3 list">
+                <?php foreach ($collection as $post): ?>
+                    <?php $thumb = $post->getImageUrl(null, 100); ?>
+                    <li class="post-related item">
+                        <?php $categoriesTitlesArray = $block->getCategoriesTitlesAsArray($post); ?>
+                        <?php $categoriesTitlesCount = count($categoriesTitlesArray); ?>
+                        <?php if ($categoriesTitlesCount) : ?>
+                            <div class="categories">
+                                <?php $i=1; foreach ($categoriesTitlesArray as $key => $category): ?>
+                                    <a href="<?php echo $block->escapeUrl($category->getViewUrl()); ?>" class="link" title="<?php echo $block->escapeHtml($category->getName()); ?>"><?php echo $block->escapeHtml($category->getName()); ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                                    <?php $i++; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (!empty($thumb)): ?>
+                            <a class="thumb" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()); ?>">
+                                <img src="<?php echo $block->escapeHtml($thumb); ?>" alt="<?php echo $block->escapeHtml($post->getTitle()); ?>">
+                            </a>
+                        <?php endif; ?>
+                        <div class="date">
+                            <?php echo $block->escapeHtml($post->getCreatedDate()); ?>
+                        </div>
+                        <h4 class="title">
+                            <a class="link" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml($post->getTitle()); ?>">
+                                <?php echo $block->escapeHtml($post->getTitle()); ?>
+                            </a>
+                        </h4>
+                        <div class="description"><?php /* @escapeNotVerified */ echo $block->getShortDescription($post); ?></div>
+                        <a class="action primary" href="<?php echo $block->escapeUrl($post->getViewUrl()); ?>" title="<?php echo $block->escapeHtml(__('Read More')) ?>">
+                            <?php echo $block->escapeHtml(__('Read More')) ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            </ol>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+

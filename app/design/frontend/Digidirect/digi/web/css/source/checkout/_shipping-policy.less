@@ -1,0 +1,97 @@
+//
+//  Checkout: Shipping Policy
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-shipping-policy__is-enabled: true; // Enable/disable styles
+
+@checkout-shipping-method-policy__position: relative;
+
+//  Tooltip Field
+@checkout-shipping-policy-field-tooltip__top: 12px;
+@checkout-shipping-policy-field-tooltip__position__s-only: relative;
+@checkout-shipping-policy-field-tooltip__top__s-only: auto;
+@checkout-shipping-policy-field-tooltip__right__s-only: auto;
+@checkout-shipping-policy-field-tooltip__margin-bottom__s-only: @indent__base;
+
+//  Tooltip Action
+@checkout-shipping-policy-action__color: @link__color;
+@checkout-shipping-policy-action__cursor: pointer;
+@checkout-shipping-policy-action__before__display: none;
+@checkout-shipping-policy-action-element__use-visually-hidden-reset: true;
+
+//  Tooltip Content
+@checkout-shipping-policy-tooltip__use-checkout-tooltip-content-position-top: true;
+@checkout-shipping-policy-tooltip__top: @indent__l;
+@checkout-shipping-policy-tooltip__width: 420px;
+@checkout-shipping-policy-tooltip__right__s-only: auto;
+@checkout-shipping-policy-tooltip__width__s-only: 300px;
+@checkout-shipping-policy-tooltip__pseudo__right__s-only: auto;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-shipping-policy__is-enabled = true) {
+        .checkout-shipping-method {
+            .lib-css(position, @checkout-shipping-method-policy__position);
+        }
+
+        .shipping-policy-block {
+            &.field-tooltip {
+                .lib-css(top, @checkout-shipping-policy-field-tooltip__top);
+            }
+            &.field-tooltip .field-tooltip-action {
+                .lib-css(color, @checkout-shipping-policy-action__color);
+                .lib-css(cursor, @checkout-shipping-policy-action__cursor);
+
+                &::before {
+                    .lib-css(display, @checkout-shipping-policy-action__before__display);
+                }
+            }
+            &.field-tooltip .field-tooltip-action span {
+                & when (@checkout-shipping-policy__is-enabled = true) {
+                    &:extend(.abs-visually-hidden-reset all);
+                }
+            }
+
+            &.field-tooltip .field-tooltip-content {
+                & when (@checkout-shipping-policy-tooltip__use-checkout-tooltip-content-position-top = true) {
+                    &:extend(.abs-checkout-tooltip-content-position-top all);
+                }
+                .lib-css(top, @checkout-shipping-policy-tooltip__top);
+                .lib-css(width, @checkout-shipping-policy-tooltip__width);
+            }
+        }
+    }
+}
+
+//
+//  Mobile s only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    & when (@checkout-shipping-policy__is-enabled = true) {
+        .shipping-policy-block {
+            &.field-tooltip {
+                .lib-css(position, @checkout-shipping-policy-field-tooltip__position__s-only);
+                .lib-css(top, @checkout-shipping-policy-field-tooltip__top__s-only);
+                .lib-css(right, @checkout-shipping-policy-field-tooltip__right__s-only);
+                .lib-css(margin-bottom, @checkout-shipping-policy-field-tooltip__margin-bottom__s-only);
+            }
+            &.field-tooltip .field-tooltip-content {
+                .lib-css(right, @checkout-shipping-policy-tooltip__right__s-only);
+                .lib-css(width, @checkout-shipping-policy-tooltip__width__s-only);
+
+                &::before,
+                &::after {
+                    .lib-css(right, @checkout-shipping-policy-tooltip__pseudo__right__s-only);
+                }
+            }
+        }
+    }
+}

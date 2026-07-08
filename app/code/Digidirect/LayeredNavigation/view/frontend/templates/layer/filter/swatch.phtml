@@ -1,0 +1,93 @@
+<?php
+$helper = $this->helper('Digidirect\LayeredNavigation\Helper\Data');
+$optionsData = $helper->getOptionsSeoData();
+?>
+<?php $swatchData = $block->getSwatchData(); ?>
+<?php $isMultipleSelect = $block->getIsMultipleSelect(); ?>
+<div class="swatch-attribute swatch-layered <?php echo $block->escapeHtml($swatchData['attribute_code']); ?>"
+     attribute-code="<?php echo $block->escapeHtml($swatchData['attribute_code']); ?>" attribute-id="">
+    <div class="swatch-attribute-options clearfix">
+        <?php foreach ($swatchData['options'] as $option => $label): ?>
+            <?php
+            $seoPart = null;
+            if (isset($optionsData[$option])) {
+                $seoPart = $optionsData[$option]['alias'];
+            }
+            ?>
+            <?php $checked = $block->checkedFilter($option); ?>
+            <a data-multiselect="<?php echo (int)$isMultipleSelect ?>"
+               data-testid="sln-filter-option"
+               data-seo="<?php echo $block->escapeHtml($seoPart) ?>"
+               data-code="<?php echo $block->escapeHtml($swatchData['attribute_code']); ?>"
+               data-value="<?php echo $block->escapeHtml($option); ?>"
+               href="<?php echo $block->escapeUrl($label['link']); ?>"
+               class="swatch-option-link-layered <?php if ($checked): ?>selected <?php endif; ?>digidirect_layerednavigation_swatch_<?php echo $block->escapeHtml($option); ?>">
+                <?php if (isset($swatchData['swatches'][$option]['type'])) { ?>
+                    <?php switch ($swatchData['swatches'][$option]['type']) {
+                        case '3':
+                            ?>
+                            <div class="<?php if ($checked): ?>selected <?php endif;?>swatch-option <?php echo $block->escapeHtml($label['custom_style']); ?>"
+                                 option-type="3"
+                                 option-id="<?php echo $block->escapeHtml($option); ?>"
+                                 option-label="<?php echo $block->escapeHtml($label['label']); ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value=""
+                            ></div>
+                            <?php break;
+                        case '2':
+                            ?>
+                            <?php $swatchThumbPath = $block->getSwatchPath('swatch_thumb', $swatchData['swatches'][$option]['value']); ?>
+                            <?php $swatchImagePath = $block->getSwatchPath('swatch_image', $swatchData['swatches'][$option]['value']); ?>
+                            <div class="<?php if ($checked): ?>selected <?php endif;?>swatch-option image <?php echo $block->escapeHtml($label['custom_style']); ?>"
+                                 option-type="2"
+                                 option-id="<?php echo $block->escapeHtml($option); ?>"
+                                 option-label="<?php echo $block->escapeHtml($label['label']); ?>"
+                                 option-tooltip-thumb="<?php echo $block->escapeUrl($swatchThumbPath); ?>"
+                                 option-tooltip-value=""
+                                 style="background: url(<?php echo $block->escapeUrl($swatchImagePath); ?>) no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '1':
+                            ?>
+                            <div class="<?php if ($checked): ?>selected <?php endif;?>swatch-option color <?php echo $block->escapeHtml($label['custom_style']); ?>"
+                                 option-type="1"
+                                 option-id="<?php echo $block->escapeHtml($option); ?>"
+                                 option-label="<?php echo $block->escapeHtml($label['label']); ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value="<?php echo $block->escapeHtml($swatchData['swatches'][$option]['value']); ?>"
+                                 style="background: <?php echo $block->escapeHtml($swatchData['swatches'][$option]['value']); ?> no-repeat center; background-size: initial;"></div>
+                            <?php break;
+                        case '0':
+                        default:
+                            ?>
+                            <div class="<?php if ($checked): ?>selected <?php endif;?>swatch-option text <?php echo $block->escapeHtml($label['custom_style']); ?>"
+                                 option-type="0"
+                                 option-id="<?php echo $block->escapeHtml($option); ?>"
+                                 option-label="<?php echo $block->escapeHtml($label['label']); ?>"
+                                 option-tooltip-thumb=""
+                                 option-tooltip-value=""
+                            ><?php echo $block->escapeHtml($swatchData['swatches'][$option]['value']); ?></div>
+                            <?php break; ?>
+                    <?php } ?>
+                <?php } ?>
+            </a>
+            <script type="text/x-magento-init">
+            {
+                ".digidirect_layerednavigation_swatch_<?php echo $block->escapeHtml($option); ?>": {
+                    "layeredNavigationFilterItemDefault": {
+                        "multipleSelect": "<?php echo (int)$isMultipleSelect; ?>",
+                        "attribute": "<?php echo $block->escapeHtml($swatchData['attribute_code']); ?>",
+                        "value": "<?php echo $block->escapeHtml($option); ?>"
+                    }
+                }
+            }
+            </script>
+        <?php endforeach; ?>
+    </div>
+</div>
+<script>
+    require(["jquery", "jquery/ui", "Magento_Swatches/js/swatch-renderer"], function ($) {
+        $('.swatch-layered.<?php echo $block->escapeHtml($swatchData['attribute_code']); ?>')
+            .find('[option-type="1"], [option-type="2"], [option-type="0"], [option-type="3"]')
+            .SwatchRendererTooltip();
+    });
+</script>

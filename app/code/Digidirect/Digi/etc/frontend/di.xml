@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\CustomAttributeManagement\Block\Form">
+        <plugin name="get_attribute_html_before" type="Digidirect\Digi\Plugin\Magento\CustomAttributeManagement\Block\Form"/>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="Digidirect_digi_checkout_default_config_provider" type="Digidirect\Digi\Model\Plugin\Checkout\DefaultConfigProvider" sortOrder="110" disabled="false"/>
+    </type>
+
+    <type name="Magento\Framework\View\Page\Config\Renderer">
+        <plugin name="assets.render.plugin"
+                type="Digidirect\Digi\Plugin\Magento\Framework\View\Page\Config\Renderer"
+                sortOrder="1"
+                disabled="true" />
+    </type>
+</config>

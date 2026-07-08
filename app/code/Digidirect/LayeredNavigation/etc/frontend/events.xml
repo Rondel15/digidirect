@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="layout_generate_blocks_after">
+        <observer name="digidirect_layerednavigation_layout_generate_blocks_after" instance="Digidirect\LayeredNavigation\Observer\AjaxNavigationObserver" shared="false"/>
+    </event>
+    <event name="catalog_category_flat_loadnodes_before">
+        <observer name="digidirect_layerednavigation_catalog_category_flat_loadnodes_before" instance="Digidirect\LayeredNavigation\Observer\CategoryFlatLoadBeforeObserver" shared="false"/>
+    </event>
+</config>

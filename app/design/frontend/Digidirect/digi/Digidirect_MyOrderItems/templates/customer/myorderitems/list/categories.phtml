@@ -1,0 +1,33 @@
+<?php
+/** @var \Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Categories $block */
+$catList = $block->getCategories();
+$listCount = count($catList);
+$catName = $block->getCategoryName();
+$filterParams = $block->collectFilterParams([$block->getPageParameter()]);
+?>
+<div class="items-block-header">
+    <span class="items-block-title"><?php echo $block->escapeHtml(__('All My Items')) ?></span>
+    <?php if ($listCount > 0): ?>
+        <div class="filter-category nav-header">
+            <div class="lable"><?php echo $block->escapeHtml(__('Category:')) ?></div>
+            <div class="filter nav-container my-shelf">
+                <div class="title" data-toggle="dropdown"
+                     data-mage-init='{"dropdown": {}}'><?php echo $catName ? $block->escapeHtml($catName) : $block->escapeHtml(__('All')) ?></div>
+                <div class="list" data-target="dropdown">
+                    <?php foreach ($catList as $categoryId => $category): ?>
+                        <?php $filterParams[$block->getCategoryVarName()] = $categoryId ?>
+                        <?php if (!$catName || $categoryId != $block->getCurrentCategory()): ?>
+                            <a class="item" title="<?= $block->escapeHtml($category) ?>"
+                               href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/index', $filterParams)) ?>"><?= $block->escapeHtml($category) ?></a>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php if ($catName): ?>
+                        <?php unset($filterParams[$block->getCategoryVarName()]) ?>
+                        <a class="item" href="<?= $block->escapeUrl($block->getUrl('*/*/*', $filterParams)) ?>"
+                           title="<?php echo $block->escapeHtml(__('Show all')) ?>"><?php echo $block->escapeHtml(__('All')) ?></a>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

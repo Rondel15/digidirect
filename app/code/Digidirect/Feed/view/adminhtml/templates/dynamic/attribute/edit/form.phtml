@@ -1,0 +1,31 @@
+<?php
+/** 
+ * @var \Digidirect\Feed\Helper\Output $outputHelper 
+ * @var \Magento\Framework\Json\Helper\Data $jsonHelper
+ */
+$outputHelper = $this->helper('Digidirect\Feed\Helper\Output');
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+?>
+<fieldset class="fieldset admin__fieldset">
+    <legend class="legend">
+        <span><?php echo $block->escapeHtml(__('Conditions')) ?></span>
+    </legend>
+</fieldset>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $.attributes = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getAttributeOptions()) ?>;
+        $.patternTypes = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getPatternTypeOptions()) ?>;
+        $.attributeUrl = '<?php /* @escapeNotVerified */ echo $this->getUrl('*/*/attribute') ?>';
+    });
+</script>
+
+<script type="text/x-magento-init">
+    <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($block->getJsConfig()) ?>
+</script>
+
+<div data-bind="scope: 'dynamic_attribute'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>

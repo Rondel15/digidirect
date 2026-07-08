@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Digidirect_ProductOverlay" setup_version="1.0.9">
+        <sequence>
+            <module name="Magento_ConfigurableProduct"/>
+            <module name="Digidirect_Utilities" />
+            <module name="Magento_Swatches" />
+            <module name="Magento_CatalogRule" />
+        </sequence>
+    </module>
+</config>

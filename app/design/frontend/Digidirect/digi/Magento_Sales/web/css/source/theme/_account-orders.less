@@ -1,0 +1,426 @@
+//
+//  Customer: Account order details
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .account-orders .column.main > .block {
+        & {
+            padding: 14px 20px 27px;
+            margin-bottom: 13px;
+        }
+
+        &.block-order-details-view {
+            margin-bottom: 30px;
+        }
+    }
+
+    .account-orders .order-details-items {
+        & {
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-bottom: none;
+        }
+
+        > .actions-toolbar {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            .lib-css(font-weight, @font-weight__heavier);
+            padding: 0 0 22px;
+            text-transform: lowercase;
+        }
+
+        .block-title {
+            padding-top: 26px;
+            padding-bottom: 5px;
+            border-bottom: none;
+        }
+
+        .print-action {
+            .lib-css(font-weight, @font-weight__heavier);
+            padding-bottom: 16px;
+            text-transform: lowercase;
+        }
+
+        .print-action .action:nth-child(even) {
+            padding-left: 30px;
+        }
+
+        .product-item-name {
+            .lib-font-size(14);
+            .lib-css(font-weight, @font-weight__regular);
+            height: auto;
+        }
+
+        .price {
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__regular);
+        }
+
+        .item-options {
+            display: inline-block;
+            width: 100%;
+            padding-top: 10px;
+        }
+
+        .order-items-shipment {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            margin-bottom: 0;
+            padding-bottom: 12px;
+        }
+
+        &.rma > .block-title {
+            padding-top: 0;
+        }
+    }
+
+    .account-orders .table.table-order-items {
+        tfoot {
+            .lib-css(background-color, @color-3-4);
+            padding: 12px 20px 22px;
+            margin-top: 15px;
+        }
+
+        .grand_total .mark,
+        .grand_total .price {
+            .lib-font-size(15);
+            .lib-css(font-weight, @font-weight__bold);
+        }
+
+        .grand_total .mark strong::after {
+            content: '(inc. GST)';
+        }
+
+        .product-item-name {
+            text-align: left;
+        }
+
+        &.returns tbody .col.actions {
+            .lib-css(font-weight, @font-weight__heavier);
+        }
+
+        &.returns tbody tr {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+
+            &:nth-child(even) {
+                .lib-css(background-color, @color-3-4);
+            }
+        }
+
+        .giftcard.totals .mark {
+            text-align: left;
+            width: 70%;
+        }
+
+        .giftcard.totals .amount {
+            text-align: right;
+        }
+    }
+
+    .account-orders .block-order-details-view {
+        .payment-method {
+            margin-bottom: 0;
+        }
+    }
+}
+
+//
+//  Tablet -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .account-orders .table.table-order-items {
+        & {
+            .lib-table-responsive();
+        }
+
+        .col.image {
+            float: left;
+            margin-right: 21px;
+            padding: 6px 0;
+
+            &::before {
+                display: none!important;
+            }
+        }
+
+        .col.image ~ .col {
+            margin-left: 115px;
+        }
+
+        tbody td:not(.image) {
+            & {
+                .lib-font-size(14);
+                padding: 6px 0!important;
+            }
+
+            &::before {
+                .lib-font-size(12);
+            }
+
+            &[data-th]::before {
+                display: block !important;
+                content: attr(data-th) !important;
+                margin-bottom: 4px;
+            }
+
+            &.col.actions {
+                padding-top: 15px!important;
+                &::before {
+                    display: none !important;
+                }
+            }
+        }
+
+        td .price {
+            .lib-font-size(14);
+        }
+
+        tfoot {
+            display: block;
+        }
+
+        tfoot tr {
+            .lib-vendor-prefix-display(flex);
+        }
+
+        .mark {
+            float: left;
+            width: 70%;
+            text-align: left;
+        }
+
+        .amount {
+            float: left;
+            width: 30%;
+            text-align: right;
+        }
+
+        .product-item-name {
+            max-width: 90%;
+        }
+
+        &.invoice tbody tr,
+        &.returns tbody tr {
+            padding: 10px 0;
+        }
+
+        &.returns tbody td,
+        &.ordered tbody td,
+        &.ordered td .price {
+            .lib-font-size(12);
+        }
+
+        &.ordered .grand_total .amount .price {
+            .lib-font-size(15);
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account-orders .column.main > .block {
+        & {
+            padding: 20px 20px 30px;
+            margin-bottom: 20px;
+        }
+
+        &.block-order-details-view {
+            margin-bottom: 0;
+        }
+    }
+
+    .account-orders .order-details-items {
+        .block-title {
+            padding-bottom: 15px;
+        }
+
+        > .actions-toolbar {
+            padding: 10px 38px 27px;
+        }
+
+        > .actions-toolbar .action {
+            .lib-font-size(13);
+            padding: 0;
+        }
+
+        .title-wrap {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .digidirect-lib-box-align(space-between);
+        }
+
+        .print-action {
+            padding: 12px 0 0;
+        }
+
+        .print-action .action:nth-child(even) {
+            padding-left: 20px;
+        }
+
+        .order-items-shipment {
+            padding-bottom: 8px;
+        }
+
+        .price {
+            .lib-font-size(13);
+        }
+    }
+
+    .account-orders .table.table-order-items {
+        thead .col {
+            .lib-css(border-top, 1px solid @color-3-2);
+            padding: 14px 10px 13px;
+        }
+
+        thead .col.price {
+            .lib-css(font-weight, @font-weight__bold);
+        }
+
+        tbody .col {
+            padding: 19px 10px;
+        }
+
+        .col.name {
+            max-width: 185px;
+        }
+
+        .item-options {
+            .lib-font-size(12);
+        }
+
+        .col.name strong {
+            .lib-font-size(15);
+        }
+
+        .col.subtotal {
+            text-align: right;
+        }
+
+        .mark,
+        .amount {
+            padding: 10px;
+        }
+
+        .subtotal .mark,
+        .subtotal .amount {
+            padding-top: 20px;
+        }
+
+        .grand_total .mark,
+        .grand_total .price {
+            .lib-font-size(16);
+            padding-bottom: 30px;
+        }
+
+        &.returns tbody .col.actions {
+            text-align: right;
+        }
+
+        &.ordered tbody .col {
+            padding: 15px 10px 19px;
+        }
+
+        &.ordered thead .col {
+            border-top: none;
+            padding: 10px 10px 13px;
+        }
+    
+        tr.item-parent td.col,
+        tr.options-label td.col,
+        tr.item-options-container:not(:last-child) td.col {
+            padding-bottom: 0;
+        }
+
+        .giftcard.totals .mark {
+            text-align: right;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .account-orders .order-details-items {
+        > .actions-toolbar {
+            padding: 10px 27px 30px;
+        }
+
+        > .actions-toolbar .action {
+            .lib-font-size(14);
+        }
+
+        .block-title {
+            padding-top: 35px;
+        }
+
+        .price {
+            .lib-font-size(14);
+        }
+
+        .print-action .action:nth-child(even) {
+            padding-left: 63px;
+        }
+    }
+
+    .account-orders .table.table-order-items {
+        thead .col {
+            padding: 16px 20px 15px;
+        }
+
+        tbody .col {
+            padding: 20px;
+        }
+
+        .col.name strong {
+            .lib-font-size(16);
+        }
+    
+        col.image .image {
+            width: 80px;
+        }
+
+        .col.image {
+            max-width: 80px + 40px //+ padding;
+        }
+
+        .mark,
+        .amount {
+            padding: 10px 20px;
+        }
+
+        .subtotal .mark,
+        .subtotal .amount {
+            padding-top: 34px;
+        }
+
+        &.ordered tbody .col {
+            padding: 25px 20px 26px;
+        }
+
+        &.ordered thead .col {
+            padding: 10px 20px 15px;
+        }
+    }
+
+    .account-orders .block-order-details-view {
+        .block-content {
+            .lib-vendor-prefix-display(flex);
+        }
+
+        .box {
+            padding-right: 10px;
+        }
+    }
+}

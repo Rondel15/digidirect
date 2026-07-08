@@ -1,0 +1,86 @@
+<label class="parent-storelist">
+<input type="radio" name="storelist" data-bind="value:city, attr: {id:city, class: city}" >
+<div class="locator-item item sldetails" data-bind="css: { 'store-wrapper column': $parents[2].locations.settings().open_in_popup }, attr: {id: 'sldetails-' + city }">
+    <!-- ko if: $data.image -->
+    <img class="image _hide-for-mobile" data-bind="attr: {src: image, alt: name}" />
+    <!-- /ko -->
+    <!-- ko ifnot: $data.image -->
+    <!-- ko if: $parents[2].locations.settings().default_image -->
+    <img class="image  _hide-for-mobile" data-bind="attr: {src: $parents[2].locations.settings().default_image, alt: name}" />
+    <!-- /ko -->
+    <!-- /ko -->
+    <div class="details">
+        <!-- <input type="checkbox" id="sl-close" name="sl-close"> -->
+        <span class="name"><!-- ko text: name --><!-- /ko --></span>
+        <span class="icon">
+            <i class="fa fa-building" aria-hidden="true" style="color: gray !important;"></i>
+            <!-- old <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-building"></use>  
+            </svg> -->
+        </span>
+        <address class="address">
+            <!-- ko text: street --><!-- /ko -->
+            <!-- ko text: city --><!-- /ko -->
+            <!-- ko text: state --><!-- /ko -->
+            <!-- ko text: postcode --><!-- /ko -->
+        </address>
+
+        <div class="main -phone" style="margin-top: 2px;">
+            <i class="fa fa-phone" aria-hidden="true" style="color: gray !important; margin-right: 5px;"></i>
+            <!-- ko text: phone_number -->
+            <!-- /ko -->
+        </div>
+
+        <a class="link" data-bind="attr: {title: $t('Store Details')}, text: $t('Store Details'), click: function() { return true;}, clickBubble: false"></a>
+        <!-- <a class="link" data-bind="attr: {href: url_key+'#directions', title: $t('Directions')}, text: $t('Directions'), click: function() { return true;}, clickBubble: false""></a> -->
+        <!-- <span class="pin">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+            </svg>
+        </span> -->
+    </div>
+    <!-- ko foreach: $parent.getRegion('itemEnd') -->
+    <!-- ko template: getTemplate() -->
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+
+<div data-bind=" attr: {id:'scontent' + city, class: 'scontent-' + city + ' ' + 'sdetails'}">
+
+    <div class="scontent-inner">
+        <h2 class="name-city"><!-- ko text: city --><!-- /ko --></h2>
+    
+        <div class="shours-section">
+
+            <div class="store-hour">
+                    <img class="openwelcome" src="https://www.digidirect.com.au/media/wysiwyg/store-locator/we-are-open.png" alt="openhourimage">
+                    <!-- <img src="{{url=media/wysiwyg/store-locator/we-are-open.png}}" alt="openhourimage"> -->
+            </div>
+
+            <div class="store-hour">
+                <h3 class="storehours"> Store Hours</h3>
+                <div class="open-hours collapsible-tabless" data-bind="mageInit:{'Digidirect_CollectStoreLocator/js/collapsible-table':{}}, html: opening_hours"></div>
+            </div>
+            
+            <div class="store-hour">
+                <!-- ko if: $data.image -->
+                <img class="image _hide-for-mobile" data-bind="attr: {src: image, alt: name}" width="230" style="height: 210px;"/>
+                <!-- /ko -->
+                <!-- ko ifnot: $data.image -->
+                <!-- ko if: $parents[2].locations.settings().default_image -->
+                <img class="image  _hide-for-mobile" data-bind="attr: {src: $parents[2].locations.settings().default_image, alt: name}" width="230" style="height: 210px;" />
+                <!-- /ko -->
+                <!-- /ko -->
+            </div>
+
+           
+   
+        </div>
+    
+        
+        <div class="desc" data-bind=" html: description"></div>
+
+    </div>
+    
+</div>
+</label>

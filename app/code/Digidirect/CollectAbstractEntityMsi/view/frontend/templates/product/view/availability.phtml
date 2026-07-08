@@ -1,0 +1,20 @@
+<?php
+/** @var \Digidirect\CollectAbstractEntityMsi\Block\Product\View\Availability $block */
+$availability = $block->getAvailability();
+?>
+<?php if (!$block->getSkipWrapper()): ?><div id="msi-availability" class="msiavailability-wrapper"><?php endif; ?>
+    <?php if (!empty($availability)): ?>
+        <?php foreach ($availability as $name => $isAvailable): ?>
+            <div class="msi-availability">
+                <span class="name"><?= $block->escapeHtml($name) ?></span>
+                <?php if ($isAvailable): ?>
+                    <span class="status -available"><?= /* @noEscape */ __('Available') ?></span>
+                <?php else: ?>
+                    <span class="status -unavailable"><?= /* @noEscape */ __('Unavailable') ?></span>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="message info"><span><?= /* @noEscape */ __('Please select the option to see Product availability') ?></span></div>
+    <?php endif; ?>
+<?php if (!$block->getSkipWrapper()): ?></div><?php endif; ?>

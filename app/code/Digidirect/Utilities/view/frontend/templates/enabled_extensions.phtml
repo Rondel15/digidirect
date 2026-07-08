@@ -1,0 +1,9 @@
+<?php
+/** @var \Digidirect\Utilities\Helper\Data $helper */
+$helper = $this->helper('Digidirect\Utilities\Helper\Data');
+/** @var \Magento\Framework\Json\Helper\Data $jsonHelper */
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+?>
+<script>
+    window.enabledModules = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($helper->getEnabledExtensions()); ?>;
+</script>

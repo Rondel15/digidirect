@@ -1,0 +1,142 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+$pricingHelper = $this->helper('Magento\Framework\Pricing\Helper\Data');
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$_attributeValue = $block->getProduct()->getResource()->getAttribute('pre_order_status')->getFrontend()->getValue($block->getProduct());
+?>
+<?php $_product = $block->getProduct(); ?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+    <div class="box-tocart">
+        <div class="fieldset qty-fieldset">
+            <?php if ($block->shouldRenderQuantity()): ?>
+                <div class="field qty">
+                    <label class="label" for="qty"><span><?= /* @escapeNotVerified */ __('Qty') ?></span></label>
+                    <div class="control qty-group-control" data-bind="scope: 'qty-change'">
+                        <div class="qty-buttons">
+                            <div role="button" class="qty-decrease" data-bind="click: decreaseQty">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M4 8h8v1H4V8z"/>
+                                </svg>
+                            </div>
+                            <input data-bind="value: qty()"
+                                   type="number"
+                                   name="qty"
+                                   id="qty"
+                                   value="<?= /* @escapeNotVerified */ $block->getProductDefaultQty() * 1 ?>"
+                                   title="<?= /* @escapeNotVerified */ __('Qty') ?>"
+                                   class="input-text qty qty-pdp"
+                                   data-validate="<?= $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>" readonly/>
+                            <div role="button" class="qty-increase" data-bind="click: increaseQty">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M8 4v8M4 8h8"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+            <div class="actions">
+                    <?php if ($_attributeValue == "Yes"): ?>
+                        <button type="submit"
+                            class="action tocart btn_cart tocart-pdp-btn"
+                            id="product-addtocart-button"
+                            data-action="add-to-cart-action"
+                            style="background: #00C3FF !important"
+                        >
+                            <div class="addtocart-tooltip" style="float: left;">
+                                <i class="fas fa-info-circle" style="font-family: 'Font Awesome 5 Free';font-style: unset;float: left;color: #fff;"></i>
+                                <div class="addtocart-tooltiptext tooltip-bottom">
+                                    Clicking this button and moving through to purchase means you reserve your allocation for this awesome product. For the latest ETA, please click <a href="https://www.digidirect.com.au/contact/">here</a> to contact us.
+                                </div>
+                            </div>
+                            <i class="fa-solid fa-cart-plus" style=" font-family: 'Font Awesome 5 Free';font-style: unset;color: #fff;padding-right: 5px;"></i>
+                            <span class="addcart_words"><?= /* @escapeNotVerified */ 'Pre-Order' ?></span>
+                        </button>
+                    <?php else : ?>
+                        <button type="submit"
+                            class="action tocart btn_cart tocart-pdp-btn"
+                            id="product-addtocart-button"
+                            data-action="add-to-cart-action"
+                            >
+                            <i class="fa-solid fa-cart-plus" style=" font-family: 'Font Awesome 5 Free';font-style: unset;color: #fff;padding-right: 5px;"></i>
+                            <span class="addcart_words"><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+                        </button>
+                    <?php endif; ?>
+
+                <?= $block->getChildHtml('', true) ?>
+            </div>
+        </div>
+    </div>
+
+<?php endif; ?>
+
+<script type="text/x-magento-init">
+    {
+        "#product_addtocart_form": {
+            "Magento_Catalog/js/validate-product": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Catalog/js/add-to-cart": {}
+        }
+    }
+</script>
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Ui/js/core/app": {
+                "components": {
+                    "qty-change": {
+                        "component": "Magento_Catalog/js/qty-change",
+                        "defaultQty": <?php echo $block->getProductDefaultQty() * 1 ?>
+                    }
+                 }
+            }
+        }
+    }
+</script>
+
+<!-- FeedOps - Dynamic Remarketing - Version 1 START -->
+<script>
+    function addToCartClick() {
+        dataLayer.push({
+            'event': 'DynamicRemarketing',
+            'ecomm_pagetype': 'cart',
+            'ecomm_totalvalue': <?php echo $_product->getPrice() ?>,
+            'currency': 'AUD',
+            'ecomm_prodid': [
+                <?php echo $_product->getId() ?>
+            ]
+        });
+    }
+    var form = document.getElementById("product_addtocart_form");
+    if(form.addEventListener){
+        form.addEventListener("submit", addToCartClick, false);
+    }else if(form.attachEvent){
+        form.attachEvent("onsubmit", addToCartClick);
+    }
+</script>
+<!-- FeedOps - Dynamic Remarketing - Version 1 END -->
+
+<!--<script>-->
+<!--    paypal.Buttons({-->
+<!--      style: {-->
+<!--        layout:  'vertical',-->
+<!--        color:   'blue',-->
+<!--        shape:   'rect',-->
+<!--        label:   'paypal'-->
+<!--      }-->
+<!--    }).render('#paypal-button-container');-->
+<!--</script>-->
+<!-- redeploy -->

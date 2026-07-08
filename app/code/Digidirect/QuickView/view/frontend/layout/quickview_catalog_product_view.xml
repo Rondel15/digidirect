@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="header.container" remove="true"/>
+        <referenceContainer name="footer-container" remove="true"/>
+        <referenceBlock name="navigation.sections" remove="true"/>
+        <referenceBlock name="breadcrumbs" remove="true"/>
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="product.info.upsell" remove="true"/>
+        <referenceBlock name="page.top" remove="true" />
+        <referenceBlock name="copyright" remove="true" />
+        <referenceBlock name="authentication-popup" remove="true" />
+        <referenceBlock name="back-to-top" remove="true" />
+        <referenceBlock name="related_products_impression" remove="true" />
+        <referenceBlock name="upsell_products_impression" remove="true" />
+        <referenceBlock name="pageCache" remove="true" />
+        <referenceBlock name="product.info.addtocart" template="Digidirect_QuickView::product/view/addtocart.phtml">
+            <action method="setData" ifconfig="digidirect_quickview/general/close_after_add_to_cart">
+                <argument name="key" xsi:type="string">close_after_add_to_cart</argument>
+                <argument name="value" xsi:type="string">true</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.additional" template="Digidirect_QuickView::product/view/addtocart.phtml">
+            <action method="setData" ifconfig="digidirect_quickview/general/close_after_add_to_cart">
+                <argument name="key" xsi:type="string">close_after_add_to_cart</argument>
+                <argument name="value" xsi:type="string">true</argument>
+            </action>
+        </referenceBlock>
+        <referenceBlock name="product.info.addtocart.bundle" template="Digidirect_QuickView::product/view/addtocart.phtml">
+            <action method="setData" ifconfig="digidirect_quickview/general/close_after_add_to_cart">
+                <argument name="key" xsi:type="string">close_after_add_to_cart</argument>
+                <argument name="value" xsi:type="string">true</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <!--Initializing a widget that tracks events inside a frame-->
+            <block class="Magento\Framework\View\Element\Template" name="quickview.page.events" template="Digidirect_QuickView::product/js/page-events.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

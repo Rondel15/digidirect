@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\ExtendedShippingRates\Model\Utility">
+        <!-- Localization Timezone -->
+        <plugin name="Digidirect_ExtendedShippingRatesLocalization::DigidirectExtendedShippingRatesModelUtilityTimezone"
+                type="Digidirect\ExtendedShippingRatesLocalization\Plugin\Digidirect\ExtendedShippingRates\Model\Utility\TimezonePlugin"
+                sortOrder="100" />
+
+        <!-- Localization Holidays -->
+        <plugin name="Digidirect_ExtendedShippingRatesLocalization::DigidirectExtendedShippingRatesModelUtilityHoliday"
+                type="Digidirect\ExtendedShippingRatesLocalization\Plugin\Digidirect\ExtendedShippingRates\Model\Utility\HolidayPlugin"
+                sortOrder="150" />
+    </type>
+</config>

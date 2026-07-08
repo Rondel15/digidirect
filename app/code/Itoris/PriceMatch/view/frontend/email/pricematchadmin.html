@@ -1,0 +1,41 @@
+<!--@subject A Price Match request received from {{var storeview}} @-->
+<!--@vars {
+"var product_name":"Product Name",
+"var request_id":"Request ID",
+"var status":"Status",
+"var date_time":"Date",
+"var storeview":"Store Name",
+"var customer_name":"Customer Name",
+"var contact":"Contact Number",
+"var email":"Email",
+"var current_price":"Product Price",
+"var requested_price":"Matching Price",
+"var url":"Matching URL",
+"var comment":"Comment",
+} @-->
+{{template config_path="design/email/header_template"}}
+
+<div>
+    A price match request received for product <strong>{{var product_name}}</strong>. Please find below the details:
+</div>
+<ul style="list-style-type: none;">
+    <li style="list-style-type: none;"><strong>Request ID: </strong>{{var request_id}}</li>
+    <li style="list-style-type: none;"><strong>Status: </strong>{{var status}}</li>
+    <li style="list-style-type: none;"><strong>Date: </strong>{{var date_time}}</li>
+    <li style="list-style-type: none;"><strong>Store: </strong>{{var storeview}}</li>
+    <li style="list-style-type: none;"><strong>From: </strong>{{var customer_name}}</li>
+    <li style="list-style-type: none;"><strong>Contact Number: </strong>{{var contact}}</li>
+    <li style="list-style-type: none;"><strong>Email: </strong>{{var email}}</li>
+    <li style="list-style-type: none;"><strong>Product Price: </strong>{{var current_price}}</li>
+    <li style="list-style-type: none;"><strong>Matching Price: </strong>{{var requested_price}}</li>
+    <li style="list-style-type: none;"><strong>Matching URL: </strong>{{var url}}</li>
+    <li style="list-style-type: none;">
+        <div>
+            <label style="    float: left;box-sizing: inherit;"><strong>Comment:&#160;</strong></label>
+            <div style="float: left;display: block;box-sizing: inherit;">
+                <pre style="font-family: 'Open Sans','Helvetica Neue',Helvetica,Arial,sans-serif;display: inline;border:none;padding:0px;background:none;font-style:normal;font-weight: normal;line-height:1.42857143;font-size:14px;">{{var comment}}</pre>
+            </div>
+        </div>
+    </li>
+</ul>
+{{template config_path="design/email/footer_template"}}

@@ -1,0 +1,59 @@
+<?php
+/**
+ * ITORIS
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the ITORIS's Magento Extensions License Agreement
+ * which is available through the world-wide-web at this URL:
+ * http://www.itoris.com/magento-extensions-license.html
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to sales@itoris.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade the extensions to newer
+ * versions in the future. If you wish to customize the extension for your
+ * needs please refer to the license agreement or contact sales@itoris.com for more information.
+ *
+ * @category   ITORIS
+ * @package    ITORIS_M2_ITORIS_PRICE_MATCH
+ * @copyright  Copyright (c) 2018 ITORIS INC. (http://www.itoris.com)
+ * @license    http://www.itoris.com/magento-extensions-license.html  Commercial License
+ */
+?>
+<div class="admin__field" style="position: relative; margin-bottom: 3rem;">
+    <label class="admin__field-label"style="width: calc( (100%) * 0.25 - 30px ); float: left; " >
+        <span></span>
+    </label>
+    <div class="admin__field-control" style="width: calc( (100%) * 0.5 - 30px );float: left; margin-left: 35px;">
+        <button class="action-secondary" id="itoris-pm-send" type="button">
+            <span><?php  echo __('Apply Changes')  ?></span>
+        </button>
+    </div>
+</div>
+
+
+<form id="itoris-pm-admin-request" action="<?php echo $block->getUrlActionForm(); ?>" method="post">
+    <input name="form_key" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getFormKey() ?>" />
+    <input name="id" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getItemId() ?>" />
+    <input name="send_method" id="itoris_send_method" type="hidden" value="<?php /* @escapeNotVerified */ echo $block->getItemId() ?>" />
+</form>
+<script>
+    require([
+        'jquery'
+    ], function($) {
+        $(function() {
+            $("#itoris-pm-send").on('click', function () {
+                $(this).prop('disabled', true);
+                $("[name=send_response]").attr("form","itoris-pm-admin-request");
+                var method = $("[data-index=send_method] input:checked").val();
+                $("#itoris_send_method").val( method );
+
+                $("#itoris-pm-admin-request").submit();
+            });
+
+        });
+    });
+</script>

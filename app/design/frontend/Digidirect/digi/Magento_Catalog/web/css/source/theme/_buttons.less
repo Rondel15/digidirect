@@ -1,0 +1,122 @@
+//
+//  Lib buttons
+//  _____________________________________________
+
+//
+//  M buttons
+//  ---------------------------------------------
+
+@button-wide__width: 100%;
+@button-wide__padding__m: 13px 0;
+@button-wide__padding__l: 15px 0;
+
+@button__padding__m: 12px 15px;
+@button__font-size__m: 14px;
+@button__line-height__m: @button__font-size__m + 3px;
+
+@button__padding__xl: 15px;
+@button__font-size__xl: 16px;
+@button__line-height__xl: @button__font-size__xl + 5px;
+
+@button__padding__xxl: 20px 15px;
+@button__font-size__xxl: 18px;
+@button__line-height__xxl: @button__font-size__xxl + 4px;
+
+//  Color Types
+@button__color__type: @button__color;
+@button__background-color__type: #76a93f;
+@button__hover__background-color__type: #87bb4f;
+
+@button__color__type2: @button__color;
+@button__background-color__type2: #bc4a4a;
+@button__hover__background-color__type2: #e86161;
+
+@button__color__type3: @button__color;
+@button__background-color__type3: @color-black;
+@button__hover__background-color__type3: @color-2-6;
+
+//  Disable state
+@button__disabled__background-color: #777;
+
+.lib-button-m(
+    @_button-m-font-size: @button__font-size__m,
+    @_button-m-height: @button__line-height__m,
+    @_button-m-padding: @button__padding__m
+) {
+    .lib-button-size(
+        @_button-line-height: @_button-m-height,
+        @_button-padding: @_button-m-padding
+    );
+    .lib-font-size(@_button-m-font-size);
+}
+
+//
+//  XL buttons
+//  ---------------------------------------------
+
+.lib-button-xl(
+    @_button-xl-font-size: @button__font-size__xl,
+    @_button-xl-height: @button__line-height__xl,
+    @_button-xl-padding: @button__padding__xl
+) {
+    .lib-button-size(
+        @_button-line-height: @_button-xl-height,
+        @_button-padding: @_button-xl-padding
+    );
+    .lib-font-size(@_button-xl-font-size);
+}
+
+//
+//  XXL buttons
+//  ---------------------------------------------
+
+.lib-button-xxl(
+    @_button-xxl-font-size: @button__font-size__xxl,
+    @_button-xxl-height: @button__line-height__xxl,
+    @_button-xxl-padding: @button__padding__xxl
+) {
+    .lib-button-size(
+        @_button-line-height: @_button-xxl-height,
+        @_button-padding: @_button-xxl-padding
+    );
+    .lib-font-size(@_button-xxl-font-size);
+}
+
+//
+//  Color Type buttons
+//  ---------------------------------------------
+
+.lib-button-color-type(
+    @_button_color_type: @button__color__type,
+    @_button_background-color_type: @button__background-color__type,
+    @_button_hover_background-color_type: @button__hover__background-color__type
+) {
+    .lib-css(color, @_button_color_type);
+    .lib-css(background-color, @_button_background-color_type);
+
+    &:hover {
+        .lib-css(background-color, @_button_hover_background-color_type);
+    }
+}
+
+
+// digiprint
+.digiprint-right {
+    .action.btn-ordernow.primary {
+        font-weight: 700;
+        text-transform: uppercase;
+        background: #ff3c00 !important;
+        border: none !important;
+        border-radius: 5px !important;
+        padding: 10px 15px !important;
+        font-size: 13px;
+        margin-bottom: 5px;
+        color: #ffffff !important;
+    }
+
+    .action.btn-ordernow.primary:hover {
+        background: #ff3c00 !important;
+        color: #fff !important;
+    }
+
+}

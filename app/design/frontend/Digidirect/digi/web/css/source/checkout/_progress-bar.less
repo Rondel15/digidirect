@@ -1,0 +1,250 @@
+//
+//  Checkout: Progress Bar
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-progress-bar__is-enabled: true; // Enable/disable style
+
+@checkout-progress-bar__use-reset-list: true;
+@checkout-progress-bar__margin: 0 0 @indent__base;
+@checkout-progress-bar__font-size: 0;
+@checkout-progress-bar__counter-reset: i;
+
+//  Item
+@checkout-progress-bar-item__position: relative;
+@checkout-progress-bar-item__display: inline-block;
+@checkout-progress-bar-item__width: 50%;
+@checkout-progress-bar-item__margin: 0 0 @indent__s;
+@checkout-progress-bar-item__text-align: center;
+@checkout-progress-bar-item__vertical-align: top;
+@checkout-progress-bar-item__width__m: 185px;
+
+//  Pseudo Common
+@checkout-progress-bar-item-element__pseudo__content: ' ';
+@checkout-progress-bar-item-element__pseudo__position: absolute;
+@checkout-progress-bar-item-element__pseudo__top: 0;
+@checkout-progress-bar-item-element__pseudo__left: 50%;
+@checkout-progress-bar-item-element__pseudo__width: 38px;
+@checkout-progress-bar-item-element__pseudo__height: @checkout-progress-bar-item-element__pseudo__width;
+@checkout-progress-bar-item-element__pseudo__margin-left: -(@checkout-progress-bar-item-element__pseudo__width/2);
+@checkout-progress-bar-item-element__pseudo__border-radius: 50%;
+@checkout-progress-bar-item-element__pseudo__background: @color-gray-middle1;
+
+//  Item Pseudo: Before
+@checkout-progress-bar-item__before__content: ' ';
+@checkout-progress-bar-item__before__position: absolute;
+@checkout-progress-bar-item__before__left: 0;
+@checkout-progress-bar-item__before__width: 100%;
+@checkout-progress-bar-item__before__height: 7px;
+
+//  Active State: Item
+@checkout-progress-bar-item__active-before__background: @color-orange-red1;
+
+//  Complete State: Item
+@checkout-progress-bar-item__complete__cursor: pointer;
+
+//  Item Element
+@checkout-progress-bar-item-element__font-family: false;
+@checkout-progress-bar-item-element__font-size: 18px;
+@checkout-progress-bar-item-element__font-weight: @font-weight__light;
+@checkout-progress-bar-item-element__line-height: false;
+@checkout-progress-bar-item-element__font-style: false;
+@checkout-progress-bar-item-element__display: inline-block;
+@checkout-progress-bar-item-element__width: 100%;
+@checkout-progress-bar-item-element__padding-top: 45px;
+@checkout-progress-bar-item-element__word-wrap: break-word;
+
+//  Item Element: After
+@checkout-progress-bar-item-element__after__content: counter(i);
+@checkout-progress-bar-item-element__after__top: 6px;
+@checkout-progress-bar-item-element__after__width: @checkout-progress-bar-item-element__pseudo__width - (@checkout-progress-bar-item-element__after__top * 2);
+@checkout-progress-bar-item-element__after__height: @checkout-progress-bar-item-element__after__width;
+@checkout-progress-bar-item-element__after__margin-left: -(@checkout-progress-bar-item-element__after__width/2);
+@checkout-progress-bar-item-element__after__counter-increment: i;
+@checkout-progress-bar-item-element__after__font-family: false;
+@checkout-progress-bar-item-element__after__font-style: false;
+@checkout-progress-bar-item-element__after__font-weight: @font-weight__semibold;
+@checkout-progress-bar-item-element__after__font-size: @checkout-progress-bar-item-element__font-size;
+@checkout-progress-bar-item-element__after__line-height: false;
+@checkout-progress-bar-item-element__after__color: @checkout-progress-bar-item-element__active__color;
+@checkout-progress-bar-item-element__after__background: @page__background-color;
+
+//  Active State: Item Element
+@checkout-progress-bar-item-element__active__color: @primary__color;
+@checkout-progress-bar-item-element__active-before__background: @checkout-progress-bar-item__active-before__background;
+@checkout-progress-bar-item-element__active-after__content: false;
+@checkout-progress-bar-item-element__active-after__font-family: false;
+@checkout-progress-bar-item-element__active-after__font-size: false;
+@checkout-progress-bar-item-element__active-after__line-height: false;
+
+//  Complete State: Item Element
+@checkout-progress-bar-item-element__complete__color: @checkout-progress-bar-item-element__active__color;
+@checkout-progress-bar-item-element__complete-after__content: @checkout-progress-bar-item-element__active-after__content;
+@checkout-progress-bar-item-element__complete-after__font-family: @checkout-progress-bar-item-element__active-after__font-family;
+@checkout-progress-bar-item-element__complete-after__font-size: @checkout-progress-bar-item-element__active-after__font-size;
+@checkout-progress-bar-item-element__complete-after__line-height: @checkout-progress-bar-item-element__active-after__line-height;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-progress-bar__is-enabled = true) {
+        .opc-progress-bar {
+            & when (@checkout-progress-bar__use-reset-list = true) {
+                &:extend(.abs-reset-list all);
+            }
+            .lib-css(margin, @checkout-progress-bar__margin);
+            .lib-css(font-size, @checkout-progress-bar__font-size);
+            .lib-css(counter-reset, @checkout-progress-bar__counter-reset);
+        }
+
+        .opc-progress-bar-item {
+            &{
+                position: relative;
+            }
+            
+            &::before {
+                display: none !important;
+            }
+
+            > span {
+                
+                &{
+                    text-transform: uppercase;
+                    font-weight: 500;
+                }
+                
+                .lib-typography(
+                    @_color: @checkout-progress-bar-item-element__pseudo__background,
+                    @_font-family: @checkout-progress-bar-item-element__font-family,
+                    @_font-style: @checkout-progress-bar-item-element__font-style,
+                    @_font-weight: @checkout-progress-bar-item-element__font-weight,
+                    @_font-size: @checkout-progress-bar-item-element__font-size,
+                    @_line-height: @checkout-progress-bar-item-element__line-height
+                );
+                .lib-css(display, @checkout-progress-bar-item-element__display);
+                .lib-css(width, @checkout-progress-bar-item-element__width);
+                .lib-css(padding-top, @checkout-progress-bar-item-element__padding-top);
+                .lib-css(word-wrap, @checkout-progress-bar-item-element__word-wrap);
+
+                &::before {
+                    .lib-css(content, @checkout-progress-bar-item-element__pseudo__content);
+                    .lib-css(position, @checkout-progress-bar-item-element__pseudo__position);
+                    .lib-css(top, @checkout-progress-bar-item-element__pseudo__top);
+                    .lib-css(left, @checkout-progress-bar-item-element__pseudo__left);
+                    .lib-css(width, @checkout-progress-bar-item-element__pseudo__width);
+                    .lib-css(height, @checkout-progress-bar-item-element__pseudo__height);
+                    .lib-css(border-radius, @checkout-progress-bar-item-element__pseudo__border-radius);
+                    .lib-css(background, @checkout-progress-bar-item-element__pseudo__background);
+                }
+
+                &::after {
+                    display: none !important;
+                }
+            }
+
+            //  Active State
+            &._active {
+                background: #f5f5f5;
+                
+                &::before {
+                    .lib-css(background, @checkout-progress-bar-item__active-before__background);
+                }
+                
+                &::after {
+                    display: none !important;
+                }
+            }
+            
+            &._active > span {
+                .lib-css(color, #fff);
+                
+                &::after {
+                    display: none !important;
+                }
+            }
+
+            //  Complete State
+            &._complete {
+                .lib-css(cursor, @checkout-progress-bar-item__complete__cursor);
+            }
+            
+            &._complete > span {
+                .lib-css(color, @checkout-progress-bar-item-element__complete__color);
+                cursor: pointer;
+                
+                &:before{
+                    content: "\2713";
+                }
+            }
+        }
+    }
+    
+    
+    //Removed because of requirement
+    .opc-progress-bar-item._active > span:after,
+    .opc-progress-bar-item > span:after{
+        display: none !important;
+    }
+    
+    .opc-progress-bar{
+        
+        .opc-progress-bar-item:first-child{
+            text-align: right;
+            padding-right: 140px;
+        }
+        
+        .opc-progress-bar-item:last-child{
+            text-align: left;
+            padding-left: 140px;
+        }
+        
+        li.opc-progress-bar-item:first-child:before{
+            display: none !important;
+        }
+        
+        li.opc-progress-bar-item:first-child:after{
+            content: " ";   
+            width: calc(~"100% - 300px");
+            height: 5px;
+            background: #e65200;
+            position: absolute;
+            top: 35px;
+            right: 0;
+            z-index: 0;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+        
+        li.opc-progress-bar-item:last-child:before{
+            content: " ";   
+            width: calc(~"100% - 300px");
+            height: 5px;
+            background: #7d7d7d;
+            position: absolute;
+            top: 35px;
+            left: 0;
+            z-index: 0;
+        }
+        
+        .opc-progress-bar-item:last-child._active:before{
+            background: #e65200 !important;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@checkout-progress-bar__is-enabled = true) {
+        .opc-progress-bar-item {
+            .lib-css(width, @checkout-progress-bar-item__width__m);
+        }
+    }
+}

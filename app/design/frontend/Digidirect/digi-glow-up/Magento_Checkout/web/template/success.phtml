@@ -1,0 +1,64 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+$orderBlock= $block->getLayout()->createBlock('Digidirect\ParticularAudienceAPI\Block\Order');
+$order = $orderBlock->getOrderById($block->getOrderId());
+$orderedItems = $order->getAllItems();
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">
+    <?php if ($block->getOrderId()) :?>
+        <?php if ($block->getCanViewOrder()) :?>
+            <p><?= $block->escapeHtml(__('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeUrl($block->getViewOrderUrl()), $block->getOrderId())), ['a', 'strong']) ?></p>
+        <?php  else :?>
+            <p><?= $block->escapeHtml(__('Your order # is: <span>%1</span>.', $block->getOrderId()), ['span']) ?></p>
+        <?php endif;?>
+            <p><?= $block->escapeHtml(__('We\'ll email you an order confirmation with details and tracking info.')) ?></p>
+    <?php endif;?>
+
+    <?= $block->getAdditionalInfoHtml() ?>
+
+    <div class="actions-toolbar">
+        <div class="primary">
+            <a class="action primary continue" href="<?= $block->escapeUrl($block->getContinueUrl()) ?>"><span><?= $block->escapeHtml(__('Continue Shopping')) ?></span></a>
+        </div>
+    </div>
+</div>
+
+<script>
+<?php
+    foreach ($orderedItems as $item) { ?>
+        console.log("refId", <?=$item->getProductId() ?>);
+        console.log("quantity", <?=$item->getQuantityOrdered() ?>);
+        console.log("price", <?=$item->getPrice() ?>);
+<?php }
+?>
+</script>
+
+<script>
+    
+require(['jquery'], function ($) {
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    var customerId = getCookie('pa_customer_id');
+    var sessionId = getCookie('pa_session_id');
+    
+    var currentUrl = window.location.href;
+    
+    var configCustomerId;
+    var configSessionId;
+    
+    configCustomerId = customerId;
+    configSessionId = sessionId;
+
+});
+
+</script>

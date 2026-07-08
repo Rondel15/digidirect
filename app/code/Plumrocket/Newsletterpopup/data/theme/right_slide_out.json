@@ -1,0 +1,17 @@
+{
+    "text_title": "Best deal ever!",
+    "text_description": "<div class=\"line-1\">Free shipping<\/div>\r\n<div class=\"line-2\">On orders of $21+<\/div>\r\n<div class=\"line-3\">sign up &amp; reveal your offers now<\/div>",
+    "text_success": "<p>Thank you for your subscription!</p>",
+    "text_submit": "Submit",
+    "text_cancel": "No Thanks",
+    "animation": "fadeInRight",
+    "signup_fields": {
+        "email": {
+            "name": "email",
+            "label": "Your Email Address",
+            "enable": "1",
+            "sort_order": "10",
+            "orig_label": "Email"
+        }
+    }
+}

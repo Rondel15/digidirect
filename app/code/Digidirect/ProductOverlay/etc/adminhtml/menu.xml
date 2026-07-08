@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_ProductOverlay::product_overlay" title="Product Overlays" parent="Digidirect_Utilities::Digidirect"
+             translate="title" module="Digidirect_ProductOverlay" sortOrder="10" dependsOnModule="Digidirect_Utilities"
+             resource="Digidirect_ProductOverlay::overlay"/>
+        <add id="Digidirect_ProductOverlay::overlay" title="Product Overlays" module="Digidirect_ProductOverlay" sortOrder="40"
+             parent="Digidirect_ProductOverlay::product_overlay" action="digidirect_productoverlay/overlays/"
+             resource="Digidirect_ProductOverlay::overlay"/>
+    </menu>
+</config>

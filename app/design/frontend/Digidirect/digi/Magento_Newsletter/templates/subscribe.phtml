@@ -1,0 +1,37 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Newsletter\Block\Subscribe $block */
+
+?>
+<div class="block newsletter">
+    
+    <div class="logo-wrapper newsletter-child-block">
+        <a class="c-logo" href="/">
+            <img src="<?php echo $block->getUrl("media/wysiwyg/")?>logo-white.svg" alt="Logo">
+        </a>
+    </div>
+    
+    
+    <form class="form subscribe newsletter-child-block"
+        novalidate
+        action="<?= $block->escapeUrl($block->getFormActionUrl()) ?>"
+        method="post"
+        data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+        id="newsletter-validate-detail">
+        <label class="label" for="newsletter"><span><?= $block->escapeHtml(__('Sign up for our newsletter')) ?></span></label>
+        <div class="field newsletter">
+            <div class="control">
+                <input name="email" type="email" id="newsletter" class="input-text"
+                       placeholder="<?= $block->escapeHtml(__('Type your email here')) ?>"
+                       data-mage-init='{"mage/trim-input":{}}'
+                       data-validate="{required:true, 'validate-email':true}"/>
+            </div>
+            <div class="actions">
+                <button class="action subscribe -color-type-3" title="<?= $block->escapeHtmlAttr(__('SUBMIT')) ?>" type="submit">
+                    <span><?= $block->escapeHtml(__('SUBMIT')) ?></span>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

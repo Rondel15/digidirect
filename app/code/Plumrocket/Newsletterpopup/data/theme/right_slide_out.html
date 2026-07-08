@@ -1,0 +1,59 @@
+<div class="cross close" title="{{text_cancel}}">&#10005;</div>
+<div class="title-wrap">
+    <div class="prnp-title">{{text_title}}</div>
+</div>
+<div class="newspopup-descr">
+    {{text_description}}
+</div>
+
+<form class="newspopup_up_bg_form" method="POST">
+    {{form_fields}}
+
+    <div class="button-col">
+        <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+            {{text_submit}}
+        </a>
+        <img src="{{view url="Plumrocket_Newsletterpopup::images/loader-onwhite.gif"}}" title="" style="display: none;" class="ajax-loader" />
+    </div>
+    <div class="pl-clearfix"></div>
+    {{contact_lists}}
+</form>
+
+<script type="text/javascript">
+    require(['jquery', 'domReady!'], function($) {
+        var setPopupWindowParam = function()
+        {
+            var height = $('.newspopup_up_bg .hld-pop').height();
+            var top = window.innerHeight / 2 - height / 2;
+            var right = $('.newspopup_up_bg .title-wrap').width() - $('.newspopup_up_bg').width();
+            $('.newspopup_up_bg').css('top', (top > 0? top : 0) +'px');
+            $('.newspopup_up_bg').css('margin-top', '0');
+            $('.newspopup_up_bg').css('right', right +'px');
+            $('.newspopup_up_bg').removeClass('newspopup_up_bg_open');
+        }
+
+        var interval = setInterval(function() {
+            if ($('.newspopup_up_bg .hld-pop').height() > 0) {
+                setPopupWindowParam();
+                clearInterval(interval);
+            }
+        }, 500);
+
+        $('.newspopup_up_bg .newspopup-up-form.newspopup-theme .title-wrap').click(function() {
+            if ($('.newspopup_up_bg').hasClass('newspopup_up_bg_open')) {
+                $('.newspopup_up_bg').removeClass('newspopup_up_bg_open');
+                var right = $('.newspopup_up_bg .title-wrap').width() - $('.newspopup_up_bg').width();
+                $('.newspopup_up_bg').animate({
+                    right: right +'px'
+                }, 100);
+            } else {
+                $('.newspopup_up_bg').addClass('newspopup_up_bg_open');
+                $('.newspopup_up_bg').animate({
+                    right: 0
+                }, 100);
+            }
+        });
+
+        $(window).resize(setPopupWindowParam);
+    });
+</script>

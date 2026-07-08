@@ -1,0 +1,420 @@
+<?php
+/**
+ * Author: Rondel Y. Dalumpines
+ */
+
+$timeId = time();
+$selectedBrands = $block->getCollection();
+
+?>
+
+<?php
+    $blockBrandList = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\BrandList');
+    $blockSearch = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\Search');
+    $blockCategory = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand\Category');
+    $blockBrands = $block->getLayout()->createBlock('Digidirect\ShopByBrandMenu\Block\Brand');
+    $categories = $blockBrands->getCategories();
+    $helperCategories = $blockBrands->helper();
+    //Redeploy
+?>
+
+<script type="text/javascript">
+    require([
+            'jquery'
+        ],
+        function ($) {
+            filterSelectionMobile("all");
+            
+            $('#mp-search-new-mobile').on('click', function(){
+                $(window).off('resize');
+            });
+            
+            $('#brand-menu-mobile').change(function() {
+                var value = this.value;
+                var url = "<?php echo $block->getBaseUrl().'shopbybrandsmenu/index/viewmobile' ?>";
+                $("#brand-menu-grid-mobile").attr("style", "display: none !important");
+                $("#logo-preloader-mobile").show();
+                $("#brand-menu-mobile").prop("disabled", true);
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {categoryId:value},
+                    cache: false,
+                    success: function(response){
+                        //console.log(response.output);
+                        $('#brand-menu-grid-mobile').html(response.output);
+                        $("#logo-preloader-mobile").hide();
+                        $("#brand-menu-grid-mobile").attr("style", "display: grid");
+                        $("#brand-menu-mobile").prop("disabled", false);
+                        return true;
+                    }
+                });
+            });
+            
+        }
+    );
+</script>
+
+<div style="padding: 25px;">
+    <div style="margin-bottom: 18px !important;">SELECT CATEGORIES</div>
+    <div>
+        <select id="brand-menu-mobile" style="border: 0; background: #f5f5f5;" onchange="filterSelectionMobile('all')">
+            <option value="all">
+            Select All
+            </option>
+            <?php foreach ($categories as $category) : ?>
+                <?php if ($blockBrands->getBrandQty($category->getId())) : ?>
+                    <option value="<?= /** @noEscape */ $blockBrandList->getCatNameFilter($category->getName()) ?>">
+                        <?= /** @noEscape */ $category->getName() ?>
+                    </option>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </select>
+        <hr style="margin: 0 !important;">
+    </div>
+    
+    
+    <script type="text/javascript">
+        
+        function filterByBrandNameMobile() {
+            var x, i;
+            x = document.getElementsByClassName("product-item");
+            c = document.getElementById("mp-search-new-mobile").value;
+            for (i = 0; i < x.length; i++) {
+              w3RemoveClassMobile(x[i], "show-brand");
+              if (x[i].querySelector(".product-item-info > a").getAttribute('title').toLowerCase().includes(c.toLowerCase())) w3AddClassMobile(x[i], "show-brand");
+            }
+        }
+        
+        
+        function filterSelectionMobile(c) {
+            var x, i;
+            x = document.getElementsByClassName("product-item");
+            if (c == "all" || c == "catall") c = "";
+            for (i = 0; i < x.length; i++) {
+              w3RemoveClassMobile(x[i], "show-brand");
+              if (x[i].className.indexOf(c) > -1) w3AddClassMobile(x[i], "show-brand");
+            }
+        }
+
+        function w3AddClassMobile(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+              if (arr1.indexOf(arr2[i]) == -1) {
+                element.className += " " + arr2[i];
+              }
+            }
+        }
+
+        function w3RemoveClassMobile(element, name) {
+            var i, arr1, arr2;
+            arr1 = element.className.split(" ");
+            arr2 = name.split(" ");
+            for (i = 0; i < arr2.length; i++) {
+              while (arr1.indexOf(arr2[i]) > -1) {
+                arr1.splice(arr1.indexOf(arr2[i]), 1);
+              }
+            }
+            element.className = arr1.join(" ");
+        }   
+      
+      
+    </script>
+    
+    <div class="block-content">
+        <?php
+            $helper = $blockBrandList->helper();
+            $brandCollection = $blockBrandList->getCollection();
+            $displayType = $helper->getBrandConfig('display');
+        if (count($brandCollection)) : ?>
+            <div class="brand-list-content">
+                <div class="block block-brand-search">
+                    <div class="block-content">
+                        <div class="mp-searchbox">
+                            <input id="mp-search-new-mobile" type="text" class="mp-search form-control" name="q"
+                                   onkeyup="filterByBrandNameMobile()" placeholder="<?= /** @noEscape */ __('Search a brand name') ?>" autocomplete="off">
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="logo-preloader-mobile" style="display: none;"></div>
+
+                <ol id="brand-menu-grid-mobile" class="products list items product-items">
+                    <?php foreach ($brandCollection as $brand) : ?>
+                        <?php if ($helper->getBrandImageUrl($brand) != $block->getBaseUrl()."media/catalog/product/placeholder/default/ICS_placeHolder.fw_1.png") : ?>
+                            <?php if (($blockBrandList->getProductQuantity($brand->getOptionId()) > 0)) : ?>
+                            <li style="display: none; width: 100% !important;" class="item product product-item mix <?= /** @noEscape */ $blockBrandList->getFilterClass($brand) ?> <?= /** @noEscape */ $blockBrandList->getCatFilterClass($brand->getId()) ?>">
+                                <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LABEL) : ?>
+                                    <div class="product-item-info" data-container="product-grid" style="width: 240px">
+                                        <?php if ($blockBrandList->showQuickView()) : ?>
+                                            <div title="Quick View" class="changelog module-version quickview_popup">
+                                                <a class="fa fa-eye open_model"
+                                                   id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                                            </div>
+                                        <?php endif; ?>
+                                        <a title="<?= /** @noEscape */ $brand->getValue() ?>"
+                                           href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>"
+                                           class="product photo product-item-photo"
+                                           tabindex="-1">
+                                            <span class="product-image-container" style="width:240px;">
+                                                <span class="product-image-wrapper" style="padding-bottom: 50% !important;">
+                                                    <div role="img" class="brand-menu-img product-image-photo"
+                                                         style="background-image: url('<?= /** @noEscape */ $helper->getBrandImageUrl($brand) ?>'); background-repeat: no-repeat; background-size: contain;" alt="<?= /** @noEscape */ $brand->getValue() ?>">
+                                                    </div>
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <div class="product details product-item-details">
+                                            <?php if ($displayType !== \Mageplaza\Shopbybrand\Model\Config\Source\BrandListDisplay::DISPLAY_LOGO) : ?>
+                                                <strong class="product name product-item-name" style="text-align: center">
+                                                    <a title="<?= /** @noEscape */ $brand->getValue() ?>" class="product-item-link"
+                                                       href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>">
+                                                        <?= $blockBrandList->showProductQty() ? /** @noEscape */ $brand->getValue() . ' (' . /** @noEscape */ $blockBrandList->getProductQuantity($brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                                                    </a>
+                                                </strong>
+                                            <?php endif; ?>
+                                            <?php if ($blockBrandList->showDescription()) : ?>
+                                                <div class="product description product-item-description">
+                                                    <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                                                </div>
+                                            <?php endif; ?>
+                                        </div>
+                                    </div>
+                                <?php else : ?>
+                                    <div class="brand-name-type-label-only" data-container="product-grid">
+                                        <strong class="product name product-item-name" style="margin: 0;">
+                                            <a class="product-item-link" href="<?= /** @noEscape */ str_replace('brand', 'brands', $helper->getBrandUrl($brand)) ?>" style="float: left; padding-right: 10px;">
+                                                <?= $blockBrandList->showProductQty() ? /** @noEscape */  $brand->getValue() . ' (' . /** @noEscape */ $blockBrandList->getProductQuantity($brand->getOptionId()) . ')' : /** @noEscape */ $brand->getValue() ?>
+                                            </a>
+                                            <?php if ($blockBrandList->showQuickView()) : ?>
+                                                <div title="Quick View" class="changelog module-version quickview_popup">
+                                                    <a class="fa fa-eye open_model"
+                                                       id="<?= /** @noEscape */ $helper->getQuickview($brand) ?>"></a>
+                                                </div>
+                                            <?php endif; ?>
+                                        </strong>
+                                        <?php if ($blockBrandList->showDescription()) : ?>
+                                            <div class="product description product-item-description">
+                                                <?= /** @noEscape */ $helper->getBrandDescription($brand, true) ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </li>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </ol>
+            </div>
+        <?php else : ?>
+            <?= /** @noEscape */ __('There is no brand available.') ?>
+        <?php endif; ?>
+    </div>
+
+</div>
+<style type="text/css">
+    .brand-info-container .img-content .quickview_img {
+        width: <?= /** @noEscape */ $blockBrands->getLogoWidth() . 'px' ?>;
+        height: <?= /** @noEscape */ $blockBrands->getLogoHeight() . 'px' ?>
+    }
+</style>
+
+
+
+<style type="text/css">
+    
+    .shop-by-brands-menu-new .item-submenu {
+        width: 750px !important;
+    }
+    
+    .block-brand-search {
+        background-color: unset !important;
+        margin: 0 !important;
+    }
+    
+    .block-brand-search .block-content {
+        margin-bottom: 20px !important;
+    }
+    
+    #mp-search {
+        padding: 10px !important;
+    }
+    
+    .brand-menu-div {
+        display: inline-block !important;
+        color: #000 !important;
+    }
+    
+    .brand-menu-chkbx {
+        position: relative !important;
+        width: 15px !important;
+        height: 15px !important;
+        margin: 0 !important;
+        top: 3px !important;
+        padding-bottom: 20px !important;
+    }
+    
+    .brand-menu-lbl:before, .brand-menu-lbl:after {
+        display: none !important;
+    }
+    
+    .left-side-options {
+        width: 40%; 
+        padding: 30px 20px !important;
+        float: left;
+    }
+    
+    .brand-menu-chkbx {
+        margin-bottom: 20px !important;
+        margin-right: 10px !important;
+    }
+    
+    .right-side-brands {
+        width: 60%;
+        background: #f5f5f5;
+        min-height: 900px;
+    }
+
+    .shop-by-brand-menu-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+    }
+    .shop-by-brand-menu-grid-item {
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+    }
+    
+    .brand-list-content .product-image-container {
+        width: 162px !important;
+        transition: transform 0.4s;
+        height: auto !important;
+        box-shadow: 3px 3px 3px -2px rgb(0 0 0 / 20%);
+        max-height: unset !important;
+    }
+    
+    .brand-list-content .product-image-container:hover {
+        transform: translateY(-8px);
+    }
+    
+    .brand-list-content .product.details.product-item-details {
+        margin: 0 !important;
+    }
+    
+    .brand-list-content .product-items .product-item:hover > .product-item-info {
+        box-shadow: unset !important;
+        transform: unset !important;
+    }
+    
+    .brand-list-content span.product-image-wrapper {
+        padding-bottom: 100px !important;
+    }
+    
+    .brand-list-content .product-item-info {
+        border: none !important;
+        margin: 5px !important;
+        padding: 0 !important;
+        width: calc(100% - 15px) !important;
+        background: #f5f5f5;
+    }
+    
+    .brand-list-content .products {
+        margin-top: -5px !important;
+        overflow-y: scroll;
+        height: 750px !important;
+        position: relative;
+        background: unset !important;
+        margin-left: 1px;
+        padding: 10px 12px 0 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: unset !important;
+    }
+    
+    .brand-list-content .product.name.product-item-name {
+        font-size: 11px !important;
+        margin-top: -20px;
+    }
+    
+    .brand-list-content li {
+        width: 33.3% !important;
+    }
+    
+    .show-brand {
+        display: block !important;
+    }
+    
+    .mp-option-item .control {
+        margin-bottom: 20px !important;
+        margin-right: 12px !important;
+    }
+    
+    .mp-option-item .control {
+        visibility: hidden;
+    }
+    
+    .mp-option-item .control:checked +img {
+        background: url(https://cdn4.iconfinder.com/data/icons/feather/24/check-512.png);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 18px 18px;
+    }
+    
+    .mp-option-item img {
+        display: inline-block;
+        padding: 0px;
+        height: 18px;
+        width: 18px !important;
+        background: none;
+        vertical-align: middle;
+        margin-top: -5px !important;
+    }
+    
+    .mp-option-item label {
+        padding-left: 50px;
+        margin-left: -30px;
+        color: #000 !important;
+    }
+    
+    .mp-option-item {
+        text-decoration: none !important;
+        cursor: pointer !important;
+    }
+    
+    #mp-search-new-mobile {
+        padding: 10px !important;
+    }
+    
+    .klevu-fluid {
+        display: none;
+    }
+    
+    #logo-preloader-mobile {
+        margin: auto;
+        margin-top: 150px;
+        vertical-align: middle;
+        border: 7px solid #f5f5f5;
+        border-radius: 50%;
+        border-top: 7px solid #000;
+        width: 50px;
+        height: 50px;
+        -webkit-animation: spin 2s linear infinite; /* Safari */
+        animation: spin 2s linear infinite;
+    }
+
+    /* Safari */
+    @-webkit-keyframes spin {
+        0% { -webkit-transform: rotate(0deg); }
+        100% { -webkit-transform: rotate(360deg); }
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+</style>

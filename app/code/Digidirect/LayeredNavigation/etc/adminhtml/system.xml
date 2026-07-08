@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_layerednavigation" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <resource>Digidirect_LayeredNavigation::config</resource>
+            <class>separator-top</class>
+            <label>Layered Navigation</label>
+            <tab>digidirect</tab>
+            <group id="general" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General</label>
+                <field id="ajax_enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enable Ajax</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_apply_button" translate="label" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable "Apply" button</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="enable_mobile_apply_button" translate="label" type="select" sortOrder="25" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable "Apply" for mobile</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="enable_apply_button">0</field>
+                    </depends>
+                </field>
+                <field id="enable_filter_remember" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable Filter Remember For Hierarchy</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="hide_options_after_select" translate="label" type="select" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Hide Options After Select</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to 'No' system will not hide the list of filters after making a selection, so that customer will be able to see all options</comment>
+                </field>
+            </group>
+            <group id="category" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>Category</label>
+                <field id="display_mode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Display Mode</label>
+                    <source_model>Digidirect\LayeredNavigation\Model\Source\DisplayMode</source_model>
+                </field>
+                <field id="allow_multiselect" translate="label comment" type="select" sortOrder="20" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Allow multiselect</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="display_mode">0</field>
+                    </depends>
+                </field>
+                <field id="enable_show_more" translate="label" type="select" sortOrder="30" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable Show More</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="display_mode">0</field>
+                    </depends>
+                </field>
+                <field id="options_per_filter" translate="label" type="text" sortOrder="40" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Options per Filter</label>
+                    <validate>validate-greater-than-zero integer</validate>
+                    <depends>
+                        <field id="display_mode">0</field>
+                        <field id="enable_show_more">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="url" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>SEO URLs</label>
+                <field id="mode" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>URL will look "category/autumn.html" instead of "category.html?season=114". See per-attribute settings for fine-tuning.</comment>
+                </field>
+            </group>
+            <group id="robots" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+                   showInStore="0">
+                <label>Robots Tag Control</label>
+                <field id="control_robots" translate="label comment" type="select" sortOrder="10" showInDefault="1"
+                       showInWebsite="1" showInStore="0">
+                    <label>Allow the Module to Modify Robots Meta Tag</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Use "No" for compatibility with other SEO extensions.</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

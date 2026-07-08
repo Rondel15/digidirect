@@ -1,0 +1,147 @@
+//
+//  Cms: Plp Help Block
+//  _____________________________________________
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .help-block {
+        & {
+            display: block;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .action {
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            padding: 5px;
+            text-align: start;
+        }
+
+        .tel {
+            word-break: break-all;
+        }
+
+        .svg-icon {
+            margin: 5px 3px 5px 0;
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+    .help-block .section:first-child {
+        & {
+            .lib-css(background, @color-4-1);
+            position: relative;
+        }
+
+        .content {
+            .lib-css(color, @color-white);
+            display: block;
+            padding: 40px 10px 5px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .content.-has-subtitle {
+            margin-left: 0;
+            padding: 0 10px 5px 15px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        > .svg-icon {
+            margin: 0;
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+    }
+
+    .help-block .section:not(:first-child) {
+        .lib-css(border-bottom, 1px solid @color-3-4);
+        .lib-hover-out();
+    }
+
+    .help-block .section:not(:first-child):hover {
+        .lib-underline-hover();
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .help-block {
+        .content,
+        .tel {
+            padding: 5px 5px 5px 0;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        .svg-icon {
+            width: 24px;
+            height: 24px;
+            margin: 5px 26px 5px 20px;
+        }
+        
+        a{
+            color: #2a2a2a;
+        }
+    }
+
+    .help-block .section:first-child {
+        & {
+            height: 50px;
+            padding: 16px 0;
+        }
+
+        .content {
+            margin-left: 65px;
+            text-align: left;
+            padding: 5px 0 0 15px;
+            font-size: 16px;
+        }
+
+        .content.-has-subtitle {
+            margin-left: 65px;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        > .svg-icon {
+            top: 20px;
+            left: 20px;
+            width: 36px;
+            height: 36px;
+            transform: none;
+        }
+    }
+
+    .help-block .svg-icon {
+        margin: 5px 26px 5px 20px;
+    }
+
+    .help-block .action {
+        display: flex;
+    }
+
+    .help-block .action > span {
+        margin: auto 0 auto 5px;
+    }
+}
+
+//
+//  Desktop Large
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .help-block .svg-icon {
+        margin: 5px 26px 5px 20px;
+    }
+}

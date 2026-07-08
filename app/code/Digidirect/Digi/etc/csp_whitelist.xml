@@ -1,0 +1,244 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright  Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<csp_whitelist xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Csp/etc/csp_whitelist.xsd">
+    <policies>
+        <policy id="script-src">
+            <values>
+                <!--CDN-->
+
+                <!--<value id="qantasscript" type="host">*.services.qantasloyalty.com</value>-->
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <!--Google-->
+                <value id="google-analytics" type="host">www.google-analytics.com</value>
+                <value id="google-maps-api" type="host">maps.googleapis.com</value>
+                <!--Functions-->
+                <value id="cloudfront" type="host">*.cloudfront.net</value>
+                <value id="testfreaks" type="host">*.testfreaks.com</value>
+                <value id="cfjump" type="host">*.cfjump.com</value>
+                <value id="fbevents" type="host">*.facebook.net</value>
+                <value id="benchmarketingsmarttag" type="host">*.benchplatform.com</value>
+                <value id="livechat" type="host">*.livechatinc.com</value>
+                <value id="googleadsviewthroughconversion" type="host">*.g.doubleclick.net</value>
+                <value id="googletagmanager" type="host">googletagmanager.com</value>
+                <value id="adsrvr" type="host">*.adsrvr.org</value>
+                <value id="studio19" type="host">*.studio19.com.au</value>
+                <value id="particularaudience" type="host">*.particularaudience.com</value>
+                <value id="stackadapt" type="host">*.srv.stackadapt.com</value>
+                <value id="newrelic" type="host">*.newrelic.com</value>
+                <value id="bamcell" type="host">*.nr-data.net</value>
+                <value id="cfjump2" type="host">cfjump.digidirect.com.au</value>
+                <value id="gstatic" type="host">*.gstatic.com</value>
+                <value id="cfjump3" type="host">t.cfjump.com</value>
+                <value id="lukyorange" type="host">settings.luckyorange.net</value>
+                <value id="similarinc" type="host">*.similarinc.com</value>
+                <value id="similarincscript" type="host">*.api.similarinc.com</value>
+                <value id="zipmoneyscript" type="host">*.zipmoney.com.au</value>
+                <value id="zipscript" type="host">*.zip.co</value>
+                <value id="zdassetsscript" type="host">*.zdassets.com</value>
+                <value id="pinterest" type="host">assets.pinterest.com</value>
+                <value id="dotdigitalsrc" type="host">r3.dotdigital-pages.com</value>
+                <value id="smoothioscriptt" type="host">api.smooch.io</value>
+                <value id="klarnascript" type="host">*.klarna.com</value>
+                <value id="gstaticscript" type="host">*.gstatic.com</value>
+                <value id="googlepayscript" type="host">*.google.com</value>
+                <value id="klarnascript" type="host">*.klarnacdn.net</value>
+                <value id="cardinalscript" type="host">*.cardinalcommerce.com</value>
+                <value id="braintreegatewayscript" type="host">*.braintreegateway.com</value>
+                <value id="braintreescript" type="host">*.braintree-api.com</value>
+                <value id="paypalscript" type="host">*.paypal.com</value>
+                <value id="visitorsscript" type="host">*.visitors.live</value>
+                <value id="evenbritescript" type="host">*.eventbrite.com</value>
+                <value id="wibmoscript" type="host">*.wibmo.com</value>
+                <value id="paypalcnscript" type="host">*.paypal.cn</value>
+                <value id="paypalobjscript" type="host">*.paypalobjects.com</value>
+                <value id="googleadscript" type="host">*.googleadservices.com</value>
+                <value id="soretoscript" type="host">*.soreto.com</value>
+                <value id="kwscript" type="host">*.kayweb.com.au</value>
+                <value id="pascript" type="host">p-a.io</value>
+                <value id="particularaudienceapi" type="host">api-recs.particularaudience.com</value>
+                <value id="luckyorangeclickstream" type="host">d10lpsik1i8c69.cloudfront.net</value>
+                <value id="gtmscriptsrc" type="host">gtm.js</value>
+                <value id="studentbeansconnect" type="host">*.connect.studentbeans.com</value>
+                <value id="studentbeanscdn" type="host">*.studentbeans.com</value>
+                <!-- <value id="studentbeansId" type="host">*.beansid.com</value> -->
+                 <value id="ig" type="host">*.instagram.com</value>
+                <value id="jqueryscr" type="host">*.jquery.com</value>
+                <value id="jqueryscr" type="host">*.jquery.com</value>
+                <value id="adobetmsrc" type="host">*.adobedtm.com</value>
+                <value id="adobesrc" type="host">*.adobed.com</value>
+                <value id="latitudesrc" type="host">*.latitudefinancial.com</value>
+                <value id="afterpayportal" type="host">*.afterpay.com</value>
+                <value id="afterpaystatic" type="host">*.static.afterpay.com</value>
+                <value id="afterpaymodal" type="host">*.squarecdn.com</value>
+                <value id="latitudescriptsrc" type="host">*.latitudepayapps.com</value>
+                <value id="clarity" type="host">*.clarity.ms</value>
+                <value id="digizendscript" type="host">*.zendesk.com</value>
+
+            </values>
+        </policy>
+        <policy id="style-src">
+            <values>
+                <!--CDN-->
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <!--Design-->
+                <value id="typekit" type="host">*.typekit.net</value>
+                <!--Functions-->
+                <value id="trustedshops" type="host">*.trustedshops.com</value>
+                <value id="usercentrics" type="host">*.usercentrics.eu</value>
+                <value id="fontsgoogle" type="host">fonts.googleapis.com</value>
+                <value id="stackadapt" type="host">tags.srv.stackadapt.com</value>
+                <value id="similarincstyle" type="host">*.similarinc.com</value>
+                <value id="zipstyle" type="host">*.zipmoney.com.au</value>
+                <value id="gstaticsstyle" type="host">*.gstatic.com</value>
+                <value id="googlepaystyle" type="host">*.google.com</value>
+                <value id="kwstyle" type="host">*.kayweb.com.au</value>
+                <value id="bootstrapstyle" type="host">*.bootstrapcdn.com</value>
+                <value id="pastyle" type="host">p-a.io</value>
+                <value id="particularaudiencestyle" type="host">*.particularaudience.com</value>
+                <value id="cloudfrontstylesrc" type="host">*.cloudfront.net</value>
+                <value id="zipstylesrc" type="host">*.zip.co</value>
+                <!--<value id="qantasstyle" type="host">*.services.qantasloyalty.com</value>-->
+            </values>
+        </policy>
+        <policy id="img-src">
+            <values>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="klarna-base" type="host">cdn.klarna.com</value>
+
+                <value id="paypal" type="host">*.paypal.com</value>
+
+                <value id="vimeocdn" type="host">*.vimeocdn.com</value>
+                <value id="youtube-img" type="host">s.ytimg.com</value>
+
+                <value id="google" type="host">*.google.com</value>
+                <value id="facebook" type="host">*.facebook.com</value>
+                <value id="adsrvr" type="host">*.adsrvr.org</value>
+                <value id="googlephimg" type="host">*.google.com.ph</value>
+                <value id="similarincimg" type="host">*.similarinc.com</value>
+                <value id="cloudfrontimg" type="host">*.cloudfront.net</value>
+                <value id="digizendimg" type="host">digidirect.zendesk.com</value>
+                <value id="pinterestimg" type="host">*.pinterest.com</value>
+                <value id="analyticsyahooimg" type="host">*.analytics.yahoo.com</value>
+                <value id="digizendimg" type="host">*.zendesk.com</value>
+                <value id="gstaticimg" type="host">*.gstatic.com</value>
+                <value id="googlepayimg" type="host">*.google.com</value>
+                <value id="klarnaimg" type="host">*.klarnacdn.net</value>
+                <value id="facebookimg" type="host">*.facebook.net</value>
+                <value id="googleadsimg" type="host">googleads.g.doubleclick.net</value>
+                <value id="doubleclickimg" type="host">*.doubleclick.net</value>
+                <value id="kwimg" type="host">*.kayweb.com.au</value>
+                <value id="paimg" type="host">p-a.io</value>
+                <value id="particularaudienceimg" type="host">*.particularaudience.com</value>
+                <value id="qantasimg" type="host">*.services.qantasloyalty.com</value>
+                <value id="adobetmimg" type="host">*.adobedtm.com</value>
+                <value id="latitudeimgsrc" type="host">*.latitudepayapps.com</value>
+                <value id="zipimgsrc" type="host">zip.co</value>
+                <value id="bpizipimgsrc" type="host">bpi.zip.co</value>
+                <value id="latitudeimgsrc" type="host">*.latitudefinancial.com</value>
+                <value id="clarity" type="host">*.google.lk</value>
+                <value id="digiImages" type="host">*.digidirect.com.au</value>
+            </values>
+        </policy>
+        <policy id="media-src">
+            <values>
+
+                <value id="cloudfrontmedia" type="host">*.cloudfront.net</value>
+                <value id="digizendmedia" type="host">*.zendesk.com</value>
+                <value id="kwmedia" type="host">*.kayweb.com.au</value>
+                <value id="pamedia" type="host">p-a.io</value>
+                <value id="particularaudiencemedia" type="host">*.particularaudience.com</value>
+                <value id="qantasmedia" type="host">*.services.qantasloyalty.com</value>
+                <value id="zipmediasrc" type="host">*.zip.co</value>
+                <value id="zipmoneymediasrc" type="host">*.zipmoney.com.au</value>
+            </values>
+        </policy>
+        <policy id="connect-src">
+            <values>
+                <!--CDN-->
+
+                <value id="zendeskconnect" type="host">*.zendesk.com</value>
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <value id="paypal" type="host">*.paypal.com</value>
+                <value id="cfjump3connect" type="host">t.cfjump.com</value>
+                <value id="lukyorangeconnect" type="host">settings.luckyorange.net</value>
+                <value id="paconnect2" type="host">*.particularaudience.com</value>
+                <value id="statsgconnect" type="host">stats.g.doubleclick.net</value>
+                <value id="gaconnect" type="host">*.google-analytics.com</value>
+                <value id="tagssvrconnect" type="host">tags.srv.stackadapt.com</value>
+                <value id="studio19connect" type="host">secure.studio19.com.au</value>
+                <value id="polygroupconnect" type="host">secure.polygongroup.com.au</value>
+                <value id="bamcellconnect" type="host">bam-cell.nr-data.net</value>
+                <value id="similarinccon" type="host">*.similarinc.com</value>
+                <value id="similarincconapi" type="host">*.api.similarinc.com</value>
+                <value id="zipconnect" type="host">*.zipmoney.com.au</value>
+                <value id="visitorsconnect" type="host">*.visitors.live</value>
+                <value id="googleapisconnect" type="host">*.googleapis.com</value>
+                <value id="zdassetsconnect" type="host">*.zdassets.com</value>
+                <value id="digizendconnect" type="host">digidirect.zendesk.com</value>
+                <value id="zipcoconnect" type="host">*.zip.co</value>
+                <value id="smoothioconnect" type="host">api.smooch.io</value>
+                <value id="gstaticconnect" type="host">*.gstatic.com</value>
+                <value id="googlepayconnect" type="host">*.google.com</value>
+                <value id="klarnaconnect" type="host">*.klarnacdn.net</value>
+                <value id="cardinalconnect" type="host">*.cardinalcommerce.com</value>
+                <value id="demdexconnect" type="host">*.demdex.net</value>
+                <value id="braintree" type="host">*.braintree-api.com</value>
+                <value id="braintreegateway" type="host">*.braintreegateway.com</value>
+                <value id="amcglobal" type="host">amcglobal.sc.omtrdc.net</value>
+                <value id="wibmoconnect" type="host">*.wibmo.com</value>
+                <value id="paypalcncon" type="host">*.paypal.cn</value>
+                <value id="paypalobjcon" type="host">*.paypalobjects.com</value>
+                <value id="kwconnect" type="host">*.kayweb.com.au</value>
+                <value id="nrdataconnect" type="host">*.nr-data.net</value>
+                <value id="paconnect" type="host">p-a.io</value>
+                <value id="qantasconnect" type="host">*.qantasloyalty.com</value>
+                <value id="qantasconnectserv" type="host">*.services.qantasloyalty.com</value>
+                <value id="particularaudienceapiconnect" type="host">api-recs.particularaudience.com</value>
+                <value id="luckyorangeclickconnect" type="host">d10lpsik1i8c69.cloudfront.net</value>
+                <value id="demdexconnect" type="host">*.demdex.net</value>
+                <value id="xipconnect" type="host">*.zip.co</value>
+                <value id="afterpayportalconnect" type="host">*.afterpay.com</value>
+                <value id="afterpaystaticconnect" type="host">*.static.afterpay.com</value>
+                <value id="addoubleclick" type="host">*.doubleclick.net</value>
+                <value id="clarityconnect" type="host">*.clarity.ms</value>
+                <value id="invisitors" type="host">wss://in.visitors.live</value>
+                <value id="visitors" type="host">visitors.live</value>
+                <value id="insightadsrver" type="host">insight.adsrvr.org</value>
+                <value id="luckorangepreview" type="host">api-preview.luckyorange.com</value>
+            </values>
+        </policy>
+        <policy id="font-src">
+            <values>
+                <!--CDN-->
+                <value id="cloudflare" type="host">*.cloudflare.com</value>
+                <!--Design-->
+                <value id="typekit" type="host">*.typekit.net</value>
+                <!--Functions-->
+                <value id="trustedshops" type="host">*.trustedshops.com</value>
+                <value id="similarincfont" type="host">*.similarinc.com</value>
+                <value id="zipfont" type="host">*.zipmoney.com.au</value>
+                <value id="digizendfont" type="host">*.zendesk.com</value>
+                <value id="bootstrapfont" type="host">*.bootstrapcdn.com</value>
+                <value id="pafont" type="host">p-a.io</value>
+                <value id="particularaudiencefont" type="host">*.particularaudience.com</value>
+            </values>
+        </policy>
+        <policy id="frame-src">
+            <values>
+                <value id="all_potential_frame" type="host">*</value>
+                <value id="zipmoneyframesrc" type="host">*.zipmoney.com.au</value>
+            </values>
+        </policy>
+        <policy id="form-action">
+            <values>
+                <value id="all_potential_form" type="host">*</value>
+                <value id="zipmoneyformaction" type="host">*.zipmoney.com.au</value>
+            </values>
+        </policy>
+    </policies>
+</csp_whitelist>

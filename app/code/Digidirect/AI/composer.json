@@ -1,0 +1,17 @@
+{
+  "name": "digidirect/ai",
+  "type": "magento2-module",
+  "description": "Integration Engine.",
+  "version": "1.15.8.0",
+  "require": {
+    "vlucas/valitron": "^1.4"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\AI\\": ""
+    }
+  }
+}

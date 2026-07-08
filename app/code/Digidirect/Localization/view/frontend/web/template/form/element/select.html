@@ -1,0 +1,9 @@
+<select class="select" data-role="localization-select" data-bind="
+    options: setLocalizationOptions(),
+    optionsValue: 'locale',
+    optionsText: 'countryName',
+    afterRender: renderSelectComplete,
+    event: {
+        change: changeLocale
+    }
+"/>

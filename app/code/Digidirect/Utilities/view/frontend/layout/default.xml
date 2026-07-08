@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template" name="loading_animation_config"
+                   as="loading_animation_config" template="Digidirect_Utilities::animation/loading_animation_config.phtml"/>
+            <block class="Magento\Framework\View\Element\Template" name="digidirect_enabled_extensions"
+                   template="Digidirect_Utilities::enabled_extensions.phtml">
+                <arguments>
+                    <argument name="cache_lifetime" xsi:type="number">86400</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Store\Block\Switcher" name="digidirect.utilites.store.switcher" template="Digidirect_Utilities::theme-switcher.phtml" ifconfig="digidirect_utilities_config/frontend_settings/show_theme_switcher">
+                <arguments>
+                    <argument name="style_url" xsi:type="string">Digidirect_Utilities::css/theme-switcher.css</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceContainer name="page.messages">
+            <block class="Magento\Framework\View\Element\Messages" name="messages" as="messages" template="Digidirect_Utilities::messages.phtml"/>
+        </referenceContainer>
+    </body>
+</page>

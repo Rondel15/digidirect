@@ -1,0 +1,42 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\BlogCategories $block
+ */
+
+$categories = $block->getCategoriesTree();
+?>
+<div class="categories-container blog-widget widget negative-gutter full-width-background">
+    <a class="logo" href="/blog">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-blog-widget">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-logo-digi-life"></use>
+        </svg>
+    </a>
+    <ul class="list blog-categories-list">
+        <?php $function = function ($category) use (&$function, $block) { ?>
+            <?php if(!empty($category) && $block->showCategory($category)): ?>
+                <li class="item item-<?php echo $block->escapeHtml($category->getEntityId()); ?>">
+                    <?php if($block->isEnabled($category)): ?>
+                        <a class="link<?php if($block->isActive($category->getEntityId())): ?> -active<?php endif; ?>" href="<?php echo $block->escapeUrl($block->getCategoryUrl($category->getUrlKey())); ?>"
+                           title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                            <?php echo $block->escapeHtml($category->getName()); ?>
+                        </a>
+                    <?php else: ?>
+                        <?php echo $block->escapeHtml($category->getName()); ?>
+                    <?php endif; ?>
+                </li>
+            <?php endif; ?>
+        <?php } ;?>
+        <?php foreach ($categories as $category): ?>
+            <?php $category = $block->getCategoryObject($category); ?>
+            <?php $function($category);?>
+        <?php endforeach; ?>
+        <?php if ($block->showAllCategory()): ?>
+            <div class="item view-all">
+                <a class="link" href="<?php echo $block->escapeUrl($block->getBlogUrl()); ?>"
+                   title="<?php echo $block->escapeHtml(__('All')); ?>">
+                    <?php echo $block->escapeHtml(__('View All')); ?>
+                </a>
+            </div>
+        <?php endif; ?>
+    </ul>
+</div>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sales_order_tabs">
+            <block class="Digidirect\CheckoutFields\Block\Adminhtml\Order\View\Tab\AdditionalFields" name="sales_order.custom_additional_fields"/>
+            <action method="addTabAfter">
+                <argument name="name" xsi:type="string">additional_custom_fields</argument>
+                <argument name="block" xsi:type="string">sales_order.custom_additional_fields</argument>
+                <argument name="after" xsi:type="string">order_history</argument>
+            </action>
+        </referenceBlock>
+    </body>
+</page>

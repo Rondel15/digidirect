@@ -1,0 +1,278 @@
+//
+//  Gift Message: Cart page
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@gift-message-cart-page__is-enabled: true;  //  Enable/disable style
+
+@gift-message-cart-page-block-field__use-clearfix: true;
+@gift-message-cart-page-block-field__margin-bottom: @indent__base;
+@gift-message-cart-page-block-label__color: @color-gray40;
+@gift-message-cart-page-block-label__font-weight: @font-weight__regular;
+
+@gift-message-cart-page-gift-options__use-add-clearfix: true;
+@gift-message-cart-page-gift-options__position__m: relative;
+@gift-message-cart-page-gift-options__z-index__m: 1;
+@gift-message-cart-page-gift-options-secondary__float__m: right;
+@gift-message-cart-page-gift-options-secondary-action__float__m: right;
+@gift-message-cart-page-gift-options-secondary-action__margin-left__m: @indent__base;
+@gift-message-cart-page-gift-options-actions-toolbar__clear__m: both;
+@gift-message-cart-page-gift-options-actions-toolbar__float__m: right;
+@gift-message-cart-page-gift-options-actions-toolbar__position__m: static;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__border-left__m: 1px solid @color-gray-light5;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__bottom__m: 15rem;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__content__m: '';
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__display__m: block;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__left__m: 50%;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__overflow__m: hidden;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__position__m: absolute;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__top__m: 0;
+@gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__width__m: 0;
+@gift-message-cart-page-gift-options-action-cancel__use-action-button-as-link: true;
+@gift-message-cart-page-gift-options-action-cancel__display: none;
+@gift-message-cart-page-gift-options-action-cancel__display__m: block;
+@gift-message-cart-page-gift-options-action-cancel__float__m: left;
+@gift-message-cart-page-gift-options-action-cancel__margin-top: 6px;
+@gift-message-cart-page-gift-options-action-update__font-size__m-only: 20;
+@gift-message-cart-page-gift-options-action-update__padding__m-only: 15px;
+@gift-message-cart-page-gift-options-action-update__width__m-only: 100%;
+@gift-message-cart-page-gift-options-title__margin: 0 0 @indent__base;
+@gift-message-cart-page-gift-options-title__font-weight__m: @font-weight__light;
+@gift-message-cart-page-gift-options-title__font-size__m: 18;
+@gift-message-cart-page-gift-options-content-fieldset__margin: 0 0 @indent__base;
+
+@gift-message-cart-page-gift-summary-secondary__float: none;
+@gift-message-cart-page-gift-summary-secondary-action__margin: @indent__s @indent__base 0 0;
+
+@gift-message-cart-page-action-gift__use-cart-actions-bar-action: true;
+
+@gift-message-cart-page-gift-content__clear: left;
+@gift-message-cart-page-gift-content__display: none;
+@gift-message-cart-page-gift-content__float: left;
+@gift-message-cart-page-gift-content__margin: @indent__s 0 @indent__base;
+@gift-message-cart-page-gift-content__text-align: left;
+@gift-message-cart-page-gift-content__width: 100%;
+@gift-message-cart-page-gift-content__active__display: block;
+@gift-message-cart-page-gift-content__margin-right_m-only: -@indent__s;
+
+@gift-message-cart-page-gift-item-block__margin: 20px 0 0;
+@gift-message-cart-page-gift-item-block__clear: left;
+@gift-message-cart-page-gift-item-block-title__font-weight: @font-weight__bold;
+@gift-message-cart-page-gift-item-block-content__use-add-clearfix: true;
+@gift-message-cart-page-gift-item-block-content__border-bottom: @border-width__base solid @color-gray-light5;
+@gift-message-cart-page-gift-item-block-content__padding: @border-width__base solid @color-gray-light5;
+@gift-message-cart-page-gift-item-block-content__padding: @indent__s @indent__s @indent__base;
+@gift-message-cart-page-gift-item-block-content__position: relative;
+
+@gift-message-cart-page-gift-summary-actions-toolbar__use-reset-left-margin-desktop: true;
+
+@gift-message-cart-page-cart-gift-item__float: left;
+@gift-message-cart-page-cart-gift-item__width: 73%;
+
+@gift-message-cart-page-cart-action-gift__float_m: left;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@gift-message-cart-page__is-enabled = true ) {
+        .gift-message {
+            .field {
+                & when (@gift-message-cart-page-block-field__use-clearfix) {
+                    &:extend(.abs-clearfix all);
+                }
+                .lib-css(margin-bottom, @gift-message-cart-page-block-field__margin-bottom);
+            }
+
+            .label {
+                .lib-css(color, @gift-message-cart-page-block-label__color);
+                .lib-css(font-weight, @gift-message-cart-page-block-label__font-weight);
+            }
+        }
+
+        .gift-options {
+            & when (@gift-message-cart-page-gift-options__use-add-clearfix = true) {
+                &:extend(.abs-add-clearfix all);
+            }
+
+            .actions-toolbar .action-cancel {
+                & when (@gift-message-cart-page-gift-options-action-cancel__use-action-button-as-link = true) {
+                    &:extend(.abs-action-button-as-link all);
+                }
+                .lib-css(display, @gift-message-cart-page-gift-options-action-cancel__display);
+            }
+        }
+
+        .gift-options-title {
+            .lib-css(margin, @gift-message-cart-page-gift-options-title__margin);
+        }
+
+        .gift-options-content {
+            & > .fieldset {
+                .lib-css(margin, @gift-message-cart-page-gift-options-content-fieldset__margin);
+            }
+        }
+
+        .gift-summary {
+            .actions-toolbar > .secondary {
+                & {
+                    .lib-css(float, @gift-message-cart-page-gift-summary-secondary__float);
+                }
+
+                .action {
+                    .lib-css(margin, @gift-message-cart-page-gift-summary-secondary-action__margin);
+                }
+            }
+        }
+
+        & when (@gift-message-cart-page-action-gift__use-cart-actions-bar-action = true) {
+            .action-gift {
+                &:extend(.cart.table-wrapper .actions-toolbar > .action all);
+                border-radius: 4px;
+            }
+        }
+
+        .cart {
+            &.table-wrapper .gift-content {
+                & {
+                    .lib-css(clear, @gift-message-cart-page-gift-content__clear);
+                    .lib-css(display, @gift-message-cart-page-gift-content__display);
+                    .lib-css(float, @gift-message-cart-page-gift-content__float);
+                    .lib-css(margin, @gift-message-cart-page-gift-content__margin);
+                    .lib-css(text-align, @gift-message-cart-page-gift-content__text-align);
+                    .lib-css(width, @gift-message-cart-page-gift-content__width);
+                }
+
+                &._active {
+                    .lib-css(display, @gift-message-cart-page-gift-content__active__display);
+                }
+            }
+        }
+
+        .gift-item-block {
+            & {
+                .lib-css(margin, @gift-message-cart-page-gift-item-block__margin);
+                .lib-css(clear, @gift-message-cart-page-gift-item-block__clear);
+            }
+
+            .content {
+                & when (@gift-message-cart-page-gift-item-block-content__use-add-clearfix = true ) {
+                    &:extend(.abs-add-clearfix all);
+                }
+
+                .lib-css(border-bottom, @gift-message-cart-page-gift-item-block-content__border-bottom);
+                .lib-css(padding, @gift-message-cart-page-gift-item-block-content__padding);
+                .lib-css(position, @gift-message-cart-page-gift-item-block-content__position);
+            }
+        }
+
+        .cart-container {
+            .gift-item-block  {
+                &:extend(.abs-discount-block all);
+            }
+        }
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    & when (@gift-message-cart-page__is-enabled = true) {
+        .gift-options {
+            .actions-toolbar .action-update {
+                .lib-font-size(@gift-message-cart-page-gift-options-action-update__font-size__m-only);
+                .lib-css(padding, @gift-message-cart-page-gift-options-action-update__padding__m-only);
+                .lib-css(width, @gift-message-cart-page-gift-options-action-update__width__m-only);
+            }
+        }
+
+        .cart {
+            &.table-wrapper .gift-content {
+                .lib-css(margin-right, @gift-message-cart-page-gift-content__margin-right_m-only);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .gift-options {
+        & {
+            .lib-css(position, @gift-message-cart-page-gift-options__position__m);
+            .lib-css(z-index, @gift-message-cart-page-gift-options__z-index__m);
+        }
+
+        .actions-toolbar {
+            & {
+                .lib-css(position, @gift-message-cart-page-gift-options-actions-toolbar__position__m);
+                .lib-css(float, @gift-message-cart-page-gift-options-actions-toolbar__float__m);
+                .lib-css(clear, @gift-message-cart-page-gift-options-actions-toolbar__clear__m);
+            }
+
+            &:nth-child(3) {
+                &::before {
+                    .lib-css(border-left, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__border-left__m);
+                    .lib-css(bottom, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__bottom__m);
+                    .lib-css(content, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__content__m);
+                    .lib-css(display, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__display__m);
+                    .lib-css(left, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__left__m);
+                    .lib-css(overflow, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__overflow__m);
+                    .lib-css(position, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__position__m);
+                    .lib-css(top, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__top__m);
+                    .lib-css(width, @gift-message-cart-page-gift-options-actions-toolbar__nth-child__before__width__m);
+                }
+            }
+        }
+
+        .secondary {
+            .lib-css(float, @gift-message-cart-page-gift-options-secondary__float__m);
+        }
+
+        .secondary .action {
+            .lib-css(float, @gift-message-cart-page-gift-options-secondary-action__float__m);
+            .lib-css(margin-left, @gift-message-cart-page-gift-options-secondary-action__margin-left__m);
+        }
+
+        .actions-toolbar .action-cancel {
+            .lib-css(display, @gift-message-cart-page-gift-options-action-cancel__display__m);
+            .lib-css(float, @gift-message-cart-page-gift-options-action-cancel__float__m);
+            .lib-css(margin-top, @gift-message-cart-page-gift-options-action-cancel__margin-top);
+        }
+    }
+
+    .gift-options-title {
+        .lib-css(font-weight, @gift-message-cart-page-gift-options-title__font-weight__m);
+        .lib-font-size(@gift-message-cart-page-gift-options-title__font-size__m);
+    }
+
+    & when (@gift-message-cart-page-gift-summary-actions-toolbar__use-reset-left-margin-desktop = true) {
+        .gift-summary,
+        .cart.table-wrapper .gift-summary {
+            .actions-toolbar {
+                &:extend(.abs-reset-left-margin-desktop all);
+            }
+        }
+    }
+
+    .cart-container {
+        .cart-gift-item {
+            .lib-css(float, @gift-message-cart-page-cart-gift-item__float);
+            .lib-css(width, @gift-message-cart-page-cart-gift-item__width);
+        }
+    }
+
+    .cart {
+        .action-gift {
+            .lib-css(float, @gift-message-cart-page-cart-action-gift__float_m);
+        }
+    }
+}

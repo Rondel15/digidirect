@@ -1,0 +1,67 @@
+//
+//  Checkout: Estimated Total
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-estimated__is-enabled: true; // Enable/disable style
+
+@checkout-estimated__use-add-clearfix: true;
+@checkout-estimated__use-no-display-desktop: true;
+@checkout-estimated__margin: 0 0 15px;
+@checkout-estimated__padding: 18px 15px;
+@checkout-estimated__border-bottom: @border-width__base solid @color-gray80;
+@checkout-estimated__display__m: none;
+
+//  Block
+@checkout-estimated-block__float: left;
+@checkout-estimated-block__font-size: 18px;
+@checkout-estimated-block__font-weight: @font-weight__bold;
+@checkout-estimated-block-label__display: block;
+@checkout-estimated-block-label__margin: 0 0 @indent__xs;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-estimated__is-enabled = true) {
+        .opc-estimated-wrapper {
+            & {
+                & when (@checkout-estimated__use-add-clearfix = true) {
+                    &:extend(.abs-add-clearfix all);
+                }
+                & when (@checkout-estimated__use-no-display-desktop = true) {
+                    &:extend(.abs-no-display-desktop all);
+                }
+                .lib-css(margin, @checkout-estimated__margin);
+                .lib-css(padding, @checkout-estimated__padding);
+                .lib-css(border-bottom, @checkout-estimated__border-bottom);
+            }
+
+            .estimated-block {
+                .lib-css(float, @checkout-estimated-block__float);
+                .lib-css(font-size, @checkout-estimated-block__font-size);
+                .lib-css(font-weight, @checkout-estimated-block__font-weight);
+            }
+            .estimated-block .estimated-label {
+                .lib-css(display, @checkout-estimated-block-label__display);
+                .lib-css(margin, @checkout-estimated-block-label__margin);
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@checkout-estimated__is-enabled = true) {
+        .opc-estimated-wrapper {
+            .lib-css(display, @checkout-estimated__display__m);
+        }
+    }
+}

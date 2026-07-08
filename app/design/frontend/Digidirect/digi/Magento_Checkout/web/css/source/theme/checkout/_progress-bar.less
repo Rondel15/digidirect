@@ -1,0 +1,121 @@
+//
+//  Theme: Checkout: Progress Bar
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .opc-progress-bar {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        &:extend(.abs-reset-list all);
+        counter-reset: i;
+    }
+
+    .opc-progress-bar-item {
+        & {
+            display: table-cell;
+            vertical-align: middle;
+            padding: 16px 0;
+            line-height: 20px;
+            text-align: center;
+            color: #222;
+            .lib-font-size(14);
+            .lib-hover-out();
+        }
+
+        &._active {
+            color: #e65300;
+        }
+        
+        &._complete{
+            &::hover {
+                color: #e65300;
+                z-index: 10;
+                
+                span{
+                    color: #e65300;
+                }
+            }
+
+            span{
+                &:before{
+                    content: "\2713";
+                }
+            }
+        }
+
+        > span {
+            width: unset;
+            text-transform: uppercase;
+            
+            &::before {
+                content: counter(i);
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                .lib-css(border, 1px solid @color-4-8);
+                border-radius: 50%;
+                line-height: 18px;
+                text-align: center;
+                vertical-align: top;
+                counter-increment: i;
+                .lib-hover-out();
+                
+                margin-left: 0 !important;
+            }
+            
+            &::after{
+                margin-left: 0 !important;
+            }
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .opc-progress-bar-item {
+        & {
+            .lib-font-size(18);
+            line-height: 24px;
+        }
+
+        > span {
+            &::before {
+                width: 24px;
+                height: 24px;
+                line-height: 22px;
+            }
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .opc-progress-bar-item {
+        & {
+            padding-top: 21px;
+            padding-bottom: 21px;
+            .lib-font-size(20);
+            line-height: 30px;
+        }
+
+        > span {
+            &::before {
+                width: 30px;
+                height: 30px;
+                line-height: 28px;
+            }
+        }
+    }
+}

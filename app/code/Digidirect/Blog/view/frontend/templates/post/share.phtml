@@ -1,0 +1,37 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post $block
+ */
+$post = $block->getPost();
+?>
+<div class="post-share">
+    <span class="label"><?php echo $block->escapeHtml(__('Share this post')); ?></span>
+    <a href="http://twitter.com/share?url=<?php echo $block->escapeUrl($post->getViewUrl()); ?>&text=<?php echo $block->escapeHtml($post->getTitle()); ?>"
+       target="_blank" class="item twitter">
+        <?php echo $block->escapeHtml(__('Twitter')); ?>
+    </a>
+    <a href="https://plus.google.com/share?url=<?php echo $block->escapeUrl($post->getViewUrl()); ?>" target="_blank"
+       class="item google-plus">
+        <?php echo $block->escapeHtml(__('Google Plus')); ?>
+    </a>
+    <a href="http://www.facebook.com/sharer/sharer.php?u=<?php echo $block->escapeUrl($post->getViewUrl()); ?>" target="_blank"
+       class="item facebook">
+        <?php echo $block->escapeHtml(__('Facebook')); ?>
+    </a>
+    <a href="http://www.stumbleupon.com/submit?url=<?php echo $block->escapeUrl($post->getViewUrl()); ?>&title=<?php echo $block->escapeHtml($post->getTitle()); ?>"
+       target="_blank" class="item stumbleupon">
+        <?php echo $block->escapeHtml(__('StumbleUpon')); ?>
+    </a>
+    <a href="http://reddit.com/submit?url=<?php echo $block->escapeUrl($post->getViewUrl()); ?>&title=<?php echo $block->escapeHtml($post->getTitle()); ?>"
+       target="_blank" class="item reddit">
+        <?php echo $block->escapeHtml(__('Reddit')); ?>
+    </a>
+    <a href="http://www.linkedin.com/shareArticle?url=<?php echo $block->escapeUrl($post->getViewUrl()); ?>&title=<?php echo $block->escapeHtml($post->getTitle()); ?>"
+       target="_blank" class="item linkedin">
+        <?php echo $block->escapeHtml(__('LinkedIn')); ?>
+    </a>
+    <a href="mailto:?subject=<?php echo $block->escapeHtml($post->getTitle()); ?>&body=<?php echo $block->escapeUrl($post->getViewUrl()); ?>" target="_blank"
+       class="item email">
+        <?php echo $block->escapeHtml(__('Email')); ?>
+    </a>
+</div>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_address_suggestion" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Address Autocomplete</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_AddressVerification::address_verification</resource>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Address Autocomplete</label>
+                    <source_model>Digidirect\AddressVerification\Model\Config\Source\Type</source_model>
+                </field>
+                <field id="country_code" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Country</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="address_data_file" translate="label" type="Magento\Config\Block\System\Config\Form\Field\File" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Choose file</label>
+                    <backend_model>Digidirect\AddressVerification\Model\Config\Backend\File</backend_model>
+                    <upload_dir config="system" scope_info="1">addressautocomplete</upload_dir>
+                    <comment>
+                        <model>Digidirect\AddressVerification\Model\Config\Backend\File\Comment</model>
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="import_address_data_file" translate="button_label" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <button_label>Import</button_label>
+                    <frontend_model>Digidirect\AddressVerification\Block\Adminhtml\System\Config\ImportFile</frontend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="api_key" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Google API Key</label>
+                    <depends>
+                        <field id="enabled">2</field>
+                    </depends>
+                </field>
+                <field id="postcode_length" translate="label" sortOrder="200" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Postcodes Length Configuration</label>
+                    <frontend_model>Digidirect\AddressVerification\Block\Adminhtml\System\Config\PostcodeLength</frontend_model>
+                    <backend_model>\Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

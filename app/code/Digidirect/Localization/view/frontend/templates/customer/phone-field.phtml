@@ -1,0 +1,30 @@
+<?php
+/**
+ * @var $block \Digidirect\Localization\Block\PhoneCodes
+ */
+$_localizationJsonConfig = $block->getJsonPhoneConfig();
+$_localizationItems = json_decode($_localizationJsonConfig, true);
+$_isLocalizationMode = count($_localizationItems) > 0 ? 1 : 0;
+?>
+
+<div class="field telephone required"<?php if ($_isLocalizationMode): ?> data-mage-init='{"localizationPhone": {"config": <?= /* @noEscape */ $_localizationJsonConfig; ?>}}'<?php endif; ?>>
+    <label class="label" for="telephone"><span><?= /* @escapeNotVerified */ __('Phone Number') ?></span></label>
+    <?php if ($_isLocalizationMode): ?>
+        <div class="localization-field control">
+            <div class="localization-select">
+                <select id="localization_select" data-role="localization-select">
+                    <?php foreach ($_localizationItems as $loc => $item): ?>
+                        <option value="<?= /* @escapeNotVerified */ $loc; ?>"><?= /* @escapeNotVerified */ $item['countryName']; ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="control">
+                <input data-role="localization-input" type="text" name="telephone" value="<?= $block->escapeHtml($block->getAddress()->getTelephone()) ?>" title="<?= /* @escapeNotVerified */ __('Phone Number') ?>" class="input-text <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?> validate-phone-number" id="telephone"/>
+            </div>
+        </div>
+    <?php else: ?>
+        <div class="control">
+            <input type="text" name="telephone" value="<?= $block->escapeHtml($block->getAddress()->getTelephone()) ?>" title="<?= /* @escapeNotVerified */ __('Phone Number') ?>" class="input-text <?= /* @escapeNotVerified */ $this->helper('Magento\Customer\Helper\Address')->getAttributeValidationClass('telephone') ?>" id="telephone"/>
+        </div>
+    <?php endif; ?>
+</div>

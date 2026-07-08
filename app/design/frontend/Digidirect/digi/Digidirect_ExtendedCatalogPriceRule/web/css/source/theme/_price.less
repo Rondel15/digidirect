@@ -1,0 +1,92 @@
+//
+//  Extended Catalog Price Rule Price
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .block-extendedrule.-cashback {
+        &{
+            margin-bottom: 0 !important;
+            padding: 0 !important;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 100%;
+        }
+        /* clint changes, removed .price-container > .after-cashback,*/
+        .price-container > .before-cashback,
+        .price-container > .price-from,
+        .price-container > .price-to {
+            display: flex;
+            flex-direction: column;
+            align-self: flex-start;
+            flex: 1;
+        }
+
+        .price-container > .after-cashback {
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .price-container > .before-cashback .price {
+            .lib-font-size(12);
+            .lib-line-height(24);
+            font-weight: 400;
+        }
+
+        .price-container > .price-from > .price-box {
+            min-height: auto;
+            margin: 0;
+        }
+
+        .price-container > .price-from > .price-box .price-label {
+            display: none;
+        }
+
+        .price-container > .price-from > .price-box .price-container {
+            margin-top: 0;
+        }
+
+        .price-container > .price-from > .price-box .price-container::after {
+            content: none;
+        }
+
+        .price-container > .price-to > .price-label {
+            .lib-font-size(10);
+            .lib-css(font-weight, @font-weight__heavier);
+            text-transform: none;
+            text-align: right;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block-extendedrule.-cashback {
+        .price-container > .price-to > .price-label {
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__bold);
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .block-extendedrule.-cashback {
+        .price-container > .price-to > .price-label {
+            .lib-font-size(14);
+        }
+    }
+}

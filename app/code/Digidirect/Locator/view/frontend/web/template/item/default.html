@@ -1,0 +1,26 @@
+<div class="locator-item item" data-bind="css: { 'store-wrapper column': $parents[2].locations.settings().open_in_popup }">
+    <!-- ko if: $data.image -->
+        <img class="image" data-bind="attr: {src: image, alt: name}"/>
+    <!-- /ko -->
+    <!-- ko ifnot: $data.image -->
+        <!-- ko if: $parents[2].locations.settings().default_image -->
+            <img class="image" data-bind="attr: {src: $parents[2].locations.settings().default_image, alt: name}"/>
+        <!-- /ko -->
+    <!-- /ko -->
+    <div class="details">
+        <span class="name"><!-- ko text: name --><!-- /ko --></span>
+        <address class="address">
+            <!-- ko text: street --><!-- /ko -->
+            <!-- ko text: state --><!-- /ko -->
+            <!-- ko text: postcode --><!-- /ko -->
+            <!-- ko text: city --><!-- /ko -->
+        </address>
+        <a class="link" data-bind="attr: {href: url_key, title: $t('Store Detail')}, text: $t('Store Detail'), click: $parents[2].showDetails.bind($parents[2])"></a>
+    </div>
+    <!-- ko if: $data.geo_distance_formatted -->
+        <span class="distance" data-bind="text: $data.geo_distance_formatted"></span>
+    <!-- /ko -->
+    <!-- ko foreach: $parent.getRegion('itemEnd') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>

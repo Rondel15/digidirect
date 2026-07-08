@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Indexer/etc/indexer.xsd">
+    <indexer id="digidirect_mystorewidget_store" view_id="digidirect_mystorewidget_store" class="Digidirect\MyStoreWidget\Model\Indexer\Store">
+        <title translate="true">My Store Widget Stores</title>
+        <description translate="true">Rebuild Stores Search Data</description>
+    </indexer>
+</config>

@@ -1,0 +1,454 @@
+//
+//  My Order Items: Item Information
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@my-order-items-item-information__is-enabled: true;
+
+@my-order-items-item-information__display: false;
+@my-order-items-item-information__display__m: flex;
+@my-order-items-item-information__margin: 0;
+@my-order-items-item-information__margin__m: false;
+@my-order-items-item-information__padding: 20px 20px 5px;
+@my-order-items-item-information__padding__m: 5px 30px 5px;
+//
+@my-order-items-item-information-content__background: false;
+@my-order-items-item-information-content__background__m: false;
+@my-order-items-item-information-content__margin: false;
+@my-order-items-item-information-content__margin__m: false;
+@my-order-items-item-information-content__padding: 5px 10px 5px 30px;
+@my-order-items-item-information-content__padding__m: 35px 10px;
+
+//
+//  Common
+//  ---------------------------------------------
+& when (@media-common = true) {
+    .item-information.-order {
+        & {
+            .lib-css(display, @my-order-items-item-information__display);
+            .lib-css(margin, @my-order-items-item-information__margin);
+            .lib-css(padding, @my-order-items-item-information__padding);
+            .lib-css(background, @color-white);
+            position: relative;
+            flex-wrap: wrap;
+        }
+
+        > .wrapper {
+            margin-top: 0;
+        }
+
+        .content-attachments {
+            padding: 0 10px 0 30px;
+        }
+
+        > .wrapper > .content {
+            .lib-css(background, @my-order-items-item-information-content__background);
+            .lib-css(margin, @my-order-items-item-information-content__margin);
+            .lib-css(padding, @my-order-items-item-information-content__padding);
+        }
+
+        .item-options > .wrapper {
+            display: flex;
+        }
+
+        .item-options {
+            padding: 10px 0 5px;
+        }
+
+        .item-options > .wrapper > dt {
+            width: auto;
+            display: inline-block;
+            .lib-font-size(12);
+            white-space: nowrap;
+        }
+
+        .item-options > .wrapper > dd {
+            margin-left: 10px;
+            .lib-font-size(12);
+            word-break: break-all;
+            width: 100%;
+        }
+
+        > .image {
+            display: none;
+            text-align: center;
+        }
+
+        > .image img {
+            max-width: 280px;
+        }
+
+        .close {
+            position: absolute;
+            top: 24px;
+            right: 25px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .content-attachments {
+            & {
+                display: flex;
+                flex-direction: column;
+            }
+
+            > .shelf-title {
+                .lib-font-size(14);
+                font-weight: 700;
+            }
+
+            .product-attachment {
+                .lib-css(color, @color-black);
+                padding: 0;
+                position: relative;
+                float: none;
+                margin-right: 0;
+            }
+
+            .attachment-title {
+                display: none;
+            }
+
+            .attachment-container {
+                display: flex;
+                text-decoration: none;
+                .lib-css(background, @color-white);
+                .lib-css(border, 1px solid @color-3-4);
+                margin: 5px 0;
+                justify-content: flex-start;
+                align-items: center;
+                align-content: center;
+            }
+
+            .attachment-container > .icon {
+                .lib-css(background, @color-3-4);
+                display: inline;
+                padding: 10px;
+                .lib-css(background, @color-3-4);
+            }
+
+            .attachment-container .name {
+                padding-left: 15px;
+                font-size: 15px;
+                .lib-css(color, @color-4-1);
+                white-space: nowrap;
+                padding-right: 5px;
+            }
+
+            .attachment-container .download {
+                padding-left: 15px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .attachment-container .download > .name {
+                text-align: left;
+                font-size: 11px;
+                padding-left: 0;
+                padding-top: 0;
+                .lib-css(color, @color-4-6);
+            }
+        }
+
+        .close::after {
+            content: '';
+            width: 15px;
+            display: block;
+            height: 15px;
+            background-repeat: no-repeat;
+            .lib-css(background-image, @base64-icon__close);
+            background-size: 12px 12px;
+        }
+    }
+
+    .products.wrapper.grid.products-grid.products-related {
+        .slick-slide {
+            margin: 0 7px;
+        }
+
+        .products-grid.product-item-info {
+            padding: 5px;
+        }
+
+        .product-item-info .product.product-item-details {
+            margin-bottom: 40px;
+        }
+    }
+
+    .figure-up {
+        width: 0;
+        height: 0;
+        .lib-css(border-left, 15px solid transparent);
+        .lib-css(border-right, 15px solid transparent);
+        .lib-css(border-bottom, 15px solid @color-white);
+        position: absolute;
+        bottom: -25px;
+        left: 41%;
+        transition: transform(-50%, 0);
+    }
+
+    .shelf-related.related {
+        & {
+            width: 100%;
+            .lib-css(background, @color-white);
+            margin: 0;
+            padding: 30px 10px 20px;
+        }
+
+        .item-information.-order  &{
+            & {
+                padding-right: 0;
+                padding-left: 0;
+            }
+
+            .block-content {
+                margin: 0 -20px;
+            }
+
+            .products-grid .product-items {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            .slick-list {
+                padding-left: 5px;
+                padding-right: 25px;
+            }
+        }
+
+        .product-image-container.multiview-container {
+            height: auto !important;
+            width: 100% !important;
+        }
+
+        .product-item .price-box .price {
+            .lib-font-size(14);
+        }
+    }
+
+    .shelf-related.related > .block-content.content {
+        padding: 0;
+    }
+
+    .shelf-related.related > .title {
+        .lib-font-size(18);
+        .lib-css(border-bottom, 1px solid @color-3-1);
+        padding-bottom: 5px;
+    }
+
+    .shelf-related.related .product-item-info {
+        padding: 7px;
+    }
+
+    .shelf-related.related .actions.primary {
+        width: 100%;
+    }
+
+    .actions-secondary.shelf-related {
+        width: 60px;
+        padding-left: 10px;
+        white-space: nowrap;
+        display: inline-block;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .item-information.-order {
+        & {
+            .lib-css(display, @my-order-items-item-information__display__m);
+            .lib-css(margin, @my-order-items-item-information__margin__m);
+            .lib-css(padding, @my-order-items-item-information__padding__m);
+        }
+
+        > .wrapper > .content {
+            .lib-css(background, @my-order-items-item-information-content__background__m);
+            .lib-css(margin, @my-order-items-item-information-content__margin);
+            .lib-css(padding, @my-order-items-item-information-content__padding);
+        }
+
+        > .image {
+            display: block;
+            width: 50%;
+            margin: auto;
+            padding: 20px 20px 0 0;
+        }
+
+        > .wrapper {
+            display: block;
+            width: 50%;
+        }
+
+        .item-options > .wrapper > dt {
+            .lib-font-size(14);
+        }
+
+        .item-options > .wrapper > dd {
+            .lib-font-size(14);
+            min-width: 80px;
+        }
+    }
+
+    .shelf-related.related {
+        .item-information.-order & {
+            .block-content {
+                margin: 0 -30px;
+            }
+
+            .slick-list {
+                padding-right: 35px;
+            }
+        }
+    }
+
+    .products.wrapper.grid.products-grid.products-related {
+        .slick-slide {
+            margin: 0 7px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .item-information.-order {
+        & {
+            padding: 20px 20px 0;
+        }
+
+        > .image {
+            display: block;
+            width: 50%;
+            margin: auto;
+            padding: 0 20px 0 0;
+        }
+
+        > .wrapper {
+            display: block;
+            width: 50%;
+            margin-bottom: 10px;
+            .lib-css(background, @color-3-9);
+        }
+
+        > .wrapper:last-child {
+            margin-bottom: 30px;
+        }
+    }
+
+    .shelf-related.related {
+        .item-information.-order & {
+            .block-content {
+                margin: 0 -20px;
+            }
+        }
+    }
+
+    .products.wrapper.grid.products-grid.products-related {
+        .slick-slide {
+            margin: 0 7px;
+        }
+    }
+
+    .content-attachments .attachment-container .download {
+        position: absolute;
+        bottom: 0;
+        left: 55px;
+    }
+
+    .content-attachments .attachment-container .name {
+        padding-bottom: 10px;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .shelf-related.related {
+        padding: 20px 25px;
+    }
+
+    .products.wrapper.grid.products-grid.products-related {
+        .slick-slide {
+            margin: auto 6px 0;
+        }
+    }
+
+    .item-information.-order {
+        & {
+            padding: 20px 50px 0;
+        }
+
+        .block-title {
+            margin: 0 -20px;
+            .lib-font-size(15);
+            padding-bottom: 10px;
+        }
+
+        .item-options {
+            padding: 0;
+        }
+
+        > .wrapper > .content {
+            padding: 0 10px;
+            width: 50%;
+        }
+
+        .content-attachments {
+            padding: 0 30px 0 0;
+            width: 50%;
+        }
+
+        .product-attachment {
+            margin: 0;
+        }
+
+        > .image {
+            width: 40%;
+        }
+
+        > .wrapper {
+            display: flex;
+            width: 60%;
+            flex-direction: row;
+            padding: 40px 0 20px 10px;
+        }
+    }
+
+    .shelf-related.related {
+        .item-information.-order  & {
+            .slick-list {
+                padding-left: 0;
+                padding-right: 0;
+            }
+            .slick-prev {
+                left: -25px;
+            }
+            .slick-next {
+                right: -25px;
+            }
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .item-information.-order {
+        & {
+            padding: 30px 85px 0;
+        }
+
+        > .wrapper > .content {
+            padding: 0 20px;
+        }
+    }
+}

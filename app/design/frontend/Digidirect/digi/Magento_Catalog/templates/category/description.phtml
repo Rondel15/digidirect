@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @var $block \Magento\Catalog\Block\Category\View
+ * @var $seoBlock \Digidirect\Digi\Block\SeoBrand\SeoBrandDescription
+ */
+$seoBlock = $block->getChildBlock('seo_brand_description');
+$seoDescriptionData = $seoBlock ? $seoBlock->getSeoData(): [];
+$currentDescription = $seoDescriptionData && !empty($seoDescriptionData)
+    ? $seoDescriptionData
+    : $block->getCurrentCategory()->getDescription();
+?>
+
+    <div class="category-description">
+        <?= /* @escapeNotVerified */ $this->helper('Magento\Catalog\Helper\Output')
+            ->categoryAttribute(
+                    $block->getCurrentCategory(), $currentDescription, 'description'
+            ) ?>
+    </div>
+

@@ -1,0 +1,253 @@
+<?php
+
+use Magento\Framework\App\Action\Action;
+
+$blockData = $block->getData();
+$searchTerm = $blockData['data']['searchTerm'];
+
+$_productCollection = $block->getProductCollectionSearchResult($searchTerm);
+$_helper = $this->helper('Magento\Catalog\Helper\Output');
+$currentPage = $this->getRequest()->getFullActionName();
+$pos = $block->getPositioned();
+$iterator = 1; 
+
+$image = 'category_page_grid';
+$showDescription = false;
+$templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::SHORT_VIEW;
+
+?>
+
+<ol class="products items product-items -grid"
+    data-mage-init='{
+        "truncateCollection": {
+            "addOn": "js/dist/widgets/truncate-collection/addons/catalog/index"
+        }
+    }'>
+    <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+    <?php foreach ($_productCollection as $_product): ?>
+
+        <?php
+        $productId = $_product->getId();
+        $productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+        $productUrl = $_product->getProductUrl();
+
+        $brandNewProductPrice = "";
+        $brandNewProductUrl = "";
+        $secondsSavings = "";
+
+        $finalProductPrice = $_product->getFinalPrice();
+        $marketPlacePrice = number_format((float)$_product->getData('marketplaces_price'), 2, '.', '');
+
+        $d2BrandNewProductSKU = $_product->getData('d2newsku');
+        $d2ItemCondition = $_product->getData('item_condition');
+        $d2ItemDescription = $_product->getData('d2desc');
+        $d2ItemRating = $_product->getData('item_rating');
+        $d2PackageInclusion = $_product->getData('whats_in_the_box');
+
+        $objectManagerProduct = \Magento\Framework\App\ObjectManager::getInstance();
+        $brandNewProduct = $objectManagerProduct->get('Magento\Catalog\Model\Product')->loadByAttribute('sku', $d2BrandNewProductSKU);
+
+        $categoryIds = $_product->getCategoryIds();
+        $digiSecondsIds = array(2564,2567,2570,2573);
+
+        $seller = $_product->getAttributeText('marketplacer_seller');
+        // digiprint
+        $is_digiPrint = ($_product->getData('is_digiprint') ? $_product->getData('is_digiprint') : '');
+        $digiprintCustomLinkProductSKU = ($_product->getData('digiprint_customlink') ? $_product->getData('digiprint_customlink') : '');
+
+        if ($brandNewProduct) {
+            $brandNewProductPrice = $brandNewProduct->getPrice();
+            $brandNewProductUrl = $brandNewProduct->getProductUrl();
+            $secondsSavings = round(100 - (($finalProductPrice/$brandNewProductPrice)*100));
+        }
+
+        ?>
+
+        <?= /* @escapeNotVerified */ ($iterator++ == 1) ? '<li class="item product product-item">' : '</li><li class="item product product-item">' ?>
+        <div class="product-item-info -grid"
+             data-container="product-grid"
+             data-parent-product-id="<?= $block->escapeHtml($productId); ?>">
+            <?php
+            $productImage = $block->getImage($_product, $image);
+            if ($pos != null) {
+                $position = ' style="left:' . $productImage->getWidth() . 'px;'
+                    . 'top:' . $productImage->getHeight() . 'px;"';
+            }
+            ?>
+
+            <?php ?>
+            <a href="<?= $block->escapeUrl($productUrl); ?>"
+               title="<?= $block->escapeHtml($productName); ?>"
+               class="product photo product-item-photo"
+               tabindex="-1">
+                
+                <?php if ($seller != "digiDirect"): ?>
+                    <div class="ribbon-online">Online only</div>
+                <?php endif; ?>
+                
+                <?php if (count(array_intersect($categoryIds, $digiSecondsIds)) > 0): ?>
+                    <?php if ($d2ItemCondition): ?>
+                        <div class="digiseconds-overlay">
+                            <?php if ($d2ItemCondition == "PRELOVED"): ?>
+                                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-pre-loved.png"/>
+                            <?php elseif ($d2ItemCondition == "OPENBOX"): ?>
+                                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-demo.png"/>
+                            <?php elseif ($d2ItemCondition == "REFURB"): ?>
+                                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-refurbished.png"/>
+                            <?php endif; ?>
+                            <div class="digiseconds-rating">
+                                <?php if ($d2ItemRating == 5): ?>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                <?php elseif ($d2ItemRating == 4): ?>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                <?php elseif ($d2ItemRating == 3): ?>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                <?php elseif ($d2ItemRating == 2): ?>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                <?php elseif ($d2ItemRating == 1): ?>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                <?php elseif ($d2ItemRating == 0): ?>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                <?php endif; ?>
+                
+                <span class="product-image-container product-image-container" style="width: 240px;">
+                    <span class="product-image-wrapper" style="padding-bottom: 125%;">
+                        <img class="product-image-photo" src="<?= $block->getProductImage($_product) ?>" loading="lazy" width="240" height="300" alt="<?= $productName ?>">
+                    </span>
+                </span>
+                
+                <div class="overlay-container"></div>
+            </a>
+
+            <?php
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            $reviewFactory = $objectManager->create('Magento\Review\Model\Review');
+            $product = $objectManager->create('Magento\Catalog\Model\Product')->load($productId);
+            $storeManager  = $objectManager->create('\Magento\Store\Model\StoreManagerInterface');
+            $storeId = $storeManager->getStore()->getStoreId();
+            $reviewFactory->getEntitySummary($product, $storeId);
+
+            $ratingSummary = $product->getRatingSummary()->getRatingSummary();
+            $reviewCount = $product->getRatingSummary()->getReviewsCount();
+            ?>
+
+            <?php if ($reviewCount > 0) : ?>
+                <div><?php echo $block->getReviewsSummaryHtml($_product, $templateType, true) ?></div>
+            <?php else: ?>
+                <div class="product-reviews-summary short">
+                    <div class="rating-summary">
+                        <span class="label"><span>Rating:</span></span>
+                        <div class="rating-result blank-star-rating" title="100%">
+                            <span style="width: 100%;"><span>100%</span></span>
+                        </div>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+                <strong class="product name product-item-name -grid default-product-name">
+                    <a href="<?= $block->escapeUrl($productUrl); ?>"
+                       title="<?= $block->escapeHtml($productName); ?>"
+                       class="product-item-link">
+                        <?= $block->escapeHtml($productName); ?>
+                    </a>
+                </strong>
+                
+            <div class="product details product-item-details marketplacer-product">
+                <div class="no-display">
+                    <?php
+                    // Must be called for Preorder plugin
+                    echo $block->getReviewsSummaryHtml($_product);
+                    ?>
+                </div>
+                <?= $this->getLayout()
+                    ->createBlock('Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule')
+                    ->setTemplate('Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml')
+                    ->setProduct($_product)
+                    ->toHtml();
+                ?>
+                <?php if ($afterProductPriceBlock = $block->getChildBlock('after.product.price.container')): ?>
+                    <?= /* @escapeNotVerified */ $afterProductPriceBlock->setProduct($_product)->getChildHtml(); ?>
+                <?php endif; ?>
+                <?= /* @escapeNotVerified */ $block->getProductPrice($_product) ?>
+
+                <div class="product-item-inner digiprint-right">
+                    <?= $block->getProductDetailsHtml($_product); ?>
+                    <div class="product actions product-item-actions">
+                        <div class="actions-primary">
+                            <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+
+                            <?php if ($is_digiPrint == 1): ?>
+
+                                <a class="ordernow-link" href="<?php echo $digiprintCustomLinkProductSKU;?> target="_blank">
+                                    <button type="button"
+                                        title="<?= /* @escapeNotVerified */ __('Order Now'); ?>"
+                                        class="action btn-ordernow primary">
+                                        Order Now <i class="fas fa-cart-plus" style="float: right;"></i>
+                                    </button>
+                                </a>
+
+                            <?php else: ?>
+                            <form data-role="tocart-form"
+                                  data-product-sku="<?=  /* @NoEscape */ $_product->getSku(); ?>"
+                                  action="<?= /* @escapeNotVerified */ $postParams['action']; ?>" 
+                                  method="post"
+                            >
+                                <input type="hidden"
+                                       name="product"
+                                       value="<?= /* @escapeNotVerified */ $postParams['data']['product']; ?>"/>
+                                <input type="hidden"
+                                       name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED; ?>"
+                                       value="<?= /* @escapeNotVerified */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED]; ?>"/>
+                                <?= /* @escapeNotVerified */ $block->getBlockHtml('formkey'); ?>
+                                <?php if ($toCartFormBlock = $block->getChildBlock('tocart_form')): ?>
+                                    <?= /* @escapeNotVerified */ $toCartFormBlock->setProduct($_product)->getChildHtml(); ?>
+                                <?php endif; ?>
+                                <button type="submit"
+                                        title="<?= /* @escapeNotVerified */ __('Add to Cart'); ?>"
+                                        class="action tocart primary">
+                                    <span><?= /* @escapeNotVerified */ __('Add to Cart'); ?></span><i class="fas fa-cart-plus" style="float: right; color: #ffffff;"></i>
+                                </button>
+                            </form>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                    <?php if ($showDescription):?>
+                        <div class="product description product-item-description">
+                            <?= /* @escapeNotVerified */ $_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description'); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+        <?= /* @escapeNotVerified */ ($iterator == count($_productCollection)+1) ? '</li>' : '' ?>
+    <?php endforeach; ?>
+</ol>

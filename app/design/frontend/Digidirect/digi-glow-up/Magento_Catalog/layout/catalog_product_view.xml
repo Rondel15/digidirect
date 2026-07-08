@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- Remove unwanted blocks -->
+        <referenceBlock name="view.addto.compare" remove="true" />
+        <referenceBlock name="product.info.mailto" remove="true" />
+        <referenceBlock name="product.info.overview" remove="true" />
+        <referenceBlock name="product.info.addtocart.additional.zipmoney.productimage" remove="false" />
+        <referenceBlock name="product.attributes" remove="true" />
+        <referenceBlock name="catalog.product.related" remove="true"/>
+        <referenceBlock name="product.info.upsell" remove="true"/>
+        <referenceBlock name="product.places" remove="true" />
+        <referenceBlock name="product.info.attachment" remove="true" />
+        <referenceBlock name="collect_places_detail" remove="true" />
+        <referenceBlock name="product-social-links" remove="true" />
+
+        <!-- Breadcrumbs at the top -->
+        <referenceContainer name="content">
+            <container name="product.breadcrumbs.wrapper" htmlTag="div" htmlClass="breadcrumbs-wrapper" before="-" />
+
+            <!-- Main 3-Column Product Layout -->
+            <container name="product.main.container" htmlTag="div" htmlClass="product-main-container" after="product.breadcrumbs.wrapper">
+
+                <!-- LEFT COLUMN: Product Images -->
+                <container name="product.left.column" htmlTag="div" htmlClass="product-left-column product-media-column">
+                    <!-- Add Wishlist Block on top of product media -->
+                    <block class="Magento\Wishlist\Block\Catalog\Product\ProductList\Item\AddTo\Wishlist"
+                           name="product.info.wishlist"
+                           template="Magento_Wishlist::catalog/product/list/addto/wishlist.phtml"
+                           before="product.info.media">
+                        <arguments>
+                            <argument name="addToWishlistViewModel" xsi:type="object">Magento\Wishlist\ViewModel\AddToWishlistViewModel</argument>
+                        </arguments>
+                    </block>
+
+                    <referenceContainer name="product.info.media">
+                        <block class="Digidirect\Catalog\Block\ProductInfoBlock" template="Magento_Catalog::product/online-only.phtml" name="pdp-online-only" before="product.info.media.image"/>
+                        <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/digiseconds-overlay.phtml" name="pdp-digiseconds-overlay" before="product.info.media.image"/>
+                        <block class="Magento\Framework\View\Element\Template" before="product.info.media.image" template="Magento_Catalog::product/view/gallery/js-fotorama.phtml"/>
+                        <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/overlay-container.phtml" name="overlay-container" before="product.info.media.image"/>
+                        <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/preloader.phtml" name="pdp-preloader" before="product.info.media.image"/>
+                        <block class="Magento\Catalog\Block\Product\View\Description" template="Magento_Catalog::product/view/product-description.phtml" name="product-description" after="-"/>
+                    </referenceContainer>
+                </container>
+
+                <!-- MIDDLE COLUMN: Product Information (Title, Price, Description) -->
+                <container name="product.middle.column" htmlTag="div" htmlClass="product-middle-column product-info-column">
+                    <container name="product.title.section" htmlTag="div" htmlClass="product-title-section">
+                        <block class="Magento\Cms\Block\Block" name="digimarket.side.banner.ads">
+                            <arguments>
+                                <argument name="block_id" xsi:type="string">digimarket-side-banner-ads</argument>
+                            </arguments>
+                        </block>
+                    </container>
+
+                    <!-- SKU Section - Added at top of middle column -->
+                    <container name="product.sku.section" htmlTag="div" htmlClass="product-sku-section">
+                    </container>
+
+                    <container name="product.price.section" htmlTag="div" htmlClass="product-price-section">
+                        <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/price/digiseconds_info.phtml" name="pdp-digiseconds-info"/>
+                        <block class="Magento\Framework\View\Element\Template" template="Magento_Catalog::product/price/digiprint_info.phtml" name="pdp-digiprint-info"/>
+
+                        <block class="Digidirect\ExtendedCatalogPriceRule\Block\Pdp\DisplayMessage"
+                               name="digidirectextended.catalog.price.rule.product.view.core"
+                               template="Digidirect_ExtendedCatalogPriceRule::product/view/display_message.phtml" />
+                    </container>
+
+                    <container name="product.description.section" htmlTag="div" htmlClass="product-description-section"/>
+                    <move element="product.info.description" destination="product.description.section" after="-" />
+
+                    <container name="product.additional.info" htmlTag="div" htmlClass="product-additional-info">
+                        <block class="Itoris\PriceMatch\Block\Product" name="itoris.product.info.pm" template="Itoris_PriceMatch::product/form.phtml"/>
+
+                        <container name="product.places" htmlTag="div" htmlClass="product-places">
+                            <block class="Digidirect\Digi\Block\Places" name="product.places.helper"
+                                   template="Magento_Catalog::product/view/product_places.phtml">
+                                <block class="Magento\Cms\Block\Block" name="product.delivery.message">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">product-detail-delivery-tab-message</argument>
+                                    </arguments>
+                                </block>
+                                <block class="Magento\Cms\Block\Block" name="web.only.message">
+                                    <arguments>
+                                        <argument name="block_id" xsi:type="string">web-only-message</argument>
+                                    </arguments>
+                                </block>
+                            </block>
+                        </container>
+                    </container>
+                </container>
+
+                <!-- RIGHT COLUMN: Add to Cart, Quantity, and Purchase Actions -->
+                <container name="product.right.column" htmlTag="div" htmlClass="product-right-column product-actions-column">
+                    <referenceContainer name="product.info.main">
+                        <container name="product.purchase.section" htmlTag="div" htmlClass="product-purchase-section">
+
+                            <!-- Add to Cart Section - Moved to top of right column -->
+                            <container name="product.addtocart.section" htmlTag="div" htmlClass="product-addtocart-section">
+                            </container>
+
+                            <!-- Product Options (if any) -->
+                            <container name="product.options.section" htmlTag="div" htmlClass="product-options-section">
+                            </container>
+
+                            <!-- Payment Options -->
+                            <container name="payment.gateways" htmlTag="div" htmlClass="payment-gateways-container">
+                                <block class="Magento\Framework\View\Element\Template" name="payment.gateways.block" template="Magento_Catalog::product/payment-gateways-main.phtml" />
+                            </container>
+
+                            <!-- Studio19 Integration -->
+                            <container name="studio19.wrapper" htmlTag="div" htmlClass="studio19-wrapper"/>
+
+                            <!-- Secure Payment Info -->
+                            <container name="secure.pay.container" label="Secure Pay" htmlTag="div" htmlClass="secure-pay-container">
+                                <block class="Digidirect\Catalog\Block\SecurePay" name="secure.pay" template="Magento_Catalog::product/view/secure-pay.phtml"/>
+                            </container>
+
+                            <!-- Additional Actions -->
+                            <container name="product.additional.actions" htmlTag="div" htmlClass="product-additional-actions">
+                                <block class="Magento\Catalog\Block\Product\View" name="product.info.addto" as="addto" template="Magento_Catalog::product/view/addto.phtml">
+                                    <block class="Magento\Catalog\Block\Product\View\AddTo\Compare" name="view.addto.compare" after="view.addto.wishlist"
+                                           template="Magento_Catalog::product/view/addto/compare.phtml">
+                                        <arguments>
+                                            <argument name="addToCompareViewModel" xsi:type="object">Magento\Catalog\ViewModel\Product\Checker\AddToCompareAvailability</argument>
+                                        </arguments>
+                                    </block>
+                                </block>
+
+                                <container name="live.chat.additional.link" label="Live chat" htmlTag="div" htmlClass="live-chat-additional">
+                                    <block class="Magento\Framework\View\Element\Template" name="live.chat.link.block" template="Magento_Catalog::product/live-chat.phtml" />
+                                </container>
+                            </container>
+                        </container>
+                    </referenceContainer>
+                </container>
+            </container>
+
+            <!-- Full Width Sections Below 3-Column Layout -->
+            <container name="product.full.width.sections" htmlTag="div" htmlClass="product-full-width-sections">
+                <block class="Magento\Cms\Block\Block" name="digimarket.product.page">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">digimarket-product-page</argument>
+                    </arguments>
+                </block>
+
+                <!-- Product Details Tabs -->
+                <container name="product.details.tabs" htmlTag="div" htmlClass="product-details-tabs">
+                    <referenceBlock name="product.info.details">
+                        <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.spec" as="spec" template="Magento_Catalog::product/view/specs.phtml" group="detailed_info">
+                            <arguments>
+                                <argument translate="true" name="title" xsi:type="string">Specs</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.whatinthebox" as="whatinthebox" template="Magento_Catalog::product/view/in-box.phtml" group="detailed_info">
+                            <arguments>
+                                <argument translate="true" name="title" xsi:type="string">What's In The Box</argument>
+                            </arguments>
+                        </block>
+                        <block class="Magento\Catalog\Block\Product\View\Description" name="product.info.faq" as="faq" template="Magento_Catalog::product/view/faq.phtml" group="detailed_info">
+                            <arguments>
+                                <argument translate="true" name="title" xsi:type="string">FAQs</argument>
+                            </arguments>
+                        </block>
+                    </referenceBlock>
+                </container>
+
+                <!-- Frequently Bought Together -->
+                <block class="Magento\Cms\Block\Block" name="frequently.bought.with">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">frequently-bought-with</argument>
+                    </arguments>
+                </block>
+
+                <!-- Related Products and Recommendations -->
+                <container name="product.recommendations" htmlTag="div" htmlClass="product-recommendations">
+                    <block class="Magento\Cms\Block\Block" name="also.viewed">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">also-viewed</argument>
+                        </arguments>
+                    </block>
+
+                    <block class="Magento\Cms\Block\Block" name="pdp.you.may.also.like">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">pdp-you-may-also-like</argument>
+                        </arguments>
+                    </block>
+
+                    <referenceBlock name="product.info.upsell">
+                        <block name="product.tile.extended.catalog.rule"
+                               class="Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule"
+                               template="Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml" />
+                    </referenceBlock>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <!-- Sticky Add to Cart -->
+        <!--        <referenceContainer name="before.body.end">-->
+        <!--            <container name="sticky.addtocart.container" htmlTag="div" htmlClass="sticky-addtocart-container">-->
+        <!--                <block class="Magento\Framework\View\Element\Template" name="sticky.addtocart" template="Magento_Catalog::product/sticky-addtocart.phtml" />-->
+        <!--            </container>-->
+
+        <!--            <block class="Magento\Cms\Block\Block" name="product.tile.rent">-->
+        <!--                <arguments>-->
+        <!--                    <argument name="block_id" xsi:type="string">product-tile-rent</argument>-->
+        <!--                </arguments>-->
+        <!--            </block>-->
+        <!--        </referenceContainer>-->
+
+        <!-- Element Moves for New Layout Structure -->
+        <move element="breadcrumbs" destination="product.breadcrumbs.wrapper" before="-"/>
+        <move element="page.main.title" destination="product.breadcrumbs.wrapper" after="breadcrumbs"/>
+        <move element="digimarket.side.banner.ads" destination="product.title.section" before="page.main.title" />
+
+        <!-- Move SKU to top of middle column, after marketplacer info -->
+        <move element="product.info.sku" destination="product.sku.section" before="-"/>
+        <!-- Move marketplacer/seller info to SKU section, before SKU -->
+        <move element="product.info.marketplacer" destination="product.sku.section" after="product.info.sku"  />
+        <move element="product.info.stock.sku" destination="product.sku.section" after="product.info.sku"/>
+
+        <move element="product.store.availability" destination="product.price.section" before="product.info.price"/>
+        <move element="product.info.price" destination="product.price.section" after="product.store.availability"/>
+        <move element="product.info.short_description" destination="product.price.section" after="product.info.price"/>
+        <move element="product.info.price.zipmoney.productwidget" destination="payment.gateways" after="-" />
+        <move element="product.additional.info" destination="product.price.section" after="product.info.price"/>
+        <move element="product.description.section" destination="product.middle.column" after="product.additional.info"/>
+
+        <!-- Move Add to Cart to top of right column -->
+        <move element="product.purchase.section" destination="product-info-main" before="-"/>
+        <move element="product.addtocart.section" destination="product-purchase-section" before="-"/>
+
+        <move element="product.info.options.wrapper" destination="product.options.section" before="-"/>
+
+        <move element="product.info.media" destination="product.left.column" before="-"/>
+        <move element="product.info.main" destination="product.right.column" before="-"/>
+        <move element="product.info.details" destination="product.details.tabs" before="-"/>
+        <move element="pdp.prod.overview.rules" destination="product.additional.info" after="-"/>
+    </body>
+</page>

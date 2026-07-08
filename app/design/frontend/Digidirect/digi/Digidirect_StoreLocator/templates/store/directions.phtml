@@ -1,0 +1,78 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\ListStore\DetailPage $block */
+$address = $block->getFullAddress();
+?>
+<?php if($block->isEnableDirections()) : ?>
+    <div class="locator-directions" id="directions" data-mage-init='{"locatorDirections": {}}'>
+        <form action="https://www.google.com/maps/dir/" class="direction-search form js-no-disable" data-mage-init='{"validation": {}}'>
+            <div class="field direction-route">
+            <span class="direction-mode -driving">
+                <input type="radio" name="travelMode" id="mode_driving" class="radio unseen -default" value="DRIVING" checked/>
+                <label for="mode_driving" class="label">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-car-icon"></use>
+                    </svg>
+                </label>
+            </span>
+                <span class="direction-mode -transit">
+                <input type="radio" name="travelMode" id="mode_transit" class="radio unseen -default" value="TRANSIT"/>
+                <label for="mode_transit" class="label">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-bus-icon"></use>
+                    </svg>
+                </label>
+            </span>
+                <span class="direction-mode -walking">
+                <input type="radio" name="travelMode" id="mode_walking" class="radio unseen -default" value="WALKING"/>
+                <label for="mode_walking" class="label">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-walking-icon"></use>
+                    </svg>
+                </label>
+            </span>
+                <span class="direction-mode -bicycling">
+                <input type="radio" name="travelMode" id="mode_bicycling" class="radio unseen -default" value="BICYCLING"/>
+                <label for="mode_bicycling" class="label">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-bicycle"></use>
+                    </svg>
+                </label>
+            </span>
+            </div>
+            <div class="field -address">
+                <div class="control">
+                    <input type="text" class="input-text direction-from" data-validate="{required:true}" placeholder="<?php /* @escapeNotVerified */ echo __('Enter a location'); ?>" name="origin" id="direction_from" value=""/>
+
+                    <label for="direction_from" class="label -from">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-ring"></use>
+                        </svg>
+                    </label>
+                </div>
+
+                <span class="reverse-directions action" title="<?php /* @escapeNotVerified */ echo __('Reverse Directions')?>">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-change-direction"></use>
+                    </svg>
+                </span>
+            </div>
+            <div class="field -address">
+                <div class="control">
+                    <input type="text" class="input-text direction-to" data-validate="{required:true}" name="destination" id="direction_to" value="<?php echo $block->escapeHtml($address) ?>"/>
+
+                    <label for="direction_to" class="label -to">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+                        </svg>
+                    </label>
+                </div>
+            </div>
+            <div class="bottom-action _text-center">
+                <button type="submit" id="search-direction" class="button action -responsive" title="<?php /* @escapeNotVerified */ echo __('Get Directions')?>">
+                    <span><?php /* @escapeNotVerified */ echo __('Get Directions')?></span>
+                </button>
+            </div>
+        </form>
+        <div id="direction-panel" class="direction-panel"></div>
+    </div>
+<?php endif; ?>

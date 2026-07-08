@@ -1,0 +1,326 @@
+/*
+    Created on : 08 2, 25, 10:30:59 AM
+    Author     : rondel
+*/
+
+body {
+    font-family: 'SF Pro';
+}
+
+.breadcrumbs {
+    padding: 0;
+    margin: 0 auto 20px;
+    max-width: 1325px;
+}
+
+.page-title-wrapper {
+    border-bottom: .5px solid #e5e5ea;
+}
+
+.page-title {
+    margin-bottom: 15px;
+}
+
+.page-title-wrapper span.base {
+    color: #000;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.page-wrapper > .page-bottom {
+    max-width: 1325px !important;
+    width: 100%;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#maincontent {
+    max-width: 100%;
+    padding: 0;
+}
+
+.homepage-row.pa-widget {
+    background: #F2F2F7;
+}
+
+.pa-digidirect-product-widget {
+    max-width: 1325px;
+    margin: 0 auto;
+}
+
+.ribbon-digideals {
+    border-radius: 19px 0 34px 0;
+    background: #FE4C25;
+    color: #fff;
+    padding: 7px 10px;
+    font-size: 12px;
+    width: 105px;
+    text-align: center;
+}
+
+span.digi {
+    font-weight: 700;
+}
+
+.ribbon-online {
+    border-radius: 19px 0 34px 0;
+    background: #010202;
+    color: #fff;
+    padding: 7px 10px;
+    font-size: 12px;
+    width: 105px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.ribbon-container {
+    height: 31px;
+}
+
+a.product-item-link {
+    align-self: stretch;
+    color: #242426;
+    font-size: 13px;
+    font-family: SF Pro;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 21px;
+    word-wrap: break-word;
+}
+
+strong.product-item-name {
+    height: 42px;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.product-item .old-price .price {
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #4D4E4E;
+    font-size: 12px;
+    font-family: SF Pro;
+    font-weight: 400;
+    text-decoration: line-through;
+    word-wrap: break-word;
+}
+
+.product-item .special-price .price {
+    align-self: stretch;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    color: #363638;
+    font-size: 24px;
+    font-family: SF Pro;
+    font-weight: 500;
+    word-wrap: break-word;
+}
+
+.product-item .price-box .price-label:after {
+    display: none;
+}
+
+.product-item .price-box {
+    margin: 0;
+}
+
+.owl-carousel.custom .owl-stage-outer {
+    margin-right: -270px;
+}
+
+a.action.towishlist {
+    padding: 6px;
+    box-shadow: 0px 0.78125px 0.78125px rgba(150, 150, 150, 0.09);
+    border-radius: 14px;
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    right: 0;
+    margin: 12px;
+    z-index: 1;
+}
+
+.action.towishlist img {
+    width: 12.5px !important;
+    height: 12.5px !important;
+    margin: 0 !important;
+    margin-bottom: 3px !important;
+}
+
+//Owl Carousels
+
+.pa-digidirect-product-widget-container .owl-stage-outer:has(.owl-item:nth-child(6).active) {
+    margin-left: -275px;
+}
+
+.owl-carousel .owl-nav [class*=owl-]:hover {
+    background: none !important;
+}
+
+.owl-carousel .owl-nav button span {
+    display: none;
+}
+
+.owl-next.unclickable {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.owl-prev, .owl-next {
+    pointer-events: unset !important;
+}
+
+//Home Page
+
+//Feature Brands
+
+.glow-up-brands {
+    max-width: 1325px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+
+#glow-up-brands .owl-item {
+    text-align: center;
+    background: #fff;
+    border-radius: 20px;
+    border: .1px #e5e5e5 solid;
+    position: relative;
+    height: 191px;
+}
+
+#glow-up-brands .owl-item img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 150px;
+    transition: transform .3s ease;
+}
+
+.owl-carousel.brands .owl-stage-outer {
+    margin-right: -225px;
+}
+
+//Featured Videos
+
+.glow-up-featured-videos {
+    max-width: 1325px;
+    margin: 0 auto;
+}
+
+.owl-carousel.featured-videos .item-video {
+    height: 360px;
+    background: #000;
+    border-radius: 25px;
+}
+
+.owl-carousel.featured-videos .owl-video-tn {
+    background-size: cover !important;
+    background-position: center !important;
+    min-height: 250px;
+    opacity: unset !important;
+    max-height: unset !important;
+}
+
+/* Round the video thumbnail */
+.owl-carousel.featured-videos .owl-video-tn {
+  border-radius: 25px;   /* adjust radius */
+  overflow: hidden;
+}
+
+/* Round the actual iframe video */
+.owl-carousel.featured-videos .owl-video-frame iframe {
+  border-radius: 25px;   /* same radius */
+}
+
+.owl-carousel.featured-videos .owl-video-wrapper {
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.owl-carousel.featured-videos .owl-stage-outer {
+    margin-right: -270px;
+}
+
+
+//Newsletter
+
+.newsletter-row {
+    max-width: 1325px;
+    margin: 0 auto;
+}
+
+.block.newsletter .actions {
+    display: block;
+    vertical-align: unset;
+    width: fit-content;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 6px;
+}
+
+.block.newsletter {
+    max-width: 100%;
+    width: 100%;
+    display: flex;
+    background: #F2F2F7;
+    padding: 30px;
+    border-radius: 25px;
+}
+
+.block.newsletter .content {
+    margin-left: auto;
+}
+
+.block.newsletter .field.newsletter {
+    max-width: unset;
+    margin: 0;
+}
+
+.block.newsletter .form.subscribe {
+    position: relative;
+}
+
+.block.newsletter input {
+    width: 840px;
+    height: 43px;
+    border-radius: 22px;
+    border: 1px solid #8E8E9338;
+    padding: 3px 12px 7px 17px;
+    margin: 0;
+}
+
+.block.newsletter .field .control:before {
+    display: none;
+}
+
+.block.newsletter .action.subscribe {
+    background: #FE4C25;
+    border: none;
+    border-radius: 21px;
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 8px 17.3px 7px 19.7px;
+}
+
+//PLP
+
+.catalog-category-view #maincontent {
+    max-width: 1325px;
+}

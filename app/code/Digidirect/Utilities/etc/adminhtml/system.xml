@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="digidirect" translate="label" sortOrder="100">
+            <label>Digidirect</label>
+        </tab>
+        <section id="digidirect_utilities_config" translate="label" type="text" sortOrder="100" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Utilities</label>
+            <tab>digidirect</tab>
+            <group id="wysiwyg" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>WYSIWYG</label>
+                <field id="allowed_tags" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed tags for WYSIWYG</label>
+                    <comment>
+                        List of tags comma separated (e.g. svg[*],use[*])
+                    </comment>
+                </field>
+                <field id="allowed_childs" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed tag children for WYSIWYG</label>
+                    <comment>
+                        List of children comma separated, '+' for add, '-' for remove (e.g. +body[style])
+                    </comment>
+                </field>
+                <field id="wrap_in_parent_tag" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Wrap in parent tag</label>
+                    <comment>
+                        <![CDATA[Allow any element added to the editor without parent tag to be wrapped in &lt;p&gt; tag automatically]]>
+                    </comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_filetypes" translate="label comment tooltip" sortOrder="25" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Allowed upload file types for WYSIWYG</label>
+                    <frontend_model>Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Field\Filetypes</frontend_model>
+                    <backend_model>Magento\Config\Model\Config\Backend\Serialized\ArraySerialized</backend_model>
+                    <comment><![CDATA[List of file types allowed for upload using WYSIWYG editor]]></comment>
+                </field>
+            </group>
+            <group id="sales_prefix" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Sales Prefix</label>
+                <field id="active" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="use_store_id_as_prefix" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Use Website ID as prefix</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <depends>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="order" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Order</label>
+                    <depends>
+                        <field id="use_store_id_as_prefix">0</field>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="invoice" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Invoice</label>
+                    <depends>
+                        <field id="use_store_id_as_prefix">0</field>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="shipment" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Shipment</label>
+                    <depends>
+                        <field id="use_store_id_as_prefix">0</field>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="creditmemo" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Creditmemo</label>
+                    <depends>
+                        <field id="use_store_id_as_prefix">0</field>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+                <field id="rma_item" translate="label" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>RMA</label>
+                    <depends>
+                        <field id="use_store_id_as_prefix">0</field>
+                        <field id="active">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="frontend_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Frontend Settings</label>
+                <field id="show_theme_switcher" translate="label" type="select" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Theme Switcher</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <resource>Digidirect_Utilities::digidirect_config</resource>
+        </section>
+        <section id="design">
+            <group id="loading_animation" translate="label" type="text" sortOrder="610" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Loading Animation</label>
+                <field id="image" translate="label comment" type="image" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Loading Animation Image</label>
+                    <comment>Allowed file types: jpg, jpeg, gif, png.</comment>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">animation/image</upload_dir>
+                    <base_url type="media" scope_info="1">animation/image</base_url>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+                <field id="enable" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Loading Animation</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <validate>required-entry</validate>
+                </field>
+                <field id="text" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Loading animation text</label>
+                    <depends>
+                        <field id="enable">1</field>
+                    </depends>
+                </field>
+            </group>
+        </section>
+        <section id="advanced">
+            <group id="modules_disable_output">
+                <frontend_model>Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Fieldset\Modules\DisableOutput</frontend_model>
+            </group>
+        </section>
+        <section id="dev" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <group id="message_castomization" translate="label comment" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
+                <comment>
+                    <![CDATA[Please note, the template must be specified in the format {Module_Name}::{template_name}.phtml]]>
+                </comment>
+                <label>Message Customization</label>
+                <field id="message_settings" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Message Settings</label>
+                    <frontend_model>Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Field\MessageIdentifiers</frontend_model>
+                    <backend_model>Digidirect\Utilities\Model\System\Config\Backend\MessageIdentifiers</backend_model>
+                </field>
+            </group>
+            <group id="cms_block_processing" translate="label comment" type="text" sortOrder="300" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Cms block caching</label>
+                <field id="use_cms_cache_block" showInStore="1" showInWebsite="1" showInDefault="1" sortOrder="300" translate="label comment" type="select">
+                    <label>Cache CMS Blocks</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="cms_block_cache_lifetime" showInStore="1" showInWebsite="1" showInDefault="1" sortOrder="300" translate="label comment" type="text">
+                    <label>Cache lifetime</label>
+                </field>
+            </group>
+        </section>
+        <section id="modules" translate="label" type="text" sortOrder="1100" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Modules</label>
+            <tab>advanced</tab>
+            <resource>Digidirect_Utilities::modules</resource>
+            <group id="module_versions" translate="label" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Module Versions</label>
+                <frontend_model>Digidirect\Utilities\Block\Adminhtml\System\Config\Form\Fieldset\Lists\ModulesOutput</frontend_model>
+            </group>
+        </section>
+    </system>
+</config>

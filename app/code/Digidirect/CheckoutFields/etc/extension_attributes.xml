@@ -1,0 +1,11 @@
+<config>
+    <extension_attributes for="Magento\Quote\Api\Data\PaymentInterface">
+        <attribute code="quote_field_values" type="Digidirect\CheckoutFields\Api\Data\QuoteFieldValueInterface[]"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Quote\Api\Data\CartInterface">
+        <attribute code="quote_field_values" type="Digidirect\CheckoutFields\Api\Data\QuoteFieldValueInterface[]"/>
+    </extension_attributes>
+    <extension_attributes for="Magento\Sales\Api\Data\OrderInterface">
+        <attribute code="order_field_values" type="Digidirect\CheckoutFields\Api\Data\OrderFieldValueInterface[]"/>
+    </extension_attributes>
+</config>

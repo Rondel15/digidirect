@@ -1,0 +1,63 @@
+<!-- ko if: locationsList().length -->
+
+<div id="pickup-available" class="store-section pickup-available" style="margin-bottom: 50px;">
+    <div class="title-cc">SELECT A STORE TO COLLECT YOUR ORDER</div>
+    <div class="description-cc">
+        <p style="color: #ff3c00;font-weight: 600;">All the products from your order are available to Click & Collect at the following store(s).</p>
+        <p>Click the Select Store button on your chosen location, enter your information and Continue the checkout process.</p>
+        <p style="font-style: italic;"><span style="color: #ff3c00;font-weight: 600;">Remember to wait for a notification email that tells you that your order is ready for pick-up.</span> We will endeavour to send you this email between <b style="color: #ff3c00;">1-4 hours</b>.</p>
+    </div>
+    <div data-bind="mageInit:{'customScrollbarInit':{}}" class="collectlocator-wrapper">
+        <div class="locator-items items content" data-role="content"
+             data-bind="foreach: { data: locationsList(), as: 'item' }, afterRender: onRenderList">
+            <!-- ko if: item.click_and_collect == true -->
+                <!-- ko foreach: $parent.getRegion('locator_items') -->
+                <!-- ko template: {name: getTemplate(), data: item} --><!-- /ko -->
+                <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+</div>
+
+<div id="pickup-unavailable" class="store-section pickup-unavailable" style="margin-bottom: 50px;">
+    <div class="title-cc">OR DELIVER TO LOCAL STORE FOR CLICK & COLLECT</div>
+    <div class="description-cc">
+        <p>Although all products from your order are not available from the following digiDirect stores, you can select any of the stores below and we will deliver to the store within <b style="color: #ff3c00;">24-72 hours</b> for you to collect from your chosen location.</p>
+        <p>Simply click the Select Store button on your chosen location, enter your information and Continue the checkout process.</p>
+        <p style="font-style: italic;"><span style="color: #ff3c00;font-weight: 600;">Remember to wait for a notification email that tells you that your order is ready for pick-up.</span></p>
+    </div>
+    <div class="title-cc title-cc-unavailable" style="display: none;">DELIVER TO LOCAL STORE FOR CLICK & COLLECT</div>
+    <div class="description-cc description-cc-unavailable" style="display: none;">
+        <p>Although all products from your order are not available at a single digiDirect store, you can select any of the stores below and we will deliver to the store within <b style="color: #ff3c00;">24-72 hours</b> for you to collect from your chosen location.</p>
+        <p>Simply click the Select Store button on your chosen location, enter your information and Continue the checkout process.</p>
+        <p style="font-style: italic;"><span style="color: #ff3c00;font-weight: 600;">Remember to wait for a notification email that tells you that your order is ready for pick-up.</span></p>
+    </div>
+    <div data-bind="mageInit:{'customScrollbarInit':{}}" class="collectlocator-wrapper">
+        <div class="locator-items items content" data-role="content"
+             data-bind="foreach: { data: locationsList(), as: 'item' }, afterRender: onRenderList">
+            <!-- ko if: item.click_and_collect == false -->
+                <!-- ko foreach: $parent.getRegion('locator_items') -->
+                <!-- ko template: {name: getTemplate(), data: item} --><!-- /ko -->
+                <!--/ko-->
+            <!--/ko-->
+        </div>
+    </div>
+</div>
+
+<div data-bind="afterRender: testDataBind"></div>
+
+<!-- /ko -->
+<!-- ko ifnot: locationsList().length -->
+    <div class="message info empty"><span data-bind="i18n: 'Nothing was found on your request. Please, check your address.'"></span></div>
+<!-- /ko -->
+
+<!-- ko if: isPaginationEnable && pager().length && pager().length > 1 -->
+    <!-- ko foreach: getRegion('locator_pagination') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!--/ko-->
+<!--/ko-->
+
+<!-- ko foreach: getRegion('locator_after') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+

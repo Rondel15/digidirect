@@ -1,0 +1,228 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="cms.helpfullinfo.slider.block" remove="true"/>
+        <referenceBlock name="digidirect.menu.footer.bottom" remove="true"/>
+        <referenceBlock name="footer-social-links" remove="true"/>
+        
+        <referenceBlock name="header.container" remove="true" />  
+        <referenceBlock name="footer.container" remove="true" />
+        <referenceContainer name="header-wrapper">
+            <referenceBlock name="navigation.sections" remove="true" />
+        </referenceContainer>
+        <referenceContainer name="header.panel" remove="true"/>
+        <referenceBlock name="top.search" remove="true"/>
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+        <referenceBlock name="catalog.topnav" remove="true"/>
+        <referenceBlock name="minicart" remove="true" />
+
+
+        <block class="Magento\Framework\View\Element\Template" name="checkout.cart.header" template="Magento_Checkout::header/header-content.phtml" />
+
+        <block class="Magento\Framework\View\Element\Template" name="checkout.cart.footer" template="Magento_Checkout::footer/footer-content.phtml" />
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Secured Checkout</argument>
+            </action>
+        </referenceBlock>
+
+        <block class="Magento\Framework\View\Element\Template" name="checkout.cart.menu" template="Magento_Checkout::checkout-menu-mobile.phtml" />
+
+        <move element="page.main.title" destination="content" before="-" />
+        <move element="checkout.cart.menu" destination="content" before="page.main.title" />
+        <move element="checkout.cart.header" destination="page.wrapper" before="-" />
+        <move element="checkout.cart.footer" destination="page.wrapper" after="-" />
+
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="estimation" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="componentDisabled" xsi:type="boolean">true</item>
+                                    </item>
+                                </item>
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="popUpForm" xsi:type="array">
+                                                            <item name="options" xsi:type="array">
+                                                                <item name="responsive" xsi:type="boolean">false</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="shipping-address-fieldset" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="firstname" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-half</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="lastname" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-half</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="unit_number" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">unit-number</item>
+                                                                    </item>
+                                                                </item>
+                                                                <item name="city" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-half</item>
+                                                                    </item>
+                                                                    <item name="sortOrder" xsi:type="string">78</item>
+                                                                </item>
+                                                                <item name="region" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-region</item>
+                                                                    </item>
+                                                                    <item name="sortOrder" xsi:type="string">80</item>
+                                                                </item>
+                                                                <item name="region_id" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-region</item>
+                                                                    </item>
+                                                                    <item name="sortOrder" xsi:type="string">78</item>
+                                                                </item>
+                                                                <item name="postcode" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-postcode</item>
+                                                                    </item>
+                                                                    <item name="sortOrder" xsi:type="string">78</item>
+                                                                </item>
+                                                                <item name="country_id" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="additionalClasses" xsi:type="string">-half -country</item>
+                                                                    </item>
+                                                                    <item name="sortOrder" xsi:type="string">90</item>
+                                                                </item>
+                                                                <item name="telephone" xsi:type="array">
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="tooltip" xsi:type="boolean">false</item>
+                                                                        <item name="additionalClasses" xsi:type="string">-half -telephone</item>
+                                                                    </item>
+                                                                    <item name="validation" xsi:type="array">
+                                                                        <item name="validate-number" xsi:type="boolean">true</item>
+                                                                        <item name="required-entry" xsi:type="boolean">true</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="earnPoints" xsi:type="array">
+                                                            <item name="component" xsi:type="string">uiComponent</item>
+                                                            <item name="displayArea" xsi:type="string">earnPoints</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Magento_Checkout/qff-checkout</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="beforeMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="discountAndGiftCardAccountWrapper" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                                    <item name="config" xsi:type="array">
+                                                                        <item name="template" xsi:type="string">Magento_Checkout/payment/option</item>
+                                                                        <item name="title" xsi:type="string" translate="true">Apply Gift Card &amp; Promo Code</item>
+                                                                    </item>
+                                                                    <item name="children" xsi:type="array">
+                                                                        <item name="errors" xsi:type="array">
+                                                                            <item name="sortOrder" xsi:type="string">0</item>
+                                                                            <item name="component" xsi:type="string">Magento_GiftCardAccount/js/view/payment/gift-card-messages</item>
+                                                                            <item name="displayArea" xsi:type="string">messages</item>
+                                                                        </item>
+                                                                        <item name="abstract-forms" xsi:type="array">
+                                                                            <item name="component" xsi:type="string">Digidirect_AbstractGiftCard/js/view/payment/gift-card-account</item>
+                                                                            <item name="config" xsi:type="array">
+                                                                                <item name="template" xsi:type="string">Digidirect_AbstractGiftCard/payment/item</item>
+                                                                                <item name="displayArea" xsi:type="string">after-gift-card</item>
+                                                                                <item name="serviceCode" xsi:type="string">vii</item>
+                                                                                <item name="isPin" xsi:type="boolean">true</item>
+                                                                                <item name="isCheckBalance" xsi:type="boolean">false</item>
+                                                                                <item name="isClearFieldAfterSave" xsi:type="boolean">true</item>
+                                                                                <item name="componentDisabled" xsi:type="boolean">false</item>
+                                                                            </item>
+                                                                        </item>
+                                                                        <item name="vii-cards" xsi:type="array">
+                                                                            <item name="component"  xsi:type="string">Digidirect_Vii/js/view/payment/gift-cards</item>
+                                                                            <item name="config" xsi:type="array">
+                                                                                <item name="template" xsi:type="string">Digidirect_Vii/gift-cards</item>
+                                                                                <item name="sortOrder" xsi:type="string">1</item>
+                                                                                <item name="code" xsi:type="string">giftcardaccount</item>
+                                                                                <item name="cardLabel" xsi:type="string" translate="true">Gift Card Number</item>
+                                                                                <item name="pinLabel" xsi:type="string" translate="true">Gift Card PIN</item>
+                                                                                <item name="pinValue" xsi:type="string">0000</item>
+                                                                                <item name="removeLabel" xsi:type="string" translate="true">Remove</item>
+                                                                                <item name="componentDisabled" xsi:type="boolean">false</item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="config" xsi:type="array">
+                                        <item name="imports" xsi:type="array">
+                                            <item name="isShippingStep" xsi:type="string">${$.parentName}.steps.shipping-step.shippingAddress:visible</item>
+                                        </item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="totals" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="subtotal" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Subtotal</item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="grand-total" xsi:type="array">
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="title" xsi:type="string" translate="true">Grand Total (Incl. GST)</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                                <item name="itemsAfter" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="cmsPayments" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Magento_Checkout/js/view/cms-payments</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Magento_Checkout/cms-payments</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

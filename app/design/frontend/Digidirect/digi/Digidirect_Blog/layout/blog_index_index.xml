@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="msrp_popup"/>
+    <head>
+        <link rel="canonical" src="https://www.digidirect.com.au/blog" src_type="url"/>
+    </head>
+    <body>
+        <move element="blog.categorytree.left" destination="sidebar.main" after="-"/>
+        <!-- <move element="blog.sidebar.tags.cloud" destination="sidebar.main" after="-"/> -->
+        <move element="blog.widget.search" destination="sidebar.main" after="blog.categorytree.left"/>
+       <!-- <move element="blog.categorytree.left" destination="sidebar.main" before="-"/>
+         <move element="blog.sidebar.tags.cloud" destination="sidebar.main" after="-"/> -->
+        <move element="div.sidebar.main" destination="main" before="-"/>
+        <move element="page.main.title" destination="main" before="-"/>
+        <move element="blog.relatedproducts" destination="page.wrapper" before="page.below.container"/>
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Cms\Block\Block" name="side.banner.ads">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">side-banner-ads</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="main">
+            <container name="tags.addition" htmlClass="tags-addition" htmlTag="div" after="-">
+                <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud.addition.index" template="Digidirect_Blog::widget/tags.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="page.main.title" remove="false"/>
+        <referenceBlock name="blog.post.arrow" remove="true"/>
+    </body>
+</page>

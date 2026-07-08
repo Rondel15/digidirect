@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="product.info.details">
+            <block class="Digidirect\CollectAbstractEntityMsi\Block\Product\View\Availability" group="detailed_info" name="product.store.availability" template="Digidirect_CollectAbstractEntityMsi::product/view/availability.phtml">
+                <arguments>
+                    <argument translate="true" name="title" xsi:type="string">Product Availability in Store</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Digidirect\CollectAbstractEntityMsi\Block\Product\View\Availability" name="product.store.availability.js" template="Digidirect_CollectAbstractEntityMsi::product/view/availability-js.phtml" after="product.info.details" />
+        </referenceContainer>
+    </body>
+</page>

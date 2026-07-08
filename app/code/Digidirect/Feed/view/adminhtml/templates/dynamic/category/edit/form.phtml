@@ -1,0 +1,17 @@
+<?php 
+/** 
+ * @var \Magento\Backend\Block\Template $block
+ * @var \Magento\Framework\Json\Helper\Data $jsonHelper
+ */
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+?>
+<script type="text/x-magento-init">
+    <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($block->getJsConfig()) ?>
+</script>
+<script type="text/javascript">
+    var _autocompleteUrl = '<?php /* @escapeNotVerified */ echo $block->getUrl('digidirect_feed/dynamic_category/search') ?>';
+</script>
+
+<div data-bind="scope: 'dynamic_category'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>

@@ -1,0 +1,115 @@
+<?php
+/**
+ * @var $block \Digidirect\CheckoutFields\Block\Adminhtml\System\Config\Fields
+ */
+?>
+<?php
+$_htmlId = $block->getHtmlId() ? $block->getHtmlId() : '_' . uniqid();
+$_colspan = $block->isAddAfter() ? 2 : 1;
+?>
+
+<div class="design_theme_ua_regexp" id="grid<?php echo $block->escapeHtml($_htmlId); ?>">
+    <div class="admin__control-table-wrapper">
+        <table class="admin__control-table">
+            <thead>
+            <tr>
+                <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                    <th><?php echo $block->escapeHtml($column['label']); ?></th>
+                <?php endforeach; ?>
+            </tr>
+            </thead>
+            <tbody id="addRow<?php echo $block->escapeHtml($_htmlId); ?>"></tbody>
+        </table>
+    </div>
+    <input type="hidden" name="<?php echo $block->escapeHtml($block->getElement()->getName()); ?>[__empty]" value=""/>
+
+    <script>
+        require([
+            'mage/template',
+            'prototype'
+        ], function (mageTemplate) {
+            // create row creator
+            window.arrayRow<?php echo $block->escapeHtml($_htmlId) ?> = {
+
+                // define row prototypeJS template
+                template: mageTemplate(
+                    '<tr id="<%- _id %>">'
+                    <?php foreach ($block->getColumns() as $columnName => $column): ?>
+                    + '<td>'
+                    + '<?php /* @escapeNotVerified */ echo $block->renderCellTemplate($columnName)?>'
+                    + '<\/td>'
+                    <?php endforeach; ?>
+                    + '<\/tr>'
+                ),
+
+                add: function (rowData) {
+                    var value;
+
+                    if (!rowData) {
+                        return false;
+                    }
+                    Element.insert($('addRow<?php echo $block->escapeHtml($_htmlId) ?>'), {
+                            bottom: this.template(rowData)
+                        }
+                    );
+                    var rowInputElementNames = Object.keys(rowData.column_values);
+
+                    for (var i = 0; i < rowInputElementNames.length; i++) {
+                        if ($(rowInputElementNames[i])) {
+                            value = rowData.column_values[rowInputElementNames[i]];
+                            if (value.value) {
+                                $(rowInputElementNames[i]).value = value.value;
+                            }
+                            if (value.checked) {
+                                $(rowInputElementNames[i]).checked = true;
+                            }
+                        }
+                    }
+                }
+            };
+
+            // add existing rows
+            <?php
+            foreach ($block->getArrayRows() as $_rowId => $_row) {
+                /* @escapeNotVerified */
+                echo "arrayRow{$_htmlId}.add(" . $_row->toJson() . ");\n";
+            }
+            ?>
+
+            // Toggle the grid availability, if element is disabled (depending on scope)
+            <?php if ($block->getElement()->getDisabled()):?>
+            toggleValueElements({checked: true}, $('grid<?php echo $block->escapeHtml($_htmlId); ?>').parentNode);
+            <?php endif;?>
+
+            $$('.use-default').each(function (element) {
+                element.observe('click', disableElement);
+            });
+            function disableElement(event, className) {
+                var disabledInputs, i;
+                if (!className) {
+                    className = "input.code_disabled";
+                }
+                disabledInputs = $$(className);
+                for (i = 0; i < disabledInputs.length; i++) {
+                    disabledInputs[i].disable();
+                }
+            }
+
+            disableElement();
+
+            document.observe('dom:loaded', function () {
+                var checkedElement = $$('.admin__control-table input:checkbox:checked');
+                checkedElement.each(function (element) {
+                    element.addClassName('checked');
+                });
+            });
+
+            var inputCheckboxElement = $$('.admin__control-table input[type=checkbox');
+            inputCheckboxElement.each(function (element) {
+                element.observe('click', function (event) {
+                    element.toggleClassName('checked');
+                });
+            });
+        });
+    </script>
+</div>

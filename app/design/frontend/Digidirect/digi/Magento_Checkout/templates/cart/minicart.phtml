@@ -1,0 +1,79 @@
+<?php
+    /**
+     * Copyright © Magento, Inc. All rights reserved.
+     * See COPYING.txt for license details.
+     */
+     
+    // @codingStandardsIgnoreFile
+    /** @var $block \Magento\Checkout\Block\Cart\Sidebar */
+?>
+<div data-block="minicart" class="minicart-wrapper">
+    <div class="action link showcart"
+         data-container="#minicartSidebar"
+         data-bind="scope: 'minicart_content'"
+         data-mage-init='{"offcanvas": {
+         "styleClasses":{"offcanvasOpenedClass": "-minicart-opened"},
+         "addOn": "Magento_Checkout/js/dist/addons/offcanvas/minicart"
+         }}'>
+<!--        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -cart">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-cart"></use>
+        </svg>-->
+        <i class="fas fa-shopping-bag circle-icon -cart icon-badge-icon"></i>
+
+        <div class="icon-badge">
+            <!-- ko if: getCartParam('summary_count') -->
+            <!-- ko text: getCartParam('summary_count') --><!-- /ko -->
+            <!-- /ko -->
+            <!-- ko ifnot: getCartParam('summary_count') -->
+            0
+            <!-- /ko -->
+        </div>
+        
+        <span class="text"><?=/* @escapeNotVerified */ __('My Cart'); ?><br>
+        <span data-bind="html: getCartParam('subtotal')" style="color: #ff3c00;"></span></span>
+<!--        <span class="counter qty empty"
+              data-bind="css: { empty: !!getCartParam('summary_count') == false }, blockLoader: isLoading">
+            <span class="counter-number">( ko text: getCartParam('summary_count')  /ko )</span>
+            <span class="counter-label">
+             ko if: getCartParam('summary_count') 
+                 ko text: getCartParam('summary_count')  /ko 
+                 ko i18n: 'items'  /ko 
+             /ko 
+            </span>
+        </span>-->
+    </div>
+    <?php if ($block->getIsNeedToDisplaySideBar()): ?>
+        <div id="minicartSidebar" class="offcanvas-panel offcanvas-right -minicart _unpadding block">
+            <div id="minicart-content-wrapper" class="minicart-item-wrapper" data-bind="scope: 'minicart_content'">
+                <!-- ko template: getTemplate() --><!-- /ko -->
+            </div>
+            <?=$block->getChildHtml('minicart.addons'); ?>
+        </div>
+    <?php endif ?>
+    <script>
+        window.checkout = <?= /* @escapeNotVerified */ $block->getSerializedConfig(); ?>;
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?=/* @escapeNotVerified */ $block->getJsLayout(); ?>
+        },
+        "*": {
+            "Magento_Ui/js/block-loader": "<?=/* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif'); ?>"
+        }
+    }
+    </script>
+</div>
+
+<script type="text/javascript">
+    require(['jquery'], function ($) {
+        $('.minicart-wrapper').on('contentLoading', function (event) {
+            $('[data-block="minicart"]').on('contentUpdated', function () {
+                $('.action.showcart').addClass("-active");
+                $('#minicartSidebar').addClass("-active");
+                $('.minicart-items.item-qty').attr("style", "visibility: hidden !important;");
+                //console.log('jQuery Test On Minicart PHTML');
+            });
+        });
+    });
+</script>

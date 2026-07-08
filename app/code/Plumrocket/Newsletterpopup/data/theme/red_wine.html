@@ -1,0 +1,21 @@
+<div class="newspopup-logo">
+    {{text_description}}
+    <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme3_logo.png"}}" />
+</div>
+
+<form class="newspopup_up_bg_form" method="POST">
+    <div style="position:relative;">
+        {{form_fields}}
+
+        <div style="position:relative;">
+            <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                {{text_submit}}
+            </a>
+            <img src="{{view url="Plumrocket_Newsletterpopup::images/loader-onwhite.gif"}}" title="" style="display: none;" class="ajax-loader" />
+        </div>
+    </div>
+
+    <a href="{{store direct_url="privacy-policy-cookie-restriction-mode"}}" target="_blank" class="privacy-policy">Privacy Policy</a>
+</form>
+
+<div class="cross close" title="{{text_cancel}}">{{text_cancel}}</div>

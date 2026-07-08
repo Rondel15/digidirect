@@ -1,0 +1,30 @@
+<fieldset class="fieldset create info">
+    <div class="qff-block">
+        <div class="item -qantas">
+            <a href="/qantas" title="Qantas"><img src="<?php echo $block->getUrl("pub/media/wysiwyg/")?>qantas/qantas-static-banner.png" alt="qantas"></a>
+        </div>
+    </div>
+    <legend class="legend title-form"><span><?= /* @escapeNotVerified */ __('Qantas Frequent Flyer Details') ?></span></legend><br>
+
+    <div class="field">
+        <label for="qff_number" class="label"><span><?= /* @escapeNotVerified */ __('Qantas Frequent Flyer Number') ?></span></label>
+        <div class="control">
+            <input type="text" 
+                   name="qff_number" 
+                   id="qff_number" 
+                   autocomplete="text" 
+                   title="<?= /* @escapeNotVerified */ __('Qantas Frequent Flyer Number') ?>" class="input-text"/>
+        </div>
+    </div>
+    <div class="field">
+        <label for="qff_lastname" class="label"><span><?= /* @escapeNotVerified */ __('Qantas Frequent Flyer Last Name') ?></span></label>
+        <div class="control">
+            <input type="text" 
+                   name="qff_lastname" 
+                   id="qff_lastname" 
+                   autocomplete="text"
+                   title="<?= /* @escapeNotVerified */ __('Qantas Frequent Flyer Last Name') ?>" 
+                   class="input-text"/>
+        </div>
+    </div>
+</fieldset>

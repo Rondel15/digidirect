@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_ai>
+            <logs>
+                <remove_logs_cron_expr>0 1 * * *</remove_logs_cron_expr>
+                <logs_email_template>digidirect_ai_logs_logs_email_template</logs_email_template>
+                <logs_files_backup_days>7</logs_files_backup_days>
+                <cron_expr>0 2 * * *</cron_expr>
+            </logs>
+            <exceptions>
+                <fail_run_email_template>digidirect_ai_exceptions_fail_run_email_template</fail_run_email_template>
+            </exceptions>
+            <queue>
+                <batch_size>10</batch_size>
+                <cron_expr>*/5 * * * *</cron_expr>
+                <number_of_attempts>5</number_of_attempts>
+                <interval_of_attempts>300</interval_of_attempts>
+                <interval_of_attempts_for_pending_depends>900</interval_of_attempts_for_pending_depends>
+                <fail_email_template>digidirect_ai_queue_fail_email_template</fail_email_template>
+            </queue>
+        </digidirect_ai>
+    </default>
+</config>

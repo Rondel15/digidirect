@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.form.content">
+            <block class="Digidirect\ShippingAvailabilityCheck\Block\AvailabilityCheck\Form" after="-" name="check.shipping.availability" as="shipping.availability"
+                   ifconfig="digidirect_shippingavailabilitycheck/general/enable"
+                   template="Digidirect_ShippingAvailabilityCheck::form.phtml" />
+        </referenceContainer>
+
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Digidirect\ShippingAvailabilityCheck\Block\AvailabilityCheck\Form" after="-" name="check.shipping.availability.configurable" as="shipping.availability.configurable"
+                   ifconfig="digidirect_shippingavailabilitycheck/general/enable"
+                   template="Digidirect_ShippingAvailabilityCheck::form.phtml" />
+        </referenceBlock>
+    </body>
+</page>

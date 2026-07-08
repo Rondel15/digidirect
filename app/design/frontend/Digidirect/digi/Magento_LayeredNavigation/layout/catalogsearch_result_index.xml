@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="div.sidebar.main">
+            <container name="offcanvasSidebar" htmlTag="div" htmlClass="offcanvas-panel offcanvas-left device-only" htmlId="catalogSidebar"></container> 
+            <block class="Magento\LayeredNavigation\Block\Navigation\Category" name="catalogsearch.leftnav.clear" as="catalog.leftnav.clear" before="-"
+                template="Digidirect_LayeredNavigation::layer/clear.phtml">
+                <block class="Magento\LayeredNavigation\Block\Navigation\State" name="catalogsearch.navigation.current.state" as="state"/>
+            </block>
+        </referenceContainer>
+
+        <move element="catalogsearch.leftnav.clear" destination="catalogsearch.leftnav" before="-" />      
+
+        <move element="digidirect.layerednavigation.apply" destination="catalogsearch.leftnav" before="-" />
+
+        <move element="digidirect.categoryfilter.dropdown" destination="catalogsearch.leftnav" after="-" />
+
+        <move element="catalogsearch.leftnav" destination="offcanvasSidebar" after="digidirect.categoryfilter.dropdown" />      
+    </body>
+</page>

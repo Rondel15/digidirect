@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<page_types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_types.xsd">
+    <type id="eaa_attribute_index" label="Abstract Attribute"/>
+    <type id="eaa_attribute_option_index" label="Abstract Attribute Option"/>
+</page_types>

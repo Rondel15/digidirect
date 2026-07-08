@@ -1,0 +1,32 @@
+//
+//  Abstract Attributes Options
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@attribute-options__margin: 0 0 30px;
+@attribute-options-item__hover__border: false;
+@attribute-options-item__hover__color: @color-black;
+@attribute-options-name__font: @font-weight__bold 14px @font-family-name__base;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .attribute-options {
+        > .item {
+            transition: all 0.4s ease-in-out;
+        }
+
+        > .item:hover {
+            .lib-border-block-hover();
+        }
+    }
+
+    .aa-attribute-view-toolbar {
+        margin-bottom: 30px;
+    }
+}

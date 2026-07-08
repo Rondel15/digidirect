@@ -1,0 +1,47 @@
+<div class="cross close" title="{{text_cancel}}">✕</div>
+<div class="left">
+    <div class="product-info">
+        <div class="product-name">{{product_name}}</div>
+        <div class="price-wrp">
+            <div class="old-price">Old price: <span>{{product_price}}</span></div>
+            <div class="new-price">New: <span>{{product_sale_price}}</span></div>
+        </div>
+    </div>
+    <div class="np-product-img-wrp">
+        <svg width="383" height="334" viewBox="0 0 383 334" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M383 133C383 202.588 336.859 294.5 238 294.5C139.141 294.5 4.5 307.5 0 189C0 119.412 121.141 0 220 0C318.859 0 383 63.4121 383 133Z" fill="white" fill-opacity="0.35"/>
+            <path d="M369.5 172.5C369.5 222.758 316 320 231 333C135.5 341 1.99999 277 14.9999 197C23.7238 143.314 104 46.5 203 33.0001C269 22.0001 379 62.5 369.5 172.5Z" fill="white"/>
+            <path d="M369.5 172.5C369.5 222.758 316 320 231 333C135.5 341 1.99999 277 14.9999 197C23.7238 143.314 104 46.5 203 33.0001C269 22.0001 379 62.5 369.5 172.5Z" fill="url(#a{{popup_id}})"/>
+            <defs>
+                <pattern id="a{{popup_id}}" patternUnits="objectBoundingBox" width="1" height="1">
+                    <image xlink:href="{{product_image_url}}" width="383" height="300" />
+                </pattern>
+            </defs>
+        </svg>
+    </div>
+</div>
+<div class="right">
+    <div class="top-message">Limited time offer</div>
+    <div class="prnp-title">
+        {{text_title}}
+    </div>
+    <div class="small_text">
+        {{text_description}}
+    </div>
+
+    <form class="newspopup_up_bg_form" method="POST">
+        <div style="position:relative;">
+            {{form_fields}}
+
+            <div style="position:relative;">
+                <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                    {{text_submit}}
+                </a>
+                <div class="lds-ellipsis ajax-loader" style="display: none;"><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </form>
+    <div class="bottom-message">
+        *Exclusions apply. Cannot be combined with other offers
+    </div>
+</div>

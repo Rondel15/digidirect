@@ -1,0 +1,487 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 07 26, 24, 2:43:10 PM
+    Author     : rondel
+*/
+
+@media-common: true;
+
+& when(@media-common = true){
+
+    #pa-blue-right-side-widget-wrapper {
+        background: #004f67;
+        color: #fff;
+        border-radius: 5px;
+        padding: 10px;
+        margin-left: -5px;
+        margin-top: -15px;
+        //margin-bottom: 15px;
+    }
+
+    .pa-product-widget-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 10px;
+        padding-bottom: 4px;
+    }
+
+    #pa-blue-right-side-widget .title {
+        font-size: 14px;
+        margin-top: 0;
+    }
+
+    #pa-blue-right-side-widget-wrapper .product-item-info.product-item {
+        margin: 0;
+        padding: 0;
+        border: none;
+        width: unset !important;
+        display: block !important;
+        border-radius: 5px;
+    }
+
+    #pa-blue-right-side-widget .product-image-wrapper {
+        padding-bottom: 0 !important;
+        height: auto;
+    }
+
+    #pa-blue-right-side-widget .product-image-container {
+        width: 100% !important;
+        padding: 15px 15px 0;
+    }
+
+    #pa-blue-right-side-widget .product-image-photo {
+        height: 60px;
+        width: 60px;
+        margin-bottom: 0;
+        margin-top: 5px;
+        position: static;
+        object-fit: contain;
+    }
+
+    #pa-blue-right-side-widget .product-item-details {
+        padding: 5px 3px;
+    }
+
+    #pa-blue-right-side-widget .product-item-name {
+        flex: 0;
+    }
+
+    #pa-blue-right-side-widget .product-item .price-box {
+        border: none;
+        min-height: 25px !important;
+        margin-bottom: 0 !important;
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    #pa-blue-right-side-widget .special-price .price {
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    #pa-blue-right-side-widget .price-label {
+        display: none !important;
+    }
+
+    #pa-blue-right-side-widget .discount-price-wrapper {
+        display: none;
+    }
+
+    #pa-blue-right-side-widget .current-price-wrapper {
+        margin-top: -5px;
+    }
+
+    #pa-blue-right-side-widget .old-price-wrapper {
+        margin-top: -5px;
+    }
+
+    .pa-digidirect-product-widget-container {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        column-gap: 15px;
+    }
+
+    .product-widget-header {
+        display: flex;
+    }
+
+    #pa-digidirect-product-widget .product-image-container {
+        display: unset;
+    }
+
+    #pa-digidirect-product-widget .product-image-wrapper {
+        height: auto;
+        padding: 0 !important;
+    }
+
+    #pa-digidirect-product-widget .wish-list-wrapper {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+    }
+
+    #pa-digidirect-product-widget .product-image-photo {
+        height: 150px !important;
+        width: auto !important;
+        object-fit: contain;
+        position: static;
+        margin-top: 22px;
+    }
+
+    #pa-digidirect-product-widget .product-item-info.product-item {
+        width: unset !important;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 5px;
+        height: unset !important;
+        border: 1px solid #cacaca;
+        margin-top: 0;
+        position: relative;
+    }
+
+    #pa-digidirect-product-widget .product-item-info.product-item:hover {
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .1);
+        transform: translate(0, -10px);
+    }
+
+    #pa-digidirect-product-widget .final-price {
+        position: absolute !important;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        font-weight: 700;
+        color: #ff3c00;
+    }
+
+    #pa-digidirect-product-widget .product-item-info.product-item:last-child {
+        //margin-right: 0;
+    }
+
+    #pa-digidirect-product-widget .product-item-actions {
+        padding-bottom: 10px;
+    }
+
+    #pa-digidirect-product-widget .product-item-actions .actions-primary {
+        width: 100% !important;
+    }
+
+    .hide-product-item {
+        display: none !important;
+    }
+
+    .pa-digidirect-product-widget-container.mobile-widget {
+        display: none;
+    }
+
+    #pa-digidirect-product-widget .product-tab-mobile-widget-load-more.grid-toggle-more, #pa-digidirect-product-widget .product-tab-mobile-widget-view-less.grid-toggle-more, #pa-digidirect-product-widget .product-tab-mobile-widget-view-all.grid-toggle-more {
+        margin-top: 0 !important;
+    }
+
+    #pa-digidirect-product-widget .product-widget-header {
+        position: relative;
+    }
+
+    #pa-digidirect-product-widget .product-widget-view-all {
+        position: absolute;
+        right: 0;
+        bottom: 9px;
+        font-size: 14px;
+        text-decoration: underline;
+        color: #ff3c00;
+    }
+
+    .pa-digidirect-product-widget .product-image-container {
+        height: 226px;
+        padding-left: 24px;
+        padding-right: 24px;
+        padding-top: 35px;
+        padding-bottom: 35px;
+        background: white;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 10px;
+        display: flex;
+    }
+    
+    .pa-digidirect-product-widget .product.details.product-item-details {
+        align-self: stretch;
+        padding: 12px;
+        background: #FBFBFB;
+        border-bottom-right-radius: 20px;
+        border-bottom-left-radius: 20px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 10px;
+        display: flex;
+    }
+
+    .pa-digidirect-product-widget .product-image-wrapper {
+        height: auto;
+        padding: 0 !important;
+    }
+
+    .pa-digidirect-product-widget .wish-list-wrapper {
+        position: absolute;
+        right: 5px;
+        top: 10px;
+    }
+
+    .pa-digidirect-product-widget .product-image-photo {
+        height: 150px !important;
+        width: auto !important;
+        object-fit: contain;
+        position: static;
+        margin-top: 22px;
+    }
+
+    .pa-digidirect-product-widget .product-item-info.product-item {
+        width: unset !important;
+        margin-left: 0;
+        margin-right: 0;
+        border-radius: 20px;
+        height: unset !important;
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.10);
+        margin-top: 0;
+        position: relative;
+        margin-bottom: 48px;
+        background: #fff;
+    }
+
+    .pa-digidirect-product-widget .product-item-info.product-item:hover {
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .1);
+        transform: translate(0, -5px);
+        transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+    }
+
+    .pa-digidirect-product-widget .final-price {
+        position: absolute !important;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        font-weight: 700;
+        color: #ff3c00;
+    }
+
+    .pa-digidirect-product-widget .product-item-info.product-item:last-child {
+        //margin-right: 0;
+    }
+
+    .pa-digidirect-product-widget .product-item-actions {
+        padding-bottom: 17px;
+    }
+
+    .pa-digidirect-product-widget .product-item-actions .actions-primary {
+        width: 100% !important;
+    }
+
+    .hide-product-item {
+        display: none !important;
+    }
+
+    .pa-digidirect-product-widget-container.mobile-widget {
+        display: none;
+    }
+
+    .pa-digidirect-product-widget .product-tab-mobile-widget-load-more.grid-toggle-more, .pa-digidirect-product-widget .product-tab-mobile-widget-view-less.grid-toggle-more, .pa-digidirect-product-widget .product-tab-mobile-widget-view-all.grid-toggle-more {
+        margin-top: 0 !important;
+    }
+
+    .pa-digidirect-product-widget .product-widget-header {
+        position: relative;
+    }
+
+    .pa-digidirect-product-widget .product-widget-view-all {
+        position: absolute;
+        right: 0;
+        bottom: 9px;
+        font-size: 14px;
+        text-decoration: underline;
+        color: #ff3c00;
+    }
+
+    .pa-digidirect-product-widget.pa-minicart:not(:has(.product-item-info)) {
+        display: none;
+    }
+    
+    //Sponsored Label
+    
+    .sponsored-label {
+        float: right;
+        color: #969696;
+        font-size: 11px;
+        position: fixed;
+        right: 15px;
+        line-height: 5px;
+        cursor: pointer;
+    }
+    .sponsored-label .fa-info-circle {
+        margin-right: 2px;
+        color: #969696;
+    }
+    .label-tooltip {
+        visibility: hidden;
+        position: absolute;
+        width: 240px !important;
+        border: 1px solid #CACACA;
+        font-size: 11px;
+        padding: 5px;
+        background: #fff;
+        border-radius: 5px;
+        bottom: -42px;
+        box-shadow: 0 5px 5px 2px #CACACA;
+    }
+    .label-tooltip:hover {
+        visibility: visible !important;
+    }
+    .sponsored-label:hover ~ .label-tooltip {
+        visibility: visible !important;
+    }
+
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+
+    .pa-digidirect-product-widget-container {
+        display: none;
+    }
+
+    .pa-digidirect-product-widget-container.mobile-widget {
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 10px;
+        column-gap: 15px;
+    }
+
+    #pa-digidirect-product-widget .product-item-info.product-item {
+        margin-right: 0;
+    }
+
+    #pa-digidirect-product-widget .product-item-link {
+        text-align: center;
+    }
+
+    #pa-digidirect-product-widget .load-more {
+        display: block;
+    }
+
+    #pa-digidirect-product-widget-wrapper {
+        margin: 0 -10px;
+    }
+
+    #pa-digidirect-product-widget .product-widget-view-all {
+        display: none;
+    }
+
+    .pa-digidirect-product-widget .product-item-info.product-item {
+        margin-right: 0;
+    }
+
+    .pa-digidirect-product-widget .product-item-link {
+        text-align: center;
+    }
+
+    .pa-digidirect-product-widget .load-more {
+        display: block;
+    }
+
+    .pa-digidirect-product-widget-wrapper {
+        margin: 0 -10px;
+    }
+
+    .pa-digidirect-product-widget .product-widget-view-all {
+        display: none;
+    }
+
+    #pa-widget-shop-technology {
+        margin: 0 -25px;
+        padding: 0 15px;
+        background: #eef8eb;
+    }
+
+    #pa-widget-shop-photography {
+        margin: 0 -25px;
+        padding: 0 15px;
+        background: #ffebe9;
+    }
+
+    #pa-widget-shop-digimarket {
+        margin: 0 -25px;
+        padding: 0 15px;
+        background: #f3f6fb;
+    }
+
+    #pa-widget-shop-digiseconds {
+        margin: 0 -25px;
+        padding: 0 15px;
+        background: #ebebeb;
+    }
+
+    #pa-widget-shop-digiprint {
+        margin: 0 -25px;
+        padding: 0 15px;
+        background: #fffcd4;
+    }
+
+}
+
+@media only screen and (max-width: 1080px) {
+    .home-main-banner-right {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+
+    #pa-digidirect-product-widget .product-item-actions {
+        padding-bottom: 0;
+    }
+
+    .pa-digidirect-product-widget .product-item-actions {
+        padding-bottom: 0;
+    }
+
+}
+
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+
+
+    #pa-digidirect-product-widget .load-more {
+        display: none !important;
+    }
+
+    #pa-digidirect-product-widget .view-less {
+        display: none !important;
+    }
+
+    #pa-digidirect-product-widget .view-all {
+        display: none !important;
+    }
+
+    .pa-digidirect-product-widget .load-more {
+        display: none !important;
+    }
+
+    .pa-digidirect-product-widget .view-less {
+        display: none !important;
+    }
+
+    .pa-digidirect-product-widget .view-all {
+        display: none !important;
+    }
+
+}
+

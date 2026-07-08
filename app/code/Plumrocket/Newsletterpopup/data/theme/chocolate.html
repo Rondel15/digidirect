@@ -1,0 +1,28 @@
+<div class="img-wrapper"></div>
+<div class="prnp-title">{{text_title}}</div>
+<div class="newspopup-descr">
+    {{text_description}}
+</div>
+<form class="newspopup_up_bg_form" method="POST">
+    {{form_fields}}
+    <div style="position: relative">
+        <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+            {{text_submit}}
+        </a>
+        <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme19_loader.gif"}}" title="" style="display: none;" class="ajax-loader" />
+    </div>
+
+    <div class="pl-clearfix"></div>
+    {{contact_lists}}
+</form>
+
+<div class="div-or">
+    <span class="div-or-text">or</span>
+</div>
+
+<a class="newspopup-solial-button" rel="nofollow" href="#" onclick="window.psLogin('{{store direct_url="pslogin/account/douse/type/facebook/call/prnewsletterpopup.index.pslogin"}}');">
+<span class="newspopup-solial-button-text">Join with Facebook</span>
+<span class="newspopup-solial-button-icon"></span>
+</a>
+
+<div class="cross close" title="{{text_cancel}}">&#10005;</div>

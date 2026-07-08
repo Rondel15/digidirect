@@ -1,0 +1,54 @@
+<!-- ko if: (isVisible()) -->
+<!-- ko foreach: getRegion('messages') -->
+    <!-- ko template: getTemplate() --><!-- /ko -->
+<!--/ko-->
+<div id="block-opcmystorebar" data-bind="mageInit: {'myStoreSwitcher': getMyStoreOptions()}, attr: {'class': 'block-mystorebar -opc  ' + isStoreSelectedClassName()}, blockLoader: isLoading">
+    <form class="form" method="post" id="mystorecheckout-form" data-bind="attr: {action: getSaveUrl(), 'data-hasrequired': $t('* Required Fields')}, mageInit: {'validation': {}}">
+        <input type="hidden" name="abstract_entity_id" id="checkout_abstract_entity_id" data-bind="attr: {value: store.entityId()}" />
+        <input name="form_key" type="hidden" data-bind="attr: {value: getFormKey()}"/>
+        <div class="change-mode">
+            <label class="message" for="mystorecheckout-input">
+                <!-- ko if: (store.isStoreSelected()) -->
+                    <!-- ko i18n: 'My'--><!-- /ko -->
+                    <!-- ko text: getEntityName() --><!-- /ko -->:
+                <!--/ko-->
+                <!-- ko ifnot: (store.isStoreSelected()) -->
+                    <!-- ko i18n: 'My Store:'--><!-- /ko -->
+                <!--/ko-->
+            </label>
+            <div class="input-group">
+                <div class="control">
+                    <div class="selection">
+                        <!-- ko if: (store.isStoreSelected() && store.storeUrl()) -->
+                            <a data-bind="{attr: {href: store.storeUrl(), title: store.selectedStore()}}"><!-- ko text: store.selectedStore() --><!-- /ko --></a>
+                        <!--/ko-->
+                        <!-- ko ifnot: (store.isStoreSelected() && store.storeUrl()) -->
+                            <!-- ko text: store.selectedStore() --><!-- /ko -->
+                        <!--/ko-->
+                    </div>
+                </div>
+                <button type="button" class="button action -change" data-action="change-store" data-bind="attr: {title: $t('Change')}">
+                    <!-- ko i18n: 'Change' --><!-- /ko -->
+                </button>
+            </div>
+        </div>
+        <div class="search-mode">
+            <label class="message" for="mystorecheckout-control"><!-- ko i18n: 'Select Your Store' --><!-- /ko -->:</label>
+            <div class="input-group">
+                <div id="mystorecheckout-control" class="control">
+                    <input type="text" name="store_name" id="mystorecheckout-input" class="input-text" data-validate="{'required': true}" data-bind="attr: {value: store.selectedStore()}"/>
+                </div>
+                <button type="submit" class="button action primary -submit" data-action="save-mystore" data-bind="attr: {title: $t('Submit')}">
+                    <!-- ko i18n: 'Submit' --><!-- /ko -->
+                </button>
+            </div>
+        </div>
+        <!-- ko if: (isGoogleAutoSuggestEnabled()) -->
+            <input type="hidden" name="find_store" id="mystorecheckout_find_store" value="0" />
+            <input type="hidden" name="postcode" id="mystorecheckout_postal_code" value="" />
+            <input type="hidden" name="city" id="mystorecheckout_locality" value="" />
+            <input type="hidden" name="country" id="mystorecheckout_country" value="" />
+        <!--/ko-->
+    </form>
+</div>
+<!--/ko-->

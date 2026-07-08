@@ -1,0 +1,13 @@
+<?php
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$_product = $objectManager->get('Magento\Framework\Registry')->registry('current_product');
+$seller = $_product->getData('marketplacer_seller');
+?>
+
+<div class="payment-gateways-container-main">
+    <div id="payment-options-toggle" class="payment-options-toggle close">PAYMENT OPTIONS</div>
+    <div id="payment-options" class="payment-options close">
+        <?= $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Catalog::product/payment-gateways.phtml")->toHtml() ?>
+        <?= $this->getLayout()->createBlock("Magento\Framework\View\Element\Template")->setTemplate("Magento_Catalog::product/payment-gateways-bottom.phtml")->toHtml() ?>
+    </div>
+</div>

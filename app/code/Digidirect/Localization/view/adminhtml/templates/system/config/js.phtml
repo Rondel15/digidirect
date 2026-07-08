@@ -1,0 +1,94 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<script>
+    require([
+        'jquery',
+        'domReady!'
+    ], function ($) {
+
+        var countrySelection = {
+            initialize : function()
+            {
+                this.container = '#digidirect_localization_timezone, #digidirect_localization_holiday';
+                this.countrySelect = '*[name*="country_column"]';
+                this.stateSelect = '*[name*="state_column"]';
+                this.addButton = '.action-add';
+                this.clearValue = false;
+                this.bindCountryRegionDeps();
+                this.bindAddButton();
+            },
+
+            bindCountryRegionDeps : function()
+            {
+                $(this.container).on('change', this.countrySelect, function () {
+                    var countryName = $(this).find('option:selected').text(),
+                        states = $(this).parents('tr:first').find(countrySelection.stateSelect);
+
+                    if (countrySelection.clearValue) {
+                        states.val('');
+                    }
+                    states.find('optgroup').hide();
+                    states.find('optgroup[label="'+countryName+'"]').show();
+                });
+
+                $(this.countrySelect).each(function () {
+                    $(this).change();
+                });
+                this.clearValue = true;
+            },
+
+            bindAddButton: function () {
+                $(this.container).on('click', this.addButton, function () {
+                    countrySelection.clearValue = false;
+                    $(countrySelection.countrySelect).change();
+                    countrySelection.clearValue = true;
+                });
+            }
+        };
+
+        countrySelection.initialize();
+
+        var getHolidays = {
+            initialize : function()
+            {
+                this.container = '#digidirect_localization_holiday';
+                this.countrySelect = '*[name*="country_column"]';
+                this.stateSelect = '*[name*="state_column"]';
+                this.holidayInput = '*[name*="holiday_column"]';
+                this.downloadLink = 'a.download-holidays';
+                this.url = 'https://kayaposoft.com/enrico/json/v2.0/?action=getHolidaysForYear&year=<?php echo (int)date('Y') ?>&holidayType=public_holiday';
+                this.bindLink();
+            },
+
+            bindLink: function () {
+                var self = this;
+                $(this.container).on('click', this.downloadLink, function () {
+                    var tr = $(this).parents('tr:first'),
+                        input = tr.find(self.holidayInput),
+                        country = tr.find(self.countrySelect).val(),
+                        stateId = tr.find(self.stateSelect).val(),
+                        stateName = tr.find(self.stateSelect + ' option:selected').text(),
+                        url = self.url + '&country='+country;
+
+                    if (stateId) {
+                        url += '&region='+stateName;
+                    }
+
+                    $.getJSON(url, function (json) {
+                        if (json.error === undefined) {
+                            var text = [];
+                            $.each(json, function (i, holiday) {
+                                text.push(holiday.date.day + '/' + holiday.date.month + '/' + holiday.date.year)
+                            });
+                            input.val(text.join(', '));
+                        }
+                    });
+                    return false;
+                });
+            }
+        };
+
+        getHolidays.initialize();
+    });
+</script>

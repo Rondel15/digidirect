@@ -1,0 +1,14 @@
+<input data-role="localization-input" class="input-text" type="text" data-bind="
+    value: value,
+    hasFocus: focused,
+    attr: {
+        name: inputName,
+        'aria-describedby': getDescriptionId(),
+        'aria-required': required,
+        'aria-invalid': error() ? true : 'false',
+        id: uid,
+        disabled: disabled,
+        placeholder: getPlaceholder
+    },
+    afterRender: renderInputComplete
+" />

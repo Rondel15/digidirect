@@ -1,0 +1,28 @@
+//
+//  Customer: Logout
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .customer-account-logoutsuccess {
+        .page-main {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .customer-account-logoutsuccess {
+        .column.main {
+            min-height: 100px;
+        }
+    }
+}

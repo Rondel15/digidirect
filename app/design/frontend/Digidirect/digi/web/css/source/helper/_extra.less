@@ -1,0 +1,155 @@
+//
+//  Extra helpers for project
+//  ------------------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .negative-gutter {
+        .lib-css(margin-left, -@layout-indent__width);
+        .lib-css(margin-right, -@layout-indent__width);
+    }
+    
+    ._full-width-background {
+        &:extend(.negative-gutter);
+
+        .lib-css(padding-left, @layout-indent__width);
+        .lib-css(padding-right, @layout-indent__width);
+    }
+
+    ._simple-bg {
+        .lib-css(background, @color-white);
+        .lib-css(padding, @layout-indent__width);
+    }
+
+    ._unpadding {
+        padding: 0!important;
+    }
+
+    ._unmargin {
+        margin: 0!important;
+    }
+
+    ._full-width {
+        width: 100%;
+    }
+
+    ._text-center {
+        text-align: center;
+    }
+
+    ._truncate-clearfix::after {
+        content: '';
+        clear: both;
+        display: table;
+    }
+}
+
+//
+//  Mobile Only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    ._hide-for-mobile {
+        display: none !important;
+    }
+    
+    ._full-width-background {
+        margin-left: -50px !important;
+        margin-right: -50px !important;
+    }
+    
+    .columns{
+        //padding: 0 30px !important;
+        padding: 0 15px !important;
+    }
+}
+
+//
+//  Tablet Small -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = (@screen__xm + 1)) {
+    ._hide-for-mobile-tablet {
+        display: none !important;
+    }
+}
+
+//
+//  Tablet -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__l) {
+    ._hide-for-mobile-tablet-l {
+        display: none !important;
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    ._show-for-mobile {
+        display: none !important;
+    }
+}
+
+//
+//  Desktop small +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = (@screen__xm + 1)) {
+    ._show-for-mobile-tablet {
+        display: none !important;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .negative-gutter {
+        .lib-css(margin-left, -(@layout-indent__width + @layout-columns__padding__l));
+        .lib-css(margin-right, -(@layout-indent__width + @layout-columns__padding__l));
+        .lib-css(padding-left, (@layout-indent__width + @layout-columns__padding__l));
+        .lib-css(padding-right, (@layout-indent__width + @layout-columns__padding__l));
+    }
+
+    ._full-width-background {
+        &:extend(.negative-gutter);
+    }
+    
+    ._hide-for-desktop {
+        display: none !important;
+    }
+}
+
+//
+//  Large Desktop +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    ._full-width-background {
+        position: relative;
+        
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+            top: 0;
+            bottom: 0;
+            width: 33%;
+        }
+        
+        &::before {
+            left: -33%;
+        }
+        
+        &::after {
+            right: -33%;
+        }
+    }
+}

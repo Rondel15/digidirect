@@ -1,0 +1,65 @@
+<?php $_items = $block->getItems() ?>
+<table class="email-items">
+    <thead>
+    <tr>
+        <th class="item-info">
+            <?= /* @escapeNotVerified */  __('Product'); ?>
+        </th>
+        <th class="item-qty">
+            <?= /* @escapeNotVerified */  __('Qty'); ?>
+        </th>
+        <th class="item-qty">
+            <?= /* @escapeNotVerified */  __('Price'); ?>
+        </th>
+        <th class="item-price">
+            <?= /* @escapeNotVerified */  __('Total Price'); ?>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php
+        $om = \Magento\Framework\App\ObjectManager::getInstance();
+        $storeManager = $om->create('\Magento\Store\Model\StoreManagerInterface');
+        $thumbNail =  $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'catalog/product';
+        $productRepository = $storeManager = $om->create('\Magento\Catalog\Api\ProductRepositoryInterface');
+        $totalAmount = 0;
+    ?>
+    <?php foreach ($_items as $_item): ?>
+        <?php $_product = $productRepository->getById($_item->getProductId()); ?>
+        <tr>
+            <td>
+                <a href="<?php echo $block->getBaseUrl() . $_item->getProduct()->getUrlKey(); ?>">
+                    <p class="product-name"><?php echo $block->escapeHtml($_item->getName()) ?></p>
+                </a>
+                <p class="sku">
+                    <b><?php /* @escapeNotVerified */ echo  __('SKU') . ' : '  ?></b>
+                    <a href="<?php echo $block->getBaseUrl() . $_item->getProduct()->getUrlKey(); ?>">
+                        <?php echo $block->escapeHtml($_item->getSku()); ?>
+                    </a>
+                </p>
+            </td>
+            <td class="item-qty">
+                <span><?php echo floor($_item->getQtyOrdered()) ?></span>
+            </td>
+            <td class="item-price">
+                <span><?php echo round($_item->getPrice(), 2) ?></span>
+            </td>
+            <td class="item-price">
+                <span><?php echo round($_item->getQtyOrdered() * $_item->getPrice(), 2) ?></span>
+            </td>
+            <?php
+            $tAmount = $_item->getQtyOrdered() * $_item->getPrice();
+            $totalAmount += $tAmount;
+            ?>
+        </tr>
+    <?php endforeach; ?>
+        <tr style="display: none;">
+            <td colspan="4" style="text-align: right;font-size: 16px;font-weight: bold;">
+                <span>Total: </span>
+            </td>
+            <td style="text-align: right;font-size: 16px;font-weight: bold;">
+               <span><?php echo round($totalAmount, 2) ?></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

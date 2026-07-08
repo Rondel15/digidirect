@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_product_add_after">
+        <observer name="wiser_price_add_to_cart" instance="Digidirect\Catalog\Observer\WiserPrice" disabled="true"/>
+    </event>
+    <event name="controller_action_predispatch_checkout_cart_add">
+        <observer name="check_before_add_to_cart" instance="Digidirect\Catalog\Observer\BeforeAddToCart" disabled="true"/>
+    </event>
+    <event name="catalog_controller_product_view">
+        <observer name="override_meta_tags" instance="Digidirect\Catalog\Observer\OverrideMetaTags" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="category_canonical" instance="Digidirect\Catalog\Observer\Canonical"/>
+    </event>
+</config>

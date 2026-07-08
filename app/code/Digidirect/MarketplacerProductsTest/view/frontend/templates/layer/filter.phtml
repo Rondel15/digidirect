@@ -1,0 +1,19 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php
+/** @var \Magento\LayeredNavigation\Block\Navigation\FilterRenderer $block */
+/** @var \Magento\Framework\Escaper $escaper */
+/** @var \Magento\LayeredNavigation\ViewModel\Layer\Filter $viewModel */
+$viewModel = $block->getData('product_layer_view_model');
+?>
+
+<ol class="items">
+    <?php foreach ($filterItems as $filterItem): ?>
+        <?= /* @noEscape */ $filterItem->getLabel() ?>
+    <?php endforeach ?>
+</ol>

@@ -1,0 +1,57 @@
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    
+    .nav.item.-icon.-digiclub:before {
+        content: '\f005';
+        font-family: 'Font Awesome 5 Free';
+        color: #ff3c00;
+        position: absolute !important;
+        left: 10px;
+        top: 20px;
+        font-size: 20px;
+    }
+    
+    .digiclub-description {
+        margin-bottom: 20px;
+    }
+    
+    .digiclub-redirect.customer-account-login .page-title-wrapper {
+        padding-top: 0 !important;
+    }
+    
+    .digiclub-redirect.customer-account-login .login-container:before {
+        content: 'STEP 1: Log In or Register below';
+        font-size: 25px;
+        font-weight: 500;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 50px;
+    }
+
+    .digiclub-redirect.customer-account-login h1.page-title {
+        display: none;
+    }
+    
+    .digiclub-redirect.customer-account-login .digiclub-login-header {
+        display: block !important;
+        width: 970px;
+        margin: 0 auto;
+    }
+    
+    .digiclub-save.subscribed {
+        pointer-events: none;
+        background: #808080 !important;
+    }
+    
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+    .digiclub-customer-index .fieldset .field {
+        //width: 50%;
+    }
+    
+}

@@ -1,0 +1,21 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+
+/** @var \Plumrocket\Newsletterpopup\Block\Popup\Fields\Field $block */
+?>
+
+<div class="field">
+    <label for="<?= $block->escapeHtml($block->getFieldId()) ?>" class="required"><em>*</em><?= $block->escapeHtml($block->getLabel()) ?></label>
+    <div class="input-box">
+        <input type="email"
+               class="email-field input-text required-entry validate-email"
+               placeholder="<?= $block->escapeHtml($block->getLabel()) ?>"
+               name="email"
+               required
+               id="<?= $block->escapeHtml($block->getFieldId()) ?>" />
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<?php
+/** @var $block \Digidirect\ProductOverlay\Block\Overlay */
+?>
+
+<?php
+/** @var \Digidirect\ProductOverlay\Model\Overlays $overlay */
+$overlay = $this->getOverlay();
+$product = $block->getProduct();
+$overlayId = (int)$overlay->getId();
+$productId = (int)$product->getId();
+$key = $overlayId . '-' . $productId;
+$text = $overlay->getText();
+$nativeText = strip_tags($text);
+$containerPath = $block->getContainerPath();
+$hasImageSize = $overlay->getImageSize() ? ' -has-size' : '';
+?>
+<?php if ($containerPath): ?>
+    <div data-testid="productOverlay-overlayBlock"
+         class="product-overlay-<?= $block->escapeHtml($key); ?> product-overlay -<?= $block->escapeHtml($overlay->getCssClass()) ?><?= /* @escapeNotVerified */ $hasImageSize ?>"
+        <?php if ($overlay->getUseForParent()): ?> data-role="use-for-parent"<?php endif; ?>
+         data-overlay-id="<?= $block->escapeHtml($overlayId)?>"
+         data-product-id="<?= $block->escapeHtml($productId)?>"
+         style="width: auto; height: auto;">
+        <img class="img"
+             src="<?= $block->escapeUrl($block->getImageScr()) ?>"
+             title="<?= $block->escapeHtml($nativeText) ?>"
+             alt="<?= $block->escapeHtml($nativeText) ?>"
+        >
+        <div class="text" style="<?= $block->escapeHtml($overlay->getValue('text_style')); ?>">
+            <?= /* @escapeNotVerified */ $text ?>
+        </div>
+    </div>
+
+    <script type="text/x-magento-init">
+        {
+            ".product-overlay-<?= $block->escapeHtml($key); ?>": {
+                "productOverlay": {
+                    "size": <?= /* @escapeNotVerified */ $overlay->getImageSize() ?>,
+                    "path": "<?= $block->escapeHtml($containerPath) ?>",
+                    "mode": "<?= $block->escapeHtml($overlay->getMode()) ?>",
+                    "hideForConfigurable": "<?= /* @escapeNotVerified */ $overlay->getHideInConfigurable(); ?>",
+                    "overlaySelector": ".product-overlay-<?php echo $block->escapeHtml($key); ?>"
+                }
+            }
+        }
+    </script>
+
+    <?php /** Start: Overlay Settings for You may also Like slider (Digidirect_ProductOverlay/web/js/upsell-slider.js) */ ?>
+    <script type="text/javascript">
+        window.overlayOnSlideSize = <?= /* @escapeNotVerified */ $overlay->getImageSize() ?>;
+        window.overlayOnSliderPath = "<?= $block->escapeHtml($containerPath) ?>";
+        window.overlayOnSliderMode = "<?= /* @escapeNotVerified */ $overlay->getImageSize() ?>";
+        window.overlayOnSliderHideForConfigurable = "<?= /* @escapeNotVerified */ $overlay->getHideInConfigurable(); ?>";
+    </script>
+    <?php /** End */ ?>
+<?php endif; ?>

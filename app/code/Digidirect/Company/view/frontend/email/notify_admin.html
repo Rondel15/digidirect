@@ -1,0 +1,97 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<!--@subject {{trans "New company registration request"}} @-->
+<!--@vars {
+"var admin":"Admin Name",
+"var customer":"Customer Name",
+"var company_admin_firstname":"First Name",
+"var company_admin_lastname":"Last Name",
+"var email":"Email",
+"var company":"Company Name",
+"var legal":"Company Legal Name",
+"var abn":"ABN",
+"var company_email":"Company Email",
+"var phone":"Phone Number",
+"var street":"Street Address",
+"var city":"City",
+"var country":"Country",
+"var state":"State/Province",
+"var postal":"ZIP/Postal Code",
+"var job_title":"Job Title"
+
+} @-->
+
+{{template config_path="design/email/header_template"}}
+
+<p class="greeting company-greeting"><strong>{{trans "Dear %name," name=$admin}}</strong></p>
+<p>
+    {{trans "A company registration request has been submitted by customer %customername . The account is temporarily locked until you approve or reject this company." customername=$customer.name}}
+</p>
+
+<br><br>
+
+<p>------------ Company Information ----------------</p>
+<br>
+
+<p>
+    {{trans "Company: %company" company=$company}}
+</p>
+<p>
+    {{trans "Company Legal Name:  %legal" legal=$legal}}
+</p>
+<p>
+    {{trans "ABN:  %abn" abn=$abn}}
+</p>
+<p>
+    {{trans "Company Email:  %company_email" company_email=$company_email}}
+</p>
+<p>
+    {{trans "Phone Number:  %phone" phone=$phone}}
+</p>
+
+
+<br><br>
+
+<p>------------ Legal Address Information ----------------</p>
+<br>
+
+<p>
+    {{trans "Street Address:  %street" street=$street}}
+</p>
+<p>
+    {{trans "City:  %city" city=$city}}
+</p>
+<p>
+    {{trans "Country:  %country" country=$country}}
+</p>
+<p>
+    {{trans "State/Province:  %state" state=$state}}
+</p>
+<p>
+    {{trans "ZIP/Postal Code:  %postal" postal=$postal}}
+</p>
+
+
+<br><br>
+
+<p>------------ Company Administrator Information ----------------</p>
+<br>
+<p>
+    {{trans "First Name:  %company_admin_firstname" company_admin_firstname=$company_admin_firstname}}
+</p> 
+<p>
+    {{trans "Last Name:  %company_admin_lastname" company_admin_lastname=$company_admin_lastname}}
+</p>
+<p>
+    {{trans "Job Title:  %job_title" job_title=$job_title}}
+</p>
+<p>
+    {{trans "Email Address:  %email" email=$email}}
+</p>
+
+
+{{template config_path="design/email/footer_template"}}

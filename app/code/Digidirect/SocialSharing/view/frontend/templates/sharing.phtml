@@ -1,0 +1,13 @@
+<?php
+/**
+ * @var \Digidirect\SocialSharing\Block\Sharing
+ */
+?>
+<?php
+    $socialHtml = $this->getChildHtml();
+?>
+<?php if ($socialHtml): ?>
+    <div class="social-sharing">
+        <?php /* @escapeNotVerified */ echo $socialHtml; ?>
+    </div>
+<?php endif; ?>

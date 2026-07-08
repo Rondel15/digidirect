@@ -1,0 +1,66 @@
+//
+//  Related Posts
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-relatedposts__margin: 20px 0;
+@blog-relatedposts__padding: false;
+
+//  Title
+@blog-relatedposts-title__margin: fasle;
+@blog-relatedposts-title__padding: fasle;
+
+//  List
+@blog-relatedposts-list__margin: false;
+@blog-relatedposts-list__padding: 0;
+
+//  Post
+@blog-post-related-categories__margin: 0 0 5px;
+@blog-post-related-categories__padding: fasle;
+@blog-post-related-categories__font: fasle;
+@blog-post-related-title__margin: false;
+@blog-post-related-title__padding: false;
+@blog-post-related-title__font: false;
+@blog-post-related-description__margin: 0 0 10px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-relatedposts {
+        & {
+            .lib-css(margin, @blog-relatedposts__margin);
+            .lib-css(padding, @blog-relatedposts__padding);
+        }
+
+        > .title {
+            .lib-css(margin, @blog-relatedposts-title__margin);
+            .lib-css(padding, @blog-relatedposts-title__padding);
+        }
+
+        > .list {
+            .lib-css(margin, @blog-relatedposts-list__margin);
+            .lib-css(padding, @blog-relatedposts-list__padding);
+        }
+    }
+
+    .post-related {
+        > .categories {
+            .lib-css(margin, @blog-post-related-categories__margin);
+            .lib-css(padding, @blog-post-related-categories__padding);
+            .lib-css(font, @blog-post-related-categories__font);
+        }
+        > .title {
+            .lib-css(margin, @blog-post-related-title__margin);
+            .lib-css(padding, @blog-post-related-title__padding);
+            .lib-css(font, @blog-post-related-title__font);
+        }
+        .description {
+            .lib-css(margin, @blog-post-related-description__margin);
+        }
+    }
+}

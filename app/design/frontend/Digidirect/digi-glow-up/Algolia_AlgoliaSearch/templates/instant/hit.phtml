@@ -1,0 +1,324 @@
+<?php
+
+/** @var \Algolia\AlgoliaSearch\Block\Instant\Hit $block */
+
+$priceKey     = $block->getPriceKey();
+$currencyCode = $block->getCurrencyCode();
+
+$baseVar         = $block->escapeHtml('price' . $priceKey);
+$maxVar          = $block->escapeHtml('price' . $priceKey . '_max');
+$baseFormatedVar = $block->escapeHtml('price' . $priceKey . '_formated');
+$origFormatedVar = $block->escapeHtml('price' . $priceKey . '_original_formated');
+$customFinalPrice = $block->escapeHtml('custom_final_price' . $priceKey . '_formated');
+$sku = $block->escapeHtml('sku');
+$seller = $block->escapeHtml('marketplacer_seller');
+?>
+
+<script type="text/template" id="instant-hit-template">
+    
+    {{#isDigiMarket}}
+        <div class="ribbon-online">Online only</div>
+    {{/isDigiMarket}}
+            
+    {{#isNotDigiSeconds}}
+        {{#hasCustomFinalPrice}}
+            {{#isDigiOnly}}
+                <div class="ribbon-digideals"><span style="color: #FE4C25">digi</span>Deals</div>
+            {{/isDigiOnly}}
+        {{/hasCustomFinalPrice}}
+    {{/isNotDigiSeconds}}
+    {{#isDigiSeconds}}
+        <div class="digiseconds-overlay">
+            <img src="{{digiSecondsBadge}}"/>
+            <div class="digiseconds-rating">
+                {{{digiSecondsRating}}}
+            </div>
+        </div>
+    {{/isDigiSeconds}}
+            
+    <a href="javascript:void(0);"
+        class="action towishlist"
+        title="<?php echo __('Add to Wishlist') ?>"
+        data-post='{"action":"/wishlist/index/add/","data":{"product":"{{objectID}}","uenc":"{{url}}"}}'>
+        <img src="<?= $block->getViewFileUrl('images/iconsax-heart.png') ?>"/>
+    </a>
+
+    <div class="col-md-4 col-sm-6 grid-view-col" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <meta itemprop="position" content="{{__position}}" />
+        <div class="result-wrapper" itemprop="item" itemscope itemtype="http://schema.org/Product">
+            <meta itemprop="url" content="{{url}}"/>
+            <a class="result" href="{{url}}" 
+                data-objectid="{{objectID}}"
+                data-indexname="{{__indexName}}"
+                data-position="{{__position}}"
+                data-queryid="{{__queryID}}">
+                <div class="result-content">
+                    <div class="result-thumbnail">
+                        {{#image_url}}<img itemprop="image" src="{{tempImgUrl}}" alt="{{{name}}}" />{{/image_url}}
+                        {{^image_url}}<span class="no-image"></span>{{/image_url}}
+                    </div>
+                    <div class="result-sub-content">
+                        <h3 itemprop="name" class="result-title text-ellipsis">
+                            {{{ _highlightResult.name.value }}}
+                        </h3>
+                        <div class="ratings">
+                            <div class="result-sub-content">
+                                <div class="product-reviews-summary short">
+                                    <div class="rating-summary">
+                                        <span class="label"><span><?php echo __('Rating') ?>:</span></span>
+                                        <div class="rating-result" title="{{rating_summary}}%">
+                                            <span style="width:{{rating_summary}}%">
+                                                <span>{{rating_summary}}%</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-description text-ellipsis">{{{ _highlightResult.description.value }}}</div>
+                        <div class="s19-rental-price-target">
+                            {{#isDigiPrint}}
+                                <p style="font-size: 13px; font-weight: 500;">Order Online Today!</p>
+                            {{/isDigiPrint}}
+                            {{#isNotDigiPrint}}
+                                <p style="font-size: 13px; font-weight: 500;">Buy now pay later</p>
+                                <p style="font-size: 13px; font-weight: 500;">Options Available</p>
+                            {{/isNotDigiPrint}}
+                        </div>
+                        {{^<?php echo $maxVar; ?>}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">
+                            <meta itemprop="price" content="{{<?php echo $baseVar; ?>}}" />
+                        {{/<?php echo $maxVar; ?>}}
+                        {{#<?php echo $maxVar; ?>}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" class="price">
+                            <meta itemprop="lowPrice" content="{{<?php echo $baseVar; ?>}}" />
+                            <meta itemprop="highPrice" content="{{<?php echo $maxVar; ?>}}" />
+                        {{/<?php echo $maxVar; ?>}}
+                            <meta itemprop="priceCurrency" content="<?php echo $currencyCode; ?>" />
+                                {{#hasCustomFinalPrice}}
+                                    <div class="price-wrapper"> 
+                                        <span class="price-container">
+                                            {{#defaultOriginalPrice}}
+                                                <span class="price">
+                                                    {{defaultOriginalPrice}}
+                                                </span>
+                                            {{/defaultOriginalPrice}}
+                                            {{^defaultOriginalPrice}}
+                                                <span class="price">{{<?php echo $baseFormatedVar; ?>}}</span>
+                                            {{/defaultOriginalPrice}}
+                                        </span>
+                                        <div>  
+                                            <span class="after_special custom_final_price">{{customFinalPrice}}</span>
+                                        </div> 
+                                    </div>
+                                {{/hasCustomFinalPrice}}
+                                {{#hasNoCustomFinalPrice}}
+                                    <div class="price-wrapper"> 
+                                        <span class="price-container">
+                                            <span class="price"></span>
+                                        </span>
+                                        <div>
+                                            <span class="after_special">
+                                                {{<?php echo $baseFormatedVar; ?>}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {{/hasNoCustomFinalPrice}}
+                        </div>
+                        <div class="product-info-bottom">
+                            {{#hasCustomFinalPrice}}
+                                <div class="discount-price-wrapper">
+                                    <span class="discount-price">{{discount}}</span> Off
+                                </div>
+                            {{/hasCustomFinalPrice}}
+                            {{#hasNoCustomFinalPrice}}
+                                <div class="discount-price-wrapper-no-price"></div>
+                            {{/hasNoCustomFinalPrice}}
+                                    
+                            {{#isAddToCartEnabled}}
+                                {{#isNotDigiPrint}}
+                                    <form data-role="tocart-form" action="{{ addToCart.action }}" method="post">
+                                        <input type="hidden" name="queryID" value="{{__queryID}}">
+                                        <input type="hidden" name="product" value="{{objectID}}">
+                                        {{#_highlightResult.default_bundle_options}}<input type="hidden" name="bundle_option[{{ optionId }}]" value="{{selectionId}}">{{/_highlightResult.default_bundle_options}}
+                                        <input type="hidden" name="{{ addToCart.redirectUrlParam }}" value="{{ addToCart.uenc }}">
+                                        <input name="form_key" type="hidden" value="{{ addToCart.formKey }}">
+                                        <button type="submit" title="<?php echo __('Add to Cart') ?>" class="action tocart primary"
+                                        data-objectid="{{objectID}}"
+                                        data-indexname="{{__indexName}}"
+                                        data-position="{{__position}}"
+                                        data-queryid="{{__queryID}}"
+                                        >
+
+                                        {{#isNotPreorder}}
+                                            <span><?php echo __('Add to Cart') ?></span><img src="<?= $block->getViewFileUrl('images/icons/cart.png') ?>"/></i>
+                                        {{/isNotPreorder}}
+                                        {{#isPreorder}}
+                                            <span><?php echo __('Pre-Order') ?></span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>
+                                        {{/isPreorder}}
+
+                                        </button>
+                                    </form>
+                                {{/isNotDigiPrint}}
+                                {{#isDigiPrint}}
+                                    <div class="actions-primary">
+                                        <a class="ordernow-link" href="{{digiPrintUrl}}" target="_blank">
+                                            <button type="button" title="Order Now" class="action tocart primary">Order Now <i class="fas fa-cart-plus" style="float: right;"></i></button>
+                                        </a>
+                                    </div>
+                                {{/isDigiPrint}}
+                            {{/isAddToCartEnabled}}
+                        </div>
+                    </div>
+                </div>
+                <div class="algolia-clearfix"></div>
+            </a>
+        </div>
+    </div>
+    
+    <div class="col-md-4 col-sm-6 list-view-col" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
+        <meta itemprop="position" content="{{__position}}" />
+        <div class="result-wrapper" itemprop="item" itemscope itemtype="http://schema.org/Product">
+            <meta itemprop="url" content="{{url}}"/>
+            <a class="result" href="{{url}}" 
+                data-objectid="{{objectID}}"
+                data-indexname="{{__indexName}}"
+                data-position="{{__position}}"
+                data-queryid="{{__queryID}}">
+                <div class="result-content">
+                    <div class="result-thumbnail">
+                        {{#image_url}}<img itemprop="image" src="{{tempImgUrl}}" alt="{{{name}}}" />{{/image_url}}
+                        {{^image_url}}<span class="no-image"></span>{{/image_url}}
+                    </div>
+                    
+                    <div class="result-sub-content">
+                        <h3 itemprop="name" class="result-title text-ellipsis">
+                            {{{ _highlightResult.name.value }}}
+                        </h3>
+                        <div {{<?php echo $seller; ?>}} style="font-size: 10px; color: #6E6E73; font-weight: 500; text-align: left; margin-bottom: 10px;"><span>SKU {{<?php echo $sku; ?>}}</span> | 
+                            {{#isDigiOnly}}
+                                <span>Shipped by: <span style="color: #FE4C25;">digi</span><span style="color: #000;">Direct</span></span>
+                            {{/isDigiOnly}}
+                            {{#isDigiMarket}}
+                                <span>Shipped by: {{<?php echo $seller; ?>}}</span>
+                            {{/isDigiMarket}}
+                        </div>
+                        <div class="ratings">
+                            <div class="result-sub-content">
+                                <div class="product-reviews-summary short">
+                                    <div class="rating-summary">
+                                        <span class="label"><span><?php echo __('Rating') ?>:</span></span>
+                                        <div class="rating-result" title="{{rating_summary}}%">
+                                            <span style="width:{{rating_summary}}%">
+                                                <span>{{rating_summary}}%</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="result-description text-ellipsis">{{{ _highlightResult.description.value }}}</div>
+                        <div class="s19-rental-price-target">
+                            {{#isDigiPrint}}
+                                <p style="font-size: 13px; font-weight: 500;">Order Online Today!</p>
+                            {{/isDigiPrint}}
+                            {{#isNotDigiPrint}}
+                                <p style="font-size: 13px; font-weight: 500;">Buy now pay later, Options Available</p>
+                            {{/isNotDigiPrint}}
+                        </div>
+                    </div>
+                    
+                    <div class="result-sub-content right-content">
+                        {{#hasCustomFinalPrice}}
+                            <div class="discount-price-wrapper">
+                                <span class="discount-price">{{discount}}</span> Off
+                            </div>
+                        {{/hasCustomFinalPrice}}
+                        {{#hasNoCustomFinalPrice}}
+                            <div class="discount-price-wrapper-no-price"></div>
+                        {{/hasNoCustomFinalPrice}}
+                                
+                        {{^<?php echo $maxVar; ?>}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="price">
+                            <meta itemprop="price" content="{{<?php echo $baseVar; ?>}}" />
+                        {{/<?php echo $maxVar; ?>}}
+                        {{#<?php echo $maxVar; ?>}}
+                        <div itemprop="offers" itemscope itemtype="http://schema.org/AggregateOffer" class="price">
+                            <meta itemprop="lowPrice" content="{{<?php echo $baseVar; ?>}}" />
+                            <meta itemprop="highPrice" content="{{<?php echo $maxVar; ?>}}" />
+                        {{/<?php echo $maxVar; ?>}}
+                            <meta itemprop="priceCurrency" content="<?php echo $currencyCode; ?>" />
+                                {{#hasCustomFinalPrice}}
+                                    <div class="price-wrapper"> 
+                                        <div>  
+                                            <span class="after_special custom_final_price">{{customFinalPrice}}</span>
+                                        </div> 
+                                        <span class="price-container">
+                                            {{#defaultOriginalPrice}}
+                                                <span class="price">
+                                                    {{defaultOriginalPrice}}
+                                                </span>
+                                            {{/defaultOriginalPrice}}
+                                            {{^defaultOriginalPrice}}
+                                                <span class="price">{{<?php echo $baseFormatedVar; ?>}}</span>
+                                            {{/defaultOriginalPrice}}
+                                        </span>
+                                    </div>
+                                {{/hasCustomFinalPrice}}
+                                {{#hasNoCustomFinalPrice}}
+                                    <div class="price-wrapper"> 
+                                        <span class="price-container">
+                                            <span class="price"></span>
+                                        </span>
+                                        <div>
+                                            <span class="after_special">
+                                                {{<?php echo $baseFormatedVar; ?>}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                {{/hasNoCustomFinalPrice}}
+                        </div>
+                        <div class="product-info-bottom">
+                                    
+                            {{#isAddToCartEnabled}}
+                                {{#isNotDigiPrint}}
+                                    <form data-role="tocart-form" action="{{ addToCart.action }}" method="post">
+                                        <input type="hidden" name="queryID" value="{{__queryID}}">
+                                        <input type="hidden" name="product" value="{{objectID}}">
+                                        {{#_highlightResult.default_bundle_options}}<input type="hidden" name="bundle_option[{{ optionId }}]" value="{{selectionId}}">{{/_highlightResult.default_bundle_options}}
+                                        <input type="hidden" name="{{ addToCart.redirectUrlParam }}" value="{{ addToCart.uenc }}">
+                                        <input name="form_key" type="hidden" value="{{ addToCart.formKey }}">
+                                        <button type="submit" title="<?php echo __('Add to Cart') ?>" class="action tocart primary"
+                                        data-objectid="{{objectID}}"
+                                        data-indexname="{{__indexName}}"
+                                        data-position="{{__position}}"
+                                        data-queryid="{{__queryID}}"
+                                        >
+
+                                        {{#isNotPreorder}}
+                                            <span><?php echo __('Add to Cart') ?></span><img src="<?= $block->getViewFileUrl('images/icons/cart.png') ?>"/></i>
+                                        {{/isNotPreorder}}
+                                        {{#isPreorder}}
+                                            <span><?php echo __('Pre-Order') ?></span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>
+                                        {{/isPreorder}}
+
+                                        </button>
+                                    </form>
+                                {{/isNotDigiPrint}}
+                                {{#isDigiPrint}}
+                                    <div class="actions-primary">
+                                        <a class="ordernow-link" href="{{digiPrintUrl}}" target="_blank">
+                                            <button type="button" title="Order Now" class="action tocart primary">Order Now <i class="fas fa-cart-plus" style="float: right;"></i></button>
+                                        </a>
+                                    </div>
+                                {{/isDigiPrint}}
+                            {{/isAddToCartEnabled}}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="algolia-clearfix"></div>
+            </a>
+        </div>
+    </div>
+</script>

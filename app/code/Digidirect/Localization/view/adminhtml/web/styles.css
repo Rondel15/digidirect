@@ -1,0 +1,7 @@
+#row_digidirect_localization_timezone_matrix .label,
+#row_digidirect_localization_holiday_matrix .label { width: 0; display: none; }
+#row_digidirect_localization_timezone_matrix .value,
+#row_digidirect_localization_holiday_matrix .value{ width: 100%; }
+
+#digidirect_localization_holiday_matrix tr td:nth-child(3) { width: 55%; }
+#digidirect_localization_holiday_matrix li { list-style:none; }

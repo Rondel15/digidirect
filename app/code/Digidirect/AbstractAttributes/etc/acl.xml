@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="Digidirect_Utilities::Digidirect" sortOrder="100">
+                    <resource id="Digidirect_AbstractAttributes::aa" title="Abstract Attributes" sortOrder="10">
+                        <resource id="Digidirect_AbstractAttributes::aa_menu" title="Abstract Attributes Option" sortOrder="10">
+                            <resource id="Digidirect_AbstractAttributes::aa_menu_option_delete" title="Delete" sortOrder="10" />
+                            <resource id="Digidirect_AbstractAttributes::aa_menu_option_save" title="Save" sortOrder="20" />
+                        </resource>
+                    </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="Digidirect_AbstractAttributes::config" title="Digidirect Abstract Attributes" sortOrder="100" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

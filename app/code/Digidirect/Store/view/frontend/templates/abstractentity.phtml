@@ -1,0 +1,21 @@
+<?php
+/** @var $block \Digidirect\AbstractEntity\Block\AbstractEntity */
+$abstractEntity = $block->getCurrentAbstractEntity();
+?>
+<?php if ($abstractEntity): ?>
+    <address class="address">
+        <?php if ($posCountry = $abstractEntity->getCountry()): ?>
+            <?php echo $block->escapeHtml($block->getCountryName($posCountry)); ?>,
+        <?php endif; ?>
+        <?php if ($posState = $abstractEntity->getState()): ?>
+            <?php echo $block->escapeHtml($posState); ?>,
+        <?php endif; ?>
+        <?php if ($posCity = $abstractEntity->getCity()): ?>
+            <?php echo $block->escapeHtml($posCity); ?>,
+        <?php endif; ?>
+        <?php if ($posStreetAddress = $abstractEntity->getStreet()): ?>
+            <?php echo $block->escapeHtml($posStreetAddress); ?>,
+        <?php endif; ?>
+        <?php echo $block->escapeHtml($abstractEntity->getPostcode()); ?>
+    </address>
+<?php endif; ?>

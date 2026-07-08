@@ -1,0 +1,71 @@
+.multiselect {
+  width: 100%;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.selectBox input {
+  width: 100%;
+  // font-weight: bold;
+}
+
+.selectBox {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.selectBox::before{
+  position: absolute;
+  content: " \f107";
+  top: 20px;
+  right: -8px;
+  height: 20px;
+  width: 20px;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 600;
+  color: gray;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#checkboxes1 {
+  display: none;
+  border: 1px #dadada solid;
+  padding: 0 5px; 
+}
+
+#checkboxes1 label {
+  display: block;
+}
+
+#checkboxes1 label:hover {
+  background-color: #f2f2f2;
+}
+
+#checkboxes2 {
+  display: none;
+  border: 1px #dadada solid;
+  padding: 0 5px; 
+}
+
+#checkboxes2 label {
+  display: block;
+}
+
+#checkboxes2 label:hover {
+  background-color: #f2f2f2;
+}

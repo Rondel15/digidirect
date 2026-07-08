@@ -1,0 +1,25 @@
+<div class="opc-block-summary" data-bind="blockLoader: isLoading">
+    <!-- ko if: ($parent.isShippingStep) -->
+        <span data-bind="i18n: 'Order Summary'" class="title"></span>
+    <!-- /ko -->
+    <!-- ko ifnot: ($parent.isShippingStep) -->
+        <span data-bind="i18n: 'Review'" class="title"></span>
+    <!-- /ko -->
+    <!-- ko foreach: elems() -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    <!-- /ko -->
+</div>
+
+<!--<div class="mobile-checkout" id="mobileCheckout">-->
+<!--    <div class="opc-block-summary" data-bind="blockLoader: isLoading">-->
+<!--        &lt;!&ndash; ko if: ($parent.isShippingStep) &ndash;&gt;-->
+<!--        <span data-bind="i18n: 'Summary'" class="title"></span>-->
+<!--        &lt;!&ndash; /ko &ndash;&gt;-->
+<!--        &lt;!&ndash; ko ifnot: ($parent.isShippingStep) &ndash;&gt;-->
+<!--        <span data-bind="i18n: 'Review'" class="title"></span>-->
+<!--        &lt;!&ndash; /ko &ndash;&gt;-->
+<!--        &lt;!&ndash; ko foreach: elems() &ndash;&gt;-->
+<!--        &lt;!&ndash; ko template: getTemplate() &ndash;&gt;&lt;!&ndash; /ko &ndash;&gt;-->
+<!--        &lt;!&ndash; /ko &ndash;&gt;-->
+<!--    </div>-->
+<!--</div>-->

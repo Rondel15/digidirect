@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $block \Digidirect\FreeGift\Block\Product\View
+ */
+$rulesDescriptions = $block->getProductRuleDescription();
+?>
+<?php if (!empty($rulesDescriptions) && is_array($rulesDescriptions)): ?>
+    <?php foreach ($rulesDescriptions as $descriptionLabel): ?>
+        <?php
+            $label = $descriptionLabel['label'] ?? null;
+            $description = $descriptionLabel['description'] ?? null;
+        ?>
+
+        <div class="freegift-note">
+            <b class="label"><?php echo $block->escapeHtml($label); ?></b>
+            <?php echo $block->escapeHtml($description); ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+

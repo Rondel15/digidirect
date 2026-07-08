@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation_block">
+            <arguments>
+                <argument name="block_title" translate="true" xsi:type="string">Wishlist</argument>
+                <argument name="icon_id" xsi:type="string">account-wishlist</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Wishlist</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="columns.top">
+            <container name="wishlist.header.container" htmlTag="div" htmlClass="wishlist-header" after="customer_account_navigation_block">
+                <container name="customer.wishlist.links" as="control_links" htmlTag="div" htmlClass="actions-toolbar" label="Wishlist Control Links">
+                    <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.link.share" template="Magento_Wishlist::link/share.phtml" cacheable="false"/>
+                    <block class="Magento\Wishlist\Block\Customer\Wishlist\Button" name="customer.wishlist.link.toCart" template="Magento_Wishlist::link/tocart.phtml" cacheable="false"/>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="customer.wishlist.item.options" remove="true"/>
+
+        <move element="page.main.title" destination="wishlist.header.container" before="-"/>
+    </body>
+</page>

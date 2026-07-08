@@ -1,0 +1,14 @@
+{
+    "name": "digidirect/feed",
+    "type": "magento2-module",
+    "description": "Shopping Feeds",
+    "version": "1.2.0.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Digidirect\\Feed\\": ""
+        }
+    }
+}

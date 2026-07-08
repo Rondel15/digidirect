@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Store/etc/config.xsd">
+    <default>
+        <digidirect_storelocator_config>
+            <list_settings>
+                <metric>1</metric>
+                <default_radius>25</default_radius>
+                <radius_options>10,15,20,25,30,50,75,100</radius_options>
+                <stores_on_locator_page>10</stores_on_locator_page>
+                <max_stores_to_show>100</max_stores_to_show>
+                <detail_click_action>redirect</detail_click_action>
+                <group_search_results_by_parent_entity>1</group_search_results_by_parent_entity>
+                <countries_xml_path>default_country</countries_xml_path>
+            </list_settings>
+            <search_settigns>
+                <ignore_search_term>0</ignore_search_term>
+            </search_settigns>
+            <general>
+                <api>google</api>
+                <ask_to_use_geolocation_on_first_visit>1</ask_to_use_geolocation_on_first_visit>
+                <search_results_display_mode>DEFAULT</search_results_display_mode>
+            </general>
+            <dev>
+                <guess_state>0</guess_state>
+                <guess_country>0</guess_country>
+                <guess_postcode>0</guess_postcode>
+            </dev>
+        </digidirect_storelocator_config>
+    </default>
+</config>

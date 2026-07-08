@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\MyStoreWidget\Helper\Config">
+        <plugin name="Digidirect_MyStoreWidgetCollect::digidirectMyStoreWidgetHelperConfig" type="Digidirect\MyStoreWidgetCollect\Plugin\MyStoreWidget\Helper\Config" />
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="digidirect_mystorewidgetcollect_checkout_default_config_provider" type="Digidirect\MyStoreWidgetCollect\Plugin\Checkout\ConfigProvider" sortOrder="100"/>
+    </type>
+</config>

@@ -1,0 +1,13 @@
+<?php
+use \Digidirect\ExtendedCatalogPriceRule\Api\Data\RuleDisplayMessageInterface;
+
+/** @var \Digidirect\ExtendedCatalogPriceRule\Block\Pdp\DisplayMessage $block */
+?>
+<?php $rules = $block->getDisplayMessageRules(); ?>
+<?php if ($rules) : ?>
+    <?php foreach ($rules as $rule) : ?>
+        <?php if (!empty($rule[RuleDisplayMessageInterface::PDP_DESCRIPTION])) : ?>
+            <div class="price-description"><?= /* @noEscape */ $block->prepareDescription($rule[RuleDisplayMessageInterface::PDP_DESCRIPTION]); ?></div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php endif; ?>

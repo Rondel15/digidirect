@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\Locator\Block\Locator" name="digidirect.locator">
+                <arguments>
+                    <argument name="entities" xsi:type="array">
+                        <item name="store" xsi:type="array">
+                            <item name="attributes" xsi:type="array">
+                                <item name="name" xsi:type="string">name</item>
+                                <item name="status" xsi:type="string">status</item>
+                                <item name="visible_on_frontend" xsi:type="string">visible_on_frontend</item>
+                                <item name="url_key" xsi:type="string">url_key</item>
+                                <item name="image" xsi:type="string">image</item>
+                                <item name="street" xsi:type="string">street</item>
+                                <item name="city" xsi:type="string">city</item>
+                                <item name="country" xsi:type="string">country</item>
+                                <item name="state" xsi:type="string">state</item>
+                                <item name="postcode" xsi:type="string">postcode</item>
+                                <item name="longitude" xsi:type="string">longitude</item>
+                                <item name="latitude" xsi:type="string">latitude</item>
+                                <item name="featured" xsi:type="string">featured</item>
+                                <item name="priority" xsi:type="string">priority</item>
+                            </item>
+                            <item name="attribute_set" xsi:type="string">Store</item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

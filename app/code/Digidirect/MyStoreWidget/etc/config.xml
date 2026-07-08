@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_mystorewidget>
+            <general>
+                <enable_my_account>1</enable_my_account>
+                <enable_header>1</enable_header>
+                <search_attributes>name</search_attributes>
+                <search_type>0</search_type>
+                <search_min_length>3</search_min_length>
+            </general>
+            <geo_location>
+                <enable>0</enable>
+                <behavior>keep</behavior>
+                <disable_autocomplite_mobile_divice>0</disable_autocomplite_mobile_divice>
+            </geo_location>
+        </digidirect_mystorewidget>
+    </default>
+</config>

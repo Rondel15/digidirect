@@ -1,0 +1,20 @@
+<?php
+/**
+ * @var $helper \Digidirect\FreeGift\Helper\Config
+ */
+$helper = $this->helper('Digidirect\FreeGift\Helper\Config');
+?>
+<div class="freegift-items-add no-display"
+     data-mage-init='{"Digidirect_FreeGift/js/cart":{}}'
+     data-auto-open="<?php echo $block->escapeHtml($helper->isOpenAutomatically() ? 'true' : 'false'); ?>"
+     data-display-once="<?php echo $block->escapeHtml($helper->isDisplayPopupOnce() ? 'true' : 'false'); ?>"
+>
+    <?php if ($helper->getMessage()): ?>
+        <?php /* @escapeNotVerified */ echo $helper->getMessage(); ?>
+    <?php else: ?>
+        <?php echo $block->escapeHtml('Select your '); ?>
+        <a href="#" data-role="freegift-popup-show">
+            <?php echo $block->escapeHtml('FREE GIFT!'); ?>
+        </a>
+    <?php endif; ?>
+</div>

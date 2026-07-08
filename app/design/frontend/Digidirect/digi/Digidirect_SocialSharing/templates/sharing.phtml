@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var \Digidirect\SocialSharing\Block\Sharing
+ */
+?>
+<?php
+    $socialHtml = $this->getChildHtml();
+?>
+<?php if ($socialHtml): ?>
+    <div class="social-sharing">
+        <span class="label"><?= /* @escapeNotVerified */  __('Share:') ?></span>
+        <ul class="social-links">
+            <?php /* @escapeNotVerified */ echo $socialHtml; ?>
+        </ul>
+    </div>    
+<?php endif; ?>

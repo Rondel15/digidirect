@@ -1,0 +1,62 @@
+{
+    "salesrule_coupon": {
+        "column": {
+            "np_expiration_date": true
+        }
+    },
+    "newsletter_subscriber": {
+        "column": {
+            "subscriber_firstname": true,
+            "subscriber_middlename": true,
+            "subscriber_lastname": true,
+            "subscriber_suffix": true,
+            "subscriber_dob": true,
+            "subscriber_gender": true,
+            "subscriber_taxvat": true,
+            "subscriber_prefix": true,
+            "subscriber_telephone": true,
+            "subscriber_fax": true,
+            "subscriber_company": true,
+            "subscriber_street": true,
+            "subscriber_city": true,
+            "subscriber_country_id": true,
+            "subscriber_region": true,
+            "subscriber_postcode": true
+        }
+    },
+    "plumrocket_newsletterpopup_history_action": {
+        "column": {
+            "id": true,
+            "text": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "PLUMROCKET_NEWSLETTERPOPUP_HISTORY_ACTION_TEXT": true
+        }
+    },
+    "plumrocket_newsletterpopup_history": {
+        "column": {
+            "entity_id": true,
+            "popup_id": true,
+            "customer_id": true,
+            "customer_group": true,
+            "customer_ip": true,
+            "customer_email": true,
+            "coupon_code": true,
+            "landing_page": true,
+            "store_id": true,
+            "action": true,
+            "action_id": true,
+            "date_created": true,
+            "increment_id": true,
+            "order_id": true,
+            "grand_total": true
+        },
+        "index": {
+            "PLUMROCKET_NEWSLETTERPOPUP_HISTORY_POPUP_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    }
+}

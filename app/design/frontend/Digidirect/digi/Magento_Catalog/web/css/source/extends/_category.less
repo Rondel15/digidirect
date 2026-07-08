@@ -1,0 +1,66 @@
+//
+//  Category
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@catalog-category__is-enabled: true; // Enable/disable styles
+//
+////  Image
+//@catalog-category-image__margin: 0 0 @indent__base;
+//@catalog-category-image-image__display: block;
+//@catalog-category-image-image__height: auto;
+//
+////  Description
+@catalog-category-description__margin: 0;
+//
+////  Category Page: 1 Column Layout
+//@catalog-category-page-layout-1column-column-main__min-height: inherit;
+
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .eaa-attribute_option-index .products .product-item-info,
+    .catalogsearch-result-index .products .product-item-info,
+    .catalog-category-view .products .product-item-info {
+        
+        .old-price-wrapper,
+        .current-price-wrapper{
+            position: relative;
+        }
+        
+        .price-final_price {
+            & {
+                position: relative;
+            }
+
+            .old-price-label {
+                position: absolute;
+                top: -10px;
+                left: 0;
+                font-size: 11px;
+                text-transform: uppercase;
+                font-weight: bold;
+            }
+
+            .svg-icon.digidirectprice {
+                position: absolute;
+                right: 0;
+                top: -7px;
+                width: 80px;
+                height: 10px;
+                margin-bottom: -5px;
+            }
+            
+        }
+    }
+    
+    .block-extendedrule.-cashback:not(.-special-price)~.price-box {
+        display: -webkit-flex !important;
+    }
+}

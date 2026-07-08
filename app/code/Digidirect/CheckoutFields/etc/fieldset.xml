@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:DataObject/etc/fieldset.xsd">
+    <scope id="global">
+        <fieldset id="custom_order_checkout_fields">
+            <field name="entity_id">
+                <aspect name="from_order" targetField="order_id" />
+            </field>
+            <field name="code">
+                <aspect name="from_quote" targetField="code" />
+            </field>
+            <field name="value">
+                <aspect name="from_quote" targetField="value" />
+            </field>
+            <field name="field_id">
+                <aspect name="from_quote" targetField="field_id" />
+            </field>
+        </fieldset>
+        <fieldset id="custom_quote_checkout_fields">
+            <field name="entity_id">
+                <aspect name="to_quote" targetField="quote_id" />
+            </field>
+        </fieldset>
+    </scope>
+</config>

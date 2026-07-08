@@ -1,0 +1,82 @@
+<?php
+/**
+ * @var \Digidirect\Vii\Block\Form $block
+ * @see \Digidirect\Vii\Block\Form
+ */
+$total = $block->getTotals();
+$grandTotal = !empty($total['grand_total']) ? (int)$total['grand_total']->getValue() : 0;
+$cards = $block->getQuoteCards();
+?>
+<div class="abstract-giftcardcart cart-gift-card">
+    <?php if (count($cards)) : ?>
+        <div class="cards-list">
+            <?php foreach ($cards as $card): ?>
+                <div class="fieldset remove">
+                    <div class="field giftcard-number">
+                        <label class="label" for="vii-giftcard-code-<?php echo $block->escapeHtml($card['c']); ?>">
+                            <?php echo $block->escapeHtml(__('Gift Card Number')); ?>
+                        </label>
+                        <div class="control giftcard-number">
+                            <input class="input-text giftcard-number" type="text" readonly id="vii-giftcard-code-<?php echo $block->escapeHtml($card['c']); ?>" value="<?php echo $block->escapeHtml($card['c']); ?>">
+                        </div>
+                    </div>
+                    <div class="field giftcard-pin">
+                        <label class="label" for="vii-giftcard-pin-<?php echo $block->escapeHtml($card['c']); ?>">
+                            <?php echo $block->escapeHtml(__('Gift Card PIN')); ?>
+                        </label>
+                        <div class="control giftcard-pin">
+                            <input class="input-text giftcard-pin" type="password" readonly value="<?php echo $block->escapeHtml('****'); ?>" id="vii-giftcard-pin-<?php echo $block->escapeHtml($card['c']); ?>">
+                        </div>
+                    </div>
+                    <div class="actions-toolbar">
+                        <a class="action add primary remove-gift-card" data-mage-init='{ "Digidirect_Vii/js/remove-giftcard": {
+                        "cardNumber": "<?php echo $block->escapeHtml($card['c']); ?>"} }'
+                           href="#" title="<?php echo $block->escapeHtml(__('Remove')); ?>">
+                            <?php echo $block->escapeHtml(__('Remove')); ?>
+                        </a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($grandTotal > 0) : ?>
+        <form class="form giftcard add" id="vii-giftcard-form"
+              action="<?php echo $block->escapeUrl($block->getUrl('abstract_giftcard/cart/add')); ?>" method="post"
+              data-mage-init='{"validation": {},"abstractGiftCard": {
+                "serviceSelector": "#vii-giftcard-service-code",
+                "codeSelector": "#vii-giftcard-code",
+                "pinSelector": "#vii-giftcard-pin",
+                "checkStatus": "#vii-check",
+                "statusUrl": "<?php echo $block->escapeHtml($block->getUrl('abstract_giftcard/cart/quickCheck', ['_secure' => true])); ?>",
+                "statusId": "#vii-giftcard-balance-lookup"
+              }}'>
+            <div class="fieldset add">
+                <input type="hidden" id="vii-giftcard-service-code" name="giftcard_service[service_code]" value="vii"/>
+                <div class="field giftcard-number">
+                    <label class="label" for="vii-giftcard-code">
+                        <span><?php echo $block->escapeHtml(__('Gift Card Number')); ?></span>
+                    </label>
+                    <div class="control giftcard-number">
+                        <input class="input-text giftcard-number" type="text" id="vii-giftcard-code" name="giftcard_service[code]" data-validate="{'required-entry':true}" value="" placeholder="<?php echo $block->escapeHtml(__('Enter the gift card code'));?>" />
+                    </div>
+                </div>
+                <div class="field giftcard-pin">
+                    <label class="label" for="vii-giftcard-pin">
+                        <span><?php echo $block->escapeHtml(__('Gift Card PIN')); ?></span>
+                    </label>
+                    <div class="control giftcard-pin">
+                        <input class="input-text  giftcard-pin" type="password" id="vii-giftcard-pin" name="giftcard_service[pin]" data-validate="{'required-entry':true}" value="" placeholder="<?php echo $block->escapeHtml(__('Pin'));?>" />
+                    </div>
+                </div>
+                <div class="actions-toolbar">
+                    <div class="primary">
+                        <button class="action add primary" type="submit" title="<?php echo $block->escapeHtml(__('Add Gift Card')); ?>">
+                            <span><?php echo $block->escapeHtml(__('Apply')); ?></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    <?php endif; ?>
+</div>

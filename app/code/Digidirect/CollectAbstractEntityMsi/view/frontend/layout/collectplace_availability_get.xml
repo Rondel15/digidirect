@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <container name="root">
+        <block class="Digidirect\CollectAbstractEntityMsi\Block\Product\View\Availability"
+               name="product.store.availability" template="Digidirect_CollectAbstractEntityMsi::product/view/availability.phtml">
+            <arguments>
+                <argument name="skip_wrapper" xsi:type="boolean">true</argument>
+            </arguments>
+        </block>
+    </container>
+</layout>

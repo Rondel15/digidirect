@@ -1,0 +1,72 @@
+//
+//  Share buttons
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-post-share__margin: 0 0 10px;
+@blog-post-share__padding: false;
+@blog-post-share-item__float: false;
+@blog-post-share-item__display: false;
+@blog-post-share-item__width: false;
+@blog-post-share-item__height: false;
+@blog-post-share-item__margin: 0 0 5px 5px;
+@blog-post-share-item__border: false;
+@blog-post-share-item__padding: 0 5px;
+@blog-post-share-item__overflow: false;
+@blog-post-share-item__text-decoration: false;
+@blog-post-share-item__color: @color-white;
+@blog-post-share-item__background-color: @color-black;
+
+@blog-post-share-item-twitter__background-color: #55acee;
+@blog-post-share-item-googleplus__background-color: #dd4b39;
+@blog-post-share-item-facebook__background-color: #3b5998;
+@blog-post-share-item-stumbleupon__background-color: #eb4823;
+@blog-post-share-item-reddit__background-color: #ff5700;
+@blog-post-share-item-linkedin__background-color: #4875b4;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .post-share {
+        & {
+            .lib-css(margin, @blog-post-share__margin);
+            .lib-css(padding, @blog-post-share__padding);
+        }
+        > .item {
+            .lib-css(float, @blog-post-share-item__float);
+            .lib-css(display, @blog-post-share-item__display);
+            .lib-css(width, @blog-post-share-item__width);
+            .lib-css(height, @blog-post-share-item__height);
+            .lib-css(margin, @blog-post-share-item__margin);
+            .lib-css(padding, @blog-post-share-item__padding);
+            .lib-css(border, @blog-post-share-item__border);
+            .lib-css(overflow, @blog-post-share-item__overflow);
+            .lib-css(text-decoration, @blog-post-share-item__text-decoration);
+            .lib-css(color, @blog-post-share-item__color);
+            .lib-css(background-color, @blog-post-share-item__background-color);
+        }
+        > .twitter {
+            .lib-css(background-color, @blog-post-share-item-twitter__background-color);
+        }
+        > .google-plus {
+            .lib-css(background-color, @blog-post-share-item-googleplus__background-color);
+        }
+        > .facebook {
+            .lib-css(background-color, @blog-post-share-item-facebook__background-color);
+        }
+        > .stumbleupon {
+            .lib-css(background-color, @blog-post-share-item-stumbleupon__background-color);
+        }
+        > .reddit {
+            .lib-css(background-color, @blog-post-share-item-reddit__background-color);
+        }
+        > .linkedin {
+            .lib-css(background-color, @blog-post-share-item-linkedin__background-color);
+        }
+    }
+}

@@ -1,0 +1,37 @@
+<?php
+/** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */
+$productId = $block->getProduct()->getId();
+$jsonConfig = $block->getJsonConfig();
+$helper = $this->helper('Digidirect\ProductOverlay\Helper\Data');
+$products = $helper->getApplicableSimples($block->getProduct());
+?>
+<div class="swatch-opt-<?= /* @escapeNotVerified */ $productId ?>" data-role="swatch-option-<?= /* @escapeNotVerified */ $productId ?>"></div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=swatch-option-<?= /* @escapeNotVerified */ $productId ?>]": {
+            "Magento_Swatches/js/swatch-renderer": {
+                "selectorProduct": ".product-item-details",
+                "onlySwatches": true,
+                "enableControlLabel": false,
+                "applicableSimple": <?= /* @escapeNotVerified */ $products ? $products : '{}' ; ?>,
+                "productConteiner": ".product-item-info",
+                "listingPage": true,
+                "numberToShow": <?= /* @escapeNotVerified */ $block->getNumberSwatchesPerProduct(); ?>,
+                "jsonConfig": <?= /* @escapeNotVerified */ $jsonConfig; ?>,
+                "jsonSwatchConfig": <?= /* @escapeNotVerified */ $block->getJsonSwatchConfig(); ?>,
+                "mediaCallback": "<?= /* @escapeNotVerified */ $block->getMediaCallback() ?>"
+            }
+        }
+    }
+</script>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=priceBox][data-price-box=product-id-<?= /* @escapeNotVerified */ $productId ?>]": {
+            "priceBox": {
+                "priceConfig": <?= /* @escapeNotVerified */ $jsonConfig; ?>
+            }
+        }
+    }
+</script>

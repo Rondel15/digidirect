@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:Digidirect:module:Digidirect_OrderManagement:etc/checkout_fields.xsd">
+    <field id="delivery_number">
+        <!--  expected id="delivery_number" for order-field.js -->
+        <frontend_name>Delivery Number</frontend_name>
+        <frontend_input>text</frontend_input>
+        <sort_order>65</sort_order>
+        <validation>
+            <rule name="validate-number">1</rule>
+            <rule name="validate-digits">1</rule>
+        </validation>
+        <area>
+            <checkout_step>shipping-step</checkout_step>
+            <custom_scope>shippingAddress</custom_scope>
+            <fieldset>shipping-address-fieldset</fieldset>
+            <fieldset_customer_logged>address-list-additional-addresses</fieldset_customer_logged>
+        </area>
+        <class>delivery-number</class>
+    </field>
+    <field id="delivery_notes">
+        <frontend_name>Delivery Notes</frontend_name>
+        <frontend_input>textarea</frontend_input>
+        <sort_order>65</sort_order>
+        <validation>
+            <rule name="max_text_length">50</rule>
+        </validation>
+        <area>
+            <checkout_step>shipping-step</checkout_step>
+            <custom_scope>shippingAddress</custom_scope>
+            <fieldset>before-shipping-method-form</fieldset>
+        </area>
+        <class>delivery-notes</class>
+    </field>
+    <field id="order_comment">
+        <frontend_name>Add Comment</frontend_name>
+        <frontend_input>textarea</frontend_input>
+        <sort_order>65</sort_order>
+        <validation>
+            <rule name="max_text_length">50</rule>
+        </validation>
+        <area>
+            <checkout_step>billing-step</checkout_step>
+            <custom_scope>payment</custom_scope>
+            <fieldset>afterMethods</fieldset>
+        </area>
+        <class>order-comment</class>
+    </field>
+
+</config>

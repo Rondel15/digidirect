@@ -1,0 +1,10 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post\Comments $block
+ */
+?>
+<?php if($block->isCommentsEnabled()): ?>
+    <div class="blog-comments">
+        <?php /* @escapeNotVerified*/ echo  $block->getCommentsHtml(); ?>
+    </div>
+<?php endif; ?>

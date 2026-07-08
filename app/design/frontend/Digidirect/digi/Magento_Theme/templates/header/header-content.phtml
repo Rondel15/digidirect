@@ -1,0 +1,76 @@
+<span id="header-toggle-nav" data-action="toggle-nav" class="action nav-toggle"><svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-menu"></use></svg></span>
+<div class="logo-wrapper">
+    <a class="c-logo" href="/">
+        <img src="<?php echo $block->getUrl("media/wysiwyg/")?>logo.svg"/>
+    </a>
+</div>
+
+<style type="text/css">
+    
+    .sticky {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 99;
+        border-bottom: 1px solid #e6e6e6;
+        max-width: 1440px;
+        margin-left: -9999px;
+        margin-right: -9990px;
+        padding-left: 9999px;
+        padding-right: 9999px;
+    }
+    
+    .sticky + .page-main {
+        padding-top: 102px;
+    }
+    
+    .navigation > .ninjamenus.ninjamenus-desktop {
+        padding-left: 35px !important;
+    }
+    
+    .ninjamenus-top-triggered-sticky {
+        position: static !important;
+        width: auto;
+        padding-top: 15px;
+        padding-right: 15px;
+        box-sizing: content-box;
+    }
+
+    .ninjamenus-top-triggered-sticky:before{
+        display: none !important;
+    }
+
+    .ninjamenus-top-triggered-sticky > .svg-icon {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .ninjamenus-scrolltofixed {
+        top: 90px !important;
+        z-index: 98 !important;
+    }
+    
+</style>
+
+<script>
+    
+    require(['jquery', 'owl_carousel'],
+        function ($) {
+            $(".mobile-menu-main-exit").click(function(){
+                $("html").removeClass("nav-before-open nav-open");
+            });
+            /*$(window).scroll(function() {
+                if ($(window).scrollTop() + $(window).height() > $(document).height() - 400) {
+                    console.log($(window).scrollTop() + ", " + $(window).height() + ", " + $(document).height());
+                    console.log("Near Bottom!");
+                    $("#side-banner-ads").hide();
+                } else {
+                    $("#side-banner-ads").show();
+                }
+            });*/
+          
+        }
+    );
+    
+</script>
+

@@ -1,0 +1,109 @@
+//
+//  Messages
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+@message__is-enabled: true; // Enable/disable styles
+
+
+& when (@media-common = true) {
+    & when (@message__is-enabled = true) {
+        .message {
+            &.info,
+            &.error,
+            &.warning,
+            &.notice,
+            &.success {
+                > *:first-child::before {
+                    .lib-css(transform, translateY(-50%));
+                }
+            }
+        }
+        
+        .messages {
+            > .message:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+    
+    /*.messages .message {
+        z-index: -1 !important;
+    }*/
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    & when (@message__is-enabled = true) {
+        .message {
+            &.info,
+            &.error,
+            &.warning,
+            &.notice,
+            &.success {
+                & {
+                    display: flex;
+                    justify-content: center;
+                    padding: 16px 14px;
+                    font-size: 15px;
+                    line-height: 18px;
+                    text-align: center;
+                }
+
+                > *:first-child {
+                    position: relative;
+                    display: inline-block;
+                    padding: 0 40px;
+
+                    &::before {
+                        position: absolute;
+                        left: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    & when (@message__is-enabled = true) {
+        .message {
+            &.info,
+            &.error,
+            &.warning,
+            &.notice,
+            &.success {
+                & {
+                    display: flex;
+                    justify-content: center;
+                    padding: 16px 14px;
+                    font-size: 15px;
+                    line-height: 18px;
+                    text-align: center;
+                }
+
+                > *:first-child {
+                    position: relative;
+                    display: inline-block;
+                    padding: 0 40px;
+
+                    &::before {
+                        position: absolute;
+                        left: 0;
+                        top: 23px;
+                    }
+                }
+            }
+        }
+    }
+}

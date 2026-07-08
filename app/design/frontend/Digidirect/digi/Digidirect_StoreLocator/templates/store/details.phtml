@@ -1,0 +1,98 @@
+<?php
+/** @var $block Digidirect\StoreLocator\Block\ListStore\DetailPage */
+$abstractEntity = $block->getCurrentAbstractEntity();
+$exclusiveIcon = $block->getExclusiveIcon();
+?>
+
+<div class="locator-details">
+    <?php if ($abstractEntity->getFeatured() && $exclusiveIcon): ?>
+        <img class="exclusive" src="<?php echo $block->escapeUrl($block->getExclusiveIcon()); ?>" alt="">
+    <?php endif; ?>
+    <div class="name">
+        <?php echo $block->escapeUrl($abstractEntity->getName()); ?>
+        <span class="pin">
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+            </svg>
+        </span>
+    </div>
+
+    <?php if ($abstractEntity): ?>
+        <div class="item -address">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-building"></use>
+                </svg>
+            </span>
+            <?php if ($posStreetAddress = $abstractEntity->getStreet()): ?>
+                <?php echo $block->escapeHtml($posStreetAddress); ?>,
+            <?php endif; ?>
+            <?php if ($posCity = $abstractEntity->getCity()): ?>
+                <?php echo $block->escapeHtml($posCity); ?>
+            <?php endif; ?>
+            <?php if ($posState = $abstractEntity->getState()): ?>
+                <?php echo $block->escapeHtml($posState); ?>
+            <?php endif; ?>
+            <?php echo $block->escapeHtml($abstractEntity->getPostcode()); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($hours = $abstractEntity->getOpeningHours()): ?>
+        <div class="item -hours">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-clock"></use>
+                </svg>
+            </span>
+            <div class="hours-table">
+                <div class="label"><?php /* @escapeNotVerified */ echo __('Opening Hours')?></div>
+                <?php /* @escapeNotVerified */ echo $hours; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($phone = $abstractEntity->getPhoneNumber()): ?>
+        <div class="item -phone">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-phone"></use>
+                </svg>
+            </span>
+            <?php echo $block->escapeHtml($phone); ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($fax = $abstractEntity->getFax()): ?>
+        <div class="item -fax">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-fax"></use>
+                </svg>
+            </span>
+            <?php echo $block->escapeHtml($fax); ?>
+        </div>
+    <?php endif; ?>
+    <?php if ($mail = $abstractEntity->getEmail()): ?>
+        <div class="item -fax">
+            <span class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-mail"></use>
+                </svg>
+            </span>
+            <a class="email" href="mailto:<?php echo $block->escapeHtml($mail); ?>" title="<?php /* @escapeNotVerified */ echo __('Email')?>"><?php echo $block->escapeHtml($mail); ?></a>
+        </div>
+    <?php endif; ?>
+            
+    <div class="stores-gallery">
+        <?php if ($abstractEntity->getImage()): ?>
+        <div class="thumb">
+            <img class="image" src="<?php echo $block->escapeUrl($block->getImageHelper()->init($abstractEntity, 'image')->resize($block->getImageWidth(), $block->getImageHeight())->getUrl()); ?>" alt="<?php echo $block->escapeHtml($abstractEntity->getName()); ?>">
+        </div>
+        <?php endif; ?>
+        <?php if ($abstractEntity->getAdditionalImage()): ?>
+        <div class="thumb">
+            <img class="image" src="<?php echo $block->escapeUrl($block->getImageHelper()->init($abstractEntity, 'additional_image')->resize($block->getImageWidth(), $block->getImageHeight())->getUrl()); ?>" alt="<?php echo $block->escapeHtml($abstractEntity->getName()); ?>">
+        </div>
+        <?php endif; ?>
+    </div>
+</div>

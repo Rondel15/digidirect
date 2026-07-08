@@ -1,0 +1,388 @@
+<!--digi-seconds modal-->
+<div class="digi-seconds-modal" style="width: 1095px;margin-right: 0;margin-left: auto;">
+    <div id="collaborateForm" style="display: none;">
+
+            <form id="digiCollaborateForm" class="form-horizontal" method="post" enctype="multipart/form-data" action="<?php echo $this->getUrl("collaborateform/index/index")?>">
+                <div class="collabform_step1 collabform_displayblock">
+                    <h2 style="color: #ff6600; font-weight: 500;">Collaboration Program </h2>
+                    <p>We want to collaborate with you and help tell our story online. <br><br><br>
+                    Please enter your email address below and attach your creative brief below and our team will review your application. This opportunity is only available to the Australian demographic. <br><br><br>
+                    Please note due to the overwhelming amount of applications our team will only be in touch via email if there is a partnership opportunity. <br><br><br></p>
+
+                    <div class="collabform_step1_email">
+                        <input id="collab_email" type="text" placeholder="Email Address">
+                        <button type="button" id="collabform_nextpage_btn" class="collabform_step1_btn">Register</button>
+                    </div>
+                </div>
+                        
+                <div class="formContentBgWhite collabform_step2 collabform_displaynone">
+
+                    <h2 style="color: #ff6600; font-weight: 500;">Collaboration Program </h2>
+                    <p> We kindly request you to complete the registration form below, which will help us gain a deeper <br> 
+                    understanding of you as a creator. We encourage you to provide a concise description of yourself <br>
+                    and include a comprehensive brief outlining the opportunity you can offer. <br>
+                    Your input will assist us in evaluating your potential.<br><br><br></p>
+
+                    <div class="collabform_summary">
+                        <div class="nogrid">
+                            <input name="email" type="text" id="collab_email_copy" placeholder="Enter Email Address">
+                        </div>
+
+                        <div class="grid-column">
+                            <input name="firstname" type="text" placeholder="First Name">
+                            <input name="lastname" type="text" placeholder="Last Name">
+                        </div>
+
+                        <div class="notes nogrid">
+                            <textarea  name="notes" placeholder="Tell us about your idea"></textarea>
+                        </div>
+
+                        <div class="nogrid"  style="margin-top: 10px !important;">
+                            <input name="socialmedia_link" type="text" placeholder="Link your social media account">
+                        </div>
+                    </div>
+
+                    <br>
+                </div>
+                    
+                <?=$block->getChildHtml('form.additional.info') ?>
+
+                <div class="digiCollaborateForm primary collabform_displaynone">
+                    <center>
+                        <input type="hidden" name="hideit" id="hideit" value="" />
+                        <button type="submit" id="add" title="" class="action submit primary">
+                            <span><?= $block->escapeHtml(__('SUBMIT')) ?></span>
+                        </button>
+                    </center>
+                    
+                </div>
+
+            </form>
+    </div>
+    
+</div>
+
+<script>
+
+require(['jquery'],function($){
+    $(document).ready(function(){
+        $("#collabform_nextpage_btn").click(function() {
+            $(".collabform_step1").addClass('collabform_displaynone').removeClass('collabform_displayblock');
+            $(".collabform_step2, .digiCollaborateForm").addClass('collabform_displayblock').removeClass('collabform_displaynone');
+            // alert("btn click");
+        });
+
+    });
+
+
+    $("#collab_email").keyup(function () {
+        var value = $(this).val();
+        $("#collab_email_copy").val(value);
+    }).keyup();
+  
+}); 
+
+</script>
+
+<script>
+    
+//    digi-seconds modal form
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal'
+        ],
+        function(
+            $,
+            modal
+        ) {
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: '',
+                buttons: [{
+                    text: $.mage.__('Close'),
+                    class: '',
+                    click: function () {
+                        this.closeModal();
+                    }
+                }],
+                opened: function($Event) {
+                    
+                    // $(".modal-footer").hide();
+                    $(".modal-header").css("background-color","transparent");
+                    $(".modal-footer").hide();
+                    // $(".modal-header button.action-close:before").css("color","#cacaca");
+                    // $(".modal-inner-wrap").css("width","50% !important");
+
+                    var handleMatchMedia = function(md) {
+                        if (md.matches) {
+                            // alert("matched");
+                            $('.modal-popup._show .modal-inner-wrap').attr('style', 'width: 80% !important; top: 50px;');
+                            
+                        } else {
+                            // alert("not matched");
+                            $('.modal-popup._show .modal-inner-wrap').attr('style', 'width: 50% !important;');
+                        }
+                    }
+
+                    var mq = window.matchMedia("(max-width: 768px)");
+
+                    // call function
+                    handleMatchMedia(mq);
+
+                    //call addListener function  
+                    mq.addListener(handleMatchMedia);
+
+                }
+            };  
+
+            var popup = modal(options, $('#collaborateForm'));
+            $("#digisecondsForm_trigger1,#digisecondsForm_trigger2").on('click',function(){ 
+                $("#collaborateForm").modal("openModal");
+            });
+            // $( "#digisecondsForm_trigger" ).prepend( "<b>Hello </b>" );
+            
+            window.setTimeout(function () {
+                $("#collaborateForm").attr('style', 'display: block;');
+            }, 3000);
+
+        }
+    );
+</script>
+
+<script>
+require(['jquery'],function($){
+    $(document).ready(function(){
+        $("#add").click(function(){
+        var customurl = "<?php echo $this->getUrl("collaborateform/index/index") ?>";
+        $.ajax({
+            url: customurl,
+            type: "POST",
+            data: $(this).closest('form').serialize(),
+            dataType: "json",
+            success: function(result){
+                console.log(result);
+            }
+        });
+        $('#digiCollaborateForm')[0].reset(); 
+        return false;
+        });
+    });
+
+}); 
+</script>
+
+
+
+<style>
+    .collabform_step1 {
+        text-align: center;
+        margin-bottom: 100px;
+    }
+
+    .collabform_step1_email {
+        display: flex;
+        margin: 0 200px;
+    }
+
+    .collabform_step1_btn {
+        color: #ffff;
+        background: #ff6600 !important;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .collabform_step1_btn:hover {
+        color: #ffff;
+        background: #ff6600 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        opacity: 0.8;
+    }
+
+    .collabform_step1 p {
+        margin: 0 200px;
+    }
+
+    .collabform_step2 .collabform_summary {
+        margin: 0 200px;
+    }
+
+    .collabform_step2 {
+        text-align: center;
+    }
+    
+
+    .collabform_displaynone {
+        display: none;
+    }
+
+    .collabform_displayblock {
+        display: block;
+    }
+
+    .modal-inner-wrap {
+        background-image: url(/media/wysiwyg/info-page/collaborate-form_bg.png) !important;
+        background-position: center bottom;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    #digiCollaborateForm, #digiSecondFormTitle {
+        margin: 15px;
+    }
+    
+    .digisecond-trigger-sec {
+        display: flex;
+    }
+    
+    .digiseconds-eclipse {
+       margin: 5px 0px 0px 5px;
+       flex: 50%;
+    }
+    
+    .digiseconds-text {
+        flex: 50%;
+        text-align: center;
+        margin: 5px;
+    }
+
+    #digiSecondFormTitle {
+        margin: 35px;
+    }
+    
+    #digiSecondFormTitle h2 {
+        color: black;
+        font-weight: 500;	
+    }
+    
+    #digiSecondFormTitle p {
+        color: #727272;
+        font-weight: 400;
+    }
+
+    #digiCollaborateForm .grid-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 20px;
+        margin: 15px 15px;
+    }
+
+    #digiCollaborateForm .nogrid {
+        margin: 0 15px;
+    }
+    
+    #digiCollaborateForm input {
+        height: 45px;
+        border: 1px solid #e1e1e1;
+        font-size: 15px;
+        outline: none !important;
+        margin-right: 10px;
+    }
+
+    #digiCollaborateForm input:focus, #digiCollaborateForm textarea:focus {
+        outline: none !important;
+        box-shadow: none !important;
+    }
+
+    #digiCollaborateForm input::placeholder, #digiCollaborateForm textarea::placeholder {
+        color: #727272;
+    }
+
+    #digiCollaborateForm input:-ms-input-placeholder, #digiCollaborateForm textarea:-ms-input-placeholder {
+        color: #727272;
+    }
+
+    #digiCollaborateForm input::-ms-input-placeholder , #digiCollaborateForm textarea::-ms-input-placeholder {
+        color: #727272;
+    }
+
+    #digiCollaborateForm textarea {
+        height: 100px;
+        width: 100% !important;
+        font-size: 15px;
+        outline: none;
+        border: 1px solid #cacaca;
+    }
+    
+    #digiCollaborateForm .sell-text {
+        margin-top: 35px;
+        margin-left: 15px;
+        font-weight: 600;
+
+    }
+
+    #digiCollaborateForm .notes {
+        color: #727272;
+        /* margin-top: 35px;
+        margin-left: 15px;
+        margin-bottom: 15px; */
+    }
+
+    .digiCollaborateForm .action.primary {
+        background: #ff6600 !important;
+    }
+
+    .formContentBgGrey {
+        background: lightgrey;
+    }
+
+    .formContentBgWhite {
+        /* background: white; */
+        /* padding: 25px 15px; */
+        /* margin: 25px; */
+    }
+
+    .digiSecondFormBtn input {
+        background: #ff6600;
+        border: none !important;
+        /* margin: 0 25px; */
+        color: white;
+        width: 100px;
+        height: 150px;
+        margin-top: 25px;
+    }
+
+    .action.submit.primary:hover {
+        background: #ff6600;
+        opacity: 0.8;
+    }
+
+    @media only screen and (max-width: 780px) {
+        #digiCollaborateForm .grid-column {
+            display: block !important;
+        }
+
+        #digiCollaborateForm .grid-column input[name="firstname"] {
+            margin-bottom: 15px;
+        }
+
+        #digiCollaborateForm, #digiSecondFormTitle {
+            margin: 0px;
+        }
+
+        .collabform_step1 p {
+            margin: 0 10px;
+        }
+
+        .collabform_step1_email {
+            margin: 0 10px;
+        }
+
+        .collabform_step2 .collabform_summary {
+            margin: 0 10px;
+        }
+
+        .collabform_step1_email {
+            display: block;
+        }
+
+        .collabform_step1_btn {
+            margin-top: 10px
+        }
+        
+    }
+</style>

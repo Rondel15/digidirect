@@ -1,0 +1,40 @@
+<?php
+// @codingStandardsIgnoreFile
+?>
+<?php
+/**
+ * Product list toolbar sorter
+ *
+ * @var $block Digidirect\InfiniteScroll\Block\Product\ProductList\Toolbar
+ */
+use Digidirect\InfiniteScroll\Block\Product\ProductList\Toolbar;
+?>
+<div class="toolbar-sorter sorter">
+    <label class="sorter-label" for="sorter"><?= /* @escapeNotVerified */ __('Sort By ') ?></label>
+    <select data-mage-init='{"customSelectInit": {}}' id="sorter" data-role="sorter" class="sorter-options">
+        <?php foreach ($block->getAvailableOrders() as $_key => $_order): ?>
+            <?php if ($_order == 'Position'): //Label hardcoded in vendor/magento/module-catalog/Model/Config.php ?>
+                <?php $_order = 'Bestsellers'; //according #287685 ?>
+            <?php endif; ?>
+            <option value="<?= /* @escapeNotVerified */ $_key ?>"
+                <?php if ($block->isOrderCurrent($_key)): ?>
+                    selected="selected"
+                <?php endif; ?>
+            >
+                <?= $block->escapeHtml(__($_order)) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+        <a title="<?= /* @escapeNotVerified */ __('Descending Direction') ?>"
+           href="#"
+           class="action sorter-action sort-desc <?php if ($block->getCurrentDirection() == 'desc'): ?>-active<?php else: ?>-passive<?php endif; ?>"
+           data-role="direction-switcher"
+           data-value="<?php if ($block->getCurrentDirection() == 'desc'): ?>asc<?php else: ?>desc<?php endif; ?>">
+        </a>
+        <a title="<?= /* @escapeNotVerified */ __('Ascending Direction') ?>"
+           href="#"
+           class="action sorter-action sort-asc <?php if ($block->getCurrentDirection() == 'asc'): ?>-active<?php else: ?>-passive<?php endif; ?>"
+           data-role="direction-switcher"
+           data-value="<?php if ($block->getCurrentDirection() == 'asc'): ?>desc<?php else: ?>asc<?php endif; ?>">
+        </a>
+</div>

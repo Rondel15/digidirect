@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+<!--        <link src="Magento_Theme::js/footer.js"/>-->
+        <link src="Magento_Theme::js/custom-footer.js"/>
+        <link src="Digidirect_HelloBar::js/hello-bar.js"/>
+    </head>
+    <update handle="checkout_cart_sidebar_item_renderers"/>
+    <update handle="checkout_cart_sidebar_item_price_renderers"/>
+    <update handle="checkout_cart_sidebar_total_renderers"/>
+    <body>
+        <referenceContainer name="after.body.start">
+            <block class="Magento\Framework\View\Element\Template"
+                   name="facets.collapsible"
+                   template="Magento_Theme::js/facets-collapsible.phtml"/>
+        </referenceContainer>
+        <referenceContainer name="header.container">
+            <container name="header.panel.wrapper" htmlClass="panel wrapper" htmlTag="div" before="-">
+                <container name="header.panel" label="Page Header Panel" htmlTag="div" htmlClass="panel header">
+                    <block class="Magento\Framework\View\Element\Template" name="glow.up.top.bar" template="Magento_Theme::glow-up-top-bar.phtml"/>
+                    <block class="Magento\Framework\View\Element\Template" name="mobile-navigation-header" template="Magento_Theme::html/mobile-navigation-header.phtml"/>
+                </container>
+                <container name="header.panel.hellobar" htmlClass="hellobar wrapper" htmlTag="div" before="navigation.menu">
+                    <block class="Magento\Cms\Block\Block" name="hellobar.slider" >
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">hello-bar</argument>
+                        </arguments>
+                    </block>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+            <block name="custom_minicart" as="custom_minicart" template="Magento_Theme::custompopupcart.phtml">
+                <arguments>
+                    <argument name="jsLayout" xsi:type="array">
+                        <item name="types" xsi:type="array"/>
+                        <item name="components" xsi:type="array">
+                            <item name="minicart_content" xsi:type="array">
+                                <item name="component" xsi:type="string">Magento_Checkout/js/view/minicart</item>
+                                <item name="config" xsi:type="array">
+                                    <item name="template" xsi:type="string">Magento_Checkout/minicart/content</item>
+                                </item>
+                                <item name="children" xsi:type="array">
+                                    <item name="subtotal.container" xsi:type="array">
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="displayArea" xsi:type="string">subtotalContainer</item>
+                                        </item>
+                                        <item name="children" xsi:type="array">
+                                            <item name="subtotal" xsi:type="array">
+                                                <item name="component" xsi:type="string">uiComponent</item>
+                                                <item name="config" xsi:type="array">
+                                                    <item name="template" xsi:type="string">Magento_Checkout/minicart/subtotal</item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                    <item name="extra_info" xsi:type="array">
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="displayArea" xsi:type="string">extraInfo</item>
+                                        </item>
+                                    </item>
+                                    <item name="promotion" xsi:type="array">
+                                        <item name="component" xsi:type="string">uiComponent</item>
+                                        <item name="config" xsi:type="array">
+                                            <item name="displayArea" xsi:type="string">promotion</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="logo">
+            <arguments>
+                <argument name="logo_file" xsi:type="string">images/digi-logo.svg</argument>
+                <argument name="logo_height" xsi:type="string">49</argument>
+                <argument name="logo_width" xsi:type="string">210</argument>
+            </arguments>
+        </referenceBlock>
+
+        <move element="minicart" destination="header-wrapper" after="top.search"/>
+        <referenceBlock name="catalog.topnav" remove="true" />
+
+        <referenceContainer name="header.container">
+            <block class="Magento\Framework\View\Element\Template" name="megamenu" template="Magento_Theme::megamenu.phtml"/>
+        </referenceContainer>
+
+        <referenceContainer name="page.bottom">
+            <block class="Magento\Newsletter\Block\Subscribe" name="global.newsletter" template="subscribe.phtml" before="footer"/>
+        </referenceContainer>
+
+        <referenceBlock name="footer_links" remove="true"/>
+        <referenceBlock name="form.subscribe" remove="true" />
+        <referenceBlock name="report.bugs" remove="true" />
+        <referenceContainer name="footer">
+            <container name="footer-links-wrapper" htmlTag="div" htmlClass="footer-content-block" after="footer_links">
+                <block class="Magento\Framework\View\Element\Template" name="footer-links" template="Magento_Theme::footer/footer-links.phtml"/>
+            </container>
+            <block class="Magento\Theme\Block\Html\Footer" name="copyright" template="Magento_Theme::footer/footer-copyright.phtml" />
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+            <block class="Magento\Framework\View\Element\Template" name="footer-black-gradient" template="Magento_Theme::footer/footer-black-gradient.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

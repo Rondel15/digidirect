@@ -1,0 +1,76 @@
+<div data-mage-init='{"reposition":{}}'></div>
+<?php
+    $product = $block->getProduct();
+    $productType = $product->getTypeId();
+    $rules = $block->getDisplayMessageRules();
+?>
+<?php if ($rules) : ?>
+    <?php foreach ($rules as $rule): ?>
+        <?php
+        $id = 'rule-' . $rule['rule_id'] . '-' . $product->getId();
+        $priceClass = (!empty($rule['action_amount'])) ? '-cashback' : '';
+        $productPrice = (float)$product->getPrice();
+        $productFinalPrice = (float)$product->getFinalPrice();
+        $hasSpecialPrice = false;
+        if ($productPrice > $productFinalPrice) {
+            $hasSpecialPrice = true;
+            $priceClass .= ' -special-price';
+        } elseif ($productPrice == $productFinalPrice && $rule['action_amount'] == 0 ) {
+            $priceClass .= ' -no-price-affection';
+        }
+        ?>
+            <div class="block-extendedrule <?= /* @noEscape */ $priceClass?>" id="<?= /* @noEscape */ $id ?>" data-mage-init='{"cashbackLabel":{}}'>
+                <?php if(!empty($rule['action_amount']) && $rule['action_amount'] > 0): ?>
+                    <?php
+                    $fromLabel = __('Before Cashback');
+                    $fromClass = 'before-cashback';
+                    $fromPrice = $hasSpecialPrice ? $productFinalPrice : $productPrice;
+                    $afterLabel = __('Cashback available');
+                    $afterClass = 'after-cashback';
+                    $afterPrice = 0;
+                    switch ($productType) {
+                        case Magento\Catalog\Model\Product\Type::TYPE_BUNDLE:
+                            $fromLabel = __('From');
+                            $fromPrice = $product->getMinimalPrice();
+                            $fromClass = 'price-from';
+                            $afterLabel = __('Cashback available');
+                            $afterPrice = false;
+                            $afterClass = 'price-to';
+                            break;
+                        case Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE:
+                            $fromLabel = __('Starting at');
+                            $fromPrice = $product->getMinimalPrice();
+                            $fromClass = 'price-from';
+                            $afterLabel = __('Cashback available');
+                            $afterPrice = false;
+                            $afterClass = 'price-to';
+                            break;
+                        default:
+                            $afterPrice = $fromPrice - $rule['action_amount'];
+                    }
+                    ?>
+                    <div class="price-box">
+                        <div class="price-container">
+                            <span class="<?= /* @escapeNotVerified */ $fromClass; ?>">
+                                <?php if ($fromLabel): ?>
+                                    <span class="price-label"><?= /* @noEscape */  $fromLabel; ?></span>
+                                <?php endif; ?>
+                                <?php if (is_numeric($fromPrice)): ?>
+                                    <span class="price-wrapper"><span class="price"><?= /* @noEscape */ $block->formatDiscountAmount($fromPrice); ?></span></span>
+                                <?php endif; ?>
+                            </span>
+                            <span class="<?= /* @escapeNotVerified */ $afterClass; ?>">
+                                <?php if ($afterLabel): ?>
+
+                                <?php endif; ?>
+                                <?php if (is_numeric($afterPrice)): ?>
+                                    <span class="price-label price-label-pf"><?= /* @escapeNotVerified */ $block->formatDiscountAmount($rule['action_amount']).  __(' Cashback after PURCHASE'); ?></span><span class="price"><?= /* @noEscape */  $block->formatDiscountAmount($afterPrice); ?></span>
+
+                                <?php endif; ?>
+                            </span>
+                        </div>
+                    </div>
+                <?php endif; ?>
+            </div>
+    <?php endforeach; ?>
+<?php endif; ?>

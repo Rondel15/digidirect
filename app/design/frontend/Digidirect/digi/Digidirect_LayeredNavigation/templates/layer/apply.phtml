@@ -1,0 +1,20 @@
+<?php
+/** @var \Digidirect\LayeredNavigation\Helper\FilterRemember $remember */
+$remember = $this->helper('Digidirect\LayeredNavigation\Helper\FilterRemember');
+$isRemember = $remember->isFilterRememberEnabled() && !$remember->isFiltersApplied();
+$applyMobileOnly = $block->showApplyButtonOnMobileOnly();
+?>
+<?php if ($isRemember): ?>
+    <div class="block filter" data-role="filter-remember"></div>
+<?php endif; ?>
+<?php if ($block->canShowBlock()): ?>
+<div class="call-to-action-wrapper">
+    <button id="ln-apply" class="primary button -size-l ln-apply<?php if ($isRemember): ?> -hide<?php endif; ?><?php if
+    ($applyMobileOnly): ?> -mobile-only<?php endif; ?> -color-type-3" title="<?php echo
+    $block->escapeHtml(__('Show Results')); ?>"
+            data-mage-init='{"sticky":{"container": "#catalogSidebar", "isFixed": true}}'
+    >
+        <?php echo $block->escapeHtml(__('Show Results')); ?>
+    </button>
+</div>
+<?php endif; ?>

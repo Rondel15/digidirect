@@ -1,0 +1,153 @@
+<?php
+/** @var \Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList $block */
+$itemsList = $block->getItems();
+$itemsListCount = count($itemsList);
+$requestParams = $block->collectFilterParams();
+?>
+<?= $block->getCategoryFilterHtml() ?>
+<div class="items-block-container">
+    <?php if ($itemsListCount > 0): ?>
+        <div class="items-block my-shelf full">
+            <?php foreach ($itemsList as $salesItem): ?>
+                <?php $requestParams['item_id'] = $salesItem->getItemId(); ?>
+                <div class="item<?php if (!$salesItem->getStateStatus()) echo ' -disabled' ?>"
+                     data-item-id="<?= (int)$salesItem->getItemId(); ?>" data-role="draggable-item">
+                    <?php if ($block->getChildBlock('my_order_items_moving_item')): ?>
+                        <?= $block->getChildHtml('my_order_items_moving_item'); ?>
+                    <?php endif; ?>
+                    <?php /** @var \Magento\Sales\Model\Order\Item $salesItem */ ?>
+                    <div class="actions-link">
+                        <?php if ($salesItem->getStateStatus()): ?>
+                            <a class="action"
+                               href="<?= $block->escapeUrl($block->getUrl('*/*/disable', $requestParams)) ?>"
+                               title="<?php echo $block->escapeHtml(__('Disable')) ?>"
+                               data-role="delete-item"></a>
+                        <?php else: ?>
+                            <a class="action"
+                               href="<?= $block->escapeUrl($block->getUrl('*/*/enable', $requestParams)) ?>"
+                               title="<?php echo $block->escapeHtml(__('Restore Card')) ?>"><?php echo $block->escapeHtml(__('Restore Card')) ?></a>
+                        <?php endif ?>
+                    </div>
+                    <div class="image"><img
+                                src="<?php echo $block->escapeUrl($block->getDataHelper()->getImageFilePath($salesItem,'shelf__order_items__products_list')) ?>"
+                                alt="<?php echo $block->escapeHtml($salesItem->getName()); ?>"></div>
+                    <?php if ($salesItem->getProduct() && $salesItem->getProduct()->isAvailable()): ?>
+                        <a class="name -visible"
+                           href="<?= $block->escapeUrl($block->getUrl($salesItem->getProduct()->getProductUrl())) ?>"
+                           title="<?php echo $block->escapeHtml($salesItem->getName()); ?>"><?php echo $block->escapeHtml($salesItem->getName()); ?></a>
+                    <?php else: ?>
+                        <span class="name pop-up-name pop-up-key"><?php echo $block->escapeHtml($salesItem->getName()); ?></span>
+                    <?php endif ?>
+                    <a class="details-link" href="<?= $block->escapeUrl($block->getUrl('*/*/*', $requestParams)) ?>"
+                       title="<?php echo $block->escapeHtml(__('View Info')) ?>"><?php echo $block->escapeHtml(__('View Info')) ?></a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="shelf-wrapper">
+            <div class="shuffl"></div>
+        </div>
+        <?= $block->getChildHtml('my_order_item_info') ?>
+        <?php if ($block->isPagerDisplayed()): ?>
+            <div data-block="order-items-pager-bottom" class="shelf order-products-toolbar toolbar bottom">
+                <?= $block->getPagerHtml() ?>
+            </div>
+        <?php endif ?>
+    <?php elseif ($itemsListCount === 0): ?>
+        <div class="items-block my-shelf no-purchase">
+            <div class="item">
+                <div class="block-content">
+                    <?php
+                    echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('my-shelf-purch-1')
+                        ->toHtml();
+                    ?>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon cart">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-cart"></use>
+                    </svg>
+                </div>
+                <div class="block-content">
+                    <?php
+                    echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('my-shelf-purch-2')
+                        ->toHtml();
+                    ?>
+                </div>
+            </div>
+            <div class="item">
+                <div class="item-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon finder">
+                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-finder"></use>
+                    </svg>
+                </div>
+                <div class="block-content">
+                    <?php
+                    echo $this->getLayout()
+                        ->createBlock('Magento\Cms\Block\Block')
+                        ->setBlockId('my-shelf-purch-3')
+                        ->toHtml();
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="shelf-wrapper">
+            <div class="shuffl"></div>
+        </div>
+        <div data-block="order-items-pager-bottom" class="shelf order-products-toolbar toolbar bottom">
+            <?= $block->getPagerHtml() ?>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="modal-init init-tutorial-modal-1 shelf-popup">
+    <div class="content">
+        <span class="msg"><?= /* @escapeNotVerified */
+            __('We are sorry. The product is no longer available. You can browse for other products.'); ?></span>
+        <button type="button" class="button" title="<?php echo __('Continue Shopping') ?>"
+                onclick="window.location='<?php echo $this->getUrl() ?>'">
+            <span><span><?php echo __('Continue Shopping') ?></span></span>
+        </button>
+    </div>
+</div>
+<script>
+    require(
+        [
+            'jquery',
+            'Magento_Ui/js/modal/modal',
+            'mage/translate'
+        ],
+        function ($, modal, $t) {
+
+            /**
+             *  Options Pop-up Init
+             */
+
+            var options = {
+                type: 'popup',
+                responsive: true,
+                innerScroll: true,
+                title: false,
+                autoOpen: false,
+                modalClass: 'pop-up-key-modal',
+                buttons: []
+            };
+
+            /**
+             *  Init modal Tutorial Pop-up
+             */
+
+            var initModal = $('.init-tutorial-modal-1'),
+            initModalKey = $('.pop-up-key');
+            var popup = modal(options, initModal);
+
+            initModalKey.click(function () {
+                popup.element.modal('openModal');
+            });
+        }
+    );
+</script>

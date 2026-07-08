@@ -1,0 +1,39 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\ListStore\SearchBox $block */
+$locatorName = $block->getData('locatorName');
+$default = $block->getDefaultRadius();
+$items = $block->getRadiusOptions();
+$metric = $block->getMetric();
+$isGeoLocation = $block->isAskToUseGeolocationOnFirstVisit();
+?>
+
+<div class="locator-search">
+    <form action="<?php echo $block->escapeUrl($block->getSearchUrl()); ?>" class="form" data-locator="<?php /* @escapeNotVerified */ echo $locatorName ?>" data-mage-init='{"validation": {}}'>
+        <button type="button" data-role="my-geolocation" class="button locator-mylocation" title="<?php /* @escapeNotVerified */ echo __('My Location')?>">
+            <span><?php /* @escapeNotVerified */ echo __('My Location')?></span>
+        </button>
+        <div class="input-group">
+            <div class="control">
+                <input type="text"
+                       name="<?php echo $block->escapeHtmlAttr(\Digidirect\StoreLocator\Model\Store\Processor::SEARCH_TERM_PARAM) ?>"
+                       class="input-text input-search"
+                       data-validate="{required:true, minlength:<?php echo $block->escapeHtmlAttr((int)$block->getSearchMinLength()) ?>}"
+                       placeholder="<?php echo $block->escapeHtmlAttr(__('Enter search word')) ?>"
+                       value=""
+                />
+            </div>
+            <div class="control">
+                <select name="radius" class="radius">
+                    <?php foreach ($items as $item):?>
+                        <option value="<?php echo (int)$item;?>" <?php if ($default == $item):?>selected="selected"<?php endif;?>>
+                            <?php /* @escapeNotVerified */ echo $item;?> <?php /* @escapeNotVerified */ echo $metric?>
+                        </option>
+                    <?php endforeach;?>
+                </select>
+            </div>
+            <button type="submit" id="btn-search" class="button action primary" title="<?php /* @escapeNotVerified */ echo __('Search')?>">
+                <span><?php /* @escapeNotVerified */ echo __('Search')?></span>
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,178 @@
+
+* #digimarketseler_form {
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+}
+
+#digimarketseler_form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    // background: #333;
+
+    .container {
+        width: 70%;
+        background: #fff;
+        // text-align: center;
+        border-radius: 5px;
+        padding: 65px 35px 10px 35px;
+        color: #323232;
+        // margin-top: -55px;
+        border: 1px solid #aaa;
+        // padding: 50px 35px;
+        margin-top: 35px !important;
+    }
+
+    header {
+        font-size: 28px;
+        font-weight: 600;
+        margin: 0 0 80px 0;
+        color: #ff6600;
+        text-align: center;
+    }
+}
+
+#digimarketseler_form input, #digimarketseler_form textarea {
+    margin: 15px 0px;
+    color: #323232;
+    border: 1px solid #b6b6b6;
+    font-family: 'Poppins',sans-serif;
+}
+
+#digimarketseler_form .inline-row {
+    display: block;
+
+    .row1 {
+        display: inline-block;
+        width: 49.9%;
+    }
+
+    .row1:first-child {
+        padding-right: 5px;
+    }
+
+    .row1:nth-child(2) {
+        padding-left: 5px;
+    }
+
+}
+
+#digimarketseler_form input[type=file] {
+    display:none;
+}
+
+.uploadfile {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    color: #cccccc;
+    border: 1px solid #b6b6b6;
+    margin: 15px 0;
+}
+
+.drop-zone--over {
+    border-style: solid;
+}
+
+.drop-zone__input {
+    display: none;
+}
+
+.drop-zone__prompt1 {
+    color: #ff6600;
+    margin-right: 5px;
+}
+
+.drop-zone__prompt2 {
+    color: #737373;
+}
+  
+.drop-zone__thumb {
+    width: 50%;
+    height: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: transparent;
+    background-size: cover;
+    position: relative;
+    background-image: unset !important;
+}
+  
+.drop-zone__thumb::after {
+    content: attr(data-label);
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px 0;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    text-align: center;
+}
+
+
+#digimarketseler_form input[type=submit] {
+    background: #ff6600;
+    border-radius: 25px;
+    border-radius: 25px;
+    padding: 10px 28px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.successmessage {
+    background: #e5efe5;
+    color: #006400;
+    padding: 15px 14px;
+    margin-top: 25px !important;
+}
+
+
+@media screen and (max-width: 668px) {
+   
+    #digimarketseler_form {
+        width: 100%;
+        // width: 400px;
+        display: block;
+
+        .container {
+            margin-top: unset;
+            padding: 15px;
+        }
+    }
+    
+
+}
+
+@media screen and (max-width: 490px) {
+    #digimarketseler_form {
+        width: 100%;
+        display: block;
+
+        .container {
+            box-sizing: border-box;
+            border-radius: 0;
+            padding: 15px;
+            width: 100%;
+        }
+    }
+
+    .container header {
+        font-size: 22px !important;
+        margin: 0 0 50px 0;
+    }
+
+
+}
+
+
+

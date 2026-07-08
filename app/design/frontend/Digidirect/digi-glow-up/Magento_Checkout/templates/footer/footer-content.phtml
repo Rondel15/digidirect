@@ -1,0 +1,30 @@
+<?php
+/** @var \Magento\Framework\View\Element\Template $block */
+?>
+<footer class="checkout-footer">
+    <div class="footer-line-checkout">
+        <div class="security-section">
+            <div class="security-left">
+                <p class="security-title">Security 100% Guaranteed</p>
+                <p class="security-subtext">Your order is safe & secure, guarded by state-of-the-art technology.</p>
+                <div class="security-logos">
+                    <img src="<?php echo $block->getViewFileUrl('images/checkout/trustmark-certified.svg'); ?>" alt="Trustmark Logo"/>
+                    <img src="<?php echo $block->getViewFileUrl('images/checkout/ssl.svg'); ?>" alt="SSL Logo"/>
+                </div>
+            </div>
+            <div class="security-right">
+                <p class="privacy-title">We Value Your Privacy</p>
+                <p class="privacy-text">
+                    digiDirect respects your privacy and we are committed to the protection of personal information. digiDirect is bound by and complies with the Australian Privacy Act and Australia's APPs. Read our <a href="#">Privacy Policy</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright-bar">
+        <div class="footer-copyright-text">
+            © digiDirect 2025. All Rights Reserved.
+            <a href="#">  Privacy Policy   </a>
+            <a href="#">Terms of Use</a>
+        </div>
+    </div>
+</footer>

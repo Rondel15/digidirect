@@ -1,0 +1,17 @@
+<div data-role="checkout-newsletters" class="checkout-newsletters" data-bind="visible: isVisible">
+    <!-- ko foreach: newsletters -->
+        <!-- ko if: !isSubscribed -->
+            <div class="checkout-newsletter">
+                <input type="checkbox"
+                       data-bind="attr: {
+                                    'id': 'newsletter_' + newsletterId + '_' + (method.item.method !==undefined ? method.item.method : ''),
+                                    'name': 'newsletter[' + newsletterId + ']',
+                                    'value': newsletterId
+                                    }" checked/>
+                <label data-bind="attr: {'for': 'newsletter_' + newsletterId + '_' + (method.item.method !==undefined ? method.item.method : '')}">
+                    <span data-bind="html: checkboxText"></span>
+                </label>
+            </div>
+        <!-- /ko -->
+    <!-- /ko -->
+</div>

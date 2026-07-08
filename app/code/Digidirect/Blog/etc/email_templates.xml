@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="digidirect_blog_comments_email_template" label="New Comment" file="post_comment.html" type="html"
+              module="Digidirect_Blog" area="frontend"/>
+</config>

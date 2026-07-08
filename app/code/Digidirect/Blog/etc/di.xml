@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\Blog\Api\Data\PostInterface" type="Digidirect\Blog\Model\Post" />
+    <preference for="Digidirect\Blog\Api\PostRepositoryInterface" type="Digidirect\Blog\Model\PostRepository" />
+    <preference for="Digidirect\Blog\Api\Data\CategoryInterface" type="Digidirect\Blog\Model\Category" />
+    <preference for="Digidirect\Blog\Api\CategoryRepositoryInterface" type="Digidirect\Blog\Model\CategoryRepository" />
+    <preference for="Digidirect\Blog\Api\Data\TagInterface" type="Digidirect\Blog\Model\Tag" />
+    <preference for="Digidirect\Blog\Api\Data\CommentInterface" type="Digidirect\Blog\Model\Comment" />
+    <preference for="Digidirect\Blog\Api\CommentRepositoryInterface" type="Digidirect\Blog\Model\CommentRepository" />
+    <preference for="Digidirect\Blog\Api\TagRepositoryInterface" type="Digidirect\Blog\Model\TagRepository" />
+    <virtualType name="Digidirect\Blog\Model\Config\Source\CommentType" type="Digidirect\Blog\Model\Config\AbstractSource">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">\Digidirect\Blog\Model\Config\Provider\CommentType</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Model\Config\Source\PageListType" type="Digidirect\Blog\Model\Config\AbstractSource">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">\Digidirect\Blog\Model\Config\Provider\PageListType</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Model\Config\Source\PageLayout" type="Digidirect\Blog\Model\Config\AbstractSource">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">\Digidirect\Blog\Model\Config\Provider\PageLayout</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Model\Config\Source\Sorting" type="Digidirect\Blog\Model\Config\AbstractSource">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">\Digidirect\Blog\Model\Config\Provider\SortingType</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="Digidirect\Blog\Model\Config\Source\Status" type="Digidirect\Blog\Model\Config\AbstractSource">
+        <arguments>
+            <argument name="providerList" xsi:type="array">
+                <item name="default" xsi:type="object">\Digidirect\Blog\Model\Config\Provider\Status</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="blog_post_grid_data_source" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Post\Grid\Collection</item>
+                <item name="blog_category_grid_data_source" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Category\Grid\Collection</item>
+                <item name="blog_comment_grid_data_source" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Comment\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Model\ResourceModel\Post\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_blog_post</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_blog_post_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">blog_post_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Post</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Model\ResourceModel\Category\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_blog_category</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_blog_category_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">blog_category_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Category</argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Model\ResourceModel\Comment\Grid\Collection">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">digidirect_blog_comment</argument>
+            <argument name="eventPrefix" xsi:type="string">digidirect_blog_comment_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">blog_comment_grid_collection</argument>
+            <argument name="resourceModel" xsi:type="string">Digidirect\Blog\Model\ResourceModel\Comment</argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Digidirect\Blog\Api\Data\PostInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">digidirect_blog_post</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Blog\Model\ImageProcessor">
+        <arguments>
+            <argument name="imageUploader" xsi:type="object">Digidirect\Blog\PostImageUpload</argument>
+        </arguments>
+    </type>
+    <virtualType name="Digidirect\Blog\PostImageUpload" type="Digidirect\Blog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">digidirect_blog/tmp/post</argument>
+            <argument name="basePath" xsi:type="string">digidirect_blog/post</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Digidirect\Blog\Model\Widget\Options\Template">
+        <arguments>
+            <argument name="options" xsi:type="array">
+                <item name="default" xsi:type="array">
+                    <item name="label" xsi:type="string">Default</item>
+                </item>
+                <item name="custom" xsi:type="array">
+                    <item name="label" xsi:type="string">Custom</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\Utilities\Model\Sitemap">
+        <plugin name="blogAddSiteMapItems" type="Digidirect\Blog\Plugin\Sitemap\Model\Sitemap"/>
+    </type>
+</config>

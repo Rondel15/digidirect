@@ -1,0 +1,208 @@
+<?php
+
+use Magento\Framework\App\Action\Action;
+
+    /**
+ * Template for displaying new products widget
+ *
+ * @var $block \Magento\Catalog\Block\Product\Widget\NewWidget
+ * @var $_productOverlayHelper \Digidirect\ProductOverlay\Helper\Data
+ * @var $_quickViewHelper \Digidirect\QuickView\Helper\Data
+ */
+if ($exist = ($block->getProductCollection() && $block->getProductCollection()->getSize())) {
+    $_quickViewHelper = $this->helper('Digidirect\QuickView\Helper\Data');
+
+    $type = 'widget-new-grid';
+
+    $mode = 'grid';
+
+    $image = 'new_products_content_widget_grid';
+    $title = __('New Arrivals');
+    $items = $block->getProductCollection()->getItems();
+
+    $showWishlist = true;
+    $showCompare = true;
+    $showCart = true;
+    $showReview = false;
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    $description = false;
+
+    $showQuickView = $_quickViewHelper->isModuleEnabled();
+    $quickViewUseForMobile = true;
+    $quickViewLabel = __('Quick View');
+}
+?>
+
+<?php if ($exist):?>
+    <div class="widget block-new-products products-widget -new-arrivals _full-width-background <?= /* @escapeNotVerified */ $mode ?>">
+        <span class="title" role="heading" aria-level="2"><?= /* @escapeNotVerified */ $title ?></span>
+        <div class="block-content">
+            <?= /* @escapeNotVerified */ '<!-- ' . $image . '-->' ?>
+            <div class="products-<?= /* @escapeNotVerified */ $mode ?> <?= /* @escapeNotVerified */ $mode ?>">
+                <div class="product-items <?= /* @escapeNotVerified */ $type ?>"
+                     data-mage-init='{
+                      "productTile": {
+                          <?php if($block->isRedirectToCartEnabled()): ?>
+                          "isRedirectToCartEnabled": true,
+                          <?php endif; ?>
+                          "type":"<?= /* @escapeNotVerified */ (count($items) > 2) ? 'slider' : 'default'; ?>"
+                      }
+                     }'>
+                    <?php foreach ($items as $_item): ?>
+                        <?php
+                            $productName = $_item->getName();
+                            $productUrl = $block->getProductUrl($_item);
+                            $finalProductPrice = $_item->getFinalPrice();
+                            $qff_bonus_points = 0;
+                            if ($_item->offsetExists("qff_bonus_points") && $_item->offsetExists("qff_base")) {
+                                $qff_bonus_points = $_item->getQffBonusPoints();
+                                $qff_base_points = $_item->getQffBase();
+                                $bonusPlusBase = $qff_bonus_points + $qff_base_points;
+
+                                $points = number_format($finalProductPrice * $bonusPlusBase);
+                            }else {
+                                if($_item->offsetExists("qff_base")){
+                                    $qff_base_points = $_item->getQffBase();
+                                    $points = number_format($finalProductPrice * $qff_base_points);
+                                } else {
+                                    $points = number_format($finalProductPrice * 2);
+                                }
+                            } 
+                            
+                            
+                            $finalQffPoints = $_item->getPoints();
+                        ?>
+                        <div class="product-item">
+                            <div class="product-item-info" data-parent-product-id="<?= $_item->getId(); ?>">
+                                <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item); ?>"
+                                   class="product photo product-item-photo"
+                                   title="<?= /* @escapeNotVerified */ $block->escapeHtml($productName); ?>">
+                                    <?= $block->getImage($_item, $image)->toHtml(); ?>
+                                </a>
+
+                                <strong class="product name product-item-name">
+                                    <a href="<?= /* @escapeNotVerified */ $block->getProductUrl($_item) ?>"
+                                       title="<?= /* @escapeNotVerified */ $block->escapeHtml($productName); ?>"
+                                       class="product-item-link">
+                                        <?= $block->escapeHtml($productName); ?>
+                                    </a>
+                                </strong>
+
+                                <div class="product details product-item-details">
+                                    <?php if ($showReview && $templateType): ?>
+                                        <?=  $block->getReviewsSummaryHtml($_item, $templateType); ?>
+                                    <?php endif; ?>
+                                    <?= $this->getLayout()
+                                        ->createBlock('Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule')
+                                        ->setTemplate('Digidirect_ExtendedCatalogPriceRule::product/view/list/display_message.phtml')
+                                        ->setProduct($_item)
+                                        ->toHtml();
+                                    ?>
+                                    <?= $block->getProductPriceHtml($_item, $type); ?>
+
+                                    <div class="product-item-inner">
+                                        <?php if ($showWishlist || $showCompare || $showCart): ?>
+                                            <div class="product actions product-item-actions">
+                                                <?php if ($showCart): ?>
+                                                    <div class="actions-primary">
+                                                        <?php if ($_item->isSaleable()): ?>
+                                                            <?php $addToCartUrl = $block->getAddToCartUrl($_item); ?>
+                                                            <form data-role="tocart-form"
+                                                                  data-product-sku="<?=  /* @escapeNotVerified */ $_item->getSku(); ?>"
+                                                                  data-mage-init='{"validation": {}}'
+                                                                  action="<?= $block->escapeUrl($addToCartUrl); ?>"
+                                                                  method="post">
+                                                                <input type="hidden" name="product"
+                                                                       value="<?= /* @escapeNotVerified */ (int)$_item->getEntityId(); ?>">
+                                                                <input type="hidden"
+                                                                       name="<?= /* @escapeNotVerified */ Action::PARAM_NAME_URL_ENCODED; ?>"
+                                                                       value="<?= /* @escapeNotVerified */ $this->helper('Magento\Framework\Url\Helper\Data')->getEncodedUrl($addToCartUrl); ?>">
+                                                                <?= $block->getBlockHtml('formkey')?>
+                                                                <?php if ($toCartFormBlock = $block->getChildBlock('tocart_form')): ?>
+                                                                    <?= /* @escapeNotVerified */ $toCartFormBlock->setProduct($_item)->getChildHtml(); ?>
+                                                                <?php endif; ?>
+                                                                <button class="action tocart"
+                                                                        type="submit" title="<?= /* @escapeNotVerified */ __('Add to Cart') ?>">
+                                                                    <span><?= /* @escapeNotVerified */ __('Add to Cart') ?></span>
+                                                                </button>
+                                                            </form>
+                                                        <?php else: ?>
+                                                        <?php if ($_item->getIsSalable()): ?>
+                                                            <div class="stock available"><span><?= /* @escapeNotVerified */ __('In stock') ?></span></div>
+                                                        <?php else: ?>
+                                                            <div class="stock unavailable"><span><?= /* @escapeNotVerified */ __('Out of stock') ?></span></div>
+                                                        <?php endif; ?>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <?php if ($showWishlist || $showCompare): ?>
+                                                    <div class="actions-secondary" data-role="add-to-links">
+                                                        <?php if ($this->helper('Magento\Wishlist\Helper\Data')->isAllow() && $showWishlist): ?>
+                                                            <a href="#"
+                                                               data-post='<?= /* @escapeNotVerified */ $block->getAddToWishlistParams($_item); ?>'
+                                                               class="action towishlist" data-action="add-to-wishlist"
+                                                               title="<?= /* @escapeNotVerified */ __('Add to Wish List') ?>">
+                                                               <i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                        <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+                                                            <?php $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');?>
+                                                            <a href="#"
+                                                               class="action tocompare"
+                                                               data-post='<?= /* @escapeNotVerified */ $compareHelper->getPostDataParams($_item); ?>'
+                                                               title="<?= /* @escapeNotVerified */ __('Add to Compare'); ?>">
+                                                                <span><?= /* @escapeNotVerified */ __('Add to Compare'); ?></span>
+                                                            </a>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                <?php endif; ?>
+                                                <?php if ($showQuickView): ?>
+                                                    <span role="button"
+                                                          data-role="quickview-button"
+                                                          data-url="<?= $block->escapeUrl($productUrl) . '?quickview=1'; ?>"
+                                                          class="quickview-button"
+                                                          title="<?= $block->escapeHtml($quickViewLabel); ?>">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+                                                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-quick"></use>
+                                                        </svg>
+                                                        <span class="title"><?= $block->escapeHtml($quickViewLabel); ?></span>
+                                                </span>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?= $this->getLayout()
+                                            ->createBlock('Magento\Cms\Block\Block')
+                                            ->setBlockId('product-tile-rent')
+                                            ->toHtml();
+                                        ?>
+                                    </div>
+                                </div>
+                                
+                                <div class="qantas-pts-wrapper">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-qantas"></use></svg>
+                                    <span>Earn <?= $points ?> Qantas Points</span>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach ?>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php if ($showQuickView): ?>
+        <div class="quickview-content" data-role="quickview-content">
+            <iframe class="quickview-iframe" src="" data-role="quickview-window" frameborder="0" name="quickview"></iframe>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                ".block-new-products": {
+                    "quickView": {
+                        "loaderIcon": "<?= $block->escapeUrl($this->helper('Digidirect\Utilities\Helper\Animation')->getImage()); ?>",
+                        "loaderText": "<?= $block->escapeHtml($this->helper('Digidirect\Utilities\Helper\Animation')->getText()); ?>",
+                        "isMobileEnabled": "<?= /* @escapeNotVerified */ $quickViewUseForMobile ? true : false ?>"
+                    }
+                }
+            }
+        </script>
+    <?php endif; ?>
+<?php endif;?>

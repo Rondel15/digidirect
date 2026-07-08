@@ -1,0 +1,17 @@
+{
+    "text_title": "15% Discount",
+    "text_description": "on your next purchase",
+    "text_success": "<div class=\"message-title\"><h2>ENJOY 15%OFF</h2><p>entire purchase</p></div><div class=\"coupon_wrp\"><div class=\"coupon-message\">Enter Coupon Code At Checkout:</div><div class=\"coupon-use\">{{coupon_code}}</div></div><div class=\"coupon-expiration\"><span>Hurry! This Offer Ends in 2 HOURS!</span></div>",
+    "text_submit": "Get My Discount",
+    "text_cancel": "Close",
+    "animation": "fadeInDownBig",
+    "signup_fields": {
+        "email": {
+            "name": "email",
+            "label": "Email",
+            "enable": "1",
+            "sort_order": "10",
+            "orig_label": "Email"
+        }
+    }
+}

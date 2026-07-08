@@ -1,0 +1,40 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\Wrapper $block */
+$isInPopup = $block->getOpenInPopup();
+?>
+<div class="store-locator" >
+
+    <div class="storebanners">
+        <img style="display: inline; margin: 0 0 0 10px; height: 140px" class="store-locatorbanner1" src="<?php echo $block->getUrl("media/wysiwyg/store-locator/")?>store-locatorbanner1.png" alt="store-locatorbanner1" width="33%"/>
+        <img style="display: inline; margin: 0 0 0 10px; height: 140px" class="store-locatorbanner2" src="<?php echo $block->getUrl("media/wysiwyg/store-locator/")?>store-locatorbanner2.png" alt="store-locatorbanner1" width="64%"/>
+    </div>
+
+    <?php echo $block->getChildHtml('storelocator.search'); ?>
+    <div class="grid-row" id="storelocatoranchor">
+
+        <div class="<?php echo /* @noEscape */ $isInPopup ? 'inpopup plist-section' : 'store-wrapper column -left list-section'; ?>">
+        <!-- <img src="https://mcstaging2.digidirect.com.au/media/wysiwyg/store-locatorbanner1.png" alt="store-locatorbanner1"> -->
+
+            <?php echo $block->getChildHtml('storelocator.list'); ?>
+        </div>
+
+
+        <?php if ($isInPopup): ?>
+            <?php echo $block->getChildHtml('storelocator.popup'); ?>
+        <?php else: ?>
+            <div class="google-map-wrapper column -main storemap">
+                <?php echo $block->getChildHtml('storelocator.map'); ?>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<script>
+    require(['jquery', 'anchortag'], function($, anchortag) {
+        $(document).ready(function() {
+            anchortag();
+        });
+
+    });
+</script>
+
+<?php echo $block->getChildHtml('storelocator.list.after'); ?>

@@ -1,0 +1,262 @@
+//
+//  Theme: Checkout-Offcanvas
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .checkout-index-index {
+        .offcanvas-content {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 308px;
+            height: 100%;
+            background: white;
+            z-index: 99999;
+            margin-right: -100%;
+            .lib-hover-out();
+            overflow-y: scroll;
+        }
+
+        .offcanvas-content > .title {
+            height: 57px;
+            .lib-css(background, @color-black);
+            display: flex;
+        }
+
+        .offcanvas-content.-bar-open .menu-close {
+            height: 24px;
+            width: 24px;
+            margin: auto 20px auto auto;
+            z-index: 999999999;
+            position: relative;
+            left: 0;
+            .lib-css(background-image, @base64-icon__close-white);
+        }
+
+        .left-block.-bar-open {
+            content: '';
+            background: rgba(0, 0, 0, .5);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            right: 308px;
+            margin-right: 0;
+            .lib-hover-out();
+            display: block;
+            z-index: 999;
+        }
+
+        .left-block {
+            content: '';
+            background: rgba(0, 0, 0, .5);
+            margin-right: -100%;
+            .lib-hover-out();
+            display: block;
+            right: 0;
+            position: fixed;
+            width: 100%;
+        }
+
+        .offcanvas-content > .title > .text {
+            margin: auto 0;
+            text-align: left;
+            padding-left: 21px;
+            .lib-css(color, @color-white);
+            .lib-font-size(18);
+            font-weight: 500;
+        }
+
+        .offcanvas-content > .main {
+            padding: 0 20px;
+        }
+
+        .offcanvas-content > .main > .items-in-cart {
+            padding: 16px 0;
+            .lib-css(color, @color-black);
+            .lib-font-size(16);
+            margin-bottom: 0;
+        }
+
+        .offcanvas-content > .main > .items-in-cart > .title {
+            border-bottom: none;
+            padding: 10px 30px 26px 0;
+            font-weight: bold;
+        }
+
+        .offcanvas-content > .main > .items-in-cart > .content.minicart-items {
+            margin: 0 -20px;
+            padding: 0 20px;
+            .lib-css(background, @color-3-10);
+            padding-bottom: 20px;
+        }
+
+        .offcanvas-content.-bar-open {
+            margin-right: 0;
+            .lib-hover-out();
+        }
+
+        .offcanvas-content > .main .data.table-totals {
+            padding: 0 20px;
+            margin: 0;
+        }
+
+        .offcanvas-content > .main .totals .mark,
+        .offcanvas-content > .main .totals .price {
+            font-weight: 500;
+            .lib-font-size(12);
+        }
+
+        .offcanvas-content .grand.totals > .amount > .price {
+            .lib-css(color, @color-2-2);
+            font-weight: 700;
+        }
+
+        .opc-block-summary > .title {
+            display: none;
+        }
+
+        .opc-block-summary .items-in-cart {
+            display: none;
+        }
+
+        .mobile-checkout {
+            display: none;
+        }
+
+        .offcanvas-content > .action {
+            padding: 0 20px 22px;
+        }
+
+        .offcanvas-content.-bar-open > .main > .mobile-checkout {
+            display: block;
+        }
+
+        .offcanvas-content > .action > .button {
+            width: 100%;
+            .lib-font-size(14);
+        }
+
+        .checkout-menu {
+            display: flex;
+            flex-direction: row;
+            .lib-css(background, @color-white);
+            padding: 16px 23px;
+            margin: 0 -20px;
+            align-items: center;
+            justify-content: space-between;
+            .lib-css(border-top, 1px solid @color-black);
+            .lib-css(border-bottom, 1px solid @color-black);
+        }
+
+        .checkout-menu > .order-sum > .title {
+            .lib-font-size(16);
+            font-weight: 700;
+        }
+
+        .checkout-menu > .order-sum > .value {
+            .lib-font-size(16);
+            font-weight: 700;
+            .lib-css(color, @color-2-2);
+            padding: 0 10px;
+        }
+
+        .checkout-menu .showcart .counter.qty {
+            position: absolute;
+            border-radius: 50%;
+            transition: all .3s ease-in-out;
+            display: flex;
+            margin: 0;
+            padding: 0 3px;
+            overflow: hidden;
+            vertical-align: middle;
+            line-height: 24px;
+            text-align: center;
+            white-space: normal;
+            color: #f5f5f5;
+            background: #e65300;
+        }
+
+        .checkout-menu .showcart .counter.qty .counter-number {
+            line-height: 21px;
+            margin: auto;
+        }
+
+        .checkout-container .data.table.table-totals {
+            display: none;
+        }
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .checkout-index-index{
+        .checkout-menu{
+            .action
+            {
+                .svg-icon{
+                    width: 30px;
+                    height: 30px;
+                }
+                
+                .counter.qty{
+                    font-size: 11px;
+                    height: 23px;
+                    top: -8px;
+                    right: -14px;
+                    width: 16px;
+                }
+            }
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .checkout-index-index {
+        .opc-block-summary > .title {
+            display: block;
+        }
+
+        .checkout-container .data.table.table-totals {
+            display: table;
+        }
+
+        .checkout-menu {
+            display: none;
+        }
+
+        .opc-block-summary .items-in-cart {
+            display: block;
+        }
+    }
+}
+
+
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    
+    .checkout-index-index {
+        .checkout-menu .showcart .counter.qty {
+            position: absolute;
+            top: -3px;
+            right: -4px;
+            min-width: 18px;
+            height: 18px;
+        }
+    }
+}

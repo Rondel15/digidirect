@@ -1,0 +1,153 @@
+//
+//  Checkout: Success Page
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .checkout-success {
+        & {
+            .lib-css(background, @color-white);
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        p::first-child{
+            font-size: 22px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        > .title {
+            .lib-font-size(20);
+            font-weight: 500;
+            width: 100%;
+            display: block;
+        }
+
+        > .header {
+            .lib-font-size(25);
+            font-weight: 600;
+            width: 100%;
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        > .contentcontainer {
+            max-width: 525px;
+            margin: 15px auto;
+            border-style: dashed;
+            border-color: #ff6600;
+            padding: 20px;
+        }
+        > .contentcontainer > .importantnote {
+            max-width: 505px;
+            .lib-font-size(16);
+            margin: 15px auto;
+            color: #ff6600;
+            font-weight: 700;
+        }
+        > .contentcontainer > .content {
+            max-width: 505px;
+            margin: 15px auto;
+            .lib-font-size(14);
+        }
+        > .contentcontainer > .secondcontent {
+            max-width: 505px;
+            margin: 15px auto;
+            .lib-font-size(14);
+            font-style: italic;
+            color: #f60;
+            font-weight: 700;
+        }
+
+        > .actions-toolbar {
+            display: flex;
+            width: 220px;
+            margin: auto;
+        }
+
+        > .actions-toolbar > .primary {
+            margin: auto;
+            width: 100%;
+        }
+
+        > .actions-toolbar > .primary > .action {
+            width: 100%;
+            padding: 13px 10px;
+            .lib-font-size(15);
+            margin: 0;
+        }
+
+        .order-number {
+            text-decoration: none;
+            color: #222;
+        }
+    }
+
+    .checkout-onepage-success .registration {
+        text-align: center;
+        .lib-css(background, @color-white);
+        padding-bottom: 40px;
+        margin-bottom: 40px;
+        margin-top: -20px;
+        .lib-font-size(20);
+        font-weight: 500;
+    }
+
+    .checkout-onepage-success .registration .reg-title {
+        margin: auto;
+        width: 95%;
+        .lib-css(border-top, 1px solid @color-3-2);
+        padding: 20px 10px 10px;
+    }
+
+    .checkout-onepage-success .registration .button {
+        width: 220px;
+        padding: 15px 0;
+        .lib-font-size(15);
+    }
+
+    .message.success {
+        //width: 100%;
+        text-align: center;
+        padding-left: 40px;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .checkout-success {
+        & {
+            padding: 60px 5px 30px 0;
+        }
+
+        > .header {
+            .lib-font-size(35);
+        }
+
+        > .-addition::before {
+            content: '|';
+            .lib-font-size(20);
+            margin: 0 20px;
+        }
+
+        > .title {
+            width: auto;
+            display: inline;
+        }
+    }
+
+    .checkout-onepage-success .registration .reg-title {
+        padding-top: 30px;
+        max-width: 420px;
+    }
+}
+

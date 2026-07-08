@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+
+    <route url="/V1/abstractentity/:id" method="GET">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/abstractentity/:id/attributes/:attributes" method="GET">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestInterface" method="getById"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
+
+    <route url="/V1/abstractentity/type/:attributeSetName" method="GET">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface" method="getList"/>
+        <resources>
+            <resource ref="Digidirect_AbstractEntity::abstractentity_view"/>
+        </resources>
+    </route>
+    <route url="/V1/abstractentity/type/:attributeSetName/:id" method="GET">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface" method="getById"/>
+        <resources>
+            <resource ref="Digidirect_AbstractEntity::abstractentity_view"/>
+        </resources>
+    </route>
+    <route url="/V1/abstractentity/type/:attributeSetName/:id" method="DELETE">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface" method="deleteById"/>
+        <resources>
+            <resource ref="Digidirect_AbstractEntity::abstractentity_delete"/>
+        </resources>
+    </route>
+    <route url="/V1/abstractentity/type/:attributeSetName" method="POST">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface" method="create"/>
+        <resources>
+            <resource ref="Digidirect_AbstractEntity::abstractentity_save"/>
+        </resources>
+    </route>
+    <route url="/V1/abstractentity/type/:attributeSetName/:id" method="PUT">
+        <service class="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface" method="update"/>
+        <resources>
+            <resource ref="Digidirect_AbstractEntity::abstractentity_save"/>
+        </resources>
+    </route>
+</routes>

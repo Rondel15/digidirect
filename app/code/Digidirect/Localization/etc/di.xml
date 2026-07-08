@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Locale\TranslatedLists">
+        <plugin name="Digidirect_Localization::TranslatedListsPlugin" type="Digidirect\Localization\Plugin\Framework\Locale\TranslatedLists" sortOrder="100"/>
+    </type>
+
+    <type name="Digidirect\Localization\Model\UnitsConverter">
+        <arguments>
+            <argument name="units" xsi:type="array">
+                <item name="km" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\Localization\Model\Convert\Kilometer</item>
+                    <item name="label" xsi:type="string" translate="true">Kilometers</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+
+</config>

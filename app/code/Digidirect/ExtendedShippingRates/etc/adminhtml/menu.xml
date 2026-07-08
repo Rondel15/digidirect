@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_ExtendedShippingRates::extendedshippingrates"
+             title="Extended Shipping Rates"
+             module="Digidirect_ExtendedShippingRates"
+             parent="Digidirect_Utilities::Digidirect"
+             sortOrder="10"
+             resource="Digidirect_ExtendedShippingRates::extendedshippingrates"/>
+        <add id="Digidirect_ExtendedShippingRates::extendedshippingrates_quote"
+             title="Shipping Rules &amp; Restrictions"
+             module="Digidirect_ExtendedShippingRates"
+             parent="Digidirect_ExtendedShippingRates::extendedshippingrates"
+             sortOrder="10"
+             action="digidirect_extendedshippingrates/extendedshippingrates_quote/"
+             dependsOnModule="Magento_Sales"
+             resource="Digidirect_ExtendedShippingRates::quote"
+        />
+        <add id="Digidirect_ExtendedShippingRates::extendedshippingrates_carrier"
+             title="Shipping Carriers"
+             module="Digidirect_ExtendedShippingRates"
+             parent="Digidirect_ExtendedShippingRates::extendedshippingrates"
+             sortOrder="15"
+             action="digidirect_extendedshippingrates/extendedshippingrates_carrier/"
+             dependsOnModule="Magento_Sales"
+             resource="Digidirect_ExtendedShippingRates::carrier"
+                />
+        <add id="Digidirect_ExtendedShippingRates::extendedshippingrates_method"
+             title="Shipping Methods"
+             module="Digidirect_ExtendedShippingRates"
+             parent="Digidirect_ExtendedShippingRates::extendedshippingrates"
+             sortOrder="20"
+             action="digidirect_extendedshippingrates/extendedshippingrates_method/"
+             dependsOnModule="Magento_Sales"
+             resource="Digidirect_ExtendedShippingRates::carrier"
+                />
+        <add id="Digidirect_ExtendedShippingRates::extendedshippingrates_zone"
+             title="Shipping Zones"
+             module="Digidirect_ExtendedShippingRates"
+             parent="Digidirect_ExtendedShippingRates::extendedshippingrates"
+             sortOrder="25"
+             action="digidirect_extendedshippingrates/extendedshippingrates_zone/"
+             dependsOnModule="Magento_Sales"
+             resource="Digidirect_ExtendedShippingRates::zone"
+                />
+    </menu>
+</config>

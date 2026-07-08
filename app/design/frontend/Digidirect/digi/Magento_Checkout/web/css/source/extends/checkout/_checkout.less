@@ -1,0 +1,408 @@
+//
+//  Extend: Checkout: Checkout
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@checkout__is-enabled: true; // Enable/disable style
+//
+//@checkout-nav-elements__display: none;
+
+//  Logo
+@checkout-logo__margin: false;
+
+//  Page Title
+@checkout-page-title-wrapper__use-visually-hidden: false;
+
+//  Container
+//@checkout-container__use-add-clearfix: true;
+@checkout-container__margin: 0 0 30px;
+
+//  Wrapper
+@checkout-wrapper__margin: 0 0 30px;
+@checkout-wrapper__float__m: false;
+@checkout-wrapper__width__m: false;
+@checkout-wrapper__padding-right__m: false;
+
+//  List of Steps
+//@checkout-wrapper-opc__use-reset-list: true;
+
+//@checkout-step-title__use-checkout-title: true;
+@checkout-step-content__margin: false;
+
+@checkout-step-title__padding-bottom__s-only: false;
+@checkout-step-title__border-bottom__s-only: false;
+@checkout-step-title__font-size__s-only: false;
+
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .opc-wrapper .step-title,
+    .opc-block-summary > .title {
+        font-weight: bold;
+    }
+
+    .opc-wrapper .fieldset > .field > .label{
+        font-weight: 700;
+    }
+
+    .step-content{
+        .form-login{
+            .action.login{
+                font-family: 'Poppins', sans-serif;
+            }
+        }
+    }
+
+    .single-actions{
+        .action.primary{
+            font-family: 'Poppins', sans-serif;
+            border-radius: 4px;
+        }
+    }
+
+    .checkout-index-index {
+
+        // jireh
+        #mobileCheckout .table.table-totals tbody tr:nth-child(2).totals.discount, #mobileCheckout .table.table-totals tbody tr:nth-child(3).totals.discount, #opc-sidebar .table.table-totals tbody tr:nth-child(2).totals.discount, #opc-sidebar .table.table-totals tbody tr:nth-child(3).totals.discount {
+            display: table-row !important;
+        }
+
+        .field.order-comment{
+            label{
+                margin-bottom: 15px;
+                display: block;
+                padding-bottom: 0;
+                font-weight: bold;
+            }
+        }
+
+        .page-title{
+            span{
+                &{
+                    position: relative;
+                    padding-left: 50px;
+                }
+
+                &::before{
+                    content: " ";
+                    background-image: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTI4IiBoZWlnaHQ9IjEyOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KCiA8Zz4KICA8dGl0bGU+YmFja2dyb3VuZDwvdGl0bGU+CiAgPHJlY3QgZmlsbD0ibm9uZSIgaWQ9ImNhbnZhc19iYWNrZ3JvdW5kIiBoZWlnaHQ9IjQwMiIgd2lkdGg9IjU4MiIgeT0iLTEiIHg9Ii0xIi8+CiA8L2c+CiA8Zz4KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+CiAgPGNpcmNsZSBmaWxsPSIjZjE1YTI1IiBpZD0ic3ZnXzIiIHI9IjY0IiBjeT0iNjQiIGN4PSI2NCIgY2xhc3M9InN0MCIvPgogIDxwYXRoIGZpbGw9IiNmZmZmZmYiIGlkPSJzdmdfMyIgZD0ibTg1LDUwbC01LDBsMCwtOGMwLC04LjggLTcuMiwtMTYgLTE2LC0xNnMtMTYsNy4yIC0xNiwxNmwwLDhsLTUsMGMtMi4yLDAgLTQsMS44IC00LDRsMCw0MmMwLDIuMiAxLjgsNCA0LDRsNDIsMGMyLjIsMCA0LC0xLjggNCwtNGwwLC00MmMwLC0yLjIgLTEuOCwtNCAtNCwtNHptLTE1LDM0LjVsLTEyLDBsMy4yLC04LjJjLTEuOSwtMSAtMy4yLC0zIC0zLjIsLTUuM2MwLC0zLjMgMi43LC02IDYsLTZjMy4zLDAgNiwyLjcgNiw2YzAsMi4zIC0xLjMsNC4zIC0zLjIsNS4zbDMuMiw4LjJ6bTYsLTM0LjVsLTI0LDBsMCwtOGMwLC02LjYgNS40LC0xMiAxMiwtMTJzMTIsNS40IDEyLDEybDAsOHoiIGNsYXNzPSJzdDEiLz4KIDwvZz4KPC9zdmc+");
+                    background-size: 40px 40px;
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+                    left: 0;
+                    background-repeat: no-repeat;
+                    top: 7px;
+                }
+            }
+        }
+
+        #qff-trigger.action-add.primary{
+            font-family: 'Poppins', sans-serif;
+            background: #e65200;
+            font-size: 16px !important;
+            padding: 15px 30px;
+            border-radius: 4px;
+
+            span {
+                color: #ffffff !important;
+            }
+        }
+
+        .bss-pre-order-product-item-cart{
+            display: none !important;
+        }
+
+        .field.addresses{
+            &{
+                margin-bottom: 15px;
+            }
+
+            label{
+                font-weight: bold;
+                margin-bottom: 5px;
+                display: block;
+            }
+        }
+
+        .actions-toolbar{
+            .fieldset{
+                .action.primary{
+                    background: #e65200;
+                }
+            }
+        }
+
+        .order-comment{
+            label{
+                font-size: 20px;
+                text-transform: uppercase;
+                margin-bottom: 15px;
+                border-bottom: 0;
+            }
+        }
+    }
+
+    .action.remind{
+        color: #222;
+    }
+
+    .overflowed{
+        overflow-y: auto;
+    }
+
+    #checkout-qantas-wrapper .actions-toolbar {
+        //display: none !important;
+    }
+
+    .qff-content .qff-link-error {
+        //display: none !important;
+    }
+
+    .payment-method-title .label .latipay-title:after {
+        display: none !important;
+    }
+    .payment-method-title .label .latipay-title:before {
+        content: "";
+        width: 82px;
+        height: 41px;
+        background: url(../images/latipay-logo.svg) no-repeat;
+        display: table-cell;
+        vertical-align: middle;
+        background-position: 10px 0;
+    }
+    #latipay-form {
+        padding-left: 15px;
+    }
+    li.latipay-options-item:not(:first-child) {
+        //margin-left: 15px;
+    }
+    li.latipay-options-item {
+        list-style: none;
+        margin: 10px 0 25px;
+    }
+    .latipay-options-item label:before {
+        display: none !important;
+    }
+    .latipay-options-item label:after {
+        display: none !important;
+    }.latipay-logos {
+        margin-left: 13px;
+        padding-top: 15px;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 10px;
+    }
+    .latipay-logo {
+        max-width: 100px;
+        margin: 0 5px;
+    }
+    label[for=latipay_method] {
+        display: contents;
+        margin-bottom: 25px !important;
+    }
+    #latipay-method-wechat::after {
+        background-size: 75px !important;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-image: url('/media/wysiwyg/checkout/wechat.png');
+        left: 145px;
+        content: '';
+        display: inline-block;
+        width: 120px;
+        height: 25px;
+    }
+    #latipay-method-alipay::after {
+        background-size: 75px !important;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-image: url('/media/wysiwyg/checkout/alipay.png');
+        left: 145px;
+        content: '';
+        display: inline-block;
+        width: 120px;
+        height: 25px;
+    }
+    label[for='latipay-method-upi_upop'] {
+        display: none;
+    }
+    #latipay-method-upi_upop:before {
+        content: 'Unionpay';
+        position: absolute;
+        left: 53px;
+        font-family: 'Poppins';
+    }
+    #latipay-method-upi_upop::after {
+        background-size: 35px !important;
+        background-repeat: no-repeat;
+        position: absolute;
+        background-image: url('/media/wysiwyg/checkout/unionpay.png');
+        left: 145px;
+        content: '';
+        display: inline-block;
+        width: 120px;
+        height: 25px;
+    }
+
+    //clint 02-14-23
+    .checkout-container .opc-wrapper .input-text {
+        height: 40px !important;
+        font-size: 1.3rem !important;
+    }
+    .checkout-container .opc-wrapper .select {
+        height: 40px !important;
+        font-size: 1.3rem !important;
+    }
+    .checkout-container .opc-wrapper .label span {
+        font-size: 1.3rem !important;
+    }
+    .checkout-container .opc-wrapper .note span {
+        font-size: 1.3rem !important;
+    }
+    .checkout-container .opc-wrapper #checkout-step-shipping .field {
+        margin: 0px 5px 10px !important
+    }
+
+    .shipping-methods .row {
+        padding: 5px 10px 5px 50px !important;
+        font-size: 1.3rem !important;
+        height: 40px;
+        line-height: 10px !important;
+    }
+
+    .checkout-shipping-method span {
+        font-size: 13px !important;
+    }
+
+    .bulk-surcharge-note span:first-child {
+        display: block !important;
+    }
+
+    .checkout-shipping-method .col span {
+        font-size: 14px !important;
+    }
+    .checkout-index-index .grand.totals strong {
+        font-size: 16px !important;
+    }
+
+
+    .table-checkout-shipping-method input[type=radio]:not([name*=ratings]):not(.-default) + label:before
+    {
+        width: 17px !important;
+        height: 17px !important;
+        margin-top: 6px !important;
+    }
+
+    .table-checkout-shipping-method input[type=radio]:not([name*=ratings]):not(.-default):checked + label:after {
+        width: 17px !important;
+        height: 17px !important;
+        top: 12px !important;
+        left: 2px !important;
+        margin-top: 6px !important;
+    }
+    .checkout-payment-method .form-discount .actions-toolbar > .primary > .action-apply {
+        font-size: 13px !important;
+        padding: 9px !important;
+        line-height: unset !important;
+        height: 40px !important;
+    }
+
+    .checkout-payment-method .fieldset.apply .actions-toolbar > .primary > .action-add {
+        font-size: 13px !important;
+        padding: 9px !important;
+        line-height: unset !important;
+        height: 40px !important;
+    }
+
+    .checkout-index-index .payment-method .field.choice .label span::before {
+        background-size: 70px !important;
+    }
+    .payment-method {
+        width: 97% !important;
+        height: 60px;
+        margin: 10px;
+        background-color: #fff !important;
+        border: 1px solid #e6e6e6;
+        border-radius: 5px;
+    }
+
+    .payment-group .payment-method._active {
+        height: unset !important;
+    }
+
+    .checkout-payment-method .payment-method-title {
+        padding: 40px 20px 20px !important;
+    }
+
+    .checkout-payment-method .payment-method + .payment-method .payment-method-title {
+        border-top: 1px solid #e6e6e6 !important;
+    }
+
+    .payment-group .payment-method:has(#checkmo) {
+        display: none;
+    }
+
+    .payment-group .payment-method:has(#paypal_express) {
+        display: none;
+    }
+
+    .checkout-index-index .zipmoney .field.choice .label span:before {
+        background-image: url('https://static.zipmoney.com.au/assets/default/product-widget/img/zip-button-wht.svg');
+    }
+
+    .zip-widget__wrapper.zip-widget__wrapper--display-inline.zip-widget__wrapper--type-checkouttitle {
+        margin-left: 0 !important;
+        padding: 0;
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .collect-type{
+        input[type=radio]:not([name*=ratings]):not(.-default)+label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .latipay-logo {
+        max-width: 70px !important;
+        margin: 0 5px;
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .opc-wrapper {
+        .form-login,
+        .form-shipping-address {
+            .lib-css(max-width, unset);
+        }
+
+        .store-section{
+            padding: 0 15px;
+        }
+    }
+
+    .collect-type{
+        input[type=radio]:not([name*=ratings]):not(.-default)+label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+        }
+    }
+}

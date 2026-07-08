@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_AddressVerification::address_verification" title="Address Autocomplete" module="Digidirect_AddressVerification" sortOrder="10" parent="Digidirect_Utilities::Digidirect" resource="Digidirect_AddressVerification::address_verification"/>
+
+        <add id="Digidirect_AddressVerification::country_address_attributes" title="Country Address Attributes" module="Digidirect_AddressVerification"
+             sortOrder="20" resource="Digidirect_AddressVerification::addressverificationcountryaddressattributes"
+             action="digidirect_addressverification/countryaddress" parent="Digidirect_AddressVerification::address_verification"/>
+    </menu>
+</config>

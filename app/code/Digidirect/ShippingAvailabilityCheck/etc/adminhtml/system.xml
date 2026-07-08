@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="digidirect_shippingavailabilitycheck" translate="label"
+                 sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Shipping Availability Check</label>
+            <tab>digidirect</tab>
+            <resource>Digidirect_ShippingAvailabilityCheck::shippingavailabilitycheck_config</resource>
+
+            <group id="general" translate="label" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+
+                <field id="enable" translate="label,comment" type="select" sortOrder="10"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Shipping Availability Check</label>
+                    <comment>Enable/disable shipping availability check</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="all_methods" translate="label,comment" type="select" sortOrder="20"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Shipping Methods To Display</label>
+                    <comment>Tip: 'If set up 'Only available' - only shipping methods available for a product will be shown. 'All methods' displays all active shipping methods available in module.'</comment>
+                    <source_model>Digidirect\ShippingAvailabilityCheck\Model\Config\Source\MethodsDisplay</source_model>
+                </field>
+                <field id="display_for_out_of_stock" translate="label,comment" type="select" sortOrder="30"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Display Shipping Methods For Out-Of-Stock Products</label>
+                    <comment>If set up to 'Yes' - available shipping methods will be shown for out-of-stock products</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

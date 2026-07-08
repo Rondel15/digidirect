@@ -1,0 +1,36 @@
+<?php
+/**
+ * @var \Digidirect\AbstractGiftCard\Block\Check $block
+ * @see \Magento\GiftCardAccount\Block\Check
+ */
+$card = $block->getCard();
+?>
+<?php if ($card): ?>
+    <div class="giftcard info">
+        <p>
+            <?php echo $block->escapeHtml(__('Gift Card: '));?>
+            <strong class="giftcard number"><?php echo $block->escapeHtml($card->getCode()); ?></strong>
+        </p>
+        <p><?php echo $block->escapeHtml(__('Current Balance: ')); ?>
+            <strong>
+                <?php /* @noEscape */ echo $this->helper('Magento\Framework\Pricing\Helper\Data')->currency($card->getBalance()); ?>
+            </strong>
+        </p>
+        <?php if ($card->getDateExpires()): ?>
+            <p>
+                <?php echo $block->escapeHtml(__('Expires: ')); ?>
+                <strong><?php echo $block->escapeHtml($card->getDateExpires()); ?></strong>
+            </p>
+        <?php endif; ?>
+    </div>
+<?php else: ?>
+    <?php if ($message = $block->getMesssages()->getLastAddedMessage()): ?>
+        <div class="message error">
+            <span><?php echo $block->escapeHtml(__($message->getText())); ?></span>
+        </div>
+    <?php else: ?>
+        <div class="message error">
+            <span><?php echo $block->escapeHtml(__('Please enter a valid gift card code.')); ?></span>
+        </div>
+    <?php endif;?>
+<?php endif; ?>

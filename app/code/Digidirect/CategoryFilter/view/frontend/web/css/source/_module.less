@@ -1,0 +1,110 @@
+//
+//  Category Filter
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@category-filter__position: relative;
+//  Title
+@category-filter-title__margin: 0;
+@category-filter-title__padding: 10px;
+@category-filter-title__border: false;
+@category-filter-title__font: false;
+@category-filter-title-arrow-l__display: none;
+//  Content
+@category-filter-content__position: absolute;
+@category-filter-content__top: 100%;
+@category-filter-content__left: 0;
+@category-filter-content__z-index: false;
+@category-filter-content__width: 100%;
+@category-filter-content__margin: false;
+@category-filter-content__padding: false;
+@category-filter-content__border: false;
+@category-filter-content__background: @color-white;
+@category-filter-link__display: block;
+@category-filter-link__padding: 5px 10px;
+
+//
+//  Mobile below
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block-categories {
+        & {
+            .lib-css(position, @category-filter__position);
+        }
+        > .title {
+            .lib-css(margin, @category-filter-title__margin);
+            .lib-css(padding, @category-filter-title__padding);
+            .lib-css(border, @category-filter-title__border);
+            .lib-css(font, @category-filter-title__font);
+        }
+        > .content {
+            display: none;
+            .lib-css(position, @category-filter-content__position);
+            .lib-css(top, @category-filter-content__top);
+            .lib-css(left, @category-filter-content__left);
+            .lib-css(z-index, @category-filter-content__z-index);
+            .lib-css(width, @category-filter-content__width);
+            .lib-css(margin, @category-filter-content__margin);
+            .lib-css(padding, @category-filter-content__padding);
+            .lib-css(border, @category-filter-content__border);
+            .lib-css(background, @category-filter-content__background);
+        }
+
+        &.-active > .content {
+            display: block;
+        }
+
+        > .content .link {
+            .lib-css(display, @category-filter-link__display);
+            .lib-css(padding, @category-filter-link__padding);
+        }
+    }
+    
+    .sidebar-main{
+        &{
+            position: relative;
+            z-index: 1;
+        }
+        
+        .block{
+            margin-bottom: 0;
+        }
+    }
+}
+
+//
+//  Mobile above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block-categories {
+        > .title > .arrow {
+            .lib-css(display, @category-filter-title-arrow-l__display);
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .sidebar-main{
+        &{
+            position: relative;
+            z-index: 1;
+        }
+        
+        li{
+            color: #222;
+        }
+        
+        a{
+            color: #222;
+        }
+    }
+}

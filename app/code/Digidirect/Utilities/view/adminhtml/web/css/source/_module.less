@@ -1,0 +1,59 @@
+//
+//  Utilities
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@utilities-auto-complete-wrap-disabled-action-close__display: none;
+@utilities-auto-complete-wrap-action-close__position: absolute;
+@utilities-auto-complete-wrap-action-close__top: 8px;
+@utilities-auto-complete-wrap-action-close__right: 40px;
+@utilities-auto-complete-wrap-action-close__hover__color: @color-phoenix-brown-almost;
+
+@utilities-action-menu-top__top: auto;
+@utilities-action-menu-top__bottom: 100%;
+@utilities-action-menu-top__margin-bottom: 2px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .admin__menu {
+        .item-digidirect.level-0 > a::before {
+            content: '';
+            background: url('@{baseDir}Digidirect_Utilities/images/digidirect-icon.png') no-repeat 50% 50%;
+            background-size: auto 10px;
+            opacity: .6;
+        }
+        .item-digidirect.level-0:hover > a::before,
+        .item-digidirect.level-0._active > a::before {
+            opacity: .95;
+        }
+    }
+
+    .auto-complete-wrap {
+        &._disabled .action-close {
+            .lib-css(display, @utilities-auto-complete-wrap-disabled-action-close__display);
+        }
+
+        .action-close {
+            .lib-css(position, @utilities-auto-complete-wrap-action-close__position);
+            .lib-css(top, @utilities-auto-complete-wrap-action-close__top);
+            .lib-css(right, @utilities-auto-complete-wrap-action-close__right);
+        }
+        .action-close:hover {
+            .lib-css(color, @utilities-auto-complete-wrap-action-close__hover__color);
+        }
+    }
+
+    .action-menu {
+        &.-top {
+            .lib-css(top, @utilities-action-menu-top__top);
+            .lib-css(bottom, @utilities-action-menu-top__bottom);
+            .lib-css(margin-bottom, @utilities-action-menu-top__margin-bottom);
+        }
+    }
+}

@@ -1,0 +1,22 @@
+<!--@subject Feed "{{var feed.name}}" delivered successfully @-->
+
+{{template config_path="design/email/header_template"}}
+
+<h1>{{var feed.name}}</h1>
+
+<table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0">
+    <tr>
+        <th align="left">{{trans "Feed Name"}}</th>
+        <td>{{var feed.name}}</td>
+    </tr>
+    <tr>
+        <th align="left">{{trans "Delivery To"}}</th>
+        <td>{{var feed.ftp_host}}</td>
+    </tr>
+    <tr>
+        <th align="left">{{trans "Delivered At"}}</th>
+        <td>{{var delivered_at}}</td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

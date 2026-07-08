@@ -1,0 +1,1188 @@
+/*
+    Created on : Feb 8, 2021, 11:34:14 AM
+    Author     : Johnry Valeriano
+*/
+
+
+& when (@media-common = true) {
+    a.button{
+        -moz-appearance: unset !important;
+        -webkit-appearance: unset !important;
+        appearance: unset !important;
+    }
+
+    .mgz-carousel-nav-position-center_split .owl-nav [class*=owl-]{
+        opacity: 1 !important;
+    }
+
+    .owl-carousel .owl-nav{
+        button.owl-next,
+        button.owl-prev{
+            width: 24px;
+            height: 24px;
+            margin: 0 10px;
+            background: #fff !important;
+            border-radius: 20px;
+            color: #222 !important;
+
+            &:hover{
+                background: #cecdcd !important;
+            }
+        }
+    }
+
+    .right-side-banner-wrapper{
+        height: 100%;
+        background: #f8f8f8;
+        margin: 5px 10px 5px 5px;
+        border-radius: 15px;
+
+        .magezon-builder{
+            height: 100%;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            //min-height: 480px;
+
+            img{
+                max-width: unset;
+                height: 100%;
+                max-height: 330px;
+            }
+        }
+
+        .mgz-element-single_image{
+            text-align: center;
+        }
+
+        .mgz-btn{
+            background-image: none;
+            background: transparent;
+            border: 2px solid #f96c41;
+            color: #f96c41;
+            cursor: pointer;
+            display: inline-block;
+            width: 100%;
+            font-weight: 700;
+            margin: 0;
+            padding: 10px 15px;
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+            box-sizing: border-box;
+            vertical-align: middle;
+            border-radius: 25px;
+        }
+    }
+
+    .hero-carousel-wrapper{
+        .owl-carousel .owl-dots{
+            position: absolute;
+            bottom: 30px;
+
+            .owl-dot
+            {
+                span{
+                    width: 12px;
+                    height: 12px;
+                    background: #fff;
+                }
+
+                &.active{
+                    span{
+                        background: #f15a25;
+                    }
+                }
+
+                &:focus{
+                    background: transparent !important;
+                }
+            }
+        }
+    }
+}
+
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+     .deal-offer-wrapper{
+        .block-title{
+            span{
+                display: block;
+                font-size: 2.8rem;
+                font-weight: bold !important;
+                color: #222;
+            }
+        }
+    }
+
+    .carousel-banner-inner .mgz-element-inner{
+        padding: 0 !important;
+    }
+
+    .right-side-banner-wrapper{
+        display: none;
+    }
+
+    .block-offer{
+        display: block;
+        overflow: hidden;
+
+        .main{
+
+            .image{
+                display: none;
+            }
+
+            .item {
+                .content{
+                    color: #222;
+                    font-weight: 600;
+                    font-size: 14px;
+                    padding: 0;
+                    text-align: left;
+
+                    p{
+                        color: #222;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+
+                    .block-child-title{
+                        &{
+                            font-size: 3rem;
+                            font-weight: 600;
+                            line-height: 0.5;
+                        }
+
+                        span{
+                            color: #f15a25;
+                        }
+                    }
+                }
+
+                .control
+                {
+                    text-align: center;
+                    padding: 0 15px;
+
+                    a{
+                        background-image: none;
+                        background: #fff;
+                        text-align: center;
+                        border: 2px solid #e65300;
+                        color: #e65300;
+                        cursor: pointer;
+                        display: inline-block;
+                        font-weight: 700;
+                        margin: 15px 0;
+                        padding: 10px 0 !important;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+                        box-sizing: border-box;
+                        vertical-align: baseline;
+                        width: 100%;
+                        max-width: 200px;
+                        text-transform: uppercase;
+                        border-radius: 20px;
+                    }
+                }
+            }
+
+
+            &.digi-deal-block{
+                .item {
+                    .content{
+                        font-size: 48px;
+                        padding: 0;
+
+                        .block-child-title{
+                            &{
+                                font-size: 20px;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.digi-deal-delivery{
+                .item {
+                    .content{
+                        padding: 0;
+
+                        span{
+                            font-size: 25px;
+                            display: block;
+
+                            &:first-child{
+                                font-size: 24px;
+                                color: #f15a25;
+                            }
+
+                            &:nth-child(2){
+                                font-size: 11.5px;
+                                color: #f15a25;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block-hot-deals{
+        display: block;
+        margin: 0;
+        max-height: 170px;
+        position: relative;
+
+        .main{
+            position: relative;
+            flex: 1;
+            text-align: center;
+            margin: 10px 0;
+            background: #e6e7e9;
+            overflow: hidden;
+            text-align: center;
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+
+                a{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    background: transparent;
+                }
+            }
+        }
+
+        .button{
+            background: none;
+        }
+    }
+
+    .block-authorised-dealer {
+        display: block;
+        margin: 10px 0;
+        position: relative;
+
+        .main{
+            text-align: center;
+            margin: 10px 0;
+
+            &:first-child{
+                background: #000;
+            }
+
+            &:last-child{
+                background: #cc1d1f;
+            }
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+            }
+
+            .image{
+                height: 100%;
+                max-height: 40px;
+            }
+        }
+
+        .button{
+            background: none;
+        }
+    }
+
+    .hero-carousel-wrapper{
+       .owl-carousel .owl-dots{
+           display: none;
+       }
+   }
+}
+
+//
+//  Tablet
+//  _____________________________________________
+
+// This will add styles for tablet devices. When using native media-queries, we recommend wrapping your media-queries with media-width Magento mixins or media-target
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+    @media only screen and (min-width: @screen__m) and (max-width: (@screen__xl - 1)) {
+        .deal-offer-wrapper{
+            padding: 0;
+            background: #fff;
+
+            .block-title{
+                span{
+                    display: block;
+                    font-size: 2.8rem;
+                    font-weight: bold !important;
+                    margin: 0 20px 20px 20px;
+                    color: #222;
+                }
+            }
+        }
+
+        .digi-print-banner-wrapper{
+            background: #ebebeb;
+            margin-bottom: 80px;
+
+            .digi-print-banner-inner
+            {
+                .inner-content{
+                    display: flex;
+                    align-items: center;
+                    max-width: 1440px;
+                    padding: 5px 0px;
+                }
+            }
+        }
+
+        .digi-print-wrapper{
+
+            .digi-print-wrapper-inner{
+                text-align: center;
+
+                .mgz-element-inner{
+                    text-align: right;
+                    padding-right: 15px;
+                }
+            }
+
+            img{
+                max-width: 280px;
+                width: 100%;
+            }
+        }
+
+        .digi-print-call-to-action-wrapper {
+
+            text-align: center;
+
+            p{
+                color: #565656;
+                line-height: 0.9;
+            }
+
+            .mgz-element-text p:first-child{
+                font-size: 20px;
+                font-weight: 300;
+            }
+
+            .mgz-element-text p:last-child{
+                font-size: 30px;
+            }
+
+            .mgz-button{
+                text-align: center;
+
+                a.mgz-btn{
+                    background: #f25a21;
+                    color: #fff;
+                    width: 100%;
+                    margin: 0 auto;
+                    max-width: 200px;
+                    border-radius: 32px;
+                    font-weight: 400;
+                    text-transform: uppercase;
+
+                    &:hover{
+                        background: #fff;
+                        color: #f25a21;
+                    }
+                }
+            }
+        }
+
+
+        .scan-to-get-app-wrapper{
+            .mgz-element-inner{
+                text-align: center;
+                margin-bottom: 5px;
+
+                p{
+                    color: #565656;
+                }
+            }
+
+            img{
+                max-width: 200px;
+                width: 100%;
+            }
+        }
+
+        .block-offer{
+            display: flex;
+            margin: 0 20px;
+            max-height: 400px;
+            overflow: hidden;
+
+            .main{
+                &{
+                    position: relative;
+                    flex: 1;
+                    text-align: center;
+                    width: 100%;
+                    margin: 0;
+                }
+
+                .item {
+                    .content{
+                        color: #222;
+                        font-weight: 600;
+                        font-size: 14px;
+                        padding: 0 10px;
+                        text-align: left;
+
+                        p{
+                            color: #222;
+                            font-size: 16px;
+                            font-weight: 400;
+                        }
+
+                        .block-child-title{
+                            &{
+                                font-size: 3rem;
+                                font-weight: 600;
+                                line-height: 0.5;
+                            }
+
+                            span{
+                                color: #f15a25;
+                            }
+                        }
+                    }
+
+                    .control
+                    {
+                        text-align: left;
+                        margin-top: 30px;
+                        padding: 0 50px;
+
+                        a{
+                            background-image: none;
+                            background: transparent;
+                            text-align: center;
+                            border: 2px solid #e65300;
+                            color: #e65300;
+                            cursor: pointer;
+                            display: inline-block;
+                            font-weight: 700;
+                            margin: 15px 0;
+                            padding: 10px 0;
+                            font-size: 1.6rem;
+                            box-sizing: border-box;
+                            vertical-align: baseline;
+                            width: 100%;
+                            max-width: 200px;
+                            text-transform: uppercase;
+                            border-radius: 20px;
+                        }
+                    }
+                }
+
+
+                &.digi-deal-block{
+
+                    &.details{
+                        background: #f8f8f8;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                    }
+
+                    .item {
+                        .content{
+                            font-size: 48px;
+                            padding: 0 50px;
+
+                            .block-child-title{
+                                &{
+                                    font-size: 3rem;
+                                    font-weight: 600;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.digi-deal-delivery{
+                    .item {
+                        .content{
+                            padding: 0;
+
+                            span{
+                                font-size: 25px;
+                                display: block;
+
+                                &:first-child{
+                                    font-size: 24px;
+                                    color: #f15a25;
+                                }
+
+                                &:nth-child(2){
+                                    font-size: 11.5px;
+                                    color: #f15a25;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .block-hot-deals{
+            display: flex;
+            margin: 10px 10px 0;
+            max-height: 170px;
+
+            .main{
+                position: relative;
+                flex: 1;
+                text-align: center;
+                margin: 10px;
+                background: #e6e7e9;
+                overflow: hidden;
+                text-align: center;
+
+                .item {
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    top: 0;
+                    height: 100%;
+
+                    a{
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 10;
+                    }
+                }
+            }
+
+            .button{
+                background: transparent;
+            }
+        }
+
+        .block-authorised-dealer {
+            display: flex;
+            margin: 0 10px;
+
+            .main{
+                position: relative;
+                flex: 1;
+                text-align: center;
+                margin: 10px;
+
+                &:first-child{
+                    background: #000;
+                }
+
+                &:last-child{
+                    background: #cc1d1f;
+                }
+
+                .item {
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    top: 0;
+                    height: 100%;
+
+                    a{
+                        position: absolute;
+                        bottom: 0;
+                        left: 0;
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 10;
+                    }
+                }
+            }
+
+            .button{
+                background: transparent;
+            }
+        }
+    }
+}
+
+//
+//  Tablet below
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .deal-offer-wrapper{
+        .block-title{
+            span{
+                display: block;
+                font-size: 2.8rem;
+                font-weight: bold !important;
+                color: #222;
+            }
+        }
+    }
+
+    .carousel-banner-inner .mgz-element-inner{
+        padding: 0 !important;
+    }
+
+    .right-side-banner-wrapper{
+        display: none;
+    }
+
+    .block-offer{
+        display: block;
+        overflow: hidden;
+
+        .main{
+
+            .item {
+                .content{
+                    color: #222;
+                    font-weight: 600;
+                    font-size: 14px;
+                    padding: 0;
+                    text-align: left;
+
+                    p{
+                        color: #222;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+
+                    .block-child-title{
+                        &{
+                            font-size: 3rem;
+                            font-weight: 600;
+                            line-height: 0.5;
+                        }
+
+                        span{
+                            color: #f15a25;
+                        }
+                    }
+                }
+
+                .control
+                {
+                    text-align: center;
+                    padding: 0 15px;
+
+                    a{
+                        background-image: none;
+                        background: #fff;
+                        text-align: center;
+                        border: 2px solid #e65300;
+                        color: #e65300;
+                        cursor: pointer;
+                        display: inline-block;
+                        font-weight: 700;
+                        margin: 15px 0;
+                        padding: 10px 0 !important;
+                        font-size: 1.6rem;
+                        line-height: 1.6rem;
+                        box-sizing: border-box;
+                        vertical-align: baseline;
+                        width: 100%;
+                        max-width: 200px;
+                        text-transform: uppercase;
+                        border-radius: 20px;
+                    }
+                }
+            }
+
+
+            &.digi-deal-block{
+                .item {
+                    .content{
+                        font-size: 48px;
+                        padding: 0;
+
+                        .block-child-title{
+                            &{
+                                font-size: 3rem;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.digi-deal-delivery{
+                .item {
+                    .content{
+                        padding: 0;
+
+                        span{
+                            font-size: 25px;
+                            display: block;
+
+                            &:first-child{
+                                font-size: 24px;
+                                color: #f15a25;
+                            }
+
+                            &:nth-child(2){
+                                font-size: 11.5px;
+                                color: #f15a25;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block-hot-deals{
+        display: block;
+        margin: 0;
+        max-height: 170px;
+        position: relative;
+
+        .main{
+            position: relative;
+            flex: 1;
+            text-align: center;
+            margin: 10px 0;
+            background: #e6e7e9;
+            overflow: hidden;
+            text-align: center;
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+
+                a{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 1;
+                    background: transparent;
+                }
+            }
+        }
+
+        .button{
+            background: none;
+        }
+    }
+
+    .block-authorised-dealer {
+        display: block;
+        margin: 10px 0;
+        position: relative;
+
+        .main{
+            text-align: center;
+            margin: 10px 0;
+
+            &:first-child{
+                background: #000;
+            }
+
+            &:last-child{
+                background: #cc1d1f;
+            }
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+            }
+        }
+
+        .button{
+            background: none;
+        }
+    }
+}
+
+//
+//  1280 - 1440px
+//  _____________________________________________
+
+
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+    @media only screen and (min-width: 1280px) and (max-width: (@screen__xl - 1)) {
+        .deal-offer-wrapper{
+            padding: 0 70px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .deal-offer-wrapper{
+        padding: 0 70px 0 70px;
+        background: #fff;
+
+        .block-title{
+            span{
+                display: block;
+                font-size: 2.8rem;
+                font-weight: bold !important;
+                margin: 0 20px 20px 20px;
+                color: #222;
+            }
+        }
+    }
+
+    .digi-print-banner-wrapper{
+        background: #ebebeb;
+        margin-bottom: 80px;
+
+        .digi-print-banner-inner
+        {
+            .inner-content{
+                display: flex;
+                align-items: center;
+                max-width: 1440px;
+                padding: 5px 0px;
+            }
+        }
+    }
+
+    .digi-print-wrapper{
+
+        .digi-print-wrapper-inner{
+            text-align: center;
+
+            .mgz-element-inner{
+                text-align: right;
+                padding-right: 15px;
+            }
+        }
+
+        img{
+            max-width: 280px;
+            width: 100%;
+        }
+    }
+
+    .digi-print-call-to-action-wrapper {
+
+        text-align: center;
+
+        p{
+            color: #565656;
+            line-height: 0.9;
+        }
+
+        .mgz-element-text p:first-child{
+            font-size: 20px;
+            font-weight: 300;
+        }
+
+        .mgz-element-text p:last-child{
+            font-size: 30px;
+        }
+
+        .mgz-button{
+            text-align: center;
+
+            a.mgz-btn{
+                background: #f25a21;
+                color: #fff;
+                width: 100%;
+                margin: 0 auto;
+                max-width: 200px;
+                border-radius: 32px;
+                font-weight: 400;
+                text-transform: uppercase;
+
+                &:hover{
+                    background: #fff;
+                    color: #f25a21;
+                }
+            }
+        }
+    }
+
+    .group-family-picture-wrapper
+    {
+        .group-family-picture {
+
+            text-align: center;
+            height: 170px;
+            img{
+                max-width: 350px;
+                width: 100%;
+            }
+
+            .mgz-element-inner{
+                position: absolute;
+                top: -40px;
+            }
+        }
+    }
+
+
+    .scan-to-get-app-wrapper{
+        .mgz-element-inner{
+            text-align: center;
+            margin-bottom: 5px;
+
+            p{
+                color: #565656;
+            }
+        }
+
+        img{
+            max-width: 200px;
+            width: 100%;
+        }
+    }
+
+    .block-offer{
+        display: flex;
+        margin: 0 20px;
+        max-height: 400px;
+        overflow: hidden;
+
+        .main{
+            &{
+                position: relative;
+                flex: 1;
+                text-align: center;
+                width: 100%;
+                margin: 0;
+            }
+
+            .item {
+                .content{
+                    color: #222;
+                    font-weight: 600;
+                    font-size: 14px;
+                    padding: 0 10px;
+                    text-align: left;
+
+                    p{
+                        color: #222;
+                        font-size: 16px;
+                        font-weight: 400;
+                    }
+
+                    .block-child-title{
+                        &{
+                            font-size: 3rem;
+                            font-weight: 600;
+                            line-height: 0.5;
+                        }
+
+                        span{
+                            color: #f15a25;
+                        }
+                    }
+                }
+
+                .control
+                {
+                    text-align: left;
+                    margin-top: 30px;
+                    padding: 0 50px;
+
+                    a{
+                        background-image: none;
+                        background: transparent;
+                        text-align: center;
+                        border: 2px solid #e65300;
+                        color: #e65300;
+                        cursor: pointer;
+                        display: inline-block;
+                        font-weight: 700;
+                        margin: 15px 0;
+                        padding: 10px 0;
+                        font-size: 1.6rem;
+                        box-sizing: border-box;
+                        vertical-align: baseline;
+                        width: 100%;
+                        max-width: 200px;
+                        text-transform: uppercase;
+                        border-radius: 20px;
+                    }
+                }
+            }
+
+
+            &.digi-deal-block{
+
+                &.details{
+                    background: #f8f8f8;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                .item {
+                    .content{
+                        font-size: 48px;
+                        padding: 0 50px;
+
+                        .block-child-title{
+                            &{
+                                font-size: 3rem;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.digi-deal-delivery{
+                .item {
+                    .content{
+                        padding: 0;
+
+                        span{
+                            font-size: 25px;
+                            display: block;
+
+                            &:first-child{
+                                font-size: 24px;
+                                color: #f15a25;
+                            }
+
+                            &:nth-child(2){
+                                font-size: 11.5px;
+                                color: #f15a25;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .block-hot-deals{
+        display: flex;
+        margin: 10px 10px 0;
+        max-height: 170px;
+
+        .main{
+            position: relative;
+            flex: 1;
+            text-align: center;
+            margin: 10px;
+            background: #e6e7e9;
+            overflow: hidden;
+            text-align: center;
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+
+                a{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+                }
+            }
+        }
+
+        .button{
+            background: transparent;
+        }
+    }
+
+    .block-authorised-dealer {
+        display: flex;
+        margin: 0 10px;
+
+        .main{
+            position: relative;
+            flex: 1;
+            text-align: center;
+            margin: 10px;
+
+            &:first-child{
+                background: #000;
+            }
+
+            &:last-child{
+                background: #cc1d1f;
+            }
+
+            .item {
+                position: absolute;
+                text-align: center;
+                width: 100%;
+                top: 0;
+                height: 100%;
+
+                a{
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 10;
+                }
+            }
+        }
+
+        .button{
+            background: transparent;
+        }
+    }
+
+    .right-side-banner-wrapper{
+        display: block !important;
+    }
+
+}
+
+//Extra Large Desktop
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xll) {
+    .block-offer{
+        .main{
+            .item {
+                .content{
+                    p{
+                        font-size: 16px;
+                    }
+                }
+            }
+        }
+    }
+}

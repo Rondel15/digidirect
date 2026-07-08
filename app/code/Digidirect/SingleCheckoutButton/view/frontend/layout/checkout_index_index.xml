@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="single-checkout-button-error-methods" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Digidirect_SingleCheckoutButton/js/view/error-methods</item>
+                                                            <item name="displayArea" xsi:type="string">payment-methods-list</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="sortOrder" xsi:type="string">200</item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="single-checkout-button" xsi:type="array">
+                                            <item name="component" xsi:type="string">Digidirect_SingleCheckoutButton/js/view/single-button</item>
+                                            <item name="displayArea" xsi:type="string">shipping-information-after</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

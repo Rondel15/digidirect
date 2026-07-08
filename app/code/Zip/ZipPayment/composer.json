@@ -1,0 +1,29 @@
+{
+    "name": "zip/magento2",
+    "description": "Zip Payment Module for Magento 2",
+    "version": "1.2.9",
+    "type": "magento2-module",
+    "license": [
+        "OSL-3.0"
+    ],
+    "authors": [
+        {
+            "name": "Zip Co",
+            "email": "integrations@zip.co"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "ext-curl": "*"
+    },
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Zip\\ZipPayment\\": "",
+            "Zip\\ZipPayment\\Tests\\": ""
+        },
+        "files": [
+            "registration.php"
+        ]
+    }
+}

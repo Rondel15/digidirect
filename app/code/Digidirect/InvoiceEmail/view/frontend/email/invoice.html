@@ -1,0 +1,109 @@
+<!--@subject {{trans "Invoice for your %store_name order" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var store.getFrontendName()":"Store Name",
+"var customer.name":"Customer Name",
+"var order.increment_id":"Order Id",
+"var order":"Order"
+} @-->
+​
+{{template config_path="design/email/header_template"}}
+
+ <table class="order-details">
+    <tr class="email-summary">
+        <td>
+            <h1>Tracking Info: {{trans "%trackTitle" trackTitle=$trackTitle|raw}} {{trans "%trackNumber" trackNumber=$trackNumber|raw}}</h1>
+        </td>
+    </tr>
+    <tr>
+        <td style="white-space: normal; width:300px;">
+            <p>{{trans "ABN 92 122 703 806 "}}</p>
+            <p>{{trans "Invoice Date: %invoice_date" invoice_date=$invoice_date|raw}}</p>
+            <h3>{{trans "Sold To:"}}</h3>
+            <p>{{trans "%customer_fullname,"  customer_fullname=$customer_fullname|raw}}</p>
+            <p>{{trans "%billingAddress" billingAddress=$billingAddress|raw}}</p>
+        </td>
+        <td style="white-space: normal; width:300px;">
+            <h3>{{trans "Deliver To:"}}</h3>
+            <p>{{trans "%customer_fullname,"  customer_fullname=$customer_fullname|raw}}</p>
+            <p>{{trans "%shippingAddress" shippingAddress=$shippingAddress|raw}}</p>
+        </td> 
+    </tr>
+    <tr>
+        <td>
+            {{layout handle="email_product_list" items=$items area="frontend"}}
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "Subtotal: %order_subtotal" order_subtotal=$order_subtotal|raw}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "Coupon Discount: %coupon_discount" coupon_discount=$coupon_discount|raw}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "Shipping Amount: %shippingAmount" shippingAmount=$shippingAmount|raw}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "Total Ex: %total_ex" total_ex=$total_ex|raw}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "GST: %gst" gst=$gst|raw}}</p>
+        </td>
+    </tr>
+    <tr>
+        <td align="left">
+            <p>{{trans "Total: %order_grandtotal" order_grandtotal=$order_grandtotal|raw}}</p>
+        </td>
+    </tr>
+</table>
+
+<table>
+    <tr class="email-intro">
+        <td>
+            <h1>{{trans "Your Order #%order_number" order_number=$order_number|raw}}</h1>
+            <p>{{trans 'Thank you for your order from digiDirect. If you have questions about your order, you can email us at <a href="mailto:%store_email" style="color:#1E1E1E;text-decoration:underline">%store_email</a>' store_email=$store_email |raw}} </p>
+            <p>{{trans 'or call us at %store_phone' store_phone=$store_phone |raw}}</p>
+            
+        <td>
+    </tr>
+    <tr>
+        <td align="center" style="padding:25px 0;">
+            <p style="color:#1E1E1E;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:17px;margin:0;font-weight:normal;">
+                {{trans 'For our hours of operation and contact information, please click here <a href="https://digidirect.com.au/store-locator" style="color:black;text-decoration:underline">Store Locator</a>' store_email=$store_email |raw}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:25px 0;">
+            <p>
+                {{trans "Kind Regards,"}}
+            </p>
+            <p>
+                {{trans "digiDirect"}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend order_data.email_customer_note}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var order_data.email_customer_note|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}} {{layout handle="sales_email_order_items" order=$order area="frontend"}}
+        </td>
+    </tr>
+</table>
+​
+{{template config_path="design/email/footer_template"}}

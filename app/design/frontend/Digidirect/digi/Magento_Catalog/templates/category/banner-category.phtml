@@ -1,0 +1,133 @@
+<?php
+    $catalogHelperData = $this->helper('Magento\Catalog\Helper\Data');
+    $categoryObject = $catalogHelperData->getCategory();
+    $categoryId = $categoryObject->getId();
+    $categoryName = $categoryObject->getName();
+    
+    $objectManager =  \Magento\Framework\App\ObjectManager::getInstance();        
+
+    $categoryFactory = $objectManager->get('\Magento\Catalog\Model\CategoryFactory');
+    // Load category by category ID
+    $category = $categoryFactory->create()->load($categoryId);
+    //Get all children category ids ids comma-separated
+    $allChildrenCategoryIds = $category->getAllChildren(false);
+    $allChildrenCategoryIdsArr = $category->getAllChildren(true);
+    //echo $allChildrenCategoryIds;
+    
+    
+    $categoryCameras = $categoryFactory->create()->load(17);
+    $allChildrenCategoryIdsCameras = $categoryCameras->getAllChildren(true);
+    
+    $categoryLenses = $categoryFactory->create()->load(18);
+    $allChildrenCategoryIdsLenses = $categoryLenses->getAllChildren(true);
+    
+    $categoryAudioAndVisual = $categoryFactory->create()->load(73);
+    $allChildrenCategoryIdsAudioAndVisual = $categoryAudioAndVisual->getAllChildren(true);
+    
+    $categoryComputersAndMobile = $categoryFactory->create()->load(999);
+    $allChildrenCategoryIdsComputersAndMobile = $categoryComputersAndMobile->getAllChildren(true);
+    
+    $categoryDrones = $categoryFactory->create()->load(21);
+    $allChildrenCategoryIdsDrones = $categoryDrones->getAllChildren(true);
+    
+    $categoryLightingAndStudio = $categoryFactory->create()->load(19);
+    $allChildrenCategoryIdsLightingAndStudio = $categoryLightingAndStudio->getAllChildren(true);
+    
+    $categoryOptics = $categoryFactory->create()->load(22);
+    $allChildrenCategoryIdsOptics = $categoryOptics->getAllChildren(true);
+    
+    $categoryPhotoAndAccessories = $categoryFactory->create()->load(71);
+    $allChildrenCategoryIdsPhotoAndAccessories = array_diff($categoryPhotoAndAccessories->getAllChildren(true),[331]);
+    
+    $categoryProVideo = $categoryFactory->create()->load(77);
+    $allChildrenCategoryIdsProVideo = $categoryProVideo->getAllChildren(true);
+    
+    $categorySmartHome = $categoryFactory->create()->load(75);
+    $allChildrenCategoryIdsSmartHome = $categorySmartHome->getAllChildren(true);
+    
+    $categoryDigiSeconds = $categoryFactory->create()->load(2564);
+    $allChildrenCategoryIdsDigiSeconds = $categoryDigiSeconds->getAllChildren(true);
+    
+    $categoryDigiClub = $categoryFactory->create()->load(3059);
+    $allChildrenCategoryIdsDigiClub = $categoryDigiClub->getAllChildren(true);
+    
+    $categoryDigiPrint = $categoryFactory->create()->load(2881);
+    $allChildrenCategoryIdsDigiPrint = $categoryDigiPrint->getAllChildren(true);
+?>
+
+
+<?php 
+    $catalogHelperData = $this->helper('Magento\Catalog\Helper\Data');
+    $categoryObject = $catalogHelperData->getCategory();
+    $categoryId = $categoryObject->getId();
+    $categoryName = $categoryObject->getName();
+?>
+
+<div class="category-page-banner" style="margin-right: 0;margin-left: auto;display: none !important;">
+    <div class="custom-preloader-container"><div class="custom-preloader"></div></div>
+    <div class="banner-desktop" style="display: none;">
+        <?php if (in_array($categoryId, $allChildrenCategoryIdsCameras)) :?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>cameras.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsLenses)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>lenses.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsAudioAndVisual)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>audio_and_visual.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsComputersAndMobile)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>computers_and_mobile.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDrones)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>drones.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsLightingAndStudio)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>lighting_and_studio.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsOptics)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>optics.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsPhotoAndAccessories)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>photo_and_accessories_new.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsProVideo)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>pro_video.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsSmartHome)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>smart_home.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiSeconds)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiseconds.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiClub)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiclub-header.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiPrint)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiPrint-Category-page-banner.png"/>
+        <?php elseif ($categoryId == 331) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiPrint-Category-page-banner.png"/>
+        <?php endif; ?>
+    </div>
+    <div class="banner-tablet" style="display: none;">
+        <?php if (in_array($categoryId, $allChildrenCategoryIdsCameras)) :?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>cameras.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsLenses)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>lenses.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsAudioAndVisual)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>audio_and_visual.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsComputersAndMobile)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>computers_and_mobile.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDrones)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>drones.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsLightingAndStudio)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>lighting_and_studio.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsOptics)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>optics.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsPhotoAndAccessories)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>photo_and_accessories_new.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsProVideo)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>pro_video.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsSmartHome)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>smart_home.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiSeconds)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>digiseconds.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiClub)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header-tablet-view")?>digiclub-header.png"/>
+        <?php elseif (in_array($categoryId, $allChildrenCategoryIdsDigiPrint)) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiPrint-Category-page-banner.png"/>
+        <?php elseif ($categoryId == 331) : ?>
+            <img src="<?php echo $block->getUrl("media/wysiwyg/category-header")?>digiPrint-Category-page-banner.png"/>
+        <?php endif; ?>
+    </div>
+    
+    
+</div>
+

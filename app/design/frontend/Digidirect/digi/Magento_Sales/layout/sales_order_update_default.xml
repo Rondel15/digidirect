@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <attribute name="class" value="account-orders"/>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument translate="true" name="title" xsi:type="string">Order Details</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceBlock name="customer_account_navigation_block">
+            <arguments>
+                <argument name="block_title" translate="true" xsi:type="string">Order History</argument>
+                <argument name="icon_id" xsi:type="string">orders</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <container name="account.orders.block" htmlClass="block orders-wrapper" htmlTag="div" before="-">
+                <container name="ordersTitle" htmlClass="order-header" htmlTag="div" before="-">
+                    <block class="Magento\Sales\Block\Order\Info" name="order.info.header.name" template="order/order_header_name.phtml"/>
+                </container>
+            </container>
+        </referenceContainer>
+
+        <move element="order.date" destination="ordersTitle" after="order.info.header.name"/>
+        <move element="order.status" destination="ordersTitle" after="order.date"/>
+        <move element="order.actions.container" destination="ordersTitle" after="-" />
+        <move element="sales.order.info.links" destination="account.orders.block" after="ordersTitle"/>
+    </body>
+</page>

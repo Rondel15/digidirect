@@ -1,0 +1,167 @@
+//
+//  Extend: Checkout: Progress Bar
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-progress-bar__is-enabled: fasle; // Enable/disable style
+//
+//  Theme: Checkout: Progress Bar
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .opc-progress-bar {
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+        &:extend(.abs-reset-list all);
+        counter-reset: i;
+    }
+
+    .opc-progress-bar-item {
+        &._active {
+            .lib-css(color, @color-2-1);
+            
+            > span{
+                color: #f15a25;
+            }
+        }
+
+        &._complete {
+            cursor: pointer;
+        }
+
+        &._complete:hover > span:before {
+            border-color: #fff;
+            color: #fff;
+            background-color: #e65300;
+        }
+
+        > span {
+            color: #666;
+            
+            &::before {
+                content: counter(i);
+                display: inline-block;
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                .lib-css(border, 1px solid @color-4-8);
+                border-radius: 50%;
+                line-height: 18px;
+                text-align: center;
+                vertical-align: top;
+                counter-increment: i;
+                .lib-hover-out();
+                
+                background-color: #fff;
+            }
+        }
+
+        &._active > span {
+            &::before {
+                border-color: #fff;
+                color: #fff;
+                background-color: #e65300;
+            }
+        }
+    }
+}
+
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .opc-progress-bar-item {
+        &{
+            line-height: 0;
+            padding: 0 !important;
+        }
+        
+        span{
+            font-size: 12px;
+            font-weight: bold;
+            padding-top: 0;
+    
+            &::before {
+                position: unset;
+                border-color: #222;
+                color: #222;
+                background-color: #fff;
+            }
+            
+            &::after{
+                position: unset;
+            }
+        }
+        
+        &._active > span {
+            &::before {
+                border-color: #222;
+                color: #222;
+                background-color: #fff;
+            }
+        }
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .opc-progress-bar-item {
+        & {
+            .lib-font-size(18);
+            line-height: 24px;
+        }
+
+        > span {
+            &::before {
+                width: 24px;
+                height: 24px;
+                line-height: 22px;
+            }
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .opc-progress-bar-item {
+        & {
+            padding-top: 21px;
+            padding-bottom: 21px;
+            .lib-font-size(20);
+            line-height: 30px;
+        }
+
+        > span {
+            &::before {
+                width: 30px;
+                height: 30px;
+                line-height: 28px;
+                position: unset;
+                color: #7d7d7d;
+            }
+            
+            font-size: 2rem;
+            font-weight: 700;
+            padding-top: 0;
+            width: unset;
+        }
+    }
+    
+    
+}

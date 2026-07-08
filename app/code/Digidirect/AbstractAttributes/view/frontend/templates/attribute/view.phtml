@@ -1,0 +1,24 @@
+<?php
+/** @var $block \Digidirect\AbstractAttributes\Block\Attribute\View */
+/** @var $imageHelper \Digidirect\AbstractAttributes\Helper\Image */
+$options = $block->getAttributeOptions();
+$imageHelper = $this->helper('Digidirect\AbstractAttributes\Helper\Image');
+?>
+<?php if (!empty($options)): ?>
+    <div class="attribute-options">
+        <?php /** @var $option \Digidirect\AbstractAttributes\Api\Data\OptionInterface */ ?>
+        <?php foreach ($options as $option): ?>
+            <?php $_label = $option->getLabel(); ?>
+            <a class="item" href="<?php echo $block->escapeUrl($option->getUrl()); ?>" title="<?php echo $block->escapeHtml($_label); ?>">
+                <?php if ($option->getImage()) : ?>
+                    <img class="image"
+                         src="<?php echo $block->escapeUrl($imageHelper->init($option, 'image')->resize(200, 200)->getUrl()); ?>"
+                         alt="<?php echo $block->escapeHtml($_label); ?>"/>
+                <?php endif; ?>
+                <span class="name"><?php echo $block->escapeHtml($_label); ?></span>
+            </a>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div class="message info empty"><span><?php echo $block->escapeHtml(__('There are no options available.')); ?></span></div>
+<?php endif ?>

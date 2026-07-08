@@ -1,0 +1,68 @@
+//
+//  Header Content
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@header-link__color__hover: @color-2-2;
+@header-content__max-width: 1920px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .header.content {
+        .authorization-link .customer-dialog {
+            .lib-css(background-color, @color-white);
+            .lib-css(border, 1px solid @color-4-1);
+            position: absolute;
+            z-index: 4;
+            left: -160%;
+            top: 55px;
+            display: none;
+            margin: 0;
+            padding: 15px;
+            width: 120px;
+            list-style-type: none;
+
+            &::before {
+                .lib-css(border, 1px solid @color-4-1);
+                .lib-css(background-color, @color-white);
+                content: '';
+                position: absolute;
+                top: -8px;
+                left: 82px;
+                width: 15px;
+                height: 15px;
+                border-width: 1px 0 0 1px;
+                transform: rotate(45deg);
+            }
+        }
+
+        .authorization-link.active .customer-dialog {
+            display: block;
+            
+            .item a{
+                color: #000;
+            }
+        }
+    }
+}

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:digidirect:infinite-scroll:InfiniteScroll/etc/infinitescroll.xsd">
+    <scroll name="scroll">
+        <config instance="instance_1" handle="" selector=".selector_1"/>
+    </scroll>
+</config>

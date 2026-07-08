@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_freegift>
+            <general>
+                <auto_add>1</auto_add>
+                <redirect_to_cart>0</redirect_to_cart>
+                <is_hide_free_item_price>0</is_hide_free_item_price>
+            </general>
+            <messages>
+                <cart_message>FREE!</cart_message>
+                <prefix>FREE -</prefix>
+                <message_type>notice</message_type>
+                <add_message>
+                    <![CDATA[Select your <a href="#" data-role="freegift-popup-show">FREE GIFT</a>!]]></add_message>
+                <auto_open_popup>0</auto_open_popup>
+                <display_popup_once>0</display_popup_once>
+                <display_error_messages>1</display_error_messages>
+                <display_success_messages>1</display_success_messages>
+                <message_hidden_free_item_price>Free</message_hidden_free_item_price>
+            </messages>
+        </digidirect_freegift>
+    </default>
+</config>

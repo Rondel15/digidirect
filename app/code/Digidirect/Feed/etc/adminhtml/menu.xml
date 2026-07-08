@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_Feed::feed" module="Digidirect_Feed" resource="Digidirect_Feed::feed"
+             sortOrder="50" title="Shopping Feeds" parent="Digidirect_Utilities::Digidirect" dependsOnModule="Digidirect_Utilities"/>
+
+        <add id="Digidirect_Feed::feed_feed" title="Feeds" module="Digidirect_Feed"
+             sortOrder="10" action="digidirect_feed/feed/index" resource="Digidirect_Feed::feed_feed"
+             parent="Digidirect_Feed::feed"/>
+
+        <add id="Digidirect_Feed::feed_template" title="Templates"
+             module="Digidirect_Feed" sortOrder="20" action="digidirect_feed/template/index"
+             resource="Digidirect_Feed::feed_template" parent="Digidirect_Feed::feed"/>
+
+        <add id="Digidirect_Feed::feed_rule" title="Manage Filters" module="Digidirect_Feed"
+             sortOrder="25" action="digidirect_feed/rule/index" resource="Digidirect_Feed::feed_rule"
+             parent="Digidirect_Feed::feed"/>
+
+        <add id="Digidirect_feed::feed_dynamic_attribute" title="Dynamic Attributes"
+             module="Digidirect_Feed" sortOrder="28" action="digidirect_feed/dynamic_attribute/index"
+             resource="Digidirect_Feed::feed_dynamic_attribute"
+             parent="Digidirect_Feed::feed"/>
+
+        <add id="Digidirect_feed::feed_dynamic_category" title="Category Mapping"
+             module="Digidirect_Feed" sortOrder="30" action="digidirect_feed/dynamic_category/index"
+             resource="Digidirect_Feed::feed_dynamic_category"
+             parent="Digidirect_Feed::feed"/>
+
+        <add id="Digidirect_Feed::feed_report" title="Reports" module="Digidirect_Feed"
+             sortOrder="40" action="digidirect_feed/report/view" resource="Digidirect_Feed::feed_report"
+             parent="Digidirect_Feed::feed"/>
+    </menu>
+</config>

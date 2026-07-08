@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget.xsd">
+    <widget id="Digidirect_shop_by_category"
+            class="Digidirect\ShopByCategory\Block\Widget\ShopByCategory" ttl="86400">
+        <label translate="true">Shop By Category</label>
+        <description translate="true">Shop By Category</description>
+    </widget>
+    <widget id="Digidirect_shop_by_category_mobile"
+            class="Digidirect\ShopByCategory\Block\Widget\ShopByCategoryMobile" ttl="86400">
+        <label translate="true">Shop By Category Mobile</label>
+        <description translate="true">Shop By Category Mobile</description>
+    </widget>
+    <widget id="Digidirect_shop_by_category_tablet"
+            class="Digidirect\ShopByCategory\Block\Widget\ShopByCategoryTablet" ttl="86400">
+        <label translate="true">Shop By Category Tablet</label>
+        <description translate="true">Shop By Category Tablet</description>
+    </widget>
+</widgets>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="entity" type="entityDeclaration" minOccurs="1" maxOccurs="unbounded">
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+        <xs:unique name="uniqueEntityName">
+            <xs:annotation>
+                <xs:documentation>
+                    Entity name must be unique.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="entity" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+    </xs:element>
+
+    <xs:complexType name="entityDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Entity declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="config" type="configDeclaration" minOccurs="1" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="name" type="entityName" use="required" />
+    </xs:complexType>
+
+    <xs:complexType name="configDeclaration">
+        <xs:annotation>
+            <xs:documentation>
+                Config declaration.
+            </xs:documentation>
+        </xs:annotation>
+        <xs:attribute name="instance" type="xs:string" use="required" />
+    </xs:complexType>
+
+    <xs:simpleType name="entityName">
+        <xs:annotation>
+            <xs:documentation>
+                Scroll name can contain only [a-zA-Z_].
+            </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-zA-Z_]+" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

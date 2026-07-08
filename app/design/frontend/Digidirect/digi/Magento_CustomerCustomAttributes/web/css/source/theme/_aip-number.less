@@ -1,0 +1,60 @@
+//
+//  Customer Account: Profile
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+//@fake-input__height:
+
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .field-aipp_number {
+        .fake-input {
+            .lib-form-element-input(@_type: input-text);
+            .lib-css(background, @color-gray-darken0);
+            padding: 10px 15px;
+            opacity: 0.7;
+        }
+    }
+    .qff-link-error{
+            font-weight: bold;
+            color: red;
+        }  
+         .qff-link-success{
+            font-weight: bold;
+            color: #507f1d;
+        }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .field-aipp_number {
+        .fake-input {
+            .lib-css(height, @form-element-input__height__m);
+            .lib-font-size(@form-element-input__font-size__m);
+            padding: 12px 15px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .field-aipp_number {
+        .fake-input {
+            .lib-css(height, @form-element-input__height__l);
+            .lib-font-size(@form-element-input__font-size__l);
+            padding: 15px;
+        }
+    }
+}

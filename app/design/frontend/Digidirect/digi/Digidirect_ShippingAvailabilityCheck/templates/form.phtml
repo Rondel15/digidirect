@@ -1,0 +1,12 @@
+<?php
+/**
+ * @var $block \Digidirect\ShippingAvailabilityCheck\Block\AvailabilityCheck\Form
+ */
+?>
+<script>
+    if (!window.checkoutConfig) {
+        window.checkoutConfig = {};
+    }
+    window.checkoutConfig['storeCode'] = "<?php /* @escapeNotVerified */ echo $block->getStoreCode() ?>";
+</script>
+

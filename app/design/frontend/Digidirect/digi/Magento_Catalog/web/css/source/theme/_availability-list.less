@@ -1,0 +1,51 @@
+//
+//  Theme: PDP Availability list
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    #tab-pickup {
+        display: none;
+    }
+
+    .places-availability {
+        & {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .item {
+            .lib-font-size(12);
+            
+            margin: 0;
+        }
+    
+        .item + .item {
+            margin-top: 5px;
+        }
+        
+        .item > .label {
+            .lib-css(color, @error__color);
+        }
+    
+        .item.-available > .label {
+            .lib-css(color, @color-1-2);
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .places-availability {
+        .item {
+            .lib-font-size(14);
+        }
+    }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+/**
+* Zip_ZipPayment Payment configuration
+*
+* @category    Zip
+* @package     ZipPayment
+* @author      Zip Plugin Team <integrations@zip.co>
+* @link        https://zip.co
+*/
+-->
+<payment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Payment:etc/payment.xsd">
+    <methods>
+        <method name="zip_zippayment">
+            <allow_multiple_address>0</allow_multiple_address>
+        </method>
+    </methods>
+</payment>

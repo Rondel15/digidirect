@@ -1,0 +1,18 @@
+<?php
+/** @var $block \Magento\Framework\View\Element\Js\Components */
+?>
+<!--TODO: It is necessary to add the reference to a checkout in a variable "editLinkUrl"-->
+<script type="text/x-magento-init">
+    {
+        "#order-review-form": {
+            "orderReviewCollect": {
+                "shippingMethodSelector": "#shipping-method",
+                "reviewContainer": ".block-order-details-view",
+                "shippingMethodContainer": ".box-order-shipping-method",
+                "shippingAddressContainer": ".box-order-shipping-address",
+                "billingAddressContainer": ".box-order-billing-address",
+                "editLinkLabel": "<?= /* @escapeNotVerified */ __('Edit') ?>"
+            }
+        }
+    }
+</script>

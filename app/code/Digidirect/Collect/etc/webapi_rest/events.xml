@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_cart_product_add_after">
+        <observer name="digidirect_collect_set_collect_place_id" instance="Digidirect\Collect\Observer\SetCollectPlaceData" />
+    </event>
+    <event name="checkout_cart_product_update_after">
+        <observer name="digidirect_collect_set_collect_place_id_on_update" instance="Digidirect\Collect\Observer\UpdateCollectPlaceData" />
+    </event>
+    <event name="sales_quote_item_qty_set_after">
+        <observer name="digidirect_collect_quote_item_qty_set_after" instance="Digidirect\Collect\Observer\SetQuoteItemQtyAfter" />
+    </event>
+    <event name="email_order_set_template_vars_before">
+        <observer name="digidirect_collect_set_email_vars_before" instance="Digidirect\Collect\Observer\SetEmailVarsBefore" />
+    </event>
+</config>

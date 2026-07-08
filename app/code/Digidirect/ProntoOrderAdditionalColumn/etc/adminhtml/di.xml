@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Sales\Model\ResourceModel\Order\Grid\Collection">
+        <plugin name="ordercolumn_grid_load_before" type="Digidirect\ProntoOrderAdditionalColumn\Plugin\Admin\Order\Grid" sortOrder="10" disabled="false"/>
+    </type>
+</config>

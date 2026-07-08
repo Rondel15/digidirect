@@ -1,0 +1,11 @@
+<script>
+    require(['jquery'], function($) {
+        $('.import-submit').click(function () {
+            $('#extendedshippingrates_zone_file').click();
+        });
+
+        $('#extendedshippingrates_zone_file').change(function () {
+            $('#import-form').submit();
+        });
+    });
+</script>

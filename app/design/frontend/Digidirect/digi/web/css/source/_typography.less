@@ -1,0 +1,40 @@
+//
+//  Tablet +
+//  ---------------------------------------------
+
+@font-size__base__m: 13px;
+@line-height__base__m: 1.38;
+@p__margin-bottom__m: 16px;
+@typography-h2__font-size__m: 24px;
+@typography-h3__font-size__m: 20px;
+@typography-h4__font-size__m: 18px;
+@typography-h5__font-size__m: 16px;
+@typography-h6__font-size__m: 14px;
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+@font-size__base__l: 14px;
+@line-height__base__l: 1.36;
+@p__margin-bottom__l: 20px;
+@typography-h1__font-size__l: 34px;
+@typography-h2__font-size__l: 28px;
+@typography-h3__font-size__l: 24px;
+@typography-h4__font-size__l: 20px;
+@typography-h5__font-size__l: 18px;
+@typography-h6__font-size__l: 16px;
+
+.lib-font-face(
+    @family-name: 'Poppins',
+    @font-path: '@{baseDir}fonts/Poppins',
+    @font-weight: normal,
+    @font-style: normal
+) {
+    @font-face{
+        font-family: @family-name;
+        src: url('@{font-path}.ttf') format('truetype');
+        font-weight: @font-weight;
+        font-style: @font-style;
+    }
+};

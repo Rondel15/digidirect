@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\ExtendedCartPriceRules\Api\RuleManagementInterface" type="Digidirect\ExtendedCartPriceRules\Model\RuleManagement" />
+
+    <type name="Magento\SalesRule\Model\Rule\Condition\Combine">
+        <plugin name="Digidirect_ExtendedCartPriceRules::Magento\SalesRule\Model\Rule\Condition\Combine"
+                type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\SalesRule\Model\Rule\Condition\Combine"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Rule\Condition\Product">
+        <plugin name="Digidirect_ExtendedCartPriceRules::Magento\SalesRule\Model\Rule\Condition\Product"
+                type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\SalesRule\Model\Rule\Condition\Product"/>
+    </type>
+
+    <type name="Magento\Quote\Model\QuoteManagement">
+        <plugin name="Digidirect_ExtendedCartPriceRules::Magento\Quote\Model\QuoteManagement"
+                type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Quote\Model\QuoteManagement" sortOrder="9999"/>
+    </type>
+
+    <type name="Magento\SalesRule\Model\Rule\Metadata\ValueProvider">
+        <plugin name="Digidirect_ExtendedCartPriceRules::ValueProvider" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Rule\Metadata\ValueProvider"/>
+    </type>
+    <type name="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Rule\Metadata\ValueProvider">
+        <arguments>
+            <argument name="actions" xsi:type="array">
+                <item name="5" xsi:type="array">
+                    <item name="value" xsi:type="string">remove_cart_item_action</item>
+                    <item name="label" xsi:type="string" translate="true">Remove Cart Item</item>
+                    <item name="show_fields" xsi:type="array">
+                        <item name="action_message" xsi:type="string">action_message</item>
+                    </item>
+                </item>
+                <item name="6" xsi:type="array">
+                    <item name="value" xsi:type="string">restrict_checkout_action</item>
+                    <item name="label" xsi:type="string" translate="true">Restrict Order Place</item>
+                    <item name="show_fields" xsi:type="array">
+                        <item name="action_message" xsi:type="string">action_message</item>
+                    </item>
+                </item>
+                <item name="7" xsi:type="array">
+                    <item name="value" xsi:type="string">restrict_add_to_cart_action</item>
+                    <item name="label" xsi:type="string" translate="true">Restrict Add to Cart</item>
+                    <item name="show_fields" xsi:type="array">
+                        <item name="action_message" xsi:type="string">action_message</item>
+                    </item>
+                    <item name="hide_fields" xsi:type="array">
+                        <item name="discount_amount" xsi:type="string">discount_amount</item>
+                        <item name="discount_qty" xsi:type="string">discount_qty</item>
+                        <item name="discount_step" xsi:type="string">discount_step</item>
+                        <item name="apply_to_shipping" xsi:type="string">apply_to_shipping</item>
+                    </item>
+                </item>
+                <item name="8" xsi:type="array">
+                    <item name="value" xsi:type="string">increase_item_price</item>
+                    <item name="label" xsi:type="string" translate="true">Increase Item Price</item>
+                </item>
+            </argument>
+            <argument name="actionsAdditionalFields" xsi:type="array">
+                <item name="action_message" xsi:type="string">action_message</item>
+            </argument>
+            <argument name="actionsHideFields" xsi:type="array">
+                <item name="discount_amount" xsi:type="string">discount_amount</item>
+                <item name="discount_qty" xsi:type="string">discount_qty</item>
+                <item name="discount_step" xsi:type="string">discount_step</item>
+                <item name="apply_to_shipping" xsi:type="string">apply_to_shipping</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <preference for="Digidirect\ExtendedCartPriceRules\Api\ExtendedCartPriceRuleRepositoryInterface" type="Digidirect\ExtendedCartPriceRules\Model\ExtendedCartPriceRuleRepository" />
+    <preference for="Digidirect\ExtendedCartPriceRules\Api\Data\ExtendedCartPriceRuleInterface" type="Digidirect\ExtendedCartPriceRules\Model\ExtendedCartPriceRuleRepository" />
+
+    <type name="Magento\SalesRule\Model\Rule\Action\Discount\CalculatorFactory">
+        <arguments>
+            <argument name="discountRules" xsi:type="array">
+                <item name="remove_cart_item_action" xsi:type="string">Digidirect\ExtendedCartPriceRules\Model\Rule\Action\Discount\RemoveCartItem</item>
+                <item name="restrict_checkout_action" xsi:type="string">Digidirect\ExtendedCartPriceRules\Model\Rule\Action\Discount\RestrictCheckout</item>
+                <item name="restrict_add_to_cart_action" xsi:type="string">Digidirect\ExtendedCartPriceRules\Model\Rule\Action\Discount\RestrictAddToCart</item>
+                <item name="increase_item_price" xsi:type="string">Digidirect\ExtendedCartPriceRules\Model\Rule\Action\Discount\IncreaseItemPrice</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Checkout\CustomerData\ItemPool">
+        <plugin name="Digidirect_ExtendedCartPriceRules::CustomerDataBaseItem" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Checkout\CustomerData\ItemPool"/>
+    </type>
+
+    <type name="Magento\SalesRule\Model\ResourceModel\Rule\Collection">
+        <plugin name="Digidirect_ExtendedCartPriceRules::RuleCollection" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\SalesRule\ResourceModel\Rule\Collection"/>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="Digidirect_ExtendedCartPriceRules::DefaultConfigProvider" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Checkout\Model\DefaultConfigProvider"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteRepository\LoadHandler">
+        <plugin name="Digidirect_ExtendedCartPriceRules::QuoteRepositoryLoadHandler" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Quote\Model\QuoteRepository\LoadHandler"/>
+    </type>
+    <type name="Magento\SalesRule\Model\Quote\Discount">
+        <plugin name="Digidirect_ExtendedCartPriceRules::QuoteDiscount" type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\Quote\Model\Quote\Discount"/>
+    </type>
+    <type name="Magento\AdvancedSalesRule\Model\Rule\Condition\Address">
+        <plugin name="Digidirect_ExtendedCartPriceRules::AddressIsDefinedCondition"
+                type="Digidirect\ExtendedCartPriceRules\Plugin\Magento\AdvancedSalesRule\Model\Rule\Condition\AddressPlugin"/>
+    </type>
+</config>

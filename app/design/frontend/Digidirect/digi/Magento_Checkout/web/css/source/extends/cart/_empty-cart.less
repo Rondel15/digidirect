@@ -1,0 +1,94 @@
+//
+//  Cart: Empty Cart
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@empty-cart__padding: 44px 20px;
+@empty-csrt__margin: @layout__width-xs-indent 0 0;
+@empty-cart__padding__m: 50px 40px 60px;
+@empty-cart__padding__l: 98px 60px 128px;
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .cart-empty {
+        & {
+            .lib-css(padding, @empty-cart__padding);
+            .lib-css(margin, @empty-csrt__margin);
+            .lib-css(background-color, @color-white);
+        }
+
+        .page-title {
+            text-align: center;
+        }
+
+        .text {
+            .lib-font-size(16);
+            .lib-css(font-weight, @font-weight__heavier);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .action {
+            text-align: center;
+        }
+
+        .button {
+            padding: 10px 32px;
+            max-width: 320px;
+            color: #fff;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .cart-empty {
+        & {
+            .lib-css(padding, @empty-cart__padding__m);
+            margin: 40px 20px;
+            width: auto;
+        }
+
+        .page-title-wrapper .page-title {
+            display: block;
+        }
+
+        .text {
+            .lib-font-size(18);
+        }
+
+        .button {
+            .lib-font-size(14);
+            padding: 13px 38px 12px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .cart-empty {
+        & {
+            .lib-css(padding, @empty-cart__padding__l);
+            margin: 63px -10px 60px;
+        }
+
+        .text {
+            .lib-font-size(20);
+        }
+
+        .button {
+            .lib-font-size(16);
+            padding: 16px 40px 14px;
+        }
+    }
+}

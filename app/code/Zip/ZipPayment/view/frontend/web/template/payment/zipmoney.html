@@ -1,0 +1,60 @@
+<div class="payment-method zipmoney" afterRender="zipCheckoutTitle" data-bind="css: {'_active': (getCode() == isChecked())}">
+    <div class="payment-method-title field choice">
+        <input class="radio"
+               data-bind="attr: {'id': getCode()}, value: getCode(), checked: isChecked, click: selectPaymentMethod, visible: isRadioButtonVisible()"
+               name="payment[method]"
+               type="radio"/>
+        <label class="label" data-bind="attr: {'for': getCode()}">
+            <!-- zipMoney Logo -->
+            <img class="payment-icon zip-checkout-icon"
+                 data-bind="attr: {src: getPaymentAcceptanceMarkSrc(), alt: $t('zipMoney Acceptance Mark')}"
+                 style="height:26px"/>
+            <!-- zipMoney Logo -->
+            <span data-zm-asset="checkouttitle" data-zm-widget="inline"><!-- ko i18n: 'Zip now, pay later' --><!-- /ko --></span>
+        </label>
+    </div>
+
+    <div class="payment-method-content">
+        <div class="zip-checkout-description">
+            <span class="zip-checkout-description-text" data-zm-asset='checkoutdescription'
+                  data-zm-widget='inline'></span>
+            <a class="action action-help" data-zm-popup-asset="checkoutdialog" data-zm-widget="popup"
+               id="zipmoney-learn-more" style="display: inline !important">
+                <!-- ko i18n: 'Learn More?' --><!-- /ko -->
+            </a>
+        </div>
+        <div class="col-mp mp-12" data-bind="visible: isTokenisationActive()">
+            <input type="checkbox" name="tokenisation" data-bind="checked: isCustomerWantTokenisation, attr: {id: 'place-order-tokenisation'}"/>
+            <label data-bind="attr: {for: 'place-order-tokenisation'}"><span data-bind="i18n: 'Save Zip for future purchases'"></span></label>
+        </div>
+
+        <!-- ko foreach: getRegion('messages') -->
+        <!-- ko template: getTemplate() --><!-- /ko -->
+        <!--/ko-->
+        <div class="payment-method-billing-address">
+            <!-- ko foreach: $parent.getRegion(getBillingAddressFormName()) -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="checkout-agreements-block">
+            <!-- ko foreach: $parent.getRegion('before-place-order') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+        <div class="actions-toolbar">
+            <div class="primary">
+                <button class="action primary checkout"
+                        data-bind="
+                        click: continueToZipMoney,
+                        attr: {title: $t('Continue to ZipMoney')},
+                        css: {disabled: !isPlaceOrderActionAllowed()},
+                        enable: (getCode() == isChecked())
+                        "
+                        disabled
+                        type="submit">
+                    <span data-bind="text: getContinueText()"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

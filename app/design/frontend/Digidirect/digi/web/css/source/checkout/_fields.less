@@ -1,0 +1,29 @@
+//
+//  Checkout: Fields
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-fields__is-enabled: true; // Enable/disable style
+
+@checkout-field__error__border-color: @form-element-validation__border-error;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-fields__is-enabled = true) {
+        .field {
+            &._error .control {
+                input,
+                select,
+                textarea {
+                    .lib-css(border-color, @checkout-field__error__border-color);
+                }
+            }
+        }
+    }
+}

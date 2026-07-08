@@ -1,0 +1,29 @@
+<div class="cross close" title="{{text_cancel}}">&#10005;</div>
+
+<div class="prnp-title">{{text_title}}</div>
+<div class="newspopup-descr">
+    {{text_description}}
+</div>
+
+<form class="newspopup_up_bg_form" method="POST">
+    <div class="input-block">
+        {{form_fields}}
+
+        <div class="button-col">
+            <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                {{text_submit}}
+            </a>
+            <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme17_loader.gif"}}" title="" style="display: none;" class="ajax-loader" />
+        </div>
+    </div>
+    <div class="interest-block">
+        <p>please, select all areas that interest you:</p>
+        {{contact_lists}}
+    </div>
+    <div class="button-col newspopup-bottom-col">
+        <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+            {{text_submit}}
+        </a>
+        <img src="{{view url="Plumrocket_Newsletterpopup::images/templates/theme17_loader.gif"}}" title="" style="display: none;" class="ajax-loader" />
+    </div>
+</form>

@@ -1,0 +1,49 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Newsletterpopup\Block\Popup\Product $block */
+/** @var \Plumrocket\Newsletterpopup\ViewModel\Popup\Product $viewModel */
+$viewModel = $block->getData('viewModel');
+$popup = $block->getPopup();
+$product = $block->getProduct();
+?>
+
+<div>
+    <div class="image-wrapper">
+      <img src="<?= /* @noEscape */ $block->getImageUrl() ?>" alt="">
+    </div>
+    <?= $block->escapeHtml($block->getProduct()->getName()) ?>
+
+    <?php if ($viewModel->hasSimpleCoupon($block->getPopup())): ?>
+        <div class="price-wrp">
+            <?php if ($block->showPrice()): ?>
+                <div>
+                    <?= $block->escapeHtml(__('Price')) ?>:
+                    <span class="old-price">
+                        <?= /* @noEscape */ $viewModel->formatPrice($viewModel->getPrice($product)) ?>
+                    </span>
+                </div>
+                <div>
+                    <?= $block->escapeHtml(__('Discount')) ?>:
+                    <span class="disc-price">
+                        <?= /* @noEscape */ $viewModel->formatPrice($viewModel->getPrice($product) - $viewModel->getSalePrice($popup, $product)) ?>
+                    </span>
+                </div>
+                <div>
+                    <?= $block->escapeHtml(__('New Price')) ?>:
+                    <span class="sale-price">
+                        <?= /* @noEscape */ $viewModel->formatPrice($viewModel->getSalePrice($popup, $product)) ?>
+                    </span>
+                </div>
+            <?php else: ?>
+                <div class="sale"><?= /* @noEscape */ $viewModel->getFormattedSale($popup) ?></div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
+</div>

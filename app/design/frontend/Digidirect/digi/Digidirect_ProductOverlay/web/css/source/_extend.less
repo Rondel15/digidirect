@@ -1,0 +1,196 @@
+//
+//  Product Overlays Extend
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@product-overlay__width: 30px;
+@product-overlay__width__l: 50px;
+@product-overlay__display: block;
+
+/*@product-overlay__position: absolute;
+@product-overlay__top: 0;
+@product-overlay__right: 0;
+@product-overlay__bottom: 0;
+@product-overlay__left: 0;
+@product-overlay__z-index: 5;
+@product-overlay__display: none;
+@product-overlay__max-width: 100%;
+@product-overlay__margin: auto;
+@product-overlay__padding: false;
+@product-overlay__overflow: hidden;
+@product-overlay__text-align: center;*/
+
+/*@product-overlay-image__width: 100%;*/
+
+/*@product-overlay-text__position: absolute;
+@product-overlay-text__top: 50%;
+@product-overlay-text__right: false;
+@product-overlay-text__left: false;
+@product-overlay-text__width: 100%;
+@product-overlay-text__margin: auto;
+@product-overlay-text__padding: 0 3px;
+@product-overlay-text__font: 10px/1 @font-family-name__base;
+@product-overlay-text__text-align: center;
+@product-overlay-text__white-space: false;
+@product-overlay-text__color: @color-white;
+@product-overlay-text__background: false;*/
+@product-overlay-text__font: 7.5px/1 @font-family-name__base;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .product-overlay {
+        & {
+            .lib-css(width, @product-overlay__width);
+            display: none;
+        }
+
+        &.-top-left.-ready:not(.-hide) ~ .-top-left.-ready {
+            .lib-css(transform, translateX(100%), 1);
+        }
+
+        &.-top-left.-ready:not(.-hide) ~ .-top-left.-ready:not(.-hide) + .-top-left.-ready {
+            .lib-css(transform, translateX(200%), 1);
+        }
+
+        &.-top-left.-ready:not(.-hide) ~ .-top-left.-ready:not(.-hide) + .-top-left.-ready:not(.-hide) + .-top-left.-ready {
+            .lib-css(transform, translateX(300%), 1);
+        }
+
+        .img {
+            width: 100%;
+        }
+
+        .text {
+            .lib-css(font-weight, @font-weight__bold);
+        }
+
+        .text > * {
+            margin: 0;
+        }
+    }
+
+    .product-item-info.-list,
+    .product.media {
+        .product-overlay.-top-left {
+            left: -10px;
+            top: -10px;
+        }
+    }
+
+    .product.media {
+        & {
+            position: relative;
+        }
+
+        & > .product-overlay {
+            display: none;
+        }
+
+        .product-overlay {
+            width: 50px;
+        }
+
+        .product-overlay .text {
+            .lib-font-size(12);
+            .lib-css(font-weight, @font-weight__bold);
+            line-height: 16px;
+        }
+    }
+
+    .product-basic{
+        .product-overlay {
+            width: 100% !important;
+            max-width: 150px;
+            padding: 5px;
+        }
+    }
+
+    .temp-slider-class-inner .product-overlay.-top-left {
+        top: -23px !important;
+        position: absolute;
+    }
+
+    .temp-slider-class-inner .product-overlay .owl-lazy {
+        height: 35px;
+        width: auto;
+        float: left;
+    }
+    
+    .product-overlay.-has-size>.img {
+        max-height: 35px;
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .product-item{
+        .product-overlay.-top-left {
+            top: 15px;
+            left: 15px;
+        }
+    }
+}
+
+//
+//  Tablet
+//  _____________________________________________
+
+// This will add styles for tablet devices. When using native media-queries, we recommend wrapping your media-queries with media-width Magento mixins or media-target
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+    @media only screen and (min-width: @screen__m) and (max-width: (@screen__xl - 1)) {
+        .product-item{
+            .product-overlay.-top-left {
+                top: 10px;
+                left: 10px;
+                max-width: 35px;
+            }
+        }
+    }
+}
+
+//
+//  XM +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm) {
+    .product.media {
+        .product-overlay {
+            width: 100px;
+        }
+
+        .product-overlay .text {
+            .lib-font-size(24);
+            line-height: 32px;
+        }
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .product-overlay {
+        & {
+            .lib-css(width, @product-overlay__width__l);
+        }
+
+        &.-top-left,
+        &.-bottom-left {
+            left: 10px !important;
+            top: 10px !important;
+        }
+
+        .text {
+            .lib-font-size(12);
+        }
+    }
+}

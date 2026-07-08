@@ -1,0 +1,66 @@
+<?php $options = $block->getOptions(); ?>
+<?php if (count($options)): ?>
+    <table class="ai-process-run-options-cl">
+    <?php foreach ($options as $optionCode => $option): ?>
+        <?php if (!isset($option['front_type']) || !isset($option['front_name'])) continue; ?>
+        <?php
+        $required = '';
+        $requiredClass = '';
+        if (isset($option['required']) && $option['required']) {
+            $required = '<span class="run-option-required">&nbsp;*</span>';
+            $requiredClass = 'data-validate="{required:true, \'required-entry\':true}"';
+        }
+        ?>
+        <tr>
+        <?php if ($option['front_type'] == 'input'): ?>
+            <td>
+                <?php /* @escapeNotVerified */ echo $option['front_name'] . $required ?>
+            </td>
+            <td>
+                <input <?php /* @escapeNotVerified */ echo $requiredClass ?> name="runoptions[<?php echo $block->escapeHtml($optionCode) ?>]" type="text" value=""/>
+            </td>
+        <?php endif; ?>
+        <?php if ($option['front_type'] == 'checkbox'): ?>
+            <td>
+                <?php echo $block->escapeHtml($option['front_name']) ?>
+            </td>
+            <td>
+                <input <?php /* @escapeNotVerified */ echo $requiredClass ?> name="runoptions[' . <?php echo $block->escapeHtml($optionCode) ?> . ']"
+                                                    type="checkbox"/>
+            </td>
+        <?php endif; ?>
+        <?php if ($option['front_type'] == 'multiselect' || $option['front_type'] == 'select'): ?>
+            <?php if (!isset($option['source_model'])) continue; ?>
+            <?php
+            $multi = '';
+            $name = 'runoptions[' . $optionCode . ']';
+            if ($option['front_type'] == 'multiselect') {
+                $multi = 'multiple';
+                $name .= '[]';
+            }
+            ?>
+            <td><?php echo $block->escapeHtml($option['front_name']) ?></td>
+            <td>
+                <select <?php /* @escapeNotVerified */ echo $multi . ' name="' . $name . '" ' . $requiredClass . ' >' ?>;
+                <?php $source = $block->getSelectOptions($option['source_model']); ?>
+                <?php foreach ($source as $k => $v): ?>
+                    <?php
+                    if (is_array($v)) {
+                        $label = is_object($v['label']) ? $v['label']->getText() : $v['label'];
+                        $value = $v['value'];
+                    } else {
+                        $label = $v;
+                        $value = $k;
+                    }
+                    ?>
+                    <option value="<?php echo $block->escapeHtml($value) ?>"><?php echo $block->escapeHtml($label) ?></option>
+                <?php endforeach; ?>
+                </select>
+            </td>
+            </tr>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    <?php echo $block->escapeHtml(__('There are no configurable options for current process.')) ?>
+<?php endif; ?>

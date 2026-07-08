@@ -1,0 +1,189 @@
+//
+//  Locator:details
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@locator-item-icon__size: 15px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .locator-details {
+        &:not(.locator-item) {
+            .lib-css(border-top, 1px solid @border-color__base);
+
+            padding-top: 20px;
+        }
+
+        > .item {
+            .lib-css(line-height, @locator-item-icon__size);
+            margin-bottom: 14px;
+            position: relative;
+            padding-left: 25px;
+
+            .collapsible-table table > thead > tr > th,
+            .collapsible-table table > tbody > tr > th,
+            .collapsible-table table > tfoot > tr > th,
+            .collapsible-table table > thead > tr > td,
+            .collapsible-table table > tbody > tr > td,
+            .collapsible-table table > tfoot > tr > td{
+                padding: 0 0 8px;
+            }
+
+            .collapsible-table::after{
+                top: 0;
+            }
+        }
+
+        > .item > .icon {
+            left: 0;
+            top: 0;
+            position: absolute;
+
+            .svg-icon{
+                width: 15px;
+                height: 15px;
+            }
+        }
+
+        > .item.-available > .icon {
+            left: -1px;
+        }
+
+        > .item > .icon + div,
+        > .item > .icon + address {
+            overflow: hidden;
+        }
+
+        .name {
+            .lib-font-size(13);
+
+            position: relative;
+            padding-right: 30px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .name .pin {
+            .lib-css(color, @color-orange-red1);
+
+            position: absolute;
+            right: 5px;
+            top: 0;
+        }
+
+        .pin > .svg-icon {
+            width: 22px;
+            height: 22px;
+        }
+
+        .item > .icon .svg-icon {
+
+        }
+    }
+
+    .stores-gallery {
+        & {
+            margin-top: 28px;
+        }
+
+        .thumb {
+            margin-bottom: 6px;
+        }
+    }
+
+    .store-view.grid-row {
+        .column.-left {
+            .lib-css(border-bottom, 1px solid @border-color__base);
+
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+        }
+    }
+
+    .hours-table {
+        table {
+            margin-top: 7px;
+        }
+
+        table td {
+            .lib-css(color, @color-4-8);
+
+            padding: 0;
+            line-height: 18px;
+        }
+
+        table tr td:first-child {
+            padding-right: 20px;
+            width: 1%;
+        }
+    }
+}
+
+
+//
+//  Tablet +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .locator-details {
+        .name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e65401;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .stores-gallery {
+            display: flex;
+        }
+
+        .stores-gallery > .thumb {
+            flex-basis: 50%;
+
+            &:first-child {
+                margin-right: 20px;
+            }
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .locator-details {
+        &:not(.locator-item) {
+            border: 0;
+            padding: 0;
+        }
+
+        .name {
+            .lib-font-size(16);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .stores-gallery {
+            margin-top: 38px;
+        }
+    }
+
+    .hours-table {
+        table td {
+            line-height: 19px;
+        }
+    }
+
+    .store-view.grid-row {
+        .column.-left {
+            .lib-css(border, 2px solid @color-3-1);
+
+            margin-bottom: 0;
+            padding: 45px;
+        }
+    }
+}

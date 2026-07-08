@@ -1,0 +1,25 @@
+<?php /** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */
+$helper = $this->helper('Digidirect\ProductOverlay\Helper\Data');
+$products = $helper->getApplicableSimples();
+?>
+<div class="swatch-opt" data-role="swatch-options"></div>
+
+<script type="text/x-magento-init">
+    {
+        "[data-role=swatch-options]": {
+            "Magento_Swatches/js/swatch-renderer": {
+                "jsonConfig": <?= /* @escapeNotVerified */ $swatchOptions = $block->getJsonConfig() ?>,
+                "jsonSwatchConfig": <?php /* @noEscape */ echo $block->getJsonSwatchConfig(); ?>,
+                "applicableSimple": <?php echo /* @escapeNotVerified */ $products ? $products : '{}' ; ?>,
+                "productConteiner": ".main",
+                "mediaCallback": "<?= /* @escapeNotVerified */ $block->getMediaCallback() ?>",
+                "gallerySwitchStrategy": "<?php /* @escapeNotVerified */ echo $block->getVar('gallery_switch_strategy','Magento_ConfigurableProduct') ?: 'replace'; ?>",
+                "parentLabels": <?php /* @escapeNotVerified */ echo $helper->getStockLabelsJson(); ?>,
+                "parentProductId": <?= /* @escapeNotVerified */ $block->getProduct()->getId(); ?>
+            },
+            "Magento_Swatches/js/configurable-customer-data": {
+                "swatchOptions": <?php /* @noEscape */ echo $swatchOptions ?>
+            }
+        }
+    }
+</script>

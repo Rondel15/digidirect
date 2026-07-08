@@ -1,0 +1,188 @@
+//
+//  Lib effect
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@block-transition-duration: .4s;
+@block-transition-duration_fast: .1s;
+@card-hover__background: @color-3-4;
+@card-hover__color: @color-2-1;
+@card-hover__border-color: @color-2-1;
+@block-hover__transform: scale(1.03);
+@sub-menu-hover__color: transparent;
+@link-underline__text-transform: underline;
+@link-color__color: @color-2-1;
+@social-icon__color: @color-black;
+@social-icon__background: @color-white;
+@product-item-offset__margin-top: -10px;
+@product-item-offset__margin-bottom: 10px;
+@products-slider-item__box-shadow-color: fade(@color-black, 10%);
+
+@transition-property: all;
+@transition-duration: .2s;
+@transition-function: ease-in-out;
+
+//
+//  Transition Simple. Example: .lib-transition(color);
+//  ---------------------------------------------
+
+.lib-transition(
+    @_property: @transition-property,
+    @_duration: @transition-duration,
+    @_function: @transition-function
+) {
+    transition: @_property @_duration @_function;
+}
+
+//
+//  Transition Multi. Example: .lib-transition-multi(~"background, border-color, color");
+//  ---------------------------------------------
+
+.lib-transition-multi(
+    @_property: @transition-property,
+    @_duration: @transition-duration,
+    @_function: @transition-function
+) {
+    transition-property: @_property;
+    transition-duration: @_duration;
+    transition-timing-function: @_function;
+}
+
+//
+//  Category-blocks
+//  ---------------------------------------------
+
+.lib-background-hover {
+    .lib-transition-multi(~'background, color', @block-transition-duration);
+    .lib-css(background, @card-hover__background);
+    .lib-css(color, @card-hover__color);
+    z-index: 10;
+}
+
+//
+//  Sub-menu hover
+//  ---------------------------------------------
+
+.lib-sub-menu-hover {
+    .lib-transition(box-shadow, @block-transition-duration);
+    .lib-css(box-shadow, 0 0 0 2px @card-hover__border-color);
+    .lib-css(color, @sub-menu-hover__color);
+    z-index: 10;
+}
+
+//
+//  Checkout complete tab hover
+//  ---------------------------------------------
+
+.lib-checkout-tab-hover {
+    .lib-css(background, @color-white);
+    .lib-css(color, @color-2-1);
+    z-index: 10;
+}
+
+//
+//  Checkout complete tab number hover
+//  ---------------------------------------------
+
+.lib-checkout-tabnumber-hover {
+    .lib-css(border-color, @card-hover__color);
+    .lib-css(color, @color-white);
+    .lib-css(background-color, @card-hover__color);
+}
+
+//
+//  Block border
+//  ---------------------------------------------
+
+.lib-border-block-hover {
+    .lib-css(box-shadow, 0 0 0 2px @card-hover__border-color);
+    .lib-transition(box-shadow, @block-transition-duration);
+}
+
+//
+//  Block bottom underline
+//  ---------------------------------------------
+
+.lib-block-underline-hover {
+    .lib-css(box-shadow, 0px 3px 0px 0px @card-hover__border-color);
+    .lib-transition(box-shadow, @block-transition-duration);
+}
+
+//
+//  Scale increased
+//  ---------------------------------------------
+
+.lib-increased-hover {
+    .lib-css(transform, @block-hover__transform);
+    .lib-transition(transform, @block-transition-duration);
+}
+
+//
+//  Border color
+//  ---------------------------------------------
+
+.lib-border-hover {
+    .lib-css(border-color, @card-hover__border-color);
+}
+
+//
+//  Underline
+//  ---------------------------------------------
+
+.lib-underline-hover {
+    .lib-css(text-decoration, @link-underline__text-transform);
+    .lib-transition(@transition-property, @block-transition-duration);
+}
+
+//
+//  Color
+//  ---------------------------------------------
+
+.lib-color-hover {
+    .lib-css(color, @link-color__color);
+    .lib-transition(@transition-property, @block-transition-duration);
+}
+
+//
+//  Block offset (slider)
+//  ---------------------------------------------
+
+.lib-block-offset-hover {
+    .lib-css(margin-top, @product-item-offset__margin-top);
+    .lib-css(margin-bottom, @product-item-offset__margin-bottom);
+    .lib-transition(@transition-property, @block-transition-duration);
+}
+
+//
+//  Block menu background
+//  ---------------------------------------------
+
+.lib-block-screen-hover {
+    .lib-css(background, @color-2-1);
+    .lib-transition(@transition-property, @block-transition-duration);
+}
+
+//
+//  Icon white-black
+//  ---------------------------------------------
+
+.lib-social-hover {
+    .lib-css(color, @social-icon__color);
+    .lib-css(background, @social-icon__background);
+    .lib-transition-multi(~'background, color', @block-transition-duration);
+}
+
+//
+//  Transition out
+//  ---------------------------------------------
+
+.lib-hover-out {
+    .lib-transition(@transition-property, @block-transition-duration);
+}
+
+.lib-hover-out_fast {
+    .lib-transition(@transition-property, @block-transition-duration_fast);
+}

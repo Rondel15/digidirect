@@ -1,0 +1,44 @@
+//
+//  Catalog: Image
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@catalog-image__is-enabled: true; // Enable/disable styles
+
+//  Container
+//@catalog-image-container__display: inline;
+//@catalog-image-container__display__m: inline-block;
+//@catalog-image-container__max-width: 100%;
+//@catalog-image-container__vertical-align: top;
+
+//  Wrapper
+//@catalog-image-wrapper__display: block;
+//@catalog-image-wrapper__position: relative;
+//@catalog-image-wrapper__z-index: 1;
+//@catalog-image-wrapper__height: 0;
+//@catalog-image-wrapper__overflow: hidden;
+
+//  Photo
+//@catalog-image-photo__position: absolute;
+//@catalog-image-photo__top: 0;
+//@catalog-image-photo__right: 0;
+//@catalog-image-photo__bottom: 0;
+//@catalog-image-photo__left: 0;
+//@catalog-image-photo__display: block;
+//@catalog-image-photo__max-width: 100%;
+//@catalog-image-photo__height: auto;
+//@catalog-image-photo__margin: auto;
+
+//
+//  M -
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .product-image-container {
+        // override javascript height
+        height: auto!important;
+    }
+}

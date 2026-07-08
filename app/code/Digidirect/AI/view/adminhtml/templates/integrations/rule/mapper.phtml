@@ -1,0 +1,70 @@
+<?php
+/** @var $mapper \Digidirect\AI\Model\Integrations\Rule\Mapping\MapperInterface $mapper */
+$mapper = $block->getMapper();
+$savedData = $block->getSavedData();
+$formPart = $block->getFormPart();
+?>
+<div id="digidirect_ai_mapper_<?php echo $block->escapeHtml($mapper->getMapperCode()); ?>" class="block-schedule block" style="background: #f8f8f8; padding: 2rem 2.5rem;">
+    <div class="block-title">
+        <span class="title"><?php echo $block->escapeHtml($block->getDescription()); ?></span>
+    </div>
+    <?php foreach ($savedData as $rowKey => $row): ?>
+        <div class="row">
+            <?php foreach ($mapper->getMappingFields() as $field => $title): ?>
+                <span><?php echo $block->escapeHtml($title); ?></span>
+                <select class="admin__control-select" name="<?php echo $block->escapeHtml($mapper->getMapperCode()); ?>[<?php echo $block->escapeHtml($rowKey); ?>][<?php echo $block->escapeHtml($field); ?>]" data-form-part="<?php echo $block->escapeHtml($formPart); ?>">
+                    <?php  foreach ($mapper->getFieldOptions($field) as $option => $optionTitle): ?>
+                        <option <?php if (isset($row[$field]) && $row[$field] == $option): ?>selected="selected"<?php endif ?> value="<?php echo $block->escapeHtml($option); ?>">
+                            <?php echo $block->escapeHtml($optionTitle); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endforeach; ?>
+            <button type="button" class="action-default" onclick="aiMapperForm.removeMapperRow(this)">
+                <span><?php echo $block->escapeHtml(__('Remove row')) ?></span>
+            </button>
+        </div>
+    <?php endforeach; ?>
+    <div class="row new" style="display: none;">
+        <?php foreach ($mapper->getMappingFields() as $field => $title): ?>
+            <?php echo $block->escapeHtml($title); ?>
+            <select class="admin__control-select" name="<?php echo $block->escapeHtml($mapper->getMapperCode()); ?>[free][<?php echo $block->escapeHtml($field); ?>]" data-form-part="<?php echo $block->escapeHtml($formPart); ?>">
+                <?php foreach ($mapper->getFieldOptions($field) as $option => $optionTitle): ?>
+                    <option value="<?php echo $block->escapeHtml($option); ?>">
+                        <?php echo $block->escapeHtml($optionTitle); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        <?php endforeach; ?>
+        <button type="button" class="action-default" onclick="aiMapperForm.removeMapperRow('<?php echo $block->escapeHtml($mapper->getMapperCode()); ?>', this)">
+            <span><?php echo $block->escapeHtml(__('Remove row')) ?></span>
+        </button>
+    </div>
+    <div class="add-button">
+        <br/><br/>
+        <button type="button" class="action-default" onclick="aiMapperForm.addMapperRow('<?php echo $block->escapeHtml($mapper->getMapperCode()); ?>')">
+            <span><?php echo $block->escapeHtml(__('Add row')) ?></span>
+        </button>
+    </div>
+</div>
+<script>
+    var aiMapperForm = {
+        counter: <?php echo (int)count($savedData); ?>,
+
+        addMapperRow: function (formId) {
+            var form = jQuery('#digidirect_ai_mapper_' + formId),
+                newBlock = form.find('.row.new:first').clone().show();
+
+            aiMapperForm.counter++;
+            newBlock = newBlock.html().replace(/free/gi, 'row_'+aiMapperForm.counter);
+            form.find('.add-button').before('<div class="row">'+newBlock+'</div>');
+        },
+
+        removeMapperRow: function (formId, button) {
+            var form = jQuery('#digidirect_ai_mapper_' + formId);
+            if (form.find('div.row').length > 1) {
+                jQuery(button).closest('div.row').remove();
+            }
+        }
+    };
+</script>

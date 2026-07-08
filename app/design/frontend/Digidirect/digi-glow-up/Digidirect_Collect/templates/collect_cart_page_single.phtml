@@ -1,0 +1,25 @@
+<div id="collect-single-cart" data-bind="scope: 'collect-single-cart'" class="collect_place_class">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<?php
+$quoteHelper = $helper = $this->helper('Digidirect\Digi\Helper\Quote');
+$hasWebOnly = $quoteHelper->isQuoteHasWebOnlyProducts();
+?>
+<?php $pickUpStoreCmsBlock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pick-up-store')->toHtml() ?>
+<?php $oneHourPickUpAvailable = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-hour-pickup-available')->toHtml() ?>
+<script type="text/javascript">
+    window.pickUpStoreCmsBlock = <?php echo json_encode($pickUpStoreCmsBlock)?>;
+    window.oneHourPickUpAvailable = <?php echo json_encode($oneHourPickUpAvailable)?>
+</script>
+<script type="text/x-magento-init">
+    {
+        "#collect-single-cart": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout();?>
+        }
+    }
+</script>
+<?php if ($hasWebOnly) : ?>
+    <script>
+        window.hasWebOnly = <?= $hasWebOnly ?>;
+    </script>
+<?php endif; ?>

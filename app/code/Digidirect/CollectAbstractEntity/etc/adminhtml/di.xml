@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+
+    <!-- Click and Collect Fields and Abstract Entity Attribute Fields relation to set up Store (matrix) -->
+    <virtualType name="Digidirect\CollectAbstractEntity\Block\Adminhtml\Form\Field\CollectFieldsMatrix"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="collect_field" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\CollectField</item>
+                    <item name="label" xsi:type="string">Click and Collect Field</item>
+                </item>
+                <item name="abstract_entity_attribute_field" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractEntityAttr</item>
+                    <item name="label" xsi:type="string">Abstract Entity Attribute</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Click and Collect Field (matrix) -->
+    <virtualType name="Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\CollectField"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Digidirect\CollectAbstractEntity\Model\System\Config\Source\CollectField</argument>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Abstract Entity Attribute Field (matrix) -->
+    <virtualType name="Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractEntityAttr"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Digidirect\CollectAbstractEntity\Model\System\Config\Source\AbstractEntityAttr</argument>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+
+    <!-- Abstract Entity Attribute Fields and Shipping Address Fields relations (matrix) -->
+    <virtualType name="Digidirect\CollectAbstractEntity\Block\Adminhtml\Form\Field\PrefillShippingAddressFieldsMatrix"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Relation">
+        <arguments>
+            <argument name="config" xsi:type="array">
+                <item name="shipping_address_field" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\ShippingAddressField</item>
+                    <item name="label" xsi:type="string">Shipping Address Field</item>
+                </item>
+                <item name="abstract_entity_attribute_field" xsi:type="array">
+                    <item name="class" xsi:type="object">Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractEntityAttr</item>
+                    <item name="label" xsi:type="string">Abstract Entity Attribute</item>
+                </item>
+            </argument>
+        </arguments>
+    </virtualType>
+
+    <!-- Click and Collect Field (matrix) -->
+    <virtualType name="Digidirect\CollectAbstractEntity\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\ShippingAddressField"
+                 type="Digidirect\Utilities\Block\Adminhtml\Config\Form\Field\Attribute\Renderer\AbstractRenderer">
+        <arguments>
+            <argument name="attributeList" xsi:type="object">Digidirect\CollectAbstractEntity\Model\System\Config\Source\AddressAttributes</argument>
+            <argument name="removeEmptyOption" xsi:type="boolean">true</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Magento\Sales\Block\Adminhtml\Order\View\Info">
+        <plugin name="digidirect_collect_quote_management" disabled="true"/>
+        <plugin name="Digidirect_CollectAbstractEntity::Magento\Sales\Block\Adminhtml\Order\View\Info" type="Digidirect\CollectAbstractEntity\Plugin\Magento\Sales\Block\Adminhtml\Order\View\Info"/>
+    </type>
+
+    <type name="Digidirect\CollectAbstractEntity\Model\System\Config\Source\AddressAttributes">
+        <arguments>
+            <argument name="labelMapping" xsi:type="array">
+                <item name="region" xsi:type="string">State/Region</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,36 @@
+<input type="hidden" value="" name="collect_place_storage_name" id="collect_place_storage_name"/>
+<input type="hidden" value="" name="collect_quote_item_id" id="collect_quote_item_id"/>
+
+<!-- ko if: presetCollectPlace().length > 0 -->
+    <span data-bind="i18n: 'You selected place:'"></span>
+    <b data-bind="text: presetCollectPlace()[0].collect_place_name"></b>
+<!-- /ko -->
+
+<div class="collect-type">
+    <input type="radio" id="collect_type_delivery" name="delivery_type" value="delivery" />
+    <label for="collect_type_delivery" data-bind="i18n: 'Delivery'"></label>
+    <input type="radio" id="collect_type_collect" name="delivery_type" value="collect" data-bind="attr:{'checked': presetCollectPlace().length > 0 ? 'checked' : ''}" />
+    <label for="collect_type_collect" data-bind="i18n: $parent.method_title || 'Collect'"></label>
+</div>
+
+<select name="collect_distance" id="collect_distance" data-bind="foreach: { data: distanceList, as: 'item'}">
+    <option data-bind="value: item, text: item"></option>
+</select>
+<input type="text" name="postcode" id="collect_postcode" data-bind="attr: {placeholder: 'Postcode'}"/>
+
+<!-- ko if: collectPlaceRows().length > 0 -->
+    <div class="collect_place_div_table" style="display:none;">
+        <table id='collect_place_table'></table>
+    </div>
+    <ul class="place-rows items" data-bind="foreach: { data: collectPlaceRows, as: 'row'}">
+        <li class="item">
+            <input type="radio" name="collect_place_id" data-bind="click: $parent.updateStorageName.bind($parent, row.collectplace.id), attr: {'id': row.collectplace.id, 'value': row.collectplace.id, 'data-collectplace-storage-name': row.collectplace_storage_name, 'disabled': !row.available}"/>
+            <label data-bind="attr: {'for': row.collectplace.id}, text: row.collectplace.name + ' (' + row.distance + (row.length_unit ? row.length_unit : '') + ')'"></label>
+        </li>
+    </ul>
+<!-- /ko -->
+<!-- ko if: isVisibleMoreButton -->
+    <div class="actions-toolbar">
+        <button type="button" class="action secondary" data-bind="i18n: 'Show More', click: addCollectPlaces"></button>
+    </div>
+<!-- /ko -->

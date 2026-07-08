@@ -1,0 +1,17 @@
+{
+  "name": "digidirect/blog",
+  "description": "Blog",
+  "type": "magento2-module",
+  "version": "3.1.1",
+  "suggest": {
+    "digidirect/utilities": "Digidirect Blog may use digidirect/utilities methods"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Digidirect\\Blog\\": ""
+    }
+  }
+}

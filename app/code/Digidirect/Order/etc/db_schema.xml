@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="sales_order" resource="sales" engine="innodb" comment="Sales Order">
+        <column xsi:type="int" name="days_to_ship_last_order" nullable="true" comment="days_to_ship_last_order"/>
+        <column xsi:type="int" name="pickup_email" nullable="true" default="0" comment="pickup_email"/>
+        <column xsi:type="int" name="invoice_email" nullable="true" default="0" comment="invoice_email"/>
+        <column xsi:type="int" name="initial_sync" nullable="true" default="0" comment="initial_sync"/>
+    </table>
+</schema>

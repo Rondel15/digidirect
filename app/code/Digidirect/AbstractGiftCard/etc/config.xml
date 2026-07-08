@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_abstract_gift_card>
+            <settings>
+                <accept_gift_cards_for_paid_orders>0</accept_gift_cards_for_paid_orders>
+            </settings>
+        </digidirect_abstract_gift_card>
+    </default>
+</config>

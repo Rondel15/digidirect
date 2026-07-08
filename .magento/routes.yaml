@@ -1,0 +1,30 @@
+http://{default}/:
+  type: upstream
+  upstream: mymagento:php
+http://{all}/:
+  primary: null
+  id: null
+  attributes: {}
+  type: upstream
+  tls:
+    strict_transport_security:
+      enabled: null
+      include_subdomains: null
+      preload: null
+    min_version: null
+    client_authentication: null
+    client_certificate_authorities: []
+  cache:
+    enabled: false
+    default_ttl: 0
+    cookies:
+    - '*'
+    headers:
+    - Accept
+    - Accept-Language
+  ssi:
+    enabled: false
+  upstream: mymagento:php
+  redirects:
+    expires: -1s
+    paths: {}

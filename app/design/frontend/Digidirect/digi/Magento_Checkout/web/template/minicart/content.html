@@ -1,0 +1,207 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="block-title minicart-item-header">
+    <i class="fas fa-shopping-bag" style="font-size: 30px;color: #ff3c00;"></i>
+    <span class="text" translate="'Cart Items'"></span>
+    <span class="qty">Total Items = 
+        <span id="cart-total-qty" class="empty"
+            text="getCartParam('summary_count')"
+            data-bind="css: { empty: !!getCartParam('summary_count') == false },
+                       attr: { title: $t('Items in Cart') }">
+        </span>
+    </span>
+</div>
+
+<div class="block-content">
+    <button type="button"
+            id="btn-minicart-close"
+            class="action close"
+            data-action="close"
+            data-bind="
+                attr: {
+                    title: $t('Close')
+                },
+                click: closeMinicart()
+            ">
+        <span translate="'Close'"></span>
+    </button>
+
+    <if args="getCartParam('summary_count')">
+        <!-- data-action="scroll" -->
+        <div  class="minicart-items-wrapper" data-bind="vertScrollbarMiniCart: this">
+            <ol id="mini-cart" class="minicart-items" data-bind="foreach: { data: getCartItems(), as: 'item' }">
+                <each args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
+                      render="{name: getTemplate(), data: item, afterRender: function() {$parents[1].initSidebar()}}"
+                ></each>
+            </ol>
+        </div>
+    </if>
+
+    <if args="getCartParam('summary_count')">
+        <each args="getRegion('subtotalContainer')" render=""></each>
+        <each args="getRegion('extraInfo')" render=""></each>
+
+        <div id="minicart-actions-main" class="actions" if="getCartParam('possible_onepage_checkout')">
+            <div class="primary">
+                <button
+                        id="top-cart-btn-checkout"
+                        type="button"
+                        class="action secondary checkout _full-width"
+                        data-action="close"
+                        data-bind="
+                            attr: {
+                                title: $t('CHECKOUT NOW')
+                            },
+                            click: closeMinicart()
+                        "
+                        translate="'CHECKOUT NOW'"
+                ></button>
+                <div data-bind="html: getCartParam('extra_actions')"></div>
+            </div>
+        </div>
+        
+        <div id="test-trigger" style="display: none;" data-bind="click: checkoutEvent()">Test Trigger!</div>
+
+        <div id="minicart-bottom-section" class="actions secondary">
+<!--            clint cheap hack haha please update-->
+            <div class="widget-product zip-widget__wrapper zip-widget__wrapper--display-popup zip-widget__wrapper--type-productwidget" data-zm-asset="productwidget" data-zm-price="848.30" data-zm-symbol="$" data-zm-widget="popup" data-zm-popup-asset="termsdialog" data-zm-rendered="true">
+                <meta charset="utf-8">
+                <title>Zip</title>
+                <style>
+                    @font-face {
+                        font-family: 'Cooper Lt BT';
+                        src: url(https://static.zipmoney.com.au/fonts/CooperLight.woff2);
+                    }
+                    @font-face {
+                        font-family: 'Sharp Grotesk Medium';
+                        src: url(https://static.zipmoney.com.au/fonts/SharpGroteskMedium20.woff);
+                    }
+                    @font-face {
+                        font-family: 'Sharp Grotesk Book';
+                        src: url(https://static.zipmoney.com.au/fonts/SharpGroteskBook20.woff2);
+                    }
+                    .zip-container {margin: 0 auto; align-items: center;}
+                    .zip-container .zip-logo{
+                        height: 35px;
+                        vertical-align: middle;
+                        display: inline-block;
+                        margin: -2px 0 5px 0px;
+                    }
+                    .zip-container span{font-size: 16px; margin-top: 2px; margin-bottom: 0px; display: inline;}
+                    .zip-payment-amount{font-weight: 700;}
+
+                    #zip-info-link {
+                        line-height: normal;
+                        display: inline-block;
+                        padding: 0;
+                        margin: 0;
+                        border: none;
+                        color: inherit;
+                        text-decoration: none;
+                        background: transparent;
+                        font-family: sans-serif;
+                        cursor: pointer;
+                        text-align: center;
+                        transition: background 250ms ease-in-out, transform 150ms ease;
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                    }
+
+                    .zip-learn-more{
+                        padding-left: 1px;
+                        font-size: smaller!important;
+                    }
+
+                </style>
+                <p class="zip-container">
+                    <span>or interest free for up to </span><span class="zip-payment-amount">12 months </span> <span> with</span>
+                    <img class="zip-logo" src="https://static.zipmoney.com.au/assets/default/product-widget/img/zip-button-wht.svg">
+                    <button id="zip-info-link" class="zip-info-link" tabindex="0" aria-label="Zip payment information - Opens a dialog" title="Zip payment Information">
+                        <span class="zip-learn-more">ⓘ</span>
+                </button>
+                </p>
+            </div>
+            <div class="afterpay-express-checkout-minicart-wraper">
+                <style>
+                    .afterpay-express-checkout-minicart-wraper {
+                        margin: 10px 0 !important;
+                        background: #B2FCE4;
+                        border-radius: 25px;
+                        text-align: center;
+                        /* height: 45px; */
+                    }
+                    .afterpay-express-checkout-minicart-wraper img {
+                        width: 120px;
+                        height: auto;
+                        max-height: 80px;
+                        /*margin-top: 5px;*/
+                        padding-top: 11px;
+                        padding-bottom: 5px;
+                    }
+                    @media screen and (max-width: 768px) {
+                        .afterpay-express-checkout-minicart-wraper img {
+                            width: 100%;
+                            height: unset !important;
+                            max-width: 100px;
+                        }
+                    }
+                </style>
+
+                <img src="https://www.digidirect.com.au/media/wysiwyg/afterpay/afterpay-logo-no-space.png" alt="Checkout with Afterpay">
+            </div>
+            <div class="secondary">
+                <button id="minicart-continue-shopping-btn" class="action secondary _full-width" data-bind="click: closeMinicart()">
+                    <span translate="'Continue Shopping'"></button>
+                </button>
+            </div>
+        </div>
+    </if>
+    
+    
+    <div class="pa-digidirect-product-widget pa-minicart">
+        <div class="product-widget-header">
+            <h3 class="title" style="font-size: 18px;font-weight: 650;color: #ff3c00;">You May Also Like</h3>
+        </div>
+        <div id="pa-minicart-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container"></div>
+    </div>
+
+    <ifnot args="getCartParam('summary_count')">
+        <p class="minicart empty text"
+                translate="'Your cart is empty.'"
+        ></p>
+        <div class="actions secondary">
+            <div class="secondary">
+                <button class="action secondary _full-width" data-bind="click: closeMinicart()">
+                    <span translate="'Continue Shopping'"></span>
+                </button>
+            </div>
+        </div>
+        <if args="getCartParam('cart_empty_message')">
+            <p class="minicart empty text" text="getCartParam('cart_empty_message')"></p>
+            <div class="actions">
+                <div class="secondary">
+                    <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                        <span translate="'View and Edit Cart'"></span>
+                    </a>
+                </div>
+            </div>
+        </if>
+    </ifnot>
+
+    <div id="minicart-view-cart" class="actions" if="getCartParam('summary_count')">
+        <div class="secondary">
+            <a class="action viewcart" data-bind="attr: {href: shoppingCartUrl}">
+                <span translate="'View and Edit Cart'"></span>
+            </a>
+        </div>
+    </div>
+
+    <div id="minicart-widgets" class="minicart-widgets">
+        <each args="getRegion('promotion')" render=""></each>
+    </div>
+</div>
+<each args="getRegion('sign-in-popup')" render=""></each>

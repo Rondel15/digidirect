@@ -1,0 +1,33 @@
+<?php
+/**
+ * @var $block \Digidirect\CategoryFilter\Block\Category
+ */
+$category = $block->getCurrentCategory();
+$parentCategory = $category->getParentCategory();
+$childrenCollection = $block->getChildrenCategories();
+?>
+<?php if ($childrenCollection): ?>
+<div data-role="collapsible" class="filter-options-item collapsible-section sub-category-block">
+    <strong class="filter-options-title title" role="heading" aria-level="3" data-toggle="dropdown" data-role="title" data-testid="sln-filter-title">
+        <?php echo __('Select a Category'); ?>
+    </strong>
+    <div class="content sub-categories" data-target="dropdown" data-role="content" data-testid="sln-filter-content">
+        <ul class="items">
+            <?php foreach ($childrenCollection as $category) : ?>
+                <li class="item">
+                    <a href="<?php echo $block->escapeUrl($block->getCategoryUrl($category)) ?>" class="link" title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                        <?php echo $block->escapeHtml($category->getName()); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            <?php if ($block->showParentLink()): ?>
+                <li class="item">
+                    <a href="<?php echo $block->escapeUrl($block->getCategoryUrl($parentCategory)) ?>" class="link -all" title="<?php echo $block->escapeHtml(__("See All: %1", $parentCategory->getName())) ?>">
+                        <?php echo $block->escapeHtml(__("See All: %1", $parentCategory->getName())) ?>
+                    </a>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
+</div>
+<?php endif; ?>

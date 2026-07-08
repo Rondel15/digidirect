@@ -1,0 +1,45 @@
+//
+//  Theme: Checkout: Sidebar
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .opc-sidebar {
+        margin-bottom: 5px;
+    }
+}
+
+//
+//  M +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .opc-sidebar {
+        padding-bottom: 30px;
+    }
+    
+    .opc-sidebar {
+        float: right !important;
+        width: 30% !important;
+        margin-top: -0 !important;
+        margin-bottom: 15px !important;
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .opc-sidebar {
+        float: right;
+        width: 30%;
+        margin-top: -0;
+        margin-bottom: 15px;
+        //padding-right: 30px;
+        //padding-left: 30px;
+    }
+}

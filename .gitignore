@@ -1,0 +1,14 @@
+/vendor/
+/generated/
+/var/
+/pub/static/*
+!/pub/static/.htaccess
+/pub/media/
+/node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# macOS
+.DS_Store

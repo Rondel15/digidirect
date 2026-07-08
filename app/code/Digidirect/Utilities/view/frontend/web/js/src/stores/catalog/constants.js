@@ -1,0 +1,7 @@
+/* eslint one-var: ["error", { const: "never" }] */
+// PRODUCT COLLECTION
+export const PRODUCT_COLLECTION_UPDATED = 'PRODUCT_COLLECTION_UPDATED';
+export const PRODUCT_COLLECTION_UPDATE_START = 'PRODUCT_COLLECTION_UPDATE_START';
+
+// ERROR
+export const ERROR = 'ERROR';

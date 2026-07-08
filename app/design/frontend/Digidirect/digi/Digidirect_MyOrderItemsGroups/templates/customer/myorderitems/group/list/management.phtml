@@ -1,0 +1,33 @@
+<?php
+/** @var \Digidirect\MyOrderItemsGroups\Block\Customer\MyOrderItems\Group\ItemsList\Groups $block */
+$filterParams = $block->collectFilterParams();
+?>
+<div class="group-manage nav-container">
+    <div class="title" data-toggle="dropdown" data-mage-init='{"dropdown": {}}'><?php echo $block->escapeHtml(__('Manage Kit')) ?></div>
+    <div class="list" data-target="dropdown">
+        <a class="item" title="<?= $block->escapeHtml(__('Create New Kit')) ?>" href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/addgroup')) ?>"><?= $block->escapeHtml(__('Create New Kit')) ?>
+            <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon icon-kit">
+                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-shelf-layer"></use>
+            </svg>
+        </a>
+        <?php if (!$block->isEmptyGroup()): ?>
+            <!-- Rename should be a fake link just showing hidden rename form -->
+            <a class="item" title="<?= $block->escapeHtml(__('Rename Group')) ?>" href="" data-role="rename-group"><?= $block->escapeHtml(__('Rename Kit')) ?>
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon icon-kit">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-shelf-pen"></use>
+                </svg>
+            </a>
+            <!-- Clear Items should be a fake link showing hidden checkboxes and submit button -->
+            <a class="item" title="<?= $block->escapeHtml(__('Clear Item(s)')) ?>" href="" data-role="clear-button"><?= $block->escapeHtml(__('Clear Item(s)')) ?>
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon icon-kit">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-shelf-close"></use>
+                </svg>
+            </a>
+            <a class="item" title="<?= $block->escapeHtml(__('Delete Kit')) ?>" data-role="delete-group" href="<?= $block->escapeUrl($block->getUrl('myorderitems/myorderitems/delete', ['group_id' => $block->getCurrentGroupId()])) ?>"><?= $block->escapeHtml(__('Delete Kit')) ?>
+                <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon icon-kit">
+                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-shelf-basket"></use>
+                </svg>
+            </a>
+        <?php endif; ?>
+    </div>
+</div>

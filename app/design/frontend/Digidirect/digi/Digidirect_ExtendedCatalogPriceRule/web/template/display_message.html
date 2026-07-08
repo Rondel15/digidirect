@@ -1,0 +1,39 @@
+<div class="block-extendedrule<% if (data.action_amount) { %> -cashback<% } %>" id="rule-<%- data.rule_id %>-<%- productId %>-<%- itemIndex %>-plp">
+    <% if (inProductList) { %>
+    <div class="name" data-rule-label="rule-<%- data.rule_id %>">
+        <% if (data.plp_label) { %>
+        <%= data.plp_label %>
+        <% } %>
+        <% if (!data.plp_label) { %>
+        <%- label.defaultRuleLabel %>
+        <% } %>
+    </div>
+    <% } %>
+
+    <% if (data.action_amount) { %>
+    <div class="price-box">
+        <span class="price-container">
+            <span class="before-cashback">
+                <span class="price-label"><%= label.beforeCashback %></span>
+                <span class="price-wrapper"><span class="price"><%= data.before_cashback_price %></span></span>
+            </span>
+            <span class="after-cashback">
+                <span class="price-label"><%= label.afterCashback %></span>
+                <span class="price-wrapper"><span class="price"><%= data.after_cashback_price %></span></span>
+            </span>
+        </span>
+    </div>
+    <% } %>
+
+    <% if (data.pdp_description || data.url_promotion) { %>
+    <div class="details-extendedrule no-display" data-rule="rule-<%- data.rule_id %>">
+        <% if (data.pdp_description) { %>
+        <div class="description"><%= data.pdp_description %></div>
+        <% } %>
+
+        <% if (data.url_promotion) { %>
+        <a class="link" href="<%- data.url_promotion %>" title="<%- label.promotionTitle %>"><%- label.promotionTitle %></a>
+        <% } %>
+    </div>
+    <% } %>
+</div>

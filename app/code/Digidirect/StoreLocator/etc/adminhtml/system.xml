@@ -1,0 +1,181 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="digidirect" translate="label" sortOrder="100">
+            <label>Digidirect</label>
+        </tab>
+        <section id="digidirect_storelocator_config" translate="label" type="text" sortOrder="10" showInDefault="1"
+                 showInWebsite="1" showInStore="1">
+            <label>Store Locator </label>
+            <tab>digidirect</tab>
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Settings</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="api" translate="label" type="select" sortOrder="20" showInDefault="1" showInStore="1" showInWebsite="1">
+                    <label>API</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\Api</source_model>
+                </field>
+                <field id="ask_to_use_geolocation_on_first_visit" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ask To Use Geolocation On First Visit</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to "Yes" customer will be asked for permission to use their geolocation on Store Locator first visit</comment>
+                </field>
+                <field id="search_results_display_mode" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Search Results Display Mode</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\SearchResultsDisplayMode</source_model>
+                    <comment>Define how search results will be displayed. 'Attributes' mode will display results based on store attributes match, 'Radius' will display all stores inside the set up radius.</comment>
+                </field>
+            </group>
+            <group id="list_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Store Locator Listing</label>
+                <field id="page_url" translate="label comment" type="text" sortOrder="20"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Page URL</label>
+                    <backend_model>Digidirect\StoreLocator\Model\System\Config\Backend\PageUrl</backend_model>
+                </field>
+                <field id="available_countries" translate="label" type="multiselect" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>Allow Countries</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                </field>
+
+                <field id="page_meta_description" translate="label comment" type="text" sortOrder="40"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Page Meta Description</label>
+                </field>
+                <field id="default_radius" translate="label comment" type="text" sortOrder="50"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Default Radius</label>
+                </field>
+                <!--<field id="metric" translate="label comment" type="select" sortOrder="55" showInDefault="1" showInWebsite="1" showInStore="0">-->
+                    <!--<label>Search Metric</label>-->
+                    <!--<source_model>Digidirect\StoreLocator\Model\Config\Source\Metric</source_model>-->
+                    <!--<comment>Specify whether to use kilometers or miles for the radius</comment>-->
+                <!--</field>-->
+                <field id="radius_options" translate="label comment" type="text" sortOrder="60"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Radius Options</label>
+                    <comment>Comma is a separator</comment>
+                </field>
+                <field id="default_country" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Country</label>
+                    <source_model>Magento\Directory\Model\Config\Source\Country</source_model>
+                    <frontend_class>required-entry</frontend_class>
+                </field>
+                <field id="default_image" type="image" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default Image  </label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">digidirect/storelocator/image</upload_dir>
+                    <base_url type="media" scope_info="1">digidirect/storelocator/image</base_url>
+                </field>
+                <field id="stores_on_locator_page" translate="label comment" type="text" sortOrder="100"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Stores On Locator Page</label>
+                </field>
+                <field id="max_stores_to_show" translate="label comment" type="text" sortOrder="110"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Max Amount Of Stores To Show</label>
+                </field>
+                <field id="detail_click_action" type="select" translate="label" showInWebsite="1" showInStore="1" showInDefault="1">
+                    <label>Transition from Locator Listing to Detail Page</label>
+                    <source_model>Digidirect\Locator\Model\Source\ClickAction</source_model>
+                </field>
+                <field id="group_search_results_by_parent_entity" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Group Search Results By Parent Entity</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to "No" - locator search result will not be grouped by parent entity</comment>
+                </field>
+                <field id="countries_xml_path" translate="label" type="select" sortOrder="170" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Default countries on store locator page config from:</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\CountriesConfig</source_model>
+                </field>
+            </group>
+            <group id="search_settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Search Settings</label>
+                <field id="extend_radius" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Extend the Radius if Search results are  not Found</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="sort_order" translate="label comment" type="select" sortOrder="20"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Sort Order</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\SortOrder</source_model>
+                </field>
+                <field id="show_featured_stores_at_the_top" translate="label comment" type="select" sortOrder="30"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Show Featured Stores at the Top </label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="search_attributes" translate="label" type="multiselect" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Fulltext Search Attributes</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\Attributes</source_model>
+                </field>
+                <field id="entities" translate="label" type="multiselect" sortOrder="45" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Fulltext Search Attributes Available For Entities</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\AttributeSet</source_model>
+                </field>
+                <field id="search_min_length" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Search Term Minimum Length</label>
+                    <validate>validate-not-negative-number integer required-entry</validate>
+                </field>
+                <field id="ignore_search_term" translate="label comment" type="select" sortOrder="60"  showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Ignore search term</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to "Yes" - search will be performed based on coordinates and radius only</comment>
+                </field>
+            </group>
+            <group id="exclusive_management" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Exclusive Management (section)</label>
+                <field id="exclusive_icon" translate="label comment" type="image" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Exclusive Icon</label>
+                    <backend_model>Magento\Config\Model\Config\Backend\Image</backend_model>
+                    <upload_dir config="system/filesystem/media" scope_info="1">digidirect/storelocator/image</upload_dir>
+                    <base_url type="media" scope_info="1">digidirect/storelocator/image</base_url>
+                </field>
+            </group>
+            <group id="store_details" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Store Details (section)</label>
+                <field id="enable_directions" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable Directions</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="seo" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>SEO</label>
+                <field id="remove_trailing_slash" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove trailing slash</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group>
+            <group id="dev" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Developer Setting</label>
+                <field id="main_entity" translate="label comment" type="select" sortOrder="10"  showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Base Entity</label>
+                    <source_model>Digidirect\StoreLocator\Model\Config\Source\AttributeSetWithEmpty</source_model>
+                    <comment>When Store Locator extension is installed it creates Store Entity by default. If you want to rename it you need to specify renamed entity here</comment>
+                </field>
+                <field id="entity_layout_mapping" translate="label" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Layout Settings</label>
+                    <frontend_model>Digidirect\StoreLocator\Block\Adminhtml\Config\LayoutMatrix</frontend_model>
+                    <backend_model>Digidirect\StoreLocator\Model\System\Config\Backend\OptionModel</backend_model>
+                </field>
+                <field id="load_all_children_for_parent" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Load All Children For Parent</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If set up to "Yes" - all children will be added to child items list</comment>
+                </field>
+                <field id="guess_state" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Replace short codes in a query to full state name</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If you store short states codes(CA, NSW) - do not use this functionality</comment>
+                </field>
+                <field id="guess_country" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Replace full country name with country code</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If customer looks for Australia query will be modified to AU</comment>
+                </field>
+                <field id="guess_postcode" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Remove numeric search term if only number is presented</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If only number is in a search term it will be removed and radius functionality will work as expected</comment>
+                </field>
+            </group>
+            <resource>Digidirect_Locator::digidirect_config</resource>
+        </section>
+    </system>
+</config>

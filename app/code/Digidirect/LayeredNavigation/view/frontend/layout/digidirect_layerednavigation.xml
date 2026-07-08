@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <container name="digidirect.layerednavigation" label="Product List Container" htmlTag="div" htmlId="digidirect-layerednavigation-product-list">
+                <block class="Digidirect\LayeredNavigation\Block\ProductList" name="digidirect.layerednavigation.config" template="Digidirect_LayeredNavigation::layer/ajax.phtml" before="-" />
+            </container>
+        </referenceContainer>
+        <referenceContainer name="sidebar.main">
+            <block class="Digidirect\LayeredNavigation\Block\Apply" name="digidirect.layerednavigation.apply" template="Digidirect_LayeredNavigation::layer/apply.phtml" after="-"/>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,10 @@
+<div data-role="locator-list" class="locator-list column -left" data-bind="scope: 'locator_list'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>
+<script type="text/x-magento-init">
+{
+    "[data-role='locator-list']": {
+        "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+    }
+}
+</script>

@@ -1,0 +1,16 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<div class="price-container">
+    <!-- ko if: item.regular_price_value != item.product_price_value -->
+    <div class="old-price-wrapper" style="display:flex;">
+        <span class="old-price">
+            <span class="price" data-bind="html: item.regular_price"></span>
+        </span>
+    </div>
+    <!-- /ko -->
+    <span class="price-wrapper" data-bind="html: price"></span>
+</div>

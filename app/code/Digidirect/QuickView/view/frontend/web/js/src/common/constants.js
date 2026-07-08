@@ -1,0 +1,20 @@
+/* eslint one-var: ["error", { const: "never" }] */
+//  DATA FETCHING
+export const DATA_FETCH_START = 'DATA_FETCH_START';
+export const DATA_FETCH_PROGRESS = 'DATA_FETCH_PROGRESS';
+export const DATA_FETCH_SUCCESS = 'DATA_FETCH_SUCCESS';
+export const DATA_FETCH_FINISH = 'DATA_FETCH_FINISH';
+
+// QUICK VIEW EVENTS
+export const QUICK_VIEW_OPEN = 'QUICK_VIEW_OPEN';
+export const QUICK_VIEW_OPENED = 'QUICK_VIEW_OPENED';
+export const QUICK_VIEW_CLOSE = 'QUICK_VIEW_CLOSE';
+export const QUICK_VIEW_CLOSED = 'QUICK_VIEW_CLOSED';
+
+// PRODUCT PAGE EVENTS
+export const SECTION_UPDATE = 'SECTION_UPDATE';
+
+export const ADD_TO_CART = 'ADD_TO_CART';
+
+// ERROR
+export const ERROR = 'ERROR';

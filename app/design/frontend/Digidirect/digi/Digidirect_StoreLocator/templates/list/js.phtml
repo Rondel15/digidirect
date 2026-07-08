@@ -1,0 +1,45 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\Wrapper $block */
+$currentApi = $this->helper('Digidirect\StoreLocator\Helper\Config')->getApi();
+?>
+<?php if ($currentApi === 'google') : ?>
+    <?php
+    $entities = $block->getEntities();
+    $entityName = $block->getEntityName();
+    $isInPopup = $block->getOpenInPopup();
+    ?>
+    <script type="text/x-magento-init">
+        {
+            ".store-locator": {
+                "locator": {
+                    <?php if ($entityName) : ?>"entityName": "<?= $block->escapeHtml($entityName) ?>",<?php endif; ?>
+                    "defaultAddress": "<?php echo $block->escapeHtml($block->getDefaultCountry()) ?>",
+                    "defaultLocations": <?php /* @escapeNotVerified */ echo $entities ?>,
+                    "radius": {
+                        "default": <?php echo (int)$block->getDefaultRadius() ?>,
+                        "extensible": <?php /* @escapeNotVerified */ echo $block->getExtendRadius() ?>
+                    },
+                    "marker": {
+                        "settings": {
+                            "icon": {
+                                "url": "<?php echo $block->escapeHtml($block->getViewFileUrl('images/cluster/pin.png'));?>"
+                            }
+                        },
+                        "clusteringOptions": {
+                            "styles": [{
+                                "url": "<?php echo $block->escapeHtml($block->getViewFileUrl('images/cluster/m1.png'));?>",
+                                "width": "50",
+                                "height": "50",
+                                "fontSize": "12px",
+                                "fontWeight": "normal",
+                                "textAlign": "right",
+                                "textColor": "#fff"
+                            }]
+                        }
+                    },
+                    "openInPopup": "<?php echo /* @noEscape */ $isInPopup; ?>"
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

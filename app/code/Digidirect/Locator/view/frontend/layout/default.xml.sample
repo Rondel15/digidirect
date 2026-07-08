@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name='content'>
+            <block class="Digidirect\Locator\Block\Locator" name="Digidirect.locator.header" as="Digidirect_locator_header" template="locator.phtml">
+                <arguments>
+                    <argument name="entities" xsi:type="array">
+                        <item name="store" xsi:type="string">test</item>
+                    </argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

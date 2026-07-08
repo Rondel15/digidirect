@@ -1,0 +1,43 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+
+<?php /* @var $block \Magento\Catalog\Block\Product\View\Options\Type\Select */ ?>
+<?php
+$_option = $block->getOption();
+$class = ($_option->getIsRequire()) ? ' required' : '';
+?>
+<div class="field<?= /* @noEscape */ $class ?>">
+    <?php
+        if ($_option->getTitle() == 'digiProtect') {?>
+        <div class="tooltip protect-tooltip">
+            <img class="digiprotect-info-logo" src="<?php echo $block->getUrl("media/wysiwyg/digiprotect")?>digiProtect.png"/>
+            <span class="tooltiptext" style="display: none;">
+                <a href="#" class="close-tooltip-trigger"></a>
+                digiProtect your purchase beyond the manufacturer's warranty and have access to replacement 
+                or repair guarantee, surge protection, freight and service call cover and more. Click <a target="_blank" href="https://digidirect.com.au/digiprotect">here</a> for more info.
+            </span>
+        </div>
+    <?php
+        } ?>
+    <?php
+        if ($_option->getTitle() != 'digiProtect') {?>
+        <label class="label" for="select_<?= $block->escapeHtmlAttr($_option->getId()) ?>">
+            <span><?= $block->escapeHtml($_option->getTitle()) ?></span>
+        </label>
+    <?php
+        } ?>
+                
+    <div class="control">
+        <?= $block->getValuesHtml() ?>
+        <?php if ($_option->getIsRequire()) :?>
+            <?php if ($_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_RADIO || $_option->getType() == \Magento\Catalog\Api\Data\ProductCustomOptionInterface::OPTION_TYPE_CHECKBOX) :?>
+                <span id="options-<?= $block->escapeHtmlAttr($_option->getId()) ?>-container"></span>
+            <?php endif; ?>
+        <?php endif;?>
+    </div>
+</div>
+            

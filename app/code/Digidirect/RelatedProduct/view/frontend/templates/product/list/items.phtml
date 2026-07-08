@@ -1,0 +1,114 @@
+<?php
+/* @var $block \Digidirect\RelatedProduct\Block\ProductList\Related */
+
+use Digidirect\RelatedProduct\Block\ProductList\Related;
+
+if ($exist = $block->getItems()->getSize()) {
+    $type = 'related';
+    $class = $type;
+
+    $image = 'related_products_list';
+    $title = __('Related Products');
+    $items = $block->getItems();
+
+    $categoryCollection = $block->getCategoriesAssignedRelatedProducts();
+    $helper = $this->helper('\Digidirect\RelatedProduct\Helper\Data');
+    $initialFilter = '';
+}
+?>
+
+<?php if ($exist):?>
+    <div class="block <?php echo $block->escapeHtml($class); ?>">
+        <div class="block-title title">
+            <strong id="block-<?php $block->escapeHtml($class); ?>-heading" role="heading" aria-level="2">
+                <?php echo $block->escapeHtml($title); ?>
+            </strong>
+        </div>
+        <div class="block-content content" aria-labelledby="block-<?php $block->escapeHtml($class); ?>-heading">
+            <?php if ($helper->isFilterTabEnabled()) : ?>
+                <div class="related-filters" data-role="related-filters">
+                    <?php $i = 1; ?>
+                    <?php if ($block->getDisplayAllCategory()): ?>
+                        <?php $i++; $initialFilter = Related::ALL_CATEGORY_ID; ?>
+                        <span class="item -active" role="button" data-group="<?php echo $block->escapeHtml(Related::ALL_CATEGORY_ID); ?>" title="<?php echo $block->escapeHtml(__('All')); ?>">
+                            <?php echo $block->escapeHtml(__('All')); ?>
+                        </span>
+                    <?php endif; ?>
+                    <?php foreach ($categoryCollection as $category) : ?>
+                        <?php if ($i == 1): ?>
+                            <?php $initialFilter = $category->getId(); ?>
+                        <?php endif; ?>
+                        <span class="item<?php if ($i == 1): ?> -active<?php endif; ?>" role="button" data-group="<?php echo $block->escapeHtml($category->getId()); ?>" title="<?php echo $block->escapeHtml($category->getName()); ?>">
+                            <?php echo $block->escapeHtml($category->getName()); ?>
+                        </span>
+                    <?php $i++; endforeach; ?>
+                    <?php $i = 1; foreach ($categoryCollection as $category) : ?>
+                        <?php if ($category->getDescription()): ?>
+                            <div class="content<?php if ($i == 1): ?> -active<?php endif; ?>" data-category-id="<?php echo $block->escapeHtml($category->getId()); ?>"><?php /* @escapeNotVerified */ echo $category->getDescription(); ?></div>
+                        <?php endif; ?>
+                    <?php $i++; endforeach; ?>
+                </div>
+            <?php endif; ?>
+            <div class="products wrapper grid products-grid -related products-<?php echo $block->escapeHtml($type); ?>">
+                <ol id="related-grid" data-mage-init='{"relatedInfo": {"initialFilter": "<?php echo $block->escapeHtml($initialFilter); ?>"}}' class="related-grid product-items products list items">
+                    <?php $iterator = 1; $i = 0; foreach ($items as $_item): ?>
+                    <?php /** @var Digidirect\RelatedProduct\Model\Product $_item */ ?>
+                        <?php if ($iterator++ != 1) : ?></li><?php endif; ?><li data-groups='<?php /* @escapeNotVerified */ echo json_encode($block->getVisibleProductCategories($_item)); ?>' data-sort-order="<?php echo $block->escapeHtml(implode(',', $block->getProductPositionsInCategories($_item))); ?>" data-expander="#related-details-<?php echo (int)$i; ?>" class="item product product-item -hidden">
+                            <div class="product-item-info">
+                                <?php echo '<!-- ' . $block->escapeHtml($image) . '-->' ?>
+                                <div href="<?php echo $block->escapeUrl($block->getProductUrl($_item)); ?>" class="product photo product-item-photo">
+                                    <?php echo $block->getImage($_item, $image)->toHtml(); ?>
+                                </div>
+                                <div class="product details product-item-details">
+                                    <strong class="product name product-item-name">
+                                        <?php echo $block->escapeHtml($_item->getName()) ?>
+                                    </strong>
+                                </div>
+                                <span class="switch" data-role="related-details" role="button" data-text-more="<?php echo $this->escapeHtml(__('View Range')); ?>" data-text-less="<?php echo $this->escapeHtml(__('Hide Range')); ?>">
+                                    <?php echo $block->escapeHtml(__('View Range')); ?>
+                                </span>
+                                <?php
+                                $relatedProductFeaturedImages = $_item->getRelatedProductFeaturedImages($image);
+                                $relatedProductAttributes = $_item->getRelatedProductAttributes();
+                                ?>
+                                <div id="related-details-<?php echo (int)$i; ?>" class="related-info">
+                                    <?php if ($helper->isFeaturedImagesEnabled() && count($relatedProductFeaturedImages)) : ?>
+                                        <div class="related-featured">
+                                            <?php foreach ($relatedProductFeaturedImages as $featuredImage) : ?>
+                                                <div class="item"><?php echo $block->getFeatureImageHtml($_item, $featuredImage, $image); ?></div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if (count($relatedProductAttributes)) : ?>
+                                        <div class="related-attributes">
+                                            <?php foreach ($relatedProductAttributes as $attribute) : ?>
+                                                <div class="item">
+                                                    <span class="title"><?php echo $block->escapeHtml($attribute->getLabel()); ?></span>
+                                                    <div class="list">
+                                                        <?php if (is_array($attribute->getValue())) : ?>
+                                                            <?php foreach ($attribute->getValue() as $value) : ?>
+                                                                <span class="value">
+                                                                    <?php if (is_array($value)) : ?>
+                                                                        <?php echo isset($value['value']) ? $block->escapeHtml($value['value']) : '' ?>
+                                                                    <?php else : ?>
+                                                                        <?php echo $block->escapeHtml($value) ?>
+                                                                    <?php endif; ?>
+                                                                </span>
+                                                            <?php endforeach; ?>
+                                                        <?php else : ?>
+                                                            <span class="value"><?php /* @escapeNotVerified */ echo $attribute->getValue(); ?></span>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        <?php echo($iterator == count($items)+1) ? '</li>' : '' ?>
+                    <?php $i++; endforeach ?>
+                </ol>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

@@ -1,0 +1,20 @@
+<?php
+//@codingStandardsIgnoreFile
+?>
+
+<table class="admin__control-table">
+    <thead>
+    <tr>
+        <th class="col-default"><?php echo $block->escapeHtml(__('Product')) ?></th>
+        <th class="col-default"><?php echo $block->escapeHtml(__('Value')) ?></th>
+    </tr>
+    </thead>
+    <tbody>
+    <?php foreach ($this->getRandomProducts() as $product): ?>
+        <tr>
+            <td><?php echo $block->escapeHtml($product->getName()) ?></td>
+            <td><?php echo $block->escapeHtml($this->getPatternValue($product)) ?></td>
+        </tr>
+    <?php endforeach ?>
+    </tbody>
+</table>

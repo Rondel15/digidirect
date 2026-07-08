@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Catalog\Block\Product\Image">
+        <plugin name="Digidirect_ProductOverlay::AddOverlay"
+                type="Digidirect\ProductOverlay\Plugin\Catalog\Product\Overlay"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\View\Gallery">
+        <plugin name="Digidirect_ProductOverlay::AddOverlay"
+                type="Digidirect\ProductOverlay\Plugin\Catalog\Product\View\Overlay"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\ImageBuilder">
+        <plugin name="Digidirect_ProductOverlay::AddProductToData"
+                type="Digidirect\ProductOverlay\Plugin\Catalog\Product\ImageBuilder"/>
+    </type>
+    <type name="Magento\Catalog\Block\Product\AbstractProduct">
+        <plugin name="Digidirect_ProductOverlay::AddProductToImageBlockData" type="Digidirect\ProductOverlay\Plugin\Catalog\Block\Product\AbstractProductPlugin" />
+    </type>
+    <preference for="Magento\Swatches\Block\Product\Renderer\Configurable" type="Digidirect\ProductOverlay\Preference\Magento\Swatches\Block\Product\Renderer\Configurable" />
+    <preference for="Magento\Swatches\Block\Product\Renderer\Listing\Configurable" type="Digidirect\ProductOverlay\Preference\Magento\Swatches\Block\Product\Renderer\Listing\Configurable" />
+</config>

@@ -1,0 +1,95 @@
+//
+//  Wishlist: Shared Extend
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@wishlist-shared-table-tocart__margin-right: 0;
+@wishlist-shared-table-tocart__margin-right_xm: 10px;
+@wishlist-shared-table-tocart__margin-bottom: 15px;
+@wishlist-shared-table-action__width: 100%;
+@wishlist-shared-table-action__width_s: 158px;
+@wishlist-shared-table-tbody-tr__border-bottom__m: 1px solid @table__border-color;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .shared.wishlist {
+        .table.wishlist .action {
+            .lib-css(width, @wishlist-shared-table-action__width);
+        }
+
+        .table.wishlist .tocart {
+            .lib-css(margin-bottom, @wishlist-shared-table-tocart__margin-bottom);
+        }
+
+        .col.actions {
+            text-align: center;
+        }
+    }
+}
+
+//
+//  Mobile s +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .shared.wishlist {
+        .table.wishlist .action {
+            .lib-css(width, @wishlist-shared-table-action__width_s);
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}
+
+//
+//  Mobile only
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .shared.wishlist {
+        .col.comment {
+            clear: left;
+            margin-bottom: 15px;
+        }
+
+        .product.name {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        tbody > tr td[data-th]::before {
+            display: none !important;
+        }
+    }
+
+    .shared.wishlist {
+        tbody > tr {
+            .lib-css(border-bottom, @wishlist-shared-table-tbody-tr__border-bottom__m);
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    .shared.wishlist {
+        .table.wishlist .action {
+            .lib-font-size(14);
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        .table.wishlist .tocart {
+            .lib-css(margin-right, @wishlist-shared-table-tocart__margin-right_xm);
+        }
+    }
+}

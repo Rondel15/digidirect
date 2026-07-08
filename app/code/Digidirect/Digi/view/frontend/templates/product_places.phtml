@@ -1,0 +1,16 @@
+<?php
+/**
+ * @var $block \Digidirect\Digi\Block\Places
+ */
+?>
+
+<?php $places = $block->getAllCollectPlaces($block->getProduct()) ?>
+
+<?php foreach ($places as $place) : ?>
+    <?php if (isset($place['place_object']) && isset($place['available'])) : ?>
+    <div>
+        <p><?php echo $place['place_object']->getName(); ?>
+            <span><?php echo $place['available'] ? 'available' : 'unavailable' ?></span></p>
+    </div>
+    <?php endif; ?>
+<?php endforeach; ?>

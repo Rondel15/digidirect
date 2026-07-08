@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=Roboto:wght@900&display=swap');
+.hidden{display:none}
+.newspopup_up_bg,.newspopup-theme{position:fixed;top:0;bottom:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.3)}
+.newspopup-theme{overflow:hidden;overflow-y:auto;background:transparent}
+.newspopup_up_bg img{max-width:100%;height:auto}
+.newspopup_up_bg a{text-decoration:none}
+.newspopup_up_bg button{cursor:pointer}
+.black-fr__close{position:absolute;right:0;top:0;height:24px;background:none;border:none;padding:11px;outline:none;z-index:20;box-shadow:none}
+.black-fr__close:before,.black-fr__close:after{content:"";display:block;background:#fff;width:10px;height:1px;transform:rotate(45deg)}
+.black-fr__close:after{transform:translateY(-1px) rotate(-45deg)}
+.black-fr__close > span{position:absolute;overflow:hidden;clip:rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0}
+.black-fr__close:active:before,.black-fr__close:active:after,.black-fr__close:hover:before,.black-fr__close:hover:after{background:#999}
+.black-fr__container{width:363px;margin:0 auto;position:absolute;top:15%;left:50%;transform:translateX(-50%)}
+.black-fr__container:after{content: "";display: block;height: 15px}
+.black-fr__wrapper{background:#222;border-radius:10px;padding:20px 16px 35px;text-align:center;color:#fff}
+.black-fr__wrapper img{z-index:20;position:relative;pointer-events:none}
+.black-fr__content{padding-bottom:59px;background:url("{{view url='Plumrocket_Newsletterpopup::images/templates/theme32_desk_bg.png'}}") no-repeat center bottom;margin:0 -36px;position:relative;z-index:20}
+.black-fr__text{margin:0;font-family:Roboto,Open Sans,sans-serif;font-size:30px;text-transform:uppercase;font-weight:900;line-height:1.05;background:red;padding:11px;transform:rotate(-5deg) skew(-5deg)}
+.black-fr__btn{font-family:Open Sans,sans-serif;background:-webkit-gradient(linear,left top,left bottom,from(#0043fe),color-stop(49%,#0067fe),color-stop(50%,#0067fe),to(#0043fe));background:linear-gradient(to bottom,#0043fe 0%,#0067fe 49%,#0067fe 50%,#0043fe 100%);background-size:100% 200%;background-position:0 100%;border:none;border-radius:3px;font-size:20px;font-weight:600;color:#fff;padding:20px 25px;box-shadow:#bdbdbd -1px -1px 1px;margin-top:10px;position:relative;z-index:20;transition:all .3s ease-out;min-height:67px}
+.black-fr__btn:before{content:"";display:block;width:0;height:86%;position:absolute;top:7%;left:0%;opacity:0;background:#fff;-webkit-box-shadow: 0 0 15px 3px white;box-shadow:0 0 15px 3px #fff;-webkit-transform: skewX(-20deg);transform:skewX(-20deg);}
+.black-fr__btn:hover{background-position:0 200%}
+.black-fr__btn:hover:before{-webkit-animation: shine .5s 0s linear;animation: shine .5s 0s linear}
+.scene-wrapper{position:absolute;top:0;left:0;height:100%;width:100%;transform:scale(1.25)}
+#scene{z-index:10;height:100%;width:100%;position:relative}
+#scene > div{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:100%;width:100%}
+#scene img{width:100%;height:100%;object-fit:cover}
+.pr-mode-form .black-fr__container{position:relative;left:0; top: 0; transform:none;margin:60px auto 40px auto}
+.pr-np-fields-wrapper{width:100%;margin:0;padding:0;list-style:none}
+.pr-np-fields-wrapper li{margin-bottom:18px;position:relative;text-align: left;}
+.pr-gender-field .input-box{display:flex;justify-content:flex-start;align-items:center;line-height:2}
+.pr-gender-female{margin-right:15px}
+.pr-gender-field input{margin:0 5px 0 0}
+.pr-gender-field .input-box label{margin-bottom:0}
+.customer-dob > div{margin-bottom: 12px}
+.customer-dob label{display: none}
+.pl-clearfix:after{display: block;content: '';clear: both}
+
+@media (max-width: 480px) {
+    .black-fr__container{max-width:calc(100% - 30px)}
+}
+@media (max-width: 420px) {
+    .black-fr{padding:20px}
+    .black-fr__container{width:100%}
+    .black-fr__content{margin:0 -26px}
+    .black-fr__text{font-size:calc(16px + 1.9vw)}
+    .black-fr__content{background-size:contain;background-position:center}
+    .black-fr__btn{font-size:18px;padding:15px 20px}
+}
+@media (max-width: 768px) {
+    .newspopup_up_bg div.mage-error{left:0;bottom:-15px;width:100%;padding:2px 10px!important;border-radius:0;box-shadow:none}
+    .newspopup_up_bg div.mage-error:after{display:none}
+    .halloween__form #agreement-error{top:10px}
+}
+@-webkit-keyframes shine {
+    from{opacity:0;left:0%}
+    50%{opacity:1}
+    to{opacity:0;left:100%}
+}
+@keyframes shine {
+    from{opacity:0;left:0%}
+    50%{opacity:1}
+    to{opacity:0;left:100%}
+}

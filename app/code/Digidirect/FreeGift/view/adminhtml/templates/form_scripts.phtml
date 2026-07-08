@@ -1,0 +1,17 @@
+<script>
+    require([
+        'jquery',
+        'Digidirect_FreeGift/js/form',
+        'domReady!'
+    ], function($, form) {
+        form.update();
+
+        $('#container').on('change', 'select[name="simple_action"]', function(){
+            form.update();
+        });
+
+        $('#container').on('click', '.fieldset-wrapper[data-index="actions"] .fieldset-wrapper-title', function(){
+            form.update();
+        });
+    });
+</script>

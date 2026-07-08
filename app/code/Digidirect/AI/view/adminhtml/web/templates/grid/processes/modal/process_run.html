@@ -1,0 +1,62 @@
+<div id="process_info_popup" class="ai_process">
+    <h1 class="modal-title">Process state: <b><!--ko text: process_status --><!--/ko--></b></h1>
+
+    <div class="loading-mask ai_ajax_loader" data-role="loader">
+        <div class="popup popup-loading"></div>
+    </div>
+
+    <!-- ko if: message-->
+    <!-- ko with: message-->
+    <!-- ko if: text-->
+    <div id="ai_message_typed" class="ajax-messages" data-bind="text: text, css: state"></div>
+    <!-- /ko -->
+    <!-- /ko -->
+    <!-- /ko -->
+
+    <div class="left-side">
+        <!-- ko if:can_submit_run -->
+        <form id="run_options_data" action="#" method="POST" data-bind="submit:sendRunOptionsForm">
+            <input type="hidden" name="process_code" data-bind="value: process_code"/>
+            <div>
+                <!-- ko if:content -->
+                <div id="run-options-list" data-bind="html: content"></div>
+                <!-- /ko -->
+                <div id="run-log-list"></div>
+            </div>
+            <div class="run-parameters">
+                <label for="run-like-separate">
+                    <b>Schedule Separate Server Process</b>
+                </label>
+                <input type="checkbox" id="run-like-separate" name="run-separate-process"
+                       class="admin__control-checkbox"/>
+                <label for="run-like-separate"></label>
+
+                <p>
+                    [Will be run like separate process by cron schedule]
+                </p>
+
+                <button type="submit" id="run-btn" class="send">Run Process</button>
+            </div>
+        </form>
+        <!-- /ko -->
+    </div>
+
+    <div class="right-side">
+        <div class="ai-process-info-popup-status" style="padding: 20px;vertical-align: initial;">
+            <!-- ko if:schedule_content -->
+            <button data-bind="click: deleteScheduledRun" class="delete" title="Delete">REMOVE</button>
+            <div id="running_status_content" data-bind="html: schedule_content"></div>
+            <!-- /ko -->
+            <!-- ko if:action -->
+            <div id="running_status_content-info">
+                <!-- ko if:log_msg -->
+                <span class="admin__legend legend" data-bind="text:log_msg"></span>
+                <!-- /ko -->
+                <!-- ko if:log_details -->
+                <pre data-bind="text: log_details"></pre>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</div>

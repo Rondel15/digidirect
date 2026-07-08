@@ -1,0 +1,48 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @var $block \Magento\LayeredNavigation\Block\Navigation
+ */
+$priorityAttributes = ["Price", "Color", "MP_Brand", "Category", "Seller"];
+?>
+
+<?php if ($block->canShowBlock()) : ?>
+    <div class="block filter -core">
+        <div class="block-content filter-content">
+            <?= $block->getChildHtml('state') ?>
+
+            <?php if ($block->getLayer()->getState()->getFilters()) : ?>
+                <div class="block-actions filter-actions">
+                    <a href="<?= $block->escapeUrl($block->getClearUrl()) ?>" class="action clear filter-clear"><span><?= $block->escapeHtml(__('Clear All')) ?></span></a>
+                </div>
+            <?php endif; ?>
+            <?php $wrapOptions = false; ?>
+            <?php foreach ($block->getFilters() as $filter) : ?>
+                <?php if (!$wrapOptions) : ?>
+                    <dl class="filter-options" id="narrow-by-list" data-role="content" data-mage-init='{"accordion":{"openedState":"active", "collapsible": true, "active":false,"multipleCollapsible":false}}'>
+                    <?php $wrapOptions = true;
+                endif; ?>
+                    <?php if (in_array($filter->getName(), $priorityAttributes)) { ?>
+                        <?php if ($filter->getItemsCount()) : ?>
+                            <?php if ($filter->getName() == "MP_Brand") : ?>
+                                <dt role="heading" aria-level="3" class="filter-options-title">Brand</dt>
+                            <?php else: ?>
+                                <dt role="heading" aria-level="3" class="filter-options-title"><?= $block->escapeHtml(__($filter->getName())) ?></dt>
+                            <?php endif; ?>
+                            <dd class="filter-options-content"><?= /* @noEscape */ $block->getChildBlock('renderer')->render($filter) ?></dd>
+                        <?php endif; ?>
+                    <?php } ?>
+            <?php endforeach; ?>
+            <?php if ($wrapOptions) : ?>
+                </dl>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif; ?>

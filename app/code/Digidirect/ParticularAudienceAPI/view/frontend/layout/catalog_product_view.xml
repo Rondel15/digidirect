@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.wrapper">
+            <block class="Digidirect\ParticularAudienceAPI\Block\TestPdp" template="Digidirect_ParticularAudienceAPI::test-pdp.phtml" />
+            <container name="bundle.overlay.container" htmlTag="div" htmlClass="bundle-overlay-container" htmlId="bundle-overlay-container" after="-">
+                <block class="Magento\Framework\View\Element\Template"
+                       name="bundle.overlay"
+                       template="Digidirect_ParticularAudienceAPI::pa-bundle-overlay.phtml" />
+            </container>
+        </referenceContainer>
+
+        <referenceContainer name="content">
+
+            <block class="Magento\Framework\View\Element\Template"
+                   name="pa.frequently.bought.with"
+                   template="Digidirect_ParticularAudienceAPI::pa-frequently-bought-with.phtml"
+                   after="-" />
+            <block class="Magento\Framework\View\Element\Template"
+                   name="pa.also.viewed.widget"
+                   template="Digidirect_ParticularAudienceAPI::pa-also-viewed-widget.phtml"
+                   after="-" />
+            <block class="Magento\Framework\View\Element\Template"
+                   name="pa.you.may.also.like.widget"
+                   template="Digidirect_ParticularAudienceAPI::pa-you-may-also-like-widget.phtml"
+                   after="-" />
+        </referenceContainer>
+    </body>
+</page>

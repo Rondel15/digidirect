@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+      <add id="Digidirect_Pronto::pronto" title="Pronto" translate="title" module="Digidirect_Pronto" parent="Digidirect_Utilities::Digidirect" sortOrder="50" dependsOnModule="Digidirect_Pronto" resource="Digidirect_Pronto::pronto"/>
+      <add id="Digidirect_Pronto::pronto_prontoinventory" title="Pronto Inventory" translate="title" module="Digidirect_Pronto" parent="Digidirect_Pronto::pronto" sortOrder="10" dependsOnModule="Digidirect_Pronto" action="pronto/prontoinventory" resource="Digidirect_Pronto::pronto"/>
+      <add id="Digidirect_Pronto::pronto_prontoorder" title="Pronto Orders" translate="title" module="Digidirect_Pronto" parent="Digidirect_Pronto::pronto" sortOrder="10" dependsOnModule="Digidirect_Pronto" action="pronto/prontoorder" resource="Digidirect_Pronto::pronto"/>
+    </menu>
+</config>

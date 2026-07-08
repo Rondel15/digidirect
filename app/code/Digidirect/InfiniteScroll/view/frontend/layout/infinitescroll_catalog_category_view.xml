@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="digidirect.infinitescroll.core" template="Digidirect_InfiniteScroll::js/catalog-listing.phtml">
+            <arguments>
+                <argument name="add_on" xsi:type="string">Digidirect_InfiniteScroll/js/dist/addons/catalog/index</argument>
+                <argument name="view_custom" xsi:type="string">Digidirect_InfiniteScroll/js/dist/views/catalog-listing/index</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="category.products.list">
+            <action method="setToolbarBlockName">
+                <argument name="name" xsi:type="string">infinitescroll.toolbar</argument>
+            </action>
+            <block class="Digidirect\InfiniteScroll\Block\Product\ProductList\Toolbar" name="infinitescroll.toolbar" template="Digidirect_InfiniteScroll::product/list/toolbar.phtml">
+                <block class="Magento\Theme\Block\Html\Pager" name="infinitescroll_product_list_toolbar_pager"/>
+                <action method="setInfiniteScrollLimit">
+                    <argument name="limit" xsi:type="helper" helper="Digidirect\InfiniteScroll\Helper\Data::getCatalogLimit" />
+                </action>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

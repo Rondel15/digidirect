@@ -1,0 +1,25 @@
+<?php $mainEntity = $block->getChildHtml('main.entity'); ?>
+<?php $additionalSchema = $block->getChildHtml('additional.schema'); ?>
+<script type="application/ld+json" id="structured-data">
+{
+    "@context": "https://schema.org/",
+    "@type": "<?= $block->escapeQuote($block->getPageType()) ?>",
+    "publisher": {
+        "@type": "Organization",
+        "name": "<?= $block->escapeQuote($block->getConfig('general/store_information/name') ?? ''); ?>",
+        "url": "<?= $block->escapeUrl($block->getStore()->getBaseUrl()); ?>",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "<?= $block->escapeUrl($block->escapeQuote($block->getStoreLogoUrl()) ?? ''); ?>"
+        }
+    }
+    <?php if ($mainEntity): ?>
+    ,
+    "mainEntity": <?= /* @noEscape */ $mainEntity; ?>
+    <?php endif; ?>
+    <?php if ($additionalSchema): ?>
+        <?= /* @noEscape */ $additionalSchema; ?>
+    <?php endif; ?>
+}
+</script>
+<?= $block->getChildHtml('product.offers.schema'); ?>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+
+    <fieldset name="actions">
+        <field name="simple_action" component="Digidirect_ExtendedCatalogPriceRule/js/form/element/action-switcher" />
+
+        <field name="discount_amount">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="string">50</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="stop_rules_processing">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="string">80</item>
+                </item>
+            </argument>
+        </field>
+
+        <!-- show_msg Action -->
+        <field name="plp_label">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Label on PLP</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">catalog_rule</item>
+                    <item name="dataScope" xsi:type="string">plp_label</item>
+                    <item name="sortOrder" xsi:type="string">100</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="pdp_description">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Description</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="source" xsi:type="string">catalog_rule</item>
+                    <item name="dataScope" xsi:type="string">pdp_description</item>
+                    <item name="sortOrder" xsi:type="string">110</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </field>
+
+        <field name="url_promotion">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string" translate="true">Promotional URL</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">catalog_rule</item>
+                    <item name="dataScope" xsi:type="string">url_promotion</item>
+                    <item name="sortOrder" xsi:type="string">120</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="disabled" xsi:type="boolean">true</item>
+                </item>
+            </argument>
+        </field>
+        <!-- / show_msg Action -->
+
+    </fieldset>
+</form>

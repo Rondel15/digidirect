@@ -1,0 +1,89 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li class="item product product-item" data-role="product-item">
+    <div class="product">
+        <!-- ko if: product_has_url -->
+        <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1" class="product-item-photo">
+            <!-- ko foreach: $parent.getRegion('itemImage') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+            <!-- /ko -->
+        </a>
+        <!-- /ko -->
+        <!-- ko ifnot: product_has_url -->
+        <span class="product-item-photo">
+            <!-- ko foreach: $parent.getRegion('itemImage') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+            <!-- /ko -->
+        </span>
+        <!-- /ko -->
+
+        <div class="product-item-details">
+            <strong class="product-item-name">
+                <!-- ko if: product_has_url -->
+                <a data-bind="attr: {href: product_url}, html: $parent.getProductNameUnsanitizedHtml(product_name)"></a>
+                <!-- /ko -->
+                <!-- ko ifnot: product_has_url -->
+                    <span data-bind="html: $parent.getProductNameUnsanitizedHtml(product_name)"></span>
+                <!-- /ko -->
+            </strong>
+
+            <!-- ko if: options && options.length -->
+                <div class="product options">
+                    <!-- ko foreach: options -->
+                        <div class="option">
+                            <span class="label" data-bind="text: label + ':'"></span>
+                            <span class="value" data-bind="text: value"></span>
+                        </div>
+                    <!-- /ko -->
+                </div>
+            <!-- /ko -->
+
+            <div class="product-item-pricing">
+                <!-- ko if: canApplyMsrp -->
+                <!-- ko if: product_price && product_price.oldPrice -->
+                    <span class="old-price">
+                        <span class="price" data-bind="html: $parent.getFormattedPrice(product_price.oldPrice.amount)">
+                        </span>
+                    </span>
+                <!-- /ko -->
+                <div class="details-map">
+                    <span class="label" data-bind="i18n: 'Price'"></span>
+                    <span class="value" data-bind="i18n: 'See price before order confirmation.'"></span>
+                </div>
+                <!-- /ko -->
+                <!-- ko ifnot: canApplyMsrp -->
+                <!-- ko foreach: $parent.getRegion('priceSidebar') -->
+                    <!-- ko template: {name: getTemplate(), data: item.product_price, as: 'price'} --><!-- /ko -->
+                <!-- /ko -->
+                <!-- /ko -->
+
+                <span class="item-qty-text">
+                    Qty: <span data-bind="text: qty"></span>
+                </span>
+            </div>
+
+            <div class="product actions">
+                <!-- ko if: is_visible_in_site_visibility -->
+                <div class="primary">
+                    <a data-bind="attr: {href: configure_url, title: $t('Edit item')}" class="action edit">
+                        <span data-bind="i18n: 'Edit'"></span>
+                    </a>
+                </div>
+                <!-- /ko -->
+                <div class="secondary">
+                    <a href="#" data-bind="attr: {'data-cart-item': item_id, title: $t('Remove item')}"
+                       class="action delete">
+                        <span data-bind="i18n: 'Remove'"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="message notice" if="$data.message">
+        <div data-bind="text: $data.message"></div>
+    </div>
+</li>

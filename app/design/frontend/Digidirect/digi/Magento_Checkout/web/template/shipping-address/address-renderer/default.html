@@ -1,0 +1,13 @@
+<option data-bind="attr: {'data-index': index, 'value': address().getKey(), 'selected': isSelected()}">
+    <!-- ko if: (address().company) --><!-- ko text: address().company --><!-- /ko --> -<!-- /ko -->
+    <!-- ko if: (address().prefix) --><!-- ko text: address().prefix --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().firstname) --><!-- ko text: address().firstname --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().middlename) --><!-- ko text: address().middlename --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().lastname) --><!-- ko text: address().lastname --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().suffix) --><!-- ko text: address().suffix --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().street) --><!-- ko text: _.values(address().street).join(', ') --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().city) --><!-- ko text: address().city --><!-- /ko -->,<!-- /ko -->
+    <!-- ko if: (address().region) --><!-- ko text: address().region --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().postcode) --><!-- ko text: address().postcode --><!-- /ko --><!-- /ko -->
+    <!-- ko if: (address().countryId) --><!-- ko text: getCountryName(address().countryId) --><!-- /ko --><!-- /ko -->
+</option>

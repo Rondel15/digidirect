@@ -1,0 +1,92 @@
+//
+//  Catalog: Toolbar Sorter
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .toolbar-products {
+        .sorter-action::before {
+            width: 40px;
+            height: 20px;
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjUxLjcgMCAyNDYuNCAzNDkuOCI+PHBhdGggZmlsbD0iIzg0ODQ4NCIgZD0iTTI5OC4xIDE0Ny4yYzAgMi44LTEuMyA5LjMtMTMgOS4zaC01NHYxNzguOWMuMS41LjEgMS4yLjEgMS45IDAgMy4yLTEuMiA2LjEtMy40IDguMy0yLjkgMi44LTcuMiA0LjItMTMgNC4yaC04My4xYy0xMS41IDAtMTQuNS04LjEtMTQuNS0xMi41VjE2MC4ySDY3LjZjLTEzLjggMC0xNS45LTYuNi0xNS45LTEwLjUgMC02LjMgNi0xMi42IDcuMi0xMy44IDMuMi00LjMgODktMTE4LjIgMTAxLjUtMTMwLjdDMTY1IC43IDE2OS41LS4xIDE3Mi42IDBjNy4zLjMgMTIuMyA1LjkgMTIuOCA2LjZsMTA0LjggMTI2LjdjMS42IDEuMyA3LjkgNy44IDcuOSAxMy45eiIvPjwvc3ZnPg==);
+            background-position: 50% 50%;
+            background-repeat: no-repeat;
+            speak: none;
+        }
+        
+        .sorter.-mobile .sorter-action::before {
+            height: 17px;
+            margin-top: -2px;
+        }
+    }
+    
+    .toolbar-sorter {
+        .sorter-action {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        
+        .sorter-options ,
+        .selectric-wrapper .selectric {
+            height: 20px;
+            padding: 0 25px 0 0;
+            border: none;
+            background-size: 17px 17px;
+            background-position: right 5px center;
+            //display: none !important;
+            background: none;
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .selectric-wrapper .selectric {
+            .lib-css(margin, @catalog-toolbar-sorter-options__margin);
+            min-width: 115px;
+        }
+
+        .selectric-wrapper .selectric .label {
+            padding: 0;
+            .lib-css(line-height, @line-height__base__l);
+        }
+
+        .selectric-wrapper .selectric-items {
+            min-width: 180px;
+            left: -10px;
+            right: 0;
+            top: 40px;
+        }
+
+        .selectric-wrapper.selectric-focus {
+            box-shadow: none;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .toolbar-sorter {
+        .sorter-label {
+            .lib-css(font-weight, @font-weight__bold);
+            text-transform: uppercase;
+
+            &::after {
+                content: ':';
+            }
+        }
+    }
+}

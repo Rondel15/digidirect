@@ -1,0 +1,94 @@
+<!-- ko if: isCollectEnableOnCheckout && isSingleCartCollectVariation -->
+<div class="collect-type">
+    <!-- ko ifnot: isWebOnly() -->
+    <!-- ko if: productsAvailableInAnyStore -->
+        <!-- ko ifnot: hasMarketplacerSeller -->
+            <input type="radio" id="collect_type_delivery" class="half-width" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+        attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+            <label for="collect_type_delivery" class="label collect-type-delivery-label">
+                <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+            </label>
+            <input type="radio"  id="collect_type_collect" name="delivery_type" value="collect"
+                   data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}}, attr:{'checked': collectPlaces().length > 0 ? 'checked' : false}"/>
+            <label for="collect_type_collect" class="label collect-type-collect-label">
+                <span class="text"><!-- ko i18n: 'Click & Collect'--><!-- /ko --></span>
+                </svg>
+            </label>
+        <!-- /ko-->
+        <!-- ko if: hasMarketplacerSeller -->
+            <input type="radio" id="collect_type_delivery" class="half-width" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+        attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+            <label for="collect_type_delivery" class="label collect-type-delivery-label">
+                <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+            </label>
+        <!-- /ko-->
+    <!-- /ko-->
+
+    <!-- ko ifnot: productsAvailableInAnyStore -->
+        <input type="radio" id="collect_type_delivery" class="half-width" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+    attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+        <label for="collect_type_delivery" class="label collect-type-delivery-label" style="width: 100% !important;">
+            <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+        </label>
+    <!-- /ko-->
+
+    <!-- /ko-->
+        <!-- ko if: isWebOnly() -->
+        <input type="radio" id="collect_type_delivery" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+    attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+        <label for="collect_type_delivery" class="label full-width">
+            <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+        </label>
+        <!-- /ko-->
+</div>
+
+<!-- ko ifnot: isWebOnly() -->
+<div data-bind="css: 'collect-block'" data-role="collect-block"
+     data-collect-type="collect">
+
+    <!-- ko if: isVsmAvailable -->
+    <div class="pickup-available-wrapper">
+        <div id="one-hour-cms" class="pickup-cms" data-bind="html: window.oneHourPickUpAvailable"></div>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko if: collectPlaces().length > 0 -->
+    <!-- ko ifnot: isVsmAvailable -->
+    <div class="pickup-cms" data-bind="html: window.pickUpStoreCmsBlock"></div>
+    <!-- /ko -->
+    <div class="wrap-block">
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store'"></div>
+            <span data-bind="text: collectPlaces()[0].collect_place_name + ' (' + collectPlaces()[0].collect_place_address + ')'"></span>
+        </div>
+
+        <a class="link -collect action primary"
+           href="#collect-block-modal-checkout"
+           data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Change Store'"></a>
+    </div>
+    <!-- /ko -->
+
+    <!-- ko ifnot: collectPlaces().length > 0 -->
+    <!-- ko ifnot: getDeliveryPlace(collectPlaces()[0]) -->
+    <div class="pickup-cms" data-bind="html: window.pickUpStoreCmsBlock"></div>
+    <div class="wrap-block">
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store'"></div>
+<!--            <div data-bind="i18n: 'No store selected'"></div>-->
+        </div>
+    </div>
+
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko-->
+
+<div id="collect-block-modal-checkout" data-bind="visible: false">
+    <!-- ko template: collectFormTemplate --><!-- /ko -->
+</div>
+
+<div class="store-locator-wrapper">
+    <div data-role="locator-list" class="locator-list" data-bind="scope: 'locator_list'">
+        <!-- ko template: getTemplate() --><!-- /ko -->
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<?php
+$helper = $this->helper('Digidirect\LayeredNavigation\Helper\Data');
+$remember = $this->helper('Digidirect\LayeredNavigation\Helper\FilterRemember');
+$seoUrlHelper = $this->helper('Digidirect\LayeredNavigation\Helper\Url');
+?>
+<div data-mage-init='{
+    "layeredNavigation":{
+        "triggerApplyButton": <?php echo (int)$helper->isApplyButtonEnabled(); ?>,
+        "triggerApplyMode": <?php echo (int)$helper->isMobileApplyButtonEnabled(); ?>,
+        "postfix": "<?php echo $block->escapeHtml($block->getData('use_postfix') ? $helper->getSuffix() : null); ?>",
+        "enabledSeoUrls": <?php echo (int)$seoUrlHelper->isSeoUrlEnabled(); ?>,
+        "enableAjax": <?php echo (int)$helper->isAjaxEnabled(); ?>,
+        "baseUrl": "<?php /* @escapeNotVerified */ echo $block->getBaseUrl(); ?>",
+        "enableFilterRemember": <?php echo (int)$remember->isFilterRememberEnabled(); ?>,
+        "viewCustom": "Digidirect_LayeredNavigation/js/dist/views/catalog/index",
+        "addOn": "Digidirect_LayeredNavigation/js/dist/addons/catalog/index"
+    }}'>
+</div>

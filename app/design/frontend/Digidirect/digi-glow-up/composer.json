@@ -1,0 +1,14 @@
+{
+  "name": "digidirect/digi-glow-up",
+  "description": "digi Glow Up",
+  "type": "magento2-theme",
+  "version": "1.0.0",
+  "require": {
+    "php": "^7.4 || ^8.1"
+  },
+  "autoload": {
+    "files": [
+      "registration.php"
+    ]
+  }
+}

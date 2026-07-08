@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\StoreLocator\Block\Wrapper" name="storelocator.wrapper" template="Digidirect_StoreLocator::list/wrapper.phtml">
+                <block class="Magento\Framework\View\Element\Template" name="storelocator.map" template="Digidirect_StoreLocator::map.phtml" />
+                <block class="Digidirect\StoreLocator\Block\ListStore\SearchBox" name="storelocator.search" template="Digidirect_StoreLocator::list/search.phtml">
+                    <arguments>
+                        <argument name="locatorName" xsi:type="string">digidirect.locator</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="storelocator.list" template="Digidirect_StoreLocator::list/items.phtml">
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="types" xsi:type="array"/>
+                            <item name="components" xsi:type="array">
+                                <item name="locator_list" xsi:type="array">
+                                    <item name="component" xsi:type="string">Digidirect_Locator/js/view/list</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Digidirect_Locator/result</item>
+                                    </item>
+                                    <item name="children" xsi:type="array">
+                                        <item name="locator_items" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">locator_items</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Digidirect_Locator/item/default</item>
+                                            </item>
+                                            <item name="children" xsi:type="array">
+                                                <item name="child_items" xsi:type="array">
+                                                    <item name="component" xsi:type="string">uiComponent</item>
+                                                    <item name="config" xsi:type="array">
+                                                        <item name="template" xsi:type="string">Digidirect_Locator/item/child</item>
+                                                        <item name="displayArea" xsi:type="string">itemEnd</item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                        <item name="locator_pagination" xsi:type="array">
+                                            <item name="component" xsi:type="string">uiComponent</item>
+                                            <item name="displayArea" xsi:type="string">locator_pagination</item>
+                                            <item name="config" xsi:type="array">
+                                                <item name="template" xsi:type="string">Digidirect_Locator/pagination</item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="storelocator.popup" template="Digidirect_StoreLocator::popup.phtml">
+                    <arguments>
+                        <argument name="jsLayout" xsi:type="array">
+                            <item name="types" xsi:type="array"/>
+                            <item name="components" xsi:type="array">
+                                <item name="locator_details" xsi:type="array">
+                                    <item name="component" xsi:type="string">uiElement</item>
+                                    <item name="config" xsi:type="array">
+                                        <item name="template" xsi:type="string">Digidirect_Locator/item/details</item>
+                                        <item name="tracks" xsi:type="array">
+                                            <item name="location" xsi:type="boolean">true</item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </argument>
+                    </arguments>
+                </block>
+                <container name="storelocator.list.after" label="Store Locator - Listing After">
+                    <block class="Digidirect\StoreLocator\Block\Wrapper" name="storelocator.list.js" template="Digidirect_StoreLocator::list/js.phtml">
+                        <arguments>
+                            <argument name="entity_name" xsi:type="string">store</argument>
+                        </arguments>
+                        <block class="Digidirect\Locator\Block\Locator" name="storelocator.locator">
+                            <arguments>
+                                <argument name="entities" xsi:type="array">
+                                    <item name="store" xsi:type="array">
+                                        <item name="attributes" xsi:type="array">
+                                            <item name="name" xsi:type="string">name</item>
+                                            <item name="status" xsi:type="string">status</item>
+                                            <item name="visible_on_frontend" xsi:type="string">visible_on_frontend</item>
+                                            <item name="url_key" xsi:type="string">url_key</item>
+                                            <item name="image" xsi:type="string">image</item>
+                                            <item name="street" xsi:type="string">street</item>
+                                            <item name="city" xsi:type="string">city</item>
+                                            <item name="country" xsi:type="string">country</item>
+                                            <item name="state" xsi:type="string">state</item>
+                                            <item name="postcode" xsi:type="string">postcode</item>
+                                            <item name="longitude" xsi:type="string">longitude</item>
+                                            <item name="latitude" xsi:type="string">latitude</item>
+                                            <item name="featured" xsi:type="string">featured</item>
+                                            <item name="priority" xsi:type="string">priority</item>
+                                        </item>
+                                        <item name="attribute_set" xsi:type="string">Store</item>
+                                    </item>
+                                </argument>
+                                <argument name="filterable_attributes" xsi:type="array">
+                                    <item name="description" xsi:type="string">description</item>
+                                    <item name="opening_hours" xsi:type="string">opening_hours</item>
+                                </argument>
+                            </arguments>
+                        </block>
+                    </block>
+                </container>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

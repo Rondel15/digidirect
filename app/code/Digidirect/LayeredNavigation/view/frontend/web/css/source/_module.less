@@ -1,0 +1,104 @@
+//
+//  Layered Navigation
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//  Applied filters: value and count
+@ln-filter-title-value__font-size: 10px;
+@ln-filter-title-value__font-weight: false;
+@ln-filter-title-value__color: false;
+@ln-filter-title-value__before__content: '(';
+@ln-filter-title-value__after__content: ')';
+@ln-filter-title-value__display: false;
+@ln-filter-title-value__display__tablet: none;
+@ln-filter-title-count__font-size: @ln-filter-title-value__font-size;
+@ln-filter-title-count__font-weight: @ln-filter-title-value__font-weight;
+@ln-filter-title-count__color: @ln-filter-title-value__color;
+@ln-filter-title-count__display: none;
+@ln-filter-title-count__display__tablet: inline;
+
+//  Show more/less
+@ln-more-less__display: inline-block;
+@ln-more-less__margin: 10px 0 0;
+@ln-more-less__padding: false;
+@ln-more-less__text-align: false;
+@ln-more-less__color: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    // Applied filters values and count
+    .filter-options-title {
+        > .value {
+            & {
+                .lib-css(display, @ln-filter-title-value__display);
+                .lib-css(font-size, @ln-filter-title-value__font-size);
+                .lib-css(font-weight, @ln-filter-title-value__font-weight);
+                .lib-css(color, @ln-filter-title-value__color);
+            }
+            &::before {
+                .lib-css(content, @ln-filter-title-value__before__content);
+            }
+            &::after {
+                .lib-css(content, @ln-filter-title-value__after__content);
+            }
+        }
+        > .count {
+            .lib-css(display, @ln-filter-title-count__display);
+            .lib-css(font-size, @ln-filter-title-count__font-size);
+            .lib-css(font-weight, @ln-filter-title-count__font-weight);
+            .lib-css(color, @ln-filter-title-count__color);
+        }
+    }
+
+    // Show more/less
+    .filter-options {
+        .items.-hide {
+            display: none;
+        }
+    }
+
+    .more-less {
+        .lib-css(display, @ln-more-less__display);
+        .lib-css(margin, @ln-more-less__margin);
+        .lib-css(padding, @ln-more-less__padding);
+        .lib-css(text-align, @ln-more-less__text-align);
+        .lib-css(color, @ln-more-less__color);
+        cursor: pointer;
+    }
+
+    // Apply button
+    .ln-apply {
+        &.-hide {
+            display: none;
+        }
+    }
+}
+
+//
+//  Tablet above
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .filter-options-title {
+        > .value {
+            .lib-css(display, @ln-filter-title-value__display__tablet);
+        }
+        > .count {
+            .lib-css(display, @ln-filter-title-count__display__tablet);
+        }
+    }
+
+    .ln-apply {
+        // If Apply Mode enabled (Enable "Apply" for mobile == Yes) and @media more than applyModeBreakpoint value
+        // Change .media-width() breakpoint if needed
+        &.-mobile-only {
+            display: none;
+        }
+    }
+}

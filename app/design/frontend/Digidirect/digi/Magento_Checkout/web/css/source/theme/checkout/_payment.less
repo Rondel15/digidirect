@@ -1,0 +1,273 @@
+//
+//  Theme: Payment step
+//  _____________________________________________
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form.payments {
+        .fieldset > .legend {
+            .lib-font-size(22);
+            .lib-css(font-weight, @font-weight__bold);
+            position: static;
+            width: auto;
+            height: auto;
+            padding-bottom: 20px;
+            line-height: 1.36;
+            text-transform: uppercase;
+        }
+    }
+
+    .checkout-payment-method {
+        .payment-option-title {
+            border-top: none;
+            padding-top: 0 !important;
+            .lib-css(font-weight, @font-weight__heavier);
+            text-decoration: underline;
+
+            &::before {
+                display: none;
+            }
+        }
+
+        .payment-option-title .action-toggle {
+            .lib-css(font-weight, @font-weight__bold);
+            &::after {
+                width: 14px;
+                height: 8px;
+            }
+        }
+
+        .payment-title.field {
+            .lib-css(font-weight, @font-weight__bold);
+            margin-bottom: 8px;
+        }
+
+        .checkout-newsletter {
+            font-weight: 500;
+        }
+
+        .checkout-newsletter label:before {
+            margin-top: -12px;
+        }
+    }
+
+    .payment-methods .step-title {
+        margin-bottom: 0;
+        border-bottom: none;
+    }
+
+    .payment-group {
+        .lib-css(border-bottom, 1px solid @color-3-2);
+    }
+
+    .payment-group .payment-method {
+        .lib-css(background-color, @color-3-10);
+    }
+
+    .payment-method-title.field.choice > label {
+        &::before,
+        &::after {
+            top: 50% !important; // Used to override radio btn mixin values only on Checkout (excluding the whole mixin overriding)
+            transform: translateY(-50%);
+            margin-top: 0 !important; // Used to override radio btn mixin values only on Checkout (excluding the whole mixin overriding)
+        }
+    }
+
+    .payment-group .payment-method._active {
+        .lib-css(background-color, @color-white);
+        .lib-css(border, 2px solid @color-2-1);
+    }
+
+    .billing-address-same-as-shipping-block {
+        margin-bottom: 0;
+    }
+
+    .billing-address-same-as-shipping-block label {
+        display: block;
+        padding-left: 35px; 
+        font-weight: 700;
+    }
+
+    .order-comment {
+        .label {
+            .lib-css(border-bottom, 1px solid @color-3-2);
+            .lib-font-size(22);
+            padding-bottom: 20px;
+            margin-bottom: 24px;
+            width: 100%;
+        }
+
+        textarea {
+            height: 120px;
+        }
+    }
+
+    .payment-method > .payment-method-title {
+        .svg-icon.-paypal-logo {
+            width: 82px;
+            height: 26px;
+        }
+
+        .title {
+            display: inline-block;
+        }
+
+        .content {
+            .lib-font-size(12);
+            margin-top: 5px;
+            font-weight: 400;
+            display: block;
+            padding-left: 27px;
+        }
+    }
+
+    .payment-method.payment-method-braintree .title {
+        padding-top: 2px;
+        margin: 0;
+    }
+
+    .payment-method {
+        .icons-wrapper {
+            display: inline-block;
+        }
+
+        .icons-wrapper .svg-icon.-visa {
+            width: 41px;
+            height: 13px;
+        }
+
+        .icons-wrapper .svg-icon.-masterc {
+            width: 26px;
+            height: 20px;
+        }
+
+        .icons-wrapper .svg-icon.-amex {
+            width: 52px;
+            height: 36px;
+            .lib-css(fill, @color-5-3);
+        }
+    }
+    
+    .field .control._with-tooltip input{
+        width: 100%;
+    }
+    
+    .paypal-method-wrapper > .payment-method-content > .field.choice {
+        display: none !important;
+    }
+    
+    .qff-content .actions-toolbar {
+        margin-left: 0 !important;
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form.payments {
+        .fieldset > .legend {
+            .lib-font-size(24);
+        }
+    }
+
+    .checkout-payment-method {
+        .field.cvv > .control._with-tooltip > .field-tooltip.toggle {
+            position: absolute;
+            left: 240px;
+            bottom: 15px;
+            right: initial;
+            top: initial;
+        }
+
+        .payment-option-title {
+            padding-top: 30px;
+            border-width: 2px;
+        }
+
+        .payment-method-title > .label {
+            .lib-css(font-weight, @font-weight__bold);
+        }
+    }
+
+    .payment-methods .step-title {
+        padding-top: 15px;
+    }
+
+    .order-comment {
+        .label {
+            .lib-font-size(24);
+        }
+    }
+    
+    .payment-method-title.field.choice {
+        position: relative !important;
+    }
+    
+    .checkout-payment-method .billing-address-same-as-shipping-block {
+        position: relative;
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .form.payments {
+        .fieldset > .legend {
+            .lib-font-size(20);
+            padding-bottom: 15px;
+        }
+    }
+
+    .checkout-payment-method {
+        .payment-option-title {
+            padding-bottom: 35px;
+        }
+    }
+
+    .order-comment {
+        .label {
+            .lib-font-size(28);
+            line-height: 1;
+        }
+    }
+
+    .payment-method > .payment-method-title {
+        .svg-icon.-paypal-logo {
+            width: 115px;
+            height: 28px;
+        }
+    }
+
+    .payment-method {
+        .icons-wrapper {
+            display: inline-block;
+            margin-left: -10px;
+            
+            .svg-icon{
+                vertical-align: middle;
+            }
+        }
+
+        .icons-wrapper .svg-icon.-visa {
+            width: 80px;
+            height: 23px;
+        }
+
+        .icons-wrapper .svg-icon.-masterc {
+            width: 46px;
+            height: 33px;
+        }
+
+        .icons-wrapper .svg-icon.-amex {
+            width: 92px;
+            height: 62px;
+        }
+    }
+}

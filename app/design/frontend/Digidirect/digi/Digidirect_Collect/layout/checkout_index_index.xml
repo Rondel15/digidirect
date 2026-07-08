@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="shipping-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="shippingAddress" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="collect-rates-validation" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Digidirect_Collect/js/view/shipping-rates-validation/collect</item>
+                                                        </item>
+                                                        <item name="collect_block" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Digidirect_Collect/js/view/block</item>
+                                                            <item name="sortOrder" xsi:type="string">1</item>
+                                                            <item name="displayArea" xsi:type="string">address-list</item>
+                                                            <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Digidirect_Collect/checkout/shipping-address/checkout-block</item>
+                                                                <item name="popUpForm" xsi:type="array">
+                                                                    <item name="element" xsi:type="string">#collect-block-modal-checkout</item>
+                                                                    <item name="options" xsi:type="array">
+                                                                        <item name="type" xsi:type="string">popup</item>
+                                                                        <item name="responsive" xsi:type="boolean">true</item>
+                                                                        <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                        <item name="title" xsi:type="string" translate="true">Find collect store place</item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                        <item name="collect-places" xsi:type="array">
+                                                            <item name="component" xsi:type="string">Digidirect_Collect/js/view/collect</item>
+                                                            <item name="displayArea" xsi:type="string">collect-places</item>
+                                                            <item name="provider" xsi:type="string">checkoutProvider</item>
+                                                            <item name="config" xsi:type="array">
+                                                                <item name="template" xsi:type="string">Digidirect_Collect/checkout/shipping-address/collect</item>
+                                                                <item name="popUpForm" xsi:type="array">
+                                                                    <item name="element" xsi:type="string">#collect-modal-checkout</item>
+                                                                    <item name="options" xsi:type="array">
+                                                                        <item name="type" xsi:type="string">popup</item>
+                                                                        <item name="responsive" xsi:type="boolean">true</item>
+                                                                        <item name="innerScroll" xsi:type="boolean">true</item>
+                                                                        <item name="title" xsi:type="string" translate="true">Find collect store place</item>
+                                                                        <item name="buttons" xsi:type="array">
+                                                                            <item name="search" xsi:type="array">
+                                                                                <item name="text" xsi:type="string" translate="true">Search</item>
+                                                                                <item name="class" xsi:type="string">action secondary</item>
+                                                                            </item>
+                                                                            <item name="save" xsi:type="array">
+                                                                                <item name="text" xsi:type="string" translate="true">Buy and Collect</item>
+                                                                                <item name="class" xsi:type="string">action primary</item>
+                                                                            </item>
+                                                                        </item>
+                                                                        <item name="placesOnPage" xsi:type="helper" helper="\Digidirect\Collect\Helper\Data::getPlacesOnPage"></item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                                <item name="sidebar" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="summary" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="cart_items" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="details" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="collect" xsi:type="array">
+                                                                    <item name="component" xsi:type="string">Digidirect_Collect/js/view/summary/item/details/collect</item>
+                                                                    <item name="displayArea" xsi:type="string">before_options</item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

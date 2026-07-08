@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="order_cancel_after">
+        <observer name="magento_giftcardaccount" disabled="true"/>
+        <observer name="digidirect_abstractgiftcard" instance="Digidirect\AbstractGiftCard\Observer\OrderCancelAfter" />
+    </event>
+    <event name="sales_order_save_after">
+        <observer name="magento_customercustomattributes" instance="Digidirect\AbstractGiftCard\Observer\OrderSaveAfter" />
+    </event>
+    <event name="adminhtml_sales_order_create_process_data">
+        <observer name="digidirect_asbtractgiftcard" instance="Digidirect\AbstractGiftCard\Observer\ProcessOrderCreationData" />
+    </event>
+</config>

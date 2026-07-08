@@ -1,0 +1,31 @@
+<div class="black-fr">
+    <div class="black-fr__container first_popup">
+        <button class="black-fr__close close cross"><span>{{text_cancel}}</span></button>
+        <div class="black-fr__wrapper">
+            <img width="329" height="169" src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme32_figure-text.png'}}" alt="Black Friday Sale" />
+            <div class="black-fr__content">
+                <div class="black-fr__text">
+                    {{text_description}}
+                </div>
+            </div>
+            <button class="black-fr__btn black-fr__btn--free show_secondary_popup">
+                {{text_submit}}
+            </button>
+            <div class="scene-wrapper">
+                <div id="scene"><div data-depth="-0.05"><img src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme32_g2.png'}}" alt="" /></div><div data-depth="0.19"><img src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme32_g1.png'}}" alt="" /></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="black-fr__container secondary_popup hidden">
+        <div class="black-fr__wrapper">
+            <form action="" method="post" class="halloween__form">
+                <button class="black-fr__close close cross"><span>{{text_cancel}}</span></button>
+                {{form_fields}}
+                <button class="black-fr__btn" type="submit">
+                    {{text_submit}}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

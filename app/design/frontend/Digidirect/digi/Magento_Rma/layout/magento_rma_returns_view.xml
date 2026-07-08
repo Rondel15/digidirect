@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="customer_account_navigation_block">
+            <arguments>
+                <argument name="block_title" translate="true" xsi:type="string">Returns</argument>
+                <argument name="icon_id" xsi:type="string">returns</argument>
+            </arguments>
+        </referenceBlock>
+
+        <referenceBlock name="customer.account.link.back">
+            <action method="setTemplate">
+                <argument name="template" xsi:type="string">Magento_Customer::account/link/back-primary.phtml</argument>
+            </action>
+        </referenceBlock>
+
+        <referenceContainer name="content">
+            <container name="return.view.detail" htmlTag="div" htmlClass="status-block" before="-"/>
+        </referenceContainer>
+
+        <move element="return.status" destination="return.view.detail"/>
+    </body>
+</page>

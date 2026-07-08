@@ -1,0 +1,29 @@
+<?php /* @var $block Digidirect\Utilities\Block\Wysiwyg */ ?>
+<?php $tags = $block->getAllowedTags() ?>
+<?php $childs = $block->getAllowedChilds() ?>
+<?php $wrapInParentTag = ($block->hasWrapInParentTag()) ? false : 'false'; ?>
+
+<?php // @codingStandardsIgnoreStart ?>
+    <script>
+        require([
+            'mage/adminhtml/wysiwyg/tiny_mce/setup'
+        ], function () {
+            if (typeof tinyMceWysiwygSetup !== 'undefined') {
+                getSettings = tinyMceWysiwygSetup.prototype.getSettings;
+                tinyMceWysiwygSetup.prototype.getSettings = function (mode) {
+                    var settings = getSettings.call(this, mode);
+                    <?php  if ($childs): ?>
+                    settings.valid_children = '<?php  /* @escapeNotVerified */ echo $childs ?>';
+                    <?php endif ?>
+                    <?php  if ($tags): ?>
+                    settings.extended_valid_elements = '<?php  /* @escapeNotVerified */ echo $tags ?>';
+                    <?php endif ?>
+                    <?php if ($wrapInParentTag): ?>
+                    settings.forced_root_block = <?php  /* @escapeNotVerified */ echo $wrapInParentTag; ?>;
+                    <?php endif; ?>
+                    return settings;
+                };
+            }
+        });
+    </script>
+<?php // @codingStandardsIgnoreEnd ?>

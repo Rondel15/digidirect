@@ -1,0 +1,882 @@
+<?php
+    use Magento\Framework\App\Action\Action;
+?>
+
+<script>
+    
+require(['jquery'], function ($) {
+    
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    var customerId = getCookie('pa_customer_id');
+    var sessionId = getCookie('pa_session_id');
+    
+    if (!customerId || customerId === undefined || !sessionId || sessionId === undefined) {
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/index/getconfig",
+            type: "POST",
+            data: {
+                customerId: customerId
+            },
+            success: function(data){
+                console.log(data);
+                customerId = data.payload.customerId;
+                sessionId = data.payload.session.id;
+            },
+            error: function(data){
+                console.log('Config Error!', data);
+            }
+        });
+    }
+    
+    var result;
+    
+    $.ajax({
+        async: false,
+        url: "https://www.digidirect.com.au/particularaudienceapi/index/testdigisecondstradeup", //getRecommendationsUrl,
+        type: "POST",
+        data: {
+            customerId: customerId
+        },
+        success: function(data){
+            result = data;
+        },
+        error: function(data){
+            console.log('Recommendations Error!', data);
+        }
+    });
+    
+    console.log('result', result);
+    var recommendationsResult = result;
+    
+    var widgets  = recommendationsResult.recommendations.route.widgets;
+    var routeId  = recommendationsResult.recommendations.route.id;
+    var currentUrl = window.location.href;
+    
+    function productTile(widgetId, appendTo, isMobile) {
+        let productItem = "";
+        let widget = widgets.find(obj => {
+            return obj.id === widgetId;
+        })
+        let widgetSlots = widget.slots;
+        var productCtr = 0;
+        Object.keys(widgetSlots).forEach(key => {
+            
+            let product = widgetSlots[key].products[0];
+            let discountTotal = Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+            
+            productCtr++;
+            let campaignId = widgetSlots[key].campaignId;
+            let recommenderId = widgetSlots[key].recommenderId;
+            let tacticId = widgetSlots[key].tacticId;
+            let retailBoostCollectionCampaignId = widgetSlots[key].retailBoostCollectionCampaignId;
+            let adSetId = widgetSlots[key].adSetId;
+            let adSetVersion = widgetSlots[key].adSetVersion;
+            let costPerClick = widgetSlots[key].costPerClick;
+            let timeStamp = widgetSlots[key].timeStamp;
+            let hmacSalt = widgetSlots[key].hmacSalt;
+            let hmac = widgetSlots[key].hmac;
+            let keywordId = widgetSlots[key].keywordId;
+
+            let digiDealsLogo = "";
+            let priceBlock = "";
+            let addToCart = "";
+
+            let digiSeconds = "";
+            let digiSecondsOverlay = "";
+            let sellerName = "";
+
+            let categories = product.attributes.find(obj => {
+                return obj.name === 'Categories';
+            })
+
+            let seller = product.attributes.find(obj => {
+                return obj.name === 'DDR_Seller_Id';
+            })
+
+            let digiPrint = product.attributes.find(obj => {
+                return obj.name === 'is_digiprint';
+            })
+
+            let digiPrintLink = product.attributes.find(obj => {
+                return obj.name === 'digiprint_customlink';
+            })
+
+            let digiSecondsRatingValue = product.attributes.find(obj => {
+                return obj.name === 'item_rating';
+            })
+
+            let digiSecondsRating = "";            
+
+            if (digiSecondsRatingValue.stringValue == "5") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "4") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "3") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "2") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            } else if (digiSecondsRatingValue.stringValue == "1") {
+                digiSecondsRating = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+            }
+
+            sellerName = seller.stringValue;
+
+            let digiSecondsCategories = ["PRELOVED","OPENBOX","REFURB"];
+            let isDigiSeconds = digiSecondsCategories.includes(categories.options[0].value);
+
+            const includesString = (str, searchString) =>
+            new RegExp(searchString, 'i').test(str);
+
+            if (categories.options[0].value == "PRELOVED" || includesString(product.name, 'used')) {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-pre-loved.png"/>';
+            } else if (categories.options[0].value == "OPENBOX" || includesString(product.name, 'open box')) {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-demo.png"/>';
+            } else if (categories.options[0].value == "REFURB" || includesString(product.name, 'refurb')) {
+                digiSecondsOverlay = '<img src="https://www.digidirect.com.au/media/wysiwyg/digiseconds/overlays/badge-refurbished.png"/>';
+            }
+
+            digiSeconds = '<div class="digiseconds-overlay">' + digiSecondsOverlay + '<div class="digiseconds-rating">' + digiSecondsRating + '</div></div>';
+            console.log("adSetId", adSetId, product.name);
+
+            let digiPrintValue = digiPrint.stringValue;
+            let digiPrintLinkValue = digiPrintLink.stringValue;
+            let sponsoredLabel = "";
+            if (adSetId || adSetId != null) {
+                sponsoredLabel = '<div class="sponsored-container"><div class="sponsored-label"><i class="fas fa-info-circle"></i>Sponsored</div><span class="label-tooltip">This product has been promoted by one of our partners using <a href="https://particularaudience.com/">Particular Audience</a>.</span></div>';
+            }
+
+            if (digiPrintValue == 1) {
+                addToCart = '<a class="ordernow-link" href="' + digiPrintLinkValue + '" target="_blank">' +
+                                '<button type="button" title="Order Now" class="action tocart primary">' +
+                                    'Order Now <i class="fas fa-cart-plus" style="float: right;"></i>' +
+                                '</button>' +
+                            '</a>'
+            } else {
+                addToCart = '<form data-role="tocart-form"' +
+                                'data-product-sku="' + product.sku + '"' +
+                                'action="https://www.digidirect.com.au/checkout/cart/add/product/'+ product.refId +'" method="post"><?php echo $block->getBlockHtml("formkey"); ?>' +
+                                '<input type="text" name="ref_id" value="'+ product.refId +'" hidden/>' +
+                                '<input type="text" name="qty" value="1" hidden/>' +
+                                '<input type="text" name="widget_id" value="'+ widgetId +'" hidden/>' +
+                                '<input type="text" name="route_id" value="'+ routeId +'" hidden/>' +
+                                '<input type="text" name="recommender_id" value="'+ recommenderId +'" hidden/>' +
+                                '<input type="text" name="campaign_id" value="'+ campaignId +'" hidden/>' +
+                                '<input type="text" name="tactic_id" value="'+ tacticId +'" hidden/>' +
+                                '<input type="text" name="retail_boost_collection_campaign_id" value="'+ retailBoostCollectionCampaignId +'" hidden/>' +
+                                '<input type="text" name="adset_id" value="'+ adSetId +'" hidden/>' +
+                                '<input type="text" name="adset_version" value="'+ adSetVersion +'" hidden/>' +
+                                '<input type="text" name="cost_per_click" value="'+ costPerClick +'" hidden/>' +
+                                '<input type="text" name="timestamp" value="'+ timeStamp +'" hidden/>' +
+                                '<input type="text" name="hmac_salt" value="'+ hmacSalt +'" hidden/>' +
+                                '<input type="text" name="hmac" value="'+ hmac +'" hidden/>' +
+                                '<input type="text" name="keyword_id" value="'+ keywordId +'" hidden/>' +
+                                '<button type="submit" title="Add to Cart" class="action tocart primary" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">' +
+                                '<span>Add to Cart</span><i class="fas fa-cart-plus" style="float: right;color: #fff;"></i>' +
+                                '</button>' + sponsoredLabel
+                            '</form>'
+            }
+            //console.log(product.name, sellerName);
+            if (!isDigiSeconds) {
+                if (sellerName != "20329" && sellerName !== undefined) {
+                    digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                } else {
+                    digiDealsLogo = '';
+                }
+            }
+
+            if (product.prices[0].discountPrice) {
+                if (!isDigiSeconds) {
+                    digiDealsLogo = '<div class="ribbon-digideals">digiDeals</div>';
+                    if (sellerName != "20329" && sellerName !== undefined) {
+                        digiDealsLogo = '<div class="ribbon-online">Online only</div>';
+                    }
+                }
+
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                let discountPriceToDisplay = "$" + Number(product.prices[0].discountPrice).toFixed(2);
+                let discount = "$" + Number(product.prices[0].price - product.prices[0].discountPrice).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="old-price-wrapper"><span class="old-price">' +
+                                    '<span class="price-container price-final_price tax weee">' +
+                                        '<span class="price-label">Price Slashed </span>' + 
+                                            '<span id="old-price-'+ product.refId +'" data-price-amount="'+ priceToDisplay +'" data-price-type="oldPrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="current-price-wrapper has-special-price">' +
+                                    '<div class="digidirectprice">' +
+                                        '<span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span>' +
+                                    '</div>' +
+                                    '<span class="special-price"><span class="price-container price-final_price tax weee">' +
+                                        '<span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ discountPriceToDisplay +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">'+ discountPriceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                                '<div class="discount-price-wrapper"><span class="discount-price">'+ discount +'</span> Off</div>' +
+                            '</div>';
+            } else {
+                let priceToDisplay = "$" + Number(product.prices[0].price).toFixed(2);
+                priceBlock = '<div class="price-box price-final_price" data-role="priceBox" data-product-id="'+ product.refId +'" data-price-box="product-id-'+ product.refId +'">' +
+                                '<div class="current-price-wrapper no-special-price">' +
+                                    '<div class="digidirectprice"><span>digi</span><span style="color: #000;">Direct <span style="font-weight: 400;">Price</span></span></div>' +
+                                        '<span class="special-price"><span class="price-container price-final_price tax weee"><span class="price-label"></span>' + 
+                                            '<span id="product-price-'+ product.refId +'" data-price-amount="'+ product.prices[0].price +'" data-price-type="basePrice" class="price-wrapper ">' +
+                                                '<span class="price">' + priceToDisplay +'</span>' +
+                                            '</span>' + 
+                                        '</span>' +
+                                    '</span>' +
+                                '</div>' +
+                            '</div>';
+            }
+
+            let hideProductItem = "";
+            if (isMobile && productCtr > 4) {
+                hideProductItem = "hide-product-item";
+            }
+            var view = "";
+            if (isMobile) {
+                view = "mobile";
+            } else {
+                view = "desktop";
+            }
+            var tileId = view + '-' + widgetId + '-product-' + product.refId;
+
+            var productItemDiv = '<div id="'+ tileId +'" class="product-item-info product-item" product-id="'+ product.refId +'" widget-id="' + widgetId + '" campaign-id="' + campaignId + '" recommender-id="' + recommenderId + '" tactic-id="' + tacticId + '" retail-boost-collection-campaign-id="' + retailBoostCollectionCampaignId + '" adset-id="' + adSetId + '" adset-version="' + adSetVersion + '" cost-per-click="' + costPerClick + '" timestamp="' + timeStamp + '" hmac-salt="' + hmacSalt + '" hmac="' + hmac + '" keyword-id="' + keywordId + '">';
+
+            productItem = productItemDiv +
+                        '<div class="wish-list-wrapper" data-role="add-to-links">' +
+                            '<a href="#"' +
+                            'data-post=""' +
+                            'class="action towishlist" data-action="add-to-wishlist"' +
+                            'title="Add to Wish List">' +
+                            '<i class="fas fa-heart" style="font-size: 25px; color: #e6e6e6;"></i>' +
+                            '</a>' +
+                        '</div>' +
+                        '<a href="' + product.url + '" class="product photo product-item-photo" tabindex="-1">' +
+                            digiDealsLogo + digiSeconds +
+                            '<span class="product-image-container" style="width: 240px;">' +
+                                '<span class="product-image-wrapper" style="padding-bottom: 125%;">' +
+                                    '<img class="product-image-photo" src="' + product.images[0] + '" loading="lazy" width="240" height="300" alt="Product Image">' +
+                                '</span>' +
+                            '</span>' +
+                        '</a>' + 
+                        '<div class="product details product-item-details">' +
+                            '<strong class="product-item-name">' +
+                                '<a title="' + product.name + '" href="' + product.url + '" class="product-item-link">' +
+                                    product.name +
+                                '</a>' +
+                            '</strong>' +
+                            priceBlock +
+                        '</div>' +
+                        '<div class="product actions product-item-actions">' +
+                            '<div class="actions-primary">' +
+                                addToCart +
+                            '</div>' +
+                        '</div>' +
+                    '</div>'
+            $(appendTo).append(productItem);
+            //slots(product.refId, recommenderId, campaignId, tacticId);
+        });
+        $('.pa-digidirect-product-widget-container.widget-placeholder').remove();
+    }
+    
+    productTile('e8fff7ea-e61f-f011-abf3-02bf4bf6447c', '#digiseconds-tradeup-widget1-desktop', false);
+    productTile('e8fff7ea-e61f-f011-abf3-02bf4bf6447c', '#digiseconds-tradeup-widget1-mobile', true);
+    productTile('1f2b0448-0b20-f011-abf3-02bf4bf6447c', '#digiseconds-tradeup-widget2-desktop', false);
+    productTile('1f2b0448-0b20-f011-abf3-02bf4bf6447c', '#digiseconds-tradeup-widget2-mobile', true);
+    
+    if (customerId && sessionId) {
+        $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    }
+    
+    function slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId) {
+
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                refId: productId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const slotData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+
+        console.log(JSON.stringify(slotData));
+
+        $.ajax({
+            //async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/slots",
+            type: "POST",
+            data: {
+                eventData: slotData
+            },
+            success: function(data){
+                console.log("slots", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+    }
+    
+    function uuidv4() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+        .replace(/[xy]/g, function (c) {
+            const r = Math.random() * 16 | 0, 
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+    
+    //Product Info Add To Cart
+    $(".price-final_price").click(function() {
+        $(this).siblings('.product-item-actions').find('.action.tocart.primary').trigger('click');
+    });
+    
+    $(".pa-digidirect-product-widget .product-item-info.product-item").click(function(){
+
+        var widgetId = $(this).attr("widget-id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                clickId: uuidv4(),
+                refId: productId,
+                actionType: 1,
+                contextType: 1,
+                routeId: routeId,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+
+        const clickData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+
+        //console.log(JSON.stringify(clickData));
+
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/clicks",
+            type: "POST",
+            data: {
+                eventData: clickData
+            },
+            success: function(data){
+                console.log("clicks", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    $(".pa-digidirect-product-widget .action.tocart").click(function(){
+
+        var widgetId = $(this).attr("widget-id");
+        var productId = $(this).attr("product-id");
+        var recommenderId = $(this).attr("recommender-id");
+        var campaignId = $(this).attr("campaign-id");
+        var tacticId = $(this).attr("tactic-id");
+        var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+        var adSetId = $(this).attr("adset-id");
+        var adSetVersion = $(this).attr("adset-version");
+        var costPerClick = $(this).attr("cost-per-click");
+        var timeStamp = $(this).attr("timestamp");
+        var hmacSalt = $(this).attr("hmac-salt");
+        var hmac = $(this).attr("hmac");
+        var keywordId = $(this).attr("keyword-id");
+        
+        //var widgetId = '631dfdd4-dc01-ef11-abf3-02bf4bf6447c';
+
+        var date = new Date();
+        var product = {"refId": productId, "quantity": 1};
+        
+        var events = {
+                currentUrl: currentUrl,
+                eventTime: date.toISOString(),
+                product: product,
+                widgetId: widgetId,
+                routeId: routeId,              
+                recommenderId: recommenderId,
+                campaignId: campaignId,
+                tacticId: tacticId,
+                retailBoostCollectionCampaignId: retailBoostCollectionCampaignId,
+                adSetId: adSetId,
+                adSetVersion: adSetVersion,
+                costPerClick: costPerClick,
+                timeStamp: timeStamp,
+                hmacSalt: hmacSalt,
+                hmac: hmac,
+                keywordId: keywordId
+            }
+            
+        if (!retailBoostCollectionCampaignId || retailBoostCollectionCampaignId == "undefined") {
+            delete events['retailBoostCollectionCampaignId']; 
+        }
+        if (!adSetId || adSetId == "undefined") {
+            delete events['adSetId']; 
+        }
+        if (!adSetVersion || adSetVersion == "undefined") {
+            delete events['adSetVersion']; 
+        }
+        if (!costPerClick || costPerClick == "undefined") {
+            delete events['costPerClick']; 
+        }
+        if (!timeStamp || timeStamp == "undefined") {
+            delete events['timeStamp']; 
+        }
+        if (!hmacSalt || hmacSalt == "undefined") {
+            delete events['hmacSalt']; 
+        }
+        if (!hmac || hmac == "undefined") {
+            delete events['hmac']; 
+        }
+        if (!keywordId || keywordId == "undefined") {
+            delete events['keywordId']; 
+        }
+        
+        const productData = {
+            customerId: customerId,
+            sessionId: sessionId,
+            events: [events]
+        };
+        
+        //console.log("productData", JSON.stringify(productData));
+
+        $.ajax({
+            async: false,
+            url: "https://www.digidirect.com.au/particularaudienceapi/events/addtocart",
+            type: "POST",
+            data: {
+                eventData: productData
+            },
+            success: function(data){
+                console.log("addtocart", data);
+            },
+            error: function(){
+                console.log('AJAX Fail!');
+            }
+        });
+
+    });
+    
+    function isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId){
+        var thisElement = document.getElementById(element);
+        let rect = thisElement.getBoundingClientRect();
+
+        // check if element is completely visible inside the viewport
+        if ((rect.top <= 600 && rect.top >= 0) && rect.height != 0) {
+            //console.log("Product ID id ", element, "The bounding Rect of element is ", rect, "viewPortBottom", viewPortBottom);
+            //return (isTopInViewPort && isLeftInViewPort && isBottomInViewPort && isRightInViewPort);
+            slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            $(thisElement).addClass("slot");
+        }
+    }
+    
+    jQuery.extend( jQuery.fn, {
+        // Name of our method & one argument (the parent selector)
+        hasParent: function(p) {
+            // Returns a subset of items using jQuery.filter
+            return this.filter(function(){
+                // Return truthy/falsey based on presence in parent
+                return $(p).find(this).length;
+            });
+        }
+    });
+    
+    function isElementInViewPortOwlCarousel(currentElement, element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId){
+        var thisElement = document.getElementById(element);
+        let rect = thisElement.getBoundingClientRect();
+        //console.log("element", element);
+        // check if element is completely visible inside the viewport
+        if ((rect.top <= 600 && rect.top >= 0) && rect.height != 0) {
+            //console.log("Product ID id ", element, "The bounding Rect of element is ", rect, "viewPortBottom", viewPortBottom);
+            //return (isTopInViewPort && isLeftInViewPort && isBottomInViewPort && isRightInViewPort);
+            slots(widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            currentElement.addClass("slot");
+        }
+    }
+    
+    window.addEventListener('scroll', function() {
+        $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPortOwlCarousel($(this), element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+        $(".pa-digidirect-product-widget .mobile-widget .product-item-info.product-item:not(.slot)").each(function() {
+            var element = $(this).attr("id");
+            var widgetId = $(this).attr("widget-id");
+            var productId = $(this).attr("product-id");
+            var recommenderId = $(this).attr("recommender-id");
+            var campaignId = $(this).attr("campaign-id");
+            var tacticId = $(this).attr("tactic-id");
+            var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+            var adSetId = $(this).attr("adset-id");
+            var adSetVersion = $(this).attr("adset-version");
+            var costPerClick = $(this).attr("cost-per-click");
+            var timeStamp = $(this).attr("timestamp");
+            var hmacSalt = $(this).attr("hmac-salt");
+            var hmac = $(this).attr("hmac");
+            var keywordId = $(this).attr("keyword-id");
+            isElementInViewPort(element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+        });
+    }, false);
+    
+    /*const observer = new MutationObserver((mutations) => { 
+        if ($("#pa-minicart-desktop").length) {
+            //console.log("MutationObserver!");
+            productTileMinicart('5576c304-fd3d-ec11-aae9-02dca44cceec', '#pa-minicart-desktop', false);
+            stopMutationObserver();
+        }
+    }); 
+    
+    const config = { attributes: true, childList: true, subtree: true }; 
+    observer.observe(document.body, config); 
+    
+    function stopMutationObserver() {
+        observer.disconnect(); 
+    }*/
+    
+    $(document).ready(function(){                                               
+        $(".owl-carousel.custom").owlCarousel({
+            loop: true,
+            nav: true,
+            margin: 15,
+            responsive: {
+                0: {
+                    items:2
+                },
+                600: {
+                    items: 2
+                },
+                992: {
+                    items: 2
+                },
+                1024: {
+                    items: 4
+                },
+                1310: {
+                    items: 5
+                },
+                1366: {
+                    items: 4
+                },
+                1550: {
+                    items: 5
+                }
+            },
+            dots: false,
+            autoplay: false,
+            autoplayTimeout: 3000
+        });
+    
+        //Owl Nav Slot Observer
+        $(".owl-carousel.custom .owl-prev, .owl-carousel.custom .owl-next").click(function() {
+            console.log("Owl Nav Button Clicked!");
+            $(".pa-digidirect-product-widget .owl-item.active .product-item-info.product-item:not(.slot)").each(function() {
+                var element = $(this).attr("id");
+                var widgetId = $(this).attr("widget-id");
+                var productId = $(this).attr("product-id");
+                var recommenderId = $(this).attr("recommender-id");
+                var campaignId = $(this).attr("campaign-id");
+                var tacticId = $(this).attr("tactic-id");
+                var retailBoostCollectionCampaignId = $(this).attr("retail-boost-collection-campaign-id");
+                var adSetId = $(this).attr("adset-id");
+                var adSetVersion = $(this).attr("adset-version");
+                var costPerClick = $(this).attr("cost-per-click");
+                var timeStamp = $(this).attr("timestamp");
+                var hmacSalt = $(this).attr("hmac-salt");
+                var hmac = $(this).attr("hmac");
+                var keywordId = $(this).attr("keyword-id");
+                isElementInViewPortOwlCarousel($(this), element, widgetId, productId, recommenderId, campaignId, tacticId, retailBoostCollectionCampaignId, adSetId, adSetVersion, costPerClick, timeStamp, hmacSalt, hmac, keywordId);
+            });
+        });
+    });
+    
+});
+
+</script>
+
+<?php
+    $isDigiClub = false;
+    $customer = $block->checkCustomer();
+    if ($customer->isLoggedIn()) {
+        $customerGroupId = $customer->getCustomer()->getGroupId();
+        if ($customerGroupId == 10) {
+            $isDigiClub = true;
+        }
+    }
+?>
+
+<div class="digi-markerket-seller" style="background: #ff6600; padding: 50px 100px; margin-top: 20px; color: #fff; margin-bottom: 50px;">
+    <div class="top-desc">
+        <h1 style="font-weight: 500; text-align: center;">Trade Up Program </h1>
+        <p>Welcome to Trade Up Program, your ultimate destination for a carefully curated collection of second-hand tech gear. When you step in store or visit us online you'll find a wide selection of pre-owned equipment designed to meet the diverse needs as creators. </p>
+    </div>
+</div>
+
+<p style="margin-bottom: 40px;">We take immense pride in our selection process, ensuring that every item we stock empowers you to elevate your skills without putting a dent in your wallet. Our commitment to delivering top-quality gear at affordable prices is the cornerstone of why you should make digiDirect your go-to destination for all things creative. We understand that creativity should never be limited by budget constraints, and that's why we're dedicated to providing you with the tools you need to express yourself fully. </p>
+
+<p style="margin-bottom: 40px;">Explore our extensive range of second-hand gear today and prepare to be dazzled by the irresistible deals that await you. At digiSeconds, we're not just a store; we're a partner in your creative journey, here to support you as you reach new heights in your creative endeavours. </p>
+
+<div class="pa-digidirect-product-widget digiseconds-tradeup-widget1">
+    <div id="digiseconds-tradeup-widget1-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container owl-carousel custom"></div>
+    <div id="digiseconds-tradeup-widget1-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+    <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('digiseconds-tradeup-widget1');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+    <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('digiseconds-tradeup-widget1');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+</div>
+
+<div class="content-blk">
+    <div class="content-title">Introducing digiDirect’s Trade-Up Program</div>
+    <div class="content-desc">
+        Are you looking to upgrade your tech equipment and take your creative skills to the next level? Look no further than digiDirect's Trade-In Program! We understand that staying at the forefront of technology is crucial for creative professionals and enthusiasts alike. That's why we're excited to introduce our Trade-In Program, designed to make your transition to the latest and greatest tech seamless and rewarding. 
+        <br><br>
+        At digiDirect, we deeply appreciate the value that your old equipment holds, not just in terms of its physical worth but also the memories and creative moments it has captured. Our team of experts are dedicated to ensuring that you receive a fair and competitive appraisal of your used gear. We recognise that every piece of equipment tells a unique story, and we want to honour that by providing you with the best value for your trade-in.
+        <br><br>
+        Our commitment to fairness and transparency means that you can trust our experts to assess your gear accurately. Whether it's a camera that's been your faithful companion on countless adventures or a lens that's helped you capture breathtaking landscapes, we understand the significance of your equipment. Rest assured that when you choose digiDirect for your trade-in, you're making a choice that values your investment and creativity.
+        <br><br>
+        We also understand that the trade-in process should be hassle-free and straightforward. Our staff are here to assess your gear's condition, answer any questions you may have, and guide you through the trade-in process seamlessly.
+    </div>
+</div>
+
+<br>
+<div class="content-blk">
+    <div class="content-title">How the Trade Up Program Works - In store </div>
+</div>
+<br>
+
+<div class="tradeup-steps">
+    <div class="tradeup-step">
+        <img class="mgz-hover-main" src="https://www.digidirect.com.au/media/wysiwyg/landing-pages/digimarket/trade-up_step1.png" alt="trade-up_step1">
+        <p><strong>Step 1:</strong> <br><br>Bring your used gear to one of our conveniently located digiDirect stores, where our friendly and knowledgeable staff are eager to assist you.</p>
+    </div>
+    <div class="tradeup-step">
+        <img class="mgz-hover-main" src="https://www.digidirect.com.au/media/wysiwyg/landing-pages/digimarket/trade-up_step2.png" alt="trade-up_step2">
+        <p><strong>Step 2:</strong> <br><br>Next, our staff carefully assess the condition and value of your gear. We take this step seriously, as we want to ensure that you receive the most competitive trade-in value for your equipment. Our appraisals are based on a thorough evaluation that factors in the age, functionality, and overall condition of your gear. This process guarantees that you are getting the true worth of your equipment.</p>
+    </div>
+    <div class="tradeup-step">
+        <img class="mgz-hover-main" src="https://www.digidirect.com.au/media/wysiwyg/landing-pages/digimarket/trade-up_step3.png" alt="trade-up_step3">
+        <p><strong>Step 3:</strong> <br><br>With the appraisal complete, you'll receive a trade-in value that reflects the quality of your gear and you can apply the trade-in value you've received toward your new purchase. This not only simplifies the upgrading process but also saves you money on the latest and most advanced gear. It's a win-win situation that allows you to stay ahead of the curve while making the most of your previous investment.</p>
+    </div>
+</div>
+
+<div class="pa-digidirect-product-widget digiseconds-tradeup-widget2">
+    <div id="digiseconds-tradeup-widget2-desktop" class="pa-digidirect-product-widget-container desktop-widget real-container owl-carousel custom"></div>
+    <div id="digiseconds-tradeup-widget2-mobile" class="pa-digidirect-product-widget-container mobile-widget"></div>
+    <div class="load-more mgz-element mgz-child mgz-element-text product-tab-mobile-widget-load-more grid-toggle-more" onclick="loadMoreProducts('digiseconds-tradeup-widget2');"><div class="mgz-element-inner"><p>Load More</p></div></div>
+    <div class="view-less mgz-element mgz-child mgz-element-text product-tab-mobile-widget-view-less grid-toggle-more" onclick="viewLessProducts('digiseconds-tradeup-widget2');" style="display: none;"><div class="mgz-element-inner"><p>View Less</p></div></div>
+</div>
+
+<div class="content-blk">
+    <div class="content-title">Why Upgrade Your Gear?</div>
+    <div class="content-desc">
+        Get creative with the most advanced technological innovations in the field including superior image quality, significantly improved performance, and a range of innovative features that are designed to fuel and amplify your creative prowess. With these latest advancements at your fingertips, you can expect your work to attain new heights of quality and originality. 
+        Stay ahead of the game and incorporate state-of-the-art technologies into your creative toolkit to ensure that your work remains at the forefront of your industry. By keeping pace with the latest developments, you'll not only maintain your competitive edge but also open doors to fresh avenues of artistic exploration.
+        <br><br>
+        Lastly, investing in new gear is about unlocking a world of new creative possibilities. These cutting-edge tools and equipment empower you to break through the constraints of your previous work, pushing the boundaries and allowing you to explore uncharted realms of expression. Embracing these advancements isn't just an upgrade; it's a transformative journey towards realising your full creative potential. 
+        <br><br>
+        Ready to take the next step in your photography journey? Visit your nearest digiDirect store today and experience the benefits of our Trade-In Program. Don't miss out on this exclusive in-store offer to elevate your creative game!
+    </div>
+</div>
+
+<div class="btn-store-locator"><a href="/store-locator" class="store-link"> Store Locator </a></div>
+
+<script type="text/x-magento-init">
+{
+    "[data-role=tocart-form], .form.map.checkout": {
+        "catalogAddToCart": {
+           "bindSubmit": true
+        }
+    }
+}
+</script>
+
+<script>
+
+    function loadMoreProducts(widgetClass) {
+        var hiddenTiles = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        var ctr = 0;
+        for (let x = 0; x < hiddenTiles.length; x++) {
+          ctr++;
+          hiddenTiles[x].classList.remove('hide-product-item');
+          if (ctr == 4) break;
+        }
+        var hiddenTilesCount = document.querySelectorAll('.'+ widgetClass + ' ' + ' .hide-product-item'); 
+        if (hiddenTilesCount.length == 0) {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "none";    
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "block";    
+
+            try {
+                document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "block"; 
+            }
+            catch(err) {
+            }
+        }
+    }
+
+    function viewLessProducts(widgetClass) {
+        var productTiles = document.querySelectorAll('.'+ widgetClass + ' ' + '.mobile-widget .product-item'); 
+
+        var ctr = 0;
+        for (let x = 0; x < productTiles.length; x++) {
+          ctr++;
+          if (ctr > 4) {
+             productTiles[x].classList.add('hide-product-item');
+          }
+        }
+
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.load-more')[0].style.display = "block";    
+        document.querySelectorAll('.'+ widgetClass + ' ' + '.view-less')[0].style.display = "none";    
+        try {
+            document.querySelectorAll('.'+ widgetClass + ' ' + '.view-all')[0].style.display = "none"; 
+        }
+        catch(err) {
+        }
+        document.getElementById(widgetClass).scrollIntoView();
+
+    }
+
+    function viewAllProducts(viewAllLink) {
+        window.location.href = viewAllLink;
+    }
+    
+</script>

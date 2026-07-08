@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Customer\Model\ResourceModel\Address" type="Plumrocket\Newsletterpopup\Model\ResourceModel\Customer\Address" />
+    <preference for="Magento\Customer\Model\ResourceModel\Customer" type="Plumrocket\Newsletterpopup\Model\ResourceModel\Customer\Customer" />
+    <preference for="Magento\Newsletter\Model\Subscriber" type="Plumrocket\Newsletterpopup\Model\Subscriber" />
+    <preference for="Plumrocket\Newsletterpopup\Model\IntegrationIdentifierListInterface" type="Plumrocket\Newsletterpopup\Model\IntegrationIdentifierList"/>
+    <preference for="Plumrocket\Newsletterpopup\Model\IntegrationRepositoryInterface" type="Plumrocket\Newsletterpopup\Model\IntegrationRepository"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\PopupFieldDataInterface" type="Plumrocket\Newsletterpopup\Model\FormField"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\PopupFieldsRegistryInterface" type="Plumrocket\Newsletterpopup\Model\Popup\Field\Registry"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\PopupBuildInThemeRegistryInterface" type="Plumrocket\Newsletterpopup\Model\Popup\Theme\BuildIn\Registry"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\PopupThemeInterface" type="Plumrocket\Newsletterpopup\Model\Template"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\PopupThemeRepositoryInterface" type="Plumrocket\Newsletterpopup\Model\ResourceModel\Popup\Theme\Repository"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\BuildInThemeRepositoryInterface" type="Plumrocket\Newsletterpopup\Model\ResourceModel\Popup\Theme\BuildIn\Repository"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\PopupSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\BuildInThemeSearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\PopupRepositoryInterface" type="Plumrocket\Newsletterpopup\Model\PopupRepository"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\PopupInterface" type="Plumrocket\Newsletterpopup\Model\Popup"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\Data\HistoryInterface" type="Plumrocket\Newsletterpopup\Model\History"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\HistoryManagementInterface" type="Plumrocket\Newsletterpopup\Model\HistoryManagement"/>
+    <preference for="Plumrocket\Newsletterpopup\Api\HistoryRepositoryInterface" type="Plumrocket\Newsletterpopup\Model\HistoryRepository"/>
+
+    <type name="Plumrocket\Newsletterpopup\Model\Subscriber">
+        <arguments>
+            <argument name="subscriberEncoded" xsi:type="object">Plumrocket\Newsletterpopup\Model\SubscriberEncoded\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Integration\Logger\Handler">
+        <arguments>
+            <argument name="filesystem" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Integration\Logger">
+        <arguments>
+            <argument name="name" xsi:type="string">prnewsletterpopup</argument>
+            <argument name="handlers"  xsi:type="array">
+                <item name="system" xsi:type="object">Plumrocket\Newsletterpopup\Model\Integration\Logger\Handler</item>
+            </argument>
+        </arguments>
+        <plugin name="pr-newsletterpopup-modify-logger-message"
+                type="Plumrocket\Newsletterpopup\Plugin\Model\Integration\LoggerPlugin" sortOrder="10" disabled="false"/>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Helper\Data">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Integration\ConstantContact">
+        <arguments>
+            <argument name="logger" xsi:type="object">Plumrocket\Newsletterpopup\Model\Integration\Logger\Proxy</argument>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Integration\SalesForce">
+        <arguments>
+            <argument name="logger" xsi:type="object">Plumrocket\Newsletterpopup\Model\Integration\Logger\Proxy</argument>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Integration\Emma">
+        <arguments>
+            <argument name="logger" xsi:type="object">Plumrocket\Newsletterpopup\Model\Integration\Logger\Proxy</argument>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\AbstractIntegration">
+        <arguments>
+            <argument name="logger" xsi:type="object">Plumrocket\Newsletterpopup\Model\Integration\Logger\Proxy</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Popup">
+        <arguments>
+            <argument name="phpSerializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Setup\UpgradeData">
+        <arguments>
+            <argument name="serializer" xsi:type="object">Magento\Framework\Serialize\Serializer\Serialize</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="dataPrivacyResponseStrategy" type="Plumrocket\DataPrivacy\Model\Consent\Validation\JsonResponseStrategy">
+        <arguments>
+            <argument name="formatResponseData" xsi:type="object">Plumrocket\Newsletterpopup\Model\DataPrivacy\NotAgreedResponseDataFormat</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Plumrocket\DataPrivacy\Observer\ValidateConsentsObserver">
+        <arguments>
+            <argument name="notAgreedResponseStrategies" xsi:type="array">
+                <item name="prnewsletterpopup_index_subscribe" xsi:type="object">dataPrivacyResponseStrategy</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Newsletterpopup\Model\Popup\Theme\BuildIn\Content\Loader">
+        <arguments>
+            <argument name="fileDriver" xsi:type="object">Magento\Framework\Filesystem\Driver\File</argument>
+        </arguments>
+    </type>
+
+    <type name="Plumrocket\Newsletterpopup\Api\PopupFieldsRegistryInterface">
+        <arguments>
+            <argument name="fields" xsi:type="array">
+                <item name="email" xsi:type="array">
+                    <item name="enable" xsi:type="string">1</item>
+                    <item name="label" xsi:type="string">Email</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">10</item>
+                </item>
+                <item name="confirm_email" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Confirm Email</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">20</item>
+                </item>
+                <item name="firstname" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">First Name</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">30</item>
+                </item>
+                <item name="middlename" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Middle Name</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">40</item>
+                </item>
+                <item name="lastname" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Last Name</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">50</item>
+                </item>
+                <item name="suffix" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Suffix</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">60</item>
+                </item>
+                <item name="dob" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Date of Birth</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">70</item>
+                </item>
+                <item name="gender" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Gender</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">80</item>
+                </item>
+                <item name="taxvat" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Tax/VAT Number</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">90</item>
+                </item>
+                <item name="password" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Password</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">100</item>
+                </item>
+                <item name="confirm_password" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Confirm Password</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">110</item>
+                </item>
+                <item name="prefix" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Prefix</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">120</item>
+                </item>
+                <item name="telephone" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Telephone</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">130</item>
+                </item>
+                <item name="fax" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Fax</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">140</item>
+                </item>
+                <item name="company" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Company</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">150</item>
+                </item>
+                <item name="street" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Street Address</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">160</item>
+                </item>
+                <item name="city" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">City</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">170</item>
+                </item>
+                <item name="country_id" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Country</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">180</item>
+                </item>
+                <item name="region" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">State/Province</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">190</item>
+                </item>
+                <item name="postcode" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Zip/Postal Code</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">200</item>
+                </item>
+                <item name="agreement" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string"><![CDATA[I have read and agree to the <a href="#" target="_blank">Terms of Service</a>]]></item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">210</item>
+                </item>
+                <item name="recaptcha" xsi:type="array">
+                    <item name="enable" xsi:type="string">0</item>
+                    <item name="label" xsi:type="string">Google reCaptcha</item>
+                    <item name="popup_id" xsi:type="string">0</item>
+                    <item name="sort_order" xsi:type="string">220</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Helper\Adminhtml">
+        <arguments>
+            <argument name="shell" xsi:type="object">Magento\Framework\Shell</argument>
+        </arguments>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Model\Popup\Thumbnail\AbstractGenerator">
+        <arguments>
+            <argument name="shell" xsi:type="object">Magento\Framework\Shell</argument>
+        </arguments>
+    </type>
+    <type name="Ebizmarts\MailChimp\Model\Plugin\Subscriber">
+        <plugin disabled="false" name="Plugin_Ebizmarts_MailChimp_Model_Plugin_Subscriber"
+                type="Plumrocket\Newsletterpopup\Plugin\Ebizmarts\MailChimp\Model\Plugin\Subscriber"/>
+    </type>
+    <type name="Plumrocket\Newsletterpopup\Observer\CoreCollectionAbstractLoadBeforeObserver">
+        <arguments>
+            <argument name="config" xsi:type="object">Plumrocket\Newsletterpopup\Helper\Config\Proxy</argument>
+        </arguments>
+    </type>
+
+    <virtualType name="PrNewsletterNotEmptyValidator" type="Magento\Framework\Validator\NotEmpty">
+        <arguments>
+            <argument name="options" xsi:type="array"/>
+        </arguments>
+    </virtualType>
+    <type name="Plumrocket\Newsletterpopup\Model\SubscriberEncoded">
+        <arguments>
+            <argument name="notEmptyValidator" xsi:type="object">PrNewsletterNotEmptyValidator</argument>
+        </arguments>
+    </type>
+    <type name="Magento\SalesRule\Model\Utility">
+        <plugin name="pr_coupon_expired_plugin" type="Plumrocket\Newsletterpopup\Plugin\CouponExpiredPlugin"/>
+    </type>
+</config>

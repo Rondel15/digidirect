@@ -1,0 +1,35 @@
+<div class="newspopup-wrap newspopup--two">
+    <div class="cross close" title="{{text_cancel}}">✕</div>
+    <div class="newspopup-prod">
+        <div class="newspopup-label old">
+            <span class="price"><span>Was:</span>{{product_price}}</span>
+        </div>
+        <div class="newspopup-label current">
+            <span class="price">{{product_sale_price}}</span>
+        </div>
+        <div class="newspopup-prod-wrap">
+            <img class="newspopup-prod-photo" src="{{product_image_url}}" alt=""/>
+        </div>
+    </div>
+    <div class="newspopup-description">
+        <span class="newspopup-top-text">Limited time offer</span>
+        <div class="prnp-title">{{text_title}}</div>
+        <div class="small_text">
+            <p>on {{product_name}}</p>
+        </div>
+        <form class="newspopup_up_bg_form" method="POST">
+            <div class="newspopup_up_bg_form-wrap">
+                {{form_fields}}
+                <div style="position:relative;" class="newspopup-form-btn">
+                    <a href="#" title="{{text_submit}}" class="send-btn2 gradient send">
+                        {{text_submit}}
+                    </a>
+                    <div class="lds-ellipsis ajax-loader" style="display: none;"><div></div><div></div><div></div><div></div></div>
+                </div>
+
+            </div>
+        </form>
+        <span class="newspopup-bottom-text">*Exclusions apply. Cannot  be combined with other offers</span>
+    </div>
+  </div>
+  

@@ -1,0 +1,46 @@
+//
+//  Checkout: Modals
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@checkout-modals__is-enabled: true; // Enable/disable style
+
+@checkout-modals-field-tooltip-content__use-checkout-tooltip-content-position-top: true;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    & when (@checkout-modals__is-enabled = true) {
+        .checkout-index-index {
+            .modal-popup .field-tooltip .field-tooltip-content {
+                & when (@checkout-modals-field-tooltip-content__use-checkout-tooltip-content-position-top = true) {
+                    &:extend(.abs-checkout-tooltip-content-position-top all);
+                }
+            }
+            
+            .modal-popup .modal-inner-wrap {
+                margin-left: 0 !important;
+                width: 100% !important;
+                max-width: 800px !important;
+                margin: 15px !important;
+                
+                .form-shipping-address{
+                    max-width: unset;
+                }
+                
+                .field.choice{
+                    margin-top: 15px;
+                    
+                    label{
+                        font-weight: bold;
+                    }
+                }
+            }
+        }
+    }
+}

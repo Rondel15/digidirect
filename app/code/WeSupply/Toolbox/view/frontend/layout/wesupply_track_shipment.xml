@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceContainer name="content">
+        <block class="WeSupply\Toolbox\Block\Track" name="track_shipment" template="WeSupply_Toolbox::embedded/track/shipment_denied.phtml" />
+    </referenceContainer>
+    <referenceBlock name="track_shipment">
+        <action method="setTemplate" ifconfig="wesupply_api/integration/wesupply_is_alias">
+            <argument name="track_shipment_embedded" xsi:type="string">WeSupply_Toolbox::embedded/track/shipment.phtml</argument>
+        </action>
+    </referenceBlock>
+</page>

@@ -1,0 +1,151 @@
+//
+//  Customer: Account order links
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .account-orders .links-navigation {
+        & {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        > .title {
+            .lib-vendor-prefix-display(flex);
+            .lib-vendor-box-align(center);
+            .digidirect-lib-box-align(space-between);
+            .lib-css(border, 1px solid @color-3-2);
+            padding: 11px 10px;
+            cursor: pointer;
+        }
+
+        .title.active {
+            border-bottom: none;
+        }
+
+        .svg-icon-arrow-down {
+            .lib-transition(transform);
+            transform: rotate(-90deg);
+            width: 13px;
+            height: 13px;
+        }
+
+        .title.active .svg-icon-arrow-down {
+            transform: rotate(90deg);
+        }
+
+        .title .item.current {
+            list-style-type: none;
+        }
+
+        .title .item.current strong {
+            .lib-css(font-weight, @font-weight__regular);
+        }
+
+        .nav.item {
+            .lib-font-size(14);
+            width: 100%;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .nav.item a {
+            text-decoration: none;
+        }
+
+        .order-links {
+            .lib-css(background-color, @color-white);
+            .lib-css(border, 1px solid @color-3-2);
+            display: none;
+            position: absolute;
+            z-index: 1;
+            width: 100%;
+            border-top: none;
+
+            &.active {
+                display: block;
+            }
+        }
+
+        .order-links .item.current {
+            display: none;
+        }
+
+        .order-links li {
+            margin: 0;
+        }
+
+        .order-links .item {
+            .lib-css(border-top, 1px solid @color-3-2);
+            padding: 11px 10px;
+
+            &:first-child {
+                border-top: none;
+            }
+        }
+
+        .title.-one-option,
+        .title.-one-option.active {
+            border: none;
+            pointer-events: none;
+        }
+
+        .title.-one-option > .svg-icon {
+            display: none;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .account-orders .links-navigation {
+        > .title {
+            display: none;
+        }
+
+        .order-links {
+            .lib-vendor-prefix-display(flex);
+            position: static;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+
+        .order-links .item.current {
+            .lib-css(border-bottom, 3px solid @color-2-1);
+            display: inline-block;
+        }
+
+        .nav.item {
+            .lib-font-size(13);
+            .lib-css(font-weight, @font-weight__bold);
+            width: auto;
+            padding: 0 32px 10px;
+            border-top: none;
+            text-transform: none;
+        }
+    }
+}
+
+//
+//  Desktop ++
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .account-orders .links-navigation {
+        .nav.item {
+            .lib-font-size(14);
+            padding: 0 28px 14px;
+        }
+    }
+}

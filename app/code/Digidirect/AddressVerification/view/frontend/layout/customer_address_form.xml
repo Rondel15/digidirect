@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="digidirect_address_autocomplete_config" />
+    <body>
+        <referenceBlock name="digidirect_address_autocomplete">
+            <arguments>
+                <argument name="input_field" xsi:type="string">street[]</argument>
+                <argument name="form_selector" xsi:type="string">#form-validate</argument>
+                <argument name="street_field" xsi:type="string">street[]</argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

@@ -1,0 +1,54 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Post $block
+ */
+$post = $block->getPost();
+$mainImage = $post->getMainImage();
+?>
+<div class="post-view">
+
+    <?php if ($block->isDisplayCategories() && $categories = $block->getCategories()): ?>
+        <?php $categoriesTitlesCount = count($categories); ?>
+        <?php if ($categoriesTitlesCount) : ?>
+            <div class="categories">
+                <?php /** @var $category \Digidirect\Blog\Model\Category*/ ?>
+                <?php $i=1; foreach ($categories as $key => $category): ?>
+                    <a href="<?php echo $block->escapeUrl($category->getViewUrl())?>" class="link" title="<?php echo /* @escapeNotVerified */  $category->getName(); ?>"><?php /* @escapeNotVerified */  echo $category->getName(); ?></a><?php if ($categoriesTitlesCount != $i) : ?>,<?php endif; ?>
+                    <?php $i++; ?>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
+
+    <h1 class="title"><?php /* @escapeNotVerified */ echo $post->getTitle() ?></h1>
+    <?php if (!empty($mainImage)): ?>
+        <img class="image" src="<?php echo $block->escapeHtml($mainImage); ?>" alt="<?php echo $block->escapeHtml($post->getTitle()) ?>"/>
+    <?php endif; ?>
+
+    <?php if ($block->isDisplayViews()): ?>
+        <div class="count">
+            <span class="label"><?php /* @escapeNotVerified */ echo __('Views') ?></span>
+            <?php echo $block->escapeHtml($post->getViews()); ?></div>
+    <?php endif; ?>
+    <?php if ($block->isDisplayShare() && $block->isShareAbove()): ?>
+        <?php /* @escapeNotVerified */ echo $this->getChildHtml('blog.post.share') ?>
+    <?php endif; ?>
+    <div class="description">
+        <?php /* @escapeNotVerified */ echo $block->getDescription(); ?>
+    </div>
+    <?php if ($block->isDisplayShare() && $block->isShareBelow()): ?>
+        <?php /* @escapeNotVerified */ echo $this->getChildHtml('blog.post.share') ?>
+    <?php endif; ?>
+    <div class="posted">
+        <span class="label"><?php /* @escapeNotVerified */ echo __('Posted on') ?></span>
+        <?php echo $block->escapeHtml($post->getCreatedDate()); ?>
+    </div>
+    <?php if ($block->isDisplayTags() && $block->getTags()): ?>
+        <div class="tags">
+            <span class="label"><?php /* @escapeNotVerified */ echo __('Tags') ?></span>
+            <?php foreach ($block->getTags() as $tag): ?>
+                <span class="item"><a href="<?php echo $block->escapeUrl($tag->getUrl()) ?>" title="#<?php echo $block->escapeHtml($tag->getName()) ?>">#<?php echo $block->escapeHtml($tag->getName()) ?></a></span>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>

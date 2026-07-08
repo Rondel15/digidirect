@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="msrp_popup"/>
+    <body>
+        <referenceBlock name="head.additional">
+            <block class="Digidirect\Blog\Block\Canonical" name="blog.canonical" template="Digidirect_Blog::canonical.phtml"/>
+        </referenceBlock>
+        <move element="blog.categorytree.left" destination="sidebar.main" before="-"/>
+        <move element="blog.widget.search" destination="main" after="page.main.title"/>
+        <move element="div.sidebar.main" destination="columns" before="-"/>
+        <move element="page.main.title" destination="main" before="-"/>
+        <referenceContainer name="page.wrapper">
+            <block class="Magento\Cms\Block\Block" name="side.banner.ads">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">side-banner-ads</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+        <referenceContainer name="main">
+            <container name="tags.addition" htmlClass="tags-addition" htmlTag="div" after="-">
+                <block class="Digidirect\Blog\Block\Widget\TagsCloud" name="blog.sidebar.tags.cloud.addition.tag" template="Digidirect_Blog::widget/tags.phtml"/>
+            </container>
+        </referenceContainer>
+
+        <referenceBlock name="page.main.title" remove="true"/>
+        <referenceBlock name="blog.post.arrow" remove="true"/>
+        <referenceBlock name="content" remove="true"/>
+    </body>
+</page>

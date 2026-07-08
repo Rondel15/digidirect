@@ -1,0 +1,74 @@
+<?php
+    // Note: Change $d2ItemCondition to digiSeconds attribute when pushing to live site.
+    $productBlock = \Magento\Framework\App\ObjectManager::getInstance()->get('Digidirect\Catalog\Block\ProductInfoBlock');
+    $currentProduct = $productBlock->getCurrentProduct();
+    $d2ItemCondition = ($currentProduct->getItemCondition() ? $currentProduct->getItemCondition() : ''); 
+    $d2ItemRating = ($currentProduct->getItemRating() ? $currentProduct->getItemRating() : '');  
+    
+    $categoryIds = $currentProduct->getCategoryIds();
+    $digiSecondsIds = array(2564,2567,2570,2573);
+    
+?>
+<?php if (count(array_intersect($categoryIds, $digiSecondsIds)) > 0): ?>
+    <?php if ($d2ItemCondition): ?>
+        <div class="digiseconds-overlay">
+            <?php if ($d2ItemCondition == "PRELOVED"): ?>
+                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-pre-loved.png"/>
+            <?php elseif ($d2ItemCondition == "OPENBOX"): ?>
+                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-demo.png"/>
+            <?php elseif ($d2ItemCondition == "REFURB"): ?>
+                <img src="<?php echo $block->getUrl("media/wysiwyg/digiseconds/overlays/")?>badge-refurbished.png"/>
+            <?php endif; ?>
+            <div class="digiseconds-rating">
+                <?php if ($d2ItemRating == 5): ?>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                <?php elseif ($d2ItemRating == 4): ?>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                <?php elseif ($d2ItemRating == 3): ?>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                <?php elseif ($d2ItemRating == 2): ?>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                <?php elseif ($d2ItemRating == 1): ?>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+
+<style type="text/css">
+    .digiseconds-overlay {
+        display: none;
+        position: absolute;
+        padding: 15px;
+        z-index: 1;
+    }
+    
+    .digiseconds-rating {
+        margin-left: 60px;
+        margin-top: -45px;
+        color: #FFAE00;
+        font-size: 18px;
+    }
+</style>

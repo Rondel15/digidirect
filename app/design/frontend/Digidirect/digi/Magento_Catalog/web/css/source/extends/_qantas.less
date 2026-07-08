@@ -1,0 +1,843 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : Jun 15, 2020, 2:17:09 PM
+    Author     : admin
+*/
+
+& when (@media-common = true) {
+
+    .modal-footer {
+        border-top: none!important;
+
+    }
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        text-align:center !important;
+
+        a{
+            text-decoration: none;
+        }
+    }
+
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+
+
+    .qantas-modal-logo 
+    {
+
+        position: inherit !important;
+        left: 35% !important;
+    }
+
+    .you-must 
+    {
+
+        line-height: 1.4;
+
+    }
+
+    .qantas-modal-banner
+    {
+        margin-top: 0px !important;
+
+    }
+
+    .catalog-product-view .modal-popup .modal-content  
+    {
+        padding: 0px!important;
+        width: 64rem!important;
+        height: 45rem!important;
+    }
+    .qantas-modal-container
+    {
+        margin : 2rem 2rem 2rem 2rem;
+
+
+    }
+    .logo-modal
+    {
+        height: 56px  !important;
+
+    }
+    .md-qantas
+    {
+        font-size: 16px;
+    }
+
+    .qantas-modal-center 
+    {
+        text-align:center!important;
+    }
+
+    .col-md-one 
+    {
+        float: left;
+        width: 32.33%;
+        padding: 76px;
+        height: 299px;
+    }
+
+    /* Clear floats after the columns */
+    .row-modal-bottom:after 
+        {
+        content: "";
+        display: table;
+        clear: both;
+    }
+
+    .column-h3
+    {
+        font-weight:2rem !important;
+        text-align:center;
+    }
+
+    .you-container{
+        p{
+            text-align: justify!important;
+        }
+    }
+    
+    .s19-actions {
+        display: block !important;
+    }
+    
+    .s19-component div:not([class^="s19"]) {
+        display: none;
+    }
+}
+//320 min
+.media-width(@extremum, @break) when (@extremum = 'min')and (@break = @screen__xxs){
+
+    .modal-popup {
+        left: 2px;
+    }
+    .catalog-product-view .modal-popup .modal-content {
+
+        padding: 0px!important;
+        max-height: fit-content!important;
+        max-width: fit-content;
+        height: 66rem!important;
+    }
+
+
+    .qantas-modal-banner {
+        height: 10rem!important;
+        width: fit-content;
+    }
+
+    .qantas-modal-logo {
+        position: inherit !important;
+        left: 35% !important;
+        width: 50px !important;
+    }
+
+    .qantas-modal-container {
+        width: fit-content!important;
+        margin: 2rem 2rem 2rem 2rem;
+        h1
+        {
+            font-size: 14px;
+
+            font-weight: 700;
+
+        }
+        h3
+        {
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+    }
+
+    .col-md-one 
+    {
+        float: left;
+        padding: 10px;
+        height: 258px;
+        left: 56px;
+    }
+
+    .modal-p {
+        text-align: justify!important;
+        font-size: 11px;
+    }
+
+    .row-modal-bottom
+    {
+        float: left;
+        padding: 5px;
+        height: 174px;
+        position: relative;
+        left: 4%;
+        margin-bottom: 82px;
+        margin-top: 10px;
+    }
+
+
+    .you-container{
+        p{
+            font-size: 9px;
+        }
+    }
+    catalog-product-view .modal-slide._show, .modal-popup._show {
+        width: auto;
+    }
+
+
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max')and (@break = @screen__xxs){
+    .qantas-modal-banner {
+        height: 10rem!important;
+        width: fit-content;
+    }
+
+    .qantas-modal-logo {
+        position: inherit !important;
+        left: 35% !important;
+        width: 50px !important;
+    }
+
+    .qantas-modal-container {
+        height: 10rem!important;
+        min-width: auto!important;
+
+        h1
+        {
+            font-size: 14px;
+
+            font-weight: 700;
+
+        }
+        h3
+        {
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+    }
+
+    .catalog-product-view .modal-popup .modal-content  
+    {
+        padding: 0px!important;
+        max-width: fit-content;
+        height: 67rem!important;
+    }
+
+
+    .col-md-one 
+    {
+        float: left;
+        padding: 10px;
+        height: 258px;
+        left: 56px;
+    }
+
+    .modal-p {
+        text-align: justify!important;
+        font-size: 11px;
+    }
+
+    .row-modal-bottom
+    {
+        float: left;
+        padding: 5px;
+        height: 174px;
+        position: relative;
+        left: 4%;
+        margin-bottom: 82px;
+        margin-top: 10px;
+    }
+
+
+    .you-container{
+        p{
+            font-size: 9px;
+        }
+    }
+    catalog-product-view .modal-slide._show, .modal-popup._show {
+        width: auto;
+    }
+    .modal-popup {
+        left: -1px!important;
+
+    }
+}
+
+
+//480px
+.media-width(@extremum, @break) when  (@extremum = 'min') and (@break = @screen__xs)
+{
+    catalog-product-view .modal-slide._show, .modal-popup._show {
+        width: auto!important;
+    }
+
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width: fit-content;
+
+    }
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+    .qantas-points{
+        padding-left: 300;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+    .catalog-product-view .modal-popup .modal-content  
+    {
+        padding: 0px!important;
+
+        height: 58rem!important;
+    }
+
+    .qantas-modal-banner 
+    {
+        margin-top: 0px !important;
+
+        height: auto!important;
+        width: 440px;
+
+    }
+
+    .qantas-modal-container 
+    {
+        width:39rem!important;
+    }
+
+    .col-md-one 
+    {
+        float: left;
+        padding: 10px;
+        height: 258px;
+        left: 56px;
+    }
+
+    .modal-p
+    {
+        text-align: center!important;
+        font-size: 12px;
+    }
+
+    .row-modal-bottom
+    {
+        float: left;
+        padding: 5px;
+        height: 174px;
+        position: relative;
+        left: 4%;
+        margin-bottom: 52px;
+    }
+
+
+
+}
+
+
+
+
+//640
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s)
+{
+    ._test{
+        position: absolute;
+        top: 315px;
+        right: 15px;
+    }
+    .checkout-index-index .offcanvas-content > .main {
+        padding: 0 20px;
+        position: relative;
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s)
+{
+
+    catalog-product-view .modal-slide._show, .modal-popup._show {
+        width: auto!important;
+    }
+    .modal-popup {
+        left: 4px;
+    }
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width: 600px!important;
+
+    }
+    .you-container{
+        padding: 3rem;
+    }
+
+    .catalog-product-view .modal-popup .modal-content {
+        padding: 0px!important;
+        height: 55rem!important;
+
+    }
+    .col-md-one 
+    {
+        float: left;
+        width: -29px;
+        padding: 5px;
+        height: 256px;
+    }
+
+    .qantas-modal-container 
+    {
+        width: 554px!important;
+
+    }
+
+    .col-md-one 
+    {
+        float: left;
+        width: -29px;
+        padding: 5px;
+        height: 205px;
+    }
+
+    .modal-p
+    {
+        font-size: 11px;
+    }
+
+    .row-modal-bottom
+    {
+
+        margin-top: 3px;
+        position: relative;
+        left: 4px;
+        margin-bottom: 7px;
+
+    }
+
+
+    .modal-p 
+    {
+        text-align: center;
+        font-size: 11px;
+    }
+
+    .qantas-modal-banner 
+    {
+        width: 600px;
+        height: 15rem!important;
+    }
+
+}
+
+//break @768
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) 
+{
+    catalog-product-view .modal-slide._show, .modal-popup._show {
+        width: auto!important;
+    }
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width: 624px!important;
+
+    }
+    .qantas-modal-banner {
+        margin-top: 0px !important;
+        width: 624px!important;
+        height: 16rem!important;
+    }
+    .qantas-modal-container {
+        width: 592px!important;
+    }
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+    .qantas-modal-logo {
+        position: inherit !important;
+        left: 35% !important;
+        width: 93px !important;
+    }
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+
+
+    .qantas-modal-banner 
+    {
+        margin-top: 0px !important;
+    }
+    .catalog-product-view .modal-popup .modal-content  
+    {
+        padding: 0px!important;
+        width: 64rem!important;
+        height: 62rem!important;
+    }
+    .col-md-one
+    {
+        float: left;
+        width: 33.33%;
+        padding: 10px;
+        height: 243px;
+
+    }
+    .row-modal-bottom 
+    {
+        margin-top: 7px !important;
+        margin-bottom: 47px!important;
+    }
+
+    .col-md-one md-qantas
+    {
+
+        position:inherit;
+    }
+
+
+    .you-container
+    {
+        padding: 5rem;
+        margin-bottom: -6rem;
+    }
+
+    .modal-p {
+
+        font-size: 11px;
+    }  
+
+}
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__xm) 
+{
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-point-text
+    {
+
+        float: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+}
+//1024px
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xm) 
+{
+    .catalog-product-view .modal-slide._show, .modal-popup._show {
+
+        width: 1024px;
+    }
+
+    .modal-popup {
+        left: 130px!important;
+
+    }
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width:597px !important;
+
+    }
+
+    .qantas-modal-container {
+        width: 557px!important;
+    }
+
+    .catalog-product-view .modal-popup .modal-content {
+        padding: 0px!important;
+        width: auto!important;
+        height: 61rem!important;
+    }
+
+    .qantas-modal-logo {
+
+        width: 78px !important;
+    }
+    .col-md-one {
+
+        padding: 13px;
+        height: 277px;
+    }
+
+    .row-modal-bottom 
+    {
+        margin-top: -10px !important;
+        position: relative;
+        left: -6px !important;
+        margin-bottom: 36px!important;
+    }
+
+
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+    .qantas-modal-banner {
+        width: fit-content;
+    }
+
+}
+
+
+
+//1280px
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) 
+{
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width: 640px!important;
+
+    }
+    .qantas-modal-banner {
+        width: 100%!important;
+    }
+    .qantas-modal-container {
+        width: 601px!important;
+    }
+    .row-modal-bottom {
+        margin-top: -10px !important;
+
+        margin-bottom: 52px!important;
+    }
+    .modal-p
+    {
+        font-size: 14px;
+        align:text-center;
+    }
+
+    .row-modal-bottom
+    {
+        margin-top: -19px!important;
+
+    }
+
+    .catalog-product-view .modal-popup .modal-content 
+    {
+        padding: 0px!important;
+        width: 64rem!important;
+        height: 60rem!important;
+    }
+
+    .you-container
+    {
+        padding: 2rem 2rem 2rem 2rem;
+        margin-bottom: -6rem;
+    }
+
+    .modal-popup .modal-inner-wrap
+    {  
+
+        width: 50%;
+    }
+
+
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+    }
+
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+}
+//1440px
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) 
+{
+    .modal-popup {
+        left: 0;
+
+    }
+    #popup-mpdal{
+        width: 707px;
+    }
+    .catalog-product-view .modal-popup .modal-inner-wrap{
+
+        width: 707px!important;
+
+    }
+    .catalog-product-view .modal-slide._show, .modal-popup._show {
+
+
+        max-width: 1024px;
+    }
+    .catalog-product-view .modal-popup .modal-content 
+    {
+
+        height: 65rem!important;
+    }  
+
+
+    .modal-popup .modal-inner-
+    {        
+        max-width: 50%;   
+    }
+
+    .qantas-points-bottom 
+    {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+
+    }
+    .row-modal-bottom {
+        margin-top: -10px !important;
+
+        margin-bottom: 84px!important;
+    }
+    .qantas-points
+    {
+        text-align: left;
+    }
+    .qantas-logo
+    {
+        height: 26px;
+        vertical-align: middle;
+
+    }
+    .qantas-modal-container {
+        width: 676px!important;
+        h1 {
+            font-size: 22px;
+
+        }
+        .qantas-modal-container h3 {
+            font-size: 18px;
+        }
+    }
+    .qantas-modal-banner {
+        width: 72rem!important;
+    }
+
+    .qantas-modal-logo {
+        width: 103px !important;
+    }
+    .modal-p {
+        font-size: 16px;
+        align: text-center;
+    }
+
+    .you-container p {
+        font-size: 12px;
+    }
+}
+
+//1800
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .catalog-product-view .modal-popup .modal-content {
+
+        height: 74rem!important;
+    }
+
+    .modal-popup {
+
+        left: 433px!important;
+
+
+    }
+
+    .qantas-modal-container h3 {
+
+        font-size: 17px;
+
+
+    }
+
+    .qantas-modal-container {
+
+        h1 {
+
+            font-size: 22px;
+
+
+        }
+
+        p{
+            font-size: 20px;
+
+        }
+
+    }
+
+
+    .qantas-modal-logo {
+
+        width: 106px !important;
+
+    }
+
+    .row-modal-bottom {
+        margin-top: 6px !important;
+        margin-bottom: 106px!important;
+
+    }
+    .you-container {
+        p {
+            font-size: 12px;
+        }
+    }
+    .modal-p {
+        font-size: 16px!important;
+    }
+}

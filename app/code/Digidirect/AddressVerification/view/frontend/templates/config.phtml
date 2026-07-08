@@ -1,0 +1,41 @@
+<?php
+/**
+ * @var $block \Digidirect\AddressVerification\Block\AddressAutocomplete
+ * @var $helper \Digidirect\AddressVerification\Helper\Autocomplete
+ */
+$helper = $this->helper('Digidirect\AddressVerification\Helper\Autocomplete');
+?>
+<?php if($helper->isGoogleEnabled()): ?>
+<script type="text/x-magento-init">
+     {
+        "<?php /* @escapeNotVerified */ echo $this->getFormSelector() ?>": {
+            "addressVerification": {
+                "mode": "googleapi",
+                "gplaces_config": <?php /* @escapeNotVerified */ echo $block->getConfig(); ?>,
+                "inputField": "<?php /* @escapeNotVerified */ echo $this->getInputField() ?>",
+                "selectors": {
+                    "route": "<?php /* @escapeNotVerified */ echo $this->getStreetField() ?>",
+                    "street_number": "<?php /* @escapeNotVerified */ echo $this->getStreetField() ?>"
+                }
+            }
+        }
+     }
+</script>
+<?php endif; ?>
+
+<?php if($helper->isAuPostEnabled()): ?>
+    <script type="text/x-magento-init">
+        {
+            "<?php /* @escapeNotVerified */ echo $this->getFormSelector() ?>": {
+                "addressVerification": {
+                    "mode": "post",
+                    "post": {
+                        "url": "<?php echo $block->escapeUrl($block->getAupostSearchUrl()); ?>",
+                        "countryAttributes": <?php /* @escapeNotVerified */ echo $helper->getCountryAddressAttributesJson() ?>,
+                        "allowableCountries": "<?php /* @escapeNotVerified */ echo $helper->getAllowableCountries() ?>"
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

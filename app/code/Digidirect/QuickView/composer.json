@@ -1,0 +1,12 @@
+{
+  "name": "digidirect/quickview",
+  "type": "magento2-module",
+  "description": "Digidirect Quick View",
+  "version": "1.2.4.0",
+  "autoload": {
+    "files": [ "registration.php" ],
+    "psr-4": {
+      "Digidirect\\QuickView\\": ""
+    }
+  }
+}

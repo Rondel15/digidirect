@@ -1,0 +1,23 @@
+<!--@subject Queue FAIL. @-->
+<!--@vars {
+"var queue.id":"Queue ID",
+"var queue.run_number":"Run Number",
+"var queue.process_code":"Process Code",
+"var queue.initiator":"Initiator",
+"var queue.run_options":"Run Options"
+} @-->
+<div style="font-family: monospace;">
+    <strong><span style="color: red;">Queue FAIL.</span></strong>
+    <br><br>
+    <strong>{{trans "Queue Item marked as Closed with status Failed."}}</strong><br><br>
+    {{trans "Queue ID: %id" id=$queue.id}}<br>
+    {{trans "Run Number: %run_number" run_number=$queue.run_number}}<br>
+    {{trans "Process Code: %process_code" process_code=$queue.process_code}}<br>
+    {{trans "Initiator: %initiator" initiator=$queue.initiator}}<br>
+    {{if queue.run_options}}
+    {{trans "Run options:"}}
+    <pre>
+{{var queue.run_options|raw}}
+    </pre>
+    {{/if}}
+</div>

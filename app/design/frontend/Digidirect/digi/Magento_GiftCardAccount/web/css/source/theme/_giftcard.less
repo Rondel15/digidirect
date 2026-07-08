@@ -1,0 +1,494 @@
+//
+//  Gift Card Account: Gift Card
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@gift-card-account-gift-card-button-check__width__m: 160px;
+@gift-card-account-gift-card-fieldset-code__width__l: 420px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .giftcard-account {
+        .fieldset {
+            margin-bottom: 22px;
+        }
+    }
+
+    .remove-all-gift-card.hide{
+        display: none !important;
+    }
+
+    .giftcardaccount.hide,
+    .giftcard > .form.giftcard.add,
+    .payment-title.hide,
+    .totals .action.hide {
+        display: none;
+    }
+
+    .payment-option-content .fieldset,
+    .payment-option-content .form-discount,
+    .paypal-review-discount .fieldset.add,
+    .paypal-review-discount .fieldset.remove,
+    .paypal-review-discount .fieldset.coupon {
+        &,
+        .form-giftcard-account {
+            .lib-vendor-prefix-display();
+            .lib-vendor-prefix-flex-wrap(wrap);
+            .lib-css(justify-content, space-between, 1);
+            width: 100%;
+        }
+
+        .actions-toolbar {
+            .lib-vendor-prefix-flex-basis(100%);
+            padding-left: 0;
+            margin-top: 16px;
+        }
+
+        .primary,
+        .action.remove {
+            width: 100%;
+        }
+
+        .label:first-child {
+            margin-top: 20px;
+        }
+
+        .input-text,
+        .field {
+            width: 100%;
+        }
+
+        .action.primary {
+            & {
+                line-height: unset !important;
+                font-size: 15px !important;
+                font-family: 'Poppins', sans-serif;
+                height: unset !important;
+                padding: 12px !important;
+            }
+
+            &:hover {
+                background: #ea7543 !important;
+                border: 2px solid #ea7543 !important;
+            }
+        }
+
+        .label.apply {
+            width: auto;
+            height: auto;
+            position: relative;
+        }
+    }
+
+    .input-text::placeholder,
+    .cards-list .input-text {
+        .lib-css(color, @color-3-1);
+    }
+    .form-discount .payment-option-inner {
+        width: 100%;
+    }
+
+    .totals.giftcard .text-cardnumber {
+        .lib-css(font-weight, @font-weight__bold);
+    }
+
+    .opc-payment-additional.discount-code {
+        margin-top: 20px;
+    }
+
+    .opc-payment-additional .fieldset,
+    .paypal-review-discount .fieldset {
+        & {
+            .lib-css(align-items, flex-end);
+            margin-bottom: 0;
+        }
+
+        &.apply,
+        &.coupon {
+            .lib-css(align-items, flex-start);
+        }
+
+        .field.giftcard-number,
+        .field.giftcard-pin {
+            margin: 0;
+        }
+
+        &.add > .field.giftcard-pin,
+        &.remove > .field.giftcard-pin,
+        &.apply > .field {
+            .lib-vendor-prefix-flex-basis(30%)
+        }
+
+        &.add > .field.giftcard-number,
+        &.remove > .field.giftcard-number,
+        &.apply > .field.giftcard-number {
+            .lib-vendor-prefix-flex-basis(67%)
+        }
+    }
+
+    .account-abstractgiftcard.form {
+        & {
+            background-color: white;
+            padding: 20px;
+        }
+
+        > .title {
+            .lib-font-size(22);
+            .lib-css(font-weight, @font-weight__bold);
+            margin-top: 19px;
+            margin-bottom: 0;
+            padding-bottom: 18px;
+        }
+
+        > .fieldset {
+            .lib-vendor-prefix-display();
+            .lib-vendor-prefix-flex-wrap(wrap);
+        }
+
+        .field.giftcard-number {
+            .lib-vendor-prefix-flex-basis(70%);
+        }
+
+        .field.giftcard-pin {
+            .lib-vendor-prefix-flex-basis(30%);
+            padding-left: 10px;
+        }
+
+        .actions-toolbar {
+            .lib-vendor-prefix-flex-basis(100%);
+        }
+
+        .giftcard-info.table-wrapper > .table > .tbody .col.giftcard-info {
+
+            &::before {
+                display: block;
+                margin-bottom: 4px;
+            }
+        }
+    }
+    .paypal-review-discount .abstract-giftcardcart .form.giftcard.add .fieldset.add {
+        & {
+            .lib-vendor-box-align(flex-start);
+        }
+
+        .actions-toolbar {
+            margin-top: 43px;
+        }
+    }
+    
+    .giftcard-account.block {
+        padding: 20px !important;
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .block.discount.active > .content .fieldset,
+    .giftcard-account .fieldset.remove,
+    .payment-option-content .form-discount,
+    .payment-option-content .fieldset,
+    .paypal-review-discount .fieldset.add,
+    .paypal-review-discount .fieldset.remove,
+    .paypal-review-discount .fieldset.coupon {
+        .lib-vendor-prefix-flex-wrap(nowrap);
+    }
+
+    .giftcard-account {
+        .actions-toolbar > .secondary {
+            display: block;
+            float: none;
+        }
+
+        .action.check {
+            .lib-button-m();
+            margin-top: 25px;
+        }
+    }
+
+    .wrap-content,
+    .form-giftcard-account {
+        & {
+            .lib-vendor-prefix-display();
+        }
+
+        .fieldset {
+            .lib-vendor-prefix-flex-grow(1);
+            .lib-vendor-prefix-flex-shrink();
+            .lib-vendor-prefix-flex-basis();
+            margin-bottom: 0;
+        }
+
+        .actions-toolbar {
+            .lib-vendor-prefix-flex-grow();
+            .lib-vendor-prefix-flex-shrink();
+            .lib-vendor-prefix-flex-basis(@gift-card-account-gift-card-button-check__width__m);
+            margin-left: 10px;
+        }
+    }
+
+    .cart-summary .block.discount .fieldset,
+    .payment-option-content .fieldset,
+    .payment-option-content .form-discount,
+    .paypal-review-discount .fieldset.add,
+    .paypal-review-discount .fieldset.remove,
+    .paypal-review-discount .fieldset.coupon {
+        .actions-toolbar {
+            max-width: 140px;
+            margin-top: 0;
+            margin-left: 10px;
+        }
+
+        .actions-toolbar > .primary {
+            width: 100%;
+            color: #2a2a2a !important;
+        }
+
+        .action {
+            .lib-button-m();
+            height: 45px;
+            .lib-css(min-width, @gift-card-account-gift-card-button-check__width__m);
+        }
+
+        .field.giftcard-pin {
+            padding-left: 10px;
+        }
+
+        &.coupon > .field {
+            padding: 0;
+        }
+    }
+
+    #discount-coupon-form .fieldset.coupon {
+        .actions-toolbar > .primary {
+            button span{
+                color: #2a2a2a !important;
+            }
+        }
+    }
+
+    .form.form-discount .payment-option-inner {
+        width: 100%;
+    }
+
+    .payment-option-content .giftcardaccount {
+        .fieldset {
+            .lib-css(align-items, flex-end);
+            margin-top: 10px;
+            margin-bottom: 0;
+        }
+
+        .field {
+            margin: 0;
+        }
+    }
+
+    .account-abstractgiftcard.form {
+        & {
+            min-height: 430px;
+        }
+
+        .field.giftcard-pin {
+            padding-left: 20px;
+        }
+
+        .actions-toolbar .secondary {
+            text-align: start;
+        }
+
+        .giftcard-check.action {
+            width: 160px;
+        }
+
+        .table {
+            .lib-css(border, 1px solid @color-3-2);
+        }
+
+        .tbody {
+            .lib-css(background-color, @color-3-10);
+            .lib-css(border, none);
+        }
+
+        .col {
+            padding: 20px;
+        }
+    }
+
+    .fieldset.apply .actions-toolbar > .primary > .action-add {
+        margin-top: 39px;
+    }
+
+    .paypal-review-discount .fieldset.coupon > .actions-toolbar {
+        margin-top: 43px;
+    }
+}
+
+//
+//  Desktop small
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .giftcard-account {
+        & {
+            //height: 100%;
+        }
+
+        .action.check {
+            .lib-button-xl();
+            line-height: 1.6rem;
+            margin-top: 26px;
+        }
+    }
+
+    .wrap-content {
+        .fieldset {
+            .lib-vendor-prefix-flex-grow();
+            .lib-vendor-prefix-flex-basis(@gift-card-account-gift-card-fieldset-code__width__l);
+        }
+    }
+
+    .payment-option-content .fieldset,
+    .payment-option-content .form-discount,
+    .paypal-review-discount .fieldset.add,
+    .paypal-review-discount .fieldset.remove,
+    .paypal-review-discount .fieldset.coupon {
+        .action.primary {
+            .lib-button-xl();
+            height: 50px;
+            min-width: 100px;
+        }
+
+        .actions-toolbar {
+            max-width: 100px;
+        }
+
+        .field.giftcard-pin {
+            padding: 0;
+        }
+
+        &.add > .field.giftcard-pin,
+        &.remove > .field.giftcard-pin {
+            .lib-vendor-prefix-flex-basis(43%);
+            padding: 0 5px;
+        }
+
+        &.coupon > .field {
+            padding-right: 5px;
+        }
+    }
+
+    .payment-option._collapsible .fieldset,
+    .payment-option-item .discount-code {
+        .field.giftcard-number {
+            .lib-vendor-prefix-flex-basis(65%);
+        }
+
+        .field.giftcard-pin {
+            .lib-vendor-prefix-flex-basis(35%);
+            max-width: 220px;
+            padding: 0 0 0 20px;
+        }
+
+        .actions-toolbar {
+            margin-left: 20px;
+            min-width: 130px;
+        }
+    }
+
+    .form-discount .actions-toolbar.discount {
+        margin-left: 20px;
+    }
+
+    .cart-summary > .block.discount.active .fieldset {
+        & {
+            .lib-vendor-prefix-flex-wrap(wrap);
+        }
+
+        .field,
+        &.add > .field.giftcard-pin,
+        .actions-toolbar {
+            .lib-vendor-prefix-flex-basis(100%);
+            width: 100%;
+        }
+
+        .field.giftcard-pin {
+            padding-left: 0;
+        }
+
+        .actions-toolbar {
+            max-width: 100%;
+            margin-left: 0;
+            margin-top: 20px;
+        }
+    }
+
+    .paypal-review-discount .fieldset.add,
+    .paypal-review-discount .fieldset.remove,
+    .paypal-review-discount .fieldset.coupon {
+        .actions-toolbar {
+            min-width: 130px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xxl) {
+    .cart-summary > .block.discount.active .fieldset {
+        & {
+            .lib-vendor-prefix-flex-wrap(nowrap);
+        }
+
+        .actions-toolbar,
+        .action.primary {
+            height: 50px;
+            min-width: 100px;
+            max-width: 130px;
+        }
+
+        .field.giftcard-pin {
+            padding: 0;
+        }
+
+        &.add > .field.giftcard-pin,
+        &.remove > .field.giftcard-pin {
+            .lib-vendor-prefix-flex-basis(43%);
+            min-width: ~'calc(60% - 148px)';
+            padding: 0 18px;
+            width: auto;
+        }
+
+        .field.giftcard-number {
+            .lib-vendor-prefix-flex-basis(100%);
+            min-width: ~'calc(70% - 148px)';
+            width: auto;
+        }
+
+        &.coupon > .field {
+            padding-right: 18px;
+            min-width: ~'calc(100% - 148px)';
+        }
+    }
+
+    .cart-summary .block.discount .abstract-giftcardcart .fieldset .actions-toolbar {
+        margin: 0;
+    }
+
+    .paypal-review .paypal-review-discount.discount .fieldset {
+        &.add > .field.giftcard-pin,
+        &.remove > .field.giftcard-pin {
+            padding-left: 18px;
+            max-width: 265px;
+        }
+    }
+}

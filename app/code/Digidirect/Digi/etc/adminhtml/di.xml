@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Grid\Collection">
+        <arguments>
+            <argument name="gridColumns" xsi:type="array">
+                <item name="1" xsi:type="const">Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface::NAME</item>
+                <item name="2" xsi:type="const">Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface::STATUS</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Ui\Component\Form\Element\DataType\Date">
+        <plugin name="magento.ui.component.form.element.datatype.date"
+                type="Digidirect\Digi\Plugin\Magento\Ui\Component\Form\Element\DataType\Date"
+                sortOrder="10" />
+    </type>
+    <type name="Digidirect\Digi\Plugin\Magento\Ui\Component\Form\Element\DataType\Date">
+        <arguments>
+            <argument name="listWrongLocale" xsi:type="array">
+                <item name="en_AU" xsi:type="string">en_AU</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

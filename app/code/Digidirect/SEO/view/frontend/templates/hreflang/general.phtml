@@ -1,0 +1,15 @@
+<?php
+// @codingStandardsIgnoreFile
+
+/** @var $block \Digidirect\SEO\Block\Cms\Page\Hreflang */
+
+    if ($block->isHreflangTagEnable()) {
+        $stores = $this->getActiveStoreList();
+
+        foreach ($stores as $store) {
+            $hreflang = $block->getHreflang($store);
+            $storeUrl = $block->getStoreUrl($store);
+
+            echo "<link rel = \"alternate\" hreflang = \"$hreflang\" href = \"$storeUrl\" />";
+        }
+    }

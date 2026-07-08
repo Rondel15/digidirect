@@ -1,0 +1,117 @@
+<?php
+/**
+ * @var $block \Digidirect\FreeGift\Block\Product\View
+ * @var $compareHelper \Magento\Catalog\Helper\Product\Compare
+ * @var $postDataHelper \Magento\Framework\Data\Helper\PostHelper
+ * @var $wishListHelper \Magento\Wishlist\Helper\Data
+ */
+?>
+<?php if ($exist = ($block->getProducts() && $block->getProducts()->getSize())):?>
+    <?php
+    $compareHelper = $this->helper('Magento\Catalog\Helper\Product\Compare');
+    $postDataHelper = $this->helper('Magento\Framework\Data\Helper\PostHelper');
+    $wishListHelper = $this->helper('Magento\Wishlist\Helper\Data');
+    $addToCartTitle = __('Add to Cart');
+    $type = $block->getType();
+    $mode = $block->getMode() ? $block->getMode() : 'grid';
+    $image = $block->getImageType();
+    $title = $block->getTitle();
+    $items = $block->getProducts();
+
+    $showPrice = (bool)$block->getShowPrice();
+    $showWishlist = (bool)$block->getShowWishlist();
+    $showCompare = (bool)$block->getShowCompare();
+    $showCart = (bool)$block->getShowCart();
+    $templateType = \Magento\Catalog\Block\Product\ReviewRendererInterface::DEFAULT_VIEW;
+    ?>
+    <div class="block widget freegift-promo-items <?php echo $block->escapeHtml($mode); ?>">
+        <div class="block-title">
+            <strong>
+                <?php if ($title):?>
+                    <?php echo $block->escapeHtml($title); ?>
+                <?php else:?>
+                    <?php echo $block->escapeHtml(__('Free Promo Items')); ?>
+                <?php endif ?>
+            </strong>
+        </div>
+        <div class="block-content">
+            <div class="products-<?php echo $block->escapeHtml($mode); ?> <?php echo $block->escapeHtml($mode); ?>">
+                <ol class="product-items <?php echo $block->escapeHtml($type); ?>">
+                    <?php $iterator = 1; ?>
+                    <?php foreach ($items as $item): ?>
+                        <?php /* @escapeNotVerified */ echo ($iterator++ == 1) ? '<li class="product-item">' : '</li><li class="product-item">' ?>
+                        <div class="product-item-info">
+                            <?php if ($item->getVisibility() == \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE): ?>
+                                <?php echo $block->getImage($item, $image)->toHtml(); ?>
+                            <?php else: ?>
+                                <a href="<?php echo $block->escapeUrl($block->getProductUrl($item)) ?>" class="product-item-photo">
+                                    <?php echo $block->getImage($item, $image)->toHtml(); ?>
+                                </a>
+                            <?php endif; ?>
+                            <div class="product-item-details">
+                                <strong class="product-item-name">
+                                    <?php if ($item->getVisibility() == \Magento\Catalog\Model\Product\Visibility::VISIBILITY_NOT_VISIBLE): ?>
+                                        <?php echo $block->escapeHtml($item->getName()) ?>
+                                    <?php else: ?>
+                                        <a title="<?php echo $block->escapeHtml($item->getName()) ?>" href="<?php echo $block->escapeUrl($block->getProductUrl($item)) ?>" class="product-item-link">
+                                            <?php echo $block->escapeHtml($item->getName()) ?>
+                                        </a>
+                                    <?php endif; ?>
+                                </strong>
+                                <?php if ($showPrice): ?>
+                                    <?php /* @escapeNotVerified */ echo $block->getProductPrice($item); ?>
+                                <?php endif; ?>
+
+                                <?php if ($templateType): ?>
+                                    <?php echo $block->getReviewsSummaryHtml($item, $templateType) ?>
+                                <?php endif; ?>
+
+                                <?php if ($showWishlist || $showCompare || $showCart): ?>
+                                    <div class="product-item-actions">
+                                        <?php if ($showCart): ?>
+                                            <div class="actions-primary">
+                                                <?php if ($item->isSaleable()): ?>
+                                                    <?php if ($item->getTypeInstance()->hasRequiredOptions($item)): ?>
+                                                        <button class="action tocart primary" data-mage-init='{"redirectUrl":{"url":"<?php /* @escapeNotVerified */ echo $block->getAddToCartUrl($item) ?>"}}' type="button" title="<?php echo $block->escapeHtml($addToCartTitle); ?>">
+                                                            <span><?php echo $block->escapeHtml($addToCartTitle) ?></span>
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <?php $postData = $postDataHelper->getPostData($block->getAddToCartUrl($item), ['product' => $item->getEntityId()]) ?>
+                                                        <button class="action tocart primary" data-post='<?php /* @escapeNotVerified */   echo $postData; ?>' type="button" title="<?php echo $block->escapeHtml($addToCartTitle) ?>">
+                                                            <span><?php echo $block->escapeHtml($addToCartTitle) ?></span>
+                                                        </button>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <?php if ($item->getIsSalable()): ?>
+                                                        <div class="stock available"><span><?php echo $block->escapeHtml(__('In stock')) ?></span></div>
+                                                    <?php else: ?>
+                                                        <div class="stock unavailable"><span><?php echo $block->escapeHtml(__('Out of stock')) ?></span></div>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                        <?php if ($showWishlist || $showCompare): ?>
+                                            <div class="actions-secondary" data-role="add-to-links">
+                                                <?php if ($wishListHelper->isAllow() && $showWishlist): ?>
+                                                    <a href="#" data-post='<?php /* @escapeNotVerified */   echo $block->getAddToWishlistParams($item); ?>' class="action towishlist" data-action="add-to-wishlist" title="<?php  echo $block->escapeHtml(__('Add to Wish List')) ?>">
+                                                        <span><?php echo $block->escapeHtml(__('Add to Wish List')) ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                                <?php if ($block->getAddToCompareUrl() && $showCompare): ?>
+                                                    <a href="#" class="action tocompare" data-post='<?php /* @escapeNotVerified */   echo $compareHelper->getPostDataParams($item);?>' title="<?php echo $block->escapeHtml(__('Add to Compare')) ?>">
+                                                        <span><?php echo $block->escapeHtml(__('Add to Compare')) ?></span>
+                                                    </a>
+                                                <?php endif; ?>
+                                            </div>
+                                        <?php endif; ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <?php echo ($iterator == count($items)+1) ? '</li>' : '' ?>
+                    <?php endforeach ?>
+                </ol>
+            </div>
+        </div>
+    </div>
+<?php endif;?>

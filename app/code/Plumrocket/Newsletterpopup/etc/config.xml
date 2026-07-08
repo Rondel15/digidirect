@@ -1,0 +1,315 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <prnewsletterpopup>
+            <general>
+                <enable>0</enable>
+                <serial></serial>
+                <enable_analytics>0</enable_analytics>
+                <enable_history>1</enable_history>
+                <erase_history>30</erase_history>
+                <cookies_usage>1</cookies_usage>
+            </general>
+            <size>
+                <desktop>eg,992</desktop>
+                <tablet>eg,768</tablet>
+                <mobile>l,768</mobile>
+            </size>
+            <disposable_emails>
+                <disable>1</disable>
+                <domains><![CDATA[
+10minutemail.com
+2-ch.space
+33mail.com
+6paq.com
+DingBone.com
+FudgeRub.com
+LookUgly.com
+SmellFear.com
+a45.in
+abyssmail.com
+anappthat.com
+anonymbox.com
+anonymousemail.me
+anotherdomaincyka.tk
+armyspy.com
+asdasd.ru
+axe.axeprim.eu
+azazazatashkent.tk
+box.yadavnaresh.com.np
+bspamfree.org
+bund.us
+bundes-li.ga
+cachedot.net
+ckaazaza.tk
+crazymailing.com
+cuvox.de
+dasdasdascyka.tk
+dayrep.com
+deadaddress.com
+discard.email
+discardmail.com
+discardmail.de
+disposable.pingfu.net
+disposableinbox.com
+dispostable.com
+dropmail.me
+dudmail.com
+e4ward.com
+easytrashmail.com
+ebano.campano.cl
+ee2.pl
+eelmail.com
+einrot.com
+email-fake.com
+email.hideme.be
+eml.pp.ua
+en.getairmail.com
+eqeqeqeqe.tk
+eyepaste.com
+fake-email.pp.ua
+fakeinbox.com
+fakemailgenerator.com
+fiifke.de
+fleckens.hu
+freeletter.me
+freemail.ms
+freundin.ru
+gaf.oseanografi.id
+get.pp.ua
+getairmail.com
+gishpuppy.com
+googdad.tk
+grandmasmail.com
+grr.la
+guerrillamail.biz
+guerrillamail.com
+guerrillamail.de
+guerrillamail.net
+guerrillamail.org
+guerrillamailblock.com
+gustr.com
+hartbot.de
+hideme.be
+hmamail.com
+hulapla.de
+inboxdesign.me
+inboxstore.me
+incognitomail.org
+inmynetwork.cf
+inmynetwork.ga
+inmynetwork.gq
+inmynetwork.ml
+inmynetwork.tk
+jetable.org
+jobbikszimpatizans.hu
+jourrapide.com
+kurzepost.de
+labetteraverouge.at
+lazyinbox.com
+loadby.us
+loh.pp.ua
+lolitka.cf
+lolitka.ga
+lolitka.gq
+lolito.tk
+mailcatch.com
+maildrop.cc
+mailexpire.com
+mailforspam.com
+mailinator.com
+mailinator.net
+mailnesia.com
+mailnull.com
+meltmail.com
+mfsa.ru
+mintemail.com
+mmmmail.com
+moakt.com
+msgos.com
+mt2015.com
+mt2016.com
+my.vondata.com.ar
+mynetwork.cf
+mytempemail.com
+mytrashmail.com
+no-spam.ws
+objectmail.com
+odnorazovoe.ru
+pfui.ru
+poh.pp.ua
+postonline.me
+proxymail.eu
+q314.net
+rcpt.at
+regspaces.tk
+rhyta.com
+s0ny.net
+safetypost.de
+schafmail.de
+sdfghyj.tk
+send-email.org
+sharklasers.com
+shitmail.me
+showslow.de
+spam.la
+spam.su
+spam4.me
+spambog.com
+spambog.de
+spambog.ru
+spambox.us
+spamex.com
+spamfree24.org
+spamgourmet.com
+spamobox.com
+spamstack.net
+squizzy.de
+superrito.com
+sweetxxx.de
+tafmail.com
+techgroup.me
+teewars.org
+teleworm.us
+temp-mail.org
+temp-mail.ru
+tempemail.net
+tempinbox.com
+tempmailer.com
+tempsky.com
+thismail.ru
+thrma.com
+throwawaymail.com
+tmail.ws
+trash-mail.at
+trashmail.at
+trashmail.com
+trashmail.me
+trashmail.net
+trbvm.com
+ts-by-tashkent.cf
+ts-by-tashkent.ga
+ts-by-tashkent.gq
+ts-by-tashkent.ml
+ts-by-tashkent.tk
+vaasfc4.tk
+vickaentb.cf
+vickaentb.ga
+vickaentb.gq
+vickaentb.ml
+vickaentb.tk
+vihost.ml
+vihost.tk
+vmani.com
+wasdfgh.cf
+wasdfgh.ga
+wasdfgh.gq
+wasdfgh.ml
+wasdfgh.tk
+webuser.in
+wegwerfmail.de
+wegwerfmail.net
+wegwerfmail.org
+wfgdfhj.tk
+wh4f.org
+wickmail.net
+wimsg.com
+xy9ce.tk
+yapped.net
+yopmail.com
+zaktouni.fr
+zeta-telecom.com]]></domains>
+            </disposable_emails>
+            <google_recaptcha>
+                <google_recaptcha_config_type>custom</google_recaptcha_config_type>
+            </google_recaptcha>
+            <integration>
+                <mailchimp>
+                    <enable>0</enable>
+                    <send_email>0</send_email>
+                    <fields_tag><![CDATA[{"email":"EMAIL","firstname":"FNAME","middlename":"MNAME","lastname":"LNAME","suffix":"SUFFIX","dob":"DOB","gender":"GENDER","taxvat":"TAXVAT","prefix":"PRENAME","telephone":"TELEPHONE","fax":"FAX","company":"COMPANY","street":"STREET","city":"CITY","country_id":"COUNTRY","region ":"STATE","postcode":"ZIPCODE","coupon":"COUPON"}]]></fields_tag>
+                </mailchimp>
+                <activecampaign>
+                    <enable>0</enable>
+                    <url><![CDATA[https://account.api-us1.com/]]></url>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"first_name","middlename":"","lastname":"last_name","suffix":"","dob":"","gender":"","taxvat":"","prefix":"","telephone":"phone","fax":"","company":"orgname","street":"","city":"","country_id":"","region":"","postcode":"","coupon":""}]]></fields_tag>
+                </activecampaign>
+                <hubspot>
+                    <enable>0</enable>
+                    <url><![CDATA[https://api.hubapi.com/]]></url>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"firstname","middlename":"","lastname":"lastname","suffix":"","dob":"date_of_birth","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"address","city":"city","country_id":"country","region":"state","postcode":"zip","coupon":""}]]></fields_tag>
+                </hubspot>
+                <infusionsoft>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"Email","firstname":"FirstName","middlename":"MiddleName","lastname":"LastName","suffix":"Suffix","dob":"Birthday","gender":"","taxvat":"","prefix":"","telephone":"Phone1","fax":"Fax1","company":"Company","street":"StreetAddress1","city":"City","country_id":"Country","region":"State","postcode":"PostalCode","coupon":""}]]></fields_tag>
+                </infusionsoft>
+                <dotmailer>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"EMAIL","firstname":"FIRSTNAME","middlename":"","lastname":"LASTNAME","suffix":"","dob":"","gender":"GENDER","taxvat":"","prefix":"","telephone":"","fax":"","company":"","street":"","city":"","country_id":"","region":"","postcode":"POSTCODE","coupon":""}]]></fields_tag>
+                </dotmailer>
+                <klaviyo>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"first_name","middlename":"","lastname":"last_name","suffix":"","dob":"","gender":"","taxvat":"","prefix":"","telephone":"phone_number","fax":"","company":"organization","street":"","city":"","country_id":"","region":"","postcode":"","coupon":""}]]></fields_tag>
+                </klaviyo>
+                <getresponse>
+                    <enable>0</enable>
+                    <fields_tag>{"email":"email","firstname":"","middlename":"name","lastname":"","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","coupon":""}</fields_tag>
+                </getresponse>
+                <sendy>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email", "name":"first_name", "country":"country", "ipaddress":"", "referrer":"", "gdpr":"", "silent":"", "hp":"", "boolean":false}]]></fields_tag>
+                </sendy>
+                <constantcontact>
+                    <fields_tag><![CDATA[{"email":"address","firstname":"first_name","middlename":"","lastname":"last_name","suffix":"","dob":"birthday","gender":"","taxvat":"","prefix":"","telephone":"phone_number","fax":"","company":"company_name","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","coupon":""}]]></fields_tag>
+                </constantcontact>
+                <campaignmonitor>
+                    <enable>0</enable>
+                    <fields_tag>{"email":"email","firstname":"","middlename":"name","lastname":"","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","coupon":""}</fields_tag>
+                </campaignmonitor>
+                <ontraport>
+                    <enable>0</enable>
+                    <fields_tag>{"email":"email","firstname":"firstname","middlename":"","lastname":"lastname","suffix":"","dob":"birthday","gender":"gender","taxvat":"","prefix":"","telephone":"office_phone","fax":"fax","company":"company","street":"address","city":"city","country_id":"country","region":"state","postcode":"zip","coupon":""}</fields_tag>
+                </ontraport>
+                <egoi>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"first_name","middlename":"first_name","lastname":"last_name","suffix":"","dob":"birth_date","gender":"gender","taxvat":"","prefix":"","telephone":"telephone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","cellphone":"cellphone","coupon":""}]]></fields_tag>
+                </egoi>
+                <mailjet>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"firstname","middlename":"","lastname":"lastname","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","coupon":""}]]></fields_tag>
+                </mailjet>
+                <sendinblue>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"firstname","middlename":"middlename","lastname":"lastname","suffix":"","dob":"BIRTHDATE","gender":"gender","taxvat":"","prefix":"","telephone":"telephone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","cellphone":"sms","coupon":""}]]></fields_tag>
+                </sendinblue>
+                <icontact>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"firstName","middlename":"","lastname":"lastName","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"postal_code","cellphone":"phone","coupon":""}]]></fields_tag>
+                </icontact>
+                <madmimi>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"first_name","middlename":"","lastname":"last_name","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"zip","cellphone":"cellphone","coupon":""}]]></fields_tag>
+                </madmimi>
+                <salesforce>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"FirstName","middlename":"MiddleName","lastname":"LastName","suffix":"","dob":"Birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"Phone","fax":"fax","company":"company","street":"MailingStreet","city":"MailingCity","country_id":"MailingCountry","region":"MailingState","postcode":"MailingPostalCode","cellphone":"cellphone","coupon":""}]]></fields_tag>
+                </salesforce>
+                <emma>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"first_name","middlename":"","lastname":"last_name","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"zip","cellphone":"cellphone","coupon":""}]]></fields_tag>
+                </emma>
+                <mautic>
+                    <enable>0</enable>
+                    <fields_tag><![CDATA[{"email":"email","firstname":"firstname","middlename":"","lastname":"lastname","suffix":"","dob":"birthdate","gender":"gender","taxvat":"","prefix":"","telephone":"phone","fax":"fax","company":"company","street":"street","city":"city","country_id":"country","region":"state","postcode":"zipcode","cellphone":"mobile","coupon":""}]]></fields_tag>
+                </mautic>
+            </integration>
+        </prnewsletterpopup>
+    </default>
+</config>

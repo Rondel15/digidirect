@@ -1,0 +1,8 @@
+<?php
+    $currentSeller = $block->getCurrentSeller();
+    $sellerId = $currentSeller->getId();
+?>
+<div style="display: none;">Seller Products</div>
+<?php if ($currentSeller): ?>
+    <?= $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('seller-' . $sellerId)->toHtml(); ?>
+<?php endif; ?>

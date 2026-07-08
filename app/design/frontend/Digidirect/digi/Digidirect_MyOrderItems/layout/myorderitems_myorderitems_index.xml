@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="customer_account"/>
+    <body>
+        <referenceBlock name="page.main.title">
+            <action method="setPageTitle">
+                <argument name="label" translate="true" xsi:type="string">My Shelf</argument>
+            </action>
+        </referenceBlock>
+        <referenceContainer name="content">
+            <block class="Magento\Framework\View\Element\Template" name="my_order_item_tutorial" template="Digidirect_MyOrderItems::customer/myorderitems/list/tutorial.phtml" before="-"/>
+            <block class="Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList" name="myorderitems_list" template="Digidirect_MyOrderItems::customer/myorderitems/list.phtml">
+                <block class="Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Pager" name="my_order_item_pager" after="-" template="Digidirect_MyOrderItems::customer/myorderitems/list/pager.phtml"/>
+                <block class="Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Categories" name="my_order_item_categories" template="Digidirect_MyOrderItems::customer/myorderitems/list/categories.phtml"/>
+                <block class="Digidirect\MyOrderItems\Block\Customer\MyOrderItems\ItemsList\Info" name="my_order_item_info" template="Digidirect_MyOrderItems::customer/myorderitems/list/info.phtml">
+                    <block class="Magento\Catalog\Block\Product\ProductList\Related" name="related_products" template="Digidirect_MyOrderItems::customer/myorderitems/product/list/items.phtml">
+                        <arguments>
+                            <argument name="type" xsi:type="string">related</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\TargetRule\Block\Catalog\Product\ProductList\Related" name="related_rule_products" template="Digidirect_MyOrderItems::customer/myorderitems/product/list/items.phtml">
+                        <arguments>
+                            <argument name="type" xsi:type="string">related-rule</argument>
+                        </arguments>
+                    </block>
+                </block>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

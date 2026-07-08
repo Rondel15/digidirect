@@ -1,0 +1,69 @@
+{
+    "mageplaza_webhook_hook": {
+        "column": {
+            "hook_id": true,
+            "name": true,
+            "status": true,
+            "store_ids": true,
+            "hook_type": true,
+            "priority": true,
+            "payload_url": true,
+            "method": true,
+            "authentication": true,
+            "username": true,
+            "realm": true,
+            "password": true,
+            "nonce": true,
+            "algorithm": true,
+            "qop": true,
+            "nonce_count": true,
+            "client_nonce": true,
+            "opaque": true,
+            "headers": true,
+            "content_type": true,
+            "body": true,
+            "created_at": true,
+            "updated_at": true,
+            "order_status": true
+        },
+        "constraint": {
+            "PRIMARY": true
+        }
+    },
+    "mageplaza_webhook_history": {
+        "column": {
+            "id": true,
+            "hook_id": true,
+            "hook_name": true,
+            "status": true,
+            "store_ids": true,
+            "hook_type": true,
+            "response": true,
+            "priority": true,
+            "payload_url": true,
+            "message": true,
+            "body": true,
+            "created_at": true,
+            "updated_at": true
+        },
+        "index": {
+            "MAGEPLAZA_WEBHOOK_HISTORY_HOOK_ID": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEPLAZA_WEBHOOK_HISTORY_HOOK_ID_MAGEPLAZA_WEBHOOK_HOOK_HOOK_ID": true
+        }
+    },
+    "mageplaza_webhook_cron_schedule": {
+        "column": {
+            "id": true,
+            "hook_type": true,
+            "event_id": true,
+            "status": true
+        },
+        "constraint": {
+            "PRIMARY": true,
+            "MAGEPLAZA_WEBHOOK_CRON_SCHEDULE_ID": true
+        }
+    }
+}

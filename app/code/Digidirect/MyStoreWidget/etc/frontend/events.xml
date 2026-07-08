@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="customer_register_success">
+        <observer name="Digidirect_MyStoreWidget::customer_register_success" instance="Digidirect\MyStoreWidget\Observer\CustomerRegisterSuccessObserver" />
+    </event>
+    <event name="customer_customer_authenticated">
+        <observer name="Digidirect_MyStoreWidget::customer_customer_authenticated_set_store" instance="Digidirect\MyStoreWidget\Observer\CustomerSetStoreObserver" />
+    </event>
+    <event name="customer_address_save_commit_after">
+        <observer name="Digidirect_MyStoreWidget::customer_address_save_commit_after_set_store" instance="Digidirect\MyStoreWidget\Observer\CustomerSetStoreObserver" />
+    </event>
+</config>

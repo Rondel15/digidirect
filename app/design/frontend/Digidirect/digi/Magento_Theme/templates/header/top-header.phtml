@@ -1,0 +1,32 @@
+
+<div class="panel wrapper">
+    <div class="panel header">
+
+        <div class="header-links header-link-left" style="margin-left: 50px;">
+            <a class="next-day-shipping-link" href="/free-shipping" title="Express Next Day Shipping" style="display: none;"><i class="fas fa-shipping-fast"></i> Express Next Day Shipping</a>
+            <a class="click-and-collect-link" href="/pickup-instore" title="Click & Collect"><i class="fas fa-hand-point-up"></i> Click & Collect</a>
+            <a class="store-locator-link" href="/store-locator" title="Store Locator"><i class="fas fa-map-marker-alt"></i> Store Locator</a>
+            <a class="faq-link" href="/faq" title="FAQ"><i class="fas fa-question-circle"></i> Questions?</a>
+            <a class="call-us-link" href="tel:1300 889 148" title="call-us"><i class="fas fa-headset"></i> CALL US <span class="company-number">1300 889 148</span></a>
+            <a class="gift-cards-link" href="https://digidirectgiftcards.viisolutions.com.au/" title="GIFT CARDS"><i class="fas fa-gift"></i> GIFT CARDS</a>
+            <a class="digiservices-link" href="/#digiservices" title="digiServices"><i class="fas fa-film"></i></i> SERVICES</a>
+        </div>
+        <div class="header-links header-link-right" style="position: absolute; right: 0; margin-right: 50px;">
+            <div class="header-links-account">
+                <a class="digibusiness-link" href="/b2b" title="digiClub">digiDirect Business</a>
+                <a class="digiclub-link" href="/digiclub" title="digiClub">digiClub</a>
+                <?php
+                $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+                $customerSession = $objectManager->get('Magento\Customer\Block\Account\AuthorizationLink');
+                
+                if ($customerSession->isLoggedIn() == true) { ?>
+                    <a class="register-link" href="/customer/account" title="Account">My Account</a>
+                    <a class="login-link" href="/customer/account/logout" title="Logout">Logout</a>
+                <?php } else { ?>
+                    <a class="register-link" href="/customer/account/create" title="Register">Register</a>
+                    <a class="login-link" href="/customer/account/login" title="Login">Login</a>
+                <?php } ?>
+            </div>
+        </div>
+    </div>
+</div>

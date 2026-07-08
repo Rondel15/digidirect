@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2017 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="prnewsletterpopup_general_email_template" label="Newsletter Popup Autoresponder Email" file="prnewsletterpopup_responder_email.html" type="html" module="Plumrocket_Newsletterpopup" area="frontend"/>
+</config>

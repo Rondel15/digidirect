@@ -1,0 +1,64 @@
+<?php
+/**
+ * Mageplaza
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Mageplaza.com license that is
+ * available through the world-wide-web at this URL:
+ * https://www.mageplaza.com/LICENSE.txt
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade this extension to newer
+ * version in the future.
+ *
+ * @category    Mageplaza
+ * @package     Mageplaza_Shopbybrand
+ * @copyright   Copyright (c) Mageplaza (https://www.mageplaza.com/)
+ * @license     https://www.mageplaza.com/LICENSE.txt
+ */
+
+use Mageplaza\Shopbybrand\Block\Adminhtml\Report\Report;
+use Mageplaza\Shopbybrand\Helper\Data;
+
+/** @var Report $block */
+/** @var Data $helper */
+$helper = $block->getHelperData();
+
+$url         = $block->getReportGridUrl();
+$itemDataUrl = $block->getReportItemDataUrl();
+
+try {
+    $date = $block->getDateRange();
+} catch (Exception $e) {
+    $date = [];
+}
+?>
+
+<div class="mpshopbybrand-messages">
+    <div class="message message-error error mpshopbybrand-error" style="display: none"></div>
+</div>
+
+<div id="menu" class="mp_menu" data-mage-init='{"Mageplaza_Shopbybrand/js/report/menu":{
+                                                    "gridUrl":"<?= /** @noEscape */ $url ?>",
+                                                    "itemDataUrl":"<?= /** @noEscape */ $itemDataUrl ?>",
+                                                    "date":<?= /** @noEscape */ json_encode($date) ?>,
+                                                    "priceFormat": <?= /** @noEscape */ $helper->getPriceFormat() ?>
+                                                }}'>
+    <div class="date-range-picker" data-mage-init='{"initDateRange":{"date":<?= /** @noEscape */ json_encode($date) ?>}}'>
+        <div id="daterange">
+            <i class="fa fa-calendar"></i>
+            <span></span>
+            <i class="fa fa-caret-down"></i>
+        </div>
+    </div>
+</div>
+<div id="mpbrand-report-chart">
+<div class="chart col-mp">
+    <p class="chart-name" data-bind="i18n: 'Brand Chart'"></p>
+    <canvas id="mpbrand-chart"></canvas>
+</div>
+</div>
+
+<div id="mpbrand-report-grid"></div>

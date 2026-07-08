@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="product.info.form.content">
+            <block class="Digidirect\Collect\Block\CollectPlaces"
+                   name="collect_places_detail"
+                   as="collect_places_detail"
+                   template="collect_detail_page.phtml"
+                   ifconfig="carriers/collect/active_on_pdp">
+                <arguments>
+                    <argument name="is_additional_fields_needed" xsi:type="boolean">true</argument>
+                    <argument name="is_postcode_field_needed" xsi:type="boolean">true</argument>
+                    <argument name="collect_block_widget_title" xsi:type="string">collectBlock</argument>
+                </arguments>
+            </block>
+        </referenceContainer>
+
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Digidirect\Collect\Block\CollectPlaces"
+                   name="collect_places_detail_configurable"
+                   as="collect_places_detail_configurable"
+                   template="collect_detail_page.phtml"
+                   ifconfig="carriers/collect/active_on_pdp">
+                <arguments>
+                    <argument name="is_additional_fields_needed" xsi:type="boolean">true</argument>
+                    <argument name="is_postcode_field_needed" xsi:type="boolean">true</argument>
+                    <argument name="collect_block_widget_title" xsi:type="string">collectBlock</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

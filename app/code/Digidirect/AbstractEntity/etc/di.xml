@@ -1,0 +1,124 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Digidirect\AbstractEntity\Api\AttributeSetRepositoryInterface" type="Digidirect\AbstractEntity\Model\AttributeSetRepository"/>
+    <preference for="Digidirect\AbstractEntity\Api\AbstractEntityRepositoryInterface" type="Digidirect\AbstractEntity\Model\AbstractEntityRepository"/>
+    <preference for="Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface" type="Digidirect\AbstractEntity\Model\AbstractEntity"/>
+    <preference for="Digidirect\AbstractEntity\Api\Data\AbstractEntitySearchResultsInterface" type="Magento\Framework\Api\SearchResults"/>
+    <preference for="Digidirect\Utilities\Model\Media\ConfigInterface" type="Digidirect\Utilities\Model\Media\Config"/>
+    <preference for="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestInterface"
+                type="Digidirect\AbstractEntity\Model\Rest\AbstractEntityRest"/>
+    <preference for="Digidirect\AbstractEntity\Api\Rest\AbstractEntityRestByAttributeSetInterface"
+                type="Digidirect\AbstractEntity\Model\Rest\AbstractEntityRestByAttributeSet"/>
+
+    <type name="Magento\Framework\Model\Entity\RepositoryFactory">
+        <arguments>
+            <argument name="entities" xsi:type="array">
+                <item name="Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface" xsi:type="string">Digidirect\AbstractEntity\Api\AbstractEntityRepositoryInterface</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\MetadataPool">
+        <arguments>
+            <argument name="metadata" xsi:type="array">
+                <item name="Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface" xsi:type="array">
+                    <item name="entityTableName" xsi:type="string">digidirect_abstractentity_entity</item>
+                    <item name="eavEntityType" xsi:type="string">digidirect_abstractentity</item>
+                    <item name="identifierField" xsi:type="string">entity_id</item>
+                    <item name="entityContext" xsi:type="array">
+                        <item name="store" xsi:type="string">Magento\Store\Model\StoreScopeProvider</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Framework\EntityManager\HydratorPool">
+        <arguments>
+            <argument name="hydrators" xsi:type="array">
+                <item name="Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface" xsi:type="string">Magento\Framework\EntityManager\AbstractModelHydrator</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="digidirect_abstractentity_grid_data_source" xsi:type="string">Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="aeImageModel" type="Digidirect\Utilities\Model\Image">
+        <arguments>
+            <argument name="catalogProductMediaConfig" xsi:type="object">Digidirect\AbstractEntity\Model\AbstractEntity\Media\Config</argument>
+            <argument name="viewAssetImageFactory" xsi:type="object">aeAssetImageFactory</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="aeImageFactory" type="Digidirect\Utilities\Model\ImageFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">aeImageModel</argument>
+        </arguments>
+    </virtualType>
+
+    <virtualType name="aeAssetImageFactory" type="Magento\Catalog\Model\View\Asset\ImageFactory">
+        <arguments>
+            <argument name="instanceName" xsi:type="string">aeAssetImageModel</argument>
+        </arguments>
+    </virtualType>
+    <virtualType name="aeAssetImageModel" type="Magento\Catalog\Model\View\Asset\Image">
+        <arguments>
+            <argument name="mediaConfig" xsi:type="object">Digidirect\AbstractEntity\Model\AbstractEntity\Media\Config</argument>
+        </arguments>
+    </virtualType>
+
+    <type name="Digidirect\AbstractEntity\Helper\Image">
+        <arguments>
+            <argument name="imageFactory" xsi:type="object">aeImageFactory</argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\Acl\AclResource\Config\Reader\Filesystem">
+        <plugin name="Digidirect_AbstractEntity::addAclMenuItems" type="Digidirect\AbstractEntity\Plugin\Framework\Acl\AclResource\Config\Reader\Filesystem" />
+    </type>
+
+    <type name="Digidirect\Utilities\Model\Sitemap">
+        <plugin name="abstractentityAddSiteMapItems" type="Digidirect\AbstractEntity\Plugin\Sitemap\Model\Sitemap"/>
+    </type>
+    <!-- define pool of relations -->
+    <type name="Digidirect\AbstractEntity\Model\AttributeSetRepository">
+        <arguments>
+            <argument name="relationPool" xsi:type="array">
+                <item name="entityRelation" xsi:type="object">Digidirect\AbstractEntity\Model\ResourceModel\Relation</item>
+                <item name="entityAdditionalAttributes" xsi:type="object">Digidirect\AbstractEntity\Model\ResourceModel\AdditionalAttributes</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Digidirect\Utilities\Model\Media\Config">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="baseMediaUrl" xsi:type="string">digidirect/abstractentity/images</item>
+                <item name="baseMediaPath" xsi:type="string">digidirect/abstractentity/images</item>
+                <item name="mediaUrl" xsi:type="string">digidirect/abstractentity/images</item>
+                <item name="mediaPath" xsi:type="string">digidirect/abstractentity/images</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <type name="Magento\Framework\EntityManager\Operation\ExtensionPool">
+        <arguments>
+            <argument name="extensionActions" xsi:type="array">
+                <item name="Digidirect\AbstractEntity\Api\Data\AbstractEntityInterface" xsi:type="array">
+                    <item name="create" xsi:type="array">
+                        <item name="indexerCreator" xsi:type="string">Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Relation\Indexer\IndexHandler</item>
+                    </item>
+                    <item name="update" xsi:type="array">
+                        <item name="indexerUpdater" xsi:type="string">Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Relation\Indexer\IndexHandler</item>
+                    </item>
+                    <item name="delete" xsi:type="array">
+                        <item name="indexerDeleter" xsi:type="string">Digidirect\AbstractEntity\Model\ResourceModel\AbstractEntity\Relation\Indexer\IndexHandler</item>
+                    </item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+</config>

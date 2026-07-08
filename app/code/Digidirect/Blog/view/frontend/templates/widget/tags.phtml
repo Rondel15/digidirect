@@ -1,0 +1,22 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\TagsCloud $block
+ * @var \Digidirect\Blog\Model\Tag
+ */
+?>
+<?php if($block->hasTags()) : ?>
+    <div class="blog-tags blog-widget widget">
+        <h3 class="title"><?php /* @escapeNotVerified */ echo __('Tags')?></h3>
+        <ul class="list">
+            <?php foreach ($block->getTags() as $tag): ?>
+                <li class="item">
+                    <a class="link<?php echo $block->isCurrentTag($tag) ? ' -active' : '' ?>"
+                       href="<?php echo $block->escapeUrl($tag->getUrl()) ?>"
+                       title="#<?php echo $block->escapeHtml($tag->getName()) ?>">
+                        #<?php echo $block->escapeHtml($tag->getName()) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif ?>

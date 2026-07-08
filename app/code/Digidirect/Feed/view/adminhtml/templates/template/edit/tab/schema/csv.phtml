@@ -1,0 +1,44 @@
+<?php
+//@codingStandardsIgnoreFile
+/**
+ * @var \Digidirect\Feed\Helper\Output $outputHelper
+ * @var \Magento\Framework\Json\Helper\Data $jsonHelper
+ */
+$outputHelper = $this->helper('Digidirect\Feed\Helper\Output');
+$jsonHelper = $this->helper('Magento\Framework\Json\Helper\Data');
+
+$libraryInit = [
+    'FeedLibrary' => [
+        'url' => $this->getUrl('digidirect_feed/feed/library')
+    ]
+];
+?>
+
+<div class="entry-edit form-inline">
+    <?php echo $block->getFormHtml() ?>
+</div>
+
+<?php echo $block->getChildHtml('form_after') ?>
+
+<script>
+    require([
+        'jquery'
+    ], function ($) {
+        $.attributes = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getAttributeOptions()) ?>;
+        $.modifiers = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getFilterOptions()) ?>;
+        $.patternTypes = <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($outputHelper->getPatternTypeOptions()) ?>;
+    });
+</script>
+
+<script type="text/x-magento-init">
+    <?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($block->getJsConfig()) ?>
+</script>
+
+<button data-mage-init='<?php /* @escapeNotVerified */ echo $jsonHelper->jsonEncode($libraryInit) ?>'
+        class="feed__library-button"
+        onclick="return false;"><i class="fa fa-graduation-cap"></i> <?php echo $block->escapeHtml(__('Library of patterns')) ?>
+</button>
+
+<div data-bind="scope: 'schema_csv'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+</div>

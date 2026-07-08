@@ -1,0 +1,56 @@
+<?php
+/**
+ * @var $block \Digidirect\Digi\Block\Places
+ */
+?>
+<?php
+$isShowAvailability = false;
+$_product = $block->getProduct();
+
+$quoteHelper = $helper = $this->helper('Digidirect\Digi\Helper\Quote');
+$isProductWebOnly = $quoteHelper->isProductWebOnly($_product);
+?>
+<div class="product info detailed -places">
+    <div class="product data items">
+        <div class="data item content" id="tab-delivery" data-role="content">
+            <?php if ($isProductWebOnly) : ?>
+                <div class="text web-only-msg">
+                    <?php if ($messageWebOnly = $block->getChildHtml('web.only.message')): ?>
+                        <?php echo $messageWebOnly; ?>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+            <div class="text">
+                <?php if ($messageCmsContent = $block->getChildHtml('product.delivery.message')): ?>
+                    <?php echo $messageCmsContent; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php if ($isShowAvailability): ?>
+        <?php //TODO: Need to use LEGO solution from product.store.availability (which has been temporary disabled) ?>
+            <?php $_product = $block->getProduct(); ?>
+            <?php $places = ($_product) ? $block->getAllCollectPlaces($_product) : false; ?>
+            <?php if ($places): ?>
+                <div class="data item title" aria-labeledby="tab-label-title" data-role="collapsible" id="tab-label-pickup">
+                    <a class="data switch" tabindex="-1" data-toggle="switch" href="#tab-pickup"
+                       id="tab-label-pickup-title">
+                        <?php echo /* @noEscape */
+                        __('Pick Up in Store'); ?>
+                    </a>
+                </div>
+                <div class="data item content" id="tab-pickup" data-role="content">
+                    <ul class="places-availability">
+                        <?php foreach ($places as $place) : ?>
+                            <?php if (isset($place['place_object']) && isset($place['available'])) : ?>
+                                <?php $availableLabel = $place['available'] ? 'available' : 'unavailable'; ?>
+                                <li class="item -<?php echo $availableLabel; ?>">
+                                    <?php echo $place['place_object']->getName(); ?> <span class="label"><?php echo $availableLabel; ?></span>
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+</div>

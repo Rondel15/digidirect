@@ -1,0 +1,26 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+
+<div class="<?php echo $block->getBlockCss(); ?> navigation">
+    <div class="title <?php echo $block->getBlockCss();?>-title" data-mage-init='{"toggleAdvanced": {"toggleContainers": "#<?php echo $block->getBlockCss(); ?>", "selectorsToggleClass": "active"}}'>
+        <svg class="svg-icon -main -<?php echo $block->getIconId(); ?>">
+            <use xlink:href="#svgi-<?php echo $block->getIconId(); ?>"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+        </svg>
+        <strong><?php echo $block->getBlockTitle(); ?></strong>
+        <svg class="svg-icon svg-icon-arrow-down">
+            <use xlink:href="#svgi-left"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"></use>
+        </svg>
+    </div>
+    <div class="content <?php echo $block->getBlockCss(); ?>-content" id="<?php echo $block->getBlockCss(); ?>">
+        <?php echo $block->getChildHtml(); ?>
+    </div>
+</div>

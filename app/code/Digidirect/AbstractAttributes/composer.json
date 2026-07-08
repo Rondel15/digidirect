@@ -1,0 +1,14 @@
+{
+    "name": "digidirect/abstractattributes",
+    "type": "magento2-module",
+    "description": "Digidirect Abstract Attributes Module",
+    "version": "3.0.8.0",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Digidirect\\AbstractAttributes\\": ""
+        }
+    }
+}

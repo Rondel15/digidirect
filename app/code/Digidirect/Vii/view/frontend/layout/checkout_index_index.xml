@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="checkout.root">
+            <arguments>
+                <argument name="jsLayout" xsi:type="array">
+                    <item name="components" xsi:type="array">
+                        <item name="checkout" xsi:type="array">
+                            <item name="children" xsi:type="array">
+                                <item name="steps" xsi:type="array">
+                                    <item name="children" xsi:type="array">
+                                        <item name="billing-step" xsi:type="array">
+                                            <item name="children" xsi:type="array">
+                                                <item name="payment" xsi:type="array">
+                                                    <item name="children" xsi:type="array">
+                                                        <item name="afterMethods" xsi:type="array">
+                                                            <item name="children" xsi:type="array">
+                                                                <item name="giftCardAccount" xsi:type="array">
+                                                                    <item name="children" xsi:type="array">
+                                                                        <item name="vii-cards" xsi:type="array">
+                                                                            <item name="component"  xsi:type="string">Digidirect_Vii/js/view/payment/gift-cards</item>
+                                                                            <item name="config" xsi:type="array">
+                                                                                <item name="template" xsi:type="string">Digidirect_Vii/gift-cards</item>
+                                                                                <item name="displayArea" xsi:type="string">after-gift-card</item>
+                                                                                <item name="sortOrder" xsi:type="string">0</item>
+                                                                                <item name="code" xsi:type="string">giftcardaccount</item>
+                                                                                <item name="cardLabel" xsi:type="string" translate="true">Gift Card Number</item>
+                                                                                <item name="pinLabel" xsi:type="string" translate="true">Gift Card PIN</item>
+                                                                                <item name="pinValue" xsi:type="string">0000</item>
+                                                                                <item name="removeLabel" xsi:type="string" translate="true">Remove</item>
+                                                                            </item>
+                                                                        </item>
+                                                                        <item name="abstract-forms" xsi:type="array">
+                                                                            <item name="config" xsi:type="array">
+                                                                                <item name="template" xsi:type="string">Digidirect_AbstractGiftCard/payment/item</item>
+                                                                                <item name="serviceCode" xsi:type="string">vii</item>
+                                                                                <item name="isPin" xsi:type="boolean">true</item>
+                                                                                <item name="isCheckBalance" xsi:type="boolean">false</item>
+                                                                                <item name="isClearFieldAfterSave" xsi:type="boolean">true</item>
+                                                                            </item>
+                                                                        </item>
+                                                                    </item>
+                                                                </item>
+                                                            </item>
+                                                        </item>
+                                                    </item>
+                                                </item>
+                                            </item>
+                                        </item>
+                                    </item>
+                                </item>
+                            </item>
+                        </item>
+                    </item>
+                </argument>
+            </arguments>
+        </referenceBlock>
+    </body>
+</page>

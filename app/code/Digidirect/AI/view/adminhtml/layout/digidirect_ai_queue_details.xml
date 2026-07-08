@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="./../../../../../../../vendor/magento/framework/View/Layout/etc/page_configuration.xsd">
+    <update handle="styles"/>
+    <body>
+        <referenceContainer name="content">
+            <block class="Digidirect\AI\Block\Adminhtml\Logs\LogInit" name="admin.digidirect.ai.log.info"/>
+            <block class="Magento\Theme\Block\Html\Title" name="log.title" template="title.phtml">
+                <action method="setPageTitle">
+                    <argument translate="true" name="title" xsi:type="string">Logs</argument>
+                </action>
+            </block>
+            <uiComponent name="digidirect_ai_logs_listing"/>
+        </referenceContainer>
+    </body>
+</page>
+
+
+

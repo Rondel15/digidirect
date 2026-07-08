@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+        <item name="js_config" xsi:type="array">
+            <item name="provider" xsi:type="string">eaa_advanced_options_tab.aa_advanced_options_data_source</item>
+            <item name="deps" xsi:type="string">eaa_advanced_options_tab.aa_advanced_options_data_source</item>
+        </item>
+        <item name="label" xsi:type="string" translate="true">Advanced Options Properties</item>
+        <item name="config" xsi:type="array">
+            <item name="dataScope" xsi:type="string">data</item>
+            <item name="namespace" xsi:type="string">eaa_advanced_options_tab</item>
+            <item name="field_name_suffix" xsi:type="string">aa</item>
+        </item>
+        <item name="template" xsi:type="string">templates/form/collapsible</item>
+    </argument>
+
+    <dataSource name="aa_advanced_options_data_source">
+        <argument name="dataProvider" xsi:type="configurableObject">
+            <argument name="class" xsi:type="string">Digidirect\AbstractAttributes\Ui\DataProvider\ProductAdvancedOptionDataProvider</argument>
+            <argument name="name" xsi:type="string">aa_advanced_options_data_source</argument>
+            <argument name="primaryFieldName" xsi:type="string">attribute_id</argument>
+            <argument name="requestFieldName" xsi:type="string">attribute_id</argument>
+        </argument>
+        <argument name="data" xsi:type="array">
+            <item name="js_config" xsi:type="array">
+                <item name="component" xsi:type="string">Magento_Ui/js/form/components/tab</item>
+            </item>
+        </argument>
+    </dataSource>
+
+    <fieldset name="eaa_properties_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Advanced Options Properties</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">10</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="aa.store_id">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="visible" xsi:type="boolean">false</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="source" xsi:type="string">block</item>
+                </item>
+            </argument>
+        </field>
+        <field name="aa.listing_enabled">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Magento\Config\Model\Config\Source\Yesno</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="label" xsi:type="string" translate="true">Enable Attribute Listing Page</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="aa.page_template">
+            <argument name="data" xsi:type="array">
+                <item name="options" xsi:type="object">Digidirect\AbstractAttributes\Ui\Component\Attribute\Templates</item>
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">12</item>
+                    <item name="label" xsi:type="string" translate="true">Choose Page Template</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">select</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="aa.custom_template">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">14</item>
+                    <item name="label" xsi:type="string" translate="true">Custom Template Name</item>
+                    <item name="notice" xsi:type="string" translate="true">Digidirect_AbstractAttributes::attribute/{{custom_template}}.phtml</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="aa.url_key">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="label" xsi:type="string" translate="true">Attribute Listing Page URL Key</item>
+                    <item name="notice" xsi:type="string" translate="true">Default Label value will be used if empty</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="eaa_meta_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Meta Properties</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="number">20</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="aa.meta_title">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">10</item>
+                    <item name="label" xsi:type="string" translate="true">Meta Title</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">input</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+        <field name="aa.meta_desc">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">20</item>
+                    <item name="label" xsi:type="string" translate="true">Meta Description</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">textarea</item>
+                    <item name="scopeLabel" xsi:type="string">[STORE VIEW]</item>
+                </item>
+            </argument>
+        </field>
+    </fieldset>
+
+    <fieldset name="eaa_options_fieldset">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string" translate="true">Manage Options</item>
+                <item name="collapsible" xsi:type="boolean">false</item>
+                <item name="sortOrder" xsi:type="string">30</item>
+                <item name="opened" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <container name="eaa_options_container">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="sortOrder" xsi:type="number">30</item>
+                </item>
+            </argument>
+            <htmlContent name="html_content">
+                <argument name="block" xsi:type="object">Digidirect\AbstractAttributes\Block\Adminhtml\Catalog\Product\Attribute\Edit\Tab\AdvancedOptionsProperties\OptionsGrid</argument>
+            </htmlContent>
+        </container>
+    </fieldset>
+</form>

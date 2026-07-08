@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceBlock name="sidebar.main" remove="true"/>
+        <referenceBlock name="sidebar.additional" remove="true"/>
+        <referenceBlock name="catalog.leftnav" remove="true"/>
+        
+        <referenceContainer name="div.sidebar.additional" remove="true" />
+
+        <referenceBlock name="search_result_list">
+            <block class="Magento\Cms\Block\Block" name="product.tile.rent">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">product-tile-rent</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+
+        <move element="breadcrumbs" destination="category.view.container" before="-"/>      
+    </body>
+</page>

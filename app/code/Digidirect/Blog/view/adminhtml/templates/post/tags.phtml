@@ -1,0 +1,25 @@
+<?php
+use Digidirect\Blog\Block\Adminhtml\Post\Edit\Tags;
+/** @var  Tags $block */
+$tags = $block->getCollection();
+?>
+<div id="box-tags" class="box-tags" data-widget="blogTags">
+    <?php foreach ($tags as $tag): ?>
+        <span id="sug-<?php echo $block->escapeHtml($tag->getId()); ?>" class="post-tag" key="<?php echo
+        $block->escapeHtml($tag->getId()
+        ); ?>">
+            <?php /* @escapeNotVerified */ echo $tag->getName(); ?>
+        </span>
+    <?php endforeach; ?>
+    <span id="close-tags" class="close-tags" title="<?php /* @escapeNotVerified */ echo __('Close'); ?>">[X]</span>
+</div>
+<script>
+    require([
+        'jquery',
+        'mage/mage',
+        'Digidirect_Blog/js/tags'
+    ], function ($) {
+        'use strict';
+        $('[data-widget=blogTags]').blogTags();
+    });
+</script>

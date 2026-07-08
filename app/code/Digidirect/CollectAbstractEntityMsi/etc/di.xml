@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Digidirect\CollectAbstractEntity\Model\CollectPlaceRepository">
+        <plugin name="Digidirect_CollectAbstractEntityMsi::CollectPlaceRepositoryPlugin"
+                type="Digidirect\CollectAbstractEntityMsi\Plugin\Digidirect\CollectAbstractEntity\Model\CollectPlaceRepositoryPlugin"/>
+    </type>
+    <type name="Digidirect\CollectAbstractEntityMsi\Model\ProductTypeHandlerPool">
+        <arguments>
+            <argument name="handlers" xsi:type="array">
+                <item name="configurableHandler" xsi:type="object">Digidirect\CollectAbstractEntityMsi\Model\ProductTypeHandler\Configurable</item>
+                <item name="groupedHandler" xsi:type="object">Digidirect\CollectAbstractEntityMsi\Model\ProductTypeHandler\Grouped</item>
+                <item name="simpleHandler" xsi:type="object">Digidirect\CollectAbstractEntityMsi\Model\ProductTypeHandler\Simple</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Digidirect\CollectAbstractEntityMsi\Helper\ProductType">
+        <arguments>
+            <argument name="availableProductTypes" xsi:type="array">
+                <item name="configurableType" xsi:type="const">Magento\ConfigurableProduct\Model\Product\Type\Configurable::TYPE_CODE</item>
+                <item name="groupedType" xsi:type="const">Magento\GroupedProduct\Model\Product\Type\Grouped::TYPE_CODE</item>
+                <item name="simpleType" xsi:type="const">Magento\Catalog\Model\Product\Type::TYPE_SIMPLE</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

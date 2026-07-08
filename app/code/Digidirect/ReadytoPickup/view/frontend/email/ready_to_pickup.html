@@ -1,0 +1,60 @@
+<!--@subject {{trans "Your order from %store_name is Ready to Pickup" store_name=$store.getFrontendName()}} @-->
+<!--@vars {
+"var store.getFrontendName()":"Store Name",
+"var customer.name":"Customer Name",
+} @-->
+​
+{{template config_path="design/email/header_template"}}
+<table>
+    <tr class="email-intro">
+        <td>
+            <p class="greeting">{{trans "Dear %customer_fullname,"  customer_fullname=$customer_fullname|row}}</p>
+​
+            <p>
+                {{trans 'Good news! Your order number <span class="no-link">#%order_number</span>' order_number=$order_number |raw}} {{trans " is now ready for pick-up from %store_name." store_name=$store.frontend_name}}
+            </p>
+            <p>
+                {{trans "Please check our opening hours referenced below, then make your way to your chosen digiDirect location to collect your goods."}}
+            </p>
+        <td>
+    </tr>
+    <tr>
+        <td align="center" style="padding:25px 0;">
+            <p style="color:#1E1E1E;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:17px;margin:0;font-weight:normal;">
+                {{trans '<span>%swhs_store_hours</span>' swhs_store_hours=$swhs_store_hours |raw}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding:25px 0;">
+            <p style="color:#1E1E1E;font-size:14px;font-family:Arial,Helvetica,sans-serif;line-height:17px;margin:0;font-weight:normal;">
+                {{trans 'Please click <a href="https://digidirect.com.au/store-locator" style="color:black;text-decoration:underline">Store Locator</a> to confirm the above opening hours, as they are subject to change, especially during holidays and promotional periods.' store_email=$store_email |raw}}
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding:25px 0;">
+            <p>
+                {{trans "Kind Regards,"}}
+            </p>
+            <p>
+                {{trans "digiDirect"}}
+            </p>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{depend order_data.email_customer_note}}
+            <table class="message-info">
+                <tr>
+                    <td>
+                        {{var order_data.email_customer_note|escape|nl2br}}
+                    </td>
+                </tr>
+            </table>
+            {{/depend}} {{layout handle="sales_email_order_items" order=$order area="frontend"}}
+        </td>
+    </tr>
+</table>
+​
+{{template config_path="design/email/footer_template"}}

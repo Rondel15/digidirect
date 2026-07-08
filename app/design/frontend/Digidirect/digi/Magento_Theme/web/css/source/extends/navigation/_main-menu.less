@@ -1,0 +1,47 @@
+//
+//  Navigation: Main Menu
+//  _____________________________________________
+
+@navigation-wrapper__use-vendor-prefix-flex-shrink: true;
+@navigation-wrapper__flex-shrink: 0;
+@navigation-wrapper__padding: 57px 0 0 0;
+@navigation-wrapper__margin-bottom: false;
+@navigation-wrapper__margin-bottom__l: false;
+@navigation-wrapper__background-color: false;
+@navigation-wrapper__background-color__l: @color-3-7;
+
+@nav-menu-wrapper__display__l: flex;
+@nav-menu-wrapper__justify-content__l: center;
+@nav-menu-wrapper__align-items__l: stretch;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .navigation-wrapper {
+        & when (@navigation-wrapper__use-vendor-prefix-flex-shrink = true) {
+            .lib-vendor-prefix-flex-shrink(@navigation-wrapper__flex-shrink);
+        }
+        .lib-css(padding, @navigation-wrapper__padding);
+        .lib-css(margin-bottom, @navigation-wrapper__margin-bottom);
+        .lib-css(background-color, @navigation-wrapper__background-color);
+    }
+}
+
+//
+//  L +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .navigation-wrapper {
+        .lib-css(margin-bottom, @navigation-wrapper__margin-bottom__l);
+        .lib-css(background-color, @navigation-wrapper__background-color__l);
+    }
+
+    @{nav-menu-wrapper-selector} {
+        .lib-css(display, @nav-menu-wrapper__display__l);
+        .lib-css(justify-content, @nav-menu-wrapper__justify-content__l);
+        .lib-css(align-items, @nav-menu-wrapper__align-items__l);
+    }
+}

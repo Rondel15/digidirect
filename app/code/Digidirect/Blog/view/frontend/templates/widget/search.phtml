@@ -1,0 +1,21 @@
+<?php
+/**
+ * @var \Digidirect\Blog\Block\Widget\Search $block
+ */
+?>
+<div class="blog-search blog-widget widget">
+    <form class="form" id="blog_search_mini_form" action="<?php echo $block->escapeUrl($block->getUrl($block->getSearchUrl())) ?>" method="get" data-mage-init='{"validation":{}}'>
+        <div class="input-group">
+            <div class="control">
+                <input id="search_blog" type="text" name="s"
+                       value="<?php echo $block->escapeHtml($block->getSearchQuery()) ?>"
+                       class="input input-text" aria-haspopup="false" maxlength="128"
+                       role="combobox" placeholder="<?php /* @escapeNotVerified */ echo __('Search posts here...') ?>"
+                       aria-autocomplete="both" autocomplete="off" data-validate="{required:true}">
+            </div>
+            <button type="submit" title="<?php /* @escapeNotVerified */ echo __('Search') ?>" class="button action">
+                <?php /* @escapeNotVerified */ echo __('Search') ?>
+            </button>
+        </div>
+    </form>
+</div>

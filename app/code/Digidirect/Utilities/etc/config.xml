@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <digidirect_utilities_config>
+            <wysiwyg>
+                <wrap_in_parent_tag>0</wrap_in_parent_tag>
+            </wysiwyg>
+        </digidirect_utilities_config>
+        <dev>
+            <cms_block_processing>
+                <use_cms_cache_block>0</use_cms_cache_block>
+                <cms_block_cache_lifetime>0</cms_block_cache_lifetime>
+            </cms_block_processing>
+        </dev>
+    </default>
+</config>

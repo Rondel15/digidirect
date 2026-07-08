@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="sales_quote_collect_totals_before">
+        <observer name="digidirect_gift_collect_totals_before" instance="Digidirect\FreeGift\Observer\FixWholeCartRuleObserver"/>
+    </event>
+    <event name="sales_quote_collect_totals_after">
+        <observer name="digidirect_gift_collect_totals_after" instance="Digidirect\FreeGift\Observer\CollectTotalsAfterObserver"/>
+    </event>
+</config>

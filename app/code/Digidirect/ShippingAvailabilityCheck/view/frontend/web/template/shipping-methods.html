@@ -1,0 +1,33 @@
+<div class="content">
+    <% if (data) { %>
+    <ul class="list-methods">
+        <% data.forEach(function(item) { %>
+            <% if (isInputsNeeded) { %>
+                <li class="field item">
+                    <div class="control">
+                        <input type="radio"
+                               id="<%= item.carrier_code %>_<%= item.method_code %>"
+                               name="shipping_method"
+                               class="input-radio input"
+                               value="<%= item.carrier_code %>_<%= item.method_code %>">
+                        <label class="label" for="<%= item.carrier_code %>_<%= item.method_code %>"><%= item.method_title %></label>
+                    </div>
+                </li>
+            <% } else { %>
+                <li class="item">
+                    <% if (item.formatted_price_excl_tax) { %>
+                    <%= item.formatted_price_excl_tax %>
+                    <% } %>
+                    <% if (item.formatted_price_incl_tax) { %>
+                    <%= item.formatted_price_incl_tax %>
+                    <% } %>
+                    <span class="method-title" data-method-code="<%= item.method_code %>"><%= item.method_title %></span>
+                    <span class="carrier-title" data-carrier-code="<%= item.carrier_code %>"><%= item.carrier_title %></span>
+                </li>
+            <% } %>
+        <% }); %>
+    </ul>
+    <% } else { %>
+    <div class="methods-message"><%= emptyListMessage %></div>
+    <% } %>
+</div>

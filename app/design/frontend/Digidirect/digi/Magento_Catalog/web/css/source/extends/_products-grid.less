@@ -1,0 +1,62 @@
+//
+//  Catalog: Products Grid
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@catalog-products-grid__is-enabled: true; // Enable/disable styles
+
+//  Gutter
+@catalog-products-grid-gutter: 5px;
+
+//  Columns
+@catalog-products-grid-columns: 2;
+@catalog-products-grid-columns__s: 4;
+@catalog-page-products-products-grid-columns__s: 4;
+@catalog-products-grid-columns__m: 4;
+@catalog-page-products-products-grid-columns__m: 4;
+@catalog-products-grid-columns__l: 5;
+@catalog-page-products-products-grid-columns__l: 4;
+@catalog-page-products-products-grid-columns__xl: 5;
+
+//  Product Items
+@catalog-products-grid-product-items__use-flex: true;
+@catalog-products-grid-product-items__margin-right: -@catalog-products-grid-gutter;
+@catalog-products-grid-product-items__margin-left: -@catalog-products-grid-gutter;
+
+//  Product Item
+@catalog-products-grid-product-item__width: 100%/@catalog-products-grid-columns;
+@catalog-products-grid-product-item__padding-right: @catalog-products-grid-gutter;
+@catalog-products-grid-product-item__padding-left: @catalog-products-grid-gutter;
+
+//  Mobile s +
+@catalog-products-grid-product-item__width__s: 100%/@catalog-products-grid-columns__s;
+@catalog-page-products-products-grid-product-item__width__s: 100%/@catalog-page-products-products-grid-columns__s;
+
+//  Tablet +
+@catalog-products-grid-product-item__width__m: 100%/@catalog-products-grid-columns__m;
+@catalog-page-products-products-grid-product-item__width__m: 100%/@catalog-page-products-products-grid-columns__m;
+
+//  Desktop +
+@catalog-products-grid-product-item__width__l: 100%/@catalog-products-grid-columns__l;
+@catalog-page-products-products-grid-product-item__width__l: 100%/@catalog-page-products-products-grid-columns__l;
+
+//  Desktop xl +
+@catalog-page-products-products-grid-product-item__width__xl: 100%/@catalog-page-products-products-grid-columns__xl;
+
+
+//
+//  Desktop xl
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__xl) {
+    & when (@catalog-products-grid__is-enabled = true) {
+        .page-products {
+            .products-grid .product-item {
+                /*.lib-css(width, @catalog-page-products-products-grid-product-item__width__xl);*/
+            }
+        }
+    }
+}

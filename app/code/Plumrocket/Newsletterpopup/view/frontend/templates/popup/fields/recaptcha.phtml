@@ -1,0 +1,23 @@
+<?php
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2018 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+?>
+
+<?php
+/** @var \Plumrocket\Newsletterpopup\Helper\Config $helper */
+$helper = $this->helper(\Plumrocket\Newsletterpopup\Helper\Config::class);
+$siteKey = $helper->getReCaptchaSiteKey();
+?>
+
+<?php if ($siteKey === ''): ?>
+    <div class="g-recaptcha-key">
+        <?= __('To use reCAPTCHA you must get an API key from:') ?>
+        <a href='https://www.google.com/recaptcha' target='_blank'><?= __('Create reCAPTCHA') ?></a>
+    </div>
+<?php else : ?>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <div class="g-recaptcha" data-sitekey="<?= /* @noEscape */ $siteKey ?>"></div>
+<?php endif; ?>

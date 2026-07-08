@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Digidirect_AbstractEntity::menu" module="Digidirect_AbstractEntity" resource="Digidirect_AbstractEntity::menu" parent="Digidirect_Utilities::Digidirect" sortOrder="10" title="Abstract Entity"/>
+        <add action="digidirect_abstractentity/set/index" id="Digidirect_AbstractEntity::abstractentity_view" module="Digidirect_AbstractEntity" parent="Digidirect_AbstractEntity::menu" resource="Digidirect_AbstractEntity::abstractentity_view" sortOrder="1" title="Manage Abstract Entities"/>
+        <add action="digidirect_abstractentity/attribute/index" id="Digidirect_AbstractEntity::abstractentity_attribute" module="Digidirect_AbstractEntity" parent="Digidirect_AbstractEntity::menu" resource="Digidirect_AbstractEntity::abstractentity_attribute" sortOrder="2" title="Manage Attributes"/>
+    </menu>
+</config>

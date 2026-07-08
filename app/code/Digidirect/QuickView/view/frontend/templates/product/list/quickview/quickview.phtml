@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var $block \Magento\Framework\View\Element\Template
+ */
+?>
+<div class="quickview-content no-display" data-role="quickview-content">
+    <iframe class="quickview-iframe" src="" data-role="quickview-window" frameborder="0" name="quickview"></iframe>
+</div>
+<script type="text/x-magento-init">
+    {
+        ".page-wrapper": {
+            "quickView": {
+                "loaderIcon": "<?php echo $block->escapeUrl($this->helper('Digidirect\Utilities\Helper\Animation')->getImage()); ?>",
+                "loaderText": "<?php echo $block->escapeHtml($this->helper('Digidirect\Utilities\Helper\Animation')->getText()); ?>",
+                "isMobileEnabled": "<?php /* @escapeNotVerified */ echo $this->getUseForMobile() ? true : false ?>"
+            }
+        }
+    }
+</script>

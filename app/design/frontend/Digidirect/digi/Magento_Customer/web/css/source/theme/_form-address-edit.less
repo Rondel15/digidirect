@@ -1,0 +1,56 @@
+//
+//  My Account: edit address form
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .form-address-edit {
+        & {
+            .lib-css(background-color, @color-white);
+            .lib-css(padding, @layout-indent__width);
+            .lib-css(margin-bottom, @layout-indent__width);
+        }
+
+        .legend {
+            .lib-css(font-weight, @font-weight__bold);
+        }
+
+        .secondary {
+            margin-top: 15px;
+        }
+    }
+}
+
+//
+//  Tablet +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .form-address-edit {
+        .secondary {
+            margin-top: 0;
+        }
+
+        .action.back {
+            margin-top: 0;
+        }
+
+        .message.info {
+            display: inline-flex;
+            width: 100%;
+            margin: 20px 0 5px;
+        }
+    }
+    
+    .account .form-address-edit div.mage-error[generated] {
+        position: absolute;
+        margin-top: 4px;
+    }
+}

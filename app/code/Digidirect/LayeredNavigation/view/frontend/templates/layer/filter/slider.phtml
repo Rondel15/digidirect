@@ -1,0 +1,26 @@
+<?php
+$item = array_shift($filterItems);
+?>
+<ol class="items">
+    <li>
+        <div id="digidirect_layerednavigation_filter_<?php echo $block->escapeHtml($filterSetting->getFilterCode()); ?>">
+            <div id="digidirect_layerednavigation_filter_<?php echo $block->escapeHtml($filterSetting->getFilterCode()); ?>_slider" data-code="<?php echo $block->escapeHtml($item['requestVar']); ?>"></div>
+            <div id="digidirect_layerednavigation_filter_<?php echo $block->escapeHtml($filterSetting->getFilterCode()); ?>_display" style="text-align: center"></div>
+        </div>
+        <script type="text/x-magento-init">
+            {
+                "#digidirect_layerednavigation_filter_<?php echo $block->escapeHtml($filterSetting->getFilterCode()); ?>": {
+                    "layeredNavigationFilterSlider": {
+                        "template": "<?php echo $block->escapeHtml($item['template']); ?>",
+                        "step": <?php echo (int)$item['step']; ?>,
+                        "from": <?php echo (int)$item['from']; ?>,
+                        "to": <?php /* @escapeNotVerified */ echo ceil($item['to']); ?>,
+                        "min": <?php echo (int)$item['min']; ?>,
+                        "max": <?php echo (int)$item['max']; ?>,
+                        "url": "<?php /* @escapeNotVerified */ echo $block->getSliderUrlTemplate(); ?>"
+                    }
+                }
+            }
+        </script>
+    </li>
+</ol>

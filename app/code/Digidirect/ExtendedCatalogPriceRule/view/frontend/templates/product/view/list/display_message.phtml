@@ -1,0 +1,40 @@
+<?php
+/** @var \Digidirect\ExtendedCatalogPriceRule\Block\ExtendedRule $block */
+$product = '';
+
+if (!$product = $block->getProduct()) {
+    $product = $block->getParentBlock()->getProduct();
+}
+
+$productId = $product->getId();
+$productRules = $block->getProductRules($product);
+?>
+
+<?php if ($productId && $productRules) : ?>
+    <?php foreach ($productRules as $rule): ?>
+        <?php $id = 'rule-' . $rule['rule_id'] . '-' . $productId; ?>
+        <div class="block-extendedrule" id="<?= /* @noEscape */ $id ?>">
+            <?php if(!empty($rule['action_amount'])): ?>
+                <div class="amount"><?= /* @noEscape */ $block->formatDiscountAmount($rule['action_amount']); ?></div>
+            <?php endif; ?>
+
+            <?php if(!empty($rule['plp_label'])): ?>
+                <div class="name"><?= $block->escapeHtml($rule['plp_label']); ?></div>
+            <?php endif; ?>
+
+            <?php if(!empty($rule['pdp_description']) || !empty($rule['url_promotion'])): ?>
+                <div class="details-extendedrule">
+                    <?php if(!empty($rule['pdp_description'])): ?>
+                        <div class="description"><?=  /* @noEscape */ $rule['pdp_description']; ?></div>
+                    <?php endif; ?>
+
+                    <?php if(!empty($rule['url_promotion'])): ?>
+                        <a class="link" href="<?= $block->escapeUrl($rule['url_promotion']); ?>" title="<?= /* @noEscape */ __('Promotion URL'); ?>">
+                            <?= /* @noEscape */ __('Promotion URL'); ?>
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>

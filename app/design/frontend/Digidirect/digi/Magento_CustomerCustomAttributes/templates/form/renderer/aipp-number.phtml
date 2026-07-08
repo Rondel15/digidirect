@@ -1,0 +1,17 @@
+<?php
+/* @var $block \Digidirect\Digi\Block\CustomAttributeManagement\Form\Renderer\AIPPNumber */
+?>
+<?php
+$fieldCssClass = 'field field-' . $block->getHtmlId();
+$fieldCssClass .= $block->isRequired() ? ' required' : '';
+
+?>
+<div class="<?= /* @escapeNotVerified */ $fieldCssClass ?>">
+    <label class="label" for="<?= $block->getHtmlId() ?>"><span><?= /* @escapeNotVerified */ $block->getLabel() ?></span></label>
+    <div class="control">
+        <div class="fake-input"><?= /* @escapeNotVerified */ $block->getFilteredValue() ?></div>
+        <?php if (!$block->getValue()) : ?>
+            <div class="note"><?= __('If you are a member of AIPP, please contact customer support to receive special offers') ?></div>
+        <?php endif; ?>
+    </div>
+</div>

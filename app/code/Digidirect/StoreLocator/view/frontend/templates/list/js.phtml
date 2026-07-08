@@ -1,0 +1,40 @@
+<?php
+/** @var \Digidirect\Storelocator\Block\Wrapper $block */
+/** @var \Digidirect\StoreLocator\Helper\Config $helper */
+$helper = $this->helper('Digidirect\StoreLocator\Helper\Config');
+$currentApi = $helper->getApi();
+$searchMode = $helper->getSearchResultsDisplayMode();
+?>
+<?php if ($currentApi === 'google') : ?>
+    <?php
+    $entities = $block->getEntities();
+    $entityName = $block->getEntityName();
+    $isInPopup = $block->getOpenInPopup();
+    ?>
+    <script type="text/x-magento-init">
+        {
+            ".store-locator": {
+                "locator": {
+                    <?php if ($entityName) : ?>"entityName": "<?= $block->escapeHtml($entityName) ?>",<?php endif; ?>
+                    "defaultAddress": "<?php echo $block->escapeHtml($block->getDefaultCountry()) ?>",
+                    "defaultCountryCode": "<?php echo $block->escapeHtml($block->getDefaultCountryCode()) ?>",
+                    "availableCountries": <?php /* @escapeNotVerified */ echo json_encode($block->getAvailableCountries()) ?>,
+                    "defaultLocations": <?php /* @escapeNotVerified */ echo $entities ?>,
+                    "sortOrder": "<?php echo $block->escapeHtml($block->getSortOrder()) ?>",
+                    "search": {
+                        "mode": "<?php /* @escapeNotVerified */ echo $searchMode ?>"
+                    },
+                    "radius": {
+                        "default": <?php echo (int)$block->getDefaultRadius() ?>,
+                        "extensible": <?php /* @escapeNotVerified */ echo $block->getExtendRadius() ?>,
+                        "metricType": "<?php /* @escapeNotVerified */ echo $block->getMetric() ?>"
+                    },
+                    "openInPopup": "<?php echo /* @noEscape */ $isInPopup; ?>",
+                    "geoLocation": {
+                        "enable": <?php /* @escapeNotVerified */ echo $block->isAskToUseGeolocationOnFirstVisit(); ?>
+                    }
+                }
+            }
+        }
+    </script>
+<?php endif; ?>

@@ -1,0 +1,88 @@
+//
+//  Blog widgets
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@blog-widgets__margin: 0 0 20px;
+@blog-widgets__padding: false;
+
+//  Title
+@blog-widgets-title__margin: false;
+@blog-widgets-title__padding: false;
+@blog-widgets-title__font: false;
+@blog-widgets-title__color: false;
+
+//  List
+@blog-widgets-list__margin: false;
+@blog-widgets-list__padding: false;
+@blog-widgets-list__list-style: false;
+
+//  List item
+@blog-widgets-list-item__margin: false;
+@blog-widgets-list-item__padding: false;
+@blog-widgets-list-item__font: false;
+
+//  List link
+@blog-widgets-list-link__text-decoration: false;
+@blog-widgets-list-link__color: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .blog-widget {
+        & {
+            .lib-css(margin, @blog-widgets__margin);
+            .lib-css(padding, @blog-widgets__padding);
+        }
+
+        > .title {
+            .lib-css(margin, @blog-widgets-title__margin);
+            .lib-css(padding, @blog-widgets-title__padding);
+            .lib-css(font, @blog-widgets-title__font);
+            .lib-css(color, @blog-widgets-title__color);
+        }
+
+        .list > .item {
+            .lib-css(margin, @blog-widgets-list-item__margin);
+            .lib-css(padding, @blog-widgets-list-item__padding);
+            .lib-css(font, @blog-widgets-list-item__font);
+        }
+
+        .list .link {
+            .lib-css(text-decoration, @blog-widgets-list-link__text-decoration);
+            .lib-css(color, @blog-widgets-list-link__color);
+        }
+    }
+}
+
+
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .blog-widget {
+        .list {
+            padding: 5px;
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .blog-widget {
+        .list {
+            .lib-css(margin, @blog-widgets-list__margin);
+            .lib-css(padding, @blog-widgets-list__padding);
+            .lib-css(list-style, @blog-widgets-list__list-style);
+        }
+    }
+}

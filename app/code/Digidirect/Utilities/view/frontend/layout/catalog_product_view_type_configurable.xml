@@ -1,0 +1,12 @@
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!--see next instruction how add attribute to json config-->
+        <!--<referenceBlock name="product.info.options.swatches">-->
+            <!--<arguments>-->
+                <!--<argument name="additional_attributes" xsi:type="array">-->
+                    <!--<item name="sku" xsi:type="string">Product Sku</item>-->
+                <!--</argument>-->
+            <!--</arguments>-->
+        <!--</referenceBlock>-->
+    </body>
+</page>

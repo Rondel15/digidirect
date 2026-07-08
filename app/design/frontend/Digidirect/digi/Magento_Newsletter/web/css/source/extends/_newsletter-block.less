@@ -1,0 +1,178 @@
+//
+//  Newsletter: Block
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+//@newsletter-block__is-enabled: true; // Enable/disable styles
+
+@newsletter-block__margin-bottom: 41px;
+@newsletter-block__width__m: false;
+
+//  Title
+@newsletter-block-title__display: false;
+
+//  Form
+@newsletter-block-form__display: false;
+@newsletter-block-form__width: false;
+
+//  Fieldset
+@newsletter-block-fieldset__display: false;
+@newsletter-block-fieldset__margin: false;
+@newsletter-block-fieldset__padding: false;
+@newsletter-block-fieldset__vertical-align: false;
+
+//  Field
+@newsletter-block-field__margin: false;
+@newsletter-block-field__margin-right__m: false;
+
+//  Label
+@newsletter-block-label__use-visually-hidden: false;
+
+//  Control
+@newsletter-block-field-control__width__m: false;
+
+//  Actions
+@newsletter-block-actions__display: false;
+@newsletter-block-actions__width: false;
+@newsletter-block-actions__vertical-align: false;
+
+//  Action
+@newsletter-block-action-subscribe__margin-left: false;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .block.newsletter {
+        .label {
+            display: block;
+            margin-bottom: 21px;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 18px;
+            position: unset;
+            height: 100%;
+            color: #f05a25;
+            width: 100%;
+        }
+
+        .field {
+            display: flex;
+
+            .control{
+                &:before{
+                    display: none;
+                }
+            }
+        }
+
+        .control {
+            flex-grow: 1;
+        }
+
+        .input-text,
+        .action {
+            height: 45px;
+            margin-right: bottom;
+        }
+
+        .input-text {
+            height: 45px;
+            padding-left: 20px;
+            border-color: #f5f5f5;
+            font-size: 16px;
+            color: #a3a3a3;
+            background-color: #f5f5f5;
+            .lib-input-placeholder(#a3a3a3);
+        }
+
+        .actions{
+            width: unset;
+        }
+
+        .action {
+            min-width: 105px;
+            .lib-css(font-weight, @font-weight__heavier);
+
+        }
+
+        .action span {
+            opacity: .94;
+        }
+    }
+}
+
+//
+//  Tablet below
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .block.newsletter {
+
+        &{
+            padding: 40px 80px 0;
+            margin: 0;
+        }
+
+        .field.newsletter {
+            max-width: 100%;
+        }
+
+        .action {
+            min-width: 140px;
+        }
+    }
+}
+
+//
+//  Desktop +
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .block.newsletter {
+        &{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            float: unset;
+            //margin: 30px 70px 0;
+            margin: 30px 50px 0;
+        }
+
+        .newsletter-child-block{
+            justify-content: left;
+            align-items: center;
+            display: flex;
+            flex: 1;
+            margin-right: auto;
+            margin-left: 0 !important;
+
+            &.subscribe{
+                flex: 3;
+                max-width: 600px;
+            }
+        }
+
+        .field.newsletter {
+            max-width: unset !important;
+        }
+
+        .action.subscribe {
+            font-size: 12px;
+            border-radius: 4px;
+            margin-left: 15px;
+            background: #f05a25;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+
+            &:hover{
+                background: @digibutton-primary__color;
+                color: #fff;
+            }
+        }
+    }
+}

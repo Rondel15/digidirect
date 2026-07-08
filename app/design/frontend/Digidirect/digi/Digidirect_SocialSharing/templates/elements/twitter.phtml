@@ -1,0 +1,18 @@
+<?php
+/**
+ * @var $block \Digidirect\SocialSharing\Block\Sharing
+ * @var $sharingHelper \Digidirect\SocialSharing\Helper\Config\Twitter
+ */
+?>
+<?php
+    $product = $block->getProduct();
+?>
+<li class="item">
+    <a class="link"
+       target="_blank"
+       href="http://twitter.com/share?url=<?php echo $this->escapeUrl($product->getProductUrl()); ?>">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon -twitter">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-twitter"></use>
+        </svg>
+    </a>
+</li>

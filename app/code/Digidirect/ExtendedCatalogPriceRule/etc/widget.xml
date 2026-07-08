@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widgets xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Widget:etc/widget_file.xsd">
+    <widget id="new_products" class="Magento\Catalog\Block\Product\Widget\NewWidget">
+    <parameters>
+            <parameter name="template" xsi:type="select" required="true" visible="true">
+                <label translate="true">Template</label>
+                <options>
+                    <option name="default" value="Digidirect_ExtendedCatalogPriceRule::product/widget/new/content/new_grid.phtml" selected="true">
+                        <label translate="true">New Products Grid Template</label>
+                    </option>
+                    <option name="list" value="Digidirect_ExtendedCatalogPriceRule::product/widget/new/content/new_list.phtml">
+                        <label translate="true">New Products List Template</label>
+                    </option>
+                    <option name="list_default" value="Digidirect_ExtendedCatalogPriceRule::product/widget/new/column/new_default_list.phtml">
+                        <label translate="true">New Products Images and Names Template</label>
+                    </option>
+                    <option name="list_names" value="Digidirect_ExtendedCatalogPriceRule::product/widget/new/column/new_names_list.phtml">
+                        <label translate="true">New Products Names Only Template</label>
+                    </option>
+                    <option name="list_images" value="Digidirect_ExtendedCatalogPriceRule::product/widget/new/column/new_images_list.phtml">
+                        <label translate="true">New Products Images Only Template</label>
+                    </option>
+                </options>
+            </parameter>
+        </parameters>
+    </widget>
+</widgets>

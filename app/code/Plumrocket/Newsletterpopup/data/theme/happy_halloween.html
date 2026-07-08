@@ -1,0 +1,32 @@
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+<div class="halloween first_popup">
+    <div class="halloween__container">
+        <button class="halloween__close close cross"><span>{{text_cancel}}</span></button>
+        <div class="halloween__wrapper">
+            <img
+                class="halloween__img"
+                src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme27_halloween.png'}}"
+                alt=""
+            />
+            <div class="halloween__content">
+                <div class="halloween__text">
+                    {{text_title}}
+                    <span>{{text_description}}</span>
+                </div>
+                <button class="halloween__btn show_secondary_popup" type="button">
+                    Get My Discount
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="halloween__form-wrap secondary_popup hidden">
+    <form action="" method="post" class="halloween__form">
+        <button class="halloween__close close cross"><span>{{text_cancel}}</span></button>
+        {{form_fields}}
+        <button class="halloween__btn" type="submit">
+            {{text_submit}}
+        </button>
+    </form>
+</div>

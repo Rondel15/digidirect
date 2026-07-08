@@ -1,0 +1,264 @@
+//
+//  CMS-block Helpful-Info
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+@helpful-block__background-color: @color-white-smoke;
+@helpful-secondary-text__color: @color-gray40;
+@helpful-block-block__border-color: @color-4-3;
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .footer-helpful-info {
+        & {
+            margin: 0;
+        }
+
+        img {
+            & {
+                /*transform: scale(-1, 1);*/
+                margin-right: 10px;
+            }
+        }
+
+        .block {
+            & {
+                padding: 9px 0;
+                width: 100%;
+                display: flex;
+                margin: 0 auto;
+                height: 100%;
+                justify-content: center;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .alink {
+            .lib-font-size(18);
+            .lib-css(font-weight, @font-weight__heavier);
+            text-decoration: none;
+            border: none;
+            width: auto;
+            height: 100%;
+            display: block;
+            text-align: center;
+            
+            span{
+                color: #222;
+                span{
+                    display: block;
+                    font-size: 18px;
+                }
+            }
+            
+            .alt{
+                font-weight: 700;
+                font-size: 20px;
+            }
+
+        }
+
+        .text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .small {
+            .lib-font-size(12);
+            .lib-css(color, @helpful-secondary-text__color);
+            text-transform: lowercase;
+            .lib-css(color, @color-black);
+            padding-left: 3px;
+        }
+    }
+}
+
+//
+//  Mobile
+//  ---------------------------------------------
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
+    .footer-helpful-info {
+
+        .block {
+            padding: 0 0 30px;
+        }
+        
+        img{
+            &{
+                margin-bottom: 15px;
+            }
+        }
+
+        .alink {
+            .lib-vendor-box-align(center);
+            .lib-font-size(24);
+            padding: 5px;
+            
+            span{
+                color: #222;
+                span{
+                    display: block;
+                    font-size: 14px;
+                }
+                
+                font-size: 14px;
+            }
+            
+            .alt{
+                font-weight: 700;
+                font-size: 14px;
+            }
+            
+            &:hover{
+                span{
+                    color: #f15a25;
+                }
+            }
+        }
+
+        .small {
+            .lib-font-size(12);
+        }
+
+        .text {
+            .lib-font-size(18);
+        }
+    }
+}
+
+//
+//  Tablet
+//  _____________________________________________
+
+// This will add styles for tablet devices. When using native media-queries, we recommend wrapping your media-queries with media-width Magento mixins or media-target
+& when (@media-target = 'desktop'), (@media-target = 'all') {
+    @media only screen and (min-width: @screen__m) and (max-width: (@screen__xl - 1)) {
+        .footer-helpful-info{
+             .block{
+                margin: 10px;
+            }
+        }
+    }
+}
+
+//
+//  Tablet
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .footer-helpful-info {
+        & {
+            .lib-vendor-prefix-display(flex);
+            border: none;
+        }
+
+        img {
+            & {
+                width: 100%;
+            }
+        }
+
+        .block {
+            & {
+                border-bottom: none;
+                width: calc(~'100%/3');
+                padding: 23px 0;
+                justify-content: center;
+                display: block;
+                margin: 0;
+                height: auto;
+            }
+        }
+
+        .alink {
+            .lib-font-size(16);
+            .lib-hover-out();
+            padding-top: 10px;
+            width: auto;
+        }
+
+        .small {
+            .lib-font-size(12);
+            text-transform: none;
+            .lib-css(color, @helpful-secondary-text__color);
+            padding-left: 0;
+        }
+
+        .alink:hover {
+            .lib-border-hover();
+        }
+
+        .text {
+            display: block;
+            font-size: 16px;
+            font-weight: 500;
+            .lib-css(color, inherit);
+        }
+    }
+}
+
+//
+//  Desktop
+//  ---------------------------------------------
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .helpful-info-wrapper{
+        padding: 0 70px;
+    }
+    
+    .footer-helpful-info {
+
+        .block {
+            &{
+                padding: 0 0 30px;
+            }
+        }
+        
+        img{
+            &{
+                margin-bottom: 15px;
+            }
+        }
+
+        .alink {
+            .lib-vendor-box-align(center);
+            .lib-font-size(24);
+            padding: 6px 20px;
+            
+            span{
+                color: #222;
+                span{
+                    display: block;
+                }
+            }
+            
+            .alt{
+                font-weight: 700;
+            }
+            
+            &:hover{
+                span{
+                    color: #f15a25;
+                }
+            }
+        }
+
+        .small {
+            .lib-font-size(12);
+        }
+
+        .text {
+            .lib-font-size(18);
+        }
+    }
+
+    .menu-wrapper .menu-cmsitem .block .text {
+        .lib-font-size(14);
+    }
+}

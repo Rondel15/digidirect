@@ -1,0 +1,11 @@
+<?php
+/** @var $block \Magento\Catalog\Block\Product\View */
+
+    $description = $block->getProduct()->getShortDescription();
+    if(empty($description)) {
+        $description = $block->getProduct()->getName();
+    }
+?>
+<meta name="twitter:card" content="summary_large_image" >
+<meta name="twitter:image" content="<?php echo $block->escapeUrl($block->getImage($block->getProduct(), 'product_page_main_image')->getImageUrl()); ?>" >
+<meta name="twitter:description" content="<?= $block->escapeHtml($block->stripTags($description)) ?>" >

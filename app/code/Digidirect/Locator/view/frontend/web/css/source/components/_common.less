@@ -1,0 +1,32 @@
+//
+//  Locator:common
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@locator-map__min-height: 600px;
+@locator-map-img__max-width: none;
+
+@locator-mylocation__margin: 0 0 10px;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .locator-map {
+        & {
+            .lib-css(min-height, @locator-map__min-height);
+        }
+
+        img {
+            .lib-css(max-width, @locator-map-img__max-width);
+        }
+    }
+
+    .locator-mylocation {
+        .lib-css(margin, @locator-mylocation__margin);
+    }
+}

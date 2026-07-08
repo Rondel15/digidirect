@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<logging xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Logging:etc/logging.xsd">
+    <groups>
+        <group name="digidirect_extendedshippingrates_carrier">
+            <label translate="true">Manage Extended Shipping Rates Carriers</label>
+            <expected_models>
+                <expected_model class="Digidirect\ExtendedShippingRates\Model\Carrier" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_carrier_edit"
+                       action_alias="view" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_carrier_save"
+                       action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_extendedshippingrates_extendedshippingrates_carrier_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_carrier_delete"
+                       action_alias="delete" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_carrier_massChangeStatus"
+                       action_alias="massUpdate" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_carrier_massDelete"
+                       action_alias="massDelete" />
+            </events>
+        </group>
+        <group name="digidirect_extendedshippingrates_method">
+            <label translate="true">Manage Extended Shipping Rates Methods</label>
+            <expected_models>
+                <expected_model class="Digidirect\ExtendedShippingRates\Model\Carrier\Method" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_method_edit"
+                       action_alias="view" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_method_save"
+                       action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_extendedshippingrates_extendedshippingrates_method_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_method_delete"
+                       action_alias="delete" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_method_massChangeStatus"
+                       action_alias="massUpdate" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_method_massDelete"
+                       action_alias="massDelete" />
+            </events>
+        </group>
+        <group name="digidirect_extendedshippingrates_rule">
+            <label translate="true">Manage Extended Shipping Rates Rules</label>
+            <expected_models>
+                <expected_model class="Digidirect\ExtendedShippingRates\Model\Rule" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_quote_edit"
+                       action_alias="view" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_quote_save"
+                       action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_extendedshippingrates_extendedshippingrates_quote_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_quote_delete"
+                       action_alias="delete" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_quote_massChangeStatus"
+                       action_alias="massUpdate" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_quote_massDelete"
+                       action_alias="massDelete" />
+            </events>
+        </group>
+        <group name="digidirect_extendedshippingrates_rate">
+            <label translate="true">Manage Extended Shipping Rates Rates</label>
+            <expected_models>
+                <expected_model class="Digidirect\ExtendedShippingRates\Model\Carrier\Method\Rate" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_rate_edit"
+                       action_alias="view" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_rate_save"
+                       action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_extendedshippingrates_extendedshippingrates_rate_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_rate_delete"
+                       action_alias="delete" />
+            </events>
+        </group>
+        <group name="digidirect_extendedshippingrates_zone">
+            <label translate="true">Manage Extended Shipping Rates Zones</label>
+            <expected_models>
+                <expected_model class="Digidirect\ExtendedShippingRates\Model\Zone" />
+            </expected_models>
+            <events>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_zone_edit"
+                       action_alias="view" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_zone_save"
+                       action_alias="save">
+                    <skip_on_back>
+                        <controller_action name="digidirect_extendedshippingrates_extendedshippingrates_zone_edit" />
+                    </skip_on_back>
+                </event>
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_zone_delete"
+                       action_alias="delete" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_zone_massChangeStatus"
+                       action_alias="massUpdate" />
+                <event controller_action="digidirect_extendedshippingrates_extendedshippingrates_zone_massDelete"
+                       action_alias="massDelete" />
+            </events>
+        </group>
+    </groups>
+</logging>

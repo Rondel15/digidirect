@@ -1,0 +1,30 @@
+<div class="weltpixel">
+    <div class="weltpixel__container">
+        <button class="weltpixel__close close cross"><span>{{text_cancel}}</span></button>
+        <div class="weltpixel__wrapper">
+            <figure class="weltpixel__img">
+                <img
+                    width="377"
+                    src="{{view url='Plumrocket_Newsletterpopup::images/templates/theme25_weltpixel.jpg'}}"
+                    alt=""
+                />
+            </figure>
+            <div class="weltpixel__content">
+                <div class="weltpixel__text">
+                    <h1 class="weltpixel__title">
+                        {{text_title}}
+                    </h1>
+                    <p class="weltpixel__descr">
+                        {{text_description}}
+                    </p>
+                </div>
+                <form action="" method="post" class="weltpixel__form">
+                    {{form_fields}}
+                    <button type="submit" class="weltpixel__btn">
+                        {{text_submit}}
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

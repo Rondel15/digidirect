@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Email:etc/email_templates.xsd">
+    <template id="giftcard_service_vii_order_cancel_email_template" label="Order Cancel Notification"
+              file="order_cancel_email_notification.html" type="html" module="Digidirect_Vii" area="adminhtml" />
+</config>

@@ -1,0 +1,25 @@
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2019 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+ */
+-->
+<!-- ko if: customFields() -->
+    <table if="customFields().length" class="data-grid pr-custom-fields-table">
+        <tr class="row">
+            <th class="data-grid-th" translate="'Constant Contact Field'"></th>
+            <th class="data-grid-th" translate="'Integration Field ID'"></th>
+        </tr>
+
+        <!-- ko foreach: customFields() -->
+        <tr class="row">
+            <td text="label"></td>
+            <td text="id"></td>
+        </tr>
+        <!-- /ko -->
+    </table>
+    <div ifnot="customFields().length" style="background: none" class="message message-notice notice">
+        <b translate="'No custom fields created yet.'"></b>
+    </div>
+<!-- /ko -->

@@ -1,0 +1,8 @@
+<?php
+/** @var \Digidirect\QuickView\Block\Product\ListProduct\QuickView\Button $block */
+$productUrl = $block->getProductUrl();
+?>
+<span role="button" data-role="quickview-button" data-url="<?php echo $block->escapeUrl($productUrl).'?quickview=1'; ?>" class="quickview-button" title="<?php /* @escapeNotVerified */ echo $this->getButtonLabel() ?>">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-quick"></use></svg>
+    <span class="title"><?php /* @escapeNotVerified */ echo $this->getButtonLabel() ?></span>
+</span>

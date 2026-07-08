@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Magento\Paypal\Block\Express\Review" type="Digidirect\Collect\Block\Paypal\Express\Review"/>
+    <type name="Magento\Quote\Model\Quote\Item\ToOrderItem">
+        <plugin name="digidirect_collect_quote_to_order_item" type="Digidirect\Collect\Model\Plugin\Quote\Item\AroundConvert"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\ToOrderAddress">
+        <plugin name="digidirect_collect_quote_to_order_item" type="Digidirect\Collect\Model\Plugin\Quote\Address\ToOrderAddress"/>
+    </type>
+    <type name="Magento\Quote\Model\QuoteValidator">
+        <plugin name="digidirect_collect_after_quote_validator" type="Digidirect\Collect\Model\Plugin\Quote\AroundQuoteValidate"/>
+    </type>
+    <type name="Magento\Checkout\Block\Cart\Item\Renderer\Actions\Edit">
+        <plugin name="digidirect_collect_change_edit_link" type="Digidirect\Collect\Block\Plugin\AfterGetConfigureUrl"/>
+    </type>
+    <type name="Magento\Checkout\CustomerData\DefaultItem">
+        <plugin name="digidirect_collect_change_edit_link_default_item" type="Digidirect\Collect\Block\Plugin\AroundGetItemData"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Item">
+        <plugin name="digidirect_collect_quote_item_plugin" type="Digidirect\Collect\Model\Plugin\Quote\Item" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Model\DefaultConfigProvider">
+        <plugin name="digidirect_collect_checkout_default_config_provider" type="Digidirect\Collect\Model\Plugin\Checkout\DefaultConfigProvider" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Checkout\Model\PaymentInformationManagement">
+        <plugin name="digidirect_collect_checkout_payment_information" type="Digidirect\Collect\Model\Plugin\Quote\PaymentInformationManagement" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address\Total\Shipping">
+        <plugin name="digidirect_collect_address_total_shipping" type="Digidirect\Collect\Model\Plugin\Quote\Address\Total\Shipping" sortOrder="100" disabled="false"/>
+    </type>
+    <type name="Magento\Quote\Model\ShippingMethodManagement">
+        <plugin name="digidirect_collect_after_estimate_by_address" type="Digidirect\Collect\Model\Plugin\Quote\ShippingMethodManagement\AfterEstimateByAddressId"/>
+        <plugin name="digidirect_collect_after_estimate_by_extended_address" type="Digidirect\Collect\Model\Plugin\Quote\ShippingMethodManagement\AfterEstimateByExtendedAddress"/>
+    </type>
+    <type name="Magento\Quote\Model\Quote\Address">
+        <plugin name="digidirect_collect_after_get_grouped_shipping" type="Digidirect\Collect\Model\Plugin\Quote\Address"/>
+    </type>
+    <type name="Magento\Checkout\Model\Cart">
+        <plugin name="digidirect_collect_add_to_cart" type="Digidirect\Collect\Model\Plugin\Checkout\Cart" />
+    </type>
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <plugin name="digidirect_collect_add_to_cart_controller"
+                type="Digidirect\Collect\Model\Plugin\Checkout\Controller\Cart\Add" />
+    </type>
+
+    <type name="Magento\Customer\CustomerData\SectionPoolInterface">
+        <arguments>
+            <argument name="sectionSourceMap" xsi:type="array">
+                <item name="digidirect_collect"
+                      xsi:type="string">Digidirect\Collect\CustomerData\PreselectedShippingMethod</item>
+            </argument>
+        </arguments>
+    </type>
+
+    <virtualType name="DigidirectCollectControllerCheckoutCartAddContext" type="Magento\Framework\App\Action\Context">
+        <arguments>
+            <argument name="messageManager" xsi:type="object">Digidirect\Collect\Model\AddToCart\MessageManager</argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Checkout\Controller\Cart\Add">
+        <arguments>
+            <argument name="context" xsi:type="object">DigidirectCollectControllerCheckoutCartAddContext</argument>
+        </arguments>
+    </type>
+</config>

@@ -1,0 +1,77 @@
+.hidden{display:none!important}
+.newspopup_up_bg,.newspopup-theme{position:fixed;top:0;bottom:0;left:0;right:0;z-index:100;background:rgba(0,0,0,0.3)}
+.newspopup-theme{overflow:hidden;overflow-y:auto;background:transparent}
+.newspopup_up_bg img{max-width:100%;height:auto}
+.newspopup_up_bg a{text-decoration:none}
+.newspopup_up_bg button{cursor:pointer}
+.valentine{max-width:404px;display:flex;justify-content:center;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%);font-family:Arial,Helvetica,sans-serif;color:#fff;padding:0 10px}
+.pr-mode-form .valentine{position:relative;left:0;margin-left:auto;margin-right:auto;transform:none;margin-bottom:15px}
+.pr-mode-form .valentine__form-wrap{position:relative}
+.pr-mode-form .valentine__form{margin:0 auto}
+.valentine__container{position:relative;min-width:463px;width:100%;box-sizing:border-box;margin:0 auto;text-align:center}
+.valentine__wrapper{background:linear-gradient(149deg,#ff4758 0%,#c6061d);overflow:hidden;border-radius:10px;max-width:404px;margin:0 auto;box-shadow:1px 11px 21px -4px rgba(0,0,0,0.5)}
+.valentine__wrapper img{max-height:initial}
+.valentine__close{position:absolute;right:30px;top:5px;background:none;border:none;padding:15px;outline:none;z-index:101;box-shadow:none;cursor:pointer}
+.valentine__close:hover{opacity:.7}
+.valentine__close:before,.valentine__close:after{content:"";display:block;background:#fff;width:10px;height:1px;transform:rotate(45deg)}
+.valentine__close:after{transform:translateY(-1px) rotate(-45deg)}
+.valentine__close > span{position:absolute;overflow:hidden;clip:rect(0 0 0 0);height:1px;width:1px;margin:-1px;padding:0;border:0}
+.valentine__content{position:relative;z-index:20}
+.valentine__title{font-family:"Raleway",sans-serif;font-weight:300;font-size:50px;padding-top:20px;padding-left:25px;padding-right:25px;margin-bottom:91px;text-align:left}
+.valentine__descr{font-family:"Work Sans",sans-serif;font-weight:900}
+.valentine__descr p:first-child{font-size:42px}
+.valentine__descr p:nth-child(2){font-size:60px}
+.valentine__descr p:last-child{font-weight:400;font-size:36px;letter-spacing:-.8px}
+.valentine__btn{font-family:"Open Sans",Arial,Helvetica,sans-serif;font-size:16px;font-weight:600;color:#000;background:#ffd800;border:1px solid #fff59b;border-radius:50px;padding:15px;min-width:197px;box-sizing:border-box;margin:15px 0 24px;position:relative;z-index:10;transition:.3s;line-height:1;box-shadow:none}
+.valentine__btn:hover{transform:scale(1.05)}
+.valentine__many-hearts{position:absolute;left:0;top:-15px;user-select:none}
+.valentine__hearts{position:relative;bottom:105px;z-index:1;user-select:none}
+.valentine__hearts .left{position:absolute;left:0;margin-left:-20px;animation:heart-pulse 3s 0 infinite}
+.valentine__hearts .right{position:absolute;right:0;margin-right:-20px;animation:heart-pulse 3s 1.5s infinite}
+.valentine__form-wrap{position:absolute;top:10%;left:50%;transform:translateX(-50%)}
+.valentine__form-wrap::after{content:"";display:block;height:15px}
+.valentine__form{position:relative;display:flex;flex-direction:column;align-items:center;width:350px;max-width:80vw;margin-top:10px;padding:25px;color:#fff;background:linear-gradient(149deg,#ff4758 0%,#c6061d);border-radius:10px}
+.valentine__form-wrap label{display:inline-block;margin-bottom:5px}
+.pr-np-fields-wrapper{width:100%;margin:0;padding:0;list-style:none}
+.pr-np-fields-wrapper li{margin-bottom:12px}
+.valentine__form-wrap .valentine__close{right:0;top:0}
+.valentine__form input[type="text"],.valentine__form input[type="email"],.valentine__form input[type="number"],.valentine__form input[type="password"],.valentine__form select{height:40px;border:none;border-radius:3px}
+.valentine__form .valentine__btn{margin-bottom:0}
+.valentine__form a{color:#fff;text-decoration:underline}
+.valentine__form .agreement-hld{display:inline-block}
+.valentine__form .input-box{position:relative;width:100%}
+.valentine__form .nl_agreement_2_label{margin-bottom:0}
+.agreement-hld .data-agreement.checkbox{margin-top:0}
+.newspopup_up_bg div.mage-error{background:#565fec}
+.newspopup_up_bg div.mage-error:after{border-left:8px solid #565fec}
+.valentine__form #agreement-error{top:-15px}
+@-webkit-keyframes heart-pulse {
+    from{transform:scale(1)}
+    20%{transform:scale(1.05)}
+    90%{transform:scale(0.95)}
+    to{transform:scale(1)}
+}
+@keyframes heart-pulse {
+    from{transform:scale(1)}
+    20%{transform:scale(1.05)}
+    90%{transform:scale(0.95)}
+    to{transform:scale(1)}
+}
+@media (max-width: 768px) {
+    .newspopup_up_bg div.mage-error{left:0;bottom:-15px;width:100%;padding:2px 10px!important;border-radius:0;box-shadow:none}
+    .newspopup_up_bg div.mage-error:after{display:none}
+    .valentine__form #agreement-error{top:10px}
+}
+@media (max-width: 500px) {
+    .valentine{width:calc(100% - 50px)}
+    .valentine__container{min-width:auto}
+    .valentine__title{padding-left:15px;padding-right:15px}
+    .valentine__close{right:1vw}
+}
+@media only screen and (max-width: 492px) {
+    .valentine__title{font-size:calc(10vw);margin-bottom:15vw}
+    .valentine__descr span:first-child{font-size:calc(10px + 7vw)}
+    .valentine__descr span:nth-child(2){font-size:calc(15px + 9vw)}
+    .valentine__descr span:last-child{font-size:calc(4px + 7vw)}
+    .valentine__hearts img{width:37%}
+}

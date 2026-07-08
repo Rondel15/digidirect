@@ -1,0 +1,93 @@
+<!-- ko if: isCollectEnableOnCheckout && isSingleCartCollectVariation -->
+    <div class="collect-type">
+        <!-- ko ifnot: isWebOnly() -->
+    <input type="radio" id="collect_type_delivery" class="half-width" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+    <label for="collect_type_delivery" class="label">
+        <svg viewBox="0 0 100 100" id="svgi-delivery" class="svg-icon"><path d="M81.819 46.98L69.075 34.376a4.297 4.297 0 0 0-3.033-1.253h-6.427v-2.406a3.248 3.248 0 0 0-3.256-3.242H19.242A3.236 3.236 0 0 0 16 30.717v21.702h67.1v-2.365c0-1.154-.46-2.267-1.28-3.074zm-5.551.418h-12.34a.499.499 0 0 1-.501-.501v-9.53c0-.278.222-.501.5-.501h2.352c.125 0 .264.056.362.14l9.975 9.53c.333.305.11.862-.348.862zm6.832 6.814v7.18a3.243 3.243 0 0 1-3.243 3.243h-3.47c-.627-4.302-4.335-7.61-8.81-7.61-4.465 0-8.173 3.308-8.8 7.61H41.188c-.627-4.302-4.335-7.61-8.8-7.61-4.464 0-8.172 3.308-8.8 7.61h-4.345A3.243 3.243 0 0 1 16 61.392v-7.18h67.1zm-15.514 4.983c-3.714 0-6.733 3.005-6.733 6.72a6.74 6.74 0 0 0 6.733 6.733c3.715 0 6.72-3.02 6.72-6.734a6.715 6.715 0 0 0-6.72-6.72zm0 10.086a3.36 3.36 0 0 1-3.366-3.367 3.37 3.37 0 0 1 3.366-3.366c1.85 0 3.353 1.516 3.353 3.366a3.358 3.358 0 0 1-3.353 3.367zM32.39 59.195c-3.714 0-6.734 3.005-6.734 6.72a6.74 6.74 0 0 0 6.734 6.733c3.714 0 6.72-3.02 6.72-6.734a6.715 6.715 0 0 0-6.72-6.72zm0 10.086a3.36 3.36 0 0 1-3.367-3.367 3.37 3.37 0 0 1 3.367-3.366 3.378 3.378 0 0 1 3.367 3.366 3.37 3.37 0 0 1-3.367 3.367z"></path></svg>
+        <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+    </label>
+    <input type="radio"  id="collect_type_collect" name="delivery_type" value="collect"
+           data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}}, attr:{'checked': collectPlaces().length > 0 ? 'checked' : false}"/>
+    <label for="collect_type_collect" class="label">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-collect"></use>
+        </svg>
+        <span class="text"><!-- ko i18n: 'Pick up in-store'--><!-- /ko --></span>
+        </svg>
+    </label>
+    <!-- /ko-->
+        <!-- ko if: isWebOnly() -->
+        <input type="radio" id="collect_type_delivery" name="delivery_type" value="delivery" data-bind="event: {change: function(data, event) {toggleCollectType(data, event)}},
+attr:{'checked': collectPlaces().length <= 0 ? 'checked' : false}"/>
+        <label for="collect_type_delivery" class="label full-width">
+            <svg viewBox="0 0 100 100" id="svgi-delivery" class="svg-icon"><path d="M81.819 46.98L69.075 34.376a4.297 4.297 0 0 0-3.033-1.253h-6.427v-2.406a3.248 3.248 0 0 0-3.256-3.242H19.242A3.236 3.236 0 0 0 16 30.717v21.702h67.1v-2.365c0-1.154-.46-2.267-1.28-3.074zm-5.551.418h-12.34a.499.499 0 0 1-.501-.501v-9.53c0-.278.222-.501.5-.501h2.352c.125 0 .264.056.362.14l9.975 9.53c.333.305.11.862-.348.862zm6.832 6.814v7.18a3.243 3.243 0 0 1-3.243 3.243h-3.47c-.627-4.302-4.335-7.61-8.81-7.61-4.465 0-8.173 3.308-8.8 7.61H41.188c-.627-4.302-4.335-7.61-8.8-7.61-4.464 0-8.172 3.308-8.8 7.61h-4.345A3.243 3.243 0 0 1 16 61.392v-7.18h67.1zm-15.514 4.983c-3.714 0-6.733 3.005-6.733 6.72a6.74 6.74 0 0 0 6.733 6.733c3.715 0 6.72-3.02 6.72-6.734a6.715 6.715 0 0 0-6.72-6.72zm0 10.086a3.36 3.36 0 0 1-3.366-3.367 3.37 3.37 0 0 1 3.366-3.366c1.85 0 3.353 1.516 3.353 3.366a3.358 3.358 0 0 1-3.353 3.367zM32.39 59.195c-3.714 0-6.734 3.005-6.734 6.72a6.74 6.74 0 0 0 6.734 6.733c3.714 0 6.72-3.02 6.72-6.734a6.715 6.715 0 0 0-6.72-6.72zm0 10.086a3.36 3.36 0 0 1-3.367-3.367 3.37 3.37 0 0 1 3.367-3.366 3.378 3.378 0 0 1 3.367 3.366 3.37 3.37 0 0 1-3.367 3.367z"></path></svg>
+        
+            <span class="text"><!-- ko i18n: 'Delivery'--><!-- /ko --></span>
+        </label>
+        <!-- /ko-->
+</div>
+
+<div data-bind="css: 'collect-block -visible'" data-role="collect-block" data-collect-type="delivery">
+    <div class="note" data-bind="i18n: 'For shipping methods and times see below.'"></div>
+</div>
+
+<!-- ko ifnot: isWebOnly() -->
+<div data-bind="css: 'collect-block'" data-role="collect-block"
+     data-collect-type="collect">
+    <!-- ko if: isVsmAvailable -->
+    <div class="pickup-available-wrapper">
+        <div id="one-hour-cms" class="pickup-cms" data-bind="html: window.oneHourPickUpAvailable"></div>
+    </div>
+    <!-- /ko -->
+    <!-- ko if: collectPlaces().length > 0 -->
+    <!-- ko ifnot: isVsmAvailable -->
+    <div class="pickup-cms" data-bind="html: window.pickUpStoreCmsBlock"></div>
+    <!-- /ko -->
+    <div class="wrap-block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-pin">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+        </svg>
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store'"></div>
+            <span data-bind="text: collectPlaces()[0].collect_place_name + ' (' + collectPlaces()[0].collect_place_address + ')'"></span>
+        </div>
+
+        <a class="link -collect action primary"
+           href="#collect-block-modal-checkout"
+           data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Change'"></a>
+        <!-- /ko -->
+    </div>
+    <!-- /ko -->
+    <!-- ko ifnot: collectPlaces().length > 0 -->
+    <!-- ko ifnot: getDeliveryPlace(collectPlaces()[0]) -->
+    <div class="pickup-cms" data-bind="html: window.pickUpStoreCmsBlock"></div>
+    <div class="wrap-block">
+        <svg xmlns="http://www.w3.org/2000/svg" class="svg-icon svgi-pin">
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svgi-pin"></use>
+        </svg>
+        <div class="wrapper-title">
+            <div class="title" data-bind="i18n: 'Your selected Store'"></div>
+            <div data-bind="i18n: 'No store selected'"></div>
+        </div>
+        <!-- ko if: getDeliveryPlace(collectPlaces()[0]) -->
+        <a class="link -change action primary"
+           href="#collect-block-modal-checkout"
+           data-bind="click: function(data, event) { showFormPopUp(data, event) }"></a>
+        <!-- /ko -->
+        <!-- ko ifnot: getDeliveryPlace(collectPlaces()[0]) -->
+        <a class="link -collect action primary"
+           href="#collect-block-modal-checkout"
+           data-bind="click: function(data, event) { showFormPopUp(data, event) }, i18n: 'Choose Your Store'"></a>
+        <!-- /ko -->
+    </div>
+
+    <!-- /ko -->
+    <!-- /ko -->
+</div>
+<!-- /ko-->
+
+<div id="collect-block-modal-checkout" data-bind="visible: isSingleCartFormPopUpVisible()">
+    <!-- ko template: collectFormTemplate --><!-- /ko -->
+</div>
+<!-- /ko -->

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <fieldset name="related_overlays">
+        <argument name="data" xsi:type="array">
+            <item name="config" xsi:type="array">
+                <item name="label" xsi:type="string">Related Overlays</item>
+                <item name="sortOrder" xsi:type="number">300</item>
+                <item name="collapsible" xsi:type="boolean">true</item>
+            </item>
+        </argument>
+        <field name="overlay_ids">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="label" xsi:type="string">Product Overlays</item>
+                    <item name="visible" xsi:type="boolean">true</item>
+                    <item name="dataType" xsi:type="string">text</item>
+                    <item name="formElement" xsi:type="string">multiselect</item>
+                    <item name="source" xsi:type="string">catalog_rule</item>
+                    <item name="dataScope" xsi:type="string">overlay_ids</item>
+                    <item name="sortOrder" xsi:type="number">150</item>
+                    <item name="notice" xsi:type="string">Selected Overlays will be applied to all products eligible for the promotion</item>
+                </item>
+                <item name="options" xsi:type="object">Digidirect\ProductOverlay\Model\Source\OverlayList</item>
+            </argument>
+        </field>
+    </fieldset>
+</form>

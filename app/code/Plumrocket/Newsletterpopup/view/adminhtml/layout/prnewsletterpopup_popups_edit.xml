@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @package     Plumrocket_Newsletterpopup
+ * @copyright   Copyright (c) 2020 Plumrocket Inc. (https://plumrocket.com)
+ * @license     https://plumrocket.com/license   End-user License Agreement
+*/
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="admin-2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="Plumrocket_Newsletterpopup::js/codemirror/lib/codemirror.css" />
+        <css src="Plumrocket_Newsletterpopup::js/codemirror/addon/hint/show-hint.css" />
+        <css src="Plumrocket_Newsletterpopup::js/codemirror/addon/display/fullscreen.css" />
+        <css src="Plumrocket_Newsletterpopup::js/codemirror/theme/monokai.css" />
+        <css src="Plumrocket_Newsletterpopup::css/prnewsletterpopup.css" />
+        <css src="Plumrocket_ExtendedAdminUi::css/radios-with-image.css" />
+
+        <script src="Plumrocket_Newsletterpopup::js/variables.js"/>
+        <title>Newsletter Popup / Plumrocket / Magento Admin</title>
+    </head>
+    <body>
+        <referenceContainer name="content">
+            <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit" name="prnewsletterpopup_popups_edit" />
+        </referenceContainer>
+
+        <referenceContainer name="left">
+            <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs" name="prnewsletterpopup_popups_edit_tabs">
+                <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\General" name="prnewsletterpopup_general">
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\General\Main" name="prnewsletterpopup_general_main"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\General\Coupon" name="prnewsletterpopup_general_coupon"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\General\SignupForm" name="prnewsletterpopup_general_signupForm"/>
+                </block>
+                <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Display" name="prnewsletterpopup_display" />
+                <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Labels" name="prnewsletterpopup_labels" />
+                <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Template" name="prnewsletterpopup_template" />
+                <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration" name="prnewsletterpopup_integration">
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Activecampaign" name="prnewsletterpopup_integration_activecampaign"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\CampaignMonitor" name="prnewsletterpopup_integration_campaignmonitor"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\ConstantContact" name="prnewsletterpopup_integration_constantcontact"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\ConvertKit" name="prnewsletterpopup_integration_convertkit"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Dotmailer" name="prnewsletterpopup_integration_dotmailer"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Egoi" name="prnewsletterpopup_integration_egoi"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Emma" name="prnewsletterpopup_integration_emma"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\GetResponse" name="prnewsletterpopup_integration_getresponse"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Hubspot" name="prnewsletterpopup_integration_hubspot"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\IContact" name="prnewsletterpopup_integration_icontact"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Infusionsoft" name="prnewsletterpopup_integration_infusionsoft"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Klaviyo" name="prnewsletterpopup_integration_klaviyo"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\MadMimi" name="prnewsletterpopup_integration_madmimi"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Mailchimp" name="prnewsletterpopup_integration_mailchimp"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Mailjet" name="prnewsletterpopup_integration_mailjet"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Mautic" name="prnewsletterpopup_integration_mautic"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Ontraport" name="prnewsletterpopup_integration_ontraport"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\SalesForce" name="prnewsletterpopup_integration_salesforce"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\SendinBlue" name="prnewsletterpopup_integration_sendinblue"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Sendy" name="prnewsletterpopup_integration_sendy"/>
+                    <block class="Plumrocket\Newsletterpopup\Block\Adminhtml\Popups\Edit\Tabs\Integration\Inactive" name="prnewsletterpopup_integration_inactive"/>
+                </block>
+
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">general_section</argument>
+                    <argument name="block" xsi:type="string">prnewsletterpopup_general</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">display_section</argument>
+                    <argument name="block" xsi:type="string">prnewsletterpopup_display</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">labels_section</argument>
+                    <argument name="block" xsi:type="string">prnewsletterpopup_labels</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">template_section</argument>
+                    <argument name="block" xsi:type="string">prnewsletterpopup_template</argument>
+                </action>
+                <action method="addTab">
+                    <argument name="name" xsi:type="string">integration_section</argument>
+                    <argument name="block" xsi:type="string">prnewsletterpopup_integration</argument>
+                </action>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

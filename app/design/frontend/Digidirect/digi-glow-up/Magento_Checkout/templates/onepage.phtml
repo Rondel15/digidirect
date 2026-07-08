@@ -1,0 +1,186 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$cmsPaymentsBlock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('secure-pay')->toHtml();
+$quoteHelper = $helper = $this->helper('Digidirect\Digi\Helper\Quote');
+$hasWebOnly = $quoteHelper->isQuoteHasWebOnlyProducts();
+?>
+
+<div id="checkout" data-bind="scope:'checkout'" class="checkout-container">
+
+    <!--TODO: REMOVE SVG SCRIPTS, ADD CONDITION IF USER NOT LOGGED IN ONLY SHOW ACCOUNT CREATE BAR-->
+    <div class="account-signin-banner">
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M44 24C44 12.98 35.02 4 24 4C12.98 4 4 12.98 4 24C4 29.8 6.5 35.02 10.46 38.68C10.46 38.7 10.46 38.7 10.44 38.72C10.64 38.92 10.88 39.08 11.08 39.26C11.2 39.36 11.3 39.46 11.42 39.54C11.78 39.84 12.18 40.12 12.56 40.4C12.7 40.5 12.82 40.58 12.96 40.68C13.34 40.94 13.74 41.18 14.16 41.4C14.3 41.48 14.46 41.58 14.6 41.66C15 41.88 15.42 42.08 15.86 42.26C16.02 42.34 16.18 42.42 16.34 42.48C16.78 42.66 17.22 42.82 17.66 42.96C17.82 43.02 17.98 43.08 18.14 43.12C18.62 43.26 19.1 43.38 19.58 43.5C19.72 43.54 19.86 43.58 20.02 43.6C20.58 43.72 21.14 43.8 21.72 43.86C21.8 43.86 21.88 43.88 21.96 43.9C22.64 43.96 23.32 44 24 44C24.68 44 25.36 43.96 26.02 43.9C26.1 43.9 26.18 43.88 26.26 43.86C26.84 43.8 27.4 43.72 27.96 43.6C28.1 43.58 28.24 43.52 28.4 43.5C28.88 43.38 29.38 43.28 29.84 43.12C30 43.06 30.16 43 30.32 42.96C30.76 42.8 31.22 42.66 31.64 42.48C31.8 42.42 31.96 42.34 32.12 42.26C32.54 42.08 32.96 41.88 33.38 41.66C33.54 41.58 33.68 41.48 33.82 41.4C34.22 41.16 34.62 40.94 35.02 40.68C35.16 40.6 35.28 40.5 35.42 40.4C35.82 40.12 36.2 39.84 36.56 39.54C36.68 39.44 36.78 39.34 36.9 39.26C37.12 39.08 37.34 38.9 37.54 38.72C37.54 38.7 37.54 38.7 37.52 38.68C41.5 35.02 44 29.8 44 24ZM33.88 33.94C28.46 30.3 19.58 30.3 14.12 33.94C13.24 34.52 12.52 35.2 11.92 35.94C8.88 32.86 7 28.64 7 24C7 14.62 14.62 7 24 7C33.38 7 41 14.62 41 24C41 28.64 39.12 32.86 36.08 35.94C35.5 35.2 34.76 34.52 33.88 33.94Z" fill="#FE4C25"/>
+            <path d="M24 13.8594C19.86 13.8594 16.5 17.2194 16.5 21.3594C16.5 25.4194 19.68 28.7194 23.9 28.8394C23.96 28.8394 24.04 28.8394 24.08 28.8394C24.12 28.8394 24.18 28.8394 24.22 28.8394C24.24 28.8394 24.26 28.8394 24.26 28.8394C28.3 28.6994 31.48 25.4194 31.5 21.3594C31.5 17.2194 28.14 13.8594 24 13.8594Z" fill="#FE4C25"/>
+        </svg>
+
+        <div class="signin-text">
+            <span>Have a <span class="orange-txt">digi</span>Direct account?</span>
+            <a href="<?= $block->getUrl('customer/account/login'); ?>">Sign in</a> <span>for a faster checkout.</span>
+        </div>
+    </div>
+
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <script type="text/x-magento-init">
+        {
+            "#checkout": {
+                "Magento_Ui/js/core/app": <?= /* @escapeNotVerified */ $block->getJsLayout() ?>
+            }
+        }
+    </script>
+    <script>
+        window.checkoutConfig = <?= /* @escapeNotVerified */ $block->getSerializedCheckoutConfig() ?>;
+        // Create aliases for customer.js model from customer module
+        window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+        window.customerData = window.checkoutConfig.customerData;
+        window.cmsPayments = {"content": <?php echo json_encode(str_replace(array("\r", "\n"), "",
+            $cmsPaymentsBlock))?>};
+
+        login_state = window.isCustomerLoggedIn;
+    </script>
+    <script>
+        require([
+            'mage/url',
+            'Magento_Ui/js/block-loader',
+        ], function(url, blockLoader) {
+            blockLoader("<?= /* @escapeNotVerified */ $block->getViewFileUrl('images/loader-1.gif') ?>");
+            return url.setBaseUrl('<?= /* @escapeNotVerified */ $block->getBaseUrl() ?>');
+        })
+    </script>
+
+    <script type="text/javascript">
+        require([
+            'jquery',
+            'emailNextBtn',
+            'shippingAddressNextBtn'
+            ],
+        function($,emailNextBtn,shippingAddressNextBtn) {
+
+            $("body").on("click", ".shipping-methods.table-checkout-shipping-method.items li:not('.collect')", function(){
+
+
+                let username = $('[name="username"]').val();
+                let firstname = $('[name="firstname"]').val();
+                let lastname = $('[name="lastname"]').val();
+                let telephone = $('[name="telephone"]').val();
+                let street = $('[name="street[0]"]').val();
+                let city = $('[name="city"]').val();
+                let postcode = $('[name="postcode"]').val();
+
+                //create logic for new step class checkout-customer-information
+
+                if(username != ""){
+
+                   var target = $('.checkout-customer-information');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+
+                        $(".checkout-customer-information .accordion-step").removeClass("active");
+                        $(".checkout-customer-information .step-content").fadeOut("slow", "swing");
+
+                        return false;
+                    }
+                }
+                else if(firstname != ""
+                    && lastname != ""
+                    && telephone != ""
+                    && street != ""
+                    && city != ""
+                    && postcode != ""){
+
+                    var target = $('.checkout-shipping-address');
+                    if (target.length) {
+                        $('html,body').animate({
+                            scrollTop: target.offset().top
+                        }, 1000);
+
+                        $(".checkout-shipping-address .accordion-step").removeClass("active");
+                        $(".checkout-shipping-address .step-content").fadeOut("slow", "swing");
+
+                        return false;
+                    }
+                }
+                else{
+                    if($("#shipping-address-select").length > 0){
+                        var target = $('.checkout-shipping-address');
+                        if (target.length) {
+                            $('html,body').animate({
+                                scrollTop: target.offset().top
+                            }, 1000);
+
+                            $(".checkout-shipping-address .accordion-step").removeClass("active");
+                            $(".checkout-shipping-address .step-content").fadeOut("slow", "swing");
+
+                            return false;
+                        }
+                    }
+                    else{
+                        $("#shipping-method-buttons-container .continue").trigger("click");
+                    }
+
+                }
+            });
+
+            $("body").on("click", "#shipping-button-extension", function(){
+
+                //comment to redeploy
+                if($('[name="username"]').length > 0)
+                {
+                    let username = $('[name="username"]').val();
+                    if(username == ""){
+                        $(".checkout-shipping-address .accordion-step").addClass("active");
+                        $(".checkout-shipping-method .accordion-step").addClass("active");
+
+                        $(".checkout-shipping-address .step-content").fadeIn("slow", "swing");
+                        $(".checkout-shipping-method .step-content").fadeIn("slow", "swing");
+
+                    }
+                }
+
+
+                if($(".field-error").length > 0){
+                    $(".checkout-shipping-address .accordion-step").addClass("active");
+                    $(".checkout-shipping-method .accordion-step").addClass("active");
+
+                    $(".checkout-shipping-address .step-content").fadeIn("slow", "swing");
+                    $(".checkout-shipping-method .step-content").fadeIn("slow", "swing");
+
+                }
+
+                $("#shipping-method-buttons-container .continue").trigger("click");
+            });
+
+            $("body").on("click", "#payment-button-extension", function(){
+                $(".order-trigger").trigger("click");
+            });
+
+});
+</script>
+    <!--End-->
+    <?php $pickUpStoreCmsBlock = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('pick-up-store')->toHtml() ?>
+    <?php $oneHourPickUpAvailable = $block->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('one-hour-pickup-available')->toHtml() ?>
+    <script type="text/javascript">
+        window.pickUpStoreCmsBlock = <?php echo json_encode($pickUpStoreCmsBlock)?>;
+        window.oneHourPickUpAvailable = <?php echo json_encode($oneHourPickUpAvailable)?>
+    </script>
+    <script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Checkout/js/order-field": {}
+        }
+    }
+    </script>
+</div>
+
+<?php if ($hasWebOnly) : ?>
+<script>
+    window.hasWebOnly = <?= $hasWebOnly ?>;
+</script>
+<?php endif; ?>

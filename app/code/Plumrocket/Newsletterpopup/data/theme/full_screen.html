@@ -1,0 +1,19 @@
+<div class="newspopup-wrap">
+    <div class="cross close" title="{{text_cancel}}">✕</div>
+    <img class="newspopup-logo" src="{{view url='Plumrocket_Newsletterpopup::images/templates/luma-logo.svg'}}" width="200" alt="Logo">
+    <span class="newspopup-top-text">{{text_title}}</span>
+    <div class="prnp-title">{{text_description}}</div>
+    <form class="newspopup_up_bg_form" method="POST">
+        <div class="newspopup_up_bg_form-wrap">
+            {{form_fields}}
+            <div class="newspopup-form-btn">
+                <a href="#" title="{{text_submit}}" class="send-btn2 send">
+                    {{text_submit}}
+                    <div class="lds-ellipsis ajax-loader" style="display: none;"><div></div><div></div><div></div><div></div></div>
+                </a>
+                <button class="decline-btn close" type="button">{{text_cancel}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+  

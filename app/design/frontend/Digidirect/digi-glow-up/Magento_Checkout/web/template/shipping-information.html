@@ -1,0 +1,32 @@
+<!-- ko if: (isVisible()) -->
+<div class="shipping-information">
+    <!-- ko if: (isDefaultShipping) -->
+    <div class="ship-to" data-bind="visible: isShippingSideVisible">
+        <div class="shipping-information-title">
+            <span data-bind="i18n: 'Ship To:'"></span>
+            <button type="button" class="action action-edit" data-bind="click: back, attr: {title: $t('Edit')}">
+                <svg class="svg-icon"><use xlink:href="#svgi-edit"></use></svg>
+                <span data-bind="i18n: 'Edit'"></span>
+            </button>
+        </div>
+        <div class="shipping-information-content">
+            <!-- ko foreach: getRegion('ship-to') -->
+            <!-- ko template: getTemplate() --><!-- /ko -->
+            <!--/ko-->
+        </div>
+    </div>
+    <!--/ko-->
+    <div class="ship-via">
+        <div class="shipping-information-title">
+            <span data-bind="i18n: 'Shipping Method:'"></span>
+            <button type="button" class="action action-edit" data-bind="click: backToShippingMethod, attr: {title: $t('Edit')}">
+                <svg class="svg-icon"><use xlink:href="#svgi-edit"></use></svg>
+                <span data-bind="i18n: 'Edit'"></span>
+            </button>
+        </div>
+        <div class="shipping-information-content">
+            <span class="value" data-bind="text: getShippingMethodTitle()"></span>
+        </div>
+    </div>
+</div>
+<!--/ko-->

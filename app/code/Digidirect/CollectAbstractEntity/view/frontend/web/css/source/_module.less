@@ -1,0 +1,37 @@
+//
+//  Click & Collect: Abstract Entity
+//  _____________________________________________
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@collect-checkout-shipping-method-hide-methods__display: none;
+@collect-checkout-shipping-address-items__display: none;
+@collect-checkout-shipping-new-address-button__display: none;
+
+//
+//  Common
+//  ---------------------------------------------
+
+& when (@media-common = true) {
+    .opc-wrapper {
+        &.-hide-methods .checkout-shipping-method,
+        &.-hide-methods .checkout-shipping-method .step-title,
+        &.-hide-methods .checkout-shipping-method .table-checkout-shipping-method {
+            .lib-css(display, @collect-checkout-shipping-method-hide-methods__display);
+        }
+    }
+
+    .opc-wrapper {
+        &.-hide-methods .shipping-address-items {
+            .lib-css(display, @collect-checkout-shipping-address-items__display);
+        }
+    }
+
+    .opc-wrapper {
+        &.-hide-methods .action.action-show-popup {
+            .lib-css(display, @collect-checkout-shipping-new-address-button__display);
+        }
+    }
+}

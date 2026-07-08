@@ -1,0 +1,71 @@
+<?php 
+    $currentUrl = $block->getUrl('*/*/*', ['_current' => true, '_use_rewrite' => true]);
+    $order = 'product_list_order';
+    $dir = 'product_list_dir';
+    $and = '&&';
+    $filteredURL = preg_replace('~(\?|&)'.$order.'=[^&]*~', '', $currentUrl);
+    $filteredURL = preg_replace('~(\?|&)'.$dir.'=[^&]*~', '', $filteredURL);
+    $filteredURL = preg_replace('~(\?)'.$and.'=[^&]*~', '', $filteredURL);
+    $separator = (str_contains($filteredURL, '?')) ? '&' : '?';
+    
+    $urlProductNameAsc = $filteredURL . $separator . 'product_list_order=name&product_list_dir=asc';
+    $urlProductNameDesc = $filteredURL . $separator . 'product_list_order=name&product_list_dir=desc';
+    $urlPriceLowToHigh = $filteredURL . $separator . 'product_list_order=price&product_list_dir=asc';
+    $urlPriceHighToLow = $filteredURL . $separator . 'product_list_order=price&product_list_dir=desc';
+?>
+
+<div class="custom-sorter">
+    <div id="custom-product-name-asc"><a href="<?= $urlProductNameAsc ?>"><i class="fas fa-sort-alpha-up"></i>  Product Name (A-Z)</a></div>
+    <div id="custom-product-name-desc"><a href="<?= $urlProductNameDesc ?>"><i class="fas fa-sort-alpha-up-alt"></i>  Product Name (Z-A)</a></div>
+    <div id="custom-price-asc"><a href="<?= $urlPriceLowToHigh ?>"><i class="fas fa-sort-numeric-down"></i>  Price Low to High</a></div>
+    <div id="custom-price-desc"><a href="<?= $urlPriceHighToLow ?>"><i class="fas fa-sort-numeric-down-alt"></i>  Price High to Low</a></div>
+</div>
+
+<style>
+    .custom-sorter {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border: 1px solid #cacaca;
+        //margin-left: -57px;
+        //max-width: 1093px;
+        justify-items: center;
+        //margin-top: 12px;
+        cursor: pointer;
+        width: 100%;
+    }
+    
+    .custom-sorter a {
+        color: #727272;
+        text-decoration: none;
+    }
+    
+    .custom-sorter div:hover a {
+        color: #fff;
+    }
+    
+    .custom-sorter div {
+        font-size: 12px;
+        padding: 10px;
+        width: -webkit-fill-available;
+        text-align: center;
+        color: #727272;
+    }
+    
+    .custom-sorter div:not(:last-child) {
+        border-right: 1px solid #cacaca;
+    }
+    
+    .custom-selected {
+        background: #ef3c00;
+        color: #fff !important;
+        border-color: #ff3c00;
+    }
+    
+    .custom-sorter div:hover {
+        transition: .5s;
+        background: #ef3c00;
+        color: #fff !important;
+        border-color: #ff3c00;
+    }
+    
+</style>
